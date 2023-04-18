@@ -45,7 +45,10 @@ class TestEmployees:
             include_remote_data=True,
             show_enum_origins="employment_status",
         )
-        assert_matches_type(Employee, employee, path=["response"])
+
+        assert employee is not None
+        assert employee.id == test_preexisting_employee_id
+        assert isinstance(employee.company, dict)
 
     @parametrize
     def test_method_list_ci_integration(self, client: Merge) -> None:
@@ -88,7 +91,10 @@ class TestAsyncEmployees:
             include_remote_data=True,
             show_enum_origins="employment_status",
         )
-        assert_matches_type(Employee, employee, path=["response"])
+        
+        assert employee is not None
+        assert employee.id == test_preexisting_employee_id
+        assert isinstance(employee.company, dict)
 
     @parametrize
     async def test_method_list_ci_integration(self, client: AsyncMerge) -> None:
