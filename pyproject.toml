@@ -1,0 +1,95 @@
+[tool.poetry]
+name = "merge"
+version = "0.0.1"
+description = "Client library for the merge API"
+readme = "README.md"
+authors = ["Merge <hello@merge.dev>"]
+license = "Apache-2.0"
+repository = "https://github.com/merge-api/merge-python"
+packages = [
+  { include = "merge", from = "src" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+httpx = ">= 0.23.0"
+pydantic = ">= 1.9.0"
+typing-extensions = ">= 4.1.1"
+anyio = ">= 3.5.0"
+distro = ">= 1.7.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pyright = "1.1.297"
+mypy = "1.1.1"
+black = "22.10.0"
+respx = "0.19.2"
+pytest = "7.1.1"
+pytest-asyncio = "0.18.3"
+ruff = "0.0.239"
+isort = "5.10.1"
+time-machine = "^2.9.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+target-version = ["py37"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--tb=short"
+xfail_strict = true
+log_cli = true
+log_level = "INFO"
+asyncio_mode = "auto"
+filterwarnings = [
+  "error"
+]
+
+[tool.pyright]
+# this enables practically every flag given by pyright.
+# there are a couple of flags that are still disabled by
+# default in strict mode as they are experimental and niche.
+typeCheckingMode = "strict"
+pythonVersion = "3.7"
+
+exclude = [
+    "_dev",
+    ".venv"
+]
+reportImportCycles = false
+reportPrivateUsage = false
+
+[tool.isort]
+profile = "black"
+length_sort = true
+extra_standard_library = ["typing_extensions"]
+
+[tool.ruff]
+line-length = 120
+format = "grouped"
+target-version = "py37"
+select = [
+  # remove unused imports
+  "F401",
+  # bare except statements
+  "E722",
+  # print statements
+  "T201",
+  "T203",
+]
+unfixable = [
+  # disable auto fix for print statements
+  "T201",
+  "T203",
+]
+ignore-init-module-imports = true
+
+
+[tool.ruff.per-file-ignores]
+"bin/**.py" = ["T201", "T203"]
+"tests/**.py" = ["T201", "T203"]
+"examples/**.py" = ["T201", "T203"]

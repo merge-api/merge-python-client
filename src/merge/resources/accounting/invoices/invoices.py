@@ -1,0 +1,534 @@
+# File generated from our OpenAPI spec by Stainless.
+
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal
+
+from .meta import Meta, AsyncMeta
+from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ...._utils import maybe_transform
+from ...._resource import SyncAPIResource, AsyncAPIResource
+from ....pagination import SyncPage, AsyncPage
+from ...._base_client import AsyncPaginator, make_request_options
+from ....types.accounting import (
+    Invoice,
+    InvoiceResponse,
+    invoice_list_params,
+    invoice_create_params,
+    invoice_retrieve_params,
+)
+
+if TYPE_CHECKING:
+    from ...._client import Merge, AsyncMerge
+
+__all__ = ["Invoices", "AsyncInvoices"]
+
+
+class Invoices(SyncAPIResource):
+    meta: Meta
+
+    def __init__(self, client: Merge) -> None:
+        super().__init__(client)
+        self.meta = Meta(client)
+
+    def create(
+        self,
+        *,
+        model: invoice_create_params.Model,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | None | NotGiven = NOT_GIVEN,
+    ) -> InvoiceResponse:
+        """
+        Creates an `Invoice` object with the given values.
+
+        Args:
+          model: # The Invoice Object
+
+                  ### Description
+                  The `Invoice` object represents an itemized record of goods and/or services sold to a customer.
+
+              If type = accounts_payable `Invoice` is a bill, if type = accounts_receivable
+              it's an invoice.
+
+                  ### Usage Example
+                  Fetch from the `LIST Invoices` endpoint and view a company's invoices.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/accounting/v1/invoices",
+            body=maybe_transform({"model": model}, invoice_create_params.InvoiceCreateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvoiceResponse,
+        )
+
+    def retrieve(
+        self,
+        id: str,
+        *,
+        expand: Literal[
+            "company",
+            "contact",
+            "contact,company",
+            "line_items",
+            "line_items,company",
+            "line_items,contact",
+            "line_items,contact,company",
+            "payments",
+            "payments,company",
+            "payments,contact",
+            "payments,contact,company",
+            "payments,line_items",
+            "payments,line_items,company",
+            "payments,line_items,contact",
+            "payments,line_items,contact,company",
+        ]
+        | NotGiven = NOT_GIVEN,
+        include_remote_data: bool | NotGiven = NOT_GIVEN,
+        remote_fields: Literal["type"] | NotGiven = NOT_GIVEN,
+        show_enum_origins: Literal["type"] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | None | NotGiven = NOT_GIVEN,
+    ) -> Invoice:
+        """
+        Returns an `Invoice` object with the given `id`.
+
+        Args:
+          expand: Which relations should be returned in expanded form. Multiple relation names
+              should be comma separated without spaces.
+
+          include_remote_data: Whether to include the original data Merge fetched from the third-party to
+              produce these models.
+
+          remote_fields: Deprecated. Use show_enum_origins.
+
+          show_enum_origins: Which fields should be returned in non-normalized form.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            f"/accounting/v1/invoices/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                    },
+                    invoice_retrieve_params.InvoiceRetrieveParams,
+                ),
+            ),
+            cast_to=Invoice,
+        )
+
+    def list(
+        self,
+        *,
+        company_id: str | NotGiven = NOT_GIVEN,
+        contact_id: str | NotGiven = NOT_GIVEN,
+        created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        cursor: str | NotGiven = NOT_GIVEN,
+        expand: Literal[
+            "company",
+            "contact",
+            "contact,company",
+            "line_items",
+            "line_items,company",
+            "line_items,contact",
+            "line_items,contact,company",
+            "payments",
+            "payments,company",
+            "payments,contact",
+            "payments,contact,company",
+            "payments,line_items",
+            "payments,line_items,company",
+            "payments,line_items,contact",
+            "payments,line_items,contact,company",
+        ]
+        | NotGiven = NOT_GIVEN,
+        include_deleted_data: bool | NotGiven = NOT_GIVEN,
+        include_remote_data: bool | NotGiven = NOT_GIVEN,
+        issue_date_after: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
+        issue_date_before: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
+        modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        modified_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        page_size: int | NotGiven = NOT_GIVEN,
+        remote_fields: Literal["type"] | NotGiven = NOT_GIVEN,
+        remote_id: Optional[str] | NotGiven = NOT_GIVEN,
+        show_enum_origins: Literal["type"] | NotGiven = NOT_GIVEN,
+        type: Optional[Literal["ACCOUNTS_PAYABLE", "ACCOUNTS_RECEIVABLE"]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | None | NotGiven = NOT_GIVEN,
+    ) -> SyncPage[Invoice]:
+        """
+        Returns a list of `Invoice` objects.
+
+        Args:
+          company_id: If provided, will only return invoices for this company.
+
+          contact_id: If provided, will only return invoices for this contact.
+
+          created_after: If provided, will only return objects created after this datetime.
+
+          created_before: If provided, will only return objects created before this datetime.
+
+          cursor: The pagination cursor value.
+
+          expand: Which relations should be returned in expanded form. Multiple relation names
+              should be comma separated without spaces.
+
+          include_deleted_data: Whether to include data that was marked as deleted by third party webhooks.
+
+          include_remote_data: Whether to include the original data Merge fetched from the third-party to
+              produce these models.
+
+          issue_date_after: If provided, will only return objects created after this datetime.
+
+          issue_date_before: If provided, will only return objects created before this datetime.
+
+          modified_after: If provided, will only return objects modified after this datetime.
+
+          modified_before: If provided, will only return objects modified before this datetime.
+
+          page_size: Number of results to return per page.
+
+          remote_fields: Deprecated. Use show_enum_origins.
+
+          remote_id: The API provider's ID for the given object.
+
+          show_enum_origins: Which fields should be returned in non-normalized form.
+
+          type: If provided, will only return Invoices with this type
+
+              - `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
+              - `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/accounting/v1/invoices",
+            page=SyncPage[Invoice],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "company_id": company_id,
+                        "contact_id": contact_id,
+                        "created_after": created_after,
+                        "created_before": created_before,
+                        "cursor": cursor,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "issue_date_after": issue_date_after,
+                        "issue_date_before": issue_date_before,
+                        "modified_after": modified_after,
+                        "modified_before": modified_before,
+                        "page_size": page_size,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "show_enum_origins": show_enum_origins,
+                        "type": type,
+                    },
+                    invoice_list_params.InvoiceListParams,
+                ),
+            ),
+            model=Invoice,
+        )
+
+
+class AsyncInvoices(AsyncAPIResource):
+    meta: AsyncMeta
+
+    def __init__(self, client: AsyncMerge) -> None:
+        super().__init__(client)
+        self.meta = AsyncMeta(client)
+
+    async def create(
+        self,
+        *,
+        model: invoice_create_params.Model,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | None | NotGiven = NOT_GIVEN,
+    ) -> InvoiceResponse:
+        """
+        Creates an `Invoice` object with the given values.
+
+        Args:
+          model: # The Invoice Object
+
+                  ### Description
+                  The `Invoice` object represents an itemized record of goods and/or services sold to a customer.
+
+              If type = accounts_payable `Invoice` is a bill, if type = accounts_receivable
+              it's an invoice.
+
+                  ### Usage Example
+                  Fetch from the `LIST Invoices` endpoint and view a company's invoices.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/accounting/v1/invoices",
+            body=maybe_transform({"model": model}, invoice_create_params.InvoiceCreateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvoiceResponse,
+        )
+
+    async def retrieve(
+        self,
+        id: str,
+        *,
+        expand: Literal[
+            "company",
+            "contact",
+            "contact,company",
+            "line_items",
+            "line_items,company",
+            "line_items,contact",
+            "line_items,contact,company",
+            "payments",
+            "payments,company",
+            "payments,contact",
+            "payments,contact,company",
+            "payments,line_items",
+            "payments,line_items,company",
+            "payments,line_items,contact",
+            "payments,line_items,contact,company",
+        ]
+        | NotGiven = NOT_GIVEN,
+        include_remote_data: bool | NotGiven = NOT_GIVEN,
+        remote_fields: Literal["type"] | NotGiven = NOT_GIVEN,
+        show_enum_origins: Literal["type"] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | None | NotGiven = NOT_GIVEN,
+    ) -> Invoice:
+        """
+        Returns an `Invoice` object with the given `id`.
+
+        Args:
+          expand: Which relations should be returned in expanded form. Multiple relation names
+              should be comma separated without spaces.
+
+          include_remote_data: Whether to include the original data Merge fetched from the third-party to
+              produce these models.
+
+          remote_fields: Deprecated. Use show_enum_origins.
+
+          show_enum_origins: Which fields should be returned in non-normalized form.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            f"/accounting/v1/invoices/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                    },
+                    invoice_retrieve_params.InvoiceRetrieveParams,
+                ),
+            ),
+            cast_to=Invoice,
+        )
+
+    def list(
+        self,
+        *,
+        company_id: str | NotGiven = NOT_GIVEN,
+        contact_id: str | NotGiven = NOT_GIVEN,
+        created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        cursor: str | NotGiven = NOT_GIVEN,
+        expand: Literal[
+            "company",
+            "contact",
+            "contact,company",
+            "line_items",
+            "line_items,company",
+            "line_items,contact",
+            "line_items,contact,company",
+            "payments",
+            "payments,company",
+            "payments,contact",
+            "payments,contact,company",
+            "payments,line_items",
+            "payments,line_items,company",
+            "payments,line_items,contact",
+            "payments,line_items,contact,company",
+        ]
+        | NotGiven = NOT_GIVEN,
+        include_deleted_data: bool | NotGiven = NOT_GIVEN,
+        include_remote_data: bool | NotGiven = NOT_GIVEN,
+        issue_date_after: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
+        issue_date_before: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
+        modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        modified_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        page_size: int | NotGiven = NOT_GIVEN,
+        remote_fields: Literal["type"] | NotGiven = NOT_GIVEN,
+        remote_id: Optional[str] | NotGiven = NOT_GIVEN,
+        show_enum_origins: Literal["type"] | NotGiven = NOT_GIVEN,
+        type: Optional[Literal["ACCOUNTS_PAYABLE", "ACCOUNTS_RECEIVABLE"]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncPaginator[Invoice, AsyncPage[Invoice]]:
+        """
+        Returns a list of `Invoice` objects.
+
+        Args:
+          company_id: If provided, will only return invoices for this company.
+
+          contact_id: If provided, will only return invoices for this contact.
+
+          created_after: If provided, will only return objects created after this datetime.
+
+          created_before: If provided, will only return objects created before this datetime.
+
+          cursor: The pagination cursor value.
+
+          expand: Which relations should be returned in expanded form. Multiple relation names
+              should be comma separated without spaces.
+
+          include_deleted_data: Whether to include data that was marked as deleted by third party webhooks.
+
+          include_remote_data: Whether to include the original data Merge fetched from the third-party to
+              produce these models.
+
+          issue_date_after: If provided, will only return objects created after this datetime.
+
+          issue_date_before: If provided, will only return objects created before this datetime.
+
+          modified_after: If provided, will only return objects modified after this datetime.
+
+          modified_before: If provided, will only return objects modified before this datetime.
+
+          page_size: Number of results to return per page.
+
+          remote_fields: Deprecated. Use show_enum_origins.
+
+          remote_id: The API provider's ID for the given object.
+
+          show_enum_origins: Which fields should be returned in non-normalized form.
+
+          type: If provided, will only return Invoices with this type
+
+              - `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
+              - `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/accounting/v1/invoices",
+            page=AsyncPage[Invoice],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "company_id": company_id,
+                        "contact_id": contact_id,
+                        "created_after": created_after,
+                        "created_before": created_before,
+                        "cursor": cursor,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "issue_date_after": issue_date_after,
+                        "issue_date_before": issue_date_before,
+                        "modified_after": modified_after,
+                        "modified_before": modified_before,
+                        "page_size": page_size,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "show_enum_origins": show_enum_origins,
+                        "type": type,
+                    },
+                    invoice_list_params.InvoiceListParams,
+                ),
+            ),
+            model=Invoice,
+        )

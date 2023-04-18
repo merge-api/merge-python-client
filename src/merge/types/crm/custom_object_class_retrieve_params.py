@@ -1,0 +1,21 @@
+# File generated from our OpenAPI spec by Stainless.
+
+from __future__ import annotations
+
+from typing_extensions import Literal, TypedDict
+
+__all__ = ["CustomObjectClassRetrieveParams"]
+
+
+class CustomObjectClassRetrieveParams(TypedDict, total=False):
+    expand: Literal["fields"]
+    """Which relations should be returned in expanded form.
+
+    Multiple relation names should be comma separated without spaces.
+    """
+
+    include_remote_data: bool
+    """
+    Whether to include the original data Merge fetched from the third-party to
+    produce these models.
+    """
