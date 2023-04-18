@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -21,16 +21,7 @@ class Scorecards(SyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal[
-            "application",
-            "application,interview",
-            "application,interview,interviewer",
-            "application,interviewer",
-            "interview",
-            "interview,interviewer",
-            "interviewer",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["application", "interview", "interviewer"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         remote_fields: Literal["overall_recommendation"] | NotGiven = NOT_GIVEN,
         show_enum_origins: Literal["overall_recommendation"] | NotGiven = NOT_GIVEN,
@@ -90,16 +81,7 @@ class Scorecards(SyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal[
-            "application",
-            "application,interview",
-            "application,interview,interviewer",
-            "application,interviewer",
-            "interview",
-            "interview,interviewer",
-            "interviewer",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["application", "interview", "interviewer"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         interview_id: str | NotGiven = NOT_GIVEN,
@@ -199,16 +181,7 @@ class AsyncScorecards(AsyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal[
-            "application",
-            "application,interview",
-            "application,interview,interviewer",
-            "application,interviewer",
-            "interview",
-            "interview,interviewer",
-            "interviewer",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["application", "interview", "interviewer"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         remote_fields: Literal["overall_recommendation"] | NotGiven = NOT_GIVEN,
         show_enum_origins: Literal["overall_recommendation"] | NotGiven = NOT_GIVEN,
@@ -268,16 +241,7 @@ class AsyncScorecards(AsyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal[
-            "application",
-            "application,interview",
-            "application,interview,interviewer",
-            "application,interviewer",
-            "interview",
-            "interview,interviewer",
-            "interviewer",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["application", "interview", "interviewer"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         interview_id: str | NotGiven = NOT_GIVEN,

@@ -2,29 +2,14 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["EngagementRetrieveParams"]
 
 
 class EngagementRetrieveParams(TypedDict, total=False):
-    expand: Literal[
-        "account",
-        "account,engagement_type",
-        "contacts",
-        "contacts,account",
-        "contacts,account,engagement_type",
-        "contacts,engagement_type",
-        "contacts,owner",
-        "contacts,owner,account",
-        "contacts,owner,account,engagement_type",
-        "contacts,owner,engagement_type",
-        "engagement_type",
-        "owner",
-        "owner,account",
-        "owner,account,engagement_type",
-        "owner,engagement_type",
-    ]
+    expand: List[Literal["account", "contacts", "engagement_type", "owner"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

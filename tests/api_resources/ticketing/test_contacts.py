@@ -36,7 +36,7 @@ class TestContacts:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         contact = client.ticketing.contacts.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="account",
+            expand=["account", "account", "account"],
             include_remote_data=True,
         )
         assert_matches_type(shared.Contact, contact, path=["response"])
@@ -52,7 +52,7 @@ class TestContacts:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="account",
+            expand=["account", "account", "account"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -83,7 +83,7 @@ class TestAsyncContacts:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         contact = await client.ticketing.contacts.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="account",
+            expand=["account", "account", "account"],
             include_remote_data=True,
         )
         assert_matches_type(shared.Contact, contact, path=["response"])
@@ -99,7 +99,7 @@ class TestAsyncContacts:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="account",
+            expand=["account", "account", "account"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),

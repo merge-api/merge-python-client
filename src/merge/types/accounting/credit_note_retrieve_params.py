@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["CreditNoteRetrieveParams"]
 
 
 class CreditNoteRetrieveParams(TypedDict, total=False):
-    expand: Literal["line_items", "payments", "payments,line_items"]
+    expand: List[Literal["line_items", "payments"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

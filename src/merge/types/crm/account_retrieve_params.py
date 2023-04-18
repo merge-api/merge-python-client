@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["AccountRetrieveParams"]
 
 
 class AccountRetrieveParams(TypedDict, total=False):
-    expand: Literal["owner"]
+    expand: List[Literal["owner"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

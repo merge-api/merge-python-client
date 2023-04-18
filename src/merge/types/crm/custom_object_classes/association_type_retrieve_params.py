@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["AssociationTypeRetrieveParams"]
 
 
 class AssociationTypeRetrieveParams(TypedDict, total=False):
-    expand: Literal["target_object_classes"]
+    expand: List[Literal["target_object_classes"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

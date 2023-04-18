@@ -20,6 +20,8 @@ class Earning(BaseModel):
 
     id: Optional[str]
 
+    remote_data: Optional[List[shared.RemoteData]]
+
     remote_id: Optional[str]
     """The third-party API ID of the matching object."""
 
@@ -54,6 +56,8 @@ class Deduction(BaseModel):
     name: Optional[str]
     """The deduction's name."""
 
+    remote_data: Optional[List[shared.RemoteData]]
+
     remote_id: Optional[str]
     """The third-party API ID of the matching object."""
 
@@ -76,6 +80,8 @@ class Tax(BaseModel):
 
     name: Optional[str]
     """The tax's name."""
+
+    remote_data: Optional[List[shared.RemoteData]]
 
     remote_id: Optional[str]
     """The third-party API ID of the matching object."""

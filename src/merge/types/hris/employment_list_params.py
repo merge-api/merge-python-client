@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypedDict
 
@@ -24,7 +24,7 @@ class EmploymentListParams(TypedDict, total=False):
     employee_id: str
     """If provided, will only return employments for this employee."""
 
-    expand: Literal["employee", "employee,pay_group", "pay_group"]
+    expand: List[Literal["employee", "pay_group"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

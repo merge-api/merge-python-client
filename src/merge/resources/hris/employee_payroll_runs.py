@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -25,7 +25,7 @@ class EmployeePayrollRuns(SyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal["employee", "employee,payroll_run", "payroll_run"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["employee", "payroll_run"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -79,7 +79,7 @@ class EmployeePayrollRuns(SyncAPIResource):
         employee_id: str | NotGiven = NOT_GIVEN,
         ended_after: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
         ended_before: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
-        expand: Literal["employee", "employee,payroll_run", "payroll_run"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["employee", "payroll_run"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -182,7 +182,7 @@ class AsyncEmployeePayrollRuns(AsyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal["employee", "employee,payroll_run", "payroll_run"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["employee", "payroll_run"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -236,7 +236,7 @@ class AsyncEmployeePayrollRuns(AsyncAPIResource):
         employee_id: str | NotGiven = NOT_GIVEN,
         ended_after: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
         ended_before: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
-        expand: Literal["employee", "employee,payroll_run", "payroll_run"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["employee", "payroll_run"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,

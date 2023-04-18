@@ -44,7 +44,7 @@ class TestNotes:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         note = client.crm.notes.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="account",
+            expand=["account", "account", "account"],
             include_remote_data=True,
             include_remote_fields=True,
         )
@@ -63,7 +63,7 @@ class TestNotes:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="account",
+            expand=["account", "account", "account"],
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,
@@ -120,7 +120,7 @@ class TestAsyncNotes:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         note = await client.crm.notes.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="account",
+            expand=["account", "account", "account"],
             include_remote_data=True,
             include_remote_fields=True,
         )
@@ -139,7 +139,7 @@ class TestAsyncNotes:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="account",
+            expand=["account", "account", "account"],
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,

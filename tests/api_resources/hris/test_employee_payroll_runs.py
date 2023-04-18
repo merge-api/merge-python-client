@@ -36,7 +36,7 @@ class TestEmployeePayrollRuns:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         employee_payroll_run = client.hris.employee_payroll_runs.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="employee",
+            expand=["employee", "employee", "employee"],
             include_remote_data=True,
         )
         assert_matches_type(EmployeePayrollRun, employee_payroll_run, path=["response"])
@@ -55,7 +55,7 @@ class TestEmployeePayrollRuns:
             employee_id="string",
             ended_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             ended_before=parse_datetime("2019-12-27T18:11:19.117Z"),
-            expand="employee",
+            expand=["employee", "employee", "employee"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -89,7 +89,7 @@ class TestAsyncEmployeePayrollRuns:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         employee_payroll_run = await client.hris.employee_payroll_runs.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="employee",
+            expand=["employee", "employee", "employee"],
             include_remote_data=True,
         )
         assert_matches_type(EmployeePayrollRun, employee_payroll_run, path=["response"])
@@ -108,7 +108,7 @@ class TestAsyncEmployeePayrollRuns:
             employee_id="string",
             ended_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             ended_before=parse_datetime("2019-12-27T18:11:19.117Z"),
-            expand="employee",
+            expand=["employee", "employee", "employee"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),

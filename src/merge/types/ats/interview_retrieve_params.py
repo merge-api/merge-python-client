@@ -2,29 +2,14 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["InterviewRetrieveParams"]
 
 
 class InterviewRetrieveParams(TypedDict, total=False):
-    expand: Literal[
-        "application",
-        "application,job_interview_stage",
-        "interviewers",
-        "interviewers,application",
-        "interviewers,application,job_interview_stage",
-        "interviewers,job_interview_stage",
-        "interviewers,organizer",
-        "interviewers,organizer,application",
-        "interviewers,organizer,application,job_interview_stage",
-        "interviewers,organizer,job_interview_stage",
-        "job_interview_stage",
-        "organizer",
-        "organizer,application",
-        "organizer,application,job_interview_stage",
-        "organizer,job_interview_stage",
-    ]
+    expand: List[Literal["application", "interviewers", "job_interview_stage", "organizer"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

@@ -2,15 +2,14 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["VendorCreditRetrieveParams"]
 
 
 class VendorCreditRetrieveParams(TypedDict, total=False):
-    expand: Literal[
-        "company", "lines", "lines,company", "lines,vendor", "lines,vendor,company", "vendor", "vendor,company"
-    ]
+    expand: List[Literal["company", "lines", "vendor"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

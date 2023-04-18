@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -12,7 +12,6 @@ from ..._resource import SyncAPIResource, AsyncAPIResource
 from ...pagination import SyncPage, AsyncPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.ticketing import TicketingUser, user_list_params, user_retrieve_params
-from ...types.file_storage import FileStorageUser
 
 __all__ = ["Users", "AsyncUsers"]
 
@@ -22,7 +21,7 @@ class Users(SyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal["teams"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["teams"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -74,7 +73,7 @@ class Users(SyncAPIResource):
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
         email_address: Optional[str] | NotGiven = NOT_GIVEN,
-        expand: Literal["teams"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["teams"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -87,7 +86,7 @@ class Users(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> SyncPage[FileStorageUser]:
+    ) -> SyncPage[TicketingUser]:
         """
         Returns a list of `User` objects.
 
@@ -127,7 +126,7 @@ class Users(SyncAPIResource):
         """
         return self._get_api_list(
             "/ticketing/v1/users",
-            page=SyncPage[FileStorageUser],
+            page=SyncPage[TicketingUser],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -150,7 +149,7 @@ class Users(SyncAPIResource):
                     user_list_params.UserListParams,
                 ),
             ),
-            model=FileStorageUser,
+            model=TicketingUser,
         )
 
 
@@ -159,7 +158,7 @@ class AsyncUsers(AsyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal["teams"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["teams"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -211,7 +210,7 @@ class AsyncUsers(AsyncAPIResource):
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
         email_address: Optional[str] | NotGiven = NOT_GIVEN,
-        expand: Literal["teams"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["teams"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -224,7 +223,7 @@ class AsyncUsers(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[FileStorageUser, AsyncPage[FileStorageUser]]:
+    ) -> AsyncPaginator[TicketingUser, AsyncPage[TicketingUser]]:
         """
         Returns a list of `User` objects.
 
@@ -264,7 +263,7 @@ class AsyncUsers(AsyncAPIResource):
         """
         return self._get_api_list(
             "/ticketing/v1/users",
-            page=AsyncPage[FileStorageUser],
+            page=AsyncPage[TicketingUser],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -287,5 +286,5 @@ class AsyncUsers(AsyncAPIResource):
                     user_list_params.UserListParams,
                 ),
             ),
-            model=FileStorageUser,
+            model=TicketingUser,
         )

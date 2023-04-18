@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -21,16 +21,7 @@ class Items(SyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal[
-            "company",
-            "purchase_account",
-            "purchase_account,company",
-            "purchase_account,sales_account",
-            "purchase_account,sales_account,company",
-            "sales_account",
-            "sales_account,company",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company", "purchase_account", "sales_account"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         remote_fields: Literal["status"] | NotGiven = NOT_GIVEN,
         show_enum_origins: Literal["status"] | NotGiven = NOT_GIVEN,
@@ -90,16 +81,7 @@ class Items(SyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal[
-            "company",
-            "purchase_account",
-            "purchase_account,company",
-            "purchase_account,sales_account",
-            "purchase_account,sales_account,company",
-            "sales_account",
-            "sales_account,company",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company", "purchase_account", "sales_account"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -191,16 +173,7 @@ class AsyncItems(AsyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal[
-            "company",
-            "purchase_account",
-            "purchase_account,company",
-            "purchase_account,sales_account",
-            "purchase_account,sales_account,company",
-            "sales_account",
-            "sales_account,company",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company", "purchase_account", "sales_account"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         remote_fields: Literal["status"] | NotGiven = NOT_GIVEN,
         show_enum_origins: Literal["status"] | NotGiven = NOT_GIVEN,
@@ -260,16 +233,7 @@ class AsyncItems(AsyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal[
-            "company",
-            "purchase_account",
-            "purchase_account,company",
-            "purchase_account,sales_account",
-            "purchase_account,sales_account,company",
-            "sales_account",
-            "sales_account,company",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company", "purchase_account", "sales_account"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,

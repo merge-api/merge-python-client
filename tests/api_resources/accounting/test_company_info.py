@@ -36,7 +36,7 @@ class TestCompanyInfo:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         company_info = client.accounting.company_info.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="addresses",
+            expand=["addresses", "addresses", "addresses"],
             include_remote_data=True,
         )
         assert_matches_type(CompanyInfo, company_info, path=["response"])
@@ -52,7 +52,7 @@ class TestCompanyInfo:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="addresses",
+            expand=["addresses", "addresses", "addresses"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -83,7 +83,7 @@ class TestAsyncCompanyInfo:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         company_info = await client.accounting.company_info.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="addresses",
+            expand=["addresses", "addresses", "addresses"],
             include_remote_data=True,
         )
         assert_matches_type(CompanyInfo, company_info, path=["response"])
@@ -99,7 +99,7 @@ class TestAsyncCompanyInfo:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="addresses",
+            expand=["addresses", "addresses", "addresses"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),

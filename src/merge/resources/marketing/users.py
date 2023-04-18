@@ -11,7 +11,6 @@ from ..._resource import SyncAPIResource, AsyncAPIResource
 from ...pagination import SyncPage, AsyncPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.marketing import MarketingUser, user_list_params, user_retrieve_params
-from ...types.file_storage import FileStorageUser
 
 __all__ = ["Users", "AsyncUsers"]
 
@@ -76,7 +75,7 @@ class Users(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> SyncPage[FileStorageUser]:
+    ) -> SyncPage[MarketingUser]:
         """
         Returns a list of `User` objects.
 
@@ -110,7 +109,7 @@ class Users(SyncAPIResource):
         """
         return self._get_api_list(
             "/mktg/v1/users",
-            page=SyncPage[FileStorageUser],
+            page=SyncPage[MarketingUser],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -131,7 +130,7 @@ class Users(SyncAPIResource):
                     user_list_params.UserListParams,
                 ),
             ),
-            model=FileStorageUser,
+            model=MarketingUser,
         )
 
 
@@ -195,7 +194,7 @@ class AsyncUsers(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[FileStorageUser, AsyncPage[FileStorageUser]]:
+    ) -> AsyncPaginator[MarketingUser, AsyncPage[MarketingUser]]:
         """
         Returns a list of `User` objects.
 
@@ -229,7 +228,7 @@ class AsyncUsers(AsyncAPIResource):
         """
         return self._get_api_list(
             "/mktg/v1/users",
-            page=AsyncPage[FileStorageUser],
+            page=AsyncPage[MarketingUser],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -250,5 +249,5 @@ class AsyncUsers(AsyncAPIResource):
                     user_list_params.UserListParams,
                 ),
             ),
-            model=FileStorageUser,
+            model=MarketingUser,
         )

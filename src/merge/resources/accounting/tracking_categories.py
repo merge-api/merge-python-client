@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -25,7 +25,7 @@ class TrackingCategories(SyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal["company"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         remote_fields: Literal["status"] | NotGiven = NOT_GIVEN,
         show_enum_origins: Literal["status"] | NotGiven = NOT_GIVEN,
@@ -85,7 +85,7 @@ class TrackingCategories(SyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal["company"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -177,7 +177,7 @@ class AsyncTrackingCategories(AsyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal["company"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         remote_fields: Literal["status"] | NotGiven = NOT_GIVEN,
         show_enum_origins: Literal["status"] | NotGiven = NOT_GIVEN,
@@ -237,7 +237,7 @@ class AsyncTrackingCategories(AsyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal["company"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,

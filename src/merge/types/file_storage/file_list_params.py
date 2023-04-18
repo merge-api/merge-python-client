@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypedDict
 
@@ -21,7 +21,7 @@ class FileListParams(TypedDict, total=False):
     cursor: str
     """The pagination cursor value."""
 
-    expand: Literal["folder"]
+    expand: List[Literal["folder", "permissions"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.
@@ -49,7 +49,10 @@ class FileListParams(TypedDict, total=False):
     """If provided, will only return objects modified before this datetime."""
 
     name: Optional[str]
-    """If provided, will only return files with this name."""
+    """If provided, will only return files with this name.
+
+    This performs an exact match.
+    """
 
     page_size: int
     """Number of results to return per page."""

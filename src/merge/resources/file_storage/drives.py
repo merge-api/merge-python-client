@@ -67,6 +67,7 @@ class Drives(SyncAPIResource):
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         modified_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
         page_size: int | NotGiven = NOT_GIVEN,
         remote_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -94,6 +95,9 @@ class Drives(SyncAPIResource):
           modified_after: If provided, will only return objects modified after this datetime.
 
           modified_before: If provided, will only return objects modified before this datetime.
+
+          name: If provided, will only return drives with this name. This performs an exact
+              match.
 
           page_size: Number of results to return per page.
 
@@ -124,6 +128,7 @@ class Drives(SyncAPIResource):
                         "include_remote_data": include_remote_data,
                         "modified_after": modified_after,
                         "modified_before": modified_before,
+                        "name": name,
                         "page_size": page_size,
                         "remote_id": remote_id,
                     },
@@ -186,6 +191,7 @@ class AsyncDrives(AsyncAPIResource):
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         modified_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
         page_size: int | NotGiven = NOT_GIVEN,
         remote_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -213,6 +219,9 @@ class AsyncDrives(AsyncAPIResource):
           modified_after: If provided, will only return objects modified after this datetime.
 
           modified_before: If provided, will only return objects modified before this datetime.
+
+          name: If provided, will only return drives with this name. This performs an exact
+              match.
 
           page_size: Number of results to return per page.
 
@@ -243,6 +252,7 @@ class AsyncDrives(AsyncAPIResource):
                         "include_remote_data": include_remote_data,
                         "modified_after": modified_after,
                         "modified_before": modified_before,
+                        "name": name,
                         "page_size": page_size,
                         "remote_id": remote_id,
                     },

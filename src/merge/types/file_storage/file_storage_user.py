@@ -9,7 +9,7 @@ __all__ = ["FileStorageUser"]
 
 class FileStorageUser(BaseModel):
     email_address: Optional[str]
-    """The user’s email address.
+    """The user's email address.
 
     This is typically used to identify a user across linked accounts.
     """

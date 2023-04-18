@@ -2,29 +2,14 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["NoteRetrieveParams"]
 
 
 class NoteRetrieveParams(TypedDict, total=False):
-    expand: Literal[
-        "account",
-        "account,opportunity",
-        "contact",
-        "contact,account",
-        "contact,account,opportunity",
-        "contact,opportunity",
-        "opportunity",
-        "owner",
-        "owner,account",
-        "owner,account,opportunity",
-        "owner,contact",
-        "owner,contact,account",
-        "owner,contact,account,opportunity",
-        "owner,contact,opportunity",
-        "owner,opportunity",
-    ]
+    expand: List[Literal["account", "contact", "opportunity", "owner"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

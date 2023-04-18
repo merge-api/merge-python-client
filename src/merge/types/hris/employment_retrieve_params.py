@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["EmploymentRetrieveParams"]
 
 
 class EmploymentRetrieveParams(TypedDict, total=False):
-    expand: Literal["employee", "employee,pay_group", "pay_group"]
+    expand: List[Literal["employee", "pay_group"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

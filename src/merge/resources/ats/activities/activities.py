@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Union, Optional
+from typing import TYPE_CHECKING, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -88,7 +88,7 @@ class Activities(SyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal["user"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["user"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         remote_fields: Literal["activity_type", "activity_type,visibility", "visibility"] | NotGiven = NOT_GIVEN,
         show_enum_origins: Literal["activity_type", "activity_type,visibility", "visibility"] | NotGiven = NOT_GIVEN,
@@ -147,7 +147,7 @@ class Activities(SyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal["user"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["user"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -297,7 +297,7 @@ class AsyncActivities(AsyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal["user"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["user"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         remote_fields: Literal["activity_type", "activity_type,visibility", "visibility"] | NotGiven = NOT_GIVEN,
         show_enum_origins: Literal["activity_type", "activity_type,visibility", "visibility"] | NotGiven = NOT_GIVEN,
@@ -356,7 +356,7 @@ class AsyncActivities(AsyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal["user"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["user"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,

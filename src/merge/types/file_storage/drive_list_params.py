@@ -36,6 +36,12 @@ class DriveListParams(TypedDict, total=False):
     modified_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """If provided, will only return objects modified before this datetime."""
 
+    name: Optional[str]
+    """If provided, will only return drives with this name.
+
+    This performs an exact match.
+    """
+
     page_size: int
     """Number of results to return per page."""
 

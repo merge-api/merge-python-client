@@ -23,6 +23,9 @@ class Line(BaseModel):
     description: Optional[str]
     """The line's description."""
 
+    exchange_rate: Optional[str]
+    """The vendor credit line item's exchange rate."""
+
     net_amount: Optional[float]
     """The full value of the credit."""
 

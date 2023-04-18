@@ -43,7 +43,7 @@ class TestTimeOff:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         time_off = client.hris.time_off.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="approver",
+            expand=["approver", "approver", "approver"],
             include_remote_data=True,
             remote_fields="request_type",
             show_enum_origins="request_type",
@@ -63,7 +63,7 @@ class TestTimeOff:
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
             employee_id="string",
-            expand="approver",
+            expand=["approver", "approver", "approver"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -105,7 +105,7 @@ class TestAsyncTimeOff:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         time_off = await client.hris.time_off.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="approver",
+            expand=["approver", "approver", "approver"],
             include_remote_data=True,
             remote_fields="request_type",
             show_enum_origins="request_type",
@@ -125,7 +125,7 @@ class TestAsyncTimeOff:
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
             employee_id="string",
-            expand="approver",
+            expand=["approver", "approver", "approver"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),

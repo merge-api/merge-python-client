@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -21,7 +21,7 @@ class EEOCs(SyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal["candidate"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["candidate"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         remote_fields: Literal[
             "disability_status",
@@ -115,7 +115,7 @@ class EEOCs(SyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal["candidate"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["candidate"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -241,7 +241,7 @@ class AsyncEEOCs(AsyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal["candidate"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["candidate"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         remote_fields: Literal[
             "disability_status",
@@ -335,7 +335,7 @@ class AsyncEEOCs(AsyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal["candidate"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["candidate"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,

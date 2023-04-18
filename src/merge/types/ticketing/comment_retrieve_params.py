@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["CommentRetrieveParams"]
 
 
 class CommentRetrieveParams(TypedDict, total=False):
-    expand: Literal["contact", "contact,ticket", "ticket", "user", "user,contact", "user,contact,ticket", "user,ticket"]
+    expand: List[Literal["contact", "ticket", "user"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

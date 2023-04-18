@@ -36,7 +36,7 @@ class TestTeams:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         team = client.hris.teams.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="parent_team",
+            expand=["parent_team", "parent_team", "parent_team"],
             include_remote_data=True,
         )
         assert_matches_type(shared.Team, team, path=["response"])
@@ -52,7 +52,7 @@ class TestTeams:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="parent_team",
+            expand=["parent_team", "parent_team", "parent_team"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -84,7 +84,7 @@ class TestAsyncTeams:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         team = await client.hris.teams.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="parent_team",
+            expand=["parent_team", "parent_team", "parent_team"],
             include_remote_data=True,
         )
         assert_matches_type(shared.Team, team, path=["response"])
@@ -100,7 +100,7 @@ class TestAsyncTeams:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="parent_team",
+            expand=["parent_team", "parent_team", "parent_team"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),

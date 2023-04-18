@@ -44,7 +44,7 @@ class TestActivities:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         activity = client.ats.activities.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="user",
+            expand=["user", "user", "user"],
             include_remote_data=True,
             remote_fields="activity_type",
             show_enum_origins="activity_type",
@@ -62,7 +62,7 @@ class TestActivities:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="user",
+            expand=["user", "user", "user"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -104,7 +104,7 @@ class TestAsyncActivities:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         activity = await client.ats.activities.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="user",
+            expand=["user", "user", "user"],
             include_remote_data=True,
             remote_fields="activity_type",
             show_enum_origins="activity_type",
@@ -122,7 +122,7 @@ class TestAsyncActivities:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="user",
+            expand=["user", "user", "user"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),

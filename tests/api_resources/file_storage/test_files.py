@@ -28,7 +28,13 @@ class TestFiles:
     @parametrize
     def test_method_create(self, client: Merge) -> None:
         file = client.file_storage.files.create(
-            model={},
+            model={
+                "permissions": [
+                    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                ]
+            },
         )
         assert_matches_type(FileResponse, file, path=["response"])
 
@@ -43,7 +49,7 @@ class TestFiles:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         file = client.file_storage.files.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="folder",
+            expand=["folder", "folder", "folder"],
             include_remote_data=True,
         )
         assert_matches_type(File, file, path=["response"])
@@ -59,7 +65,7 @@ class TestFiles:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="folder",
+            expand=["folder", "folder", "folder"],
             folder_id="string",
             include_deleted_data=True,
             include_remote_data=True,
@@ -91,7 +97,13 @@ class TestAsyncFiles:
     @parametrize
     async def test_method_create(self, client: AsyncMerge) -> None:
         file = await client.file_storage.files.create(
-            model={},
+            model={
+                "permissions": [
+                    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                ]
+            },
         )
         assert_matches_type(FileResponse, file, path=["response"])
 
@@ -106,7 +118,7 @@ class TestAsyncFiles:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         file = await client.file_storage.files.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="folder",
+            expand=["folder", "folder", "folder"],
             include_remote_data=True,
         )
         assert_matches_type(File, file, path=["response"])
@@ -122,7 +134,7 @@ class TestAsyncFiles:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="folder",
+            expand=["folder", "folder", "folder"],
             folder_id="string",
             include_deleted_data=True,
             include_remote_data=True,

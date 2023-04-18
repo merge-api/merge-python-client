@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -25,10 +25,7 @@ class VendorCredits(SyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal[
-            "company", "lines", "lines,company", "lines,vendor", "lines,vendor,company", "vendor", "vendor,company"
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company", "lines", "vendor"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -80,10 +77,7 @@ class VendorCredits(SyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal[
-            "company", "lines", "lines,company", "lines,vendor", "lines,vendor,company", "vendor", "vendor,company"
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company", "lines", "vendor"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -175,10 +169,7 @@ class AsyncVendorCredits(AsyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal[
-            "company", "lines", "lines,company", "lines,vendor", "lines,vendor,company", "vendor", "vendor,company"
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company", "lines", "vendor"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -230,10 +221,7 @@ class AsyncVendorCredits(AsyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal[
-            "company", "lines", "lines,company", "lines,vendor", "lines,vendor,company", "vendor", "vendor,company"
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company", "lines", "vendor"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,

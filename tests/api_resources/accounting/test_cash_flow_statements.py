@@ -36,7 +36,7 @@ class TestCashFlowStatements:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         cash_flow_statement = client.accounting.cash_flow_statements.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="company",
+            expand=["company", "company", "company"],
             include_remote_data=True,
         )
         assert_matches_type(CashFlowStatement, cash_flow_statement, path=["response"])
@@ -53,7 +53,7 @@ class TestCashFlowStatements:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="company",
+            expand=["company", "company", "company"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -84,7 +84,7 @@ class TestAsyncCashFlowStatements:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         cash_flow_statement = await client.accounting.cash_flow_statements.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="company",
+            expand=["company", "company", "company"],
             include_remote_data=True,
         )
         assert_matches_type(CashFlowStatement, cash_flow_statement, path=["response"])
@@ -101,7 +101,7 @@ class TestAsyncCashFlowStatements:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="company",
+            expand=["company", "company", "company"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),

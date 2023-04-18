@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Union, Optional
+from typing import TYPE_CHECKING, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -82,7 +82,7 @@ class Contacts(SyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal["account"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -183,7 +183,7 @@ class Contacts(SyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal["account"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,
@@ -429,7 +429,7 @@ class AsyncContacts(AsyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal["account"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -530,7 +530,7 @@ class AsyncContacts(AsyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal["account"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,

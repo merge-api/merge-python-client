@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypedDict
 
@@ -30,39 +30,7 @@ class ApplicationListParams(TypedDict, total=False):
     cursor: str
     """The pagination cursor value."""
 
-    expand: Literal[
-        "candidate",
-        "candidate,credited_to",
-        "candidate,credited_to,current_stage",
-        "candidate,credited_to,current_stage,reject_reason",
-        "candidate,credited_to,reject_reason",
-        "candidate,current_stage",
-        "candidate,current_stage,reject_reason",
-        "candidate,job",
-        "candidate,job,credited_to",
-        "candidate,job,credited_to,current_stage",
-        "candidate,job,credited_to,current_stage,reject_reason",
-        "candidate,job,credited_to,reject_reason",
-        "candidate,job,current_stage",
-        "candidate,job,current_stage,reject_reason",
-        "candidate,job,reject_reason",
-        "candidate,reject_reason",
-        "credited_to",
-        "credited_to,current_stage",
-        "credited_to,current_stage,reject_reason",
-        "credited_to,reject_reason",
-        "current_stage",
-        "current_stage,reject_reason",
-        "job",
-        "job,credited_to",
-        "job,credited_to,current_stage",
-        "job,credited_to,current_stage,reject_reason",
-        "job,credited_to,reject_reason",
-        "job,current_stage",
-        "job,current_stage,reject_reason",
-        "job,reject_reason",
-        "reject_reason",
-    ]
+    expand: List[Literal["candidate", "credited_to", "current_stage", "job", "reject_reason"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

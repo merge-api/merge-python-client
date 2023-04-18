@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Union, Optional
+from typing import TYPE_CHECKING, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -83,24 +83,7 @@ class Engagements(SyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal[
-            "account",
-            "account,engagement_type",
-            "contacts",
-            "contacts,account",
-            "contacts,account,engagement_type",
-            "contacts,engagement_type",
-            "contacts,owner",
-            "contacts,owner,account",
-            "contacts,owner,account,engagement_type",
-            "contacts,owner,engagement_type",
-            "engagement_type",
-            "owner",
-            "owner,account",
-            "owner,account,engagement_type",
-            "owner,engagement_type",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account", "contacts", "engagement_type", "owner"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -200,24 +183,7 @@ class Engagements(SyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal[
-            "account",
-            "account,engagement_type",
-            "contacts",
-            "contacts,account",
-            "contacts,account,engagement_type",
-            "contacts,engagement_type",
-            "contacts,owner",
-            "contacts,owner,account",
-            "contacts,owner,account,engagement_type",
-            "contacts,owner,engagement_type",
-            "engagement_type",
-            "owner",
-            "owner,account",
-            "owner,account,engagement_type",
-            "owner,engagement_type",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account", "contacts", "engagement_type", "owner"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,
@@ -413,24 +379,7 @@ class AsyncEngagements(AsyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal[
-            "account",
-            "account,engagement_type",
-            "contacts",
-            "contacts,account",
-            "contacts,account,engagement_type",
-            "contacts,engagement_type",
-            "contacts,owner",
-            "contacts,owner,account",
-            "contacts,owner,account,engagement_type",
-            "contacts,owner,engagement_type",
-            "engagement_type",
-            "owner",
-            "owner,account",
-            "owner,account,engagement_type",
-            "owner,engagement_type",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account", "contacts", "engagement_type", "owner"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -530,24 +479,7 @@ class AsyncEngagements(AsyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal[
-            "account",
-            "account,engagement_type",
-            "contacts",
-            "contacts,account",
-            "contacts,account,engagement_type",
-            "contacts,engagement_type",
-            "contacts,owner",
-            "contacts,owner,account",
-            "contacts,owner,account,engagement_type",
-            "contacts,owner,engagement_type",
-            "engagement_type",
-            "owner",
-            "owner,account",
-            "owner,account,engagement_type",
-            "owner,engagement_type",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account", "contacts", "engagement_type", "owner"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,

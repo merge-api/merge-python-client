@@ -28,7 +28,13 @@ class TestFolders:
     @parametrize
     def test_method_create(self, client: Merge) -> None:
         folder = client.file_storage.folders.create(
-            model={},
+            model={
+                "permissions": [
+                    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                ]
+            },
         )
         assert_matches_type(FolderResponse, folder, path=["response"])
 
@@ -43,7 +49,7 @@ class TestFolders:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         folder = client.file_storage.folders.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="drive",
+            expand=["drive", "drive", "drive"],
             include_remote_data=True,
         )
         assert_matches_type(Folder, folder, path=["response"])
@@ -60,7 +66,7 @@ class TestFolders:
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
             drive_id="string",
-            expand="drive",
+            expand=["drive", "drive", "drive"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -85,7 +91,13 @@ class TestAsyncFolders:
     @parametrize
     async def test_method_create(self, client: AsyncMerge) -> None:
         folder = await client.file_storage.folders.create(
-            model={},
+            model={
+                "permissions": [
+                    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                ]
+            },
         )
         assert_matches_type(FolderResponse, folder, path=["response"])
 
@@ -100,7 +112,7 @@ class TestAsyncFolders:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         folder = await client.file_storage.folders.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="drive",
+            expand=["drive", "drive", "drive"],
             include_remote_data=True,
         )
         assert_matches_type(Folder, folder, path=["response"])
@@ -117,7 +129,7 @@ class TestAsyncFolders:
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
             drive_id="string",
-            expand="drive",
+            expand=["drive", "drive", "drive"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),

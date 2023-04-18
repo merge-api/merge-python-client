@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypedDict
 
@@ -24,7 +24,7 @@ class BenefitListParams(TypedDict, total=False):
     employee_id: str
     """If provided, will return the benefits associated with the employee."""
 
-    expand: Literal["employee"]
+    expand: List[Literal["employee"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

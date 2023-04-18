@@ -36,7 +36,7 @@ class TestJobInterviewStages:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         job_interview_stage = client.ats.job_interview_stages.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="job",
+            expand=["job", "job", "job"],
             include_remote_data=True,
         )
         assert_matches_type(JobInterviewStage, job_interview_stage, path=["response"])
@@ -52,7 +52,7 @@ class TestJobInterviewStages:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="job",
+            expand=["job", "job", "job"],
             include_deleted_data=True,
             include_remote_data=True,
             job_id="string",
@@ -84,7 +84,7 @@ class TestAsyncJobInterviewStages:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         job_interview_stage = await client.ats.job_interview_stages.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="job",
+            expand=["job", "job", "job"],
             include_remote_data=True,
         )
         assert_matches_type(JobInterviewStage, job_interview_stage, path=["response"])
@@ -100,7 +100,7 @@ class TestAsyncJobInterviewStages:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="job",
+            expand=["job", "job", "job"],
             include_deleted_data=True,
             include_remote_data=True,
             job_id="string",

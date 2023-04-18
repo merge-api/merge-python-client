@@ -11,7 +11,6 @@ from tests.utils import assert_matches_type
 from merge._utils import parse_datetime
 from merge.pagination import SyncPage, AsyncPage
 from merge.types.ticketing import TicketingUser
-from merge.types.file_storage import FileStorageUser
 
 base_url = os.environ.get("API_BASE_URL", "http://127.0.0.1:4010")
 api_key = os.environ.get("API_KEY", "something1234")
@@ -37,7 +36,7 @@ class TestUsers:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         user = client.ticketing.users.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="teams",
+            expand=["teams", "teams", "teams"],
             include_remote_data=True,
         )
         assert_matches_type(TicketingUser, user, path=["response"])
@@ -45,7 +44,7 @@ class TestUsers:
     @parametrize
     def test_method_list(self, client: Merge) -> None:
         user = client.ticketing.users.list()
-        assert_matches_type(SyncPage[FileStorageUser], user, path=["response"])
+        assert_matches_type(SyncPage[TicketingUser], user, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Merge) -> None:
@@ -54,7 +53,7 @@ class TestUsers:
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
             email_address="string",
-            expand="teams",
+            expand=["teams", "teams", "teams"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -62,7 +61,7 @@ class TestUsers:
             page_size=0,
             remote_id="string",
         )
-        assert_matches_type(SyncPage[FileStorageUser], user, path=["response"])
+        assert_matches_type(SyncPage[TicketingUser], user, path=["response"])
 
 
 class TestAsyncUsers:
@@ -85,7 +84,7 @@ class TestAsyncUsers:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         user = await client.ticketing.users.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="teams",
+            expand=["teams", "teams", "teams"],
             include_remote_data=True,
         )
         assert_matches_type(TicketingUser, user, path=["response"])
@@ -93,7 +92,7 @@ class TestAsyncUsers:
     @parametrize
     async def test_method_list(self, client: AsyncMerge) -> None:
         user = await client.ticketing.users.list()
-        assert_matches_type(AsyncPage[FileStorageUser], user, path=["response"])
+        assert_matches_type(AsyncPage[TicketingUser], user, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, client: AsyncMerge) -> None:
@@ -102,7 +101,7 @@ class TestAsyncUsers:
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
             email_address="string",
-            expand="teams",
+            expand=["teams", "teams", "teams"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -110,4 +109,4 @@ class TestAsyncUsers:
             page_size=0,
             remote_id="string",
         )
-        assert_matches_type(AsyncPage[FileStorageUser], user, path=["response"])
+        assert_matches_type(AsyncPage[TicketingUser], user, path=["response"])

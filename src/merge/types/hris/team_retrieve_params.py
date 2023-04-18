@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["TeamRetrieveParams"]
 
 
 class TeamRetrieveParams(TypedDict, total=False):
-    expand: Literal["parent_team"]
+    expand: List[Literal["parent_team"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

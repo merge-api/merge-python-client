@@ -4,7 +4,6 @@ from . import types
 from ._types import NoneType, Transport, ProxiesTypes
 from ._utils import file_from_path
 from ._client import (
-    ENVIRONMENTS,
     Merge,
     Client,
     Stream,
@@ -61,7 +60,6 @@ __all__ = [
     "AsyncStream",
     "Merge",
     "AsyncMerge",
-    "ENVIRONMENTS",
     "file_from_path",
 ]
 

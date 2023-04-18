@@ -44,7 +44,7 @@ class TestEmployees:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         employee = client.hris.employees.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="company",
+            expand=["company", "company", "company"],
             include_remote_data=True,
             include_sensitive_fields=True,
             remote_fields="employment_status",
@@ -66,7 +66,7 @@ class TestEmployees:
             cursor="string",
             display_full_name="string",
             employment_status="ACTIVE",
-            expand="company",
+            expand=["company", "company", "company"],
             first_name="string",
             groups="string",
             include_deleted_data=True,
@@ -133,7 +133,7 @@ class TestAsyncEmployees:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         employee = await client.hris.employees.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="company",
+            expand=["company", "company", "company"],
             include_remote_data=True,
             include_sensitive_fields=True,
             remote_fields="employment_status",
@@ -155,7 +155,7 @@ class TestAsyncEmployees:
             cursor="string",
             display_full_name="string",
             employment_status="ACTIVE",
-            expand="company",
+            expand=["company", "company", "company"],
             first_name="string",
             groups="string",
             include_deleted_data=True,

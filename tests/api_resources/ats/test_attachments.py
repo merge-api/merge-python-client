@@ -45,7 +45,7 @@ class TestAttachments:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         attachment = client.ats.attachments.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="candidate",
+            expand=["candidate", "candidate", "candidate"],
             include_remote_data=True,
             remote_fields="attachment_type",
             show_enum_origins="attachment_type",
@@ -64,7 +64,7 @@ class TestAttachments:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="candidate",
+            expand=["candidate", "candidate", "candidate"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -105,7 +105,7 @@ class TestAsyncAttachments:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         attachment = await client.ats.attachments.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="candidate",
+            expand=["candidate", "candidate", "candidate"],
             include_remote_data=True,
             remote_fields="attachment_type",
             show_enum_origins="attachment_type",
@@ -124,7 +124,7 @@ class TestAsyncAttachments:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="candidate",
+            expand=["candidate", "candidate", "candidate"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),

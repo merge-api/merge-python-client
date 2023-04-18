@@ -25,12 +25,12 @@ class RemoteFieldClass(TypedDict, total=False):
 
     field_format: Literal["string", "number", "date", "datetime", "bool", "list"]
     """
-    - `string` - uuid
-    - `number` - url
-    - `date` - email
-    - `datetime` - phone
-    - `bool` - currency
-    - `list` - decimal
+    - `string` - string
+    - `number` - number
+    - `date` - date
+    - `datetime` - datetime
+    - `bool` - bool
+    - `list` - list
     """
 
     field_type: Literal["string", "number", "date", "datetime", "bool", "list"]

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypedDict
 
@@ -24,9 +24,7 @@ class VendorCreditListParams(TypedDict, total=False):
     cursor: str
     """The pagination cursor value."""
 
-    expand: Literal[
-        "company", "lines", "lines,company", "lines,vendor", "lines,vendor,company", "vendor", "vendor,company"
-    ]
+    expand: List[Literal["company", "lines", "vendor"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

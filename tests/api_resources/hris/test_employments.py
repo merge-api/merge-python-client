@@ -36,7 +36,7 @@ class TestEmployments:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         employment = client.hris.employments.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="employee",
+            expand=["employee", "employee", "employee"],
             include_remote_data=True,
             remote_fields="employment_type",
             show_enum_origins="employment_type",
@@ -55,7 +55,7 @@ class TestEmployments:
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
             employee_id="string",
-            expand="employee",
+            expand=["employee", "employee", "employee"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -89,7 +89,7 @@ class TestAsyncEmployments:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         employment = await client.hris.employments.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="employee",
+            expand=["employee", "employee", "employee"],
             include_remote_data=True,
             remote_fields="employment_type",
             show_enum_origins="employment_type",
@@ -108,7 +108,7 @@ class TestAsyncEmployments:
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
             employee_id="string",
-            expand="employee",
+            expand=["employee", "employee", "employee"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),

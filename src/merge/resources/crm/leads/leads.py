@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Union, Optional
+from typing import TYPE_CHECKING, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -82,16 +82,7 @@ class Leads(SyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal[
-            "converted_account",
-            "converted_contact",
-            "converted_contact,converted_account",
-            "owner",
-            "owner,converted_account",
-            "owner,converted_contact",
-            "owner,converted_contact,converted_account",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["converted_account", "converted_contact", "owner"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -149,16 +140,7 @@ class Leads(SyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal[
-            "converted_account",
-            "converted_contact",
-            "converted_contact,converted_account",
-            "owner",
-            "owner,converted_account",
-            "owner,converted_contact",
-            "owner,converted_contact,converted_account",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["converted_account", "converted_contact", "owner"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,
@@ -364,16 +346,7 @@ class AsyncLeads(AsyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal[
-            "converted_account",
-            "converted_contact",
-            "converted_contact,converted_account",
-            "owner",
-            "owner,converted_account",
-            "owner,converted_contact",
-            "owner,converted_contact,converted_account",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["converted_account", "converted_contact", "owner"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -431,16 +404,7 @@ class AsyncLeads(AsyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal[
-            "converted_account",
-            "converted_contact",
-            "converted_contact,converted_account",
-            "owner",
-            "owner,converted_account",
-            "owner,converted_contact",
-            "owner,converted_contact,converted_account",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["converted_account", "converted_contact", "owner"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,

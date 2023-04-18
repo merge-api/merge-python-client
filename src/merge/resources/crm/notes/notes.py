@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Union, Optional
+from typing import TYPE_CHECKING, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -81,24 +81,7 @@ class Notes(SyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal[
-            "account",
-            "account,opportunity",
-            "contact",
-            "contact,account",
-            "contact,account,opportunity",
-            "contact,opportunity",
-            "opportunity",
-            "owner",
-            "owner,account",
-            "owner,account,opportunity",
-            "owner,contact",
-            "owner,contact,account",
-            "owner,contact,account,opportunity",
-            "owner,contact,opportunity",
-            "owner,opportunity",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account", "contact", "opportunity", "owner"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -156,24 +139,7 @@ class Notes(SyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal[
-            "account",
-            "account,opportunity",
-            "contact",
-            "contact,account",
-            "contact,account,opportunity",
-            "contact,opportunity",
-            "opportunity",
-            "owner",
-            "owner,account",
-            "owner,account,opportunity",
-            "owner,contact",
-            "owner,contact,account",
-            "owner,contact,account,opportunity",
-            "owner,contact,opportunity",
-            "owner,opportunity",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account", "contact", "opportunity", "owner"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,
@@ -382,24 +348,7 @@ class AsyncNotes(AsyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal[
-            "account",
-            "account,opportunity",
-            "contact",
-            "contact,account",
-            "contact,account,opportunity",
-            "contact,opportunity",
-            "opportunity",
-            "owner",
-            "owner,account",
-            "owner,account,opportunity",
-            "owner,contact",
-            "owner,contact,account",
-            "owner,contact,account,opportunity",
-            "owner,contact,opportunity",
-            "owner,opportunity",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account", "contact", "opportunity", "owner"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -457,24 +406,7 @@ class AsyncNotes(AsyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal[
-            "account",
-            "account,opportunity",
-            "contact",
-            "contact,account",
-            "contact,account,opportunity",
-            "contact,opportunity",
-            "opportunity",
-            "owner",
-            "owner,account",
-            "owner,account,opportunity",
-            "owner,contact",
-            "owner,contact,account",
-            "owner,contact,account,opportunity",
-            "owner,contact,opportunity",
-            "owner,opportunity",
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account", "contact", "opportunity", "owner"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,

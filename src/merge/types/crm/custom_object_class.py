@@ -25,12 +25,12 @@ class Field(BaseModel):
 
     field_format: Optional[Literal["string", "number", "date", "datetime", "bool", "list"]]
     """
-    - `string` - uuid
-    - `number` - url
-    - `date` - email
-    - `datetime` - phone
-    - `bool` - currency
-    - `list` - decimal
+    - `string` - string
+    - `number` - number
+    - `date` - date
+    - `datetime` - datetime
+    - `bool` - bool
+    - `list` - list
     """
 
     field_type: Optional[Literal["string", "number", "date", "datetime", "bool", "list"]]

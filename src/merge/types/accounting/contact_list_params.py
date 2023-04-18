@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypedDict
 
@@ -24,15 +24,7 @@ class ContactListParams(TypedDict, total=False):
     cursor: str
     """The pagination cursor value."""
 
-    expand: Literal[
-        "addresses",
-        "addresses,company",
-        "addresses,phone_numbers",
-        "addresses,phone_numbers,company",
-        "company",
-        "phone_numbers",
-        "phone_numbers,company",
-    ]
+    expand: List[Literal["addresses", "company", "phone_numbers"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

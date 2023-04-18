@@ -23,6 +23,9 @@ class Line(BaseModel):
     description: Optional[str]
     """The description of the item that was purchased by the company."""
 
+    exchange_rate: Optional[str]
+    """The expense line item's exchange rate."""
+
     item: Optional[str]
     """The line's item."""
 

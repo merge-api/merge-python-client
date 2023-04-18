@@ -69,7 +69,7 @@ class TestAssociationTypes:
         association_type = client.crm.custom_object_classes.association_types.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             custom_object_class_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="target_object_classes",
+            expand=["target_object_classes", "target_object_classes", "target_object_classes"],
             include_remote_data=True,
         )
         assert_matches_type(AssociationType, association_type, path=["response"])
@@ -88,7 +88,7 @@ class TestAssociationTypes:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="target_object_classes",
+            expand=["target_object_classes", "target_object_classes", "target_object_classes"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -149,7 +149,7 @@ class TestAsyncAssociationTypes:
         association_type = await client.crm.custom_object_classes.association_types.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             custom_object_class_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="target_object_classes",
+            expand=["target_object_classes", "target_object_classes", "target_object_classes"],
             include_remote_data=True,
         )
         assert_matches_type(AssociationType, association_type, path=["response"])
@@ -168,7 +168,7 @@ class TestAsyncAssociationTypes:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="target_object_classes",
+            expand=["target_object_classes", "target_object_classes", "target_object_classes"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),

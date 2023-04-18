@@ -2,29 +2,14 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["PurchaseOrderRetrieveParams"]
 
 
 class PurchaseOrderRetrieveParams(TypedDict, total=False):
-    expand: Literal[
-        "company",
-        "delivery_address",
-        "delivery_address,company",
-        "delivery_address,vendor",
-        "delivery_address,vendor,company",
-        "line_items",
-        "line_items,company",
-        "line_items,delivery_address",
-        "line_items,delivery_address,company",
-        "line_items,delivery_address,vendor",
-        "line_items,delivery_address,vendor,company",
-        "line_items,vendor",
-        "line_items,vendor,company",
-        "vendor",
-        "vendor,company",
-    ]
+    expand: List[Literal["company", "delivery_address", "line_items", "vendor"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

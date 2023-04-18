@@ -40,7 +40,7 @@ class Activity(BaseModel):
     """The activity's subject."""
 
     user: Optional[str]
-    """The user the performed the action."""
+    """The user that performed the action."""
 
     visibility: Optional[Literal["ADMIN_ONLY", "PUBLIC", "PRIVATE"]]
     """

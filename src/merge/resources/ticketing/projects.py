@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -13,11 +13,11 @@ from ...pagination import SyncPage, AsyncPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.ticketing import (
     Project,
+    TicketingUser,
     project_list_params,
     project_retrieve_params,
     project_list_users_params,
 )
-from ...types.file_storage import FileStorageUser
 
 __all__ = ["Projects", "AsyncProjects"]
 
@@ -145,7 +145,7 @@ class Projects(SyncAPIResource):
         parent_id: str,
         *,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal["teams"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["teams"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         page_size: int | NotGiven = NOT_GIVEN,
@@ -155,7 +155,7 @@ class Projects(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> SyncPage[FileStorageUser]:
+    ) -> SyncPage[TicketingUser]:
         """
         Returns a list of `User` objects.
 
@@ -182,7 +182,7 @@ class Projects(SyncAPIResource):
         """
         return self._get_api_list(
             f"/ticketing/v1/projects/{parent_id}/users",
-            page=SyncPage[FileStorageUser],
+            page=SyncPage[TicketingUser],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -199,7 +199,7 @@ class Projects(SyncAPIResource):
                     project_list_users_params.ProjectListUsersParams,
                 ),
             ),
-            model=FileStorageUser,
+            model=TicketingUser,
         )
 
 
@@ -326,7 +326,7 @@ class AsyncProjects(AsyncAPIResource):
         parent_id: str,
         *,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal["teams"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["teams"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         page_size: int | NotGiven = NOT_GIVEN,
@@ -336,7 +336,7 @@ class AsyncProjects(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[FileStorageUser, AsyncPage[FileStorageUser]]:
+    ) -> AsyncPaginator[TicketingUser, AsyncPage[TicketingUser]]:
         """
         Returns a list of `User` objects.
 
@@ -363,7 +363,7 @@ class AsyncProjects(AsyncAPIResource):
         """
         return self._get_api_list(
             f"/ticketing/v1/projects/{parent_id}/users",
-            page=AsyncPage[FileStorageUser],
+            page=AsyncPage[TicketingUser],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -380,5 +380,5 @@ class AsyncProjects(AsyncAPIResource):
                     project_list_users_params.ProjectListUsersParams,
                 ),
             ),
-            model=FileStorageUser,
+            model=TicketingUser,
         )

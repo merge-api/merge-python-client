@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Union, Optional
+from typing import TYPE_CHECKING, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -80,7 +80,7 @@ class Files(SyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal["folder"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["folder", "permissions"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -131,7 +131,7 @@ class Files(SyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal["folder"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["folder", "permissions"]] | NotGiven = NOT_GIVEN,
         folder_id: str | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
@@ -172,7 +172,8 @@ class Files(SyncAPIResource):
 
           modified_before: If provided, will only return objects modified before this datetime.
 
-          name: If provided, will only return files with this name.
+          name: If provided, will only return files with this name. This performs an exact
+              match.
 
           page_size: Number of results to return per page.
 
@@ -291,7 +292,7 @@ class AsyncFiles(AsyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal["folder"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["folder", "permissions"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -342,7 +343,7 @@ class AsyncFiles(AsyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal["folder"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["folder", "permissions"]] | NotGiven = NOT_GIVEN,
         folder_id: str | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
@@ -383,7 +384,8 @@ class AsyncFiles(AsyncAPIResource):
 
           modified_before: If provided, will only return objects modified before this datetime.
 
-          name: If provided, will only return files with this name.
+          name: If provided, will only return files with this name. This performs an exact
+              match.
 
           page_size: Number of results to return per page.
 

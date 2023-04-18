@@ -132,7 +132,7 @@ from merge.types.hris import Group
 Methods:
 
 - <code title="get /hris/v1/groups/{id}">client.hris.groups.<a href="./src/merge/resources/hris/groups.py">retrieve</a>(id, \*\*<a href="src/merge/types/hris/group_retrieve_params.py">params</a>) -> <a href="./src/merge/types/hris/group.py">Group</a></code>
-- <code title="get /hris/v1/groups">client.hris.groups.<a href="./src/merge/resources/hris/groups.py">list</a>(\*\*<a href="src/merge/types/hris/group_list_params.py">params</a>) -> <a href="./src/merge/types/file_storage/file_storage_group.py">SyncPage[FileStorageGroup]</a></code>
+- <code title="get /hris/v1/groups">client.hris.groups.<a href="./src/merge/resources/hris/groups.py">list</a>(\*\*<a href="src/merge/types/hris/group_list_params.py">params</a>) -> <a href="./src/merge/types/hris/group.py">SyncPage[Group]</a></code>
 
 ## Locations
 
@@ -1088,7 +1088,7 @@ Methods:
 
 - <code title="get /ticketing/v1/collections/{id}">client.ticketing.collections.<a href="./src/merge/resources/ticketing/collections.py">retrieve</a>(id, \*\*<a href="src/merge/types/ticketing/collection_retrieve_params.py">params</a>) -> <a href="./src/merge/types/ticketing/collection.py">Collection</a></code>
 - <code title="get /ticketing/v1/collections">client.ticketing.collections.<a href="./src/merge/resources/ticketing/collections.py">list</a>(\*\*<a href="src/merge/types/ticketing/collection_list_params.py">params</a>) -> <a href="./src/merge/types/ticketing/collection.py">SyncPage[Collection]</a></code>
-- <code title="get /ticketing/v1/collections/{parent_id}/users">client.ticketing.collections.<a href="./src/merge/resources/ticketing/collections.py">list_users</a>(parent_id, \*\*<a href="src/merge/types/ticketing/collection_list_users_params.py">params</a>) -> <a href="./src/merge/types/file_storage/file_storage_user.py">SyncPage[FileStorageUser]</a></code>
+- <code title="get /ticketing/v1/collections/{parent_id}/users">client.ticketing.collections.<a href="./src/merge/resources/ticketing/collections.py">list_users</a>(parent_id, \*\*<a href="src/merge/types/ticketing/collection_list_users_params.py">params</a>) -> <a href="./src/merge/types/ticketing/ticketing_user.py">SyncPage[TicketingUser]</a></code>
 
 ## Comments
 
@@ -1129,7 +1129,7 @@ Methods:
 
 - <code title="get /ticketing/v1/projects/{id}">client.ticketing.projects.<a href="./src/merge/resources/ticketing/projects.py">retrieve</a>(id, \*\*<a href="src/merge/types/ticketing/project_retrieve_params.py">params</a>) -> <a href="./src/merge/types/ticketing/project.py">Project</a></code>
 - <code title="get /ticketing/v1/projects">client.ticketing.projects.<a href="./src/merge/resources/ticketing/projects.py">list</a>(\*\*<a href="src/merge/types/ticketing/project_list_params.py">params</a>) -> <a href="./src/merge/types/ticketing/project.py">SyncPage[Project]</a></code>
-- <code title="get /ticketing/v1/projects/{parent_id}/users">client.ticketing.projects.<a href="./src/merge/resources/ticketing/projects.py">list_users</a>(parent_id, \*\*<a href="src/merge/types/ticketing/project_list_users_params.py">params</a>) -> <a href="./src/merge/types/file_storage/file_storage_user.py">SyncPage[FileStorageUser]</a></code>
+- <code title="get /ticketing/v1/projects/{parent_id}/users">client.ticketing.projects.<a href="./src/merge/resources/ticketing/projects.py">list_users</a>(parent_id, \*\*<a href="src/merge/types/ticketing/project_list_users_params.py">params</a>) -> <a href="./src/merge/types/ticketing/ticketing_user.py">SyncPage[TicketingUser]</a></code>
 
 ## Tags
 
@@ -1159,7 +1159,7 @@ Methods:
 - <code title="get /ticketing/v1/tickets/{id}">client.ticketing.tickets.<a href="./src/merge/resources/ticketing/tickets/tickets.py">retrieve</a>(id, \*\*<a href="src/merge/types/ticketing/ticket_retrieve_params.py">params</a>) -> <a href="./src/merge/types/ticketing/ticket.py">Ticket</a></code>
 - <code title="patch /ticketing/v1/tickets/{id}">client.ticketing.tickets.<a href="./src/merge/resources/ticketing/tickets/tickets.py">update</a>(id, \*\*<a href="src/merge/types/ticketing/ticket_update_params.py">params</a>) -> <a href="./src/merge/types/ticketing/ticket_response.py">TicketResponse</a></code>
 - <code title="get /ticketing/v1/tickets">client.ticketing.tickets.<a href="./src/merge/resources/ticketing/tickets/tickets.py">list</a>(\*\*<a href="src/merge/types/ticketing/ticket_list_params.py">params</a>) -> <a href="./src/merge/types/ticketing/ticket.py">SyncPage[Ticket]</a></code>
-- <code title="get /ticketing/v1/tickets/{parent_id}/collaborators">client.ticketing.tickets.<a href="./src/merge/resources/ticketing/tickets/tickets.py">list_collaborators</a>(parent_id, \*\*<a href="src/merge/types/ticketing/ticket_list_collaborators_params.py">params</a>) -> <a href="./src/merge/types/file_storage/file_storage_user.py">SyncPage[FileStorageUser]</a></code>
+- <code title="get /ticketing/v1/tickets/{parent_id}/collaborators">client.ticketing.tickets.<a href="./src/merge/resources/ticketing/tickets/tickets.py">list_collaborators</a>(parent_id, \*\*<a href="src/merge/types/ticketing/ticket_list_collaborators_params.py">params</a>) -> <a href="./src/merge/types/ticketing/ticketing_user.py">SyncPage[TicketingUser]</a></code>
 - <code title="get /ticketing/v1/tickets/remote-field-classes">client.ticketing.tickets.<a href="./src/merge/resources/ticketing/tickets/tickets.py">list_remote_field_classes</a>(\*\*<a href="src/merge/types/ticketing/ticket_list_remote_field_classes_params.py">params</a>) -> <a href="./src/merge/types/shared/remote_field_class.py">SyncPage[shared.RemoteFieldClass]</a></code>
 
 ### Meta
@@ -1180,7 +1180,7 @@ from merge.types.ticketing import TicketingUser
 Methods:
 
 - <code title="get /ticketing/v1/users/{id}">client.ticketing.users.<a href="./src/merge/resources/ticketing/users.py">retrieve</a>(id, \*\*<a href="src/merge/types/ticketing/user_retrieve_params.py">params</a>) -> <a href="./src/merge/types/ticketing/ticketing_user.py">TicketingUser</a></code>
-- <code title="get /ticketing/v1/users">client.ticketing.users.<a href="./src/merge/resources/ticketing/users.py">list</a>(\*\*<a href="src/merge/types/ticketing/user_list_params.py">params</a>) -> <a href="./src/merge/types/file_storage/file_storage_user.py">SyncPage[FileStorageUser]</a></code>
+- <code title="get /ticketing/v1/users">client.ticketing.users.<a href="./src/merge/resources/ticketing/users.py">list</a>(\*\*<a href="src/merge/types/ticketing/user_list_params.py">params</a>) -> <a href="./src/merge/types/ticketing/ticketing_user.py">SyncPage[TicketingUser]</a></code>
 
 ## AccountDetails
 
@@ -1559,7 +1559,7 @@ from merge.types.crm import CrmUser
 Methods:
 
 - <code title="get /crm/v1/users/{id}">client.crm.users.<a href="./src/merge/resources/crm/users.py">retrieve</a>(id, \*\*<a href="src/merge/types/crm/user_retrieve_params.py">params</a>) -> <a href="./src/merge/types/crm/crm_user.py">CrmUser</a></code>
-- <code title="get /crm/v1/users">client.crm.users.<a href="./src/merge/resources/crm/users.py">list</a>(\*\*<a href="src/merge/types/crm/user_list_params.py">params</a>) -> <a href="./src/merge/types/file_storage/file_storage_user.py">SyncPage[FileStorageUser]</a></code>
+- <code title="get /crm/v1/users">client.crm.users.<a href="./src/merge/resources/crm/users.py">list</a>(\*\*<a href="src/merge/types/crm/user_list_params.py">params</a>) -> <a href="./src/merge/types/crm/crm_user.py">SyncPage[CrmUser]</a></code>
 - <code title="post /crm/v1/users/ignore/{model_id}">client.crm.users.<a href="./src/merge/resources/crm/users.py">ignore_row</a>(model_id, \*\*<a href="src/merge/types/crm/user_ignore_row_params.py">params</a>) -> <a href="./src/merge/types/shared/ignore_common_model.py">shared.IgnoreCommonModel</a></code>
 - <code title="get /crm/v1/users/remote-field-classes">client.crm.users.<a href="./src/merge/resources/crm/users.py">list_remote_field_classes</a>(\*\*<a href="src/merge/types/crm/user_list_remote_field_classes_params.py">params</a>) -> <a href="./src/merge/types/shared/remote_field_class.py">SyncPage[shared.RemoteFieldClass]</a></code>
 
@@ -1842,7 +1842,7 @@ from merge.types.marketing import MarketingUser
 Methods:
 
 - <code title="get /mktg/v1/users/{id}">client.marketing.users.<a href="./src/merge/resources/marketing/users.py">retrieve</a>(id, \*\*<a href="src/merge/types/marketing/user_retrieve_params.py">params</a>) -> <a href="./src/merge/types/marketing/marketing_user.py">MarketingUser</a></code>
-- <code title="get /mktg/v1/users">client.marketing.users.<a href="./src/merge/resources/marketing/users.py">list</a>(\*\*<a href="src/merge/types/marketing/user_list_params.py">params</a>) -> <a href="./src/merge/types/file_storage/file_storage_user.py">SyncPage[FileStorageUser]</a></code>
+- <code title="get /mktg/v1/users">client.marketing.users.<a href="./src/merge/resources/marketing/users.py">list</a>(\*\*<a href="src/merge/types/marketing/user_list_params.py">params</a>) -> <a href="./src/merge/types/marketing/marketing_user.py">SyncPage[MarketingUser]</a></code>
 
 ## AccountDetails
 

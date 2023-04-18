@@ -44,7 +44,7 @@ class TestApplications:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         application = client.ats.applications.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="candidate",
+            expand=["candidate", "candidate", "candidate"],
             include_remote_data=True,
         )
         assert_matches_type(Application, application, path=["response"])
@@ -63,7 +63,7 @@ class TestApplications:
             credited_to_id="string",
             current_stage_id="string",
             cursor="string",
-            expand="candidate",
+            expand=["candidate", "candidate", "candidate"],
             include_deleted_data=True,
             include_remote_data=True,
             job_id="string",
@@ -121,7 +121,7 @@ class TestAsyncApplications:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         application = await client.ats.applications.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="candidate",
+            expand=["candidate", "candidate", "candidate"],
             include_remote_data=True,
         )
         assert_matches_type(Application, application, path=["response"])
@@ -140,7 +140,7 @@ class TestAsyncApplications:
             credited_to_id="string",
             current_stage_id="string",
             cursor="string",
-            expand="candidate",
+            expand=["candidate", "candidate", "candidate"],
             include_deleted_data=True,
             include_remote_data=True,
             job_id="string",

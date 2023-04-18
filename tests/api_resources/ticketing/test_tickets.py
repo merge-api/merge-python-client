@@ -11,8 +11,7 @@ from merge.types import shared
 from tests.utils import assert_matches_type
 from merge._utils import parse_datetime
 from merge.pagination import SyncPage, AsyncPage
-from merge.types.ticketing import Ticket, TicketResponse
-from merge.types.file_storage import FileStorageUser
+from merge.types.ticketing import Ticket, TicketingUser, TicketResponse
 
 base_url = os.environ.get("API_BASE_URL", "http://127.0.0.1:4010")
 api_key = os.environ.get("API_KEY", "something1234")
@@ -45,7 +44,7 @@ class TestTickets:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         ticket = client.ticketing.tickets.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="account",
+            expand=["account", "account", "account"],
             include_remote_data=True,
             include_remote_fields=True,
             remote_fields="priority",
@@ -80,7 +79,7 @@ class TestTickets:
             cursor="string",
             due_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             due_before=parse_datetime("2019-12-27T18:11:19.117Z"),
-            expand="account",
+            expand=["account", "account", "account"],
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,
@@ -108,19 +107,19 @@ class TestTickets:
         ticket = client.ticketing.tickets.list_collaborators(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(SyncPage[FileStorageUser], ticket, path=["response"])
+        assert_matches_type(SyncPage[TicketingUser], ticket, path=["response"])
 
     @parametrize
     def test_method_list_collaborators_with_all_params(self, client: Merge) -> None:
         ticket = client.ticketing.tickets.list_collaborators(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             cursor="string",
-            expand="teams",
+            expand=["teams", "teams", "teams"],
             include_deleted_data=True,
             include_remote_data=True,
             page_size=0,
         )
-        assert_matches_type(SyncPage[FileStorageUser], ticket, path=["response"])
+        assert_matches_type(SyncPage[TicketingUser], ticket, path=["response"])
 
     @parametrize
     def test_method_list_remote_field_classes(self, client: Merge) -> None:
@@ -165,7 +164,7 @@ class TestAsyncTickets:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         ticket = await client.ticketing.tickets.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="account",
+            expand=["account", "account", "account"],
             include_remote_data=True,
             include_remote_fields=True,
             remote_fields="priority",
@@ -200,7 +199,7 @@ class TestAsyncTickets:
             cursor="string",
             due_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             due_before=parse_datetime("2019-12-27T18:11:19.117Z"),
-            expand="account",
+            expand=["account", "account", "account"],
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,
@@ -228,19 +227,19 @@ class TestAsyncTickets:
         ticket = await client.ticketing.tickets.list_collaborators(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(AsyncPage[FileStorageUser], ticket, path=["response"])
+        assert_matches_type(AsyncPage[TicketingUser], ticket, path=["response"])
 
     @parametrize
     async def test_method_list_collaborators_with_all_params(self, client: AsyncMerge) -> None:
         ticket = await client.ticketing.tickets.list_collaborators(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             cursor="string",
-            expand="teams",
+            expand=["teams", "teams", "teams"],
             include_deleted_data=True,
             include_remote_data=True,
             page_size=0,
         )
-        assert_matches_type(AsyncPage[FileStorageUser], ticket, path=["response"])
+        assert_matches_type(AsyncPage[TicketingUser], ticket, path=["response"])
 
     @parametrize
     async def test_method_list_remote_field_classes(self, client: AsyncMerge) -> None:

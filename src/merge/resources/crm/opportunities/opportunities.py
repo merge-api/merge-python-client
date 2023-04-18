@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Union, Optional
+from typing import TYPE_CHECKING, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -83,10 +83,7 @@ class Opportunities(SyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal[
-            "account", "owner", "owner,account", "owner,stage", "owner,stage,account", "stage", "stage,account"
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account", "owner", "stage"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,
         remote_fields: Literal["status"] | NotGiven = NOT_GIVEN,
@@ -195,10 +192,7 @@ class Opportunities(SyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal[
-            "account", "owner", "owner,account", "owner,stage", "owner,stage,account", "stage", "stage,account"
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account", "owner", "stage"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,
@@ -422,10 +416,7 @@ class AsyncOpportunities(AsyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal[
-            "account", "owner", "owner,account", "owner,stage", "owner,stage,account", "stage", "stage,account"
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account", "owner", "stage"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,
         remote_fields: Literal["status"] | NotGiven = NOT_GIVEN,
@@ -534,10 +525,7 @@ class AsyncOpportunities(AsyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: Literal[
-            "account", "owner", "owner,account", "owner,stage", "owner,stage,account", "stage", "stage,account"
-        ]
-        | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account", "owner", "stage"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         include_remote_fields: bool | NotGiven = NOT_GIVEN,

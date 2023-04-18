@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["FileRetrieveParams"]
 
 
 class FileRetrieveParams(TypedDict, total=False):
-    expand: Literal["folder"]
+    expand: List[Literal["folder", "permissions"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

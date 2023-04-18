@@ -1,5 +1,7 @@
 # Merge Python API Library
 
+[![PyPI version](https://img.shields.io/pypi/v/merge.svg)](https://pypi.org/project/merge/)
+
 The Merge Python library provides convenient access to the Merge REST API from any Python 3.7+
 application. It includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
@@ -22,8 +24,6 @@ from merge import Merge
 merge = Merge(
     # defaults to os.environ.get("MERGE_API_KEY")
     api_key="my api key",
-    # defaults to "production".
-    environment="sandbox",
 )
 
 account_detail = merge.hris.account_details.retrieve()
@@ -42,8 +42,6 @@ from merge import AsyncMerge
 merge = AsyncMerge(
     # defaults to os.environ.get("MERGE_API_KEY")
     api_key="my api key",
-    # defaults to "production".
-    environment="sandbox",
 )
 
 

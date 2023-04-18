@@ -2,21 +2,14 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["LeadRetrieveParams"]
 
 
 class LeadRetrieveParams(TypedDict, total=False):
-    expand: Literal[
-        "converted_account",
-        "converted_contact",
-        "converted_contact,converted_account",
-        "owner",
-        "owner,converted_account",
-        "owner,converted_contact",
-        "owner,converted_contact,converted_account",
-    ]
+    expand: List[Literal["converted_account", "converted_contact", "owner"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

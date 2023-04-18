@@ -36,7 +36,7 @@ class TestCustomObjectClasses:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         custom_object_class = client.crm.custom_object_classes.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="fields",
+            expand=["fields", "fields", "fields"],
             include_remote_data=True,
         )
         assert_matches_type(CustomObjectClass, custom_object_class, path=["response"])
@@ -52,7 +52,7 @@ class TestCustomObjectClasses:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="fields",
+            expand=["fields", "fields", "fields"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -83,7 +83,7 @@ class TestAsyncCustomObjectClasses:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         custom_object_class = await client.crm.custom_object_classes.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="fields",
+            expand=["fields", "fields", "fields"],
             include_remote_data=True,
         )
         assert_matches_type(CustomObjectClass, custom_object_class, path=["response"])
@@ -99,7 +99,7 @@ class TestAsyncCustomObjectClasses:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="fields",
+            expand=["fields", "fields", "fields"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),

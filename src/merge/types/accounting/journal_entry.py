@@ -18,6 +18,9 @@ class Line(BaseModel):
     description: Optional[str]
     """The line's description."""
 
+    exchange_rate: Optional[str]
+    """The journal line item's exchange rate."""
+
     net_amount: Optional[float]
     """The value of the line item including taxes and other fees."""
 

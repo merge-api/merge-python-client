@@ -1318,6 +1318,8 @@ class Transaction(BaseModel):
     total_amount: Optional[str]
     """The total amount being paid after taxes."""
 
+    tracking_categories: Optional[List[Optional[str]]]
+
     transaction_date: Optional[datetime]
     """The date upon which the transaction occurred."""
 

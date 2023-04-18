@@ -12,7 +12,6 @@ from ..._resource import SyncAPIResource, AsyncAPIResource
 from ...pagination import SyncPage, AsyncPage
 from ...types.hris import Group, group_list_params, group_retrieve_params
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.file_storage import FileStorageGroup
 
 __all__ = ["Groups", "AsyncGroups"]
 
@@ -91,7 +90,7 @@ class Groups(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> SyncPage[FileStorageGroup]:
+    ) -> SyncPage[Group]:
         """
         Returns a list of `Group` objects.
 
@@ -132,7 +131,7 @@ class Groups(SyncAPIResource):
         """
         return self._get_api_list(
             "/hris/v1/groups",
-            page=SyncPage[FileStorageGroup],
+            page=SyncPage[Group],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -156,7 +155,7 @@ class Groups(SyncAPIResource):
                     group_list_params.GroupListParams,
                 ),
             ),
-            model=FileStorageGroup,
+            model=Group,
         )
 
 
@@ -234,7 +233,7 @@ class AsyncGroups(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[FileStorageGroup, AsyncPage[FileStorageGroup]]:
+    ) -> AsyncPaginator[Group, AsyncPage[Group]]:
         """
         Returns a list of `Group` objects.
 
@@ -275,7 +274,7 @@ class AsyncGroups(AsyncAPIResource):
         """
         return self._get_api_list(
             "/hris/v1/groups",
-            page=AsyncPage[FileStorageGroup],
+            page=AsyncPage[Group],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -299,5 +298,5 @@ class AsyncGroups(AsyncAPIResource):
                     group_list_params.GroupListParams,
                 ),
             ),
-            model=FileStorageGroup,
+            model=Group,
         )

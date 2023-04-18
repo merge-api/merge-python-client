@@ -19,7 +19,6 @@ from ...types.crm import (
 )
 from ...pagination import SyncPage, AsyncPage
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.file_storage import FileStorageUser
 
 __all__ = ["Users", "AsyncUsers"]
 
@@ -93,7 +92,7 @@ class Users(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> SyncPage[FileStorageUser]:
+    ) -> SyncPage[CrmUser]:
         """
         Returns a list of `User` objects.
 
@@ -130,7 +129,7 @@ class Users(SyncAPIResource):
         """
         return self._get_api_list(
             "/crm/v1/users",
-            page=SyncPage[FileStorageUser],
+            page=SyncPage[CrmUser],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -152,7 +151,7 @@ class Users(SyncAPIResource):
                     user_list_params.UserListParams,
                 ),
             ),
-            model=FileStorageUser,
+            model=CrmUser,
         )
 
     def ignore_row(
@@ -334,7 +333,7 @@ class AsyncUsers(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[FileStorageUser, AsyncPage[FileStorageUser]]:
+    ) -> AsyncPaginator[CrmUser, AsyncPage[CrmUser]]:
         """
         Returns a list of `User` objects.
 
@@ -371,7 +370,7 @@ class AsyncUsers(AsyncAPIResource):
         """
         return self._get_api_list(
             "/crm/v1/users",
-            page=AsyncPage[FileStorageUser],
+            page=AsyncPage[CrmUser],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -393,7 +392,7 @@ class AsyncUsers(AsyncAPIResource):
                     user_list_params.UserListParams,
                 ),
             ),
-            model=FileStorageUser,
+            model=CrmUser,
         )
 
     async def ignore_row(

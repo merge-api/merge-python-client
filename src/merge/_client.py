@@ -3,8 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Dict, Union, Mapping, Optional
-from typing_extensions import Literal
+from typing import Union, Mapping, Optional
 
 import httpx
 
@@ -26,7 +25,6 @@ from ._base_client import AsyncStream as AsyncStream
 from ._base_client import SyncAPIClient, AsyncAPIClient
 
 __all__ = [
-    "ENVIRONMENTS",
     "Timeout",
     "Transport",
     "ProxiesTypes",
@@ -37,11 +35,6 @@ __all__ = [
     "Client",
     "AsyncClient",
 ]
-
-ENVIRONMENTS: Dict[str, str] = {
-    "production": "https://api.merge.dev/api",
-    "sandbox": "https://api-sandbox.merge.dev/api",
-}
 
 
 class Merge(SyncAPIClient):
@@ -57,13 +50,10 @@ class Merge(SyncAPIClient):
     api_key: str
     account_token: str | None
 
-    _environment: Literal["production", "sandbox"]
-
     def __init__(
         self,
         *,
         account_token: str | None = None,
-        environment: Literal["production", "sandbox"] = "production",
         base_url: Optional[str] = None,
         api_key: Optional[str] = None,
         timeout: Union[float, Timeout, None] = DEFAULT_TIMEOUT,
@@ -96,13 +86,8 @@ class Merge(SyncAPIClient):
                 "The api_key client option must be set either by passing api_key to the client or by setting the MERGE_API_KEY environment variable"
             )
 
-        self._environment = environment
-
         if base_url is None:
-            try:
-                base_url = ENVIRONMENTS[environment]
-            except KeyError as exc:
-                raise ValueError(f"Unknown environment: {environment}") from exc
+            base_url = "https://api.merge.dev/api"
 
         super().__init__(
             version=__version__,
@@ -151,7 +136,6 @@ class Merge(SyncAPIClient):
         *,
         account_token: str | None = None,
         api_key: str | None = None,
-        environment: Literal["production", "sandbox"] | None = None,
         base_url: str | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         connection_pool_limits: httpx.Limits | NotGiven = NOT_GIVEN,
@@ -189,7 +173,6 @@ class Merge(SyncAPIClient):
         return self.__class__(
             account_token=account_token or self.account_token,
             base_url=base_url or str(self.base_url),
-            environment=environment or self._environment,
             api_key=api_key or self.api_key,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             connection_pool_limits=self._limits
@@ -218,13 +201,10 @@ class AsyncMerge(AsyncAPIClient):
     api_key: str
     account_token: str | None
 
-    _environment: Literal["production", "sandbox"]
-
     def __init__(
         self,
         *,
         account_token: str | None = None,
-        environment: Literal["production", "sandbox"] = "production",
         base_url: Optional[str] = None,
         api_key: Optional[str] = None,
         timeout: Union[float, Timeout, None] = DEFAULT_TIMEOUT,
@@ -257,13 +237,8 @@ class AsyncMerge(AsyncAPIClient):
                 "The api_key client option must be set either by passing api_key to the client or by setting the MERGE_API_KEY environment variable"
             )
 
-        self._environment = environment
-
         if base_url is None:
-            try:
-                base_url = ENVIRONMENTS[environment]
-            except KeyError as exc:
-                raise ValueError(f"Unknown environment: {environment}") from exc
+            base_url = "https://api.merge.dev/api"
 
         super().__init__(
             version=__version__,
@@ -312,7 +287,6 @@ class AsyncMerge(AsyncAPIClient):
         *,
         account_token: str | None = None,
         api_key: str | None = None,
-        environment: Literal["production", "sandbox"] | None = None,
         base_url: str | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         connection_pool_limits: httpx.Limits | NotGiven = NOT_GIVEN,
@@ -350,7 +324,6 @@ class AsyncMerge(AsyncAPIClient):
         return self.__class__(
             account_token=account_token or self.account_token,
             base_url=base_url or str(self.base_url),
-            environment=environment or self._environment,
             api_key=api_key or self.api_key,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             connection_pool_limits=self._limits

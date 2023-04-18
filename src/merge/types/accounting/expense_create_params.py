@@ -24,6 +24,9 @@ class ModelLine(TypedDict, total=False):
     description: Optional[str]
     """The description of the item that was purchased by the company."""
 
+    exchange_rate: Optional[str]
+    """The expense line item's exchange rate."""
+
     integration_params: Optional[object]
 
     item: Optional[str]

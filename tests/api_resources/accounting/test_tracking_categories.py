@@ -36,7 +36,7 @@ class TestTrackingCategories:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         tracking_category = client.accounting.tracking_categories.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="company",
+            expand=["company", "company", "company"],
             include_remote_data=True,
             remote_fields="status",
             show_enum_origins="status",
@@ -55,7 +55,7 @@ class TestTrackingCategories:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="company",
+            expand=["company", "company", "company"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -88,7 +88,7 @@ class TestAsyncTrackingCategories:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         tracking_category = await client.accounting.tracking_categories.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="company",
+            expand=["company", "company", "company"],
             include_remote_data=True,
             remote_fields="status",
             show_enum_origins="status",
@@ -107,7 +107,7 @@ class TestAsyncTrackingCategories:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="company",
+            expand=["company", "company", "company"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),

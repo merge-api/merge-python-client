@@ -19,6 +19,9 @@ class ModelLine(TypedDict, total=False):
     description: Optional[str]
     """The line's description."""
 
+    exchange_rate: Optional[str]
+    """The journal line item's exchange rate."""
+
     integration_params: Optional[object]
 
     linked_account_params: Optional[object]

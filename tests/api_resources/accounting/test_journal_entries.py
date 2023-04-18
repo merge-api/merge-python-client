@@ -43,7 +43,7 @@ class TestJournalEntries:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         journal_entry = client.accounting.journal_entries.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="company",
+            expand=["company", "company", "company"],
             include_remote_data=True,
         )
         assert_matches_type(JournalEntry, journal_entry, path=["response"])
@@ -60,7 +60,7 @@ class TestJournalEntries:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="company",
+            expand=["company", "company", "company"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -100,7 +100,7 @@ class TestAsyncJournalEntries:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         journal_entry = await client.accounting.journal_entries.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="company",
+            expand=["company", "company", "company"],
             include_remote_data=True,
         )
         assert_matches_type(JournalEntry, journal_entry, path=["response"])
@@ -117,7 +117,7 @@ class TestAsyncJournalEntries:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="company",
+            expand=["company", "company", "company"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),

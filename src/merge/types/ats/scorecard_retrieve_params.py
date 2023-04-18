@@ -2,21 +2,14 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["ScorecardRetrieveParams"]
 
 
 class ScorecardRetrieveParams(TypedDict, total=False):
-    expand: Literal[
-        "application",
-        "application,interview",
-        "application,interview,interviewer",
-        "application,interviewer",
-        "interview",
-        "interview,interviewer",
-        "interviewer",
-    ]
+    expand: List[Literal["application", "interview", "interviewer"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

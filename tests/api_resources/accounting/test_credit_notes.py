@@ -36,7 +36,7 @@ class TestCreditNotes:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         credit_note = client.accounting.credit_notes.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="line_items",
+            expand=["line_items", "line_items", "line_items"],
             include_remote_data=True,
             remote_fields="status",
             show_enum_origins="status",
@@ -55,7 +55,7 @@ class TestCreditNotes:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="line_items",
+            expand=["line_items", "line_items", "line_items"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -90,7 +90,7 @@ class TestAsyncCreditNotes:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         credit_note = await client.accounting.credit_notes.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="line_items",
+            expand=["line_items", "line_items", "line_items"],
             include_remote_data=True,
             remote_fields="status",
             show_enum_origins="status",
@@ -109,7 +109,7 @@ class TestAsyncCreditNotes:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="line_items",
+            expand=["line_items", "line_items", "line_items"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),

@@ -10,8 +10,7 @@ from merge import Merge, AsyncMerge
 from tests.utils import assert_matches_type
 from merge._utils import parse_datetime
 from merge.pagination import SyncPage, AsyncPage
-from merge.types.ticketing import Collection
-from merge.types.file_storage import FileStorageUser
+from merge.types.ticketing import Collection, TicketingUser
 
 base_url = os.environ.get("API_BASE_URL", "http://127.0.0.1:4010")
 api_key = os.environ.get("API_KEY", "something1234")
@@ -37,7 +36,7 @@ class TestCollections:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         collection = client.ticketing.collections.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="parent_collection",
+            expand=["parent_collection", "parent_collection", "parent_collection"],
             include_remote_data=True,
             remote_fields="collection_type",
             show_enum_origins="collection_type",
@@ -56,7 +55,7 @@ class TestCollections:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="parent_collection",
+            expand=["parent_collection", "parent_collection", "parent_collection"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -74,19 +73,19 @@ class TestCollections:
         collection = client.ticketing.collections.list_users(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(SyncPage[FileStorageUser], collection, path=["response"])
+        assert_matches_type(SyncPage[TicketingUser], collection, path=["response"])
 
     @parametrize
     def test_method_list_users_with_all_params(self, client: Merge) -> None:
         collection = client.ticketing.collections.list_users(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             cursor="string",
-            expand="teams",
+            expand=["teams", "teams", "teams"],
             include_deleted_data=True,
             include_remote_data=True,
             page_size=0,
         )
-        assert_matches_type(SyncPage[FileStorageUser], collection, path=["response"])
+        assert_matches_type(SyncPage[TicketingUser], collection, path=["response"])
 
 
 class TestAsyncCollections:
@@ -109,7 +108,7 @@ class TestAsyncCollections:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         collection = await client.ticketing.collections.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="parent_collection",
+            expand=["parent_collection", "parent_collection", "parent_collection"],
             include_remote_data=True,
             remote_fields="collection_type",
             show_enum_origins="collection_type",
@@ -128,7 +127,7 @@ class TestAsyncCollections:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="parent_collection",
+            expand=["parent_collection", "parent_collection", "parent_collection"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -146,16 +145,16 @@ class TestAsyncCollections:
         collection = await client.ticketing.collections.list_users(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(AsyncPage[FileStorageUser], collection, path=["response"])
+        assert_matches_type(AsyncPage[TicketingUser], collection, path=["response"])
 
     @parametrize
     async def test_method_list_users_with_all_params(self, client: AsyncMerge) -> None:
         collection = await client.ticketing.collections.list_users(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             cursor="string",
-            expand="teams",
+            expand=["teams", "teams", "teams"],
             include_deleted_data=True,
             include_remote_data=True,
             page_size=0,
         )
-        assert_matches_type(AsyncPage[FileStorageUser], collection, path=["response"])
+        assert_matches_type(AsyncPage[TicketingUser], collection, path=["response"])

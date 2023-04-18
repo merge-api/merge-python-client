@@ -43,7 +43,7 @@ class TestComments:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         comment = client.ticketing.comments.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="contact",
+            expand=["contact", "contact", "contact"],
             include_remote_data=True,
         )
         assert_matches_type(Comment, comment, path=["response"])
@@ -59,7 +59,7 @@ class TestComments:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="contact",
+            expand=["contact", "contact", "contact"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -98,7 +98,7 @@ class TestAsyncComments:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         comment = await client.ticketing.comments.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="contact",
+            expand=["contact", "contact", "contact"],
             include_remote_data=True,
         )
         assert_matches_type(Comment, comment, path=["response"])
@@ -114,7 +114,7 @@ class TestAsyncComments:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="contact",
+            expand=["contact", "contact", "contact"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),

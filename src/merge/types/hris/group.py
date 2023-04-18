@@ -28,10 +28,11 @@ class Group(BaseModel):
     remote_was_deleted: Optional[bool]
     """Indicates whether or not this object has been deleted by third party webhooks."""
 
-    type: Optional[Literal["TEAM", "DEPARTMENT", "COST_CENTER", "BUSINESS_UNIT"]]
+    type: Optional[Literal["TEAM", "DEPARTMENT", "COST_CENTER", "BUSINESS_UNIT", "GROUP"]]
     """
     - `TEAM` - TEAM
     - `DEPARTMENT` - DEPARTMENT
     - `COST_CENTER` - COST_CENTER
     - `BUSINESS_UNIT` - BUSINESS_UNIT
+    - `GROUP` - GROUP
     """

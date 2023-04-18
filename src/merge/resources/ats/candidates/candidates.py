@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Union, Optional
+from typing import TYPE_CHECKING, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -91,7 +91,7 @@ class Candidates(SyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal["applications", "applications,attachments", "attachments"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["applications", "attachments"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -143,7 +143,7 @@ class Candidates(SyncAPIResource):
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
         email_addresses: str | NotGiven = NOT_GIVEN,
-        expand: Literal["applications", "applications,attachments", "attachments"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["applications", "attachments"]] | NotGiven = NOT_GIVEN,
         first_name: Optional[str] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
@@ -347,7 +347,7 @@ class AsyncCandidates(AsyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal["applications", "applications,attachments", "attachments"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["applications", "attachments"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -399,7 +399,7 @@ class AsyncCandidates(AsyncAPIResource):
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
         email_addresses: str | NotGiven = NOT_GIVEN,
-        expand: Literal["applications", "applications,attachments", "attachments"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["applications", "attachments"]] | NotGiven = NOT_GIVEN,
         first_name: Optional[str] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,

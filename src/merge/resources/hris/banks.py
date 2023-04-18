@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -21,7 +21,7 @@ class Banks(SyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal["employee"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["employee"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         remote_fields: Literal["account_type"] | NotGiven = NOT_GIVEN,
         show_enum_origins: Literal["account_type"] | NotGiven = NOT_GIVEN,
@@ -83,7 +83,7 @@ class Banks(SyncAPIResource):
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
         employee_id: str | NotGiven = NOT_GIVEN,
-        expand: Literal["employee"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["employee"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -190,7 +190,7 @@ class AsyncBanks(AsyncAPIResource):
         self,
         id: str,
         *,
-        expand: Literal["employee"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["employee"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         remote_fields: Literal["account_type"] | NotGiven = NOT_GIVEN,
         show_enum_origins: Literal["account_type"] | NotGiven = NOT_GIVEN,
@@ -252,7 +252,7 @@ class AsyncBanks(AsyncAPIResource):
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
         employee_id: str | NotGiven = NOT_GIVEN,
-        expand: Literal["employee"] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["employee"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypedDict
 
@@ -30,7 +30,7 @@ class EmployeePayrollRunListParams(TypedDict, total=False):
     ended_before: Annotated[Optional[Union[str, datetime]], PropertyInfo(format="iso8601")]
     """If provided, will only return employee payroll runs ended before this datetime."""
 
-    expand: Literal["employee", "employee,payroll_run", "payroll_run"]
+    expand: List[Literal["employee", "payroll_run"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

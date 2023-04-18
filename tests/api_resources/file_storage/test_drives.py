@@ -55,6 +55,7 @@ class TestDrives:
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             modified_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            name="string",
             page_size=0,
             remote_id="string",
         )
@@ -100,6 +101,7 @@ class TestAsyncDrives:
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             modified_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            name="string",
             page_size=0,
             remote_id="string",
         )

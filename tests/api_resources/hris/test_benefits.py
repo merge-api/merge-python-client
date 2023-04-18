@@ -36,7 +36,7 @@ class TestBenefits:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         benefit = client.hris.benefits.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="employee",
+            expand=["employee", "employee", "employee"],
             include_remote_data=True,
         )
         assert_matches_type(Benefit, benefit, path=["response"])
@@ -53,7 +53,7 @@ class TestBenefits:
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
             employee_id="string",
-            expand="employee",
+            expand=["employee", "employee", "employee"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -84,7 +84,7 @@ class TestAsyncBenefits:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         benefit = await client.hris.benefits.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="employee",
+            expand=["employee", "employee", "employee"],
             include_remote_data=True,
         )
         assert_matches_type(Benefit, benefit, path=["response"])
@@ -101,7 +101,7 @@ class TestAsyncBenefits:
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
             employee_id="string",
-            expand="employee",
+            expand=["employee", "employee", "employee"],
             include_deleted_data=True,
             include_remote_data=True,
             modified_after=parse_datetime("2019-12-27T18:11:19.117Z"),

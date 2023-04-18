@@ -44,7 +44,7 @@ class TestLeads:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         lead = client.crm.leads.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="converted_account",
+            expand=["converted_account", "converted_account", "converted_account"],
             include_remote_data=True,
             include_remote_fields=True,
         )
@@ -63,7 +63,7 @@ class TestLeads:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="converted_account",
+            expand=["converted_account", "converted_account", "converted_account"],
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,
@@ -119,7 +119,7 @@ class TestAsyncLeads:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         lead = await client.crm.leads.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand="converted_account",
+            expand=["converted_account", "converted_account", "converted_account"],
             include_remote_data=True,
             include_remote_fields=True,
         )
@@ -138,7 +138,7 @@ class TestAsyncLeads:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand="converted_account",
+            expand=["converted_account", "converted_account", "converted_account"],
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,

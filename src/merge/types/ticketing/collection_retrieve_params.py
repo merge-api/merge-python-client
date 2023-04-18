@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["CollectionRetrieveParams"]
 
 
 class CollectionRetrieveParams(TypedDict, total=False):
-    expand: Literal["parent_collection"]
+    expand: List[Literal["parent_collection"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypedDict
 
@@ -27,7 +27,7 @@ class CandidateListParams(TypedDict, total=False):
     addresses can be separated by commas.
     """
 
-    expand: Literal["applications", "applications,attachments", "attachments"]
+    expand: List[Literal["applications", "attachments"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.
