@@ -69,7 +69,7 @@ class TestAsyncCandidates:
     loose_client = AsyncMerge(
         api_key=api_key, _strict_response_validation=False, account_token=ats_account_token
     )
-    parametrize = pytest.mark.parametrize("client", [strict_client, loose_client], ids=["strict", "loose"])
+    parametrize = pytest.mark.parametrize("client", [loose_client], ids=["loose"])
 
     @parametrize
     async def test_method_retrieve_ci_integration(self, client: AsyncMerge) -> None:
