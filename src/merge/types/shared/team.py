@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import List, Optional
+from datetime import datetime
 
 from ..._models import BaseModel
 from .remote_data import RemoteData
@@ -17,6 +18,9 @@ class Team(BaseModel):
     field_mappings: Optional[object]
 
     id: Optional[str]
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     name: Optional[str]
     """The team's name."""

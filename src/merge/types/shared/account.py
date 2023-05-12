@@ -15,6 +15,9 @@ __all__ = ["Account", "PhoneNumber", "RemoteField"]
 
 
 class PhoneNumber(BaseModel):
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     phone_number: Optional[str]
     """The phone number."""
 
@@ -695,6 +698,9 @@ class Account(BaseModel):
     The last date (either most recent or furthest in the future) of when an activity
     occurs in an account.
     """
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     name: Optional[str]
     """The account's name."""

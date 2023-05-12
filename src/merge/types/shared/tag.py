@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional
+from typing import List, Optional
+from datetime import datetime
 
 from ..._models import BaseModel
+from .remote_data import RemoteData
 
 __all__ = ["Tag"]
 
@@ -12,10 +14,13 @@ __all__ = ["Tag"]
 class Tag(BaseModel):
     field_mappings: Optional[object]
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     name: Optional[str]
     """The tag's name."""
 
-    remote_data: Optional[List[Optional[Dict[str, object]]]]
+    remote_data: Optional[List[RemoteData]]
 
     remote_id: Optional[str]
     """The third-party API ID of the matching object."""

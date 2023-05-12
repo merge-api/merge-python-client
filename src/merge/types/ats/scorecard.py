@@ -24,6 +24,9 @@ class Scorecard(BaseModel):
     interviewer: Optional[str]
     """The interviewer doing the scoring."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     overall_recommendation: Optional[Literal["DEFINITELY_NO", "NO", "YES", "STRONG_YES", "NO_DECISION"]]
     """
     - `DEFINITELY_NO` - DEFINITELY_NO

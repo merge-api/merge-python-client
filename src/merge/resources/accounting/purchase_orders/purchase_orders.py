@@ -81,7 +81,8 @@ class PurchaseOrders(SyncAPIResource):
         self,
         id: str,
         *,
-        expand: List[Literal["company", "delivery_address", "line_items", "vendor"]] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company", "delivery_address", "line_items", "tracking_categories", "vendor"]]
+        | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         remote_fields: Literal["status"] | NotGiven = NOT_GIVEN,
         show_enum_origins: Literal["status"] | NotGiven = NOT_GIVEN,
@@ -141,7 +142,8 @@ class PurchaseOrders(SyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: List[Literal["company", "delivery_address", "line_items", "vendor"]] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company", "delivery_address", "line_items", "tracking_categories", "vendor"]]
+        | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         issue_date_after: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
@@ -183,9 +185,10 @@ class PurchaseOrders(SyncAPIResource):
 
           issue_date_before: If provided, will only return objects created before this datetime.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -291,7 +294,8 @@ class AsyncPurchaseOrders(AsyncAPIResource):
         self,
         id: str,
         *,
-        expand: List[Literal["company", "delivery_address", "line_items", "vendor"]] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company", "delivery_address", "line_items", "tracking_categories", "vendor"]]
+        | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         remote_fields: Literal["status"] | NotGiven = NOT_GIVEN,
         show_enum_origins: Literal["status"] | NotGiven = NOT_GIVEN,
@@ -351,7 +355,8 @@ class AsyncPurchaseOrders(AsyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: List[Literal["company", "delivery_address", "line_items", "vendor"]] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company", "delivery_address", "line_items", "tracking_categories", "vendor"]]
+        | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         issue_date_after: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
@@ -393,9 +398,10 @@ class AsyncPurchaseOrders(AsyncAPIResource):
 
           issue_date_before: If provided, will only return objects created before this datetime.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 

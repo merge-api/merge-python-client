@@ -646,6 +646,9 @@ class Payment(BaseModel):
 
     id: Optional[str]
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     remote_data: Optional[List[shared.RemoteData]]
 
     remote_id: Optional[str]
@@ -659,6 +662,8 @@ class Payment(BaseModel):
 
     total_amount: Optional[float]
     """The total amount of money being paid to the supplier, or customer, after taxes."""
+
+    tracking_categories: Optional[List[Optional[str]]]
 
     transaction_date: Optional[datetime]
     """The payment's transaction date."""

@@ -38,6 +38,9 @@ class RemoteUser(BaseModel):
     last_name: Optional[str]
     """The user's last name."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     remote_created_at: Optional[datetime]
     """When the third party's user was created."""
 

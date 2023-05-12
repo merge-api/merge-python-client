@@ -12,7 +12,7 @@ from ..._resource import SyncAPIResource, AsyncAPIResource
 from ...pagination import SyncPage, AsyncPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.marketing import (
-    MarketingEmail,
+    Email,
     email_list_params,
     email_retrieve_params,
     email_list_recipients_params,
@@ -33,7 +33,7 @@ class Emails(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> MarketingEmail:
+    ) -> Email:
         """
         Returns a `MarketingEmail` object with the given `id`.
 
@@ -60,7 +60,7 @@ class Emails(SyncAPIResource):
                     {"include_remote_data": include_remote_data}, email_retrieve_params.EmailRetrieveParams
                 ),
             ),
-            cast_to=MarketingEmail,
+            cast_to=Email,
         )
 
     def list(
@@ -81,7 +81,7 @@ class Emails(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> SyncPage[MarketingEmail]:
+    ) -> SyncPage[Email]:
         """
         Returns a list of `MarketingEmail` objects.
 
@@ -97,9 +97,10 @@ class Emails(SyncAPIResource):
           include_remote_data: Whether to include the original data Merge fetched from the third-party to
               produce these models.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -115,7 +116,7 @@ class Emails(SyncAPIResource):
         """
         return self._get_api_list(
             "/mktg/v1/emails",
-            page=SyncPage[MarketingEmail],
+            page=SyncPage[Email],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -136,7 +137,7 @@ class Emails(SyncAPIResource):
                     email_list_params.EmailListParams,
                 ),
             ),
-            model=MarketingEmail,
+            model=Email,
         )
 
     def list_recipients(
@@ -209,7 +210,7 @@ class AsyncEmails(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> MarketingEmail:
+    ) -> Email:
         """
         Returns a `MarketingEmail` object with the given `id`.
 
@@ -236,7 +237,7 @@ class AsyncEmails(AsyncAPIResource):
                     {"include_remote_data": include_remote_data}, email_retrieve_params.EmailRetrieveParams
                 ),
             ),
-            cast_to=MarketingEmail,
+            cast_to=Email,
         )
 
     def list(
@@ -257,7 +258,7 @@ class AsyncEmails(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[MarketingEmail, AsyncPage[MarketingEmail]]:
+    ) -> AsyncPaginator[Email, AsyncPage[Email]]:
         """
         Returns a list of `MarketingEmail` objects.
 
@@ -273,9 +274,10 @@ class AsyncEmails(AsyncAPIResource):
           include_remote_data: Whether to include the original data Merge fetched from the third-party to
               produce these models.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -291,7 +293,7 @@ class AsyncEmails(AsyncAPIResource):
         """
         return self._get_api_list(
             "/mktg/v1/emails",
-            page=AsyncPage[MarketingEmail],
+            page=AsyncPage[Email],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -312,7 +314,7 @@ class AsyncEmails(AsyncAPIResource):
                     email_list_params.EmailListParams,
                 ),
             ),
-            model=MarketingEmail,
+            model=Email,
         )
 
     def list_recipients(

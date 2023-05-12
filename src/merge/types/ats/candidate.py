@@ -11,6 +11,9 @@ __all__ = ["Candidate", "PhoneNumber", "EmailAddress", "URL"]
 
 
 class PhoneNumber(BaseModel):
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     phone_number: Optional[str]
     """The phone number."""
 
@@ -38,11 +41,17 @@ class EmailAddress(BaseModel):
     - `OTHER` - OTHER
     """
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     value: Optional[str]
     """The email address."""
 
 
 class URL(BaseModel):
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     url_type: Optional[Literal["PERSONAL", "COMPANY", "PORTFOLIO", "BLOG", "SOCIAL_MEDIA", "OTHER", "JOB_POSTING"]]
     """
     - `PERSONAL` - PERSONAL
@@ -91,6 +100,9 @@ class Candidate(BaseModel):
 
     locations: Optional[List[Optional[str]]]
     """The candidate's locations."""
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     phone_numbers: Optional[List[PhoneNumber]]
 

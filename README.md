@@ -1,5 +1,7 @@
 # Merge Python API Library
 
+[![PyPI version](https://img.shields.io/pypi/v/MergePythonClient.svg)](https://pypi.org/project/MergePythonClient/)
+
 The Merge Python library provides convenient access to the Merge REST API from any Python 3.7+
 application. It includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
@@ -11,7 +13,7 @@ The API documentation can be found [here](https://docs.merge.dev).
 ## Installation
 
 ```sh
-pip install merge
+pip install MergePythonClient
 ```
 
 ## Usage
@@ -126,7 +128,7 @@ for sync_status in first_page.results:
 
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
 
-```py
+```python
 from merge import Merge
 
 merge = Merge()

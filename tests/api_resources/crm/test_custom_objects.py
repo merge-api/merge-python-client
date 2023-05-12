@@ -9,7 +9,7 @@ import pytest
 from merge import Merge, AsyncMerge
 from tests.utils import assert_matches_type
 from merge._utils import parse_datetime
-from merge.types.crm import CustomObject, CrmCustomObjectResponse
+from merge.types.crm import CustomObject, CustomObjectResponse
 from merge.pagination import SyncPage, AsyncPage
 
 base_url = os.environ.get("API_BASE_URL", "http://127.0.0.1:4010")
@@ -31,7 +31,7 @@ class TestCustomObjects:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             model={"fields": {"test_field": "hello"}},
         )
-        assert_matches_type(CrmCustomObjectResponse, custom_object, path=["response"])
+        assert_matches_type(CustomObjectResponse, custom_object, path=["response"])
 
     @parametrize
     def test_method_retrieve(self, client: Merge) -> None:
@@ -58,7 +58,7 @@ class TestCustomObjects:
             custom_object_class_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             model={"fields": {"test_field": "hello"}},
         )
-        assert_matches_type(CrmCustomObjectResponse, custom_object, path=["response"])
+        assert_matches_type(CustomObjectResponse, custom_object, path=["response"])
 
     @parametrize
     def test_method_list(self, client: Merge) -> None:
@@ -100,7 +100,7 @@ class TestAsyncCustomObjects:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             model={"fields": {"test_field": "hello"}},
         )
-        assert_matches_type(CrmCustomObjectResponse, custom_object, path=["response"])
+        assert_matches_type(CustomObjectResponse, custom_object, path=["response"])
 
     @parametrize
     async def test_method_retrieve(self, client: AsyncMerge) -> None:
@@ -127,7 +127,7 @@ class TestAsyncCustomObjects:
             custom_object_class_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             model={"fields": {"test_field": "hello"}},
         )
-        assert_matches_type(CrmCustomObjectResponse, custom_object, path=["response"])
+        assert_matches_type(CustomObjectResponse, custom_object, path=["response"])
 
     @parametrize
     async def test_method_list(self, client: AsyncMerge) -> None:

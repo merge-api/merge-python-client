@@ -42,7 +42,7 @@ class Merge(SyncAPIClient):
     ats: resources.ATS
     accounting: resources.Accounting
     ticketing: resources.Ticketing
-    crm: resources.Crm
+    crm: resources.CRM
     marketing: resources.Marketing
     file_storage: resources.FileStorage
 
@@ -110,7 +110,7 @@ class Merge(SyncAPIClient):
         self.ats = resources.ATS(self)
         self.accounting = resources.Accounting(self)
         self.ticketing = resources.Ticketing(self)
-        self.crm = resources.Crm(self)
+        self.crm = resources.CRM(self)
         self.marketing = resources.Marketing(self)
         self.file_storage = resources.FileStorage(self)
 
@@ -193,7 +193,7 @@ class AsyncMerge(AsyncAPIClient):
     ats: resources.AsyncATS
     accounting: resources.AsyncAccounting
     ticketing: resources.AsyncTicketing
-    crm: resources.AsyncCrm
+    crm: resources.AsyncCRM
     marketing: resources.AsyncMarketing
     file_storage: resources.AsyncFileStorage
 
@@ -261,7 +261,7 @@ class AsyncMerge(AsyncAPIClient):
         self.ats = resources.AsyncATS(self)
         self.accounting = resources.AsyncAccounting(self)
         self.ticketing = resources.AsyncTicketing(self)
-        self.crm = resources.AsyncCrm(self)
+        self.crm = resources.AsyncCRM(self)
         self.marketing = resources.AsyncMarketing(self)
         self.file_storage = resources.AsyncFileStorage(self)
 

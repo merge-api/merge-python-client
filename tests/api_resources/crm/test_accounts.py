@@ -10,7 +10,7 @@ from merge import Merge, AsyncMerge
 from merge.types import shared
 from tests.utils import assert_matches_type
 from merge._utils import parse_datetime
-from merge.types.crm import CrmAccountResponse
+from merge.types.crm import AccountResponse
 from merge.pagination import SyncPage, AsyncPage
 
 base_url = os.environ.get("API_BASE_URL", "http://127.0.0.1:4010")
@@ -31,7 +31,7 @@ class TestAccounts:
         account = client.crm.accounts.create(
             model={},
         )
-        assert_matches_type(CrmAccountResponse, account, path=["response"])
+        assert_matches_type(AccountResponse, account, path=["response"])
 
     @parametrize
     def test_method_retrieve(self, client: Merge) -> None:
@@ -56,7 +56,7 @@ class TestAccounts:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             model={},
         )
-        assert_matches_type(CrmAccountResponse, account, path=["response"])
+        assert_matches_type(AccountResponse, account, path=["response"])
 
     @parametrize
     def test_method_list(self, client: Merge) -> None:
@@ -112,7 +112,7 @@ class TestAsyncAccounts:
         account = await client.crm.accounts.create(
             model={},
         )
-        assert_matches_type(CrmAccountResponse, account, path=["response"])
+        assert_matches_type(AccountResponse, account, path=["response"])
 
     @parametrize
     async def test_method_retrieve(self, client: AsyncMerge) -> None:
@@ -137,7 +137,7 @@ class TestAsyncAccounts:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             model={},
         )
-        assert_matches_type(CrmAccountResponse, account, path=["response"])
+        assert_matches_type(AccountResponse, account, path=["response"])
 
     @parametrize
     async def test_method_list(self, client: AsyncMerge) -> None:

@@ -21,11 +21,17 @@ class EmailAddress(BaseModel):
     - `OTHER` - OTHER
     """
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     value: Optional[str]
     """The email address."""
 
 
 class PhoneNumber(BaseModel):
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     phone_number: Optional[str]
     """The phone number."""
 
@@ -77,6 +83,9 @@ class Lead(BaseModel):
 
     lead_source: Optional[str]
     """The lead's source."""
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     owner: Optional[str]
     """The lead's owner."""

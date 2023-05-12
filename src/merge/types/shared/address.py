@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 from typing import Optional
+from datetime import datetime
 from typing_extensions import Literal
+
+from pydantic import Field as FieldInfo
 
 from .country import Country
 from ..._models import BaseModel
@@ -277,16 +280,19 @@ class Address(BaseModel):
     country_subdivision: Optional[str]
     """The address's state or region."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     postal_code: Optional[str]
     """The address's postal code."""
 
     state: Optional[str]
     """The address's state."""
 
-    street_1: Optional[str]
+    street1: Optional[str] = FieldInfo(alias="street_1")
     """Line 1 of the address's street."""
 
-    street_2: Optional[str]
+    street2: Optional[str] = FieldInfo(alias="street_2")
     """Line 2 of the address's street."""
 
     type: Optional[Literal["BILLING", "SHIPPING"]]

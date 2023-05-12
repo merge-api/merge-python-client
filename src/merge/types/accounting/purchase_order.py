@@ -647,6 +647,9 @@ class LineItem(BaseModel):
 
     item: Optional[str]
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     quantity: Optional[float]
     """The line item's quantity."""
 
@@ -1313,6 +1316,9 @@ class PurchaseOrder(BaseModel):
     memo: Optional[str]
     """A memo attached to the purchase order."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     remote_created_at: Optional[datetime]
     """When the third party's purchase order note was created."""
 
@@ -1338,6 +1344,8 @@ class PurchaseOrder(BaseModel):
 
     total_amount: Optional[float]
     """The purchase order's total amount."""
+
+    tracking_categories: Optional[List[Optional[str]]]
 
     vendor: Optional[str]
     """The party fulfilling the purchase order."""

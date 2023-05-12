@@ -10,7 +10,7 @@ from merge import Merge, AsyncMerge
 from tests.utils import assert_matches_type
 from merge._utils import parse_datetime
 from merge.pagination import SyncPage, AsyncPage
-from merge.types.ticketing import Collection, TicketingUser
+from merge.types.ticketing import User, Collection
 
 base_url = os.environ.get("API_BASE_URL", "http://127.0.0.1:4010")
 api_key = os.environ.get("API_KEY", "something1234")
@@ -73,7 +73,7 @@ class TestCollections:
         collection = client.ticketing.collections.list_users(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(SyncPage[TicketingUser], collection, path=["response"])
+        assert_matches_type(SyncPage[User], collection, path=["response"])
 
     @parametrize
     def test_method_list_users_with_all_params(self, client: Merge) -> None:
@@ -85,7 +85,7 @@ class TestCollections:
             include_remote_data=True,
             page_size=0,
         )
-        assert_matches_type(SyncPage[TicketingUser], collection, path=["response"])
+        assert_matches_type(SyncPage[User], collection, path=["response"])
 
 
 class TestAsyncCollections:
@@ -145,7 +145,7 @@ class TestAsyncCollections:
         collection = await client.ticketing.collections.list_users(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(AsyncPage[TicketingUser], collection, path=["response"])
+        assert_matches_type(AsyncPage[User], collection, path=["response"])
 
     @parametrize
     async def test_method_list_users_with_all_params(self, client: AsyncMerge) -> None:
@@ -157,4 +157,4 @@ class TestAsyncCollections:
             include_remote_data=True,
             page_size=0,
         )
-        assert_matches_type(AsyncPage[TicketingUser], collection, path=["response"])
+        assert_matches_type(AsyncPage[User], collection, path=["response"])

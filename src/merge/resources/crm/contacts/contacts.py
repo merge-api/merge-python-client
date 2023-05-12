@@ -8,11 +8,11 @@ from typing_extensions import Literal
 
 from .meta import Meta, AsyncMeta
 from ....types import shared
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ...._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from ...._utils import maybe_transform
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ....types.crm import (
-    CrmContactResponse,
+    ContactResponse,
     contact_list_params,
     contact_create_params,
     contact_update_params,
@@ -46,7 +46,7 @@ class Contacts(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> CrmContactResponse:
+    ) -> ContactResponse:
         """
         Creates a `Contact` object with the given values.
 
@@ -75,7 +75,7 @@ class Contacts(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CrmContactResponse,
+            cast_to=ContactResponse,
         )
 
     def retrieve(
@@ -143,7 +143,7 @@ class Contacts(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> CrmContactResponse:
+    ) -> ContactResponse:
         """
         Updates a `Contact` object with the given `id`.
 
@@ -173,7 +173,7 @@ class Contacts(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CrmContactResponse,
+            cast_to=ContactResponse,
         )
 
     def list(
@@ -221,9 +221,10 @@ class Contacts(SyncAPIResource):
           include_remote_fields: Whether to include all remote fields, including fields that Merge did not map to
               common models, in a normalized format.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -278,7 +279,7 @@ class Contacts(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> shared.IgnoreCommonModel:
+    ) -> None:
         """Ignores a specific row based on the `model_id` in the url.
 
         These records will
@@ -299,6 +300,7 @@ class Contacts(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             f"/crm/v1/contacts/ignore/{model_id}",
             body=maybe_transform(
@@ -311,7 +313,7 @@ class Contacts(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=shared.IgnoreCommonModel,
+            cast_to=NoneType,
         )
 
     def list_remote_field_classes(
@@ -393,7 +395,7 @@ class AsyncContacts(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> CrmContactResponse:
+    ) -> ContactResponse:
         """
         Creates a `Contact` object with the given values.
 
@@ -422,7 +424,7 @@ class AsyncContacts(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CrmContactResponse,
+            cast_to=ContactResponse,
         )
 
     async def retrieve(
@@ -490,7 +492,7 @@ class AsyncContacts(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> CrmContactResponse:
+    ) -> ContactResponse:
         """
         Updates a `Contact` object with the given `id`.
 
@@ -520,7 +522,7 @@ class AsyncContacts(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CrmContactResponse,
+            cast_to=ContactResponse,
         )
 
     def list(
@@ -568,9 +570,10 @@ class AsyncContacts(AsyncAPIResource):
           include_remote_fields: Whether to include all remote fields, including fields that Merge did not map to
               common models, in a normalized format.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -625,7 +628,7 @@ class AsyncContacts(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> shared.IgnoreCommonModel:
+    ) -> None:
         """Ignores a specific row based on the `model_id` in the url.
 
         These records will
@@ -646,6 +649,7 @@ class AsyncContacts(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             f"/crm/v1/contacts/ignore/{model_id}",
             body=maybe_transform(
@@ -658,7 +662,7 @@ class AsyncContacts(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=shared.IgnoreCommonModel,
+            cast_to=NoneType,
         )
 
     def list_remote_field_classes(

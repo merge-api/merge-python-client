@@ -29,6 +29,9 @@ class Line(BaseModel):
     item: Optional[str]
     """The line's item."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     net_amount: Optional[float]
     """The line's net amount."""
 
@@ -681,6 +684,9 @@ class Expense(BaseModel):
     memo: Optional[str]
     """The expense's private note."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     remote_created_at: Optional[datetime]
     """When the expense was created."""
 
@@ -694,6 +700,8 @@ class Expense(BaseModel):
 
     total_amount: Optional[float]
     """The expense's total amount."""
+
+    tracking_categories: Optional[List[Optional[str]]]
 
     transaction_date: Optional[datetime]
     """When the transaction occurred."""

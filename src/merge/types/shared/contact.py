@@ -16,6 +16,9 @@ __all__ = ["Contact", "PhoneNumber", "EmailAddress", "RemoteField"]
 
 
 class PhoneNumber(BaseModel):
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     phone_number: Optional[str]
     """The phone number."""
 
@@ -42,6 +45,9 @@ class EmailAddress(BaseModel):
     - `WORK` - WORK
     - `OTHER` - OTHER
     """
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     value: Optional[str]
     """The email address."""
@@ -348,6 +354,9 @@ class Contact(BaseModel):
 
     last_name: Optional[str]
     """The contact's last name."""
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     name: Optional[str]
     """The contact's name."""

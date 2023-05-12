@@ -14,7 +14,7 @@ from ....pagination import SyncPage, AsyncPage
 from ...._base_client import AsyncPaginator, make_request_options
 from ....types.marketing import (
     Campaign,
-    MktgCampaignResponse,
+    CampaignResponse,
     campaign_list_params,
     campaign_create_params,
     campaign_retrieve_params,
@@ -44,7 +44,7 @@ class Campaigns(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> MktgCampaignResponse:
+    ) -> CampaignResponse:
         """
         Creates a `Campaign` object with the given values.
 
@@ -75,7 +75,7 @@ class Campaigns(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=MktgCampaignResponse,
+            cast_to=CampaignResponse,
         )
 
     def retrieve(
@@ -153,9 +153,10 @@ class Campaigns(SyncAPIResource):
           include_remote_data: Whether to include the original data Merge fetched from the third-party to
               produce these models.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -270,7 +271,7 @@ class AsyncCampaigns(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> MktgCampaignResponse:
+    ) -> CampaignResponse:
         """
         Creates a `Campaign` object with the given values.
 
@@ -301,7 +302,7 @@ class AsyncCampaigns(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=MktgCampaignResponse,
+            cast_to=CampaignResponse,
         )
 
     async def retrieve(
@@ -379,9 +380,10 @@ class AsyncCampaigns(AsyncAPIResource):
           include_remote_data: Whether to include the original data Merge fetched from the third-party to
               produce these models.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 

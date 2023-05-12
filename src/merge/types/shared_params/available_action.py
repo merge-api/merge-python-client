@@ -12,6 +12,14 @@ class Integration(TypedDict, total=False):
     name: Required[str]
     """Company name."""
 
+    api_endpoints_to_documentation_urls: object
+    """Mapping of API endpoints to documentation urls for support.
+
+    Example: {'GET':
+    [['/common-model-scopes', 'https://docs.merge.dev/accounting/common-model-scopes/#common_model_scopes_retrieve'],['/common-model-actions', 'https://docs.merge.dev/accounting/common-model-actions/#common_model_actions_retrieve']],
+    'POST': []}
+    """
+
     categories: List[Literal["hris", "ats", "accounting", "ticketing", "crm", "mktg", "filestorage"]]
     """Category or categories this integration belongs to.
 
@@ -28,6 +36,12 @@ class Integration(TypedDict, total=False):
     """Company logo in rectangular shape.
 
     <b>Upload an image with a clear background.</b>
+    """
+
+    is_in_beta: bool
+    """
+    If checked, this integration will not appear in the linking flow, and will
+    appear elsewhere with a Beta tag.
     """
 
     square_image: Optional[str]

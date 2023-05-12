@@ -28,6 +28,9 @@ class LineItem(BaseModel):
     memo: Optional[str]
     """The credit note line item's memo."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     name: Optional[str]
     """The credit note line item's name."""
 
@@ -682,6 +685,9 @@ class CreditNote(BaseModel):
 
     line_items: Optional[List[LineItem]]
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     number: Optional[str]
     """The credit note's number."""
 
@@ -714,6 +720,8 @@ class CreditNote(BaseModel):
 
     total_amount: Optional[float]
     """The credit note's total amount."""
+
+    tracking_categories: Optional[List[Optional[str]]]
 
     transaction_date: Optional[datetime]
     """The credit note's transaction date."""

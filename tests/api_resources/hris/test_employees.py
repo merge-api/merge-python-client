@@ -7,7 +7,6 @@ import os
 import pytest
 
 from merge import Merge, AsyncMerge
-from merge.types import shared
 from tests.utils import assert_matches_type
 from merge._utils import parse_datetime
 from merge.pagination import SyncPage, AsyncPage
@@ -82,7 +81,11 @@ class TestEmployees:
             remote_fields="employment_status",
             remote_id="string",
             show_enum_origins="employment_status",
+            started_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            started_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             team_id="string",
+            terminated_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            terminated_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             work_email="dev@stainlessapi.com",
             work_location_id="string",
         )
@@ -94,7 +97,7 @@ class TestEmployees:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             reason="GENERAL_CUSTOMER_REQUEST",
         )
-        assert_matches_type(shared.IgnoreCommonModel, employee, path=["response"])
+        assert employee is None
 
     @parametrize
     def test_method_ignore_with_all_params(self, client: Merge) -> None:
@@ -103,7 +106,7 @@ class TestEmployees:
             reason="GENERAL_CUSTOMER_REQUEST",
             message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
         )
-        assert_matches_type(shared.IgnoreCommonModel, employee, path=["response"])
+        assert employee is None
 
 
 class TestAsyncEmployees:
@@ -171,7 +174,11 @@ class TestAsyncEmployees:
             remote_fields="employment_status",
             remote_id="string",
             show_enum_origins="employment_status",
+            started_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            started_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             team_id="string",
+            terminated_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            terminated_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             work_email="dev@stainlessapi.com",
             work_location_id="string",
         )
@@ -183,7 +190,7 @@ class TestAsyncEmployees:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             reason="GENERAL_CUSTOMER_REQUEST",
         )
-        assert_matches_type(shared.IgnoreCommonModel, employee, path=["response"])
+        assert employee is None
 
     @parametrize
     async def test_method_ignore_with_all_params(self, client: AsyncMerge) -> None:
@@ -192,4 +199,4 @@ class TestAsyncEmployees:
             reason="GENERAL_CUSTOMER_REQUEST",
             message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
         )
-        assert_matches_type(shared.IgnoreCommonModel, employee, path=["response"])
+        assert employee is None

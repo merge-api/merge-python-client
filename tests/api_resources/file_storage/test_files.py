@@ -49,7 +49,7 @@ class TestFiles:
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
         file = client.file_storage.files.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand=["folder", "folder", "folder"],
+            expand=["drive", "drive", "drive"],
             include_remote_data=True,
         )
         assert_matches_type(File, file, path=["response"])
@@ -65,7 +65,7 @@ class TestFiles:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand=["folder", "folder", "folder"],
+            expand=["drive", "drive", "drive"],
             folder_id="string",
             include_deleted_data=True,
             include_remote_data=True,
@@ -118,7 +118,7 @@ class TestAsyncFiles:
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
         file = await client.file_storage.files.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            expand=["folder", "folder", "folder"],
+            expand=["drive", "drive", "drive"],
             include_remote_data=True,
         )
         assert_matches_type(File, file, path=["response"])
@@ -134,7 +134,7 @@ class TestAsyncFiles:
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             cursor="string",
-            expand=["folder", "folder", "folder"],
+            expand=["drive", "drive", "drive"],
             folder_id="string",
             include_deleted_data=True,
             include_remote_data=True,

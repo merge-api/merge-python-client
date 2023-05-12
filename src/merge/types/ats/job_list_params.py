@@ -40,10 +40,15 @@ class JobListParams(TypedDict, total=False):
     """
 
     modified_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """If provided, will only return objects modified after this datetime."""
+    """
+    If provided, only objects synced by Merge after this date time will be returned.
+    """
 
     modified_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """If provided, will only return objects modified before this datetime."""
+    """
+    If provided, only objects synced by Merge before this date time will be
+    returned.
+    """
 
     offices: str
     """

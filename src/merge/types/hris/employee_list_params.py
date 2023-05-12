@@ -74,10 +74,15 @@ class EmployeeListParams(TypedDict, total=False):
     """If provided, will only return employees for this manager."""
 
     modified_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """If provided, will only return objects modified after this datetime."""
+    """
+    If provided, only objects synced by Merge after this date time will be returned.
+    """
 
     modified_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """If provided, will only return objects modified before this datetime."""
+    """
+    If provided, only objects synced by Merge before this date time will be
+    returned.
+    """
 
     page_size: int
     """Number of results to return per page."""
@@ -129,8 +134,26 @@ class EmployeeListParams(TypedDict, total=False):
     ]
     """Which fields should be returned in non-normalized form."""
 
+    started_after: Annotated[Optional[Union[str, datetime]], PropertyInfo(format="iso8601")]
+    """If provided, will only return employees that started after this datetime."""
+
+    started_before: Annotated[Optional[Union[str, datetime]], PropertyInfo(format="iso8601")]
+    """If provided, will only return employees that started before this datetime."""
+
     team_id: str
     """If provided, will only return employees for this team."""
+
+    terminated_after: Annotated[Optional[Union[str, datetime]], PropertyInfo(format="iso8601")]
+    """
+    If provided, will only return employees that were terminated after this
+    datetime.
+    """
+
+    terminated_before: Annotated[Optional[Union[str, datetime]], PropertyInfo(format="iso8601")]
+    """
+    If provided, will only return employees that were terminated before this
+    datetime.
+    """
 
     work_email: Optional[str]
     """If provided, will only return Employees with this work email"""

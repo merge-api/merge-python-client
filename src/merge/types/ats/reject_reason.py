@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless.
 
 from typing import List, Optional
+from datetime import datetime
 
 from ...types import shared
 from ..._models import BaseModel
@@ -12,6 +13,9 @@ class RejectReason(BaseModel):
     field_mappings: Optional[object]
 
     id: Optional[str]
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     name: Optional[str]
     """The rejection reason’s name."""

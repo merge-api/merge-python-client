@@ -11,7 +11,7 @@ from merge.types import shared
 from tests.utils import assert_matches_type
 from merge._utils import parse_datetime
 from merge.pagination import SyncPage, AsyncPage
-from merge.types.ticketing import Ticket, TicketingUser, TicketResponse
+from merge.types.ticketing import User, Ticket, TicketResponse
 
 base_url = os.environ.get("API_BASE_URL", "http://127.0.0.1:4010")
 api_key = os.environ.get("API_KEY", "something1234")
@@ -107,7 +107,7 @@ class TestTickets:
         ticket = client.ticketing.tickets.list_collaborators(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(SyncPage[TicketingUser], ticket, path=["response"])
+        assert_matches_type(SyncPage[User], ticket, path=["response"])
 
     @parametrize
     def test_method_list_collaborators_with_all_params(self, client: Merge) -> None:
@@ -119,7 +119,7 @@ class TestTickets:
             include_remote_data=True,
             page_size=0,
         )
-        assert_matches_type(SyncPage[TicketingUser], ticket, path=["response"])
+        assert_matches_type(SyncPage[User], ticket, path=["response"])
 
     @parametrize
     def test_method_list_remote_field_classes(self, client: Merge) -> None:
@@ -227,7 +227,7 @@ class TestAsyncTickets:
         ticket = await client.ticketing.tickets.list_collaborators(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(AsyncPage[TicketingUser], ticket, path=["response"])
+        assert_matches_type(AsyncPage[User], ticket, path=["response"])
 
     @parametrize
     async def test_method_list_collaborators_with_all_params(self, client: AsyncMerge) -> None:
@@ -239,7 +239,7 @@ class TestAsyncTickets:
             include_remote_data=True,
             page_size=0,
         )
-        assert_matches_type(AsyncPage[TicketingUser], ticket, path=["response"])
+        assert_matches_type(AsyncPage[User], ticket, path=["response"])
 
     @parametrize
     async def test_method_list_remote_field_classes(self, client: AsyncMerge) -> None:

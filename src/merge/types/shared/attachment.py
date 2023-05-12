@@ -42,6 +42,9 @@ class Attachment(BaseModel):
 
     id: Optional[str]
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     remote_created_at: Optional[datetime]
     """When the third party's attachment was created."""
 

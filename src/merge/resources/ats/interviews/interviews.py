@@ -189,9 +189,10 @@ class Interviews(SyncAPIResource):
 
           job_interview_stage_id: If provided, will only return interviews at this stage.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           organizer_id: If provided, will only return interviews organized by this user.
 
@@ -407,9 +408,10 @@ class AsyncInterviews(AsyncAPIResource):
 
           job_interview_stage_id: If provided, will only return interviews at this stage.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           organizer_id: If provided, will only return interviews organized by this user.
 

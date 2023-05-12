@@ -12,8 +12,8 @@ from ..._resource import SyncAPIResource, AsyncAPIResource
 from ...pagination import SyncPage, AsyncPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.ticketing import (
+    User,
     Project,
-    TicketingUser,
     project_list_params,
     project_retrieve_params,
     project_list_users_params,
@@ -98,9 +98,10 @@ class Projects(SyncAPIResource):
           include_remote_data: Whether to include the original data Merge fetched from the third-party to
               produce these models.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -155,7 +156,7 @@ class Projects(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> SyncPage[TicketingUser]:
+    ) -> SyncPage[User]:
         """
         Returns a list of `User` objects.
 
@@ -182,7 +183,7 @@ class Projects(SyncAPIResource):
         """
         return self._get_api_list(
             f"/ticketing/v1/projects/{parent_id}/users",
-            page=SyncPage[TicketingUser],
+            page=SyncPage[User],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -199,7 +200,7 @@ class Projects(SyncAPIResource):
                     project_list_users_params.ProjectListUsersParams,
                 ),
             ),
-            model=TicketingUser,
+            model=User,
         )
 
 
@@ -279,9 +280,10 @@ class AsyncProjects(AsyncAPIResource):
           include_remote_data: Whether to include the original data Merge fetched from the third-party to
               produce these models.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -336,7 +338,7 @@ class AsyncProjects(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[TicketingUser, AsyncPage[TicketingUser]]:
+    ) -> AsyncPaginator[User, AsyncPage[User]]:
         """
         Returns a list of `User` objects.
 
@@ -363,7 +365,7 @@ class AsyncProjects(AsyncAPIResource):
         """
         return self._get_api_list(
             f"/ticketing/v1/projects/{parent_id}/users",
-            page=AsyncPage[TicketingUser],
+            page=AsyncPage[User],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -380,5 +382,5 @@ class AsyncProjects(AsyncAPIResource):
                     project_list_users_params.ProjectListUsersParams,
                 ),
             ),
-            model=TicketingUser,
+            model=User,
         )

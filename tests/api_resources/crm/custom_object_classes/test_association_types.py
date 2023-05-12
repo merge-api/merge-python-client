@@ -12,7 +12,7 @@ from merge._utils import parse_datetime
 from merge.pagination import SyncPage, AsyncPage
 from merge.types.crm.custom_object_classes import (
     AssociationType,
-    CrmAssociationTypeResponse,
+    AssociationTypeResponse,
 )
 
 base_url = os.environ.get("API_BASE_URL", "http://127.0.0.1:4010")
@@ -54,7 +54,7 @@ class TestAssociationTypes:
                 "remote_key_name": "x",
             },
         )
-        assert_matches_type(CrmAssociationTypeResponse, association_type, path=["response"])
+        assert_matches_type(AssociationTypeResponse, association_type, path=["response"])
 
     @parametrize
     def test_method_retrieve(self, client: Merge) -> None:
@@ -134,7 +134,7 @@ class TestAsyncAssociationTypes:
                 "remote_key_name": "x",
             },
         )
-        assert_matches_type(CrmAssociationTypeResponse, association_type, path=["response"])
+        assert_matches_type(AssociationTypeResponse, association_type, path=["response"])
 
     @parametrize
     async def test_method_retrieve(self, client: AsyncMerge) -> None:
