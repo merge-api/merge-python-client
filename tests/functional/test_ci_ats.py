@@ -5,10 +5,9 @@ import os
 import pytest
 
 from merge import Merge, AsyncMerge
-from merge.types import shared
 from tests.utils import assert_matches_type
 from merge._utils import parse_datetime
-from merge.types.ats import Candidate, CandidateResponse
+from merge.types.ats import Candidate
 from merge.pagination import SyncPage, AsyncPage
 
 
@@ -19,12 +18,8 @@ test_preexisting_candidate_id = "262797e9-bc99-42c4-9c4a-62326ebd2f31"
 
 
 class TestCandidates:
-    strict_client = Merge(
-        api_key=api_key, _strict_response_validation=True, account_token=ats_account_token
-    )
-    loose_client = Merge(
-        api_key=api_key, _strict_response_validation=False, account_token=ats_account_token
-    )
+    strict_client = Merge(api_key=api_key, _strict_response_validation=True, account_token=ats_account_token)
+    loose_client = Merge(api_key=api_key, _strict_response_validation=False, account_token=ats_account_token)
     parametrize = pytest.mark.parametrize("client", [loose_client], ids=["loose"])
 
     @parametrize
@@ -63,12 +58,8 @@ class TestCandidates:
 
 
 class TestAsyncCandidates:
-    strict_client = AsyncMerge(
-        api_key=api_key, _strict_response_validation=True, account_token=ats_account_token
-    )
-    loose_client = AsyncMerge(
-        api_key=api_key, _strict_response_validation=False, account_token=ats_account_token
-    )
+    strict_client = AsyncMerge(api_key=api_key, _strict_response_validation=True, account_token=ats_account_token)
+    loose_client = AsyncMerge(api_key=api_key, _strict_response_validation=False, account_token=ats_account_token)
     parametrize = pytest.mark.parametrize("client", [loose_client], ids=["loose"])
 
     @parametrize
