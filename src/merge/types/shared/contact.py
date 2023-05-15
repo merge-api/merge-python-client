@@ -1,16 +1,11 @@
 # File generated from our OpenAPI spec by Stainless.
 
-from __future__ import annotations
-
 from typing import List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
-from .address import Address
-from .country import Country
 from ..._models import BaseModel
-from .remote_data import RemoteData
-from .remote_field_class import RemoteFieldClass
+from ...types.shared import address, country, remote_data, remote_field_class
 
 __all__ = ["Contact", "PhoneNumber", "EmailAddress", "RemoteField"]
 
@@ -54,7 +49,7 @@ class EmailAddress(BaseModel):
 
 
 class RemoteField(BaseModel):
-    remote_field_class: RemoteFieldClass
+    remote_field_class: remote_field_class.RemoteFieldClass
 
     value: Optional[object]
 
@@ -63,13 +58,13 @@ class Contact(BaseModel):
     account: Optional[str]
     """The contact's account."""
 
-    addresses: Optional[List[Optional[Address]]]
+    addresses: Optional[List[Optional[address.Address]]]
     """`Address` object IDs for the given `Contacts` object."""
 
     company: Optional[str]
     """The company the contact belongs to."""
 
-    country: Optional[Country]
+    country: Optional[country.Country]
     """
     - `AF` - Afghanistan
     - `AX` - Åland Islands
@@ -376,7 +371,7 @@ class Contact(BaseModel):
     remote_created_at: Optional[datetime]
     """When the contact was created in the remote system."""
 
-    remote_data: Optional[List[RemoteData]]
+    remote_data: Optional[List[remote_data.RemoteData]]
 
     remote_fields: Optional[List[RemoteField]]
 

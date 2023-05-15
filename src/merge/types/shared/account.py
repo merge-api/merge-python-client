@@ -1,15 +1,11 @@
 # File generated from our OpenAPI spec by Stainless.
 
-from __future__ import annotations
-
 from typing import List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
-from .address import Address
 from ..._models import BaseModel
-from .remote_data import RemoteData
-from .remote_field_class import RemoteFieldClass
+from ...types.shared import address, remote_data, remote_field_class
 
 __all__ = ["Account", "PhoneNumber", "RemoteField"]
 
@@ -35,7 +31,7 @@ class PhoneNumber(BaseModel):
 
 
 class RemoteField(BaseModel):
-    remote_field_class: RemoteFieldClass
+    remote_field_class: remote_field_class.RemoteFieldClass
 
     value: Optional[object]
 
@@ -44,7 +40,7 @@ class Account(BaseModel):
     account_number: Optional[str]
     """The account's number."""
 
-    addresses: Optional[List[Address]]
+    addresses: Optional[List[address.Address]]
 
     classification: Optional[Literal["ASSET", "EQUITY", "EXPENSE", "LIABILITY", "REVENUE"]]
     """
@@ -719,7 +715,7 @@ class Account(BaseModel):
     remote_created_at: Optional[datetime]
     """When the third party's account was created."""
 
-    remote_data: Optional[List[RemoteData]]
+    remote_data: Optional[List[remote_data.RemoteData]]
 
     remote_fields: Optional[List[RemoteField]]
 

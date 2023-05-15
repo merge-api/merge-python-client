@@ -1,12 +1,10 @@
 # File generated from our OpenAPI spec by Stainless.
 
-from __future__ import annotations
-
 from typing import List, Optional
 from datetime import datetime
 
 from ..._models import BaseModel
-from .remote_data import RemoteData
+from ...types.shared import remote_data
 
 __all__ = ["Tag"]
 
@@ -20,7 +18,7 @@ class Tag(BaseModel):
     name: Optional[str]
     """The tag's name."""
 
-    remote_data: Optional[List[RemoteData]]
+    remote_data: Optional[List[remote_data.RemoteData]]
 
     remote_id: Optional[str]
     """The third-party API ID of the matching object."""

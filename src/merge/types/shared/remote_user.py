@@ -1,13 +1,11 @@
 # File generated from our OpenAPI spec by Stainless.
 
-from __future__ import annotations
-
 from typing import List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
-from .remote_data import RemoteData
+from ...types.shared import remote_data
 
 __all__ = ["RemoteUser"]
 
@@ -44,7 +42,7 @@ class RemoteUser(BaseModel):
     remote_created_at: Optional[datetime]
     """When the third party's user was created."""
 
-    remote_data: Optional[List[RemoteData]]
+    remote_data: Optional[List[remote_data.RemoteData]]
 
     remote_id: Optional[str]
     """The third-party API ID of the matching object."""

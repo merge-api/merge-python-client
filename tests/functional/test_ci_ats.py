@@ -10,7 +10,6 @@ from merge._utils import parse_datetime
 from merge.types.ats import Candidate
 from merge.pagination import SyncPage, AsyncPage
 
-
 api_key = os.environ.get("API_KEY", "")
 ats_account_token = os.environ.get("ACCOUNT_TOKEN_ATS", "")
 
