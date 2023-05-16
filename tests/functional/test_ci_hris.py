@@ -7,11 +7,10 @@ import os
 import pytest
 
 from merge import Merge, AsyncMerge
-from merge.types import shared
 from tests.utils import assert_matches_type
 from merge._utils import parse_datetime
 from merge.pagination import SyncPage, AsyncPage
-from merge.types.hris import Employee, CreatedEmployeeResponse
+from merge.types.hris import Employee
 
 api_key = os.environ.get("API_KEY", "")
 hris_account_token = os.environ.get("ACCOUNT_TOKEN_HRIS", "")
