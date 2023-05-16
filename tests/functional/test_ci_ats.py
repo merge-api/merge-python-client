@@ -34,7 +34,7 @@ class TestCandidates:
 
         candidate = client.ats.candidates.retrieve(
             test_preexisting_candidate_id,
-            expand=expand,
+            expand=expand,  # type: ignore
             include_remote_data=True,
         )
         assert_matches_type(Candidate, candidate, path=["response"])
@@ -50,7 +50,7 @@ class TestCandidates:
 
         candidate = client.ats.candidates.list(
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
-            expand=expand,
+            expand=expand,  # type: ignore
             include_remote_data=True,
         )
         assert_matches_type(SyncPage[Candidate], candidate, path=["response"])
@@ -74,7 +74,7 @@ class TestAsyncCandidates:
 
         candidate = await client.ats.candidates.retrieve(
             test_preexisting_candidate_id,
-            expand=expand,
+            expand=expand,  # type: ignore
             include_remote_data=True,
         )
         assert_matches_type(Candidate, candidate, path=["response"])
@@ -90,7 +90,7 @@ class TestAsyncCandidates:
 
         candidate = await client.ats.candidates.list(
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
-            expand=expand,
+            expand=expand,  # type: ignore
             include_remote_data=True,
         )
         assert_matches_type(AsyncPage[Candidate], candidate, path=["response"])

@@ -36,7 +36,7 @@ class TestEmployees:
 
         employee = client.hris.employees.retrieve(
             test_preexisting_employee_id,
-            expand=expand,
+            expand=expand,  # type: ignore
             include_remote_data=True,
             show_enum_origins="employment_status",
         )
@@ -78,7 +78,7 @@ class TestAsyncEmployees:
 
         employee = await client.hris.employees.retrieve(
             test_preexisting_employee_id,
-            expand=expand,
+            expand=expand,  # type: ignore
             include_remote_data=True,
             show_enum_origins="employment_status",
         )
