@@ -5,10 +5,10 @@ from typing import List, Optional
 from ...types import shared
 from ..._models import BaseModel
 
-__all__ = ["MktgContactResponse"]
+__all__ = ["ContactResponse"]
 
 
-class MktgContactResponse(BaseModel):
+class ContactResponse(BaseModel):
     errors: List[shared.ValidationError]
 
     model: shared.Contact

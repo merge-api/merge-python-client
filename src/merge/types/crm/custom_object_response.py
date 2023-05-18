@@ -4,23 +4,24 @@ from typing import List, Optional
 
 from ...types import shared
 from ..._models import BaseModel
+from ...types.crm import custom_object
 
-__all__ = ["CrmContactResponse"]
+__all__ = ["CustomObjectResponse"]
 
 
-class CrmContactResponse(BaseModel):
+class CustomObjectResponse(BaseModel):
     errors: List[shared.ValidationError]
 
-    model: shared.Contact
-    """# The Contact Object
+    model: custom_object.CustomObject
+    """# The CustomObject Object
 
     ### Description
 
-    The `Contact` object is used to represent a contact in the remote system.
+    The `Custom Object` record refers to an instance of a Custom Object Class.
 
     ### Usage Example
 
-    Fetch from the `GET /api/mktg/v1/contact` endpoint and view their phone numbers.
+    TODO
     """
 
     warnings: List[shared.ValidationWarning]

@@ -10,7 +10,7 @@ from merge import Merge, AsyncMerge
 from tests.utils import assert_matches_type
 from merge._utils import parse_datetime
 from merge.pagination import SyncPage, AsyncPage
-from merge.types.ticketing import TicketingUser
+from merge.types.ticketing import User
 
 base_url = os.environ.get("API_BASE_URL", "http://127.0.0.1:4010")
 api_key = os.environ.get("API_KEY", "something1234")
@@ -30,7 +30,7 @@ class TestUsers:
         user = client.ticketing.users.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(TicketingUser, user, path=["response"])
+        assert_matches_type(User, user, path=["response"])
 
     @parametrize
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
@@ -39,12 +39,12 @@ class TestUsers:
             expand=["teams", "teams", "teams"],
             include_remote_data=True,
         )
-        assert_matches_type(TicketingUser, user, path=["response"])
+        assert_matches_type(User, user, path=["response"])
 
     @parametrize
     def test_method_list(self, client: Merge) -> None:
         user = client.ticketing.users.list()
-        assert_matches_type(SyncPage[TicketingUser], user, path=["response"])
+        assert_matches_type(SyncPage[User], user, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Merge) -> None:
@@ -61,7 +61,7 @@ class TestUsers:
             page_size=0,
             remote_id="string",
         )
-        assert_matches_type(SyncPage[TicketingUser], user, path=["response"])
+        assert_matches_type(SyncPage[User], user, path=["response"])
 
 
 class TestAsyncUsers:
@@ -78,7 +78,7 @@ class TestAsyncUsers:
         user = await client.ticketing.users.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(TicketingUser, user, path=["response"])
+        assert_matches_type(User, user, path=["response"])
 
     @parametrize
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
@@ -87,12 +87,12 @@ class TestAsyncUsers:
             expand=["teams", "teams", "teams"],
             include_remote_data=True,
         )
-        assert_matches_type(TicketingUser, user, path=["response"])
+        assert_matches_type(User, user, path=["response"])
 
     @parametrize
     async def test_method_list(self, client: AsyncMerge) -> None:
         user = await client.ticketing.users.list()
-        assert_matches_type(AsyncPage[TicketingUser], user, path=["response"])
+        assert_matches_type(AsyncPage[User], user, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, client: AsyncMerge) -> None:
@@ -109,4 +109,4 @@ class TestAsyncUsers:
             page_size=0,
             remote_id="string",
         )
-        assert_matches_type(AsyncPage[TicketingUser], user, path=["response"])
+        assert_matches_type(AsyncPage[User], user, path=["response"])

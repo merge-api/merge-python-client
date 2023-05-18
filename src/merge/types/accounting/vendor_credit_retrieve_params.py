@@ -9,7 +9,7 @@ __all__ = ["VendorCreditRetrieveParams"]
 
 
 class VendorCreditRetrieveParams(TypedDict, total=False):
-    expand: List[Literal["company", "lines", "vendor"]]
+    expand: List[Literal["company", "lines", "tracking_categories", "vendor"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

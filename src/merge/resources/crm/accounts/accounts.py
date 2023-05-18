@@ -12,7 +12,7 @@ from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from ...._utils import maybe_transform
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ....types.crm import (
-    CrmAccountResponse,
+    AccountResponse,
     account_list_params,
     account_create_params,
     account_update_params,
@@ -45,7 +45,7 @@ class Accounts(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> CrmAccountResponse:
+    ) -> AccountResponse:
         """
         Creates an `Account` object with the given values.
 
@@ -74,7 +74,7 @@ class Accounts(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CrmAccountResponse,
+            cast_to=AccountResponse,
         )
 
     def retrieve(
@@ -142,7 +142,7 @@ class Accounts(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> CrmAccountResponse:
+    ) -> AccountResponse:
         """
         Updates an `Account` object with the given `id`.
 
@@ -171,7 +171,7 @@ class Accounts(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CrmAccountResponse,
+            cast_to=AccountResponse,
         )
 
     def list(
@@ -217,9 +217,10 @@ class Accounts(SyncAPIResource):
           include_remote_fields: Whether to include all remote fields, including fields that Merge did not map to
               common models, in a normalized format.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           owner_id: If provided, will only return accounts with this owner.
 
@@ -343,7 +344,7 @@ class AsyncAccounts(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> CrmAccountResponse:
+    ) -> AccountResponse:
         """
         Creates an `Account` object with the given values.
 
@@ -372,7 +373,7 @@ class AsyncAccounts(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CrmAccountResponse,
+            cast_to=AccountResponse,
         )
 
     async def retrieve(
@@ -440,7 +441,7 @@ class AsyncAccounts(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> CrmAccountResponse:
+    ) -> AccountResponse:
         """
         Updates an `Account` object with the given `id`.
 
@@ -469,7 +470,7 @@ class AsyncAccounts(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CrmAccountResponse,
+            cast_to=AccountResponse,
         )
 
     def list(
@@ -515,9 +516,10 @@ class AsyncAccounts(AsyncAPIResource):
           include_remote_fields: Whether to include all remote fields, including fields that Merge did not map to
               common models, in a normalized format.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           owner_id: If provided, will only return accounts with this owner.
 

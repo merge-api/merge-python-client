@@ -41,6 +41,9 @@ class EEOC(BaseModel):
 
     id: Optional[str]
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     race: Optional[
         Literal[
             "AMERICAN_INDIAN_OR_ALASKAN_NATIVE",

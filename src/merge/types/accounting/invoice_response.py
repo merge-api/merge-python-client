@@ -15,14 +15,14 @@ class InvoiceResponse(BaseModel):
     model: invoice.Invoice
     """# The Invoice Object
 
-        ### Description
-        The `Invoice` object represents an itemized record of goods and/or services sold to a customer.
+    ### Description
 
-    If type = accounts_payable `Invoice` is a bill, if type = accounts_receivable
-    it's an invoice.
+    The `Invoice` object represents an itemized record of goods and/or services sold
+    to a customer.
 
-        ### Usage Example
-        Fetch from the `LIST Invoices` endpoint and view a company's invoices.
+    ### Usage Example
+
+    Fetch from the `LIST Invoices` endpoint and view a company's invoices.
     """
 
     warnings: List[shared.ValidationWarning]

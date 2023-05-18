@@ -647,6 +647,9 @@ class LineItem(BaseModel):
     memo: Optional[str]
     """An internal note used by the business to clarify purpose of the transaction."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     quantity: Optional[str]
     """The line item's quantity."""
 
@@ -1303,6 +1306,9 @@ class Transaction(BaseModel):
     id: Optional[str]
 
     line_items: Optional[List[LineItem]]
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     number: Optional[str]
     """The transaction's number used for identifying purposes."""

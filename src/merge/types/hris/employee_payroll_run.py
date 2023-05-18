@@ -20,6 +20,9 @@ class Earning(BaseModel):
 
     id: Optional[str]
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     remote_data: Optional[List[shared.RemoteData]]
 
     remote_id: Optional[str]
@@ -53,6 +56,9 @@ class Deduction(BaseModel):
 
     id: Optional[str]
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     name: Optional[str]
     """The deduction's name."""
 
@@ -77,6 +83,9 @@ class Tax(BaseModel):
     field_mappings: Optional[object]
 
     id: Optional[str]
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     name: Optional[str]
     """The tax's name."""
@@ -113,6 +122,9 @@ class EmployeePayrollRun(BaseModel):
     """
 
     id: Optional[str]
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     net_pay: Optional[float]
     """

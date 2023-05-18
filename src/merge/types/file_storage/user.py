@@ -1,13 +1,14 @@
 # File generated from our OpenAPI spec by Stainless.
 
 from typing import List, Optional
+from datetime import datetime
 
 from ..._models import BaseModel
 
-__all__ = ["FileStorageUser"]
+__all__ = ["User"]
 
 
-class FileStorageUser(BaseModel):
+class User(BaseModel):
     email_address: Optional[str]
     """The user's email address.
 
@@ -17,6 +18,9 @@ class FileStorageUser(BaseModel):
     field_mappings: Optional[object]
 
     id: Optional[str]
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     name: Optional[str]
     """The user's name."""

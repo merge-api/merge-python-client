@@ -27,7 +27,7 @@ class InvoiceListParams(TypedDict, total=False):
     cursor: str
     """The pagination cursor value."""
 
-    expand: List[Literal["company", "contact", "line_items", "payments"]]
+    expand: List[Literal["company", "contact", "line_items", "payments", "tracking_categories"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.
@@ -49,10 +49,15 @@ class InvoiceListParams(TypedDict, total=False):
     """If provided, will only return objects created before this datetime."""
 
     modified_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """If provided, will only return objects modified after this datetime."""
+    """
+    If provided, only objects synced by Merge after this date time will be returned.
+    """
 
     modified_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """If provided, will only return objects modified before this datetime."""
+    """
+    If provided, only objects synced by Merge before this date time will be
+    returned.
+    """
 
     page_size: int
     """Number of results to return per page."""

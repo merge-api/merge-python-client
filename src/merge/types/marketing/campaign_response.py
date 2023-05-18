@@ -6,10 +6,10 @@ from ...types import shared
 from ..._models import BaseModel
 from ...types.marketing import campaign
 
-__all__ = ["MktgCampaignResponse"]
+__all__ = ["CampaignResponse"]
 
 
-class MktgCampaignResponse(BaseModel):
+class CampaignResponse(BaseModel):
     errors: List[shared.ValidationError]
 
     model: campaign.Campaign

@@ -1,7 +1,5 @@
 # File generated from our OpenAPI spec by Stainless.
 
-from __future__ import annotations
-
 from typing import List, Optional
 from typing_extensions import Literal
 
@@ -13,6 +11,14 @@ __all__ = ["AccountToken", "Integration"]
 class Integration(BaseModel):
     name: str
     """Company name."""
+
+    api_endpoints_to_documentation_urls: Optional[object]
+    """Mapping of API endpoints to documentation urls for support.
+
+    Example: {'GET':
+    [['/common-model-scopes', 'https://docs.merge.dev/accounting/common-model-scopes/#common_model_scopes_retrieve'],['/common-model-actions', 'https://docs.merge.dev/accounting/common-model-actions/#common_model_actions_retrieve']],
+    'POST': []}
+    """
 
     categories: Optional[List[Literal["hris", "ats", "accounting", "ticketing", "crm", "mktg", "filestorage"]]]
     """Category or categories this integration belongs to.
@@ -30,6 +36,12 @@ class Integration(BaseModel):
     """Company logo in rectangular shape.
 
     <b>Upload an image with a clear background.</b>
+    """
+
+    is_in_beta: Optional[bool]
+    """
+    If checked, this integration will not appear in the linking flow, and will
+    appear elsewhere with a Beta tag.
     """
 
     slug: Optional[str]

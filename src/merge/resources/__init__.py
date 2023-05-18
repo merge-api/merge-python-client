@@ -1,7 +1,7 @@
 # File generated from our OpenAPI spec by Stainless.
 
 from .ats import ATS, AsyncATS
-from .crm import Crm, AsyncCrm
+from .crm import CRM, AsyncCRM
 from .hris import HRIS, AsyncHRIS
 from .marketing import Marketing, AsyncMarketing
 from .ticketing import Ticketing, AsyncTicketing
@@ -17,8 +17,8 @@ __all__ = [
     "AsyncAccounting",
     "Ticketing",
     "AsyncTicketing",
-    "Crm",
-    "AsyncCrm",
+    "CRM",
+    "AsyncCRM",
     "Marketing",
     "AsyncMarketing",
     "FileStorage",

@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from ...types import shared
 from ..._models import BaseModel
-from ...types.accounting import accounting_phone_number
+from ...types.accounting import phone_number
 
 __all__ = ["CompanyInfo"]
 
@@ -646,10 +646,13 @@ class CompanyInfo(BaseModel):
     legal_name: Optional[str]
     """The company's legal name."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     name: Optional[str]
     """The company's name."""
 
-    phone_numbers: Optional[List[accounting_phone_number.AccountingPhoneNumber]]
+    phone_numbers: Optional[List[phone_number.PhoneNumber]]
 
     remote_created_at: Optional[datetime]
     """When the third party's company was created."""

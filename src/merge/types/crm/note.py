@@ -29,6 +29,9 @@ class Note(BaseModel):
 
     id: Optional[str]
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     opportunity: Optional[str]
     """The note's opportunity."""
 

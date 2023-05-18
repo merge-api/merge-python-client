@@ -80,7 +80,7 @@ class Payments(SyncAPIResource):
         self,
         id: str,
         *,
-        expand: List[Literal["account", "company", "contact"]] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account", "company", "contact", "tracking_categories"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -134,7 +134,7 @@ class Payments(SyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: List[Literal["account", "company", "contact"]] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account", "company", "contact", "tracking_categories"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -174,9 +174,10 @@ class Payments(SyncAPIResource):
           include_remote_data: Whether to include the original data Merge fetched from the third-party to
               produce these models.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -281,7 +282,7 @@ class AsyncPayments(AsyncAPIResource):
         self,
         id: str,
         *,
-        expand: List[Literal["account", "company", "contact"]] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account", "company", "contact", "tracking_categories"]] | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -335,7 +336,7 @@ class AsyncPayments(AsyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: List[Literal["account", "company", "contact"]] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["account", "company", "contact", "tracking_categories"]] | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         modified_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -375,9 +376,10 @@ class AsyncPayments(AsyncAPIResource):
           include_remote_data: Whether to include the original data Merge fetched from the third-party to
               produce these models.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 

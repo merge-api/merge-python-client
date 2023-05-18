@@ -7,11 +7,11 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from ...types import shared
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from ..._utils import maybe_transform
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ...types.crm import (
-    CrmUser,
+    User,
     user_list_params,
     user_retrieve_params,
     user_ignore_row_params,
@@ -36,7 +36,7 @@ class Users(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> CrmUser:
+    ) -> User:
         """
         Returns a `User` object with the given `id`.
 
@@ -70,7 +70,7 @@ class Users(SyncAPIResource):
                     user_retrieve_params.UserRetrieveParams,
                 ),
             ),
-            cast_to=CrmUser,
+            cast_to=User,
         )
 
     def list(
@@ -92,7 +92,7 @@ class Users(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> SyncPage[CrmUser]:
+    ) -> SyncPage[User]:
         """
         Returns a list of `User` objects.
 
@@ -111,9 +111,10 @@ class Users(SyncAPIResource):
           include_remote_fields: Whether to include all remote fields, including fields that Merge did not map to
               common models, in a normalized format.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -129,7 +130,7 @@ class Users(SyncAPIResource):
         """
         return self._get_api_list(
             "/crm/v1/users",
-            page=SyncPage[CrmUser],
+            page=SyncPage[User],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -151,7 +152,7 @@ class Users(SyncAPIResource):
                     user_list_params.UserListParams,
                 ),
             ),
-            model=CrmUser,
+            model=User,
         )
 
     def ignore_row(
@@ -166,7 +167,7 @@ class Users(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> shared.IgnoreCommonModel:
+    ) -> None:
         """Ignores a specific row based on the `model_id` in the url.
 
         These records will
@@ -187,6 +188,7 @@ class Users(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             f"/crm/v1/users/ignore/{model_id}",
             body=maybe_transform(
@@ -199,7 +201,7 @@ class Users(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=shared.IgnoreCommonModel,
+            cast_to=NoneType,
         )
 
     def list_remote_field_classes(
@@ -277,7 +279,7 @@ class AsyncUsers(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> CrmUser:
+    ) -> User:
         """
         Returns a `User` object with the given `id`.
 
@@ -311,7 +313,7 @@ class AsyncUsers(AsyncAPIResource):
                     user_retrieve_params.UserRetrieveParams,
                 ),
             ),
-            cast_to=CrmUser,
+            cast_to=User,
         )
 
     def list(
@@ -333,7 +335,7 @@ class AsyncUsers(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[CrmUser, AsyncPage[CrmUser]]:
+    ) -> AsyncPaginator[User, AsyncPage[User]]:
         """
         Returns a list of `User` objects.
 
@@ -352,9 +354,10 @@ class AsyncUsers(AsyncAPIResource):
           include_remote_fields: Whether to include all remote fields, including fields that Merge did not map to
               common models, in a normalized format.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -370,7 +373,7 @@ class AsyncUsers(AsyncAPIResource):
         """
         return self._get_api_list(
             "/crm/v1/users",
-            page=AsyncPage[CrmUser],
+            page=AsyncPage[User],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -392,7 +395,7 @@ class AsyncUsers(AsyncAPIResource):
                     user_list_params.UserListParams,
                 ),
             ),
-            model=CrmUser,
+            model=User,
         )
 
     async def ignore_row(
@@ -407,7 +410,7 @@ class AsyncUsers(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> shared.IgnoreCommonModel:
+    ) -> None:
         """Ignores a specific row based on the `model_id` in the url.
 
         These records will
@@ -428,6 +431,7 @@ class AsyncUsers(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             f"/crm/v1/users/ignore/{model_id}",
             body=maybe_transform(
@@ -440,7 +444,7 @@ class AsyncUsers(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=shared.IgnoreCommonModel,
+            cast_to=NoneType,
         )
 
     def list_remote_field_classes(

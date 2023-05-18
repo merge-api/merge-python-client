@@ -12,7 +12,7 @@ base_url = os.environ.get("API_BASE_URL", "http://127.0.0.1:4010")
 api_key = os.environ.get("API_KEY", "something1234")
 
 
-class TestCrm:
+class TestCRM:
     strict_client = Merge(
         base_url=base_url, api_key=api_key, _strict_response_validation=True, account_token="<account-token>"
     )
@@ -22,7 +22,7 @@ class TestCrm:
     parametrize = pytest.mark.parametrize("client", [strict_client, loose_client], ids=["strict", "loose"])
 
 
-class TestAsyncCrm:
+class TestAsyncCRM:
     strict_client = AsyncMerge(
         base_url=base_url, api_key=api_key, _strict_response_validation=True, account_token="<account-token>"
     )

@@ -123,6 +123,9 @@ class Employee(BaseModel):
     mobile_phone_number: Optional[str]
     """The employee's mobile phone number."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     pay_group: Optional[str]
     """The employee's pay group"""
 

@@ -7,11 +7,10 @@ import os
 import pytest
 
 from merge import Merge, AsyncMerge
-from merge.types import shared
 from tests.utils import assert_matches_type
 from merge._utils import parse_datetime
 from merge.pagination import SyncPage, AsyncPage
-from merge.types.hris import Employee, CreatedEmployeeResponse
+from merge.types.hris import Employee
 
 api_key = os.environ.get("API_KEY", "")
 hris_account_token = os.environ.get("ACCOUNT_TOKEN_HRIS", "")
@@ -20,12 +19,8 @@ test_preexisting_employee_id = "0c218e36-55ca-47a9-950e-c25bc3a20fb1"
 
 
 class TestEmployees:
-    strict_client = Merge(
-        api_key=api_key, _strict_response_validation=True, account_token=hris_account_token
-    )
-    loose_client = Merge(
-        api_key=api_key, _strict_response_validation=False, account_token=hris_account_token
-    )
+    strict_client = Merge(api_key=api_key, _strict_response_validation=True, account_token=hris_account_token)
+    loose_client = Merge(api_key=api_key, _strict_response_validation=False, account_token=hris_account_token)
     parametrize = pytest.mark.parametrize("client", [loose_client], ids=["loose"])
 
     @parametrize
@@ -41,7 +36,7 @@ class TestEmployees:
 
         employee = client.hris.employees.retrieve(
             test_preexisting_employee_id,
-            expand=expand,
+            expand=expand,  # type: ignore
             include_remote_data=True,
             show_enum_origins="employment_status",
         )
@@ -66,12 +61,8 @@ class TestEmployees:
 
 
 class TestAsyncEmployees:
-    strict_client = AsyncMerge(
-        api_key=api_key, _strict_response_validation=True, account_token=hris_account_token
-    )
-    loose_client = AsyncMerge(
-        api_key=api_key, _strict_response_validation=False, account_token=hris_account_token
-    )
+    strict_client = AsyncMerge(api_key=api_key, _strict_response_validation=True, account_token=hris_account_token)
+    loose_client = AsyncMerge(api_key=api_key, _strict_response_validation=False, account_token=hris_account_token)
     parametrize = pytest.mark.parametrize("client", [loose_client], ids=["loose"])
 
     @parametrize
@@ -87,11 +78,11 @@ class TestAsyncEmployees:
 
         employee = await client.hris.employees.retrieve(
             test_preexisting_employee_id,
-            expand=expand,
+            expand=expand,  # type: ignore
             include_remote_data=True,
             show_enum_origins="employment_status",
         )
-        
+
         assert employee is not None
         assert employee.id == test_preexisting_employee_id
         assert isinstance(employee.company, dict)

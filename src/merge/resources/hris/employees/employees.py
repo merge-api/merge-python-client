@@ -7,8 +7,7 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from .meta import Meta, AsyncMeta
-from ....types import shared
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ...._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from ...._utils import maybe_transform
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ....pagination import SyncPage, AsyncPage
@@ -244,7 +243,11 @@ class Employees(SyncAPIResource):
             "marital_status",
         ]
         | NotGiven = NOT_GIVEN,
+        started_after: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
+        started_before: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
         team_id: str | NotGiven = NOT_GIVEN,
+        terminated_after: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
+        terminated_before: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
         work_email: Optional[str] | NotGiven = NOT_GIVEN,
         work_location_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -294,9 +297,10 @@ class Employees(SyncAPIResource):
 
           manager_id: If provided, will only return employees for this manager.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -310,7 +314,17 @@ class Employees(SyncAPIResource):
 
           show_enum_origins: Which fields should be returned in non-normalized form.
 
+          started_after: If provided, will only return employees that started after this datetime.
+
+          started_before: If provided, will only return employees that started before this datetime.
+
           team_id: If provided, will only return employees for this team.
+
+          terminated_after: If provided, will only return employees that were terminated after this
+              datetime.
+
+          terminated_before: If provided, will only return employees that were terminated before this
+              datetime.
 
           work_email: If provided, will only return Employees with this work email
 
@@ -356,7 +370,11 @@ class Employees(SyncAPIResource):
                         "remote_fields": remote_fields,
                         "remote_id": remote_id,
                         "show_enum_origins": show_enum_origins,
+                        "started_after": started_after,
+                        "started_before": started_before,
                         "team_id": team_id,
+                        "terminated_after": terminated_after,
+                        "terminated_before": terminated_before,
                         "work_email": work_email,
                         "work_location_id": work_location_id,
                     },
@@ -378,7 +396,7 @@ class Employees(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> shared.IgnoreCommonModel:
+    ) -> None:
         """Ignores a specific row based on the `model_id` in the url.
 
         These records will
@@ -399,6 +417,7 @@ class Employees(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             f"/hris/v1/employees/ignore/{model_id}",
             body=maybe_transform(
@@ -411,7 +430,7 @@ class Employees(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=shared.IgnoreCommonModel,
+            cast_to=NoneType,
         )
 
 
@@ -631,7 +650,11 @@ class AsyncEmployees(AsyncAPIResource):
             "marital_status",
         ]
         | NotGiven = NOT_GIVEN,
+        started_after: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
+        started_before: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
         team_id: str | NotGiven = NOT_GIVEN,
+        terminated_after: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
+        terminated_before: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
         work_email: Optional[str] | NotGiven = NOT_GIVEN,
         work_location_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -681,9 +704,10 @@ class AsyncEmployees(AsyncAPIResource):
 
           manager_id: If provided, will only return employees for this manager.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -697,7 +721,17 @@ class AsyncEmployees(AsyncAPIResource):
 
           show_enum_origins: Which fields should be returned in non-normalized form.
 
+          started_after: If provided, will only return employees that started after this datetime.
+
+          started_before: If provided, will only return employees that started before this datetime.
+
           team_id: If provided, will only return employees for this team.
+
+          terminated_after: If provided, will only return employees that were terminated after this
+              datetime.
+
+          terminated_before: If provided, will only return employees that were terminated before this
+              datetime.
 
           work_email: If provided, will only return Employees with this work email
 
@@ -743,7 +777,11 @@ class AsyncEmployees(AsyncAPIResource):
                         "remote_fields": remote_fields,
                         "remote_id": remote_id,
                         "show_enum_origins": show_enum_origins,
+                        "started_after": started_after,
+                        "started_before": started_before,
                         "team_id": team_id,
+                        "terminated_after": terminated_after,
+                        "terminated_before": terminated_before,
                         "work_email": work_email,
                         "work_location_id": work_location_id,
                     },
@@ -765,7 +803,7 @@ class AsyncEmployees(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> shared.IgnoreCommonModel:
+    ) -> None:
         """Ignores a specific row based on the `model_id` in the url.
 
         These records will
@@ -786,6 +824,7 @@ class AsyncEmployees(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             f"/hris/v1/employees/ignore/{model_id}",
             body=maybe_transform(
@@ -798,5 +837,5 @@ class AsyncEmployees(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=shared.IgnoreCommonModel,
+            cast_to=NoneType,
         )

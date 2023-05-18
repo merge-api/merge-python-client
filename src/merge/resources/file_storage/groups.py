@@ -10,11 +10,7 @@ from ..._utils import maybe_transform
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ...pagination import SyncPage, AsyncPage
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.file_storage import (
-    FileStorageGroup,
-    group_list_params,
-    group_retrieve_params,
-)
+from ...types.file_storage import Group, group_list_params, group_retrieve_params
 
 __all__ = ["Groups", "AsyncGroups"]
 
@@ -31,7 +27,7 @@ class Groups(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> FileStorageGroup:
+    ) -> Group:
         """
         Returns a `Group` object with the given `id`.
 
@@ -58,7 +54,7 @@ class Groups(SyncAPIResource):
                     {"include_remote_data": include_remote_data}, group_retrieve_params.GroupRetrieveParams
                 ),
             ),
-            cast_to=FileStorageGroup,
+            cast_to=Group,
         )
 
     def list(
@@ -79,7 +75,7 @@ class Groups(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> SyncPage[FileStorageGroup]:
+    ) -> SyncPage[Group]:
         """
         Returns a list of `Group` objects.
 
@@ -95,9 +91,10 @@ class Groups(SyncAPIResource):
           include_remote_data: Whether to include the original data Merge fetched from the third-party to
               produce these models.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -113,7 +110,7 @@ class Groups(SyncAPIResource):
         """
         return self._get_api_list(
             "/filestorage/v1/groups",
-            page=SyncPage[FileStorageGroup],
+            page=SyncPage[Group],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -134,7 +131,7 @@ class Groups(SyncAPIResource):
                     group_list_params.GroupListParams,
                 ),
             ),
-            model=FileStorageGroup,
+            model=Group,
         )
 
 
@@ -150,7 +147,7 @@ class AsyncGroups(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> FileStorageGroup:
+    ) -> Group:
         """
         Returns a `Group` object with the given `id`.
 
@@ -177,7 +174,7 @@ class AsyncGroups(AsyncAPIResource):
                     {"include_remote_data": include_remote_data}, group_retrieve_params.GroupRetrieveParams
                 ),
             ),
-            cast_to=FileStorageGroup,
+            cast_to=Group,
         )
 
     def list(
@@ -198,7 +195,7 @@ class AsyncGroups(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[FileStorageGroup, AsyncPage[FileStorageGroup]]:
+    ) -> AsyncPaginator[Group, AsyncPage[Group]]:
         """
         Returns a list of `Group` objects.
 
@@ -214,9 +211,10 @@ class AsyncGroups(AsyncAPIResource):
           include_remote_data: Whether to include the original data Merge fetched from the third-party to
               produce these models.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -232,7 +230,7 @@ class AsyncGroups(AsyncAPIResource):
         """
         return self._get_api_list(
             "/filestorage/v1/groups",
-            page=AsyncPage[FileStorageGroup],
+            page=AsyncPage[Group],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -253,5 +251,5 @@ class AsyncGroups(AsyncAPIResource):
                     group_list_params.GroupListParams,
                 ),
             ),
-            model=FileStorageGroup,
+            model=Group,
         )

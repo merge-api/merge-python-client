@@ -11,6 +11,9 @@ __all__ = ["Job", "JobPostingURL"]
 
 
 class JobPostingURL(BaseModel):
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     url_type: Optional[Literal["PERSONAL", "COMPANY", "PORTFOLIO", "BLOG", "SOCIAL_MEDIA", "OTHER", "JOB_POSTING"]]
     """
     - `PERSONAL` - PERSONAL
@@ -51,6 +54,9 @@ class Job(BaseModel):
     id: Optional[str]
 
     job_posting_urls: Optional[List[JobPostingURL]]
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     name: Optional[str]
     """The job's name."""

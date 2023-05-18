@@ -9,7 +9,7 @@ __all__ = ["CreditNoteRetrieveParams"]
 
 
 class CreditNoteRetrieveParams(TypedDict, total=False):
-    expand: List[Literal["line_items", "payments"]]
+    expand: List[Literal["line_items", "payments", "tracking_categories"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

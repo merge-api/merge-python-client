@@ -647,6 +647,9 @@ class LineItem(BaseModel):
 
     item: Optional[str]
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     quantity: Optional[float]
     """The line item's quantity."""
 
@@ -1311,6 +1314,9 @@ class Invoice(BaseModel):
     memo: Optional[str]
     """The invoice's private note."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     number: Optional[str]
     """The invoice's number."""
 
@@ -1341,6 +1347,8 @@ class Invoice(BaseModel):
 
     total_tax_amount: Optional[float]
     """The total amount being paid in taxes."""
+
+    tracking_categories: Optional[List[Optional[str]]]
 
     type: Optional[Literal["ACCOUNTS_RECEIVABLE", "ACCOUNTS_PAYABLE"]]
     """

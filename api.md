@@ -14,7 +14,6 @@ from merge.types import (
     Contact,
     Country,
     DebugLog,
-    IgnoreCommonModel,
     Issue,
     LinkToken,
     LinkedAccountSelectiveSyncConfiguration,
@@ -100,7 +99,7 @@ Methods:
 - <code title="post /hris/v1/employees">client.hris.employees.<a href="./src/merge/resources/hris/employees/employees.py">create</a>(\*\*<a href="src/merge/types/hris/employee_create_params.py">params</a>) -> <a href="./src/merge/types/hris/created_employee_response.py">CreatedEmployeeResponse</a></code>
 - <code title="get /hris/v1/employees/{id}">client.hris.employees.<a href="./src/merge/resources/hris/employees/employees.py">retrieve</a>(id, \*\*<a href="src/merge/types/hris/employee_retrieve_params.py">params</a>) -> <a href="./src/merge/types/hris/employee.py">Employee</a></code>
 - <code title="get /hris/v1/employees">client.hris.employees.<a href="./src/merge/resources/hris/employees/employees.py">list</a>(\*\*<a href="src/merge/types/hris/employee_list_params.py">params</a>) -> <a href="./src/merge/types/hris/employee.py">SyncPage[Employee]</a></code>
-- <code title="post /hris/v1/employees/ignore/{model_id}">client.hris.employees.<a href="./src/merge/resources/hris/employees/employees.py">ignore</a>(model_id, \*\*<a href="src/merge/types/hris/employee_ignore_params.py">params</a>) -> <a href="./src/merge/types/shared/ignore_common_model.py">shared.IgnoreCommonModel</a></code>
+- <code title="post /hris/v1/employees/ignore/{model_id}">client.hris.employees.<a href="./src/merge/resources/hris/employees/employees.py">ignore</a>(model_id, \*\*<a href="src/merge/types/hris/employee_ignore_params.py">params</a>) -> None</code>
 
 ### Meta
 
@@ -390,7 +389,7 @@ Methods:
 - <code title="post /ats/v1/candidates">client.ats.candidates.<a href="./src/merge/resources/ats/candidates/candidates.py">create</a>(\*\*<a href="src/merge/types/ats/candidate_create_params.py">params</a>) -> <a href="./src/merge/types/ats/candidate_response.py">CandidateResponse</a></code>
 - <code title="get /ats/v1/candidates/{id}">client.ats.candidates.<a href="./src/merge/resources/ats/candidates/candidates.py">retrieve</a>(id, \*\*<a href="src/merge/types/ats/candidate_retrieve_params.py">params</a>) -> <a href="./src/merge/types/ats/candidate.py">Candidate</a></code>
 - <code title="get /ats/v1/candidates">client.ats.candidates.<a href="./src/merge/resources/ats/candidates/candidates.py">list</a>(\*\*<a href="src/merge/types/ats/candidate_list_params.py">params</a>) -> <a href="./src/merge/types/ats/candidate.py">SyncPage[Candidate]</a></code>
-- <code title="post /ats/v1/candidates/ignore/{model_id}">client.ats.candidates.<a href="./src/merge/resources/ats/candidates/candidates.py">ignore_row</a>(model_id, \*\*<a href="src/merge/types/ats/candidate_ignore_row_params.py">params</a>) -> <a href="./src/merge/types/shared/ignore_common_model.py">shared.IgnoreCommonModel</a></code>
+- <code title="post /ats/v1/candidates/ignore/{model_id}">client.ats.candidates.<a href="./src/merge/resources/ats/candidates/candidates.py">ignore_row</a>(model_id, \*\*<a href="src/merge/types/ats/candidate_ignore_row_params.py">params</a>) -> None</code>
 
 ### Meta
 
@@ -867,12 +866,12 @@ Methods:
 Types:
 
 ```python
-from merge.types.accounting import AccountingPhoneNumber
+from merge.types.accounting import PhoneNumber
 ```
 
 Methods:
 
-- <code title="get /accounting/v1/phone-numbers/{id}">client.accounting.phone_numbers.<a href="./src/merge/resources/accounting/phone_numbers.py">retrieve</a>(id, \*\*<a href="src/merge/types/accounting/phone_number_retrieve_params.py">params</a>) -> <a href="./src/merge/types/accounting/accounting_phone_number.py">AccountingPhoneNumber</a></code>
+- <code title="get /accounting/v1/phone-numbers/{id}">client.accounting.phone_numbers.<a href="./src/merge/resources/accounting/phone_numbers.py">retrieve</a>(id, \*\*<a href="src/merge/types/accounting/phone_number_retrieve_params.py">params</a>) -> <a href="./src/merge/types/accounting/phone_number.py">PhoneNumber</a></code>
 
 ## PurchaseOrders
 
@@ -1088,7 +1087,7 @@ Methods:
 
 - <code title="get /ticketing/v1/collections/{id}">client.ticketing.collections.<a href="./src/merge/resources/ticketing/collections.py">retrieve</a>(id, \*\*<a href="src/merge/types/ticketing/collection_retrieve_params.py">params</a>) -> <a href="./src/merge/types/ticketing/collection.py">Collection</a></code>
 - <code title="get /ticketing/v1/collections">client.ticketing.collections.<a href="./src/merge/resources/ticketing/collections.py">list</a>(\*\*<a href="src/merge/types/ticketing/collection_list_params.py">params</a>) -> <a href="./src/merge/types/ticketing/collection.py">SyncPage[Collection]</a></code>
-- <code title="get /ticketing/v1/collections/{parent_id}/users">client.ticketing.collections.<a href="./src/merge/resources/ticketing/collections.py">list_users</a>(parent_id, \*\*<a href="src/merge/types/ticketing/collection_list_users_params.py">params</a>) -> <a href="./src/merge/types/ticketing/ticketing_user.py">SyncPage[TicketingUser]</a></code>
+- <code title="get /ticketing/v1/collections/{parent_id}/users">client.ticketing.collections.<a href="./src/merge/resources/ticketing/collections.py">list_users</a>(parent_id, \*\*<a href="src/merge/types/ticketing/collection_list_users_params.py">params</a>) -> <a href="./src/merge/types/ticketing/user.py">SyncPage[User]</a></code>
 
 ## Comments
 
@@ -1129,7 +1128,7 @@ Methods:
 
 - <code title="get /ticketing/v1/projects/{id}">client.ticketing.projects.<a href="./src/merge/resources/ticketing/projects.py">retrieve</a>(id, \*\*<a href="src/merge/types/ticketing/project_retrieve_params.py">params</a>) -> <a href="./src/merge/types/ticketing/project.py">Project</a></code>
 - <code title="get /ticketing/v1/projects">client.ticketing.projects.<a href="./src/merge/resources/ticketing/projects.py">list</a>(\*\*<a href="src/merge/types/ticketing/project_list_params.py">params</a>) -> <a href="./src/merge/types/ticketing/project.py">SyncPage[Project]</a></code>
-- <code title="get /ticketing/v1/projects/{parent_id}/users">client.ticketing.projects.<a href="./src/merge/resources/ticketing/projects.py">list_users</a>(parent_id, \*\*<a href="src/merge/types/ticketing/project_list_users_params.py">params</a>) -> <a href="./src/merge/types/ticketing/ticketing_user.py">SyncPage[TicketingUser]</a></code>
+- <code title="get /ticketing/v1/projects/{parent_id}/users">client.ticketing.projects.<a href="./src/merge/resources/ticketing/projects.py">list_users</a>(parent_id, \*\*<a href="src/merge/types/ticketing/project_list_users_params.py">params</a>) -> <a href="./src/merge/types/ticketing/user.py">SyncPage[User]</a></code>
 
 ## Tags
 
@@ -1159,7 +1158,7 @@ Methods:
 - <code title="get /ticketing/v1/tickets/{id}">client.ticketing.tickets.<a href="./src/merge/resources/ticketing/tickets/tickets.py">retrieve</a>(id, \*\*<a href="src/merge/types/ticketing/ticket_retrieve_params.py">params</a>) -> <a href="./src/merge/types/ticketing/ticket.py">Ticket</a></code>
 - <code title="patch /ticketing/v1/tickets/{id}">client.ticketing.tickets.<a href="./src/merge/resources/ticketing/tickets/tickets.py">update</a>(id, \*\*<a href="src/merge/types/ticketing/ticket_update_params.py">params</a>) -> <a href="./src/merge/types/ticketing/ticket_response.py">TicketResponse</a></code>
 - <code title="get /ticketing/v1/tickets">client.ticketing.tickets.<a href="./src/merge/resources/ticketing/tickets/tickets.py">list</a>(\*\*<a href="src/merge/types/ticketing/ticket_list_params.py">params</a>) -> <a href="./src/merge/types/ticketing/ticket.py">SyncPage[Ticket]</a></code>
-- <code title="get /ticketing/v1/tickets/{parent_id}/collaborators">client.ticketing.tickets.<a href="./src/merge/resources/ticketing/tickets/tickets.py">list_collaborators</a>(parent_id, \*\*<a href="src/merge/types/ticketing/ticket_list_collaborators_params.py">params</a>) -> <a href="./src/merge/types/ticketing/ticketing_user.py">SyncPage[TicketingUser]</a></code>
+- <code title="get /ticketing/v1/tickets/{parent_id}/collaborators">client.ticketing.tickets.<a href="./src/merge/resources/ticketing/tickets/tickets.py">list_collaborators</a>(parent_id, \*\*<a href="src/merge/types/ticketing/ticket_list_collaborators_params.py">params</a>) -> <a href="./src/merge/types/ticketing/user.py">SyncPage[User]</a></code>
 - <code title="get /ticketing/v1/tickets/remote-field-classes">client.ticketing.tickets.<a href="./src/merge/resources/ticketing/tickets/tickets.py">list_remote_field_classes</a>(\*\*<a href="src/merge/types/ticketing/ticket_list_remote_field_classes_params.py">params</a>) -> <a href="./src/merge/types/shared/remote_field_class.py">SyncPage[shared.RemoteFieldClass]</a></code>
 
 ### Meta
@@ -1174,13 +1173,13 @@ Methods:
 Types:
 
 ```python
-from merge.types.ticketing import TicketingUser
+from merge.types.ticketing import User
 ```
 
 Methods:
 
-- <code title="get /ticketing/v1/users/{id}">client.ticketing.users.<a href="./src/merge/resources/ticketing/users.py">retrieve</a>(id, \*\*<a href="src/merge/types/ticketing/user_retrieve_params.py">params</a>) -> <a href="./src/merge/types/ticketing/ticketing_user.py">TicketingUser</a></code>
-- <code title="get /ticketing/v1/users">client.ticketing.users.<a href="./src/merge/resources/ticketing/users.py">list</a>(\*\*<a href="src/merge/types/ticketing/user_list_params.py">params</a>) -> <a href="./src/merge/types/ticketing/ticketing_user.py">SyncPage[TicketingUser]</a></code>
+- <code title="get /ticketing/v1/users/{id}">client.ticketing.users.<a href="./src/merge/resources/ticketing/users.py">retrieve</a>(id, \*\*<a href="src/merge/types/ticketing/user_retrieve_params.py">params</a>) -> <a href="./src/merge/types/ticketing/user.py">User</a></code>
+- <code title="get /ticketing/v1/users">client.ticketing.users.<a href="./src/merge/resources/ticketing/users.py">list</a>(\*\*<a href="src/merge/types/ticketing/user_list_params.py">params</a>) -> <a href="./src/merge/types/ticketing/user.py">SyncPage[User]</a></code>
 
 ## AccountDetails
 
@@ -1283,21 +1282,21 @@ Methods:
 - <code title="get /ticketing/v1/selective-sync/meta">client.ticketing.selective_sync.<a href="./src/merge/resources/ticketing/selective_sync.py">list_metadata</a>(\*\*<a href="src/merge/types/ticketing/selective_sync_list_metadata_params.py">params</a>) -> <a href="./src/merge/types/shared/condition_schema.py">SyncPage[shared.ConditionSchema]</a></code>
 - <code title="put /ticketing/v1/selective-sync/configurations">client.ticketing.selective_sync.<a href="./src/merge/resources/ticketing/selective_sync.py">replace_configurations</a>(\*\*<a href="src/merge/types/ticketing/selective_sync_replace_configurations_params.py">params</a>) -> <a href="./src/merge/types/ticketing/selective_sync_replace_configurations_response.py">SelectiveSyncReplaceConfigurationsResponse</a></code>
 
-# Crm
+# CRM
 
 ## Accounts
 
 Types:
 
 ```python
-from merge.types.crm import CrmAccountResponse
+from merge.types.crm import AccountResponse
 ```
 
 Methods:
 
-- <code title="post /crm/v1/accounts">client.crm.accounts.<a href="./src/merge/resources/crm/accounts/accounts.py">create</a>(\*\*<a href="src/merge/types/crm/account_create_params.py">params</a>) -> <a href="./src/merge/types/crm/crm_account_response.py">CrmAccountResponse</a></code>
+- <code title="post /crm/v1/accounts">client.crm.accounts.<a href="./src/merge/resources/crm/accounts/accounts.py">create</a>(\*\*<a href="src/merge/types/crm/account_create_params.py">params</a>) -> <a href="./src/merge/types/crm/account_response.py">AccountResponse</a></code>
 - <code title="get /crm/v1/accounts/{id}">client.crm.accounts.<a href="./src/merge/resources/crm/accounts/accounts.py">retrieve</a>(id, \*\*<a href="src/merge/types/crm/account_retrieve_params.py">params</a>) -> <a href="./src/merge/types/shared/account.py">shared.Account</a></code>
-- <code title="patch /crm/v1/accounts/{id}">client.crm.accounts.<a href="./src/merge/resources/crm/accounts/accounts.py">update</a>(id, \*\*<a href="src/merge/types/crm/account_update_params.py">params</a>) -> <a href="./src/merge/types/crm/crm_account_response.py">CrmAccountResponse</a></code>
+- <code title="patch /crm/v1/accounts/{id}">client.crm.accounts.<a href="./src/merge/resources/crm/accounts/accounts.py">update</a>(id, \*\*<a href="src/merge/types/crm/account_update_params.py">params</a>) -> <a href="./src/merge/types/crm/account_response.py">AccountResponse</a></code>
 - <code title="get /crm/v1/accounts">client.crm.accounts.<a href="./src/merge/resources/crm/accounts/accounts.py">list</a>(\*\*<a href="src/merge/types/crm/account_list_params.py">params</a>) -> <a href="./src/merge/types/shared/account.py">SyncPage[shared.Account]</a></code>
 - <code title="get /crm/v1/accounts/remote-field-classes">client.crm.accounts.<a href="./src/merge/resources/crm/accounts/accounts.py">list_remote_field_classes</a>(\*\*<a href="src/merge/types/crm/account_list_remote_field_classes_params.py">params</a>) -> <a href="./src/merge/types/shared/remote_field_class.py">SyncPage[shared.RemoteFieldClass]</a></code>
 
@@ -1313,16 +1312,16 @@ Methods:
 Types:
 
 ```python
-from merge.types.crm import CrmContactResponse
+from merge.types.crm import ContactResponse
 ```
 
 Methods:
 
-- <code title="post /crm/v1/contacts">client.crm.contacts.<a href="./src/merge/resources/crm/contacts/contacts.py">create</a>(\*\*<a href="src/merge/types/crm/contact_create_params.py">params</a>) -> <a href="./src/merge/types/crm/crm_contact_response.py">CrmContactResponse</a></code>
+- <code title="post /crm/v1/contacts">client.crm.contacts.<a href="./src/merge/resources/crm/contacts/contacts.py">create</a>(\*\*<a href="src/merge/types/crm/contact_create_params.py">params</a>) -> <a href="./src/merge/types/crm/contact_response.py">ContactResponse</a></code>
 - <code title="get /crm/v1/contacts/{id}">client.crm.contacts.<a href="./src/merge/resources/crm/contacts/contacts.py">retrieve</a>(id, \*\*<a href="src/merge/types/crm/contact_retrieve_params.py">params</a>) -> <a href="./src/merge/types/shared/contact.py">shared.Contact</a></code>
-- <code title="patch /crm/v1/contacts/{id}">client.crm.contacts.<a href="./src/merge/resources/crm/contacts/contacts.py">update</a>(id, \*\*<a href="src/merge/types/crm/contact_update_params.py">params</a>) -> <a href="./src/merge/types/crm/crm_contact_response.py">CrmContactResponse</a></code>
+- <code title="patch /crm/v1/contacts/{id}">client.crm.contacts.<a href="./src/merge/resources/crm/contacts/contacts.py">update</a>(id, \*\*<a href="src/merge/types/crm/contact_update_params.py">params</a>) -> <a href="./src/merge/types/crm/contact_response.py">ContactResponse</a></code>
 - <code title="get /crm/v1/contacts">client.crm.contacts.<a href="./src/merge/resources/crm/contacts/contacts.py">list</a>(\*\*<a href="src/merge/types/crm/contact_list_params.py">params</a>) -> <a href="./src/merge/types/shared/contact.py">SyncPage[shared.Contact]</a></code>
-- <code title="post /crm/v1/contacts/ignore/{model_id}">client.crm.contacts.<a href="./src/merge/resources/crm/contacts/contacts.py">ignore_row</a>(model_id, \*\*<a href="src/merge/types/crm/contact_ignore_row_params.py">params</a>) -> <a href="./src/merge/types/shared/ignore_common_model.py">shared.IgnoreCommonModel</a></code>
+- <code title="post /crm/v1/contacts/ignore/{model_id}">client.crm.contacts.<a href="./src/merge/resources/crm/contacts/contacts.py">ignore_row</a>(model_id, \*\*<a href="src/merge/types/crm/contact_ignore_row_params.py">params</a>) -> None</code>
 - <code title="get /crm/v1/contacts/remote-field-classes">client.crm.contacts.<a href="./src/merge/resources/crm/contacts/contacts.py">list_remote_field_classes</a>(\*\*<a href="src/merge/types/crm/contact_list_remote_field_classes_params.py">params</a>) -> <a href="./src/merge/types/shared/remote_field_class.py">SyncPage[shared.RemoteFieldClass]</a></code>
 
 ### Meta
@@ -1352,13 +1351,13 @@ Types:
 ```python
 from merge.types.crm.custom_object_classes import (
     AssociationType,
-    CrmAssociationTypeResponse,
+    AssociationTypeResponse,
 )
 ```
 
 Methods:
 
-- <code title="post /crm/v1/custom-object-classes/{custom_object_class_id}/association-types">client.crm.custom_object_classes.association_types.<a href="./src/merge/resources/crm/custom_object_classes/association_types/association_types.py">create</a>(custom_object_class_id, \*\*<a href="src/merge/types/crm/custom_object_classes/association_type_create_params.py">params</a>) -> <a href="./src/merge/types/crm/custom_object_classes/crm_association_type_response.py">CrmAssociationTypeResponse</a></code>
+- <code title="post /crm/v1/custom-object-classes/{custom_object_class_id}/association-types">client.crm.custom_object_classes.association_types.<a href="./src/merge/resources/crm/custom_object_classes/association_types/association_types.py">create</a>(custom_object_class_id, \*\*<a href="src/merge/types/crm/custom_object_classes/association_type_create_params.py">params</a>) -> <a href="./src/merge/types/crm/custom_object_classes/association_type_response.py">AssociationTypeResponse</a></code>
 - <code title="get /crm/v1/custom-object-classes/{custom_object_class_id}/association-types/{id}">client.crm.custom_object_classes.association_types.<a href="./src/merge/resources/crm/custom_object_classes/association_types/association_types.py">retrieve</a>(id, custom_object_class_id, \*\*<a href="src/merge/types/crm/custom_object_classes/association_type_retrieve_params.py">params</a>) -> <a href="./src/merge/types/crm/custom_object_classes/association_type.py">AssociationType</a></code>
 - <code title="get /crm/v1/custom-object-classes/{custom_object_class_id}/association-types">client.crm.custom_object_classes.association_types.<a href="./src/merge/resources/crm/custom_object_classes/association_types/association_types.py">list</a>(custom_object_class_id, \*\*<a href="src/merge/types/crm/custom_object_classes/association_type_list_params.py">params</a>) -> <a href="./src/merge/types/crm/custom_object_classes/association_type.py">SyncPage[AssociationType]</a></code>
 
@@ -1373,14 +1372,14 @@ Methods:
 Types:
 
 ```python
-from merge.types.crm import CrmCustomObjectResponse, CustomObject
+from merge.types.crm import CustomObject, CustomObjectResponse
 ```
 
 Methods:
 
-- <code title="post /crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects">client.crm.custom_objects.<a href="./src/merge/resources/crm/custom_objects/custom_objects.py">create</a>(custom_object_class_id, \*\*<a href="src/merge/types/crm/custom_object_create_params.py">params</a>) -> <a href="./src/merge/types/crm/crm_custom_object_response.py">CrmCustomObjectResponse</a></code>
+- <code title="post /crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects">client.crm.custom_objects.<a href="./src/merge/resources/crm/custom_objects/custom_objects.py">create</a>(custom_object_class_id, \*\*<a href="src/merge/types/crm/custom_object_create_params.py">params</a>) -> <a href="./src/merge/types/crm/custom_object_response.py">CustomObjectResponse</a></code>
 - <code title="get /crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{id}">client.crm.custom_objects.<a href="./src/merge/resources/crm/custom_objects/custom_objects.py">retrieve</a>(id, custom_object_class_id, \*\*<a href="src/merge/types/crm/custom_object_retrieve_params.py">params</a>) -> <a href="./src/merge/types/crm/custom_object.py">CustomObject</a></code>
-- <code title="patch /crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{id}">client.crm.custom_objects.<a href="./src/merge/resources/crm/custom_objects/custom_objects.py">update</a>(id, custom_object_class_id, \*\*<a href="src/merge/types/crm/custom_object_update_params.py">params</a>) -> <a href="./src/merge/types/crm/crm_custom_object_response.py">CrmCustomObjectResponse</a></code>
+- <code title="patch /crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{id}">client.crm.custom_objects.<a href="./src/merge/resources/crm/custom_objects/custom_objects.py">update</a>(id, custom_object_class_id, \*\*<a href="src/merge/types/crm/custom_object_update_params.py">params</a>) -> <a href="./src/merge/types/crm/custom_object_response.py">CustomObjectResponse</a></code>
 - <code title="get /crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects">client.crm.custom_objects.<a href="./src/merge/resources/crm/custom_objects/custom_objects.py">list</a>(custom_object_class_id, \*\*<a href="src/merge/types/crm/custom_object_list_params.py">params</a>) -> <a href="./src/merge/types/crm/custom_object.py">SyncPage[CustomObject]</a></code>
 
 ### Associations
@@ -1553,14 +1552,14 @@ Methods:
 Types:
 
 ```python
-from merge.types.crm import CrmUser
+from merge.types.crm import User
 ```
 
 Methods:
 
-- <code title="get /crm/v1/users/{id}">client.crm.users.<a href="./src/merge/resources/crm/users.py">retrieve</a>(id, \*\*<a href="src/merge/types/crm/user_retrieve_params.py">params</a>) -> <a href="./src/merge/types/crm/crm_user.py">CrmUser</a></code>
-- <code title="get /crm/v1/users">client.crm.users.<a href="./src/merge/resources/crm/users.py">list</a>(\*\*<a href="src/merge/types/crm/user_list_params.py">params</a>) -> <a href="./src/merge/types/crm/crm_user.py">SyncPage[CrmUser]</a></code>
-- <code title="post /crm/v1/users/ignore/{model_id}">client.crm.users.<a href="./src/merge/resources/crm/users.py">ignore_row</a>(model_id, \*\*<a href="src/merge/types/crm/user_ignore_row_params.py">params</a>) -> <a href="./src/merge/types/shared/ignore_common_model.py">shared.IgnoreCommonModel</a></code>
+- <code title="get /crm/v1/users/{id}">client.crm.users.<a href="./src/merge/resources/crm/users.py">retrieve</a>(id, \*\*<a href="src/merge/types/crm/user_retrieve_params.py">params</a>) -> <a href="./src/merge/types/crm/user.py">User</a></code>
+- <code title="get /crm/v1/users">client.crm.users.<a href="./src/merge/resources/crm/users.py">list</a>(\*\*<a href="src/merge/types/crm/user_list_params.py">params</a>) -> <a href="./src/merge/types/crm/user.py">SyncPage[User]</a></code>
+- <code title="post /crm/v1/users/ignore/{model_id}">client.crm.users.<a href="./src/merge/resources/crm/users.py">ignore_row</a>(model_id, \*\*<a href="src/merge/types/crm/user_ignore_row_params.py">params</a>) -> None</code>
 - <code title="get /crm/v1/users/remote-field-classes">client.crm.users.<a href="./src/merge/resources/crm/users.py">list_remote_field_classes</a>(\*\*<a href="src/merge/types/crm/user_list_remote_field_classes_params.py">params</a>) -> <a href="./src/merge/types/shared/remote_field_class.py">SyncPage[shared.RemoteFieldClass]</a></code>
 
 ## AccountDetails
@@ -1671,12 +1670,12 @@ Methods:
 Types:
 
 ```python
-from merge.types.marketing import Action, MktgActionResponse
+from merge.types.marketing import Action, ActionResponse
 ```
 
 Methods:
 
-- <code title="post /mktg/v1/actions">client.marketing.actions.<a href="./src/merge/resources/marketing/actions/actions.py">create</a>(\*\*<a href="src/merge/types/marketing/action_create_params.py">params</a>) -> <a href="./src/merge/types/marketing/mktg_action_response.py">MktgActionResponse</a></code>
+- <code title="post /mktg/v1/actions">client.marketing.actions.<a href="./src/merge/resources/marketing/actions/actions.py">create</a>(\*\*<a href="src/merge/types/marketing/action_create_params.py">params</a>) -> <a href="./src/merge/types/marketing/action_response.py">ActionResponse</a></code>
 - <code title="get /mktg/v1/actions/{id}">client.marketing.actions.<a href="./src/merge/resources/marketing/actions/actions.py">retrieve</a>(id, \*\*<a href="src/merge/types/marketing/action_retrieve_params.py">params</a>) -> <a href="./src/merge/types/marketing/action.py">Action</a></code>
 - <code title="get /mktg/v1/actions">client.marketing.actions.<a href="./src/merge/resources/marketing/actions/actions.py">list</a>(\*\*<a href="src/merge/types/marketing/action_list_params.py">params</a>) -> <a href="./src/merge/types/marketing/action.py">SyncPage[Action]</a></code>
 
@@ -1691,12 +1690,12 @@ Methods:
 Types:
 
 ```python
-from merge.types.marketing import Automation, MktgAutomationResponse
+from merge.types.marketing import Automation, AutomationResponse
 ```
 
 Methods:
 
-- <code title="post /mktg/v1/automations">client.marketing.automations.<a href="./src/merge/resources/marketing/automations/automations.py">create</a>(\*\*<a href="src/merge/types/marketing/automation_create_params.py">params</a>) -> <a href="./src/merge/types/marketing/mktg_automation_response.py">MktgAutomationResponse</a></code>
+- <code title="post /mktg/v1/automations">client.marketing.automations.<a href="./src/merge/resources/marketing/automations/automations.py">create</a>(\*\*<a href="src/merge/types/marketing/automation_create_params.py">params</a>) -> <a href="./src/merge/types/marketing/automation_response.py">AutomationResponse</a></code>
 - <code title="get /mktg/v1/automations/{id}">client.marketing.automations.<a href="./src/merge/resources/marketing/automations/automations.py">retrieve</a>(id, \*\*<a href="src/merge/types/marketing/automation_retrieve_params.py">params</a>) -> <a href="./src/merge/types/marketing/automation.py">Automation</a></code>
 - <code title="get /mktg/v1/automations">client.marketing.automations.<a href="./src/merge/resources/marketing/automations/automations.py">list</a>(\*\*<a href="src/merge/types/marketing/automation_list_params.py">params</a>) -> <a href="./src/merge/types/marketing/automation.py">SyncPage[Automation]</a></code>
 - <code title="get /mktg/v1/automations/{parent_id}/recipients">client.marketing.automations.<a href="./src/merge/resources/marketing/automations/automations.py">list_recipients</a>(parent_id, \*\*<a href="src/merge/types/marketing/automation_list_recipients_params.py">params</a>) -> <a href="./src/merge/types/shared/contact.py">SyncPage[shared.Contact]</a></code>
@@ -1712,12 +1711,12 @@ Methods:
 Types:
 
 ```python
-from merge.types.marketing import Campaign, MktgCampaignResponse
+from merge.types.marketing import Campaign, CampaignResponse
 ```
 
 Methods:
 
-- <code title="post /mktg/v1/campaigns">client.marketing.campaigns.<a href="./src/merge/resources/marketing/campaigns/campaigns.py">create</a>(\*\*<a href="src/merge/types/marketing/campaign_create_params.py">params</a>) -> <a href="./src/merge/types/marketing/mktg_campaign_response.py">MktgCampaignResponse</a></code>
+- <code title="post /mktg/v1/campaigns">client.marketing.campaigns.<a href="./src/merge/resources/marketing/campaigns/campaigns.py">create</a>(\*\*<a href="src/merge/types/marketing/campaign_create_params.py">params</a>) -> <a href="./src/merge/types/marketing/campaign_response.py">CampaignResponse</a></code>
 - <code title="get /mktg/v1/campaigns/{id}">client.marketing.campaigns.<a href="./src/merge/resources/marketing/campaigns/campaigns.py">retrieve</a>(id, \*\*<a href="src/merge/types/marketing/campaign_retrieve_params.py">params</a>) -> <a href="./src/merge/types/marketing/campaign.py">Campaign</a></code>
 - <code title="get /mktg/v1/campaigns">client.marketing.campaigns.<a href="./src/merge/resources/marketing/campaigns/campaigns.py">list</a>(\*\*<a href="src/merge/types/marketing/campaign_list_params.py">params</a>) -> <a href="./src/merge/types/marketing/campaign.py">SyncPage[Campaign]</a></code>
 - <code title="get /mktg/v1/campaigns/{parent_id}/contacts">client.marketing.campaigns.<a href="./src/merge/resources/marketing/campaigns/campaigns.py">list_contacts</a>(parent_id, \*\*<a href="src/merge/types/marketing/campaign_list_contacts_params.py">params</a>) -> <a href="./src/merge/types/shared/contact.py">SyncPage[shared.Contact]</a></code>
@@ -1733,12 +1732,12 @@ Methods:
 Types:
 
 ```python
-from merge.types.marketing import MktgContactResponse
+from merge.types.marketing import ContactResponse
 ```
 
 Methods:
 
-- <code title="post /mktg/v1/contacts">client.marketing.contacts.<a href="./src/merge/resources/marketing/contacts/contacts.py">create</a>(\*\*<a href="src/merge/types/marketing/contact_create_params.py">params</a>) -> <a href="./src/merge/types/marketing/mktg_contact_response.py">MktgContactResponse</a></code>
+- <code title="post /mktg/v1/contacts">client.marketing.contacts.<a href="./src/merge/resources/marketing/contacts/contacts.py">create</a>(\*\*<a href="src/merge/types/marketing/contact_create_params.py">params</a>) -> <a href="./src/merge/types/marketing/contact_response.py">ContactResponse</a></code>
 - <code title="get /mktg/v1/contacts/{id}">client.marketing.contacts.<a href="./src/merge/resources/marketing/contacts/contacts.py">retrieve</a>(id, \*\*<a href="src/merge/types/marketing/contact_retrieve_params.py">params</a>) -> <a href="./src/merge/types/shared/contact.py">shared.Contact</a></code>
 - <code title="get /mktg/v1/contacts">client.marketing.contacts.<a href="./src/merge/resources/marketing/contacts/contacts.py">list</a>(\*\*<a href="src/merge/types/marketing/contact_list_params.py">params</a>) -> <a href="./src/merge/types/shared/contact.py">SyncPage[shared.Contact]</a></code>
 
@@ -1753,13 +1752,13 @@ Methods:
 Types:
 
 ```python
-from merge.types.marketing import MarketingEmail
+from merge.types.marketing import Email
 ```
 
 Methods:
 
-- <code title="get /mktg/v1/emails/{id}">client.marketing.emails.<a href="./src/merge/resources/marketing/emails.py">retrieve</a>(id, \*\*<a href="src/merge/types/marketing/email_retrieve_params.py">params</a>) -> <a href="./src/merge/types/marketing/marketing_email.py">MarketingEmail</a></code>
-- <code title="get /mktg/v1/emails">client.marketing.emails.<a href="./src/merge/resources/marketing/emails.py">list</a>(\*\*<a href="src/merge/types/marketing/email_list_params.py">params</a>) -> <a href="./src/merge/types/marketing/marketing_email.py">SyncPage[MarketingEmail]</a></code>
+- <code title="get /mktg/v1/emails/{id}">client.marketing.emails.<a href="./src/merge/resources/marketing/emails.py">retrieve</a>(id, \*\*<a href="src/merge/types/marketing/email_retrieve_params.py">params</a>) -> <a href="./src/merge/types/marketing/email.py">Email</a></code>
+- <code title="get /mktg/v1/emails">client.marketing.emails.<a href="./src/merge/resources/marketing/emails.py">list</a>(\*\*<a href="src/merge/types/marketing/email_list_params.py">params</a>) -> <a href="./src/merge/types/marketing/email.py">SyncPage[Email]</a></code>
 - <code title="get /mktg/v1/emails/{parent_id}/recipients">client.marketing.emails.<a href="./src/merge/resources/marketing/emails.py">list_recipients</a>(parent_id, \*\*<a href="src/merge/types/marketing/email_list_recipients_params.py">params</a>) -> <a href="./src/merge/types/shared/contact.py">SyncPage[shared.Contact]</a></code>
 
 ## Events
@@ -1816,12 +1815,12 @@ Methods:
 Types:
 
 ```python
-from merge.types.marketing import MktgTemplateResponse, Template
+from merge.types.marketing import Template, TemplateResponse
 ```
 
 Methods:
 
-- <code title="post /mktg/v1/templates">client.marketing.templates.<a href="./src/merge/resources/marketing/templates/templates.py">create</a>(\*\*<a href="src/merge/types/marketing/template_create_params.py">params</a>) -> <a href="./src/merge/types/marketing/mktg_template_response.py">MktgTemplateResponse</a></code>
+- <code title="post /mktg/v1/templates">client.marketing.templates.<a href="./src/merge/resources/marketing/templates/templates.py">create</a>(\*\*<a href="src/merge/types/marketing/template_create_params.py">params</a>) -> <a href="./src/merge/types/marketing/template_response.py">TemplateResponse</a></code>
 - <code title="get /mktg/v1/templates/{id}">client.marketing.templates.<a href="./src/merge/resources/marketing/templates/templates.py">retrieve</a>(id, \*\*<a href="src/merge/types/marketing/template_retrieve_params.py">params</a>) -> <a href="./src/merge/types/marketing/template.py">Template</a></code>
 - <code title="get /mktg/v1/templates">client.marketing.templates.<a href="./src/merge/resources/marketing/templates/templates.py">list</a>(\*\*<a href="src/merge/types/marketing/template_list_params.py">params</a>) -> <a href="./src/merge/types/marketing/template.py">SyncPage[Template]</a></code>
 
@@ -1836,13 +1835,13 @@ Methods:
 Types:
 
 ```python
-from merge.types.marketing import MarketingUser
+from merge.types.marketing import User
 ```
 
 Methods:
 
-- <code title="get /mktg/v1/users/{id}">client.marketing.users.<a href="./src/merge/resources/marketing/users.py">retrieve</a>(id, \*\*<a href="src/merge/types/marketing/user_retrieve_params.py">params</a>) -> <a href="./src/merge/types/marketing/marketing_user.py">MarketingUser</a></code>
-- <code title="get /mktg/v1/users">client.marketing.users.<a href="./src/merge/resources/marketing/users.py">list</a>(\*\*<a href="src/merge/types/marketing/user_list_params.py">params</a>) -> <a href="./src/merge/types/marketing/marketing_user.py">SyncPage[MarketingUser]</a></code>
+- <code title="get /mktg/v1/users/{id}">client.marketing.users.<a href="./src/merge/resources/marketing/users.py">retrieve</a>(id, \*\*<a href="src/merge/types/marketing/user_retrieve_params.py">params</a>) -> <a href="./src/merge/types/marketing/user.py">User</a></code>
+- <code title="get /mktg/v1/users">client.marketing.users.<a href="./src/merge/resources/marketing/users.py">list</a>(\*\*<a href="src/merge/types/marketing/user_list_params.py">params</a>) -> <a href="./src/merge/types/marketing/user.py">SyncPage[User]</a></code>
 
 ## AccountDetails
 
@@ -2006,26 +2005,26 @@ Methods:
 Types:
 
 ```python
-from merge.types.file_storage import FileStorageGroup
+from merge.types.file_storage import Group
 ```
 
 Methods:
 
-- <code title="get /filestorage/v1/groups/{id}">client.file_storage.groups.<a href="./src/merge/resources/file_storage/groups.py">retrieve</a>(id, \*\*<a href="src/merge/types/file_storage/group_retrieve_params.py">params</a>) -> <a href="./src/merge/types/file_storage/file_storage_group.py">FileStorageGroup</a></code>
-- <code title="get /filestorage/v1/groups">client.file_storage.groups.<a href="./src/merge/resources/file_storage/groups.py">list</a>(\*\*<a href="src/merge/types/file_storage/group_list_params.py">params</a>) -> <a href="./src/merge/types/file_storage/file_storage_group.py">SyncPage[FileStorageGroup]</a></code>
+- <code title="get /filestorage/v1/groups/{id}">client.file_storage.groups.<a href="./src/merge/resources/file_storage/groups.py">retrieve</a>(id, \*\*<a href="src/merge/types/file_storage/group_retrieve_params.py">params</a>) -> <a href="./src/merge/types/file_storage/group.py">Group</a></code>
+- <code title="get /filestorage/v1/groups">client.file_storage.groups.<a href="./src/merge/resources/file_storage/groups.py">list</a>(\*\*<a href="src/merge/types/file_storage/group_list_params.py">params</a>) -> <a href="./src/merge/types/file_storage/group.py">SyncPage[Group]</a></code>
 
 ## Users
 
 Types:
 
 ```python
-from merge.types.file_storage import FileStorageUser
+from merge.types.file_storage import User
 ```
 
 Methods:
 
-- <code title="get /filestorage/v1/users/{id}">client.file_storage.users.<a href="./src/merge/resources/file_storage/users.py">retrieve</a>(id, \*\*<a href="src/merge/types/file_storage/user_retrieve_params.py">params</a>) -> <a href="./src/merge/types/file_storage/file_storage_user.py">FileStorageUser</a></code>
-- <code title="get /filestorage/v1/users">client.file_storage.users.<a href="./src/merge/resources/file_storage/users.py">list</a>(\*\*<a href="src/merge/types/file_storage/user_list_params.py">params</a>) -> <a href="./src/merge/types/file_storage/file_storage_user.py">SyncPage[FileStorageUser]</a></code>
+- <code title="get /filestorage/v1/users/{id}">client.file_storage.users.<a href="./src/merge/resources/file_storage/users.py">retrieve</a>(id, \*\*<a href="src/merge/types/file_storage/user_retrieve_params.py">params</a>) -> <a href="./src/merge/types/file_storage/user.py">User</a></code>
+- <code title="get /filestorage/v1/users">client.file_storage.users.<a href="./src/merge/resources/file_storage/users.py">list</a>(\*\*<a href="src/merge/types/file_storage/user_list_params.py">params</a>) -> <a href="./src/merge/types/file_storage/user.py">SyncPage[User]</a></code>
 
 ## AccountDetails
 

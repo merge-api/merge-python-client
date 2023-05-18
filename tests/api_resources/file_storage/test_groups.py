@@ -10,7 +10,7 @@ from merge import Merge, AsyncMerge
 from tests.utils import assert_matches_type
 from merge._utils import parse_datetime
 from merge.pagination import SyncPage, AsyncPage
-from merge.types.file_storage import FileStorageGroup
+from merge.types.file_storage import Group
 
 base_url = os.environ.get("API_BASE_URL", "http://127.0.0.1:4010")
 api_key = os.environ.get("API_KEY", "something1234")
@@ -30,7 +30,7 @@ class TestGroups:
         group = client.file_storage.groups.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(FileStorageGroup, group, path=["response"])
+        assert_matches_type(Group, group, path=["response"])
 
     @parametrize
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
@@ -38,12 +38,12 @@ class TestGroups:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             include_remote_data=True,
         )
-        assert_matches_type(FileStorageGroup, group, path=["response"])
+        assert_matches_type(Group, group, path=["response"])
 
     @parametrize
     def test_method_list(self, client: Merge) -> None:
         group = client.file_storage.groups.list()
-        assert_matches_type(SyncPage[FileStorageGroup], group, path=["response"])
+        assert_matches_type(SyncPage[Group], group, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Merge) -> None:
@@ -58,7 +58,7 @@ class TestGroups:
             page_size=0,
             remote_id="string",
         )
-        assert_matches_type(SyncPage[FileStorageGroup], group, path=["response"])
+        assert_matches_type(SyncPage[Group], group, path=["response"])
 
 
 class TestAsyncGroups:
@@ -75,7 +75,7 @@ class TestAsyncGroups:
         group = await client.file_storage.groups.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(FileStorageGroup, group, path=["response"])
+        assert_matches_type(Group, group, path=["response"])
 
     @parametrize
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
@@ -83,12 +83,12 @@ class TestAsyncGroups:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             include_remote_data=True,
         )
-        assert_matches_type(FileStorageGroup, group, path=["response"])
+        assert_matches_type(Group, group, path=["response"])
 
     @parametrize
     async def test_method_list(self, client: AsyncMerge) -> None:
         group = await client.file_storage.groups.list()
-        assert_matches_type(AsyncPage[FileStorageGroup], group, path=["response"])
+        assert_matches_type(AsyncPage[Group], group, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, client: AsyncMerge) -> None:
@@ -103,4 +103,4 @@ class TestAsyncGroups:
             page_size=0,
             remote_id="string",
         )
-        assert_matches_type(AsyncPage[FileStorageGroup], group, path=["response"])
+        assert_matches_type(AsyncPage[Group], group, path=["response"])

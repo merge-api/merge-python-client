@@ -9,7 +9,7 @@ __all__ = ["InvoiceRetrieveParams"]
 
 
 class InvoiceRetrieveParams(TypedDict, total=False):
-    expand: List[Literal["company", "contact", "line_items", "payments"]]
+    expand: List[Literal["company", "contact", "line_items", "payments", "tracking_categories"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

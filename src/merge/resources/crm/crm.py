@@ -33,10 +33,10 @@ from .custom_object_classes import CustomObjectClasses, AsyncCustomObjectClasses
 if TYPE_CHECKING:
     from ..._client import Merge, AsyncMerge
 
-__all__ = ["Crm", "AsyncCrm"]
+__all__ = ["CRM", "AsyncCRM"]
 
 
-class Crm(SyncAPIResource):
+class CRM(SyncAPIResource):
     accounts: Accounts
     contacts: Contacts
     custom_object_classes: CustomObjectClasses
@@ -90,7 +90,7 @@ class Crm(SyncAPIResource):
         self.selective_sync = SelectiveSync(client)
 
 
-class AsyncCrm(AsyncAPIResource):
+class AsyncCRM(AsyncAPIResource):
     accounts: AsyncAccounts
     contacts: AsyncContacts
     custom_object_classes: AsyncCustomObjectClasses

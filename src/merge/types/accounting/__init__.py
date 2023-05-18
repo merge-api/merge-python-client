@@ -10,6 +10,7 @@ from .tax_rate import TaxRate as TaxRate
 from .credit_note import CreditNote as CreditNote
 from .transaction import Transaction as Transaction
 from .company_info import CompanyInfo as CompanyInfo
+from .phone_number import PhoneNumber as PhoneNumber
 from .balance_sheet import BalanceSheet as BalanceSheet
 from .journal_entry import JournalEntry as JournalEntry
 from .vendor_credit import VendorCredit as VendorCredit
@@ -40,7 +41,6 @@ from .payment_create_params import PaymentCreateParams as PaymentCreateParams
 from .attachment_list_params import AttachmentListParams as AttachmentListParams
 from .journal_entry_response import JournalEntryResponse as JournalEntryResponse
 from .account_retrieve_params import AccountRetrieveParams as AccountRetrieveParams
-from .accounting_phone_number import AccountingPhoneNumber as AccountingPhoneNumber
 from .address_retrieve_params import AddressRetrieveParams as AddressRetrieveParams
 from .contact_retrieve_params import ContactRetrieveParams as ContactRetrieveParams
 from .credit_note_list_params import CreditNoteListParams as CreditNoteListParams

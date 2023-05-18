@@ -80,7 +80,8 @@ class Invoices(SyncAPIResource):
         self,
         id: str,
         *,
-        expand: List[Literal["company", "contact", "line_items", "payments"]] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company", "contact", "line_items", "payments", "tracking_categories"]]
+        | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         remote_fields: Literal["type"] | NotGiven = NOT_GIVEN,
         show_enum_origins: Literal["type"] | NotGiven = NOT_GIVEN,
@@ -141,7 +142,8 @@ class Invoices(SyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: List[Literal["company", "contact", "line_items", "payments"]] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company", "contact", "line_items", "payments", "tracking_categories"]]
+        | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         issue_date_after: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
@@ -186,9 +188,10 @@ class Invoices(SyncAPIResource):
 
           issue_date_before: If provided, will only return objects created before this datetime.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -300,7 +303,8 @@ class AsyncInvoices(AsyncAPIResource):
         self,
         id: str,
         *,
-        expand: List[Literal["company", "contact", "line_items", "payments"]] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company", "contact", "line_items", "payments", "tracking_categories"]]
+        | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         remote_fields: Literal["type"] | NotGiven = NOT_GIVEN,
         show_enum_origins: Literal["type"] | NotGiven = NOT_GIVEN,
@@ -361,7 +365,8 @@ class AsyncInvoices(AsyncAPIResource):
         created_after: Union[str, datetime] | NotGiven = NOT_GIVEN,
         created_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         cursor: str | NotGiven = NOT_GIVEN,
-        expand: List[Literal["company", "contact", "line_items", "payments"]] | NotGiven = NOT_GIVEN,
+        expand: List[Literal["company", "contact", "line_items", "payments", "tracking_categories"]]
+        | NotGiven = NOT_GIVEN,
         include_deleted_data: bool | NotGiven = NOT_GIVEN,
         include_remote_data: bool | NotGiven = NOT_GIVEN,
         issue_date_after: Optional[Union[str, datetime]] | NotGiven = NOT_GIVEN,
@@ -406,9 +411,10 @@ class AsyncInvoices(AsyncAPIResource):
 
           issue_date_before: If provided, will only return objects created before this datetime.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 

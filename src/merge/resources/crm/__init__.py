@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless.
 
-from .crm import Crm, AsyncCrm
+from .crm import CRM, AsyncCRM
 from .leads import Leads, AsyncLeads
 from .notes import Notes, AsyncNotes
 from .tasks import Tasks, AsyncTasks
@@ -75,6 +75,6 @@ __all__ = [
     "AsyncLinkedAccounts",
     "SelectiveSync",
     "AsyncSelectiveSync",
-    "Crm",
-    "AsyncCrm",
+    "CRM",
+    "AsyncCRM",
 ]

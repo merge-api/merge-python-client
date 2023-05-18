@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless.
 
 from typing import List, Optional
+from datetime import datetime
 
 from ...types import shared
 from ..._models import BaseModel
@@ -18,6 +19,9 @@ class JobInterviewStage(BaseModel):
 
     If the stage is generic, this field will not be populated.
     """
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     name: Optional[str]
     """Standard stage names are offered by ATS systems but can be modified by users."""

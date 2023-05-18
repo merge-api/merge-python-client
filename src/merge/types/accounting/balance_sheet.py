@@ -14,6 +14,9 @@ class Asset(BaseModel):
     company: Optional[str]
     """The company the report item belongs to."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     name: Optional[str]
     """The report item's name."""
 
@@ -30,6 +33,9 @@ class Liability(BaseModel):
     company: Optional[str]
     """The company the report item belongs to."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     name: Optional[str]
     """The report item's name."""
 
@@ -45,6 +51,9 @@ class Liability(BaseModel):
 class Equity(BaseModel):
     company: Optional[str]
     """The company the report item belongs to."""
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     name: Optional[str]
     """The report item's name."""
@@ -697,6 +706,9 @@ class BalanceSheet(BaseModel):
     id: Optional[str]
 
     liabilities: Optional[List[Liability]]
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     name: Optional[str]
     """The balance sheet's name."""

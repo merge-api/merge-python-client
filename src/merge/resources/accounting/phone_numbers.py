@@ -6,7 +6,7 @@ from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from ..._utils import maybe_transform
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._base_client import make_request_options
-from ...types.accounting import AccountingPhoneNumber, phone_number_retrieve_params
+from ...types.accounting import PhoneNumber, phone_number_retrieve_params
 
 __all__ = ["PhoneNumbers", "AsyncPhoneNumbers"]
 
@@ -23,7 +23,7 @@ class PhoneNumbers(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> AccountingPhoneNumber:
+    ) -> PhoneNumber:
         """
         Returns an `AccountingPhoneNumber` object with the given `id`.
 
@@ -50,7 +50,7 @@ class PhoneNumbers(SyncAPIResource):
                     {"include_remote_data": include_remote_data}, phone_number_retrieve_params.PhoneNumberRetrieveParams
                 ),
             ),
-            cast_to=AccountingPhoneNumber,
+            cast_to=PhoneNumber,
         )
 
 
@@ -66,7 +66,7 @@ class AsyncPhoneNumbers(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> AccountingPhoneNumber:
+    ) -> PhoneNumber:
         """
         Returns an `AccountingPhoneNumber` object with the given `id`.
 
@@ -93,5 +93,5 @@ class AsyncPhoneNumbers(AsyncAPIResource):
                     {"include_remote_data": include_remote_data}, phone_number_retrieve_params.PhoneNumberRetrieveParams
                 ),
             ),
-            cast_to=AccountingPhoneNumber,
+            cast_to=PhoneNumber,
         )

@@ -14,6 +14,9 @@ class OperatingActivity(BaseModel):
     company: Optional[str]
     """The company the report item belongs to."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     name: Optional[str]
     """The report item's name."""
 
@@ -30,6 +33,9 @@ class InvestingActivity(BaseModel):
     company: Optional[str]
     """The company the report item belongs to."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     name: Optional[str]
     """The report item's name."""
 
@@ -45,6 +51,9 @@ class InvestingActivity(BaseModel):
 class FinancingActivity(BaseModel):
     company: Optional[str]
     """The company the report item belongs to."""
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     name: Optional[str]
     """The report item's name."""
@@ -697,6 +706,9 @@ class CashFlowStatement(BaseModel):
     id: Optional[str]
 
     investing_activities: Optional[List[InvestingActivity]]
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     name: Optional[str]
     """The cash flow statement's name."""

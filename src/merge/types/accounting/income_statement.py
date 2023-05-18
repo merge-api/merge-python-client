@@ -14,6 +14,9 @@ class Income(BaseModel):
     company: Optional[str]
     """The company the report item belongs to."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     name: Optional[str]
     """The report item's name."""
 
@@ -29,6 +32,9 @@ class Income(BaseModel):
 class CostOfSale(BaseModel):
     company: Optional[str]
     """The company the report item belongs to."""
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     name: Optional[str]
     """The report item's name."""
@@ -46,6 +52,9 @@ class OperatingExpense(BaseModel):
     company: Optional[str]
     """The company the report item belongs to."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     name: Optional[str]
     """The report item's name."""
 
@@ -61,6 +70,9 @@ class OperatingExpense(BaseModel):
 class NonOperatingExpense(BaseModel):
     company: Optional[str]
     """The company the report item belongs to."""
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     name: Optional[str]
     """The report item's name."""
@@ -710,6 +722,9 @@ class IncomeStatement(BaseModel):
     id: Optional[str]
 
     income: Optional[List[Income]]
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     name: Optional[str]
     """The income statement's name."""

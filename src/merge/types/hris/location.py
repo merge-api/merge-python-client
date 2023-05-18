@@ -1,7 +1,10 @@
 # File generated from our OpenAPI spec by Stainless.
 
 from typing import List, Optional
+from datetime import datetime
 from typing_extensions import Literal
+
+from pydantic import Field as FieldInfo
 
 from ...types import shared
 from ..._models import BaseModel
@@ -276,6 +279,9 @@ class Location(BaseModel):
     - `WORK` - WORK
     """
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     name: Optional[str]
     """The location's name."""
 
@@ -293,10 +299,10 @@ class Location(BaseModel):
     state: Optional[str]
     """The location's state. Represents a region if outside of the US."""
 
-    street_1: Optional[str]
+    street1: Optional[str] = FieldInfo(alias="street_1")
     """Line 1 of the location's street address."""
 
-    street_2: Optional[str]
+    street2: Optional[str] = FieldInfo(alias="street_2")
     """Line 2 of the location's street address."""
 
     zip_code: Optional[str]
