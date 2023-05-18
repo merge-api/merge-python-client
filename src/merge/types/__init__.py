@@ -26,7 +26,6 @@ from .shared import ValidationError as ValidationError
 from .shared import WebhookReceiver as WebhookReceiver
 from .shared import CommonModelScope as CommonModelScope
 from .shared import RemoteFieldClass as RemoteFieldClass
-from .shared import IgnoreCommonModel as IgnoreCommonModel
 from .shared import ValidationWarning as ValidationWarning
 from .shared import AccountDetailsAndActions as AccountDetailsAndActions
 from .shared import (

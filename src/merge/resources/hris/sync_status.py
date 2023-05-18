@@ -76,8 +76,10 @@ class SyncStatus(SyncAPIResource):
         """Force re-sync of all models.
 
         This is available for all organizations via the
-        dashboard. Force re-sync is also available for monthly and quarterly sync
-        frequency customers on the Core, Professional, or Enterprise plans.
+        dashboard. Force re-sync is also available programmatically via API for monthly,
+        quarterly, and highest sync frequency customers on the Core, Professional, or
+        Enterprise plans. Doing so will consume a sync credit for the relevant linked
+        account.
         """
         return self._post(
             "/hris/v1/sync-status/resync",
@@ -151,8 +153,10 @@ class AsyncSyncStatus(AsyncAPIResource):
         """Force re-sync of all models.
 
         This is available for all organizations via the
-        dashboard. Force re-sync is also available for monthly and quarterly sync
-        frequency customers on the Core, Professional, or Enterprise plans.
+        dashboard. Force re-sync is also available programmatically via API for monthly,
+        quarterly, and highest sync frequency customers on the Core, Professional, or
+        Enterprise plans. Doing so will consume a sync credit for the relevant linked
+        account.
         """
         return await self._post(
             "/hris/v1/sync-status/resync",

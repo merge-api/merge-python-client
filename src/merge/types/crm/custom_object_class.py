@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless.
 
 from typing import Dict, List, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
@@ -47,6 +48,9 @@ class Field(BaseModel):
 
     item_schema: Optional[FieldItemSchema]
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     remote_key_name: Optional[str]
 
 
@@ -60,6 +64,8 @@ class CustomObjectClass(BaseModel):
     id: Optional[str]
 
     labels: Optional[Dict[str, Optional[str]]]
+
+    modified_at: Optional[datetime]
 
     name: Optional[str]
 

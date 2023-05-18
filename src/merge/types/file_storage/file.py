@@ -38,6 +38,9 @@ class File(BaseModel):
     mime_type: Optional[str]
     """The file's mime type."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     name: Optional[str]
     """The file's name."""
 

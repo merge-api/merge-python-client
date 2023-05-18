@@ -25,7 +25,6 @@ from .webhook_receiver import WebhookReceiver as WebhookReceiver
 from .common_model_scope import CommonModelScope as CommonModelScope
 from .remote_field_class import RemoteFieldClass as RemoteFieldClass
 from .validation_warning import ValidationWarning as ValidationWarning
-from .ignore_common_model import IgnoreCommonModel as IgnoreCommonModel
 from .account_details_and_actions import (
     AccountDetailsAndActions as AccountDetailsAndActions,
 )

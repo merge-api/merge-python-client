@@ -10,7 +10,7 @@ from merge import Merge, AsyncMerge
 from merge.types import shared
 from tests.utils import assert_matches_type
 from merge._utils import parse_datetime
-from merge.types.crm import CrmContactResponse
+from merge.types.crm import ContactResponse
 from merge.pagination import SyncPage, AsyncPage
 
 base_url = os.environ.get("API_BASE_URL", "http://127.0.0.1:4010")
@@ -31,7 +31,7 @@ class TestContacts:
         contact = client.crm.contacts.create(
             model={},
         )
-        assert_matches_type(CrmContactResponse, contact, path=["response"])
+        assert_matches_type(ContactResponse, contact, path=["response"])
 
     @parametrize
     def test_method_retrieve(self, client: Merge) -> None:
@@ -56,7 +56,7 @@ class TestContacts:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             model={},
         )
-        assert_matches_type(CrmContactResponse, contact, path=["response"])
+        assert_matches_type(ContactResponse, contact, path=["response"])
 
     @parametrize
     def test_method_list(self, client: Merge) -> None:
@@ -87,7 +87,7 @@ class TestContacts:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             reason="GENERAL_CUSTOMER_REQUEST",
         )
-        assert_matches_type(shared.IgnoreCommonModel, contact, path=["response"])
+        assert contact is None
 
     @parametrize
     def test_method_ignore_row_with_all_params(self, client: Merge) -> None:
@@ -96,7 +96,7 @@ class TestContacts:
             reason="GENERAL_CUSTOMER_REQUEST",
             message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
         )
-        assert_matches_type(shared.IgnoreCommonModel, contact, path=["response"])
+        assert contact is None
 
     @parametrize
     def test_method_list_remote_field_classes(self, client: Merge) -> None:
@@ -129,7 +129,7 @@ class TestAsyncContacts:
         contact = await client.crm.contacts.create(
             model={},
         )
-        assert_matches_type(CrmContactResponse, contact, path=["response"])
+        assert_matches_type(ContactResponse, contact, path=["response"])
 
     @parametrize
     async def test_method_retrieve(self, client: AsyncMerge) -> None:
@@ -154,7 +154,7 @@ class TestAsyncContacts:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             model={},
         )
-        assert_matches_type(CrmContactResponse, contact, path=["response"])
+        assert_matches_type(ContactResponse, contact, path=["response"])
 
     @parametrize
     async def test_method_list(self, client: AsyncMerge) -> None:
@@ -185,7 +185,7 @@ class TestAsyncContacts:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             reason="GENERAL_CUSTOMER_REQUEST",
         )
-        assert_matches_type(shared.IgnoreCommonModel, contact, path=["response"])
+        assert contact is None
 
     @parametrize
     async def test_method_ignore_row_with_all_params(self, client: AsyncMerge) -> None:
@@ -194,7 +194,7 @@ class TestAsyncContacts:
             reason="GENERAL_CUSTOMER_REQUEST",
             message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
         )
-        assert_matches_type(shared.IgnoreCommonModel, contact, path=["response"])
+        assert contact is None
 
     @parametrize
     async def test_method_list_remote_field_classes(self, client: AsyncMerge) -> None:

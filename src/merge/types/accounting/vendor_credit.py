@@ -26,6 +26,9 @@ class Line(BaseModel):
     exchange_rate: Optional[str]
     """The vendor credit line item's exchange rate."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     net_amount: Optional[float]
     """The full value of the credit."""
 
@@ -668,6 +671,9 @@ class VendorCredit(BaseModel):
 
     lines: Optional[List[Line]]
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     number: Optional[str]
     """The vendor credit's number."""
 
@@ -681,6 +687,8 @@ class VendorCredit(BaseModel):
 
     total_amount: Optional[float]
     """The vendor credit's total amount."""
+
+    tracking_categories: Optional[List[Optional[str]]]
 
     transaction_date: Optional[datetime]
     """The vendor credit's transaction date."""

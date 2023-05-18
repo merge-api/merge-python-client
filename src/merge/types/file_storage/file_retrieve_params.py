@@ -9,7 +9,7 @@ __all__ = ["FileRetrieveParams"]
 
 
 class FileRetrieveParams(TypedDict, total=False):
-    expand: List[Literal["folder", "permissions"]]
+    expand: List[Literal["drive", "folder", "permissions"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

@@ -14,8 +14,8 @@ from ...._resource import SyncAPIResource, AsyncAPIResource
 from ....pagination import SyncPage, AsyncPage
 from ...._base_client import AsyncPaginator, make_request_options
 from ....types.ticketing import (
+    User,
     Ticket,
-    TicketingUser,
     TicketResponse,
     ticket_list_params,
     ticket_create_params,
@@ -311,9 +311,10 @@ class Tickets(SyncAPIResource):
           include_remote_fields: Whether to include all remote fields, including fields that Merge did not map to
               common models, in a normalized format.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -429,7 +430,7 @@ class Tickets(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> SyncPage[TicketingUser]:
+    ) -> SyncPage[User]:
         """
         Returns a list of `User` objects.
 
@@ -456,7 +457,7 @@ class Tickets(SyncAPIResource):
         """
         return self._get_api_list(
             f"/ticketing/v1/tickets/{parent_id}/collaborators",
-            page=SyncPage[TicketingUser],
+            page=SyncPage[User],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -473,7 +474,7 @@ class Tickets(SyncAPIResource):
                     ticket_list_collaborators_params.TicketListCollaboratorsParams,
                 ),
             ),
-            model=TicketingUser,
+            model=User,
         )
 
     def list_remote_field_classes(
@@ -813,9 +814,10 @@ class AsyncTickets(AsyncAPIResource):
           include_remote_fields: Whether to include all remote fields, including fields that Merge did not map to
               common models, in a normalized format.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -931,7 +933,7 @@ class AsyncTickets(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[TicketingUser, AsyncPage[TicketingUser]]:
+    ) -> AsyncPaginator[User, AsyncPage[User]]:
         """
         Returns a list of `User` objects.
 
@@ -958,7 +960,7 @@ class AsyncTickets(AsyncAPIResource):
         """
         return self._get_api_list(
             f"/ticketing/v1/tickets/{parent_id}/collaborators",
-            page=AsyncPage[TicketingUser],
+            page=AsyncPage[User],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -975,7 +977,7 @@ class AsyncTickets(AsyncAPIResource):
                     ticket_list_collaborators_params.TicketListCollaboratorsParams,
                 ),
             ),
-            model=TicketingUser,
+            model=User,
         )
 
     def list_remote_field_classes(

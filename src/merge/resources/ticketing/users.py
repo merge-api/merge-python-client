@@ -11,7 +11,7 @@ from ..._utils import maybe_transform
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ...pagination import SyncPage, AsyncPage
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.ticketing import TicketingUser, user_list_params, user_retrieve_params
+from ...types.ticketing import User, user_list_params, user_retrieve_params
 
 __all__ = ["Users", "AsyncUsers"]
 
@@ -29,7 +29,7 @@ class Users(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> TicketingUser:
+    ) -> User:
         """
         Returns a `User` object with the given `id`.
 
@@ -63,7 +63,7 @@ class Users(SyncAPIResource):
                     user_retrieve_params.UserRetrieveParams,
                 ),
             ),
-            cast_to=TicketingUser,
+            cast_to=User,
         )
 
     def list(
@@ -86,7 +86,7 @@ class Users(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> SyncPage[TicketingUser]:
+    ) -> SyncPage[User]:
         """
         Returns a list of `User` objects.
 
@@ -108,9 +108,10 @@ class Users(SyncAPIResource):
           include_remote_data: Whether to include the original data Merge fetched from the third-party to
               produce these models.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -126,7 +127,7 @@ class Users(SyncAPIResource):
         """
         return self._get_api_list(
             "/ticketing/v1/users",
-            page=SyncPage[TicketingUser],
+            page=SyncPage[User],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -149,7 +150,7 @@ class Users(SyncAPIResource):
                     user_list_params.UserListParams,
                 ),
             ),
-            model=TicketingUser,
+            model=User,
         )
 
 
@@ -166,7 +167,7 @@ class AsyncUsers(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> TicketingUser:
+    ) -> User:
         """
         Returns a `User` object with the given `id`.
 
@@ -200,7 +201,7 @@ class AsyncUsers(AsyncAPIResource):
                     user_retrieve_params.UserRetrieveParams,
                 ),
             ),
-            cast_to=TicketingUser,
+            cast_to=User,
         )
 
     def list(
@@ -223,7 +224,7 @@ class AsyncUsers(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[TicketingUser, AsyncPage[TicketingUser]]:
+    ) -> AsyncPaginator[User, AsyncPage[User]]:
         """
         Returns a list of `User` objects.
 
@@ -245,9 +246,10 @@ class AsyncUsers(AsyncAPIResource):
           include_remote_data: Whether to include the original data Merge fetched from the third-party to
               produce these models.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -263,7 +265,7 @@ class AsyncUsers(AsyncAPIResource):
         """
         return self._get_api_list(
             "/ticketing/v1/users",
-            page=AsyncPage[TicketingUser],
+            page=AsyncPage[User],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -286,5 +288,5 @@ class AsyncUsers(AsyncAPIResource):
                     user_list_params.UserListParams,
                 ),
             ),
-            model=TicketingUser,
+            model=User,
         )

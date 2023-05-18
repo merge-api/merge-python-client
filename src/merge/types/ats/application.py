@@ -29,6 +29,9 @@ class Application(BaseModel):
     job: Optional[str]
     """The job being applied for."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     reject_reason: Optional[str]
     """The application's reason for rejection."""
 

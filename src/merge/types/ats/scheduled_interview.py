@@ -30,6 +30,9 @@ class ScheduledInterview(BaseModel):
     location: Optional[str]
     """The interview's location."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     organizer: Optional[str]
     """The user organizing the interview."""
 

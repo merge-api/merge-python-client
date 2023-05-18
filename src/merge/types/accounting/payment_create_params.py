@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
@@ -647,6 +647,8 @@ class Model(TypedDict, total=False):
 
     total_amount: Optional[float]
     """The total amount of money being paid to the supplier, or customer, after taxes."""
+
+    tracking_categories: List[Optional[str]]
 
     transaction_date: Annotated[Optional[Union[str, datetime]], PropertyInfo(format="iso8601")]
     """The payment's transaction date."""

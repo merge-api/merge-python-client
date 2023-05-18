@@ -12,7 +12,7 @@ from .generators import Generators, AsyncGenerators
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ....types.crm import (
     CustomObject,
-    CrmCustomObjectResponse,
+    CustomObjectResponse,
     custom_object_list_params,
     custom_object_create_params,
     custom_object_update_params,
@@ -50,7 +50,7 @@ class CustomObjects(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> CrmCustomObjectResponse:
+    ) -> CustomObjectResponse:
         """
         Creates a `CustomObject` object with the given values.
 
@@ -69,7 +69,7 @@ class CustomObjects(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CrmCustomObjectResponse,
+            cast_to=CustomObjectResponse,
         )
 
     def retrieve(
@@ -134,7 +134,7 @@ class CustomObjects(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> CrmCustomObjectResponse:
+    ) -> CustomObjectResponse:
         """
         Updates a `CustomObject` object with the given `id`.
 
@@ -153,7 +153,7 @@ class CustomObjects(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CrmCustomObjectResponse,
+            cast_to=CustomObjectResponse,
         )
 
     def list(
@@ -195,9 +195,10 @@ class CustomObjects(SyncAPIResource):
           include_remote_fields: Whether to include all remote fields, including fields that Merge did not map to
               common models, in a normalized format.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -261,7 +262,7 @@ class AsyncCustomObjects(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> CrmCustomObjectResponse:
+    ) -> CustomObjectResponse:
         """
         Creates a `CustomObject` object with the given values.
 
@@ -280,7 +281,7 @@ class AsyncCustomObjects(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CrmCustomObjectResponse,
+            cast_to=CustomObjectResponse,
         )
 
     async def retrieve(
@@ -345,7 +346,7 @@ class AsyncCustomObjects(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> CrmCustomObjectResponse:
+    ) -> CustomObjectResponse:
         """
         Updates a `CustomObject` object with the given `id`.
 
@@ -364,7 +365,7 @@ class AsyncCustomObjects(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CrmCustomObjectResponse,
+            cast_to=CustomObjectResponse,
         )
 
     def list(
@@ -406,9 +407,10 @@ class AsyncCustomObjects(AsyncAPIResource):
           include_remote_fields: Whether to include all remote fields, including fields that Merge did not map to
               common models, in a normalized format.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 

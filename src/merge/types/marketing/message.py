@@ -20,6 +20,9 @@ class Message(BaseModel):
 
     id: Optional[str]
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     remote_data: Optional[List[shared.RemoteData]]
 
     remote_id: Optional[str]

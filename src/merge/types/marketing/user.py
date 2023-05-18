@@ -2,29 +2,27 @@
 
 from typing import List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from ...types import shared
 from ..._models import BaseModel
 
-__all__ = ["AccountingAttachment"]
+__all__ = ["User"]
 
 
-class AccountingAttachment(BaseModel):
-    company: Optional[str]
-    """The company the accounting attachment belongs to."""
+class User(BaseModel):
+    email: Optional[str]
+    """The user's email."""
 
     field_mappings: Optional[object]
-
-    file_name: Optional[str]
-    """The attachment's name."""
-
-    file_url: Optional[str]
-    """The attachment's url."""
 
     id: Optional[str]
 
     modified_at: Optional[datetime]
     """This is the datetime that this object was last updated by Merge"""
+
+    name: Optional[str]
+    """The user's full name."""
 
     remote_data: Optional[List[shared.RemoteData]]
 
@@ -33,3 +31,17 @@ class AccountingAttachment(BaseModel):
 
     remote_was_deleted: Optional[bool]
     """Indicates whether or not this object has been deleted by third party webhooks."""
+
+    role: Optional[Literal["ADMIN", "MANAGER", "CONTRIBUTOR", "VIEWER"]]
+    """
+    - `ADMIN` - ADMIN
+    - `MANAGER` - MANAGER
+    - `CONTRIBUTOR` - CONTRIBUTOR
+    - `VIEWER` - VIEWER
+    """
+
+    timezone: Optional[str]
+    """The user's timezone."""
+
+    username: Optional[str]
+    """The user's username."""

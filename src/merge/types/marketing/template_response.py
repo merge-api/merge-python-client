@@ -6,10 +6,10 @@ from ...types import shared
 from ..._models import BaseModel
 from ...types.marketing import template
 
-__all__ = ["MktgTemplateResponse"]
+__all__ = ["TemplateResponse"]
 
 
-class MktgTemplateResponse(BaseModel):
+class TemplateResponse(BaseModel):
     errors: List[shared.ValidationError]
 
     model: template.Template

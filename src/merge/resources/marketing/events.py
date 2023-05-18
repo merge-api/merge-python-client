@@ -97,9 +97,10 @@ class Events(SyncAPIResource):
           include_remote_data: Whether to include the original data Merge fetched from the third-party to
               produce these models.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -273,9 +274,10 @@ class AsyncEvents(AsyncAPIResource):
           include_remote_data: Whether to include the original data Merge fetched from the third-party to
               produce these models.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 

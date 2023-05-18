@@ -4,23 +4,25 @@ from typing import List, Optional
 
 from ...types import shared
 from ..._models import BaseModel
+from ...types.marketing import action
 
-__all__ = ["CrmAccountResponse"]
+__all__ = ["ActionResponse"]
 
 
-class CrmAccountResponse(BaseModel):
+class ActionResponse(BaseModel):
     errors: List[shared.ValidationError]
 
-    model: shared.Account
-    """# The Account Object
+    model: action.Action
+    """# The Action Object
 
     ### Description
 
-    The `Account` object is used to represent a company in a CRM system.
+    The `Action` object is used to represent an action executed within an
+    automation.
 
     ### Usage Example
 
-    TODO
+    Fetch from the `GET /api/mktg/v1/actions` endpoint and view their types.
     """
 
     warnings: List[shared.ValidationWarning]

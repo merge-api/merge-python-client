@@ -41,6 +41,9 @@ class Engagement(BaseModel):
 
     id: Optional[str]
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     owner: Optional[str]
     """The engagement's owner."""
 

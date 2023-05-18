@@ -8,7 +8,7 @@ import pytest
 
 from merge import Merge, AsyncMerge
 from tests.utils import assert_matches_type
-from merge.types.accounting import AccountingPhoneNumber
+from merge.types.accounting import PhoneNumber
 
 base_url = os.environ.get("API_BASE_URL", "http://127.0.0.1:4010")
 api_key = os.environ.get("API_KEY", "something1234")
@@ -28,7 +28,7 @@ class TestPhoneNumbers:
         phone_number = client.accounting.phone_numbers.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(AccountingPhoneNumber, phone_number, path=["response"])
+        assert_matches_type(PhoneNumber, phone_number, path=["response"])
 
     @parametrize
     def test_method_retrieve_with_all_params(self, client: Merge) -> None:
@@ -36,7 +36,7 @@ class TestPhoneNumbers:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             include_remote_data=True,
         )
-        assert_matches_type(AccountingPhoneNumber, phone_number, path=["response"])
+        assert_matches_type(PhoneNumber, phone_number, path=["response"])
 
 
 class TestAsyncPhoneNumbers:
@@ -53,7 +53,7 @@ class TestAsyncPhoneNumbers:
         phone_number = await client.accounting.phone_numbers.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(AccountingPhoneNumber, phone_number, path=["response"])
+        assert_matches_type(PhoneNumber, phone_number, path=["response"])
 
     @parametrize
     async def test_method_retrieve_with_all_params(self, client: AsyncMerge) -> None:
@@ -61,4 +61,4 @@ class TestAsyncPhoneNumbers:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             include_remote_data=True,
         )
-        assert_matches_type(AccountingPhoneNumber, phone_number, path=["response"])
+        assert_matches_type(PhoneNumber, phone_number, path=["response"])

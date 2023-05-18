@@ -7,10 +7,10 @@ from typing_extensions import Literal
 from ...types import shared
 from ..._models import BaseModel
 
-__all__ = ["MarketingEmail"]
+__all__ = ["Email"]
 
 
-class MarketingEmail(BaseModel):
+class Email(BaseModel):
     campaigns: List[str]
     """The campaigns receiving this marketing email."""
 
@@ -29,6 +29,9 @@ class MarketingEmail(BaseModel):
     """The marketing email's html body."""
 
     id: Optional[str]
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     name: Optional[str]
     """The marketing email's name."""

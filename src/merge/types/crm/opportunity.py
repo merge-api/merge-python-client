@@ -36,6 +36,9 @@ class Opportunity(BaseModel):
     last_activity_at: Optional[datetime]
     """When the opportunity's last activity occurred."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     name: Optional[str]
     """The opportunity's name."""
 

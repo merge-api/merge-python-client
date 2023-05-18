@@ -7,7 +7,6 @@ import os
 import pytest
 
 from merge import Merge, AsyncMerge
-from merge.types import shared
 from tests.utils import assert_matches_type
 from merge._utils import parse_datetime
 from merge.types.ats import Candidate, CandidateResponse
@@ -81,7 +80,7 @@ class TestCandidates:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             reason="GENERAL_CUSTOMER_REQUEST",
         )
-        assert_matches_type(shared.IgnoreCommonModel, candidate, path=["response"])
+        assert candidate is None
 
     @parametrize
     def test_method_ignore_row_with_all_params(self, client: Merge) -> None:
@@ -90,7 +89,7 @@ class TestCandidates:
             reason="GENERAL_CUSTOMER_REQUEST",
             message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
         )
-        assert_matches_type(shared.IgnoreCommonModel, candidate, path=["response"])
+        assert candidate is None
 
 
 class TestAsyncCandidates:
@@ -157,7 +156,7 @@ class TestAsyncCandidates:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             reason="GENERAL_CUSTOMER_REQUEST",
         )
-        assert_matches_type(shared.IgnoreCommonModel, candidate, path=["response"])
+        assert candidate is None
 
     @parametrize
     async def test_method_ignore_row_with_all_params(self, client: AsyncMerge) -> None:
@@ -166,4 +165,4 @@ class TestAsyncCandidates:
             reason="GENERAL_CUSTOMER_REQUEST",
             message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
         )
-        assert_matches_type(shared.IgnoreCommonModel, candidate, path=["response"])
+        assert candidate is None

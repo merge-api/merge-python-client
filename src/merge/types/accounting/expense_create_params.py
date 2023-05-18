@@ -687,6 +687,8 @@ class Model(TypedDict, total=False):
     total_amount: Optional[float]
     """The expense's total amount."""
 
+    tracking_categories: List[Optional[str]]
+
     transaction_date: Annotated[Optional[Union[str, datetime]], PropertyInfo(format="iso8601")]
     """When the transaction occurred."""
 

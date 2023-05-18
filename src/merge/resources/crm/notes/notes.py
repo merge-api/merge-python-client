@@ -181,9 +181,10 @@ class Notes(SyncAPIResource):
           include_remote_fields: Whether to include all remote fields, including fields that Merge did not map to
               common models, in a normalized format.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           opportunity_id: If provided, will only return notes with this opportunity.
 
@@ -448,9 +449,10 @@ class AsyncNotes(AsyncAPIResource):
           include_remote_fields: Whether to include all remote fields, including fields that Merge did not map to
               common models, in a normalized format.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           opportunity_id: If provided, will only return notes with this opportunity.
 

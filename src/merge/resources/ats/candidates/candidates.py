@@ -7,8 +7,7 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from .meta import Meta, AsyncMeta
-from ....types import shared
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ...._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from ...._utils import maybe_transform
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ....types.ats import (
@@ -185,9 +184,10 @@ class Candidates(SyncAPIResource):
 
           last_name: If provided, will only return candidates with this last name.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -247,7 +247,7 @@ class Candidates(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> shared.IgnoreCommonModel:
+    ) -> None:
         """Ignores a specific row based on the `model_id` in the url.
 
         These records will
@@ -268,6 +268,7 @@ class Candidates(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             f"/ats/v1/candidates/ignore/{model_id}",
             body=maybe_transform(
@@ -280,7 +281,7 @@ class Candidates(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=shared.IgnoreCommonModel,
+            cast_to=NoneType,
         )
 
 
@@ -441,9 +442,10 @@ class AsyncCandidates(AsyncAPIResource):
 
           last_name: If provided, will only return candidates with this last name.
 
-          modified_after: If provided, will only return objects modified after this datetime.
+          modified_after: If provided, only objects synced by Merge after this date time will be returned.
 
-          modified_before: If provided, will only return objects modified before this datetime.
+          modified_before: If provided, only objects synced by Merge before this date time will be
+              returned.
 
           page_size: Number of results to return per page.
 
@@ -503,7 +505,7 @@ class AsyncCandidates(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | None | NotGiven = NOT_GIVEN,
-    ) -> shared.IgnoreCommonModel:
+    ) -> None:
         """Ignores a specific row based on the `model_id` in the url.
 
         These records will
@@ -524,6 +526,7 @@ class AsyncCandidates(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             f"/ats/v1/candidates/ignore/{model_id}",
             body=maybe_transform(
@@ -536,5 +539,5 @@ class AsyncCandidates(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=shared.IgnoreCommonModel,
+            cast_to=NoneType,
         )

@@ -41,6 +41,9 @@ class Employment(BaseModel):
     job_title: Optional[str]
     """The position's title."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     pay_currency: Optional[
         Literal[
             "XUA",

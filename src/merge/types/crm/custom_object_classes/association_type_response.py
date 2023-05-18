@@ -6,10 +6,10 @@ from ....types import shared
 from ...._models import BaseModel
 from ....types.crm.custom_object_classes import association_type
 
-__all__ = ["CrmAssociationTypeResponse"]
+__all__ = ["AssociationTypeResponse"]
 
 
-class CrmAssociationTypeResponse(BaseModel):
+class AssociationTypeResponse(BaseModel):
     errors: List[shared.ValidationError]
 
     model: association_type.AssociationType

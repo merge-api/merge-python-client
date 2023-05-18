@@ -10,7 +10,7 @@ from merge import Merge, AsyncMerge
 from tests.utils import assert_matches_type
 from merge._utils import parse_datetime
 from merge.pagination import SyncPage, AsyncPage
-from merge.types.marketing import Template, MktgTemplateResponse
+from merge.types.marketing import Template, TemplateResponse
 
 base_url = os.environ.get("API_BASE_URL", "http://127.0.0.1:4010")
 api_key = os.environ.get("API_KEY", "something1234")
@@ -30,7 +30,7 @@ class TestTemplates:
         template = client.marketing.templates.create(
             model={},
         )
-        assert_matches_type(MktgTemplateResponse, template, path=["response"])
+        assert_matches_type(TemplateResponse, template, path=["response"])
 
     @parametrize
     def test_method_retrieve(self, client: Merge) -> None:
@@ -82,7 +82,7 @@ class TestAsyncTemplates:
         template = await client.marketing.templates.create(
             model={},
         )
-        assert_matches_type(MktgTemplateResponse, template, path=["response"])
+        assert_matches_type(TemplateResponse, template, path=["response"])
 
     @parametrize
     async def test_method_retrieve(self, client: AsyncMerge) -> None:

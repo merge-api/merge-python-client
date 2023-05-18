@@ -9,7 +9,7 @@ __all__ = ["PurchaseOrderRetrieveParams"]
 
 
 class PurchaseOrderRetrieveParams(TypedDict, total=False):
-    expand: List[Literal["company", "delivery_address", "line_items", "vendor"]]
+    expand: List[Literal["company", "delivery_address", "line_items", "tracking_categories", "vendor"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

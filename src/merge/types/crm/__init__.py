@@ -5,14 +5,16 @@ from __future__ import annotations
 from .lead import Lead as Lead
 from .note import Note as Note
 from .task import Task as Task
+from .user import User as User
 from .stage import Stage as Stage
-from .crm_user import CrmUser as CrmUser
 from .engagement import Engagement as Engagement
 from .opportunity import Opportunity as Opportunity
 from .custom_object import CustomObject as CustomObject
 from .lead_response import LeadResponse as LeadResponse
 from .note_response import NoteResponse as NoteResponse
 from .engagement_type import EngagementType as EngagementType
+from .account_response import AccountResponse as AccountResponse
+from .contact_response import ContactResponse as ContactResponse
 from .lead_list_params import LeadListParams as LeadListParams
 from .note_list_params import NoteListParams as NoteListParams
 from .task_list_params import TaskListParams as TaskListParams
@@ -27,8 +29,6 @@ from .account_list_params import AccountListParams as AccountListParams
 from .contact_list_params import ContactListParams as ContactListParams
 from .custom_object_class import CustomObjectClass as CustomObjectClass
 from .engagement_response import EngagementResponse as EngagementResponse
-from .crm_account_response import CrmAccountResponse as CrmAccountResponse
-from .crm_contact_response import CrmContactResponse as CrmContactResponse
 from .lead_retrieve_params import LeadRetrieveParams as LeadRetrieveParams
 from .note_retrieve_params import NoteRetrieveParams as NoteRetrieveParams
 from .opportunity_response import OpportunityResponse as OpportunityResponse
@@ -40,6 +40,7 @@ from .account_update_params import AccountUpdateParams as AccountUpdateParams
 from .contact_create_params import ContactCreateParams as ContactCreateParams
 from .contact_update_params import ContactUpdateParams as ContactUpdateParams
 from .stage_retrieve_params import StageRetrieveParams as StageRetrieveParams
+from .custom_object_response import CustomObjectResponse as CustomObjectResponse
 from .engagement_list_params import EngagementListParams as EngagementListParams
 from .user_ignore_row_params import UserIgnoreRowParams as UserIgnoreRowParams
 from .account_retrieve_params import AccountRetrieveParams as AccountRetrieveParams
@@ -56,9 +57,6 @@ from .opportunity_create_params import (
 )
 from .opportunity_update_params import (
     OpportunityUpdateParams as OpportunityUpdateParams,
-)
-from .crm_custom_object_response import (
-    CrmCustomObjectResponse as CrmCustomObjectResponse,
 )
 from .engagement_retrieve_params import (
     EngagementRetrieveParams as EngagementRetrieveParams,

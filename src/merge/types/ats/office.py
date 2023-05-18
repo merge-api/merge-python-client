@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless.
 
 from typing import List, Optional
+from datetime import datetime
 
 from ...types import shared
 from ..._models import BaseModel
@@ -15,6 +16,9 @@ class Office(BaseModel):
 
     location: Optional[str]
     """The office's location."""
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     name: Optional[str]
     """The office's name."""

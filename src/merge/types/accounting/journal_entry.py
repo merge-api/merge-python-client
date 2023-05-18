@@ -21,6 +21,9 @@ class Line(BaseModel):
     exchange_rate: Optional[str]
     """The journal line item's exchange rate."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     net_amount: Optional[float]
     """The value of the line item including taxes and other fees."""
 
@@ -667,6 +670,9 @@ class JournalEntry(BaseModel):
     memo: Optional[str]
     """The journal entry's private note."""
 
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
+
     payments: Optional[List[Optional[str]]]
     """Array of `Payment` object IDs."""
 
@@ -688,6 +694,8 @@ class JournalEntry(BaseModel):
     """When the third party's journal entry was updated."""
 
     remote_was_deleted: Optional[bool]
+
+    tracking_categories: Optional[List[Optional[str]]]
 
     transaction_date: Optional[datetime]
     """The journal entry's transaction date."""

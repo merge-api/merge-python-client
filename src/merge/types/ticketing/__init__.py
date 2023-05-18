@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
+from .user import User as User
 from .ticket import Ticket as Ticket
 from .comment import Comment as Comment
 from .project import Project as Project
 from .collection import Collection as Collection
-from .ticketing_user import TicketingUser as TicketingUser
 from .tag_list_params import TagListParams as TagListParams
 from .ticket_response import TicketResponse as TicketResponse
 from .comment_response import CommentResponse as CommentResponse

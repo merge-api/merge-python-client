@@ -9,7 +9,7 @@ __all__ = ["JournalEntryRetrieveParams"]
 
 
 class JournalEntryRetrieveParams(TypedDict, total=False):
-    expand: List[Literal["company", "lines", "payments"]]
+    expand: List[Literal["company", "lines", "payments", "tracking_categories"]]
     """Which relations should be returned in expanded form.
 
     Multiple relation names should be comma separated without spaces.

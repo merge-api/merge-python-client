@@ -4,20 +4,19 @@ from typing import List, Optional
 
 from ...types import shared
 from ..._models import BaseModel
-from ...types.crm import custom_object
 
-__all__ = ["CrmCustomObjectResponse"]
+__all__ = ["AccountResponse"]
 
 
-class CrmCustomObjectResponse(BaseModel):
+class AccountResponse(BaseModel):
     errors: List[shared.ValidationError]
 
-    model: custom_object.CustomObject
-    """# The CustomObject Object
+    model: shared.Account
+    """# The Account Object
 
     ### Description
 
-    The `Custom Object` record refers to an instance of a Custom Object Class.
+    The `Account` object is used to represent a company in a CRM system.
 
     ### Usage Example
 

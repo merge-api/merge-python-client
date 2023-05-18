@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless.
 
 from typing import List, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 from ...._models import BaseModel
@@ -10,6 +11,9 @@ __all__ = ["AssociationType", "TargetObjectClass"]
 
 class TargetObjectClass(BaseModel):
     id: Optional[str]
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     origin_type: Optional[str]
 
@@ -28,6 +32,9 @@ class AssociationType(BaseModel):
     id: Optional[str]
 
     is_required: Optional[bool]
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     remote_id: Optional[str]
     """The third-party API ID of the matching object."""

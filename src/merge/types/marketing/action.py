@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless.
 
 from typing import List, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
@@ -18,6 +19,9 @@ class Action(BaseModel):
     field_mappings: Optional[object]
 
     id: Optional[str]
+
+    modified_at: Optional[datetime]
+    """This is the datetime that this object was last updated by Merge"""
 
     name: Optional[str]
     """The action's name."""

@@ -4,25 +4,23 @@ from typing import List, Optional
 
 from ...types import shared
 from ..._models import BaseModel
-from ...types.marketing import action
 
-__all__ = ["MktgActionResponse"]
+__all__ = ["ContactResponse"]
 
 
-class MktgActionResponse(BaseModel):
+class ContactResponse(BaseModel):
     errors: List[shared.ValidationError]
 
-    model: action.Action
-    """# The Action Object
+    model: shared.Contact
+    """# The Contact Object
 
     ### Description
 
-    The `Action` object is used to represent an action executed within an
-    automation.
+    The `Contact` object is used to represent a contact in the remote system.
 
     ### Usage Example
 
-    Fetch from the `GET /api/mktg/v1/actions` endpoint and view their types.
+    Fetch from the `GET /api/mktg/v1/contact` endpoint and view their phone numbers.
     """
 
     warnings: List[shared.ValidationWarning]
