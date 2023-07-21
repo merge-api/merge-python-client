@@ -1,0 +1,6 @@
+# Specify files that shouldn't be modified by Fern
+
+README.md
+
+# We need to configure secrets for integration tests.
+.github/workflows/ci.yml

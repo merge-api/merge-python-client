@@ -1,673 +1,152 @@
-# File generated from our OpenAPI spec by Stainless.
-
-from __future__ import annotations
-
 import os
-import json
-import inspect
-from typing import Any, Dict, Union, cast
-
-import httpx
 import pytest
-from respx import MockRouter
+from typing import Optional
 
-from merge import Merge, AsyncMerge
-from merge._models import BaseModel, FinalRequestOptions
-from merge._base_client import BaseClient, make_request_options
-
-base_url = os.environ.get("API_BASE_URL", "http://127.0.0.1:4010")
-api_key = os.environ.get("API_KEY", "something1234")
-
-
-def _get_params(client: BaseClient) -> dict[str, str]:
-    request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-    url = httpx.URL(request.url)
-    return dict(url.params)
+from merge.resources.ats.client import AtsClient
+from merge.resources.ats.types.categories_enum import CategoriesEnum
+from merge.resources.hris.client import HrisClient
+from merge.core.api_error import ApiError
+from merge.client import Merge
+from merge.environment import MergeEnvironment
 
 
-class TestMerge:
-    client = Merge(
-        base_url=base_url, api_key=api_key, _strict_response_validation=True, account_token="<account-token>"
+def test_unauthorized_client_error() -> None:
+    client = Merge(api_key="Bearer invalid", environment=MergeEnvironment.SANDBOX)
+    with pytest.raises(ApiError) as exception:
+        response = client.ats.account_details.retrieve()
+    assert exception.value.status_code == 401
+
+
+def test_bad_request_api_key_error() -> None:
+    client = Merge(api_key="invalid", environment=MergeEnvironment.SANDBOX)
+    with pytest.raises(ApiError) as exception:
+        response = client.ats.account_details.retrieve()
+    assert exception.value.status_code == 400
+
+
+def test_account_token_error(ats_client: AtsClient, hris_client: HrisClient) -> None:
+    with pytest.raises(ApiError) as exception:
+        ats_response = ats_client.account_token.retrieve(public_token="notfound")
+    assert exception.value.status_code == 404
+
+    with pytest.raises(ApiError) as exception:
+        hris_response = hris_client.account_token.retrieve(public_token="notfound")
+    assert exception.value.status_code == 404
+
+
+def test_link_token(ats_client: AtsClient) -> None:
+    response = ats_client.link_token.create(
+        end_user_email_address="john.smith@gmail.com",
+        end_user_organization_name="acme",
+        end_user_origin_id="1234",
+        categories=[CategoriesEnum.ATS],
+        link_expiry_mins=30,
     )
-
-    def test_copy(self) -> None:
-        copied = self.client.copy()
-        assert id(copied) != id(self.client)
-
-        copied = self.client.copy(api_key="my new api key")
-        assert copied.api_key == "my new api key"
-        assert self.client.api_key == api_key
-
-        copied = self.client.copy(account_token="<account-token>")
-        assert copied.account_token == "<account-token>"
-
-    def test_copy_default_options(self) -> None:
-        # options that have a default are overriden correctly
-        copied = self.client.copy(max_retries=7)
-        assert copied.max_retries == 7
-        assert self.client.max_retries == 2
-
-        copied2 = copied.copy(max_retries=6)
-        assert copied2.max_retries == 6
-        assert copied.max_retries == 7
-
-        # timeout
-        assert isinstance(self.client.timeout, httpx.Timeout)
-        copied = self.client.copy(timeout=None)
-        assert copied.timeout is None
-        assert isinstance(self.client.timeout, httpx.Timeout)
-
-    def test_copy_default_headers(self) -> None:
-        client = Merge(
-            base_url=base_url,
-            api_key=api_key,
-            _strict_response_validation=True,
-            account_token="<account-token>",
-            default_headers={"X-Foo": "bar"},
-        )
-        assert client.default_headers["X-Foo"] == "bar"
-
-        # does not override the already given value when not specified
-        copied = client.copy()
-        assert copied.default_headers["X-Foo"] == "bar"
-
-        # merges already given headers
-        copied = client.copy(default_headers={"X-Bar": "stainless"})
-        assert copied.default_headers["X-Foo"] == "bar"
-        assert copied.default_headers["X-Bar"] == "stainless"
-
-        # uses new values for any already given headers
-        copied = client.copy(default_headers={"X-Foo": "stainless"})
-        assert copied.default_headers["X-Foo"] == "stainless"
-
-        # set_default_headers
-
-        # completely overrides already set values
-        copied = client.copy(set_default_headers={})
-        assert copied.default_headers.get("X-Foo") is None
-
-        copied = client.copy(set_default_headers={"X-Bar": "Robert"})
-        assert copied.default_headers["X-Bar"] == "Robert"
-
-        with pytest.raises(
-            ValueError,
-            match="`default_headers` and `set_default_headers` arguments are mutually exclusive",
-        ):
-            client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
-
-    def test_copy_default_query(self) -> None:
-        client = Merge(
-            base_url=base_url,
-            api_key=api_key,
-            _strict_response_validation=True,
-            account_token="<account-token>",
-            default_query={"foo": "bar"},
-        )
-        assert _get_params(client)["foo"] == "bar"
-
-        # does not override the already given value when not specified
-        copied = client.copy()
-        assert _get_params(copied)["foo"] == "bar"
-
-        # merges already given params
-        copied = client.copy(default_query={"bar": "stainless"})
-        params = _get_params(copied)
-        assert params["foo"] == "bar"
-        assert params["bar"] == "stainless"
-
-        # uses new values for any already given headers
-        copied = client.copy(default_query={"foo": "stainless"})
-        assert _get_params(copied)["foo"] == "stainless"
-
-        # set_default_query
-
-        # completely overrides already set values
-        copied = client.copy(set_default_query={})
-        assert _get_params(copied) == {}
-
-        copied = client.copy(set_default_query={"bar": "Robert"})
-        assert _get_params(copied)["bar"] == "Robert"
-
-        with pytest.raises(
-            ValueError,
-            # TODO: update
-            match="`default_query` and `set_default_query` arguments are mutually exclusive",
-        ):
-            client.copy(set_default_query={}, default_query={"foo": "Bar"})
-
-    def test_copy_signature(self) -> None:
-        # ensure the same parameters that can be passed to the client are defined in the `.copy()` method
-        init_signature = inspect.signature(
-            # mypy doesn't like that we access the `__init__` property.
-            self.client.__init__,  # type: ignore[misc]
-        )
-        copy_signature = inspect.signature(self.client.copy)
-        exclude_params = {"transport", "proxies", "_strict_response_validation"}
-
-        for name in init_signature.parameters.keys():
-            if name in exclude_params:
-                continue
-
-            copy_param = copy_signature.parameters.get(name)
-            assert copy_param is not None, f"copy() signature is missing the {name} param"
-
-    def test_default_headers_option(self) -> None:
-        client = Merge(
-            base_url=base_url,
-            api_key=api_key,
-            _strict_response_validation=True,
-            account_token="<account-token>",
-            default_headers={"X-Foo": "bar"},
-        )
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("x-foo") == "bar"
-        assert request.headers.get("x-stainless-lang") == "python"
-
-        client2 = Merge(
-            base_url=base_url,
-            api_key=api_key,
-            _strict_response_validation=True,
-            account_token="<account-token>",
-            default_headers={
-                "X-Foo": "stainless",
-                "X-Stainless-Lang": "my-overriding-header",
-            },
-        )
-        request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("x-foo") == "stainless"
-        assert request.headers.get("x-stainless-lang") == "my-overriding-header"
-
-    def test_validate_headers(self) -> None:
-        client = Merge(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, account_token="<account-token>"
-        )
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("Authorization") == f"Bearer {api_key}"
-
-        with pytest.raises(
-            Exception,
-            match="The api_key client option must be set either by passing api_key to the client or by setting the MERGE_API_KEY environment variable",
-        ):
-            client2 = Merge(
-                base_url=base_url, api_key=None, _strict_response_validation=True, account_token="<account-token>"
-            )
-            client2._build_request(FinalRequestOptions(method="get", url="/foo"))
-
-    def test_default_query_option(self) -> None:
-        client = Merge(
-            base_url=base_url,
-            api_key=api_key,
-            _strict_response_validation=True,
-            account_token="<account-token>",
-            default_query={"query_param": "bar"},
-        )
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        url = httpx.URL(request.url)
-        assert dict(url.params) == {"query_param": "bar"}
-
-        request = client._build_request(
-            FinalRequestOptions(
-                method="get",
-                url="/foo",
-                params={"foo": "baz", "query_param": "overriden"},
-            )
-        )
-        url = httpx.URL(request.url)
-        assert dict(url.params) == {"foo": "baz", "query_param": "overriden"}
-
-    def test_request_extra_json(self) -> None:
-        request = self.client._build_request(
-            FinalRequestOptions(
-                method="post",
-                url="/foo",
-                json_data={"foo": "bar"},
-                extra_json={"baz": False},
-            ),
-        )
-        data = json.loads(request.content.decode("utf-8"))
-        assert data == {"foo": "bar", "baz": False}
-
-        request = self.client._build_request(
-            FinalRequestOptions(
-                method="post",
-                url="/foo",
-                extra_json={"baz": False},
-            ),
-        )
-        data = json.loads(request.content.decode("utf-8"))
-        assert data == {"baz": False}
-
-        # `extra_json` takes priority over `json_data` when keys clash
-        request = self.client._build_request(
-            FinalRequestOptions(
-                method="post",
-                url="/foo",
-                json_data={"foo": "bar", "baz": True},
-                extra_json={"baz": None},
-            ),
-        )
-        data = json.loads(request.content.decode("utf-8"))
-        assert data == {"foo": "bar", "baz": None}
-
-    def test_request_extra_headers(self) -> None:
-        request = self.client._build_request(
-            FinalRequestOptions(
-                method="post",
-                url="/foo",
-                **make_request_options(extra_headers={"X-Foo": "Foo"}),
-            ),
-        )
-        assert request.headers.get("X-Foo") == "Foo"
-
-        # `extra_headers` takes priority over `default_headers` when keys clash
-        request = self.client.with_options(default_headers={"X-Bar": "true"})._build_request(
-            FinalRequestOptions(
-                method="post",
-                url="/foo",
-                **make_request_options(
-                    extra_headers={"X-Bar": "false"},
-                ),
-            ),
-        )
-        assert request.headers.get("X-Bar") == "false"
-
-    def test_request_extra_query(self) -> None:
-        request = self.client._build_request(
-            FinalRequestOptions(
-                method="post",
-                url="/foo",
-                **make_request_options(
-                    extra_query={"my_query_param": "Foo"},
-                ),
-            ),
-        )
-        params = cast(Dict[str, str], dict(request.url.params))
-        assert params == {"my_query_param": "Foo"}
-
-        # if both `query` and `extra_query` are given, they are merged
-        request = self.client._build_request(
-            FinalRequestOptions(
-                method="post",
-                url="/foo",
-                **make_request_options(
-                    query={"bar": "1"},
-                    extra_query={"foo": "2"},
-                ),
-            ),
-        )
-        params = cast(Dict[str, str], dict(request.url.params))
-        assert params == {"bar": "1", "foo": "2"}
-
-        # `extra_query` takes priority over `query` when keys clash
-        request = self.client._build_request(
-            FinalRequestOptions(
-                method="post",
-                url="/foo",
-                **make_request_options(
-                    query={"foo": "1"},
-                    extra_query={"foo": "2"},
-                ),
-            ),
-        )
-        params = cast(Dict[str, str], dict(request.url.params))
-        assert params == {"foo": "2"}
-
-    @pytest.mark.respx(base_url=base_url)
-    def test_basic_union_response(self, respx_mock: MockRouter) -> None:
-        class Model1(BaseModel):
-            name: str
-
-        class Model2(BaseModel):
-            foo: str
-
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
-
-        response = self.client.get("/foo", cast_to=cast(Any, Union[Model1, Model2]))
-        assert isinstance(response, Model2)
-        assert response.foo == "bar"
-
-    @pytest.mark.respx(base_url=base_url)
-    def test_union_response_different_types(self, respx_mock: MockRouter) -> None:
-        """Union of objects with the same field name using a different type"""
-
-        class Model1(BaseModel):
-            foo: int
-
-        class Model2(BaseModel):
-            foo: str
-
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
-
-        response = self.client.get("/foo", cast_to=cast(Any, Union[Model1, Model2]))
-        assert isinstance(response, Model2)
-        assert response.foo == "bar"
-
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": 1}))
-
-        response = self.client.get("/foo", cast_to=cast(Any, Union[Model1, Model2]))
-        assert isinstance(response, Model1)
-        assert response.foo == 1
+    assert response is not None
+    assert len(response.link_token) > 0
 
 
-class TestAsyncMerge:
-    client = AsyncMerge(
-        base_url=base_url, api_key=api_key, _strict_response_validation=True, account_token="<account-token>"
+def test_employees(hris_client: HrisClient) -> None:
+    response = hris_client.employees.list()
+    assert response is not None
+    assert response.results is not None
+    assert len(response.results) > 0
+
+    for i, employee in enumerate(response.results):
+        assert employee.id is not None
+        retrieved = hris_client.employees.retrieve(id=employee.id)
+        assert retrieved.id == employee.id
+
+    response = hris_client.employees.list(created_after="2030-01-01")
+    assert response is not None
+    assert response.results is not None
+    assert len(response.results) == 0
+
+
+def test_candidates(ats_client: AtsClient) -> None:
+    response = ats_client.candidates.list()
+    assert response is not None
+    assert response.results is not None
+    assert len(response.results) > 0
+
+    for i, candidate in enumerate(response.results):
+        assert candidate.id is not None
+        retrieved = ats_client.candidates.retrieve(id=candidate.id)
+        assert retrieved.id == candidate.id
+
+    first_candidate = response.results[0]
+    filtered = ats_client.candidates.list(
+        first_name=first_candidate.first_name,
+        last_name=first_candidate.last_name,
     )
+    assert filtered is not None
+    assert filtered.results is not None
+    assert len(filtered.results) >= 1
+    assert len(filtered.results) <= len(response.results)
 
-    def test_copy(self) -> None:
-        copied = self.client.copy()
-        assert id(copied) != id(self.client)
+    for i, candidate in enumerate(filtered.results):
+        assert candidate.first_name is not None
+        assert first_candidate.first_name is not None
+        assert first_candidate.first_name in candidate.first_name
 
-        copied = self.client.copy(api_key="my new api key")
-        assert copied.api_key == "my new api key"
-        assert self.client.api_key == api_key
+        assert candidate.last_name is not None
+        assert first_candidate.last_name is not None
+        assert first_candidate.last_name in candidate.last_name
 
-        copied = self.client.copy(account_token="<account-token>")
-        assert copied.account_token == "<account-token>"
+    response = ats_client.candidates.list(created_after="2030-01-01")
+    assert response is not None
+    assert response.results is not None
+    assert len(response.results) == 0
 
-    def test_copy_default_options(self) -> None:
-        # options that have a default are overriden correctly
-        copied = self.client.copy(max_retries=7)
-        assert copied.max_retries == 7
-        assert self.client.max_retries == 2
 
-        copied2 = copied.copy(max_retries=6)
-        assert copied2.max_retries == 6
-        assert copied.max_retries == 7
+def test_retrieve_account_info(
+    ats_client: AtsClient,
+    hris_client: HrisClient,
+    ats_account_id: str,
+    hris_account_id: str,
+) -> None:
+    ats_response = ats_client.account_details.retrieve()
+    assert ats_response is not None
+    assert ats_response.id == ats_account_id
 
-        # timeout
-        assert isinstance(self.client.timeout, httpx.Timeout)
-        copied = self.client.copy(timeout=None)
-        assert copied.timeout is None
-        assert isinstance(self.client.timeout, httpx.Timeout)
+    hris_response = hris_client.account_details.retrieve()
+    assert hris_response is not None
+    assert hris_response.id == hris_account_id
 
-    def test_copy_default_headers(self) -> None:
-        client = AsyncMerge(
-            base_url=base_url,
-            api_key=api_key,
-            _strict_response_validation=True,
-            account_token="<account-token>",
-            default_headers={"X-Foo": "bar"},
-        )
-        assert client.default_headers["X-Foo"] == "bar"
 
-        # does not override the already given value when not specified
-        copied = client.copy()
-        assert copied.default_headers["X-Foo"] == "bar"
+@pytest.fixture
+def ats_client() -> AtsClient:
+    account_token = os.environ.get("TEST_MERGE_ATS_ACCOUNT_TOKEN")
+    return Merge(
+        api_key="Bearer {}".format(get_api_key()),
+        account_token=account_token,
+    ).ats
 
-        # merges already given headers
-        copied = client.copy(default_headers={"X-Bar": "stainless"})
-        assert copied.default_headers["X-Foo"] == "bar"
-        assert copied.default_headers["X-Bar"] == "stainless"
 
-        # uses new values for any already given headers
-        copied = client.copy(default_headers={"X-Foo": "stainless"})
-        assert copied.default_headers["X-Foo"] == "stainless"
+@pytest.fixture
+def ats_account_id() -> Optional[str]:
+    return os.environ.get("TEST_MERGE_ATS_ACCOUNT_ID")
 
-        # set_default_headers
 
-        # completely overrides already set values
-        copied = client.copy(set_default_headers={})
-        assert copied.default_headers.get("X-Foo") is None
+@pytest.fixture
+def hris_client() -> HrisClient:
+    account_token = os.environ.get("TEST_MERGE_HRIS_ACCOUNT_TOKEN")
+    return Merge(
+        api_key="Bearer {}".format(get_api_key()),
+        account_token=account_token,
+    ).hris
 
-        copied = client.copy(set_default_headers={"X-Bar": "Robert"})
-        assert copied.default_headers["X-Bar"] == "Robert"
 
-        with pytest.raises(
-            ValueError,
-            match="`default_headers` and `set_default_headers` arguments are mutually exclusive",
-        ):
-            client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
+@pytest.fixture
+def hris_account_id() -> Optional[str]:
+    return os.environ.get("TEST_MERGE_HRIS_ACCOUNT_ID")
 
-    def test_copy_default_query(self) -> None:
-        client = AsyncMerge(
-            base_url=base_url,
-            api_key=api_key,
-            _strict_response_validation=True,
-            account_token="<account-token>",
-            default_query={"foo": "bar"},
-        )
-        assert _get_params(client)["foo"] == "bar"
 
-        # does not override the already given value when not specified
-        copied = client.copy()
-        assert _get_params(copied)["foo"] == "bar"
+def get_api_key() -> Optional[str]:
+    """
+    Returns the API key required to call the Merge API.
 
-        # merges already given params
-        copied = client.copy(default_query={"bar": "stainless"})
-        params = _get_params(copied)
-        assert params["foo"] == "bar"
-        assert params["bar"] == "stainless"
-
-        # uses new values for any already given headers
-        copied = client.copy(default_query={"foo": "stainless"})
-        assert _get_params(copied)["foo"] == "stainless"
-
-        # set_default_query
-
-        # completely overrides already set values
-        copied = client.copy(set_default_query={})
-        assert _get_params(copied) == {}
-
-        copied = client.copy(set_default_query={"bar": "Robert"})
-        assert _get_params(copied)["bar"] == "Robert"
-
-        with pytest.raises(
-            ValueError,
-            # TODO: update
-            match="`default_query` and `set_default_query` arguments are mutually exclusive",
-        ):
-            client.copy(set_default_query={}, default_query={"foo": "Bar"})
-
-    def test_copy_signature(self) -> None:
-        # ensure the same parameters that can be passed to the client are defined in the `.copy()` method
-        init_signature = inspect.signature(
-            # mypy doesn't like that we access the `__init__` property.
-            self.client.__init__,  # type: ignore[misc]
-        )
-        copy_signature = inspect.signature(self.client.copy)
-        exclude_params = {"transport", "proxies", "_strict_response_validation"}
-
-        for name in init_signature.parameters.keys():
-            if name in exclude_params:
-                continue
-
-            copy_param = copy_signature.parameters.get(name)
-            assert copy_param is not None, f"copy() signature is missing the {name} param"
-
-    def test_default_headers_option(self) -> None:
-        client = AsyncMerge(
-            base_url=base_url,
-            api_key=api_key,
-            _strict_response_validation=True,
-            account_token="<account-token>",
-            default_headers={"X-Foo": "bar"},
-        )
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("x-foo") == "bar"
-        assert request.headers.get("x-stainless-lang") == "python"
-
-        client2 = AsyncMerge(
-            base_url=base_url,
-            api_key=api_key,
-            _strict_response_validation=True,
-            account_token="<account-token>",
-            default_headers={
-                "X-Foo": "stainless",
-                "X-Stainless-Lang": "my-overriding-header",
-            },
-        )
-        request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("x-foo") == "stainless"
-        assert request.headers.get("x-stainless-lang") == "my-overriding-header"
-
-    def test_validate_headers(self) -> None:
-        client = AsyncMerge(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, account_token="<account-token>"
-        )
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("Authorization") == f"Bearer {api_key}"
-
-        with pytest.raises(
-            Exception,
-            match="The api_key client option must be set either by passing api_key to the client or by setting the MERGE_API_KEY environment variable",
-        ):
-            client2 = AsyncMerge(
-                base_url=base_url, api_key=None, _strict_response_validation=True, account_token="<account-token>"
-            )
-            client2._build_request(FinalRequestOptions(method="get", url="/foo"))
-
-    def test_default_query_option(self) -> None:
-        client = AsyncMerge(
-            base_url=base_url,
-            api_key=api_key,
-            _strict_response_validation=True,
-            account_token="<account-token>",
-            default_query={"query_param": "bar"},
-        )
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        url = httpx.URL(request.url)
-        assert dict(url.params) == {"query_param": "bar"}
-
-        request = client._build_request(
-            FinalRequestOptions(
-                method="get",
-                url="/foo",
-                params={"foo": "baz", "query_param": "overriden"},
-            )
-        )
-        url = httpx.URL(request.url)
-        assert dict(url.params) == {"foo": "baz", "query_param": "overriden"}
-
-    def test_request_extra_json(self) -> None:
-        request = self.client._build_request(
-            FinalRequestOptions(
-                method="post",
-                url="/foo",
-                json_data={"foo": "bar"},
-                extra_json={"baz": False},
-            ),
-        )
-        data = json.loads(request.content.decode("utf-8"))
-        assert data == {"foo": "bar", "baz": False}
-
-        request = self.client._build_request(
-            FinalRequestOptions(
-                method="post",
-                url="/foo",
-                extra_json={"baz": False},
-            ),
-        )
-        data = json.loads(request.content.decode("utf-8"))
-        assert data == {"baz": False}
-
-        # `extra_json` takes priority over `json_data` when keys clash
-        request = self.client._build_request(
-            FinalRequestOptions(
-                method="post",
-                url="/foo",
-                json_data={"foo": "bar", "baz": True},
-                extra_json={"baz": None},
-            ),
-        )
-        data = json.loads(request.content.decode("utf-8"))
-        assert data == {"foo": "bar", "baz": None}
-
-    def test_request_extra_headers(self) -> None:
-        request = self.client._build_request(
-            FinalRequestOptions(
-                method="post",
-                url="/foo",
-                **make_request_options(extra_headers={"X-Foo": "Foo"}),
-            ),
-        )
-        assert request.headers.get("X-Foo") == "Foo"
-
-        # `extra_headers` takes priority over `default_headers` when keys clash
-        request = self.client.with_options(default_headers={"X-Bar": "true"})._build_request(
-            FinalRequestOptions(
-                method="post",
-                url="/foo",
-                **make_request_options(
-                    extra_headers={"X-Bar": "false"},
-                ),
-            ),
-        )
-        assert request.headers.get("X-Bar") == "false"
-
-    def test_request_extra_query(self) -> None:
-        request = self.client._build_request(
-            FinalRequestOptions(
-                method="post",
-                url="/foo",
-                **make_request_options(
-                    extra_query={"my_query_param": "Foo"},
-                ),
-            ),
-        )
-        params = cast(Dict[str, str], dict(request.url.params))
-        assert params == {"my_query_param": "Foo"}
-
-        # if both `query` and `extra_query` are given, they are merged
-        request = self.client._build_request(
-            FinalRequestOptions(
-                method="post",
-                url="/foo",
-                **make_request_options(
-                    query={"bar": "1"},
-                    extra_query={"foo": "2"},
-                ),
-            ),
-        )
-        params = cast(Dict[str, str], dict(request.url.params))
-        assert params == {"bar": "1", "foo": "2"}
-
-        # `extra_query` takes priority over `query` when keys clash
-        request = self.client._build_request(
-            FinalRequestOptions(
-                method="post",
-                url="/foo",
-                **make_request_options(
-                    query={"foo": "1"},
-                    extra_query={"foo": "2"},
-                ),
-            ),
-        )
-        params = cast(Dict[str, str], dict(request.url.params))
-        assert params == {"foo": "2"}
-
-    @pytest.mark.respx(base_url=base_url)
-    async def test_basic_union_response(self, respx_mock: MockRouter) -> None:
-        class Model1(BaseModel):
-            name: str
-
-        class Model2(BaseModel):
-            foo: str
-
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
-
-        response = await self.client.get("/foo", cast_to=cast(Any, Union[Model1, Model2]))
-        assert isinstance(response, Model2)
-        assert response.foo == "bar"
-
-    @pytest.mark.respx(base_url=base_url)
-    async def test_union_response_different_types(self, respx_mock: MockRouter) -> None:
-        """Union of objects with the same field name using a different type"""
-
-        class Model1(BaseModel):
-            foo: int
-
-        class Model2(BaseModel):
-            foo: str
-
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
-
-        response = await self.client.get("/foo", cast_to=cast(Any, Union[Model1, Model2]))
-        assert isinstance(response, Model2)
-        assert response.foo == "bar"
-
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": 1}))
-
-        response = await self.client.get("/foo", cast_to=cast(Any, Union[Model1, Model2]))
-        assert isinstance(response, Model1)
-        assert response.foo == 1
+    We don't want this to be a fixture because it would otherwise
+    be visible in the console.
+    """
+    return os.environ.get("TEST_MERGE_API_KEY")

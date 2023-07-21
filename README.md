@@ -1,257 +1,152 @@
-# Merge Python API Library
 
-[![PyPI version](https://img.shields.io/pypi/v/MergePythonClient.svg)](https://pypi.org/project/MergePythonClient/)
+# Merge Python Library
 
-The Merge Python library provides convenient access to the Merge REST API from any Python 3.7+
-application. It includes type definitions for all request params and response fields,
-and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
+[![pypi](https://img.shields.io/pypi/v/fern-merge.svg)](https://pypi.python.org/pypi/fern-merge)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
+
+The Merge Python library provides access to the Merge API from Python.
 
 ## Documentation
 
-The API documentation can be found [here](https://docs.merge.dev).
+API reference documentation is available [here](https://docs.merge.dev/).
 
 ## Installation
 
 ```sh
-pip install MergePythonClient
+pip install --upgrade MergePythonClient
 ```
 
-## Usage
-
-```python
-from merge import Merge
-
-merge = Merge(
-    # defaults to os.environ.get("MERGE_API_KEY")
-    api_key="my api key",
-)
-
-account_detail = merge.hris.account_details.retrieve()
-```
-
-While you can provide an `api_key` keyword argument, we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-and adding `MERGE_API_KEY="my api key"` to your `.env` file so that your API Key is not stored in source control.
-
-## Async Usage
-
-Simply import `AsyncMerge` instead of `Merge` and use `await` with each API call:
-
-```python
-from merge import AsyncMerge
-
-merge = AsyncMerge(
-    # defaults to os.environ.get("MERGE_API_KEY")
-    api_key="my api key",
-)
-
-
-async def main():
-    account_detail = await merge.hris.account_details.retrieve()
-    print(account_detail)
-
-
-asyncio.run(main())
-```
-
-Functionality between the synchronous and asynchronous clients is otherwise identical.
-
-## Using Types
-
-Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict), while responses are [Pydantic](https://pydantic-docs.helpmanual.io/) models. This helps provide autocomplete and documentation within your editor.
-
-If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `"basic"`.
-
-## Pagination
-
-List methods in the Merge API are paginated.
-
-This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
+## Instantiation
 
 ```python
 import merge
+from merge.client import Merge
 
-merge = Merge()
-
-all_sync_statuses = []
-# Automatically fetches more pages as needed.
-for sync_status in merge.hris.sync_status.list():
-    # Do something with sync_status here
-    all_sync_statuses.append(sync_status)
-print(all_sync_statuses)
+client = Merge(api_key="YOUR_API_KEY", account_token="YOUR_ACCOUNT_TOKEN")
 ```
 
-Or, asynchronously:
+## Categories
+
+This SDK contains both the ATS, HRIS, CRM, Ticketing, and Accounting categories. Even if you do not plan on using more than one Merge API category right now, the SDK provides upgrade-flexibility in case you find new Merge API categories useful in the future.
+
+Each category is namespaced: 
+```python
+client = Merge(api_key="YOUR_API_KEY")
+
+client.ats. # APIs specific to the ATS Category
+
+client.hris. # APIs specific to the HRIS Category
+```
+
+## Usage 
+
+## Create Link Token 
 
 ```python
-import asyncio
 import merge
+from merge.client import Merge
 
-merge = AsyncMerge()
+merge_client = Merge(
+    api_key="Bearer <YOUR_API_KEY>", 
+    account_token="<YOUR_ACCOUNT_TOKEN>")
 
-
-async def main() -> None:
-    all_sync_statuses = []
-    # Iterate through items across all pages, issuing requests as needed.
-    async for sync_status in merge.hris.sync_status.list():
-        all_sync_statuses.append(sync_status)
-    print(all_sync_statuses)
-
-
-asyncio.run(main())
-```
-
-Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
-
-```python
-first_page = await merge.hris.sync_status.list()
-if first_page.has_next_page():
-    print(f"will fetch next page using these details: {first_page.next_page_info()}")
-    next_page = await first_page.get_next_page()
-    print(f"number of items we just fetched: {len(next_page.results)}")
-
-# Remove `await` for non-async usage.
-```
-
-Or just work directly with the returned data:
-
-```python
-first_page = await merge.hris.sync_status.list()
-
-print(f"next page cursor: {first_page.next}")  # => "next page cursor: ..."
-for sync_status in first_page.results:
-    print(sync_status.model_name)
-
-# Remove `await` for non-async usage.
-```
-
-## Nested params
-
-Nested parameters are dictionaries, typed using `TypedDict`, for example:
-
-```python
-from merge import Merge
-
-merge = Merge()
-
-merge.hris.account_details.retrieve(
-    params={},
-)
-```
-
-## Handling errors
-
-When the library is unable to connect to the API (e.g., due to network connection problems or a timeout), a subclass of `merge.APIConnectionError` is raised.
-
-When the API returns a non-success status code (i.e., 4xx or 5xx
-response), a subclass of `merge.APIStatusError` will be raised, containing `status_code` and `response` properties.
-
-All errors inherit from `merge.APIError`.
-
-```python
-from merge import Merge
-
-merge = Merge()
-
-try:
-    merge.hris.account_details.retrieve()
-except merge.APIConnectionError as e:
-    print("The server could not be reached")
-    print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except merge.RateLimitError as e:
-    print("A 429 status code was received; we should back off a bit.")
-except merge.APIStatusError as e:
-    print("Another non-200-range status code was received")
-    print(e.status_code)
-    print(e.response)
-```
-
-Error codes are as followed:
-
-| Status Code | Error Type                 |
-| ----------- | -------------------------- |
-| 400         | `BadRequestError`          |
-| 401         | `AuthenticationError`      |
-| 403         | `PermissionDeniedError`    |
-| 404         | `NotFoundError`            |
-| 422         | `UnprocessableEntityError` |
-| 429         | `RateLimitError`           |
-| >=500       | `InternalServerError`      |
-| N/A         | `APIConnectionError`       |
-
-### Retries
-
-Certain errors will be automatically retried 2 times by default, with a short exponential backoff.
-Connection errors (for example, due to a network connectivity problem), 409 Conflict, 429 Rate Limit,
-and >=500 Internal errors will all be retried by default.
-
-You can use the `max_retries` option to configure or disable this:
-
-```python
-from merge import Merge
-
-# Configure the default for all requests:
-merge = Merge(
-    # default is 2
-    max_retries=0,
+link_token_response = merge_client.ats.link_token.create(
+    end_user_email_address="john.smith@gmail.com",
+    end_user_organization_name="acme",
+    end_user_origin_id="1234",
+    categories=[CategoriesEnum.ATS],
+    link_expiry_mins=30,
 )
 
-# Or, configure per-request:
-merge.with_options(max_retries=5).hris.account_details.retrieve()
+print("Created link token", link_token_response.link_token)
 ```
 
-### Timeouts
-
-Requests time out after 60 seconds by default. You can configure this with a `timeout` option,
-which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration):
+## Get Employee 
 
 ```python
-from merge import Merge
+import merge
+from merge.client import Merge
 
-# Configure the default for all requests:
-merge = Merge(
-    # default is 60s
-    timeout=20.0,
-)
+merge_client = Merge(
+    api_key="Bearer <YOUR_API_KEY>", 
+    account_token="<YOUR_ACCOUNT_TOKEN>")
 
-# More granular control:
-merge = Merge(
-    timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
-)
-
-# Override per-request:
-merge.with_options(timeout=5 * 1000).hris.account_details.retrieve()
+employee = merge_client.hris.employees.retrieve(
+    id="0958cbc6-6040-430a-848e-aafacbadf4ae")
 ```
 
-On timeout, an `APITimeoutError` is thrown.
-
-Note that requests which time out will be [retried twice by default](#retries).
-
-## Advanced: Configuring custom URLs, proxies, and transports
-
-You can configure the following keyword arguments when instantiating the client:
+## Get Candidate 
 
 ```python
-import httpx
-from merge import Merge
+import merge
+from merge.client import Merge
 
-merge = Merge(
-    # Use a custom base URL
-    base_url="http://my.test.server.example.com:8083",
-    proxies="http://my.test.proxy.example.com",
-    transport=httpx.HTTPTransport(local_address="0.0.0.0"),
-)
+merge_client = Merge(
+    api_key="Bearer <YOUR_API_KEY>", 
+    account_token="<YOUR_ACCOUNT_TOKEN>")
+
+candidate = merge_client.ats.candiates.retrieve(
+    id="521b18c2-4d01-4297-b451-19858d07c133")
 ```
 
-See the httpx documentation for information about the [`proxies`](https://www.python-httpx.org/advanced/#http-proxying) and [`transport`](https://www.python-httpx.org/advanced/#custom-transports) keyword arguments.
+## Filter Candidate 
 
-## Status
+```python
+import merge
+from merge.client import Merge
 
-This package is in beta. Its internals and interfaces are not stable and subject to change without a major semver bump;
-please reach out if you rely on any undocumented behavior.
+merge_client = Merge(
+    api_key="Bearer <YOUR_API_KEY>", 
+    account_token="<YOUR_ACCOUNT_TOKEN>")
 
-We are keen for your feedback; please email us at [hello@merge.dev](mailto:hello@merge.dev) or open an issue with questions,
-bugs, or suggestions.
+candidates_response = merge_client.ats.candidates.list(
+    created_after="2030-01-01")
 
-## Requirements
+print(candidates_response.result)
+```
 
-Python 3.7 or higher.
+## Get Contact 
+
+```python
+import merge
+from merge.client import Merge
+
+merge_client = Merge(
+    api_key="Bearer <YOUR_API_KEY>", 
+    account_token="<YOUR_ACCOUNT_TOKEN>")
+
+contact = merge_client.accounting.contacts.retrieve(
+    id="c640b80b-fac9-409f-aa19-1f9221aec445")
+```
+
+## Create Ticket
+
+```python
+import merge
+from merge.client import Merge
+
+merge_client = Merge(
+    api_key="Bearer <YOUR_API_KEY>", 
+    account_token="<YOUR_ACCOUNT_TOKEN>")
+
+merge_client.ticketing.tickets.create(
+    model=merge.ticketing.TicketRequest(
+        name="Please add more integrations",
+        assignees=[
+            "17a54124-287f-494d-965e-3c5b330c9a68"
+        ],
+        creator="3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        due_date="2022-10-11T00:00:00Z",
+        status=merge.ticketing.TicketRequestStatus.OPEN,
+    ))
+```
+
+## Beta status
+
+This SDK is in beta, and there may be breaking changes between versions without a major version update. Therefore, we recommend pinning the package version to a specific version in your package.json file. This way, you can install the same version each time without breaking changes unless you are intentionally looking for the latest version.
+
+## Contributing
+
+While we value open-source contributions to this SDK, this library is generated programmatically. Additions made directly to this library would have to be moved over to our generation code, otherwise they would be overwritten upon the next generated release. Feel free to open a PR as a proof of concept, but know that we will not be able to merge it as-is. We suggest opening an issue first to discuss with us!
+
+On the other hand, contributions to the README are always very welcome!
