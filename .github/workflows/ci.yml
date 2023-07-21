@@ -14,8 +14,7 @@ jobs:
       - name: Bootstrap poetry
         run: |
           curl --location --show-error --silent --output poetry.py https://install.python-poetry.org \
-          && echo '66db5477a597b6176202ef77792076057ce50d2c5a2d2d2978c63e1f144d7b95' poetry.py \
-          | sha256sum -c \
+          && echo '66db5477a597b6176202ef77792076057ce50d2c5a2d2d2978c63e1f144d7b95' poetry.py | sha256sum -c \
           && python poetry.py -y \
           && rm poetry.py
       - name: Install dependencies
@@ -34,8 +33,7 @@ jobs:
       - name: Bootstrap poetry
         run: |
           curl --location --show-error --silent --output poetry.py https://install.python-poetry.org \
-          && echo '66db5477a597b6176202ef77792076057ce50d2c5a2d2d2978c63e1f144d7b95' poetry.py \
-          | sha256sum -c \
+          && echo '66db5477a597b6176202ef77792076057ce50d2c5a2d2d2978c63e1f144d7b95' poetry.py | sha256sum -c \
           && python poetry.py -y \
           && rm poetry.py
       - name: Install dependencies
@@ -63,8 +61,7 @@ jobs:
       - name: Bootstrap poetry
         run: |
           curl --location --show-error --silent --output poetry.py https://install.python-poetry.org \
-          && echo '66db5477a597b6176202ef77792076057ce50d2c5a2d2d2978c63e1f144d7b95' poetry.py \
-          | sha256sum -c \
+          && echo '66db5477a597b6176202ef77792076057ce50d2c5a2d2d2978c63e1f144d7b95' poetry.py | sha256sum -c \
           && python poetry.py -y \
           && rm poetry.py
       - name: Install dependencies
