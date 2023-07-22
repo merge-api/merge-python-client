@@ -149,7 +149,7 @@ pass in the value of `next` to the cursor property on the request. Similarly, to
 get the previous page, you can pass in the value of `prev` to the cursor property on 
 the request. 
 
-Below is an example of iterating overa all pages:
+Below is an example of iterating over all pages:
 ```python
 
 # response contains the first page
