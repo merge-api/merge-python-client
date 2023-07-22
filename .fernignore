@@ -4,3 +4,5 @@ README.md
 
 # We need to configure secrets for integration tests.
 .github/workflows/ci.yml
+
+.github/workflows/semgrep.yml
