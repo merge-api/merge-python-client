@@ -1,6 +1,13 @@
 name: ci
 
-on: [push]
+on:
+  # diff aware on every PR
+  pull_request: {}
+  # allow manual triggering
+  workflow_dispatch: {}
+  # full scan on push to master
+  push:
+    branches: ["main"]
 jobs:
   compile:
     runs-on: ubuntu-latest
