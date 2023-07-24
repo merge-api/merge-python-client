@@ -21,7 +21,7 @@ pip install --upgrade MergePythonClient
 import merge
 from merge.client import Merge
 
-client = Merge(api_key="Bearer YOUR_API_KEY", account_token="YOUR_ACCOUNT_TOKEN")
+client = Merge(api_key="YOUR_API_KEY", account_token="YOUR_ACCOUNT_TOKEN")
 ```
 
 ## Categories
@@ -31,7 +31,7 @@ This SDK contains both the ATS, HRIS, CRM, Ticketing, and Accounting categories.
 Each category is namespaced:
 
 ```python
-client = Merge(api_key="Bearer YOUR_API_KEY")
+client = Merge(api_key="YOUR_API_KEY")
 
 client.ats. # APIs specific to the ATS Category
 
