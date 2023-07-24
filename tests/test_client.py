@@ -118,7 +118,7 @@ def test_retrieve_account_info(
 def ats_client() -> AtsClient:
     account_token = os.environ.get("TEST_MERGE_ATS_ACCOUNT_TOKEN")
     return Merge(
-        api_key="Bearer {}".format(get_api_key()),
+        api_key=get_api_key(),
         account_token=account_token,
     ).ats
 
@@ -132,7 +132,7 @@ def ats_account_id() -> Optional[str]:
 def hris_client() -> HrisClient:
     account_token = os.environ.get("TEST_MERGE_HRIS_ACCOUNT_TOKEN")
     return Merge(
-        api_key="Bearer {}".format(get_api_key()),
+        api_key=get_api_key(),
         account_token=account_token,
     ).hris
 
@@ -142,11 +142,14 @@ def hris_account_id() -> Optional[str]:
     return os.environ.get("TEST_MERGE_HRIS_ACCOUNT_ID")
 
 
-def get_api_key() -> Optional[str]:
+def get_api_key() -> str:
     """
     Returns the API key required to call the Merge API.
 
     We don't want this to be a fixture because it would otherwise
     be visible in the console.
     """
-    return os.environ.get("TEST_MERGE_API_KEY")
+    api_key = os.environ.get("TEST_MERGE_API_KEY")
+    if api_key is None: 
+        raise Exception("TEST_MERGE_API_KEY not found")
+    return api_key
