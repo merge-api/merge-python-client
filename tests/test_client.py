@@ -11,14 +11,14 @@ from merge.environment import MergeEnvironment
 
 
 def test_unauthorized_client_error() -> None:
-    client = Merge(api_key="Bearer invalid", environment=MergeEnvironment.SANDBOX)
+    client = Merge(api_key="invalid", environment=MergeEnvironment.SANDBOX)
     with pytest.raises(ApiError) as exception:
         response = client.ats.account_details.retrieve()
     assert exception.value.status_code == 401
 
 
 def test_bad_request_api_key_error() -> None:
-    client = Merge(api_key="invalid", environment=MergeEnvironment.SANDBOX)
+    client = Merge(api_key="key with spaces", environment=MergeEnvironment.SANDBOX)
     with pytest.raises(ApiError) as exception:
         response = client.ats.account_details.retrieve()
     assert exception.value.status_code == 400
