@@ -47,7 +47,7 @@ import merge
 from merge.client import Merge
 
 merge_client = Merge(
-    api_key="Bearer <YOUR_API_KEY>", 
+    api_key="<YOUR_API_KEY>", 
     account_token="<YOUR_ACCOUNT_TOKEN>")
 
 link_token_response = merge_client.ats.link_token.create(
@@ -68,7 +68,7 @@ import merge
 from merge.client import Merge
 
 merge_client = Merge(
-    api_key="Bearer <YOUR_API_KEY>", 
+    api_key="<YOUR_API_KEY>", 
     account_token="<YOUR_ACCOUNT_TOKEN>")
 
 employee = merge_client.hris.employees.retrieve(
@@ -82,7 +82,7 @@ import merge
 from merge.client import Merge
 
 merge_client = Merge(
-    api_key="Bearer <YOUR_API_KEY>", 
+    api_key="<YOUR_API_KEY>", 
     account_token="<YOUR_ACCOUNT_TOKEN>")
 
 candidate = merge_client.ats.candiates.retrieve(
@@ -96,7 +96,7 @@ import merge
 from merge.client import Merge
 
 merge_client = Merge(
-    api_key="Bearer <YOUR_API_KEY>", 
+    api_key="<YOUR_API_KEY>", 
     account_token="<YOUR_ACCOUNT_TOKEN>")
 
 candidates_response = merge_client.ats.candidates.list(
@@ -112,7 +112,7 @@ import merge
 from merge.client import Merge
 
 merge_client = Merge(
-    api_key="Bearer <YOUR_API_KEY>", 
+    api_key="<YOUR_API_KEY>", 
     account_token="<YOUR_ACCOUNT_TOKEN>")
 
 contact = merge_client.accounting.contacts.retrieve(
@@ -126,7 +126,7 @@ import merge
 from merge.client import Merge
 
 merge_client = Merge(
-    api_key="Bearer <YOUR_API_KEY>", 
+    api_key="<YOUR_API_KEY>", 
     account_token="<YOUR_ACCOUNT_TOKEN>")
 
 merge_client.ticketing.tickets.create(
