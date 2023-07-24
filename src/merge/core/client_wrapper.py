@@ -14,7 +14,7 @@ class BaseClientWrapper:
         headers: typing.Dict[str, str] = {}
         if self._account_token is not None:
             headers["X-Account-Token"] = self._account_token
-        headers["Authorization"] = self.api_key
+        headers["Authorization"] = f"Bearer {self.api_key}"
         return headers
 
 
