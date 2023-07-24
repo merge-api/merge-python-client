@@ -1,4 +1,3 @@
-
 # Merge Python Library
 
 [![pypi](https://img.shields.io/pypi/v/fern-merge.svg)](https://pypi.python.org/pypi/fern-merge)
@@ -22,32 +21,33 @@ pip install --upgrade MergePythonClient
 import merge
 from merge.client import Merge
 
-client = Merge(api_key="YOUR_API_KEY", account_token="YOUR_ACCOUNT_TOKEN")
+client = Merge(api_key="Bearer YOUR_API_KEY", account_token="YOUR_ACCOUNT_TOKEN")
 ```
 
 ## Categories
 
 This SDK contains both the ATS, HRIS, CRM, Ticketing, and Accounting categories. Even if you do not plan on using more than one Merge API category right now, the SDK provides upgrade-flexibility in case you find new Merge API categories useful in the future.
 
-Each category is namespaced: 
+Each category is namespaced:
+
 ```python
-client = Merge(api_key="YOUR_API_KEY")
+client = Merge(api_key="Bearer YOUR_API_KEY")
 
 client.ats. # APIs specific to the ATS Category
 
 client.hris. # APIs specific to the HRIS Category
 ```
 
-## Usage 
+## Usage
 
-## Create Link Token 
+## Create Link Token
 
 ```python
 import merge
 from merge.client import Merge
 
 merge_client = Merge(
-    api_key="Bearer <YOUR_API_KEY>", 
+    api_key="Bearer <YOUR_API_KEY>",
     account_token="<YOUR_ACCOUNT_TOKEN>")
 
 link_token_response = merge_client.ats.link_token.create(
@@ -61,42 +61,42 @@ link_token_response = merge_client.ats.link_token.create(
 print("Created link token", link_token_response.link_token)
 ```
 
-## Get Employee 
+## Get Employee
 
 ```python
 import merge
 from merge.client import Merge
 
 merge_client = Merge(
-    api_key="Bearer <YOUR_API_KEY>", 
+    api_key="Bearer <YOUR_API_KEY>",
     account_token="<YOUR_ACCOUNT_TOKEN>")
 
 employee = merge_client.hris.employees.retrieve(
     id="0958cbc6-6040-430a-848e-aafacbadf4ae")
 ```
 
-## Get Candidate 
+## Get Candidate
 
 ```python
 import merge
 from merge.client import Merge
 
 merge_client = Merge(
-    api_key="Bearer <YOUR_API_KEY>", 
+    api_key="Bearer <YOUR_API_KEY>",
     account_token="<YOUR_ACCOUNT_TOKEN>")
 
 candidate = merge_client.ats.candiates.retrieve(
     id="521b18c2-4d01-4297-b451-19858d07c133")
 ```
 
-## Filter Candidate 
+## Filter Candidate
 
 ```python
 import merge
 from merge.client import Merge
 
 merge_client = Merge(
-    api_key="Bearer <YOUR_API_KEY>", 
+    api_key="Bearer <YOUR_API_KEY>",
     account_token="<YOUR_ACCOUNT_TOKEN>")
 
 candidates_response = merge_client.ats.candidates.list(
@@ -105,14 +105,14 @@ candidates_response = merge_client.ats.candidates.list(
 print(candidates_response.result)
 ```
 
-## Get Contact 
+## Get Contact
 
 ```python
 import merge
 from merge.client import Merge
 
 merge_client = Merge(
-    api_key="Bearer <YOUR_API_KEY>", 
+    api_key="Bearer <YOUR_API_KEY>",
     account_token="<YOUR_ACCOUNT_TOKEN>")
 
 contact = merge_client.accounting.contacts.retrieve(
@@ -126,7 +126,7 @@ import merge
 from merge.client import Merge
 
 merge_client = Merge(
-    api_key="Bearer <YOUR_API_KEY>", 
+    api_key="Bearer <YOUR_API_KEY>",
     account_token="<YOUR_ACCOUNT_TOKEN>")
 
 merge_client.ticketing.tickets.create(
@@ -140,6 +140,28 @@ merge_client.ticketing.tickets.create(
         status=merge.ticketing.TicketRequestStatus.OPEN,
     ))
 ```
+
+## Pagination
+
+The SDK may return paginated results. Endpoints that return paginated results will 
+include a `next` and `prev` property on the response. To get the next page, you can 
+pass in the value of `next` to the cursor property on the request. Similarly, to 
+get the previous page, you can pass in the value of `prev` to the cursor property on 
+the request. 
+
+Below is an example of iterating over all pages:
+```python
+
+# response contains the first page
+response = merge_client.hris.employees.list(created_after="2030-01-01")
+
+# if there is a next page, load it by passing `next` to the cursor argument
+while response.next is not None:
+    response = hris_client.employees.list(
+        cursor=response.next, 
+        created_after="2030-01-01")
+```
+
 
 ## Beta status
 
