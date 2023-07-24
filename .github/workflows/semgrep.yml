@@ -24,6 +24,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       # Semgrep can only parse one requirements.txt
-      - run: semgrep ci
+      - run: |
+          curl --location --show-error --silent --output poetry.py https://install.python-poetry.org \
+          && echo '66db5477a597b6176202ef77792076057ce50d2c5a2d2d2978c63e1f144d7b95' poetry.py | sha256sum -c \
+          && python poetry.py -y \
+          && semgrep ci
         env:
           SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
