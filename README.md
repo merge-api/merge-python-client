@@ -102,7 +102,7 @@ merge_client = Merge(
 candidates_response = merge_client.ats.candidates.list(
     created_after="2030-01-01")
 
-print(candidates_response.result)
+print(candidates_response.results)
 ```
 
 ## Get Contact
