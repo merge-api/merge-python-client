@@ -33,7 +33,7 @@ class SyncStatusClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "sync-status"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/sync-status"),
             params=remove_none_from_dict({"cursor": cursor, "page_size": page_size}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -67,7 +67,7 @@ class AsyncSyncStatusClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "sync-status"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/sync-status"),
             params=remove_none_from_dict({"cursor": cursor, "page_size": page_size}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

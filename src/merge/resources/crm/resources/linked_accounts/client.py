@@ -77,7 +77,7 @@ class LinkedAccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "linked-accounts"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/linked-accounts"),
             params=remove_none_from_dict(
                 {
                     "category": category,
@@ -170,7 +170,7 @@ class AsyncLinkedAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "linked-accounts"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/linked-accounts"),
             params=remove_none_from_dict(
                 {
                     "category": category,

@@ -1,7 +1,11 @@
 # Specify files that shouldn't be modified by Fern
 README.md
 CODEOWNERS
+LICENSE.md
+tests/test_client.py
+pyproject.toml
 
 # We need to configure secrets for integration tests.
+
 .github/workflows/ci.yml
 .github/workflows/semgrep.yml

@@ -65,7 +65,7 @@ class CashFlowStatementsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "cash-flow-statements"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/cash-flow-statements"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -111,7 +111,7 @@ class CashFlowStatementsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"cash-flow-statements/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/cash-flow-statements/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -175,7 +175,7 @@ class AsyncCashFlowStatementsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "cash-flow-statements"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/cash-flow-statements"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -221,7 +221,7 @@ class AsyncCashFlowStatementsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"cash-flow-statements/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/cash-flow-statements/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

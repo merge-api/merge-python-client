@@ -73,7 +73,7 @@ class AssociationsClient:
             "GET",
             urllib.parse.urljoin(
                 f"{self._environment.value}/",
-                f"custom-object-classes/{custom_object_class_id}/custom-objects/{object_id}/associations",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{object_id}/associations",
             ),
             params=remove_none_from_dict(
                 {
@@ -134,7 +134,7 @@ class AssociationsClient:
             "PUT",
             urllib.parse.urljoin(
                 f"{self._environment.value}/",
-                f"custom-object-classes/{source_class_id}/custom-objects/{source_object_id}/associations/{target_class_id}/{target_object_id}/{association_type_id}",
+                f"api/crm/v1/custom-object-classes/{source_class_id}/custom-objects/{source_object_id}/associations/{target_class_id}/{target_object_id}/{association_type_id}",
             ),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             headers=self._client_wrapper.get_headers(),
@@ -207,7 +207,7 @@ class AsyncAssociationsClient:
             "GET",
             urllib.parse.urljoin(
                 f"{self._environment.value}/",
-                f"custom-object-classes/{custom_object_class_id}/custom-objects/{object_id}/associations",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{object_id}/associations",
             ),
             params=remove_none_from_dict(
                 {
@@ -268,7 +268,7 @@ class AsyncAssociationsClient:
             "PUT",
             urllib.parse.urljoin(
                 f"{self._environment.value}/",
-                f"custom-object-classes/{source_class_id}/custom-objects/{source_object_id}/associations/{target_class_id}/{target_object_id}/{association_type_id}",
+                f"api/crm/v1/custom-object-classes/{source_class_id}/custom-objects/{source_object_id}/associations/{target_class_id}/{target_object_id}/{association_type_id}",
             ),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             headers=self._client_wrapper.get_headers(),

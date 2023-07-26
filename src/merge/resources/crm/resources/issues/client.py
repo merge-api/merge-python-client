@@ -74,7 +74,7 @@ class IssuesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "issues"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/issues"),
             params=remove_none_from_dict(
                 {
                     "account_token": account_token,
@@ -112,7 +112,7 @@ class IssuesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"issues/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/issues/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -184,7 +184,7 @@ class AsyncIssuesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "issues"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/issues"),
             params=remove_none_from_dict(
                 {
                     "account_token": account_token,
@@ -222,7 +222,7 @@ class AsyncIssuesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"issues/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/issues/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

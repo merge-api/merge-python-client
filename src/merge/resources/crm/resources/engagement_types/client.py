@@ -62,7 +62,7 @@ class EngagementTypesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "engagement-types"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/engagement-types"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
@@ -107,7 +107,7 @@ class EngagementTypesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"engagement-types/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/engagement-types/{id}"),
             params=remove_none_from_dict(
                 {"include_remote_data": include_remote_data, "include_remote_fields": include_remote_fields}
             ),
@@ -147,7 +147,7 @@ class EngagementTypesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "engagement-types/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/engagement-types/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -216,7 +216,7 @@ class AsyncEngagementTypesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "engagement-types"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/engagement-types"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
@@ -261,7 +261,7 @@ class AsyncEngagementTypesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"engagement-types/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/engagement-types/{id}"),
             params=remove_none_from_dict(
                 {"include_remote_data": include_remote_data, "include_remote_fields": include_remote_fields}
             ),
@@ -301,7 +301,7 @@ class AsyncEngagementTypesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "engagement-types/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/engagement-types/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

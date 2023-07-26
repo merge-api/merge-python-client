@@ -62,7 +62,7 @@ class StagesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "stages"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/stages"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
@@ -107,7 +107,7 @@ class StagesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"stages/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/stages/{id}"),
             params=remove_none_from_dict(
                 {"include_remote_data": include_remote_data, "include_remote_fields": include_remote_fields}
             ),
@@ -147,7 +147,7 @@ class StagesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "stages/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/stages/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -216,7 +216,7 @@ class AsyncStagesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "stages"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/stages"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
@@ -261,7 +261,7 @@ class AsyncStagesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"stages/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/stages/{id}"),
             params=remove_none_from_dict(
                 {"include_remote_data": include_remote_data, "include_remote_fields": include_remote_fields}
             ),
@@ -301,7 +301,7 @@ class AsyncStagesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "stages/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/stages/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

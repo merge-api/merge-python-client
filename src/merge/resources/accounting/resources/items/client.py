@@ -73,7 +73,7 @@ class ItemsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "items"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/items"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -127,7 +127,7 @@ class ItemsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"items/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/items/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -204,7 +204,7 @@ class AsyncItemsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "items"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/items"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -258,7 +258,7 @@ class AsyncItemsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"items/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/items/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,

@@ -151,7 +151,7 @@ class TicketsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tickets"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/tickets"),
             params=remove_none_from_dict(
                 {
                     "account_id": account_id,
@@ -217,7 +217,7 @@ class TicketsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tickets"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/tickets"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -259,7 +259,7 @@ class TicketsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"tickets/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/tickets/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -302,7 +302,7 @@ class TicketsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"tickets/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/tickets/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -344,7 +344,7 @@ class TicketsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"tickets/{parent_id}/collaborators"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/tickets/{parent_id}/collaborators"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -374,7 +374,7 @@ class TicketsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"tickets/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/tickets/meta/patch/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -392,7 +392,7 @@ class TicketsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tickets/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/tickets/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -426,7 +426,7 @@ class TicketsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tickets/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/tickets/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -565,7 +565,7 @@ class AsyncTicketsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tickets"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/tickets"),
             params=remove_none_from_dict(
                 {
                     "account_id": account_id,
@@ -631,7 +631,7 @@ class AsyncTicketsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tickets"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/tickets"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -673,7 +673,7 @@ class AsyncTicketsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"tickets/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/tickets/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -716,7 +716,7 @@ class AsyncTicketsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"tickets/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/tickets/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -758,7 +758,7 @@ class AsyncTicketsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"tickets/{parent_id}/collaborators"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/tickets/{parent_id}/collaborators"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -788,7 +788,7 @@ class AsyncTicketsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"tickets/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/tickets/meta/patch/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -806,7 +806,7 @@ class AsyncTicketsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tickets/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/tickets/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -840,7 +840,7 @@ class AsyncTicketsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tickets/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/tickets/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

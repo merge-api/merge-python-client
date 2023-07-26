@@ -63,7 +63,7 @@ class CompanyInfoClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "company-info"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/company-info"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
@@ -108,7 +108,7 @@ class CompanyInfoClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"company-info/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/company-info/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -169,7 +169,7 @@ class AsyncCompanyInfoClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "company-info"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/company-info"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
@@ -214,7 +214,7 @@ class AsyncCompanyInfoClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"company-info/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/company-info/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

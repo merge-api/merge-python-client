@@ -60,7 +60,7 @@ class ProjectsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "projects"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/projects"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
@@ -96,7 +96,7 @@ class ProjectsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"projects/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/projects/{id}"),
             params=remove_none_from_dict({"include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -137,7 +137,7 @@ class ProjectsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"projects/{parent_id}/users"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/projects/{parent_id}/users"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -203,7 +203,7 @@ class AsyncProjectsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "projects"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/projects"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
@@ -239,7 +239,7 @@ class AsyncProjectsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"projects/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/projects/{id}"),
             params=remove_none_from_dict({"include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -280,7 +280,7 @@ class AsyncProjectsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"projects/{parent_id}/users"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/projects/{parent_id}/users"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

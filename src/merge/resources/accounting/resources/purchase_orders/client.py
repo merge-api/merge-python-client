@@ -86,7 +86,7 @@ class PurchaseOrdersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "purchase-orders"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/purchase-orders"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -136,7 +136,7 @@ class PurchaseOrdersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "purchase-orders"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/purchase-orders"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -175,7 +175,7 @@ class PurchaseOrdersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"purchase-orders/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/purchase-orders/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -201,7 +201,7 @@ class PurchaseOrdersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "purchase-orders/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/purchase-orders/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -276,7 +276,7 @@ class AsyncPurchaseOrdersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "purchase-orders"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/purchase-orders"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -326,7 +326,7 @@ class AsyncPurchaseOrdersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "purchase-orders"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/purchase-orders"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -365,7 +365,7 @@ class AsyncPurchaseOrdersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"purchase-orders/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/purchase-orders/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -391,7 +391,7 @@ class AsyncPurchaseOrdersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "purchase-orders/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/purchase-orders/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

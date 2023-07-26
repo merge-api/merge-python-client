@@ -27,7 +27,7 @@ class AccountTokenClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"account-token/{public_token}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/account-token/{public_token}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -56,7 +56,7 @@ class AsyncAccountTokenClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"account-token/{public_token}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/account-token/{public_token}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

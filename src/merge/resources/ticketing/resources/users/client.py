@@ -66,7 +66,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "users"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/users"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
@@ -112,7 +112,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"users/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/users/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -176,7 +176,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "users"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/users"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
@@ -222,7 +222,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"users/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/users/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

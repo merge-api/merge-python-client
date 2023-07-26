@@ -82,7 +82,7 @@ class AccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "accounts"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/accounts"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -130,7 +130,7 @@ class AccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "accounts"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/accounts"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -169,7 +169,7 @@ class AccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"accounts/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/accounts/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -195,7 +195,7 @@ class AccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "accounts/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/accounts/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -264,7 +264,7 @@ class AsyncAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "accounts"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/accounts"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -312,7 +312,7 @@ class AsyncAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "accounts"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/accounts"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -351,7 +351,7 @@ class AsyncAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"accounts/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/accounts/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -377,7 +377,7 @@ class AsyncAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "accounts/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/accounts/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

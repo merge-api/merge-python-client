@@ -58,7 +58,7 @@ class TeamsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "teams"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/teams"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
@@ -94,7 +94,7 @@ class TeamsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"teams/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/teams/{id}"),
             params=remove_none_from_dict({"include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -152,7 +152,7 @@ class AsyncTeamsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "teams"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/teams"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
@@ -188,7 +188,7 @@ class AsyncTeamsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"teams/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/teams/{id}"),
             params=remove_none_from_dict({"include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

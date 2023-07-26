@@ -82,7 +82,7 @@ class CreditNotesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "credit-notes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/credit-notes"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -138,7 +138,7 @@ class CreditNotesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"credit-notes/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/credit-notes/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -221,7 +221,7 @@ class AsyncCreditNotesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "credit-notes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/credit-notes"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -277,7 +277,7 @@ class AsyncCreditNotesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"credit-notes/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/credit-notes/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,

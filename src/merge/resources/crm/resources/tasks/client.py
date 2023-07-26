@@ -75,7 +75,7 @@ class TasksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tasks"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/tasks"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
@@ -121,7 +121,7 @@ class TasksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tasks"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/tasks"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -157,7 +157,7 @@ class TasksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"tasks/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/tasks/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -198,7 +198,7 @@ class TasksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"tasks/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/tasks/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -221,7 +221,7 @@ class TasksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"tasks/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/tasks/meta/patch/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -239,7 +239,7 @@ class TasksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tasks/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/tasks/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -276,7 +276,7 @@ class TasksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tasks/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/tasks/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -348,7 +348,7 @@ class AsyncTasksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tasks"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/tasks"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
@@ -394,7 +394,7 @@ class AsyncTasksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tasks"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/tasks"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -430,7 +430,7 @@ class AsyncTasksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"tasks/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/tasks/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -471,7 +471,7 @@ class AsyncTasksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"tasks/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/tasks/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -494,7 +494,7 @@ class AsyncTasksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"tasks/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/tasks/meta/patch/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -512,7 +512,7 @@ class AsyncTasksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tasks/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/tasks/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -549,7 +549,7 @@ class AsyncTasksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tasks/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/tasks/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

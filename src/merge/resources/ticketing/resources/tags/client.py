@@ -58,7 +58,7 @@ class TagsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tags"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/tags"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
@@ -94,7 +94,7 @@ class TagsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"tags/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/tags/{id}"),
             params=remove_none_from_dict({"include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -152,7 +152,7 @@ class AsyncTagsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tags"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/tags"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
@@ -188,7 +188,7 @@ class AsyncTagsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"tags/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/tags/{id}"),
             params=remove_none_from_dict({"include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

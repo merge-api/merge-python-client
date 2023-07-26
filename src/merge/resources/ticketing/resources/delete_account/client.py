@@ -21,7 +21,7 @@ class DeleteAccountClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "delete-account"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/delete-account"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -47,7 +47,7 @@ class AsyncDeleteAccountClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "delete-account"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/delete-account"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

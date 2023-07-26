@@ -96,7 +96,7 @@ class InvoicesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "invoices"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/invoices"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -148,7 +148,7 @@ class InvoicesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "invoices"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/invoices"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -187,7 +187,7 @@ class InvoicesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"invoices/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/invoices/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -213,7 +213,7 @@ class InvoicesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "invoices/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/invoices/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -297,7 +297,7 @@ class AsyncInvoicesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "invoices"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/invoices"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -349,7 +349,7 @@ class AsyncInvoicesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "invoices"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/invoices"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -388,7 +388,7 @@ class AsyncInvoicesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"invoices/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/invoices/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -414,7 +414,7 @@ class AsyncInvoicesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "invoices/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/invoices/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
