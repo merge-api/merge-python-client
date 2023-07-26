@@ -6,8 +6,7 @@ on:
   # allow manual triggering
   workflow_dispatch: {}
   # full scan on push to master
-  push:
-    branches: ["main"]
+  push: {}
 jobs:
   compile:
     runs-on: ubuntu-latest
