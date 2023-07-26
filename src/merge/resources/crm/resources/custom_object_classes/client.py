@@ -62,7 +62,7 @@ class CustomObjectClassesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "custom-object-classes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/custom-object-classes"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
@@ -107,7 +107,7 @@ class CustomObjectClassesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"custom-object-classes/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/custom-object-classes/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -135,7 +135,9 @@ class CustomObjectClassesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "PUT",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"custom-object-classes/generator/{generator_id}"),
+            urllib.parse.urljoin(
+                f"{self._environment.value}/", f"api/crm/v1/custom-object-classes/generator/{generator_id}"
+            ),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -196,7 +198,7 @@ class AsyncCustomObjectClassesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "custom-object-classes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/custom-object-classes"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
@@ -241,7 +243,7 @@ class AsyncCustomObjectClassesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"custom-object-classes/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/custom-object-classes/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -269,7 +271,9 @@ class AsyncCustomObjectClassesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PUT",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"custom-object-classes/generator/{generator_id}"),
+            urllib.parse.urljoin(
+                f"{self._environment.value}/", f"api/crm/v1/custom-object-classes/generator/{generator_id}"
+            ),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

@@ -73,7 +73,7 @@ class PassthroughClient:
             _request["normalize_response"] = normalize_response
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "passthrough"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/passthrough"),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -141,7 +141,7 @@ class AsyncPassthroughClient:
             _request["normalize_response"] = normalize_response
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "passthrough"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/passthrough"),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

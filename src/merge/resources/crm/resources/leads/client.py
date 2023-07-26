@@ -83,7 +83,7 @@ class LeadsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "leads"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/leads"),
             params=remove_none_from_dict(
                 {
                     "converted_account_id": converted_account_id,
@@ -132,7 +132,7 @@ class LeadsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "leads"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/leads"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -168,7 +168,7 @@ class LeadsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"leads/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/leads/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -193,7 +193,7 @@ class LeadsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "leads/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/leads/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -230,7 +230,7 @@ class LeadsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "leads/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/leads/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -311,7 +311,7 @@ class AsyncLeadsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "leads"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/leads"),
             params=remove_none_from_dict(
                 {
                     "converted_account_id": converted_account_id,
@@ -360,7 +360,7 @@ class AsyncLeadsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "leads"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/leads"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -396,7 +396,7 @@ class AsyncLeadsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"leads/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/leads/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -421,7 +421,7 @@ class AsyncLeadsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "leads/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/leads/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -458,7 +458,7 @@ class AsyncLeadsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "leads/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/leads/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

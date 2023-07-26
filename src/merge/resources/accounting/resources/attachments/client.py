@@ -68,7 +68,7 @@ class AttachmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "attachments"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/attachments"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -113,7 +113,7 @@ class AttachmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "attachments"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/attachments"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -138,7 +138,7 @@ class AttachmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"attachments/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/attachments/{id}"),
             params=remove_none_from_dict({"include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -157,7 +157,7 @@ class AttachmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "attachments/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/attachments/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -217,7 +217,7 @@ class AsyncAttachmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "attachments"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/attachments"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -262,7 +262,7 @@ class AsyncAttachmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "attachments"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/attachments"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -287,7 +287,7 @@ class AsyncAttachmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"attachments/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/attachments/{id}"),
             params=remove_none_from_dict({"include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -306,7 +306,7 @@ class AsyncAttachmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "attachments/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/attachments/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

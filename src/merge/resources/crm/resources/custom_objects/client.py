@@ -72,7 +72,8 @@ class CustomObjectsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._environment.value}/", f"custom-object-classes/{custom_object_class_id}/custom-objects"
+                f"{self._environment.value}/",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects",
             ),
             params=remove_none_from_dict(
                 {
@@ -122,7 +123,8 @@ class CustomObjectsClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(
-                f"{self._environment.value}/", f"custom-object-classes/{custom_object_class_id}/custom-objects"
+                f"{self._environment.value}/",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects",
             ),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
@@ -160,7 +162,8 @@ class CustomObjectsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._environment.value}/", f"custom-object-classes/{custom_object_class_id}/custom-objects/{id}"
+                f"{self._environment.value}/",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{id}",
             ),
             params=remove_none_from_dict(
                 {"include_remote_data": include_remote_data, "include_remote_fields": include_remote_fields}
@@ -202,7 +205,8 @@ class CustomObjectsClient:
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(
-                f"{self._environment.value}/", f"custom-object-classes/{custom_object_class_id}/custom-objects/{id}"
+                f"{self._environment.value}/",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{id}",
             ),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
@@ -232,7 +236,7 @@ class CustomObjectsClient:
             "GET",
             urllib.parse.urljoin(
                 f"{self._environment.value}/",
-                f"custom-object-classes/{custom_object_class_id}/custom-objects/meta/patch/{id}",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/meta/patch/{id}",
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -256,7 +260,7 @@ class CustomObjectsClient:
             "GET",
             urllib.parse.urljoin(
                 f"{self._environment.value}/",
-                f"custom-object-classes/{custom_object_class_id}/custom-objects/meta/post",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/meta/post",
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -321,7 +325,8 @@ class AsyncCustomObjectsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._environment.value}/", f"custom-object-classes/{custom_object_class_id}/custom-objects"
+                f"{self._environment.value}/",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects",
             ),
             params=remove_none_from_dict(
                 {
@@ -371,7 +376,8 @@ class AsyncCustomObjectsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(
-                f"{self._environment.value}/", f"custom-object-classes/{custom_object_class_id}/custom-objects"
+                f"{self._environment.value}/",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects",
             ),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
@@ -409,7 +415,8 @@ class AsyncCustomObjectsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._environment.value}/", f"custom-object-classes/{custom_object_class_id}/custom-objects/{id}"
+                f"{self._environment.value}/",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{id}",
             ),
             params=remove_none_from_dict(
                 {"include_remote_data": include_remote_data, "include_remote_fields": include_remote_fields}
@@ -451,7 +458,8 @@ class AsyncCustomObjectsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(
-                f"{self._environment.value}/", f"custom-object-classes/{custom_object_class_id}/custom-objects/{id}"
+                f"{self._environment.value}/",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{id}",
             ),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
@@ -481,7 +489,7 @@ class AsyncCustomObjectsClient:
             "GET",
             urllib.parse.urljoin(
                 f"{self._environment.value}/",
-                f"custom-object-classes/{custom_object_class_id}/custom-objects/meta/patch/{id}",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/meta/patch/{id}",
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -507,7 +515,7 @@ class AsyncCustomObjectsClient:
             "GET",
             urllib.parse.urljoin(
                 f"{self._environment.value}/",
-                f"custom-object-classes/{custom_object_class_id}/custom-objects/meta/post",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/meta/post",
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

@@ -99,7 +99,7 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "opportunities"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/opportunities"),
             params=remove_none_from_dict(
                 {
                     "account_id": account_id,
@@ -151,7 +151,7 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "opportunities"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/opportunities"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -193,7 +193,7 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"opportunities/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/opportunities/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -236,7 +236,7 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"opportunities/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/opportunities/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -259,7 +259,7 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"opportunities/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/opportunities/meta/patch/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -277,7 +277,7 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "opportunities/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/opportunities/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -314,7 +314,7 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "opportunities/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/opportunities/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -408,7 +408,7 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "opportunities"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/opportunities"),
             params=remove_none_from_dict(
                 {
                     "account_id": account_id,
@@ -460,7 +460,7 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "opportunities"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/opportunities"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -502,7 +502,7 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"opportunities/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/opportunities/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -545,7 +545,7 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"opportunities/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/opportunities/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -568,7 +568,7 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"opportunities/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/opportunities/meta/patch/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -586,7 +586,7 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "opportunities/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/opportunities/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -623,7 +623,7 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "opportunities/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/opportunities/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

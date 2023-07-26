@@ -32,7 +32,7 @@ class GenerateKeyClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "generate-key"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/generate-key"),
             json=jsonable_encoder({"name": name}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -62,7 +62,7 @@ class AsyncGenerateKeyClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "generate-key"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/generate-key"),
             json=jsonable_encoder({"name": name}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

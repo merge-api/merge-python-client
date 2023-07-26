@@ -25,7 +25,7 @@ class ForceResyncClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "sync-status/resync"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/sync-status/resync"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -51,7 +51,7 @@ class AsyncForceResyncClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "sync-status/resync"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/sync-status/resync"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

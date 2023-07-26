@@ -78,7 +78,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "contacts"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/contacts"),
             params=remove_none_from_dict(
                 {
                     "account_id": account_id,
@@ -125,7 +125,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "contacts"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/contacts"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -161,7 +161,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"contacts/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/contacts/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -202,7 +202,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"contacts/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/contacts/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -227,7 +227,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"contacts/ignore/{model_id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/contacts/ignore/{model_id}"),
             json=jsonable_encoder(request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -249,7 +249,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"contacts/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/contacts/meta/patch/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -267,7 +267,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "contacts/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/contacts/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -304,7 +304,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "contacts/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/contacts/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -379,7 +379,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "contacts"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/contacts"),
             params=remove_none_from_dict(
                 {
                     "account_id": account_id,
@@ -426,7 +426,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "contacts"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/contacts"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -462,7 +462,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"contacts/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/contacts/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -503,7 +503,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"contacts/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/contacts/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -528,7 +528,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"contacts/ignore/{model_id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/contacts/ignore/{model_id}"),
             json=jsonable_encoder(request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -550,7 +550,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"contacts/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/contacts/meta/patch/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -568,7 +568,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "contacts/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/contacts/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -605,7 +605,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "contacts/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/contacts/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

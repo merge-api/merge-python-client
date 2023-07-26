@@ -24,7 +24,7 @@ class AvailableActionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "available-actions"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/available-actions"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -50,7 +50,7 @@ class AsyncAvailableActionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "available-actions"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/available-actions"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

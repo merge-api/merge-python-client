@@ -86,7 +86,7 @@ class NotesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "notes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/notes"),
             params=remove_none_from_dict(
                 {
                     "account_id": account_id,
@@ -136,7 +136,7 @@ class NotesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "notes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/notes"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -172,7 +172,7 @@ class NotesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"notes/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/notes/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -197,7 +197,7 @@ class NotesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "notes/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/notes/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -234,7 +234,7 @@ class NotesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "notes/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/notes/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -318,7 +318,7 @@ class AsyncNotesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "notes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/notes"),
             params=remove_none_from_dict(
                 {
                     "account_id": account_id,
@@ -368,7 +368,7 @@ class AsyncNotesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "notes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/notes"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -404,7 +404,7 @@ class AsyncNotesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"notes/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/crm/v1/notes/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -429,7 +429,7 @@ class AsyncNotesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "notes/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/notes/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -466,7 +466,7 @@ class AsyncNotesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "notes/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/notes/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

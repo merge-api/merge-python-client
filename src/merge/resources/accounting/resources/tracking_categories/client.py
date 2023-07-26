@@ -71,7 +71,7 @@ class TrackingCategoriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tracking-categories"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/tracking-categories"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -125,7 +125,7 @@ class TrackingCategoriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"tracking-categories/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/tracking-categories/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -202,7 +202,7 @@ class AsyncTrackingCategoriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "tracking-categories"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/tracking-categories"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -256,7 +256,7 @@ class AsyncTrackingCategoriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"tracking-categories/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/tracking-categories/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,

@@ -79,7 +79,7 @@ class CollectionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "collections"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/collections"),
             params=remove_none_from_dict(
                 {
                     "collection_type": collection_type,
@@ -134,7 +134,7 @@ class CollectionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"collections/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/collections/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -182,7 +182,7 @@ class CollectionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"collections/{parent_id}/users"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/collections/{parent_id}/users"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -265,7 +265,7 @@ class AsyncCollectionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "collections"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/collections"),
             params=remove_none_from_dict(
                 {
                     "collection_type": collection_type,
@@ -320,7 +320,7 @@ class AsyncCollectionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"collections/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/collections/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -368,7 +368,7 @@ class AsyncCollectionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"collections/{parent_id}/users"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/collections/{parent_id}/users"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

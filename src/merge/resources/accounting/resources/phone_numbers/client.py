@@ -31,7 +31,7 @@ class PhoneNumbersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"phone-numbers/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/phone-numbers/{id}"),
             params=remove_none_from_dict({"include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -63,7 +63,7 @@ class AsyncPhoneNumbersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"phone-numbers/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/phone-numbers/{id}"),
             params=remove_none_from_dict({"include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
