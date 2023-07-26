@@ -6,45 +6,25 @@ import httpx
 
 
 class BaseClientWrapper:
-    def __init__(
-        self, *, account_token: typing.Optional[str] = None, token: typing.Union[str, typing.Callable[[], str]]
-    ):
+    def __init__(self, *, account_token: typing.Optional[str] = None, api_key: str):
         self._account_token = account_token
-        self._token = token
+        self.api_key = api_key
 
     def get_headers(self) -> typing.Dict[str, str]:
         headers: typing.Dict[str, str] = {}
         if self._account_token is not None:
             headers["X-Account-Token"] = self._account_token
-        headers["Authorization"] = f"Bearer {self._get_token()}"
+        headers["Authorization"] = self.api_key
         return headers
-
-    def _get_token(self) -> str:
-        if isinstance(self._token, str):
-            return self._token
-        else:
-            return self._token()
 
 
 class SyncClientWrapper(BaseClientWrapper):
-    def __init__(
-        self,
-        *,
-        account_token: typing.Optional[str] = None,
-        token: typing.Union[str, typing.Callable[[], str]],
-        httpx_client: httpx.Client,
-    ):
-        super().__init__(account_token=account_token, token=token)
+    def __init__(self, *, account_token: typing.Optional[str] = None, api_key: str, httpx_client: httpx.Client):
+        super().__init__(account_token=account_token, api_key=api_key)
         self.httpx_client = httpx_client
 
 
 class AsyncClientWrapper(BaseClientWrapper):
-    def __init__(
-        self,
-        *,
-        account_token: typing.Optional[str] = None,
-        token: typing.Union[str, typing.Callable[[], str]],
-        httpx_client: httpx.AsyncClient,
-    ):
-        super().__init__(account_token=account_token, token=token)
+    def __init__(self, *, account_token: typing.Optional[str] = None, api_key: str, httpx_client: httpx.AsyncClient):
+        super().__init__(account_token=account_token, api_key=api_key)
         self.httpx_client = httpx_client

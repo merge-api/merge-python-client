@@ -19,18 +19,18 @@ class Merge:
         *,
         environment: MergeEnvironment = MergeEnvironment.PRODUCTION,
         account_token: typing.Optional[str] = None,
-        token: typing.Union[str, typing.Callable[[], str]],
+        api_key: str,
         timeout: typing.Optional[float] = 60
     ):
         self._environment = environment
         self._client_wrapper = SyncClientWrapper(
-            account_token=account_token, token=token, httpx_client=httpx.Client(timeout=timeout)
+            account_token=account_token, api_key=api_key, httpx_client=httpx.Client(timeout=timeout)
         )
         self.hris = HrisClient(environment=environment, client_wrapper=self._client_wrapper)
         self.ats = AtsClient(environment=environment, client_wrapper=self._client_wrapper)
         self.ticketing = TicketingClient(environment=environment, client_wrapper=self._client_wrapper)
-        self.crm = CrmClient(environment=environment, client_wrapper=self._client_wrapper)
         self.accounting = AccountingClient(environment=environment, client_wrapper=self._client_wrapper)
+        self.crm = CrmClient(environment=environment, client_wrapper=self._client_wrapper)
 
 
 class AsyncMerge:
@@ -39,15 +39,15 @@ class AsyncMerge:
         *,
         environment: MergeEnvironment = MergeEnvironment.PRODUCTION,
         account_token: typing.Optional[str] = None,
-        token: typing.Union[str, typing.Callable[[], str]],
+        api_key: str,
         timeout: typing.Optional[float] = 60
     ):
         self._environment = environment
         self._client_wrapper = AsyncClientWrapper(
-            account_token=account_token, token=token, httpx_client=httpx.AsyncClient(timeout=timeout)
+            account_token=account_token, api_key=api_key, httpx_client=httpx.AsyncClient(timeout=timeout)
         )
         self.hris = AsyncHrisClient(environment=environment, client_wrapper=self._client_wrapper)
         self.ats = AsyncAtsClient(environment=environment, client_wrapper=self._client_wrapper)
         self.ticketing = AsyncTicketingClient(environment=environment, client_wrapper=self._client_wrapper)
-        self.crm = AsyncCrmClient(environment=environment, client_wrapper=self._client_wrapper)
         self.accounting = AsyncAccountingClient(environment=environment, client_wrapper=self._client_wrapper)
+        self.crm = AsyncCrmClient(environment=environment, client_wrapper=self._client_wrapper)
