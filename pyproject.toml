@@ -1,17 +1,19 @@
 [tool.poetry]
-name = "merge"
-version = "0.0.0"
-description = ""
+name = "MergePythonClient"
+version = "0.1.2"
+description = "Client library for the merge API"
 readme = "README.md"
-authors = []
+authors = ["Merge <hello@merge.dev>"]
+license = "custom"
+repository = "https://github.com/merge-api/merge-python-client"
 packages = [
     { include = "merge", from = "src"}
 ]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-pydantic = "^1.9.2"
 httpx = "0.23.3"
+pydantic = "^1.9.2"
 
 [tool.poetry.dev-dependencies]
 mypy = "0.971"
