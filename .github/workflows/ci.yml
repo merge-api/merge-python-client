@@ -6,7 +6,14 @@ on:
   # allow manual triggering
   workflow_dispatch: {}
   # full scan on push to master
-  push: {}
+  push:
+    branches: ["main"]
+  # tagging release
+  release:
+    types:
+      - published
+
+
 jobs:
   compile:
     runs-on: ubuntu-latest
@@ -55,7 +62,7 @@ jobs:
 
   publish:
     needs: [compile, test]
-    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+    if: github.event_name == 'release'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
