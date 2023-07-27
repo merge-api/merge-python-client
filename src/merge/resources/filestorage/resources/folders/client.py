@@ -5,24 +5,25 @@ import urllib.parse
 from json.decoder import JSONDecodeError
 
 import pydantic
-import typing_extensions
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
 from .....environment import MergeEnvironment
-from ...types.attachment import Attachment
-from ...types.attachment_request import AttachmentRequest
+from ...types.file_storage_folder_response import FileStorageFolderResponse
+from ...types.folder import Folder
+from ...types.folder_request import FolderRequest
+from ...types.folders_list_request_expand import FoldersListRequestExpand
+from ...types.folders_retrieve_request_expand import FoldersRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
-from ...types.paginated_attachment_list import PaginatedAttachmentList
-from ...types.ticketing_attachment_response import TicketingAttachmentResponse
+from ...types.paginated_folder_list import PaginatedFolderList
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
 
-class AttachmentsClient:
+class FoldersClient:
     def __init__(
         self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: SyncClientWrapper
     ):
@@ -35,17 +36,19 @@ class AttachmentsClient:
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing_extensions.Literal["ticket"]] = None,
+        drive_id: typing.Optional[str] = None,
+        expand: typing.Optional[FoldersListRequestExpand] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[str] = None,
         modified_before: typing.Optional[str] = None,
+        name: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
+        parent_folder_id: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
-        ticket_id: typing.Optional[str] = None,
-    ) -> PaginatedAttachmentList:
+    ) -> PaginatedFolderList:
         """
-        Returns a list of `Attachment` objects.
+        Returns a list of `Folder` objects.
 
         Parameters:
             - created_after: typing.Optional[str]. If provided, will only return objects created after this datetime.
@@ -54,7 +57,9 @@ class AttachmentsClient:
 
             - cursor: typing.Optional[str]. The pagination cursor value.
 
-            - expand: typing.Optional[typing_extensions.Literal["ticket"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+            - drive_id: typing.Optional[str]. If provided, will only return folders in this drive.
+
+            - expand: typing.Optional[FoldersListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
@@ -64,35 +69,39 @@ class AttachmentsClient:
 
             - modified_before: typing.Optional[str]. If provided, only objects synced by Merge before this date time will be returned.
 
+            - name: typing.Optional[str]. If provided, will only return folders with this name. This performs an exact match.
+
             - page_size: typing.Optional[int]. Number of results to return per page.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+            - parent_folder_id: typing.Optional[str]. If provided, will only return folders in this parent folder. If null, will return folders in root directory.
 
-            - ticket_id: typing.Optional[str]. If provided, will only return comments for this ticket.
+            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/attachments"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/filestorage/v1/folders"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
                     "created_before": created_before,
                     "cursor": cursor,
+                    "drive_id": drive_id,
                     "expand": expand,
                     "include_deleted_data": include_deleted_data,
                     "include_remote_data": include_remote_data,
                     "modified_after": modified_after,
                     "modified_before": modified_before,
+                    "name": name,
                     "page_size": page_size,
+                    "parent_folder_id": parent_folder_id,
                     "remote_id": remote_id,
-                    "ticket_id": ticket_id,
                 }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedAttachmentList, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(PaginatedFolderList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -104,28 +113,28 @@ class AttachmentsClient:
         *,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: AttachmentRequest,
-    ) -> TicketingAttachmentResponse:
+        model: FolderRequest,
+    ) -> FileStorageFolderResponse:
         """
-        Creates an `Attachment` object with the given values.
+        Creates a `Folder` object with the given values.
 
         Parameters:
             - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
 
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
-            - model: AttachmentRequest.
+            - model: FolderRequest.
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/attachments"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/filestorage/v1/folders"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(TicketingAttachmentResponse, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(FileStorageFolderResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -136,65 +145,41 @@ class AttachmentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing_extensions.Literal["ticket"]] = None,
+        expand: typing.Optional[FoldersRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
-    ) -> Attachment:
+    ) -> Folder:
         """
-        Returns an `Attachment` object with the given `id`.
+        Returns a `Folder` object with the given `id`.
 
         Parameters:
             - id: str.
 
-            - expand: typing.Optional[typing_extensions.Literal["ticket"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+            - expand: typing.Optional[FoldersRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/attachments/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/filestorage/v1/folders/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(Attachment, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(Folder, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def download_retrieve(self, id: str) -> typing.Iterator[bytes]:
-        """
-        Returns an `Attachment` object with the given `id`.
-
-        Parameters:
-            - id: str.
-        """
-        with self._client_wrapper.httpx_client.stream(
-            "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/attachments/{id}/download"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
-        ) as _response:
-            if 200 <= _response.status_code < 300:
-                for _chunk in _response.iter_bytes():
-                    yield _chunk
-                return
-            try:
-                _response.read()
-                _response_json = _response.json()
-            except JSONDecodeError:
-                raise ApiError(status_code=_response.status_code, body=_response.text)
-            raise ApiError(status_code=_response.status_code, body=_response_json)
-
     def meta_post_retrieve(self) -> MetaResponse:
         """
-        Returns metadata for `TicketingAttachment` POSTs.
+        Returns metadata for `FileStorageFolder` POSTs.
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/attachments/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/filestorage/v1/folders/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -207,7 +192,7 @@ class AttachmentsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
 
-class AsyncAttachmentsClient:
+class AsyncFoldersClient:
     def __init__(
         self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: AsyncClientWrapper
     ):
@@ -220,17 +205,19 @@ class AsyncAttachmentsClient:
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing_extensions.Literal["ticket"]] = None,
+        drive_id: typing.Optional[str] = None,
+        expand: typing.Optional[FoldersListRequestExpand] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[str] = None,
         modified_before: typing.Optional[str] = None,
+        name: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
+        parent_folder_id: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
-        ticket_id: typing.Optional[str] = None,
-    ) -> PaginatedAttachmentList:
+    ) -> PaginatedFolderList:
         """
-        Returns a list of `Attachment` objects.
+        Returns a list of `Folder` objects.
 
         Parameters:
             - created_after: typing.Optional[str]. If provided, will only return objects created after this datetime.
@@ -239,7 +226,9 @@ class AsyncAttachmentsClient:
 
             - cursor: typing.Optional[str]. The pagination cursor value.
 
-            - expand: typing.Optional[typing_extensions.Literal["ticket"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+            - drive_id: typing.Optional[str]. If provided, will only return folders in this drive.
+
+            - expand: typing.Optional[FoldersListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
@@ -249,35 +238,39 @@ class AsyncAttachmentsClient:
 
             - modified_before: typing.Optional[str]. If provided, only objects synced by Merge before this date time will be returned.
 
+            - name: typing.Optional[str]. If provided, will only return folders with this name. This performs an exact match.
+
             - page_size: typing.Optional[int]. Number of results to return per page.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+            - parent_folder_id: typing.Optional[str]. If provided, will only return folders in this parent folder. If null, will return folders in root directory.
 
-            - ticket_id: typing.Optional[str]. If provided, will only return comments for this ticket.
+            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/attachments"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/filestorage/v1/folders"),
             params=remove_none_from_dict(
                 {
                     "created_after": created_after,
                     "created_before": created_before,
                     "cursor": cursor,
+                    "drive_id": drive_id,
                     "expand": expand,
                     "include_deleted_data": include_deleted_data,
                     "include_remote_data": include_remote_data,
                     "modified_after": modified_after,
                     "modified_before": modified_before,
+                    "name": name,
                     "page_size": page_size,
+                    "parent_folder_id": parent_folder_id,
                     "remote_id": remote_id,
-                    "ticket_id": ticket_id,
                 }
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedAttachmentList, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(PaginatedFolderList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -289,28 +282,28 @@ class AsyncAttachmentsClient:
         *,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: AttachmentRequest,
-    ) -> TicketingAttachmentResponse:
+        model: FolderRequest,
+    ) -> FileStorageFolderResponse:
         """
-        Creates an `Attachment` object with the given values.
+        Creates a `Folder` object with the given values.
 
         Parameters:
             - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
 
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
-            - model: AttachmentRequest.
+            - model: FolderRequest.
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/attachments"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/filestorage/v1/folders"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(TicketingAttachmentResponse, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(FileStorageFolderResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -321,65 +314,41 @@ class AsyncAttachmentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing_extensions.Literal["ticket"]] = None,
+        expand: typing.Optional[FoldersRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
-    ) -> Attachment:
+    ) -> Folder:
         """
-        Returns an `Attachment` object with the given `id`.
+        Returns a `Folder` object with the given `id`.
 
         Parameters:
             - id: str.
 
-            - expand: typing.Optional[typing_extensions.Literal["ticket"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+            - expand: typing.Optional[FoldersRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/attachments/{id}"),
+            urllib.parse.urljoin(f"{self._environment.value}/", f"api/filestorage/v1/folders/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(Attachment, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(Folder, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def download_retrieve(self, id: str) -> typing.AsyncIterator[bytes]:
-        """
-        Returns an `Attachment` object with the given `id`.
-
-        Parameters:
-            - id: str.
-        """
-        async with self._client_wrapper.httpx_client.stream(
-            "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/attachments/{id}/download"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
-        ) as _response:
-            if 200 <= _response.status_code < 300:
-                async for _chunk in _response.aiter_bytes():
-                    yield _chunk
-                return
-            try:
-                await _response.aread()
-                _response_json = _response.json()
-            except JSONDecodeError:
-                raise ApiError(status_code=_response.status_code, body=_response.text)
-            raise ApiError(status_code=_response.status_code, body=_response_json)
-
     async def meta_post_retrieve(self) -> MetaResponse:
         """
-        Returns metadata for `TicketingAttachment` POSTs.
+        Returns metadata for `FileStorageFolder` POSTs.
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/attachments/meta/post"),
+            urllib.parse.urljoin(f"{self._environment.value}/", "api/filestorage/v1/folders/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
