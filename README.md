@@ -159,7 +159,7 @@ id = files[0].id
 name = files[0].name
 local_filename = f"<LOCAL_FILE_PATH>/{name}"
 
-response = client.filestorage.files.download_retrieve(id=id)
+response = merge_client.filestorage.files.download_retrieve(id=id)
 with open(local_filename, "wb") as f:
     for chunk in response:
         f.write(chunk)
