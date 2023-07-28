@@ -26,7 +26,7 @@ client = Merge(api_key="YOUR_API_KEY", account_token="YOUR_ACCOUNT_TOKEN")
 
 ## Categories
 
-This SDK contains both the ATS, HRIS, CRM, Ticketing, and Accounting categories. Even if you do not plan on using more than one Merge API category right now, the SDK provides upgrade-flexibility in case you find new Merge API categories useful in the future.
+This SDK contains the ATS, HRIS, CRM, Ticketing, Accounting, and File Storage categories. Even if you do not plan on using more than one Merge API category right now, the SDK provides upgrade-flexibility in case you find new Merge API categories useful in the future.
 
 Each category is namespaced:
 
@@ -45,6 +45,7 @@ client.hris. # APIs specific to the HRIS Category
 ```python
 import merge
 from merge.client import Merge
+from merge.resources.ats.types import CategoriesEnum
 
 merge_client = Merge(
     api_key="<YOUR_API_KEY>", 
@@ -124,6 +125,7 @@ contact = merge_client.accounting.contacts.retrieve(
 ```python
 import merge
 from merge.client import Merge
+from merge.resources.ticketing.types import TicketStatusEnum
 
 merge_client = Merge(
     api_key="<YOUR_API_KEY>", 
@@ -137,8 +139,30 @@ merge_client.ticketing.tickets.create(
         ],
         creator="3fa85f64-5717-4562-b3fc-2c963f66afa6",
         due_date="2022-10-11T00:00:00Z",
-        status=merge.ticketing.TicketRequestStatus.OPEN,
+        status=TicketStatusEnum.OPEN,
     ))
+```
+
+## File Download
+
+```python
+import merge
+from merge.client import Merge
+
+merge_client = Merge(
+    api_key="<YOUR_API_KEY>", 
+    account_token="<YOUR_ACCOUNT_TOKEN>")
+
+files = merge_client.filestorage.files.list(name="<FILE_NAME>").results
+
+id = files[0].id
+name = files[0].name
+local_filename = f"<LOCAL_FILE_PATH>/{name}"
+
+response = client.filestorage.files.download_retrieve(id=id)
+with open(local_filename, "wb") as f:
+    for chunk in response:
+        f.write(chunk)
 ```
 
 ## Pagination
