@@ -6,7 +6,11 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .engagement_request_account import EngagementRequestAccount
+from .engagement_request_contacts_item import EngagementRequestContactsItem
 from .engagement_request_direction import EngagementRequestDirection
+from .engagement_request_engagement_type import EngagementRequestEngagementType
+from .engagement_request_owner import EngagementRequestOwner
 from .remote_field_request import RemoteFieldRequest
 
 
@@ -19,17 +23,19 @@ class EngagementRequest(pydantic.BaseModel):
     TODO
     """
 
-    owner: typing.Optional[str] = pydantic.Field(description="The engagement's owner.")
+    owner: typing.Optional[EngagementRequestOwner] = pydantic.Field(description="The engagement's owner.")
     content: typing.Optional[str] = pydantic.Field(description="The engagement's content.")
     subject: typing.Optional[str] = pydantic.Field(description="The engagement's subject.")
     direction: typing.Optional[EngagementRequestDirection] = pydantic.Field(
         description=("The engagement's direction.\n" "\n" "* `INBOUND` - INBOUND\n" "* `OUTBOUND` - OUTBOUND\n")
     )
-    engagement_type: typing.Optional[str] = pydantic.Field(description="The engagement type of the engagement.")
-    start_time: typing.Optional[str] = pydantic.Field(description="The time at which the engagement started.")
-    end_time: typing.Optional[str] = pydantic.Field(description="The time at which the engagement ended.")
-    account: typing.Optional[str] = pydantic.Field(description="The account of the engagement.")
-    contacts: typing.Optional[typing.List[typing.Optional[str]]]
+    engagement_type: typing.Optional[EngagementRequestEngagementType] = pydantic.Field(
+        description="The engagement type of the engagement."
+    )
+    start_time: typing.Optional[dt.datetime] = pydantic.Field(description="The time at which the engagement started.")
+    end_time: typing.Optional[dt.datetime] = pydantic.Field(description="The time at which the engagement ended.")
+    account: typing.Optional[EngagementRequestAccount] = pydantic.Field(description="The account of the engagement.")
+    contacts: typing.Optional[typing.List[typing.Optional[EngagementRequestContactsItem]]]
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]

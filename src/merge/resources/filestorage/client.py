@@ -4,6 +4,10 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...environment import MergeEnvironment
 from .resources.account_details.client import AccountDetailsClient, AsyncAccountDetailsClient
 from .resources.account_token.client import AccountTokenClient, AsyncAccountTokenClient
+from .resources.async_passthrough.client import AsyncAsyncPassthroughClient
+from .resources.async_passthrough.client import (
+    AsyncPassthroughClient as resources_filestorage_resources_async_passthrough_client_AsyncPassthroughClient,
+)
 from .resources.available_actions.client import AsyncAvailableActionsClient, AvailableActionsClient
 from .resources.delete_account.client import AsyncDeleteAccountClient, DeleteAccountClient
 from .resources.drives.client import AsyncDrivesClient, DrivesClient
@@ -15,7 +19,10 @@ from .resources.groups.client import AsyncGroupsClient, GroupsClient
 from .resources.issues.client import AsyncIssuesClient, IssuesClient
 from .resources.link_token.client import AsyncLinkTokenClient, LinkTokenClient
 from .resources.linked_accounts.client import AsyncLinkedAccountsClient, LinkedAccountsClient
-from .resources.passthrough.client import AsyncPassthroughClient, PassthroughClient
+from .resources.passthrough.client import (
+    AsyncPassthroughClient as resources_filestorage_resources_passthrough_client_AsyncPassthroughClient,
+)
+from .resources.passthrough.client import PassthroughClient
 from .resources.regenerate_key.client import AsyncRegenerateKeyClient, RegenerateKeyClient
 from .resources.selective_sync.client import AsyncSelectiveSyncClient, SelectiveSyncClient
 from .resources.sync_status.client import AsyncSyncStatusClient, SyncStatusClient
@@ -31,6 +38,9 @@ class FilestorageClient:
         self._client_wrapper = client_wrapper
         self.account_details = AccountDetailsClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.account_token = AccountTokenClient(environment=self._environment, client_wrapper=self._client_wrapper)
+        self.async_passthrough = resources_filestorage_resources_async_passthrough_client_AsyncPassthroughClient(
+            environment=self._environment, client_wrapper=self._client_wrapper
+        )
         self.available_actions = AvailableActionsClient(
             environment=self._environment, client_wrapper=self._client_wrapper
         )
@@ -64,6 +74,9 @@ class AsyncFilestorageClient:
             environment=self._environment, client_wrapper=self._client_wrapper
         )
         self.account_token = AsyncAccountTokenClient(environment=self._environment, client_wrapper=self._client_wrapper)
+        self.async_passthrough = AsyncAsyncPassthroughClient(
+            environment=self._environment, client_wrapper=self._client_wrapper
+        )
         self.available_actions = AsyncAvailableActionsClient(
             environment=self._environment, client_wrapper=self._client_wrapper
         )
@@ -80,7 +93,9 @@ class AsyncFilestorageClient:
         self.linked_accounts = AsyncLinkedAccountsClient(
             environment=self._environment, client_wrapper=self._client_wrapper
         )
-        self.passthrough = AsyncPassthroughClient(environment=self._environment, client_wrapper=self._client_wrapper)
+        self.passthrough = resources_filestorage_resources_passthrough_client_AsyncPassthroughClient(
+            environment=self._environment, client_wrapper=self._client_wrapper
+        )
         self.regenerate_key = AsyncRegenerateKeyClient(
             environment=self._environment, client_wrapper=self._client_wrapper
         )

@@ -32,7 +32,9 @@ class Contact(pydantic.BaseModel):
         description=("The contact's status\n" "\n" "* `ACTIVE` - ACTIVE\n" "* `ARCHIVED` - ARCHIVED\n")
     )
     currency: typing.Optional[str] = pydantic.Field(description="The currency the contact's transactions are in.")
-    remote_updated_at: typing.Optional[str] = pydantic.Field(description="When the third party's contact was updated.")
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="When the third party's contact was updated."
+    )
     company: typing.Optional[str] = pydantic.Field(description="The company the contact belongs to.")
     addresses: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(
         description="`Address` object IDs for the given `Contacts` object."
@@ -43,7 +45,7 @@ class Contact(pydantic.BaseModel):
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

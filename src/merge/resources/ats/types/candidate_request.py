@@ -6,6 +6,8 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .candidate_request_applications_item import CandidateRequestApplicationsItem
+from .candidate_request_attachments_item import CandidateRequestAttachmentsItem
 from .email_address_request import EmailAddressRequest
 from .phone_number_request import PhoneNumberRequest
 from .url_request import UrlRequest
@@ -24,7 +26,7 @@ class CandidateRequest(pydantic.BaseModel):
     last_name: typing.Optional[str] = pydantic.Field(description="The candidate's last name.")
     company: typing.Optional[str] = pydantic.Field(description="The candidate's current company.")
     title: typing.Optional[str] = pydantic.Field(description="The candidate's current title.")
-    last_interaction_at: typing.Optional[str] = pydantic.Field(
+    last_interaction_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="When the most recent interaction with the candidate occurred."
     )
     is_private: typing.Optional[bool] = pydantic.Field(description="Whether or not the candidate is private.")
@@ -38,10 +40,10 @@ class CandidateRequest(pydantic.BaseModel):
     tags: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(
         description="Array of `Tag` names as strings."
     )
-    applications: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(
+    applications: typing.Optional[typing.List[typing.Optional[CandidateRequestApplicationsItem]]] = pydantic.Field(
         description="Array of `Application` object IDs."
     )
-    attachments: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(
+    attachments: typing.Optional[typing.List[typing.Optional[CandidateRequestAttachmentsItem]]] = pydantic.Field(
         description="Array of `Attachment` object IDs."
     )
     remote_template_id: typing.Optional[str] = pydantic.Field(

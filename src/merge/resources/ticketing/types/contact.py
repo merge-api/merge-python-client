@@ -6,6 +6,7 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .contact_account import ContactAccount
 from .remote_data import RemoteData
 
 
@@ -25,11 +26,11 @@ class Contact(pydantic.BaseModel):
     email_address: typing.Optional[str] = pydantic.Field(description="The contact's email address.")
     phone_number: typing.Optional[str] = pydantic.Field(description="The contact's phone number.")
     details: typing.Optional[str] = pydantic.Field(description="The contact's details.")
-    account: typing.Optional[str] = pydantic.Field(description="The contact's account.")
+    account: typing.Optional[ContactAccount] = pydantic.Field(description="The contact's account.")
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

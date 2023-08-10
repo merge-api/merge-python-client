@@ -7,6 +7,7 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .activity_activity_type import ActivityActivityType
+from .activity_user import ActivityUser
 from .activity_visibility import ActivityVisibility
 from .remote_data import RemoteData
 
@@ -22,8 +23,10 @@ class Activity(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    user: typing.Optional[str] = pydantic.Field(description="The user that performed the action.")
-    remote_created_at: typing.Optional[str] = pydantic.Field(description="When the third party's activity was created.")
+    user: typing.Optional[ActivityUser] = pydantic.Field(description="The user that performed the action.")
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="When the third party's activity was created."
+    )
     activity_type: typing.Optional[ActivityActivityType] = pydantic.Field(
         description=("The activity's type.\n" "\n" "* `NOTE` - NOTE\n" "* `EMAIL` - EMAIL\n" "* `OTHER` - OTHER\n")
     )
@@ -42,7 +45,7 @@ class Activity(pydantic.BaseModel):
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

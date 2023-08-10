@@ -6,6 +6,10 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .job_departments_item import JobDepartmentsItem
+from .job_hiring_managers_item import JobHiringManagersItem
+from .job_offices_item import JobOfficesItem
+from .job_recruiters_item import JobRecruitersItem
 from .job_status import JobStatus
 from .remote_data import RemoteData
 from .url import Url
@@ -39,25 +43,29 @@ class Job(pydantic.BaseModel):
         )
     )
     job_posting_urls: typing.Optional[typing.List[Url]]
-    remote_created_at: typing.Optional[str] = pydantic.Field(description="When the third party's job was created.")
-    remote_updated_at: typing.Optional[str] = pydantic.Field(description="When the third party's job was updated.")
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="When the third party's job was created."
+    )
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="When the third party's job was updated."
+    )
     confidential: typing.Optional[bool] = pydantic.Field(description="Whether the job is confidential.")
-    departments: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(
+    departments: typing.Optional[typing.List[typing.Optional[JobDepartmentsItem]]] = pydantic.Field(
         description="IDs of `Department` objects for this `Job`."
     )
-    offices: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(
+    offices: typing.Optional[typing.List[typing.Optional[JobOfficesItem]]] = pydantic.Field(
         description="IDs of `Office` objects for this `Job`."
     )
-    hiring_managers: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(
+    hiring_managers: typing.Optional[typing.List[typing.Optional[JobHiringManagersItem]]] = pydantic.Field(
         description="IDs of `RemoteUser` objects that serve as hiring managers for this `Job`."
     )
-    recruiters: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(
+    recruiters: typing.Optional[typing.List[typing.Optional[JobRecruitersItem]]] = pydantic.Field(
         description="IDs of `RemoteUser` objects that serve as recruiters for this `Job`."
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

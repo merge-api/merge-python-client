@@ -3,6 +3,7 @@
 from . import (
     account_details,
     account_token,
+    async_passthrough,
     available_actions,
     delete_account,
     drives,
@@ -25,6 +26,7 @@ from . import (
 __all__ = [
     "account_details",
     "account_token",
+    "async_passthrough",
     "available_actions",
     "delete_account",
     "drives",

@@ -7,7 +7,11 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .invoice_line_item_request import InvoiceLineItemRequest
+from .invoice_request_company import InvoiceRequestCompany
+from .invoice_request_contact import InvoiceRequestContact
 from .invoice_request_currency import InvoiceRequestCurrency
+from .invoice_request_payments_item import InvoiceRequestPaymentsItem
+from .invoice_request_tracking_categories_item import InvoiceRequestTrackingCategoriesItem
 from .invoice_request_type import InvoiceRequestType
 
 
@@ -30,13 +34,13 @@ class InvoiceRequest(pydantic.BaseModel):
             "* `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE\n"
         )
     )
-    contact: typing.Optional[str] = pydantic.Field(description="The invoice's contact.")
+    contact: typing.Optional[InvoiceRequestContact] = pydantic.Field(description="The invoice's contact.")
     number: typing.Optional[str] = pydantic.Field(description="The invoice's number.")
-    issue_date: typing.Optional[str] = pydantic.Field(description="The invoice's issue date.")
-    due_date: typing.Optional[str] = pydantic.Field(description="The invoice's due date.")
-    paid_on_date: typing.Optional[str] = pydantic.Field(description="The invoice's paid date.")
+    issue_date: typing.Optional[dt.datetime] = pydantic.Field(description="The invoice's issue date.")
+    due_date: typing.Optional[dt.datetime] = pydantic.Field(description="The invoice's due date.")
+    paid_on_date: typing.Optional[dt.datetime] = pydantic.Field(description="The invoice's paid date.")
     memo: typing.Optional[str] = pydantic.Field(description="The invoice's private note.")
-    company: typing.Optional[str] = pydantic.Field(description="The company the invoice belongs to.")
+    company: typing.Optional[InvoiceRequestCompany] = pydantic.Field(description="The company the invoice belongs to.")
     currency: typing.Optional[InvoiceRequestCurrency] = pydantic.Field(
         description=(
             "The invoice's currency.\n"
@@ -357,9 +361,10 @@ class InvoiceRequest(pydantic.BaseModel):
     total_tax_amount: typing.Optional[float] = pydantic.Field(description="The total amount being paid in taxes.")
     total_amount: typing.Optional[float] = pydantic.Field(description="The invoice's total amount.")
     balance: typing.Optional[float] = pydantic.Field(description="The invoice's remaining balance.")
-    payments: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(
+    payments: typing.Optional[typing.List[typing.Optional[InvoiceRequestPaymentsItem]]] = pydantic.Field(
         description="Array of `Payment` object IDs."
     )
+    tracking_categories: typing.Optional[typing.List[typing.Optional[InvoiceRequestTrackingCategoriesItem]]]
     line_items: typing.Optional[typing.List[InvoiceLineItemRequest]]
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]

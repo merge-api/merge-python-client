@@ -6,6 +6,9 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .journal_line_account import JournalLineAccount
+from .journal_line_tracking_categories_item import JournalLineTrackingCategoriesItem
+from .journal_line_tracking_category import JournalLineTrackingCategory
 
 
 class JournalLine(pydantic.BaseModel):
@@ -19,16 +22,16 @@ class JournalLine(pydantic.BaseModel):
     """
 
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    account: typing.Optional[str]
+    account: typing.Optional[JournalLineAccount]
     net_amount: typing.Optional[float] = pydantic.Field(
         description="The value of the line item including taxes and other fees."
     )
-    tracking_category: typing.Optional[str]
-    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]]
+    tracking_category: typing.Optional[JournalLineTrackingCategory]
+    tracking_categories: typing.Optional[typing.List[typing.Optional[JournalLineTrackingCategoriesItem]]]
     contact: typing.Optional[str]
     description: typing.Optional[str] = pydantic.Field(description="The line's description.")
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The journal line item's exchange rate.")
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
 

@@ -282,7 +282,7 @@ class Address(pydantic.BaseModel):
     address_type: typing.Optional[AddressAddressType] = pydantic.Field(
         description=("The address type.\n" "\n" "* `BILLING` - BILLING\n" "* `SHIPPING` - SHIPPING\n")
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
 

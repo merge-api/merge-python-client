@@ -341,14 +341,16 @@ class CompanyInfo(pydantic.BaseModel):
             "* `ZWL` - Zimbabwean Dollar (2009)\n"
         )
     )
-    remote_created_at: typing.Optional[str] = pydantic.Field(description="When the third party's company was created.")
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="When the third party's company was created."
+    )
     urls: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(description="The company's urls.")
     addresses: typing.Optional[typing.List[Address]]
     phone_numbers: typing.Optional[typing.List[AccountingPhoneNumber]]
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

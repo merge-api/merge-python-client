@@ -45,13 +45,15 @@ class PayrollRun(pydantic.BaseModel):
             "* `SIGN_ON_BONUS` - SIGN_ON_BONUS\n"
         )
     )
-    start_date: typing.Optional[str] = pydantic.Field(description="The day and time the payroll run started.")
-    end_date: typing.Optional[str] = pydantic.Field(description="The day and time the payroll run ended.")
-    check_date: typing.Optional[str] = pydantic.Field(description="The day and time the payroll run was checked.")
+    start_date: typing.Optional[dt.datetime] = pydantic.Field(description="The day and time the payroll run started.")
+    end_date: typing.Optional[dt.datetime] = pydantic.Field(description="The day and time the payroll run ended.")
+    check_date: typing.Optional[dt.datetime] = pydantic.Field(
+        description="The day and time the payroll run was checked."
+    )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

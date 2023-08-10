@@ -6,6 +6,7 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .vendor_credit_line_account import VendorCreditLineAccount
 
 
 class VendorCreditLine(pydantic.BaseModel):
@@ -23,10 +24,10 @@ class VendorCreditLine(pydantic.BaseModel):
     tracking_category: typing.Optional[str] = pydantic.Field(description="The line's associated tracking category.")
     tracking_categories: typing.List[str] = pydantic.Field(description="The line's associated tracking categories.")
     description: typing.Optional[str] = pydantic.Field(description="The line's description.")
-    account: typing.Optional[str] = pydantic.Field(description="The line's account.")
+    account: typing.Optional[VendorCreditLineAccount] = pydantic.Field(description="The line's account.")
     company: typing.Optional[str] = pydantic.Field(description="The company the line belongs to.")
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The vendor credit line item's exchange rate.")
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
 

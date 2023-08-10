@@ -8,6 +8,9 @@ import pydantic
 from ....core.datetime_utils import serialize_datetime
 from .remote_data import RemoteData
 from .remote_field import RemoteField
+from .task_account import TaskAccount
+from .task_opportunity import TaskOpportunity
+from .task_owner import TaskOwner
 from .task_status import TaskStatus
 
 
@@ -22,11 +25,11 @@ class Task(pydantic.BaseModel):
 
     subject: typing.Optional[str] = pydantic.Field(description="The task's subject.")
     content: typing.Optional[str] = pydantic.Field(description="The task's content.")
-    owner: typing.Optional[str] = pydantic.Field(description="The task's owner.")
-    account: typing.Optional[str] = pydantic.Field(description="The task's account.")
-    opportunity: typing.Optional[str] = pydantic.Field(description="The task's opportunity.")
-    completed_date: typing.Optional[str] = pydantic.Field(description="When the task is completed.")
-    due_date: typing.Optional[str] = pydantic.Field(description="When the task is due.")
+    owner: typing.Optional[TaskOwner] = pydantic.Field(description="The task's owner.")
+    account: typing.Optional[TaskAccount] = pydantic.Field(description="The task's account.")
+    opportunity: typing.Optional[TaskOpportunity] = pydantic.Field(description="The task's opportunity.")
+    completed_date: typing.Optional[dt.datetime] = pydantic.Field(description="When the task is completed.")
+    due_date: typing.Optional[dt.datetime] = pydantic.Field(description="When the task is due.")
     status: typing.Optional[TaskStatus] = pydantic.Field(
         description=("The task's status.\n" "\n" "* `OPEN` - OPEN\n" "* `CLOSED` - CLOSED\n")
     )
@@ -35,7 +38,7 @@ class Task(pydantic.BaseModel):
     )
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

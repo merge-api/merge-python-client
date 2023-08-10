@@ -6,7 +6,9 @@ from .account_details_and_actions import AccountDetailsAndActions
 from .account_details_and_actions_integration import AccountDetailsAndActionsIntegration
 from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
 from .account_integration import AccountIntegration
+from .account_owner import AccountOwner
 from .account_request import AccountRequest
+from .account_request_owner import AccountRequestOwner
 from .account_token import AccountToken
 from .activity_type_enum import ActivityTypeEnum
 from .address import Address
@@ -17,10 +19,12 @@ from .address_request_address_type import AddressRequestAddressType
 from .address_request_country import AddressRequestCountry
 from .address_type_enum import AddressTypeEnum
 from .association import Association
+from .association_association_type import AssociationAssociationType
 from .association_sub_type import AssociationSubType
 from .association_type import AssociationType
 from .association_type_cardinality import AssociationTypeCardinality
 from .association_type_request_request import AssociationTypeRequestRequest
+from .async_passthrough_reciept import AsyncPassthroughReciept
 from .available_actions import AvailableActions
 from .cardinality_enum import CardinalityEnum
 from .categories_enum import CategoriesEnum
@@ -30,7 +34,9 @@ from .condition_schema import ConditionSchema
 from .condition_schema_condition_type import ConditionSchemaConditionType
 from .condition_type_enum import ConditionTypeEnum
 from .contact import Contact
+from .contact_account import ContactAccount
 from .contact_request import ContactRequest
+from .contact_request_account import ContactRequestAccount
 from .country_enum import CountryEnum
 from .crm_account_response import CrmAccountResponse
 from .crm_association_type_response import CrmAssociationTypeResponse
@@ -39,6 +45,7 @@ from .crm_custom_object_response import CrmCustomObjectResponse
 from .custom_object import CustomObject
 from .custom_object_class import CustomObjectClass
 from .custom_object_request import CustomObjectRequest
+from .data_passthrough_request import DataPassthroughRequest
 from .debug_mode_log import DebugModeLog
 from .debug_model_log_summary import DebugModelLogSummary
 from .direction_enum import DirectionEnum
@@ -47,9 +54,17 @@ from .email_address_request import EmailAddressRequest
 from .enabled_actions_enum import EnabledActionsEnum
 from .encoding_enum import EncodingEnum
 from .engagement import Engagement
+from .engagement_account import EngagementAccount
+from .engagement_contacts_item import EngagementContactsItem
 from .engagement_direction import EngagementDirection
+from .engagement_engagement_type import EngagementEngagementType
+from .engagement_owner import EngagementOwner
 from .engagement_request import EngagementRequest
+from .engagement_request_account import EngagementRequestAccount
+from .engagement_request_contacts_item import EngagementRequestContactsItem
 from .engagement_request_direction import EngagementRequestDirection
+from .engagement_request_engagement_type import EngagementRequestEngagementType
+from .engagement_request_owner import EngagementRequestOwner
 from .engagement_response import EngagementResponse
 from .engagement_type import EngagementType
 from .engagement_type_activity_type import EngagementTypeActivityType
@@ -67,7 +82,13 @@ from .item_format_enum import ItemFormatEnum
 from .item_schema import ItemSchema
 from .item_type_enum import ItemTypeEnum
 from .lead import Lead
+from .lead_converted_account import LeadConvertedAccount
+from .lead_converted_contact import LeadConvertedContact
+from .lead_owner import LeadOwner
 from .lead_request import LeadRequest
+from .lead_request_converted_account import LeadRequestConvertedAccount
+from .lead_request_converted_contact import LeadRequestConvertedContact
+from .lead_request_owner import LeadRequestOwner
 from .lead_response import LeadResponse
 from .leads_list_request_expand import LeadsListRequestExpand
 from .leads_retrieve_request_expand import LeadsRetrieveRequestExpand
@@ -84,7 +105,15 @@ from .model_operation import ModelOperation
 from .multipart_form_field_request import MultipartFormFieldRequest
 from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
 from .note import Note
+from .note_account import NoteAccount
+from .note_contact import NoteContact
+from .note_opportunity import NoteOpportunity
+from .note_owner import NoteOwner
 from .note_request import NoteRequest
+from .note_request_account import NoteRequestAccount
+from .note_request_contact import NoteRequestContact
+from .note_request_opportunity import NoteRequestOpportunity
+from .note_request_owner import NoteRequestOwner
 from .note_response import NoteResponse
 from .notes_list_request_expand import NotesListRequestExpand
 from .notes_retrieve_request_expand import NotesRetrieveRequestExpand
@@ -94,9 +123,15 @@ from .opportunities_list_request_expand import OpportunitiesListRequestExpand
 from .opportunities_list_request_status import OpportunitiesListRequestStatus
 from .opportunities_retrieve_request_expand import OpportunitiesRetrieveRequestExpand
 from .opportunity import Opportunity
+from .opportunity_account import OpportunityAccount
+from .opportunity_owner import OpportunityOwner
 from .opportunity_request import OpportunityRequest
+from .opportunity_request_account import OpportunityRequestAccount
+from .opportunity_request_owner import OpportunityRequestOwner
+from .opportunity_request_stage import OpportunityRequestStage
 from .opportunity_request_status import OpportunityRequestStatus
 from .opportunity_response import OpportunityResponse
+from .opportunity_stage import OpportunityStage
 from .opportunity_status import OpportunityStatus
 from .opportunity_status_enum import OpportunityStatusEnum
 from .origin_type_enum import OriginTypeEnum
@@ -138,6 +173,7 @@ from .remote_field_class_for_custom_object_class_field_format import RemoteField
 from .remote_field_class_for_custom_object_class_field_type import RemoteFieldClassForCustomObjectClassFieldType
 from .remote_field_class_for_custom_object_class_item_schema import RemoteFieldClassForCustomObjectClassItemSchema
 from .remote_field_request import RemoteFieldRequest
+from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
 from .remote_key import RemoteKey
 from .remote_response import RemoteResponse
 from .request_format_enum import RequestFormatEnum
@@ -147,7 +183,13 @@ from .stage import Stage
 from .sync_status import SyncStatus
 from .sync_status_status_enum import SyncStatusStatusEnum
 from .task import Task
+from .task_account import TaskAccount
+from .task_opportunity import TaskOpportunity
+from .task_owner import TaskOwner
 from .task_request import TaskRequest
+from .task_request_account import TaskRequestAccount
+from .task_request_opportunity import TaskRequestOpportunity
+from .task_request_owner import TaskRequestOwner
 from .task_request_status import TaskRequestStatus
 from .task_response import TaskResponse
 from .task_status import TaskStatus
@@ -166,7 +208,9 @@ __all__ = [
     "AccountDetailsAndActionsIntegration",
     "AccountDetailsAndActionsStatusEnum",
     "AccountIntegration",
+    "AccountOwner",
     "AccountRequest",
+    "AccountRequestOwner",
     "AccountToken",
     "ActivityTypeEnum",
     "Address",
@@ -177,10 +221,12 @@ __all__ = [
     "AddressRequestCountry",
     "AddressTypeEnum",
     "Association",
+    "AssociationAssociationType",
     "AssociationSubType",
     "AssociationType",
     "AssociationTypeCardinality",
     "AssociationTypeRequestRequest",
+    "AsyncPassthroughReciept",
     "AvailableActions",
     "CardinalityEnum",
     "CategoriesEnum",
@@ -190,7 +236,9 @@ __all__ = [
     "ConditionSchemaConditionType",
     "ConditionTypeEnum",
     "Contact",
+    "ContactAccount",
     "ContactRequest",
+    "ContactRequestAccount",
     "CountryEnum",
     "CrmAccountResponse",
     "CrmAssociationTypeResponse",
@@ -199,6 +247,7 @@ __all__ = [
     "CustomObject",
     "CustomObjectClass",
     "CustomObjectRequest",
+    "DataPassthroughRequest",
     "DebugModeLog",
     "DebugModelLogSummary",
     "DirectionEnum",
@@ -207,9 +256,17 @@ __all__ = [
     "EnabledActionsEnum",
     "EncodingEnum",
     "Engagement",
+    "EngagementAccount",
+    "EngagementContactsItem",
     "EngagementDirection",
+    "EngagementEngagementType",
+    "EngagementOwner",
     "EngagementRequest",
+    "EngagementRequestAccount",
+    "EngagementRequestContactsItem",
     "EngagementRequestDirection",
+    "EngagementRequestEngagementType",
+    "EngagementRequestOwner",
     "EngagementResponse",
     "EngagementType",
     "EngagementTypeActivityType",
@@ -227,7 +284,13 @@ __all__ = [
     "ItemSchema",
     "ItemTypeEnum",
     "Lead",
+    "LeadConvertedAccount",
+    "LeadConvertedContact",
+    "LeadOwner",
     "LeadRequest",
+    "LeadRequestConvertedAccount",
+    "LeadRequestConvertedContact",
+    "LeadRequestOwner",
     "LeadResponse",
     "LeadsListRequestExpand",
     "LeadsRetrieveRequestExpand",
@@ -244,7 +307,15 @@ __all__ = [
     "MultipartFormFieldRequest",
     "MultipartFormFieldRequestEncoding",
     "Note",
+    "NoteAccount",
+    "NoteContact",
+    "NoteOpportunity",
+    "NoteOwner",
     "NoteRequest",
+    "NoteRequestAccount",
+    "NoteRequestContact",
+    "NoteRequestOpportunity",
+    "NoteRequestOwner",
     "NoteResponse",
     "NotesListRequestExpand",
     "NotesRetrieveRequestExpand",
@@ -254,9 +325,15 @@ __all__ = [
     "OpportunitiesListRequestStatus",
     "OpportunitiesRetrieveRequestExpand",
     "Opportunity",
+    "OpportunityAccount",
+    "OpportunityOwner",
     "OpportunityRequest",
+    "OpportunityRequestAccount",
+    "OpportunityRequestOwner",
+    "OpportunityRequestStage",
     "OpportunityRequestStatus",
     "OpportunityResponse",
+    "OpportunityStage",
     "OpportunityStatus",
     "OpportunityStatusEnum",
     "OriginTypeEnum",
@@ -298,6 +375,7 @@ __all__ = [
     "RemoteFieldClassForCustomObjectClassFieldType",
     "RemoteFieldClassForCustomObjectClassItemSchema",
     "RemoteFieldRequest",
+    "RemoteFieldRequestRemoteFieldClass",
     "RemoteKey",
     "RemoteResponse",
     "RequestFormatEnum",
@@ -307,7 +385,13 @@ __all__ = [
     "SyncStatus",
     "SyncStatusStatusEnum",
     "Task",
+    "TaskAccount",
+    "TaskOpportunity",
+    "TaskOwner",
     "TaskRequest",
+    "TaskRequestAccount",
+    "TaskRequestOpportunity",
+    "TaskRequestOwner",
     "TaskRequestStatus",
     "TaskResponse",
     "TaskStatus",

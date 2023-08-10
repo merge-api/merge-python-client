@@ -6,6 +6,11 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .application_request_candidate import ApplicationRequestCandidate
+from .application_request_credited_to import ApplicationRequestCreditedTo
+from .application_request_current_stage import ApplicationRequestCurrentStage
+from .application_request_job import ApplicationRequestJob
+from .application_request_reject_reason import ApplicationRequestRejectReason
 
 
 class ApplicationRequest(pydantic.BaseModel):
@@ -18,14 +23,20 @@ class ApplicationRequest(pydantic.BaseModel):
     Fetch from the `LIST Applications` endpoint and filter by `ID` to show all applications.
     """
 
-    candidate: typing.Optional[str] = pydantic.Field(description="The candidate applying.")
-    job: typing.Optional[str] = pydantic.Field(description="The job being applied for.")
-    applied_at: typing.Optional[str] = pydantic.Field(description="When the application was submitted.")
-    rejected_at: typing.Optional[str] = pydantic.Field(description="When the application was rejected.")
+    candidate: typing.Optional[ApplicationRequestCandidate] = pydantic.Field(description="The candidate applying.")
+    job: typing.Optional[ApplicationRequestJob] = pydantic.Field(description="The job being applied for.")
+    applied_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the application was submitted.")
+    rejected_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the application was rejected.")
     source: typing.Optional[str] = pydantic.Field(description="The application's source.")
-    credited_to: typing.Optional[str] = pydantic.Field(description="The user credited for this application.")
-    current_stage: typing.Optional[str] = pydantic.Field(description="The application's current stage.")
-    reject_reason: typing.Optional[str] = pydantic.Field(description="The application's reason for rejection.")
+    credited_to: typing.Optional[ApplicationRequestCreditedTo] = pydantic.Field(
+        description="The user credited for this application."
+    )
+    current_stage: typing.Optional[ApplicationRequestCurrentStage] = pydantic.Field(
+        description="The application's current stage."
+    )
+    reject_reason: typing.Optional[ApplicationRequestRejectReason] = pydantic.Field(
+        description="The application's reason for rejection."
+    )
     remote_template_id: typing.Optional[str] = pydantic.Field(
         description='<span style="white-space: nowrap">`non-empty`</span>'
     )

@@ -6,9 +6,13 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .purchase_order_company import PurchaseOrderCompany
 from .purchase_order_currency import PurchaseOrderCurrency
+from .purchase_order_delivery_address import PurchaseOrderDeliveryAddress
 from .purchase_order_line_item import PurchaseOrderLineItem
 from .purchase_order_status import PurchaseOrderStatus
+from .purchase_order_tracking_categories_item import PurchaseOrderTrackingCategoriesItem
+from .purchase_order_vendor import PurchaseOrderVendor
 from .remote_data import RemoteData
 
 
@@ -33,13 +37,19 @@ class PurchaseOrder(pydantic.BaseModel):
             "* `DELETED` - DELETED\n"
         )
     )
-    issue_date: typing.Optional[str] = pydantic.Field(description="The purchase order's issue date.")
-    delivery_date: typing.Optional[str] = pydantic.Field(description="The purchase order's delivery date.")
-    delivery_address: typing.Optional[str] = pydantic.Field(description="The purchase order's delivery address.")
+    issue_date: typing.Optional[dt.datetime] = pydantic.Field(description="The purchase order's issue date.")
+    delivery_date: typing.Optional[dt.datetime] = pydantic.Field(description="The purchase order's delivery date.")
+    delivery_address: typing.Optional[PurchaseOrderDeliveryAddress] = pydantic.Field(
+        description="The purchase order's delivery address."
+    )
     customer: typing.Optional[str] = pydantic.Field(description="The contact making the purchase order.")
-    vendor: typing.Optional[str] = pydantic.Field(description="The party fulfilling the purchase order.")
+    vendor: typing.Optional[PurchaseOrderVendor] = pydantic.Field(
+        description="The party fulfilling the purchase order."
+    )
     memo: typing.Optional[str] = pydantic.Field(description="A memo attached to the purchase order.")
-    company: typing.Optional[str] = pydantic.Field(description="The company the purchase order belongs to.")
+    company: typing.Optional[PurchaseOrderCompany] = pydantic.Field(
+        description="The company the purchase order belongs to."
+    )
     total_amount: typing.Optional[float] = pydantic.Field(description="The purchase order's total amount.")
     currency: typing.Optional[PurchaseOrderCurrency] = pydantic.Field(
         description=(
@@ -355,11 +365,11 @@ class PurchaseOrder(pydantic.BaseModel):
     )
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The purchase order's exchange rate.")
     line_items: typing.Optional[typing.List[PurchaseOrderLineItem]]
-    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]]
-    remote_created_at: typing.Optional[str] = pydantic.Field(
+    tracking_categories: typing.Optional[typing.List[typing.Optional[PurchaseOrderTrackingCategoriesItem]]]
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="When the third party's purchase order note was created."
     )
-    remote_updated_at: typing.Optional[str] = pydantic.Field(
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="When the third party's purchase order note was updated."
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
@@ -367,7 +377,7 @@ class PurchaseOrder(pydantic.BaseModel):
     )
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

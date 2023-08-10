@@ -8,7 +8,9 @@ import pydantic
 from ....core.datetime_utils import serialize_datetime
 from .credit_note_currency import CreditNoteCurrency
 from .credit_note_line_item import CreditNoteLineItem
+from .credit_note_payments_item import CreditNotePaymentsItem
 from .credit_note_status import CreditNoteStatus
+from .credit_note_tracking_categories_item import CreditNoteTrackingCategoriesItem
 from .remote_data import RemoteData
 
 
@@ -24,7 +26,7 @@ class CreditNote(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    transaction_date: typing.Optional[str] = pydantic.Field(description="The credit note's transaction date.")
+    transaction_date: typing.Optional[dt.datetime] = pydantic.Field(description="The credit note's transaction date.")
     status: typing.Optional[CreditNoteStatus] = pydantic.Field(
         description=(
             "The credit note's status.\n"
@@ -43,7 +45,7 @@ class CreditNote(pydantic.BaseModel):
         description="The amount of value remaining in the credit note that the customer can use."
     )
     line_items: typing.Optional[typing.List[CreditNoteLineItem]]
-    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]]
+    tracking_categories: typing.Optional[typing.List[typing.Optional[CreditNoteTrackingCategoriesItem]]]
     currency: typing.Optional[CreditNoteCurrency] = pydantic.Field(
         description=(
             "The credit note's currency.\n"
@@ -356,19 +358,19 @@ class CreditNote(pydantic.BaseModel):
             "* `ZWL` - Zimbabwean Dollar (2009)\n"
         )
     )
-    remote_created_at: typing.Optional[str] = pydantic.Field(
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="When the third party's credit note was created."
     )
-    remote_updated_at: typing.Optional[str] = pydantic.Field(
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="When the third party's credit note was updated."
     )
-    payments: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(
+    payments: typing.Optional[typing.List[typing.Optional[CreditNotePaymentsItem]]] = pydantic.Field(
         description="Array of `Payment` object IDs"
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

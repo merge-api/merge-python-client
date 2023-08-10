@@ -7,6 +7,7 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .remote_data import RemoteData
+from .user_teams_item import UserTeamsItem
 
 
 class User(pydantic.BaseModel):
@@ -24,12 +25,12 @@ class User(pydantic.BaseModel):
     name: typing.Optional[str] = pydantic.Field(description="The user's name.")
     email_address: typing.Optional[str] = pydantic.Field(description="The user's email address.")
     is_active: typing.Optional[bool] = pydantic.Field(description="Whether or not the user is active.")
-    teams: typing.Optional[typing.List[typing.Optional[str]]]
+    teams: typing.Optional[typing.List[typing.Optional[UserTeamsItem]]]
     avatar: typing.Optional[str] = pydantic.Field(description="The user's avatar picture.")
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

@@ -8,20 +8,30 @@ from .account_details_and_actions_integration import AccountDetailsAndActionsInt
 from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
 from .account_integration import AccountIntegration
 from .account_token import AccountToken
+from .async_passthrough_reciept import AsyncPassthroughReciept
 from .attachment import Attachment
 from .attachment_request import AttachmentRequest
+from .attachment_request_ticket import AttachmentRequestTicket
+from .attachment_ticket import AttachmentTicket
 from .available_actions import AvailableActions
 from .categories_enum import CategoriesEnum
 from .category_enum import CategoryEnum
 from .collection import Collection
 from .collection_access_level import CollectionAccessLevel
 from .collection_collection_type import CollectionCollectionType
+from .collection_parent_collection import CollectionParentCollection
 from .collection_type_enum import CollectionTypeEnum
 from .collections_list_request_collection_type import CollectionsListRequestCollectionType
 from .collections_users_list_request_expand import CollectionsUsersListRequestExpand
 from .comment import Comment
+from .comment_contact import CommentContact
 from .comment_request import CommentRequest
+from .comment_request_contact import CommentRequestContact
+from .comment_request_ticket import CommentRequestTicket
+from .comment_request_user import CommentRequestUser
 from .comment_response import CommentResponse
+from .comment_ticket import CommentTicket
+from .comment_user import CommentUser
 from .comments_list_request_expand import CommentsListRequestExpand
 from .comments_retrieve_request_expand import CommentsRetrieveRequestExpand
 from .common_model_scopes_body_request import CommonModelScopesBodyRequest
@@ -29,6 +39,8 @@ from .condition_schema import ConditionSchema
 from .condition_schema_condition_type import ConditionSchemaConditionType
 from .condition_type_enum import ConditionTypeEnum
 from .contact import Contact
+from .contact_account import ContactAccount
+from .data_passthrough_request import DataPassthroughRequest
 from .debug_mode_log import DebugModeLog
 from .debug_model_log_summary import DebugModelLogSummary
 from .enabled_actions_enum import EnabledActionsEnum
@@ -81,6 +93,7 @@ from .remote_data import RemoteData
 from .remote_field import RemoteField
 from .remote_field_class import RemoteFieldClass
 from .remote_field_request import RemoteFieldRequest
+from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
 from .remote_key import RemoteKey
 from .remote_response import RemoteResponse
 from .request_format_enum import RequestFormatEnum
@@ -91,8 +104,22 @@ from .sync_status_status_enum import SyncStatusStatusEnum
 from .tag import Tag
 from .team import Team
 from .ticket import Ticket
+from .ticket_account import TicketAccount
+from .ticket_assignees_item import TicketAssigneesItem
+from .ticket_attachments_item import TicketAttachmentsItem
+from .ticket_collections_item import TicketCollectionsItem
+from .ticket_contact import TicketContact
+from .ticket_creator import TicketCreator
+from .ticket_parent_ticket import TicketParentTicket
 from .ticket_priority import TicketPriority
 from .ticket_request import TicketRequest
+from .ticket_request_account import TicketRequestAccount
+from .ticket_request_assignees_item import TicketRequestAssigneesItem
+from .ticket_request_attachments_item import TicketRequestAttachmentsItem
+from .ticket_request_collections_item import TicketRequestCollectionsItem
+from .ticket_request_contact import TicketRequestContact
+from .ticket_request_creator import TicketRequestCreator
+from .ticket_request_parent_ticket import TicketRequestParentTicket
 from .ticket_request_priority import TicketRequestPriority
 from .ticket_request_status import TicketRequestStatus
 from .ticket_response import TicketResponse
@@ -109,6 +136,7 @@ from .tickets_retrieve_request_expand import TicketsRetrieveRequestExpand
 from .tickets_retrieve_request_remote_fields import TicketsRetrieveRequestRemoteFields
 from .tickets_retrieve_request_show_enum_origins import TicketsRetrieveRequestShowEnumOrigins
 from .user import User
+from .user_teams_item import UserTeamsItem
 from .users_list_request_expand import UsersListRequestExpand
 from .users_retrieve_request_expand import UsersRetrieveRequestExpand
 from .validation_problem_source import ValidationProblemSource
@@ -124,20 +152,30 @@ __all__ = [
     "AccountDetailsAndActionsStatusEnum",
     "AccountIntegration",
     "AccountToken",
+    "AsyncPassthroughReciept",
     "Attachment",
     "AttachmentRequest",
+    "AttachmentRequestTicket",
+    "AttachmentTicket",
     "AvailableActions",
     "CategoriesEnum",
     "CategoryEnum",
     "Collection",
     "CollectionAccessLevel",
     "CollectionCollectionType",
+    "CollectionParentCollection",
     "CollectionTypeEnum",
     "CollectionsListRequestCollectionType",
     "CollectionsUsersListRequestExpand",
     "Comment",
+    "CommentContact",
     "CommentRequest",
+    "CommentRequestContact",
+    "CommentRequestTicket",
+    "CommentRequestUser",
     "CommentResponse",
+    "CommentTicket",
+    "CommentUser",
     "CommentsListRequestExpand",
     "CommentsRetrieveRequestExpand",
     "CommonModelScopesBodyRequest",
@@ -145,6 +183,8 @@ __all__ = [
     "ConditionSchemaConditionType",
     "ConditionTypeEnum",
     "Contact",
+    "ContactAccount",
+    "DataPassthroughRequest",
     "DebugModeLog",
     "DebugModelLogSummary",
     "EnabledActionsEnum",
@@ -197,6 +237,7 @@ __all__ = [
     "RemoteField",
     "RemoteFieldClass",
     "RemoteFieldRequest",
+    "RemoteFieldRequestRemoteFieldClass",
     "RemoteKey",
     "RemoteResponse",
     "RequestFormatEnum",
@@ -207,8 +248,22 @@ __all__ = [
     "Tag",
     "Team",
     "Ticket",
+    "TicketAccount",
+    "TicketAssigneesItem",
+    "TicketAttachmentsItem",
+    "TicketCollectionsItem",
+    "TicketContact",
+    "TicketCreator",
+    "TicketParentTicket",
     "TicketPriority",
     "TicketRequest",
+    "TicketRequestAccount",
+    "TicketRequestAssigneesItem",
+    "TicketRequestAttachmentsItem",
+    "TicketRequestCollectionsItem",
+    "TicketRequestContact",
+    "TicketRequestCreator",
+    "TicketRequestParentTicket",
     "TicketRequestPriority",
     "TicketRequestStatus",
     "TicketResponse",
@@ -225,6 +280,7 @@ __all__ = [
     "TicketsRetrieveRequestRemoteFields",
     "TicketsRetrieveRequestShowEnumOrigins",
     "User",
+    "UserTeamsItem",
     "UsersListRequestExpand",
     "UsersRetrieveRequestExpand",
     "ValidationProblemSource",

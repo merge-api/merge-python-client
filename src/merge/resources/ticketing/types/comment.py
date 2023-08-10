@@ -6,6 +6,9 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .comment_contact import CommentContact
+from .comment_ticket import CommentTicket
+from .comment_user import CommentUser
 from .remote_data import RemoteData
 
 
@@ -21,15 +24,21 @@ class Comment(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    user: typing.Optional[str] = pydantic.Field(description="The author of the Comment, if the author is a User.")
-    contact: typing.Optional[str] = pydantic.Field(description="The author of the Comment, if the author is a Contact.")
+    user: typing.Optional[CommentUser] = pydantic.Field(
+        description="The author of the Comment, if the author is a User."
+    )
+    contact: typing.Optional[CommentContact] = pydantic.Field(
+        description="The author of the Comment, if the author is a Contact."
+    )
     body: typing.Optional[str] = pydantic.Field(description="The comment's text body.")
     html_body: typing.Optional[str] = pydantic.Field(description="The comment's text body formatted as html.")
-    ticket: typing.Optional[str] = pydantic.Field(description="The ticket associated with the comment. ")
+    ticket: typing.Optional[CommentTicket] = pydantic.Field(description="The ticket associated with the comment. ")
     is_private: typing.Optional[bool] = pydantic.Field(description="Whether or not the comment is internal.")
-    remote_created_at: typing.Optional[str] = pydantic.Field(description="When the third party's comment was created.")
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="When the third party's comment was created."
+    )
     remote_was_deleted: typing.Optional[bool]
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

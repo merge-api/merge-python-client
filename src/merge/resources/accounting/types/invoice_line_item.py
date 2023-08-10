@@ -6,7 +6,11 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .invoice_line_item_account import InvoiceLineItemAccount
 from .invoice_line_item_currency import InvoiceLineItemCurrency
+from .invoice_line_item_item import InvoiceLineItemItem
+from .invoice_line_item_tracking_categories_item import InvoiceLineItemTrackingCategoriesItem
+from .invoice_line_item_tracking_category import InvoiceLineItemTrackingCategory
 
 
 class InvoiceLineItem(pydantic.BaseModel):
@@ -337,13 +341,13 @@ class InvoiceLineItem(pydantic.BaseModel):
         )
     )
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The line item's exchange rate.")
-    item: typing.Optional[str]
-    account: typing.Optional[str]
-    tracking_category: typing.Optional[str]
-    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]]
+    item: typing.Optional[InvoiceLineItemItem]
+    account: typing.Optional[InvoiceLineItemAccount]
+    tracking_category: typing.Optional[InvoiceLineItemTrackingCategory]
+    tracking_categories: typing.Optional[typing.List[typing.Optional[InvoiceLineItemTrackingCategoriesItem]]]
     company: typing.Optional[str] = pydantic.Field(description="The company the line item belongs to.")
     id: typing.Optional[str]
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

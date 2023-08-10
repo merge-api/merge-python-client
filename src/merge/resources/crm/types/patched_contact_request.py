@@ -27,7 +27,9 @@ class PatchedContactRequest(pydantic.BaseModel):
     addresses: typing.Optional[typing.List[AddressRequest]]
     email_addresses: typing.Optional[typing.List[EmailAddressRequest]]
     phone_numbers: typing.Optional[typing.List[PhoneNumberRequest]]
-    last_activity_at: typing.Optional[str] = pydantic.Field(description="When the contact's last activity occurred.")
+    last_activity_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="When the contact's last activity occurred."
+    )
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]

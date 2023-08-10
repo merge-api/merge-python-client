@@ -7,6 +7,10 @@ from .resources.account_token.client import AccountTokenClient, AsyncAccountToke
 from .resources.accounts.client import AccountsClient, AsyncAccountsClient
 from .resources.association_types.client import AssociationTypesClient, AsyncAssociationTypesClient
 from .resources.associations.client import AssociationsClient, AsyncAssociationsClient
+from .resources.async_passthrough.client import AsyncAsyncPassthroughClient
+from .resources.async_passthrough.client import (
+    AsyncPassthroughClient as resources_crm_resources_async_passthrough_client_AsyncPassthroughClient,
+)
 from .resources.available_actions.client import AsyncAvailableActionsClient, AvailableActionsClient
 from .resources.contacts.client import AsyncContactsClient, ContactsClient
 from .resources.custom_object_classes.client import AsyncCustomObjectClassesClient, CustomObjectClassesClient
@@ -22,7 +26,10 @@ from .resources.link_token.client import AsyncLinkTokenClient, LinkTokenClient
 from .resources.linked_accounts.client import AsyncLinkedAccountsClient, LinkedAccountsClient
 from .resources.notes.client import AsyncNotesClient, NotesClient
 from .resources.opportunities.client import AsyncOpportunitiesClient, OpportunitiesClient
-from .resources.passthrough.client import AsyncPassthroughClient, PassthroughClient
+from .resources.passthrough.client import (
+    AsyncPassthroughClient as resources_crm_resources_passthrough_client_AsyncPassthroughClient,
+)
+from .resources.passthrough.client import PassthroughClient
 from .resources.regenerate_key.client import AsyncRegenerateKeyClient, RegenerateKeyClient
 from .resources.selective_sync.client import AsyncSelectiveSyncClient, SelectiveSyncClient
 from .resources.stages.client import AsyncStagesClient, StagesClient
@@ -41,6 +48,9 @@ class CrmClient:
         self.account_details = AccountDetailsClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.account_token = AccountTokenClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.accounts = AccountsClient(environment=self._environment, client_wrapper=self._client_wrapper)
+        self.async_passthrough = resources_crm_resources_async_passthrough_client_AsyncPassthroughClient(
+            environment=self._environment, client_wrapper=self._client_wrapper
+        )
         self.available_actions = AvailableActionsClient(
             environment=self._environment, client_wrapper=self._client_wrapper
         )
@@ -89,6 +99,9 @@ class AsyncCrmClient:
         )
         self.account_token = AsyncAccountTokenClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.accounts = AsyncAccountsClient(environment=self._environment, client_wrapper=self._client_wrapper)
+        self.async_passthrough = AsyncAsyncPassthroughClient(
+            environment=self._environment, client_wrapper=self._client_wrapper
+        )
         self.available_actions = AsyncAvailableActionsClient(
             environment=self._environment, client_wrapper=self._client_wrapper
         )
@@ -121,7 +134,9 @@ class AsyncCrmClient:
         self.opportunities = AsyncOpportunitiesClient(
             environment=self._environment, client_wrapper=self._client_wrapper
         )
-        self.passthrough = AsyncPassthroughClient(environment=self._environment, client_wrapper=self._client_wrapper)
+        self.passthrough = resources_crm_resources_passthrough_client_AsyncPassthroughClient(
+            environment=self._environment, client_wrapper=self._client_wrapper
+        )
         self.regenerate_key = AsyncRegenerateKeyClient(
             environment=self._environment, client_wrapper=self._client_wrapper
         )

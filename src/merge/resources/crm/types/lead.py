@@ -8,6 +8,9 @@ import pydantic
 from ....core.datetime_utils import serialize_datetime
 from .address import Address
 from .email_address import EmailAddress
+from .lead_converted_account import LeadConvertedAccount
+from .lead_converted_contact import LeadConvertedContact
+from .lead_owner import LeadOwner
 from .phone_number import PhoneNumber
 from .remote_data import RemoteData
 from .remote_field import RemoteField
@@ -22,7 +25,7 @@ class Lead(pydantic.BaseModel):
     TODO
     """
 
-    owner: typing.Optional[str] = pydantic.Field(description="The lead's owner.")
+    owner: typing.Optional[LeadOwner] = pydantic.Field(description="The lead's owner.")
     lead_source: typing.Optional[str] = pydantic.Field(description="The lead's source.")
     title: typing.Optional[str] = pydantic.Field(description="The lead's title.")
     company: typing.Optional[str] = pydantic.Field(description="The lead's company.")
@@ -31,15 +34,23 @@ class Lead(pydantic.BaseModel):
     addresses: typing.Optional[typing.List[Address]]
     email_addresses: typing.Optional[typing.List[EmailAddress]]
     phone_numbers: typing.Optional[typing.List[PhoneNumber]]
-    remote_updated_at: typing.Optional[str] = pydantic.Field(description="When the third party's lead was updated.")
-    remote_created_at: typing.Optional[str] = pydantic.Field(description="When the third party's lead was created.")
-    converted_date: typing.Optional[str] = pydantic.Field(description="When the lead was converted.")
-    converted_contact: typing.Optional[str] = pydantic.Field(description="The contact of the converted lead.")
-    converted_account: typing.Optional[str] = pydantic.Field(description="The account of the converted lead.")
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="When the third party's lead was updated."
+    )
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="When the third party's lead was created."
+    )
+    converted_date: typing.Optional[dt.datetime] = pydantic.Field(description="When the lead was converted.")
+    converted_contact: typing.Optional[LeadConvertedContact] = pydantic.Field(
+        description="The contact of the converted lead."
+    )
+    converted_account: typing.Optional[LeadConvertedAccount] = pydantic.Field(
+        description="The account of the converted lead."
+    )
     remote_was_deleted: typing.Optional[bool]
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

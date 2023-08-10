@@ -28,12 +28,16 @@ class Folder(pydantic.BaseModel):
     permissions: typing.List[str] = pydantic.Field(
         description="The Permission object is used to represent a user's or group's access to a File or Folder. Permissions are unexpanded by default. Use the query param `expand=permissions` to see more details under `GET /folders`."
     )
-    remote_created_at: typing.Optional[str] = pydantic.Field(description="When the third party's folder was created.")
-    remote_updated_at: typing.Optional[str] = pydantic.Field(description="When the third party's folder was updated.")
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="When the third party's folder was created."
+    )
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="When the third party's folder was updated."
+    )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

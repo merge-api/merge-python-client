@@ -31,7 +31,7 @@ class EngagementType(pydantic.BaseModel):
     name: typing.Optional[str] = pydantic.Field(description="The engagement type's name.")
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     remote_fields: typing.Optional[typing.List[RemoteField]]

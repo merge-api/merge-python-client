@@ -6,7 +6,11 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .payment_request_account import PaymentRequestAccount
+from .payment_request_company import PaymentRequestCompany
+from .payment_request_contact import PaymentRequestContact
 from .payment_request_currency import PaymentRequestCurrency
+from .payment_request_tracking_categories_item import PaymentRequestTrackingCategoriesItem
 
 
 class PaymentRequest(pydantic.BaseModel):
@@ -19,9 +23,11 @@ class PaymentRequest(pydantic.BaseModel):
     Fetch from the `GET Payment` endpoint and view an invoice's payment.
     """
 
-    transaction_date: typing.Optional[str] = pydantic.Field(description="The payment's transaction date.")
-    contact: typing.Optional[str] = pydantic.Field(description="The supplier, or customer involved in the payment.")
-    account: typing.Optional[str] = pydantic.Field(
+    transaction_date: typing.Optional[dt.datetime] = pydantic.Field(description="The payment's transaction date.")
+    contact: typing.Optional[PaymentRequestContact] = pydantic.Field(
+        description="The supplier, or customer involved in the payment."
+    )
+    account: typing.Optional[PaymentRequestAccount] = pydantic.Field(
         description="The supplier’s or customer’s account in which the payment is made."
     )
     currency: typing.Optional[PaymentRequestCurrency] = pydantic.Field(
@@ -337,11 +343,11 @@ class PaymentRequest(pydantic.BaseModel):
         )
     )
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The payment's exchange rate.")
-    company: typing.Optional[str] = pydantic.Field(description="The company the payment belongs to.")
+    company: typing.Optional[PaymentRequestCompany] = pydantic.Field(description="The company the payment belongs to.")
     total_amount: typing.Optional[float] = pydantic.Field(
         description="The total amount of money being paid to the supplier, or customer, after taxes."
     )
-    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]]
+    tracking_categories: typing.Optional[typing.List[typing.Optional[PaymentRequestTrackingCategoriesItem]]]
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 

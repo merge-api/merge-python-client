@@ -22,8 +22,8 @@ class SyncStatus(pydantic.BaseModel):
 
     model_name: str
     model_id: str
-    last_sync_start: typing.Optional[str]
-    next_sync_start: typing.Optional[str]
+    last_sync_start: typing.Optional[dt.datetime]
+    next_sync_start: typing.Optional[dt.datetime]
     status: SyncStatusStatusEnum
     is_initial_sync: bool
     selective_sync_configurations_usage: typing.Optional[SelectiveSyncConfigurationsUsageEnum]
