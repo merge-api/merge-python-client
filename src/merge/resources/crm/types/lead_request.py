@@ -8,6 +8,9 @@ import pydantic
 from ....core.datetime_utils import serialize_datetime
 from .address_request import AddressRequest
 from .email_address_request import EmailAddressRequest
+from .lead_request_converted_account import LeadRequestConvertedAccount
+from .lead_request_converted_contact import LeadRequestConvertedContact
+from .lead_request_owner import LeadRequestOwner
 from .phone_number_request import PhoneNumberRequest
 from .remote_field_request import RemoteFieldRequest
 
@@ -21,7 +24,7 @@ class LeadRequest(pydantic.BaseModel):
     TODO
     """
 
-    owner: typing.Optional[str] = pydantic.Field(description="The lead's owner.")
+    owner: typing.Optional[LeadRequestOwner] = pydantic.Field(description="The lead's owner.")
     lead_source: typing.Optional[str] = pydantic.Field(description="The lead's source.")
     title: typing.Optional[str] = pydantic.Field(description="The lead's title.")
     company: typing.Optional[str] = pydantic.Field(description="The lead's company.")
@@ -30,9 +33,13 @@ class LeadRequest(pydantic.BaseModel):
     addresses: typing.Optional[typing.List[AddressRequest]]
     email_addresses: typing.Optional[typing.List[EmailAddressRequest]]
     phone_numbers: typing.Optional[typing.List[PhoneNumberRequest]]
-    converted_date: typing.Optional[str] = pydantic.Field(description="When the lead was converted.")
-    converted_contact: typing.Optional[str] = pydantic.Field(description="The contact of the converted lead.")
-    converted_account: typing.Optional[str] = pydantic.Field(description="The account of the converted lead.")
+    converted_date: typing.Optional[dt.datetime] = pydantic.Field(description="When the lead was converted.")
+    converted_contact: typing.Optional[LeadRequestConvertedContact] = pydantic.Field(
+        description="The contact of the converted lead."
+    )
+    converted_account: typing.Optional[LeadRequestConvertedAccount] = pydantic.Field(
+        description="The account of the converted lead."
+    )
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]

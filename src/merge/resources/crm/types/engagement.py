@@ -6,7 +6,11 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .engagement_account import EngagementAccount
+from .engagement_contacts_item import EngagementContactsItem
 from .engagement_direction import EngagementDirection
+from .engagement_engagement_type import EngagementEngagementType
+from .engagement_owner import EngagementOwner
 from .remote_data import RemoteData
 from .remote_field import RemoteField
 
@@ -20,23 +24,25 @@ class Engagement(pydantic.BaseModel):
     TODO
     """
 
-    owner: typing.Optional[str] = pydantic.Field(description="The engagement's owner.")
+    owner: typing.Optional[EngagementOwner] = pydantic.Field(description="The engagement's owner.")
     content: typing.Optional[str] = pydantic.Field(description="The engagement's content.")
     subject: typing.Optional[str] = pydantic.Field(description="The engagement's subject.")
     direction: typing.Optional[EngagementDirection] = pydantic.Field(
         description=("The engagement's direction.\n" "\n" "* `INBOUND` - INBOUND\n" "* `OUTBOUND` - OUTBOUND\n")
     )
-    engagement_type: typing.Optional[str] = pydantic.Field(description="The engagement type of the engagement.")
-    start_time: typing.Optional[str] = pydantic.Field(description="The time at which the engagement started.")
-    end_time: typing.Optional[str] = pydantic.Field(description="The time at which the engagement ended.")
-    account: typing.Optional[str] = pydantic.Field(description="The account of the engagement.")
-    contacts: typing.Optional[typing.List[typing.Optional[str]]]
+    engagement_type: typing.Optional[EngagementEngagementType] = pydantic.Field(
+        description="The engagement type of the engagement."
+    )
+    start_time: typing.Optional[dt.datetime] = pydantic.Field(description="The time at which the engagement started.")
+    end_time: typing.Optional[dt.datetime] = pydantic.Field(description="The time at which the engagement ended.")
+    account: typing.Optional[EngagementAccount] = pydantic.Field(description="The account of the engagement.")
+    contacts: typing.Optional[typing.List[typing.Optional[EngagementContactsItem]]]
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

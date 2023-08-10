@@ -6,7 +6,9 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .journal_entry_request_company import JournalEntryRequestCompany
 from .journal_entry_request_currency import JournalEntryRequestCurrency
+from .journal_entry_request_payments_item import JournalEntryRequestPaymentsItem
 from .journal_entry_request_posting_status import JournalEntryRequestPostingStatus
 from .journal_line_request import JournalLineRequest
 
@@ -21,8 +23,8 @@ class JournalEntryRequest(pydantic.BaseModel):
     Fetch from the `GET JournalEntry` endpoint and view a company's journey entry.
     """
 
-    transaction_date: typing.Optional[str] = pydantic.Field(description="The journal entry's transaction date.")
-    payments: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(
+    transaction_date: typing.Optional[dt.datetime] = pydantic.Field(description="The journal entry's transaction date.")
+    payments: typing.Optional[typing.List[typing.Optional[JournalEntryRequestPaymentsItem]]] = pydantic.Field(
         description="Array of `Payment` object IDs."
     )
     memo: typing.Optional[str] = pydantic.Field(description="The journal entry's private note.")
@@ -339,7 +341,9 @@ class JournalEntryRequest(pydantic.BaseModel):
         )
     )
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The journal entry's exchange rate.")
-    company: typing.Optional[str] = pydantic.Field(description="The company the journal entry belongs to.")
+    company: typing.Optional[JournalEntryRequestCompany] = pydantic.Field(
+        description="The company the journal entry belongs to."
+    )
     lines: typing.Optional[typing.List[JournalLineRequest]]
     posting_status: typing.Optional[JournalEntryRequestPostingStatus] = pydantic.Field(
         description=("The journal's posting status.\n" "\n" "* `UNPOSTED` - UNPOSTED\n" "* `POSTED` - POSTED\n")

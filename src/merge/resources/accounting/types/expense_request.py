@@ -7,7 +7,11 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .expense_line_request import ExpenseLineRequest
+from .expense_request_account import ExpenseRequestAccount
+from .expense_request_company import ExpenseRequestCompany
+from .expense_request_contact import ExpenseRequestContact
 from .expense_request_currency import ExpenseRequestCurrency
+from .expense_request_tracking_categories_item import ExpenseRequestTrackingCategoriesItem
 
 
 class ExpenseRequest(pydantic.BaseModel):
@@ -20,9 +24,9 @@ class ExpenseRequest(pydantic.BaseModel):
     Fetch from the `GET Expense` endpoint and view a company's expense.
     """
 
-    transaction_date: typing.Optional[str] = pydantic.Field(description="When the transaction occurred.")
-    account: typing.Optional[str] = pydantic.Field(description="The expense's payment account.")
-    contact: typing.Optional[str] = pydantic.Field(description="The expense's contact.")
+    transaction_date: typing.Optional[dt.datetime] = pydantic.Field(description="When the transaction occurred.")
+    account: typing.Optional[ExpenseRequestAccount] = pydantic.Field(description="The expense's payment account.")
+    contact: typing.Optional[ExpenseRequestContact] = pydantic.Field(description="The expense's contact.")
     total_amount: typing.Optional[float] = pydantic.Field(description="The expense's total amount.")
     currency: typing.Optional[ExpenseRequestCurrency] = pydantic.Field(
         description=(
@@ -337,10 +341,10 @@ class ExpenseRequest(pydantic.BaseModel):
         )
     )
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The expense's exchange rate.")
-    company: typing.Optional[str] = pydantic.Field(description="The company the expense belongs to.")
+    company: typing.Optional[ExpenseRequestCompany] = pydantic.Field(description="The company the expense belongs to.")
     memo: typing.Optional[str] = pydantic.Field(description="The expense's private note.")
     lines: typing.Optional[typing.List[ExpenseLineRequest]]
-    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]]
+    tracking_categories: typing.Optional[typing.List[typing.Optional[ExpenseRequestTrackingCategoriesItem]]]
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 

@@ -24,7 +24,7 @@ class PatchedAccountRequest(pydantic.BaseModel):
     industry: typing.Optional[str] = pydantic.Field(description="The account's industry.")
     website: typing.Optional[str] = pydantic.Field(description="The account's website.")
     number_of_employees: typing.Optional[int] = pydantic.Field(description="The account's number of employees.")
-    last_activity_at: typing.Optional[str] = pydantic.Field(
+    last_activity_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="The last date (either most recent or furthest in the future) of when an activity occurs in an account."
     )
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]

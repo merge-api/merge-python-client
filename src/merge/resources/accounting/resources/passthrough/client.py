@@ -10,10 +10,8 @@ from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.jsonable_encoder import jsonable_encoder
 from .....environment import MergeEnvironment
-from ...types.method_enum import MethodEnum
-from ...types.multipart_form_field_request import MultipartFormFieldRequest
+from ...types.data_passthrough_request import DataPassthroughRequest
 from ...types.remote_response import RemoteResponse
-from ...types.request_format_enum import RequestFormatEnum
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -26,55 +24,17 @@ class PassthroughClient:
         self._environment = environment
         self._client_wrapper = client_wrapper
 
-    def create(
-        self,
-        *,
-        method: MethodEnum,
-        path: str,
-        base_url_override: typing.Optional[str] = OMIT,
-        data: typing.Optional[str] = OMIT,
-        multipart_form_data: typing.Optional[typing.List[MultipartFormFieldRequest]] = OMIT,
-        headers: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
-        request_format: typing.Optional[RequestFormatEnum] = OMIT,
-        normalize_response: typing.Optional[bool] = OMIT,
-    ) -> RemoteResponse:
+    def create(self, *, request: DataPassthroughRequest) -> RemoteResponse:
         """
         Pull data from an endpoint not currently supported by Merge.
 
         Parameters:
-            - method: MethodEnum.
-
-            - path: str. <span style="white-space: nowrap">`non-empty`</span>
-
-            - base_url_override: typing.Optional[str]. <span style="white-space: nowrap">`non-empty`</span>
-
-            - data: typing.Optional[str]. <span style="white-space: nowrap">`non-empty`</span>
-
-            - multipart_form_data: typing.Optional[typing.List[MultipartFormFieldRequest]]. Pass an array of `MultipartFormField` objects in here instead of using the `data` param if `request_format` is set to `MULTIPART`.
-
-            - headers: typing.Optional[typing.Dict[str, typing.Any]]. The headers to use for the request (Merge will handle the account's authorization headers). `Content-Type` header is required for passthrough. Choose content type corresponding to expected format of receiving server.
-
-            - request_format: typing.Optional[RequestFormatEnum].
-
-            - normalize_response: typing.Optional[bool]. Optional. If true, the response will always be an object of the form `{"type": T, "value": ...}` where `T` will be one of `string, boolean, number, null, array, object`.
+            - request: DataPassthroughRequest.
         """
-        _request: typing.Dict[str, typing.Any] = {"method": method, "path": path}
-        if base_url_override is not OMIT:
-            _request["base_url_override"] = base_url_override
-        if data is not OMIT:
-            _request["data"] = data
-        if multipart_form_data is not OMIT:
-            _request["multipart_form_data"] = multipart_form_data
-        if headers is not OMIT:
-            _request["headers"] = headers
-        if request_format is not OMIT:
-            _request["request_format"] = request_format
-        if normalize_response is not OMIT:
-            _request["normalize_response"] = normalize_response
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/passthrough"),
-            json=jsonable_encoder(_request),
+            json=jsonable_encoder(request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -94,55 +54,17 @@ class AsyncPassthroughClient:
         self._environment = environment
         self._client_wrapper = client_wrapper
 
-    async def create(
-        self,
-        *,
-        method: MethodEnum,
-        path: str,
-        base_url_override: typing.Optional[str] = OMIT,
-        data: typing.Optional[str] = OMIT,
-        multipart_form_data: typing.Optional[typing.List[MultipartFormFieldRequest]] = OMIT,
-        headers: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
-        request_format: typing.Optional[RequestFormatEnum] = OMIT,
-        normalize_response: typing.Optional[bool] = OMIT,
-    ) -> RemoteResponse:
+    async def create(self, *, request: DataPassthroughRequest) -> RemoteResponse:
         """
         Pull data from an endpoint not currently supported by Merge.
 
         Parameters:
-            - method: MethodEnum.
-
-            - path: str. <span style="white-space: nowrap">`non-empty`</span>
-
-            - base_url_override: typing.Optional[str]. <span style="white-space: nowrap">`non-empty`</span>
-
-            - data: typing.Optional[str]. <span style="white-space: nowrap">`non-empty`</span>
-
-            - multipart_form_data: typing.Optional[typing.List[MultipartFormFieldRequest]]. Pass an array of `MultipartFormField` objects in here instead of using the `data` param if `request_format` is set to `MULTIPART`.
-
-            - headers: typing.Optional[typing.Dict[str, typing.Any]]. The headers to use for the request (Merge will handle the account's authorization headers). `Content-Type` header is required for passthrough. Choose content type corresponding to expected format of receiving server.
-
-            - request_format: typing.Optional[RequestFormatEnum].
-
-            - normalize_response: typing.Optional[bool]. Optional. If true, the response will always be an object of the form `{"type": T, "value": ...}` where `T` will be one of `string, boolean, number, null, array, object`.
+            - request: DataPassthroughRequest.
         """
-        _request: typing.Dict[str, typing.Any] = {"method": method, "path": path}
-        if base_url_override is not OMIT:
-            _request["base_url_override"] = base_url_override
-        if data is not OMIT:
-            _request["data"] = data
-        if multipart_form_data is not OMIT:
-            _request["multipart_form_data"] = multipart_form_data
-        if headers is not OMIT:
-            _request["headers"] = headers
-        if request_format is not OMIT:
-            _request["request_format"] = request_format
-        if normalize_response is not OMIT:
-            _request["normalize_response"] = normalize_response
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/passthrough"),
-            json=jsonable_encoder(_request),
+            json=jsonable_encoder(request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

@@ -6,6 +6,11 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .expense_line_request_account import ExpenseLineRequestAccount
+from .expense_line_request_contact import ExpenseLineRequestContact
+from .expense_line_request_item import ExpenseLineRequestItem
+from .expense_line_request_tracking_categories_item import ExpenseLineRequestTrackingCategoriesItem
+from .expense_line_request_tracking_category import ExpenseLineRequestTrackingCategory
 
 
 class ExpenseLineRequest(pydantic.BaseModel):
@@ -19,13 +24,13 @@ class ExpenseLineRequest(pydantic.BaseModel):
     """
 
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    item: typing.Optional[str] = pydantic.Field(description="The line's item.")
+    item: typing.Optional[ExpenseLineRequestItem] = pydantic.Field(description="The line's item.")
     net_amount: typing.Optional[float] = pydantic.Field(description="The line's net amount.")
-    tracking_category: typing.Optional[str]
-    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]]
+    tracking_category: typing.Optional[ExpenseLineRequestTrackingCategory]
+    tracking_categories: typing.Optional[typing.List[typing.Optional[ExpenseLineRequestTrackingCategoriesItem]]]
     company: typing.Optional[str] = pydantic.Field(description="The company the line belongs to.")
-    account: typing.Optional[str] = pydantic.Field(description="The expense's payment account.")
-    contact: typing.Optional[str] = pydantic.Field(description="The expense's contact.")
+    account: typing.Optional[ExpenseLineRequestAccount] = pydantic.Field(description="The expense's payment account.")
+    contact: typing.Optional[ExpenseLineRequestContact] = pydantic.Field(description="The expense's contact.")
     description: typing.Optional[str] = pydantic.Field(
         description="The description of the item that was purchased by the company."
     )

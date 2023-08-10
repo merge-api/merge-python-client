@@ -6,6 +6,8 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .time_off_request_approver import TimeOffRequestApprover
+from .time_off_request_employee import TimeOffRequestEmployee
 from .time_off_request_request_type import TimeOffRequestRequestType
 from .time_off_request_status import TimeOffRequestStatus
 from .time_off_request_units import TimeOffRequestUnits
@@ -21,8 +23,8 @@ class TimeOffRequest(pydantic.BaseModel):
     Fetch from the `LIST TimeOffs` endpoint and filter by `ID` to show all time off requests.
     """
 
-    employee: typing.Optional[str] = pydantic.Field(description="The employee requesting time off.")
-    approver: typing.Optional[str] = pydantic.Field(
+    employee: typing.Optional[TimeOffRequestEmployee] = pydantic.Field(description="The employee requesting time off.")
+    approver: typing.Optional[TimeOffRequestApprover] = pydantic.Field(
         description="The Merge ID of the employee with the ability to approve the time off request."
     )
     status: typing.Optional[TimeOffRequestStatus] = pydantic.Field(
@@ -60,10 +62,10 @@ class TimeOffRequest(pydantic.BaseModel):
             "* `BEREAVEMENT` - BEREAVEMENT\n"
         )
     )
-    start_time: typing.Optional[str] = pydantic.Field(
+    start_time: typing.Optional[dt.datetime] = pydantic.Field(
         description="The day and time of the start of the time requested off."
     )
-    end_time: typing.Optional[str] = pydantic.Field(
+    end_time: typing.Optional[dt.datetime] = pydantic.Field(
         description="The day and time of the end of the time requested off."
     )
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]

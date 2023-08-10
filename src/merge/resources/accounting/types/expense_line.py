@@ -6,6 +6,11 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .expense_line_account import ExpenseLineAccount
+from .expense_line_contact import ExpenseLineContact
+from .expense_line_item import ExpenseLineItem
+from .expense_line_tracking_categories_item import ExpenseLineTrackingCategoriesItem
+from .expense_line_tracking_category import ExpenseLineTrackingCategory
 
 
 class ExpenseLine(pydantic.BaseModel):
@@ -19,18 +24,18 @@ class ExpenseLine(pydantic.BaseModel):
     """
 
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    item: typing.Optional[str] = pydantic.Field(description="The line's item.")
+    item: typing.Optional[ExpenseLineItem] = pydantic.Field(description="The line's item.")
     net_amount: typing.Optional[float] = pydantic.Field(description="The line's net amount.")
-    tracking_category: typing.Optional[str]
-    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]]
+    tracking_category: typing.Optional[ExpenseLineTrackingCategory]
+    tracking_categories: typing.Optional[typing.List[typing.Optional[ExpenseLineTrackingCategoriesItem]]]
     company: typing.Optional[str] = pydantic.Field(description="The company the line belongs to.")
-    account: typing.Optional[str] = pydantic.Field(description="The expense's payment account.")
-    contact: typing.Optional[str] = pydantic.Field(description="The expense's contact.")
+    account: typing.Optional[ExpenseLineAccount] = pydantic.Field(description="The expense's payment account.")
+    contact: typing.Optional[ExpenseLineContact] = pydantic.Field(description="The expense's contact.")
     description: typing.Optional[str] = pydantic.Field(
         description="The description of the item that was purchased by the company."
     )
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The expense line item's exchange rate.")
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
 

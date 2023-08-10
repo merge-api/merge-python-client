@@ -25,7 +25,9 @@ class RemoteUser(pydantic.BaseModel):
     last_name: typing.Optional[str] = pydantic.Field(description="The user's last name.")
     email: typing.Optional[str] = pydantic.Field(description="The user's email.")
     disabled: typing.Optional[bool] = pydantic.Field(description="Whether the user's account had been disabled.")
-    remote_created_at: typing.Optional[str] = pydantic.Field(description="When the third party's user was created.")
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="When the third party's user was created."
+    )
     access_role: typing.Optional[RemoteUserAccessRole] = pydantic.Field(
         description=(
             "The user's role.\n"
@@ -40,7 +42,7 @@ class RemoteUser(pydantic.BaseModel):
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

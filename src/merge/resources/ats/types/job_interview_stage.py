@@ -6,6 +6,7 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .job_interview_stage_job import JobInterviewStageJob
 from .remote_data import RemoteData
 
 
@@ -23,7 +24,7 @@ class JobInterviewStage(pydantic.BaseModel):
     name: typing.Optional[str] = pydantic.Field(
         description="Standard stage names are offered by ATS systems but can be modified by users."
     )
-    job: typing.Optional[str] = pydantic.Field(
+    job: typing.Optional[JobInterviewStageJob] = pydantic.Field(
         description="This field is populated only if the stage is specific to a particular job. If the stage is generic, this field will not be populated."
     )
     stage_order: typing.Optional[int] = pydantic.Field(
@@ -32,7 +33,7 @@ class JobInterviewStage(pydantic.BaseModel):
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

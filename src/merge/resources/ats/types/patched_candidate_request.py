@@ -24,7 +24,7 @@ class PatchedCandidateRequest(pydantic.BaseModel):
     last_name: typing.Optional[str] = pydantic.Field(description="The candidate's last name.")
     company: typing.Optional[str] = pydantic.Field(description="The candidate's current company.")
     title: typing.Optional[str] = pydantic.Field(description="The candidate's current title.")
-    last_interaction_at: typing.Optional[str] = pydantic.Field(
+    last_interaction_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="When the most recent interaction with the candidate occurred."
     )
     is_private: typing.Optional[bool] = pydantic.Field(description="Whether or not the candidate is private.")

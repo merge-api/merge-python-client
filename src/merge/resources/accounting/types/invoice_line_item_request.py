@@ -6,7 +6,11 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .invoice_line_item_request_account import InvoiceLineItemRequestAccount
 from .invoice_line_item_request_currency import InvoiceLineItemRequestCurrency
+from .invoice_line_item_request_item import InvoiceLineItemRequestItem
+from .invoice_line_item_request_tracking_categories_item import InvoiceLineItemRequestTrackingCategoriesItem
+from .invoice_line_item_request_tracking_category import InvoiceLineItemRequestTrackingCategory
 
 
 class InvoiceLineItemRequest(pydantic.BaseModel):
@@ -337,10 +341,10 @@ class InvoiceLineItemRequest(pydantic.BaseModel):
         )
     )
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The line item's exchange rate.")
-    item: typing.Optional[str]
-    account: typing.Optional[str]
-    tracking_category: typing.Optional[str]
-    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]]
+    item: typing.Optional[InvoiceLineItemRequestItem]
+    account: typing.Optional[InvoiceLineItemRequestAccount]
+    tracking_category: typing.Optional[InvoiceLineItemRequestTrackingCategory]
+    tracking_categories: typing.Optional[typing.List[typing.Optional[InvoiceLineItemRequestTrackingCategoriesItem]]]
     company: typing.Optional[str] = pydantic.Field(description="The company the line item belongs to.")
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]

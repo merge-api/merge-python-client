@@ -6,6 +6,10 @@ from .resources.account_details.client import AccountDetailsClient, AsyncAccount
 from .resources.account_token.client import AccountTokenClient, AsyncAccountTokenClient
 from .resources.accounts.client import AccountsClient, AsyncAccountsClient
 from .resources.addresses.client import AddressesClient, AsyncAddressesClient
+from .resources.async_passthrough.client import AsyncAsyncPassthroughClient
+from .resources.async_passthrough.client import (
+    AsyncPassthroughClient as resources_accounting_resources_async_passthrough_client_AsyncPassthroughClient,
+)
 from .resources.attachments.client import AsyncAttachmentsClient, AttachmentsClient
 from .resources.available_actions.client import AsyncAvailableActionsClient, AvailableActionsClient
 from .resources.balance_sheets.client import AsyncBalanceSheetsClient, BalanceSheetsClient
@@ -24,7 +28,10 @@ from .resources.items.client import AsyncItemsClient, ItemsClient
 from .resources.journal_entries.client import AsyncJournalEntriesClient, JournalEntriesClient
 from .resources.link_token.client import AsyncLinkTokenClient, LinkTokenClient
 from .resources.linked_accounts.client import AsyncLinkedAccountsClient, LinkedAccountsClient
-from .resources.passthrough.client import AsyncPassthroughClient, PassthroughClient
+from .resources.passthrough.client import (
+    AsyncPassthroughClient as resources_accounting_resources_passthrough_client_AsyncPassthroughClient,
+)
+from .resources.passthrough.client import PassthroughClient
 from .resources.payments.client import AsyncPaymentsClient, PaymentsClient
 from .resources.phone_numbers.client import AsyncPhoneNumbersClient, PhoneNumbersClient
 from .resources.purchase_orders.client import AsyncPurchaseOrdersClient, PurchaseOrdersClient
@@ -48,6 +55,9 @@ class AccountingClient:
         self.account_token = AccountTokenClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.accounts = AccountsClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.addresses = AddressesClient(environment=self._environment, client_wrapper=self._client_wrapper)
+        self.async_passthrough = resources_accounting_resources_async_passthrough_client_AsyncPassthroughClient(
+            environment=self._environment, client_wrapper=self._client_wrapper
+        )
         self.attachments = AttachmentsClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.available_actions = AvailableActionsClient(
             environment=self._environment, client_wrapper=self._client_wrapper
@@ -102,6 +112,9 @@ class AsyncAccountingClient:
         self.account_token = AsyncAccountTokenClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.accounts = AsyncAccountsClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.addresses = AsyncAddressesClient(environment=self._environment, client_wrapper=self._client_wrapper)
+        self.async_passthrough = AsyncAsyncPassthroughClient(
+            environment=self._environment, client_wrapper=self._client_wrapper
+        )
         self.attachments = AsyncAttachmentsClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.available_actions = AsyncAvailableActionsClient(
             environment=self._environment, client_wrapper=self._client_wrapper
@@ -133,7 +146,9 @@ class AsyncAccountingClient:
         self.linked_accounts = AsyncLinkedAccountsClient(
             environment=self._environment, client_wrapper=self._client_wrapper
         )
-        self.passthrough = AsyncPassthroughClient(environment=self._environment, client_wrapper=self._client_wrapper)
+        self.passthrough = resources_accounting_resources_passthrough_client_AsyncPassthroughClient(
+            environment=self._environment, client_wrapper=self._client_wrapper
+        )
         self.payments = AsyncPaymentsClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.phone_numbers = AsyncPhoneNumbersClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.purchase_orders = AsyncPurchaseOrdersClient(

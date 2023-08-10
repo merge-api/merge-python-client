@@ -284,7 +284,7 @@ class Address(pydantic.BaseModel):
         )
     )
     zip_code: typing.Optional[str] = pydantic.Field(description="The address's zip code.")
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
 

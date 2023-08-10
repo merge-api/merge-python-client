@@ -6,8 +6,12 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .invoice_company import InvoiceCompany
+from .invoice_contact import InvoiceContact
 from .invoice_currency import InvoiceCurrency
 from .invoice_line_item import InvoiceLineItem
+from .invoice_payments_item import InvoicePaymentsItem
+from .invoice_tracking_categories_item import InvoiceTrackingCategoriesItem
 from .invoice_type import InvoiceType
 from .remote_data import RemoteData
 
@@ -31,13 +35,13 @@ class Invoice(pydantic.BaseModel):
             "* `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE\n"
         )
     )
-    contact: typing.Optional[str] = pydantic.Field(description="The invoice's contact.")
+    contact: typing.Optional[InvoiceContact] = pydantic.Field(description="The invoice's contact.")
     number: typing.Optional[str] = pydantic.Field(description="The invoice's number.")
-    issue_date: typing.Optional[str] = pydantic.Field(description="The invoice's issue date.")
-    due_date: typing.Optional[str] = pydantic.Field(description="The invoice's due date.")
-    paid_on_date: typing.Optional[str] = pydantic.Field(description="The invoice's paid date.")
+    issue_date: typing.Optional[dt.datetime] = pydantic.Field(description="The invoice's issue date.")
+    due_date: typing.Optional[dt.datetime] = pydantic.Field(description="The invoice's due date.")
+    paid_on_date: typing.Optional[dt.datetime] = pydantic.Field(description="The invoice's paid date.")
     memo: typing.Optional[str] = pydantic.Field(description="The invoice's private note.")
-    company: typing.Optional[str] = pydantic.Field(description="The company the invoice belongs to.")
+    company: typing.Optional[InvoiceCompany] = pydantic.Field(description="The company the invoice belongs to.")
     currency: typing.Optional[InvoiceCurrency] = pydantic.Field(
         description=(
             "The invoice's currency.\n"
@@ -358,17 +362,17 @@ class Invoice(pydantic.BaseModel):
     total_tax_amount: typing.Optional[float] = pydantic.Field(description="The total amount being paid in taxes.")
     total_amount: typing.Optional[float] = pydantic.Field(description="The invoice's total amount.")
     balance: typing.Optional[float] = pydantic.Field(description="The invoice's remaining balance.")
-    remote_updated_at: typing.Optional[str] = pydantic.Field(
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="When the third party's invoice entry was updated."
     )
-    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]]
-    payments: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(
+    tracking_categories: typing.Optional[typing.List[typing.Optional[InvoiceTrackingCategoriesItem]]]
+    payments: typing.Optional[typing.List[typing.Optional[InvoicePaymentsItem]]] = pydantic.Field(
         description="Array of `Payment` object IDs."
     )
     line_items: typing.Optional[typing.List[InvoiceLineItem]]
     remote_was_deleted: typing.Optional[bool]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

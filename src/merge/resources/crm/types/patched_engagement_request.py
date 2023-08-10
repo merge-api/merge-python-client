@@ -26,8 +26,8 @@ class PatchedEngagementRequest(pydantic.BaseModel):
         description=("The engagement's direction.\n" "\n" "* `INBOUND` - INBOUND\n" "* `OUTBOUND` - OUTBOUND\n")
     )
     engagement_type: typing.Optional[str] = pydantic.Field(description="The engagement type of the engagement.")
-    start_time: typing.Optional[str] = pydantic.Field(description="The time at which the engagement started.")
-    end_time: typing.Optional[str] = pydantic.Field(description="The time at which the engagement ended.")
+    start_time: typing.Optional[dt.datetime] = pydantic.Field(description="The time at which the engagement started.")
+    end_time: typing.Optional[dt.datetime] = pydantic.Field(description="The time at which the engagement ended.")
     account: typing.Optional[str] = pydantic.Field(description="The account of the engagement.")
     contacts: typing.Optional[typing.List[typing.Optional[str]]]
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]

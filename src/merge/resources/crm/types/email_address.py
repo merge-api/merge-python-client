@@ -19,7 +19,7 @@ class EmailAddress(pydantic.BaseModel):
 
     email_address: typing.Optional[str] = pydantic.Field(description="The email address.")
     email_address_type: typing.Optional[str] = pydantic.Field(description="The email address's type.")
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
 

@@ -7,6 +7,7 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .activity_request_activity_type import ActivityRequestActivityType
+from .activity_request_user import ActivityRequestUser
 from .activity_request_visibility import ActivityRequestVisibility
 
 
@@ -19,7 +20,7 @@ class ActivityRequest(pydantic.BaseModel):
     Fetch from the `LIST Activities` endpoint and filter by `ID` to show all activities.
     """
 
-    user: typing.Optional[str] = pydantic.Field(description="The user that performed the action.")
+    user: typing.Optional[ActivityRequestUser] = pydantic.Field(description="The user that performed the action.")
     activity_type: typing.Optional[ActivityRequestActivityType] = pydantic.Field(
         description=("The activity's type.\n" "\n" "* `NOTE` - NOTE\n" "* `EMAIL` - EMAIL\n" "* `OTHER` - OTHER\n")
     )

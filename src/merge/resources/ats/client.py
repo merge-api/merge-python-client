@@ -6,6 +6,10 @@ from .resources.account_details.client import AccountDetailsClient, AsyncAccount
 from .resources.account_token.client import AccountTokenClient, AsyncAccountTokenClient
 from .resources.activities.client import ActivitiesClient, AsyncActivitiesClient
 from .resources.applications.client import ApplicationsClient, AsyncApplicationsClient
+from .resources.async_passthrough.client import AsyncAsyncPassthroughClient
+from .resources.async_passthrough.client import (
+    AsyncPassthroughClient as resources_ats_resources_async_passthrough_client_AsyncPassthroughClient,
+)
 from .resources.attachments.client import AsyncAttachmentsClient, AttachmentsClient
 from .resources.available_actions.client import AsyncAvailableActionsClient, AvailableActionsClient
 from .resources.candidates.client import AsyncCandidatesClient, CandidatesClient
@@ -22,7 +26,10 @@ from .resources.link_token.client import AsyncLinkTokenClient, LinkTokenClient
 from .resources.linked_accounts.client import AsyncLinkedAccountsClient, LinkedAccountsClient
 from .resources.offers.client import AsyncOffersClient, OffersClient
 from .resources.offices.client import AsyncOfficesClient, OfficesClient
-from .resources.passthrough.client import AsyncPassthroughClient, PassthroughClient
+from .resources.passthrough.client import (
+    AsyncPassthroughClient as resources_ats_resources_passthrough_client_AsyncPassthroughClient,
+)
+from .resources.passthrough.client import PassthroughClient
 from .resources.regenerate_key.client import AsyncRegenerateKeyClient, RegenerateKeyClient
 from .resources.reject_reasons.client import AsyncRejectReasonsClient, RejectReasonsClient
 from .resources.scorecards.client import AsyncScorecardsClient, ScorecardsClient
@@ -43,6 +50,9 @@ class AtsClient:
         self.account_token = AccountTokenClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.activities = ActivitiesClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.applications = ApplicationsClient(environment=self._environment, client_wrapper=self._client_wrapper)
+        self.async_passthrough = resources_ats_resources_async_passthrough_client_AsyncPassthroughClient(
+            environment=self._environment, client_wrapper=self._client_wrapper
+        )
         self.attachments = AttachmentsClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.available_actions = AvailableActionsClient(
             environment=self._environment, client_wrapper=self._client_wrapper
@@ -88,6 +98,9 @@ class AsyncAtsClient:
         self.account_token = AsyncAccountTokenClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.activities = AsyncActivitiesClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.applications = AsyncApplicationsClient(environment=self._environment, client_wrapper=self._client_wrapper)
+        self.async_passthrough = AsyncAsyncPassthroughClient(
+            environment=self._environment, client_wrapper=self._client_wrapper
+        )
         self.attachments = AsyncAttachmentsClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.available_actions = AsyncAvailableActionsClient(
             environment=self._environment, client_wrapper=self._client_wrapper
@@ -111,7 +124,9 @@ class AsyncAtsClient:
         )
         self.offers = AsyncOffersClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.offices = AsyncOfficesClient(environment=self._environment, client_wrapper=self._client_wrapper)
-        self.passthrough = AsyncPassthroughClient(environment=self._environment, client_wrapper=self._client_wrapper)
+        self.passthrough = resources_ats_resources_passthrough_client_AsyncPassthroughClient(
+            environment=self._environment, client_wrapper=self._client_wrapper
+        )
         self.regenerate_key = AsyncRegenerateKeyClient(
             environment=self._environment, client_wrapper=self._client_wrapper
         )

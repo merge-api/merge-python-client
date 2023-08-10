@@ -7,6 +7,13 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .remote_field_request import RemoteFieldRequest
+from .ticket_request_account import TicketRequestAccount
+from .ticket_request_assignees_item import TicketRequestAssigneesItem
+from .ticket_request_attachments_item import TicketRequestAttachmentsItem
+from .ticket_request_collections_item import TicketRequestCollectionsItem
+from .ticket_request_contact import TicketRequestContact
+from .ticket_request_creator import TicketRequestCreator
+from .ticket_request_parent_ticket import TicketRequestParentTicket
 from .ticket_request_priority import TicketRequestPriority
 from .ticket_request_status import TicketRequestStatus
 
@@ -22,9 +29,9 @@ class TicketRequest(pydantic.BaseModel):
     """
 
     name: typing.Optional[str] = pydantic.Field(description="The ticket's name.")
-    assignees: typing.Optional[typing.List[typing.Optional[str]]]
-    creator: typing.Optional[str] = pydantic.Field(description="The user who created this ticket.")
-    due_date: typing.Optional[str] = pydantic.Field(description="The ticket's due date.")
+    assignees: typing.Optional[typing.List[typing.Optional[TicketRequestAssigneesItem]]]
+    creator: typing.Optional[TicketRequestCreator] = pydantic.Field(description="The user who created this ticket.")
+    due_date: typing.Optional[dt.datetime] = pydantic.Field(description="The ticket's due date.")
     status: typing.Optional[TicketRequestStatus] = pydantic.Field(
         description=(
             "The current status of the ticket.\n"
@@ -38,14 +45,20 @@ class TicketRequest(pydantic.BaseModel):
     description: typing.Optional[str] = pydantic.Field(
         description="The ticket’s description. HTML version of description is mapped if supported by the third-party platform."
     )
-    collections: typing.Optional[typing.List[typing.Optional[str]]]
+    collections: typing.Optional[typing.List[typing.Optional[TicketRequestCollectionsItem]]]
     ticket_type: typing.Optional[str] = pydantic.Field(description="The ticket's type.")
-    account: typing.Optional[str] = pydantic.Field(description="The account associated with the ticket.")
-    contact: typing.Optional[str] = pydantic.Field(description="The contact associated with the ticket.")
-    parent_ticket: typing.Optional[str] = pydantic.Field(description="The ticket's parent ticket.")
-    attachments: typing.Optional[typing.List[typing.Optional[str]]]
+    account: typing.Optional[TicketRequestAccount] = pydantic.Field(
+        description="The account associated with the ticket."
+    )
+    contact: typing.Optional[TicketRequestContact] = pydantic.Field(
+        description="The contact associated with the ticket."
+    )
+    parent_ticket: typing.Optional[TicketRequestParentTicket] = pydantic.Field(
+        description="The ticket's parent ticket."
+    )
+    attachments: typing.Optional[typing.List[typing.Optional[TicketRequestAttachmentsItem]]]
     tags: typing.Optional[typing.List[typing.Optional[str]]]
-    completed_at: typing.Optional[str] = pydantic.Field(description="When the ticket was completed.")
+    completed_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the ticket was completed.")
     ticket_url: typing.Optional[str] = pydantic.Field(description="The 3rd party url of the Ticket.")
     priority: typing.Optional[TicketRequestPriority] = pydantic.Field(
         description=(

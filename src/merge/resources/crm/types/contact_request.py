@@ -7,6 +7,7 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .address_request import AddressRequest
+from .contact_request_account import ContactRequestAccount
 from .email_address_request import EmailAddressRequest
 from .phone_number_request import PhoneNumberRequest
 from .remote_field_request import RemoteFieldRequest
@@ -23,11 +24,13 @@ class ContactRequest(pydantic.BaseModel):
 
     first_name: typing.Optional[str] = pydantic.Field(description="The contact's first name.")
     last_name: typing.Optional[str] = pydantic.Field(description="The contact's last name.")
-    account: typing.Optional[str] = pydantic.Field(description="The contact's account.")
+    account: typing.Optional[ContactRequestAccount] = pydantic.Field(description="The contact's account.")
     addresses: typing.Optional[typing.List[AddressRequest]]
     email_addresses: typing.Optional[typing.List[EmailAddressRequest]]
     phone_numbers: typing.Optional[typing.List[PhoneNumberRequest]]
-    last_activity_at: typing.Optional[str] = pydantic.Field(description="When the contact's last activity occurred.")
+    last_activity_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="When the contact's last activity occurred."
+    )
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]

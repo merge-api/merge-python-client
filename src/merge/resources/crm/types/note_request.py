@@ -6,6 +6,10 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .note_request_account import NoteRequestAccount
+from .note_request_contact import NoteRequestContact
+from .note_request_opportunity import NoteRequestOpportunity
+from .note_request_owner import NoteRequestOwner
 from .remote_field_request import RemoteFieldRequest
 
 
@@ -18,11 +22,11 @@ class NoteRequest(pydantic.BaseModel):
     TODO
     """
 
-    owner: typing.Optional[str] = pydantic.Field(description="The note's owner.")
+    owner: typing.Optional[NoteRequestOwner] = pydantic.Field(description="The note's owner.")
     content: typing.Optional[str] = pydantic.Field(description="The note's content.")
-    contact: typing.Optional[str] = pydantic.Field(description="The note's contact.")
-    account: typing.Optional[str] = pydantic.Field(description="The note's account.")
-    opportunity: typing.Optional[str] = pydantic.Field(description="The note's opportunity.")
+    contact: typing.Optional[NoteRequestContact] = pydantic.Field(description="The note's contact.")
+    account: typing.Optional[NoteRequestAccount] = pydantic.Field(description="The note's account.")
+    opportunity: typing.Optional[NoteRequestOpportunity] = pydantic.Field(description="The note's opportunity.")
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]

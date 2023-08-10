@@ -7,6 +7,7 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .address import Address
+from .contact_account import ContactAccount
 from .email_address import EmailAddress
 from .phone_number import PhoneNumber
 from .remote_data import RemoteData
@@ -24,16 +25,20 @@ class Contact(pydantic.BaseModel):
 
     first_name: typing.Optional[str] = pydantic.Field(description="The contact's first name.")
     last_name: typing.Optional[str] = pydantic.Field(description="The contact's last name.")
-    account: typing.Optional[str] = pydantic.Field(description="The contact's account.")
+    account: typing.Optional[ContactAccount] = pydantic.Field(description="The contact's account.")
     addresses: typing.Optional[typing.List[Address]]
     email_addresses: typing.Optional[typing.List[EmailAddress]]
     phone_numbers: typing.Optional[typing.List[PhoneNumber]]
-    last_activity_at: typing.Optional[str] = pydantic.Field(description="When the contact's last activity occurred.")
-    remote_created_at: typing.Optional[str] = pydantic.Field(description="When the third party's contact was created.")
+    last_activity_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="When the contact's last activity occurred."
+    )
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="When the third party's contact was created."
+    )
     remote_was_deleted: typing.Optional[bool]
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

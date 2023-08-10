@@ -35,7 +35,7 @@ class Attachment(pydantic.BaseModel):
         )
     )
     remote_was_deleted: typing.Optional[bool]
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
