@@ -1,6 +1,7 @@
 import os
 import pytest
 from typing import Optional
+from datetime import datetime
 
 from merge.resources.ats.client import AtsClient
 from merge.resources.ats.types.categories_enum import CategoriesEnum
@@ -57,7 +58,9 @@ def test_employees(hris_client: HrisClient) -> None:
         retrieved = hris_client.employees.retrieve(id=employee.id)
         assert retrieved.id == employee.id
 
-    response = hris_client.employees.list(created_after="2030-01-01")
+    response = hris_client.employees.list(
+        created_after=datetime.strptime("2030-01-01", "%Y-%m-%d")
+    )
     assert response is not None
     assert response.results is not None
     assert len(response.results) == 0
@@ -93,7 +96,9 @@ def test_candidates(ats_client: AtsClient) -> None:
         assert first_candidate.last_name is not None
         assert first_candidate.last_name in candidate.last_name
 
-    response = ats_client.candidates.list(created_after="2030-01-01")
+    response = ats_client.candidates.list(
+        created_after=datetime.strptime("2030-01-01", "%Y-%m-%d")
+    )
     assert response is not None
     assert response.results is not None
     assert len(response.results) == 0
@@ -150,6 +155,6 @@ def get_api_key() -> str:
     be visible in the console.
     """
     api_key = os.environ.get("TEST_MERGE_API_KEY")
-    if api_key is None: 
+    if api_key is None:
         raise Exception("TEST_MERGE_API_KEY not found")
     return api_key
