@@ -3,7 +3,6 @@ README.md
 CODEOWNERS
 LICENSE.md
 tests/test_client.py
-pyproject.toml
 
 # We need to configure secrets for integration tests.
 
