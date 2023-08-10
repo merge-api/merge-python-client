@@ -24,8 +24,8 @@ class PatchedTaskRequest(pydantic.BaseModel):
     owner: typing.Optional[str] = pydantic.Field(description="The task's owner.")
     account: typing.Optional[str] = pydantic.Field(description="The task's account.")
     opportunity: typing.Optional[str] = pydantic.Field(description="The task's opportunity.")
-    completed_date: typing.Optional[str] = pydantic.Field(description="When the task is completed.")
-    due_date: typing.Optional[str] = pydantic.Field(description="When the task is due.")
+    completed_date: typing.Optional[dt.datetime] = pydantic.Field(description="When the task is completed.")
+    due_date: typing.Optional[dt.datetime] = pydantic.Field(description="When the task is due.")
     status: typing.Optional[PatchedTaskRequestStatus] = pydantic.Field(
         description=("The task's status.\n" "\n" "* `OPEN` - OPEN\n" "* `CLOSED` - CLOSED\n")
     )

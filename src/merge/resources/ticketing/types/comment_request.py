@@ -6,6 +6,9 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .comment_request_contact import CommentRequestContact
+from .comment_request_ticket import CommentRequestTicket
+from .comment_request_user import CommentRequestUser
 
 
 class CommentRequest(pydantic.BaseModel):
@@ -18,11 +21,17 @@ class CommentRequest(pydantic.BaseModel):
     TODO
     """
 
-    user: typing.Optional[str] = pydantic.Field(description="The author of the Comment, if the author is a User.")
-    contact: typing.Optional[str] = pydantic.Field(description="The author of the Comment, if the author is a Contact.")
+    user: typing.Optional[CommentRequestUser] = pydantic.Field(
+        description="The author of the Comment, if the author is a User."
+    )
+    contact: typing.Optional[CommentRequestContact] = pydantic.Field(
+        description="The author of the Comment, if the author is a Contact."
+    )
     body: typing.Optional[str] = pydantic.Field(description="The comment's text body.")
     html_body: typing.Optional[str] = pydantic.Field(description="The comment's text body formatted as html.")
-    ticket: typing.Optional[str] = pydantic.Field(description="The ticket associated with the comment. ")
+    ticket: typing.Optional[CommentRequestTicket] = pydantic.Field(
+        description="The ticket associated with the comment. "
+    )
     is_private: typing.Optional[bool] = pydantic.Field(description="Whether or not the comment is internal.")
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]

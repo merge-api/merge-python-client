@@ -6,6 +6,7 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .income_statement_company import IncomeStatementCompany
 from .income_statement_currency import IncomeStatementCurrency
 from .remote_data import RemoteData
 from .report_item import ReportItem
@@ -336,9 +337,11 @@ class IncomeStatement(pydantic.BaseModel):
             "* `ZWL` - Zimbabwean Dollar (2009)\n"
         )
     )
-    company: typing.Optional[str] = pydantic.Field(description="The company the income statement belongs to.")
-    start_period: typing.Optional[str] = pydantic.Field(description="The income statement's start period.")
-    end_period: typing.Optional[str] = pydantic.Field(description="The income statement's end period.")
+    company: typing.Optional[IncomeStatementCompany] = pydantic.Field(
+        description="The company the income statement belongs to."
+    )
+    start_period: typing.Optional[dt.datetime] = pydantic.Field(description="The income statement's start period.")
+    end_period: typing.Optional[dt.datetime] = pydantic.Field(description="The income statement's end period.")
     income: typing.Optional[typing.List[ReportItem]]
     cost_of_sales: typing.Optional[typing.List[ReportItem]]
     gross_profit: typing.Optional[float] = pydantic.Field(description="The revenue minus the cost of sale.")
@@ -351,7 +354,7 @@ class IncomeStatement(pydantic.BaseModel):
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

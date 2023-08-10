@@ -28,10 +28,10 @@ class PatchedOpportunityRequest(pydantic.BaseModel):
     status: typing.Optional[PatchedOpportunityRequestStatus] = pydantic.Field(
         description=("The opportunity's status.\n" "\n" "* `OPEN` - OPEN\n" "* `WON` - WON\n" "* `LOST` - LOST\n")
     )
-    last_activity_at: typing.Optional[str] = pydantic.Field(
+    last_activity_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="When the opportunity's last activity occurred."
     )
-    close_date: typing.Optional[str] = pydantic.Field(description="When the opportunity was closed.")
+    close_date: typing.Optional[dt.datetime] = pydantic.Field(description="When the opportunity was closed.")
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]

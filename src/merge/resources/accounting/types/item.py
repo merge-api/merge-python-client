@@ -6,6 +6,9 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .item_company import ItemCompany
+from .item_purchase_account import ItemPurchaseAccount
+from .item_sales_account import ItemSalesAccount
 from .item_status import ItemStatus
 from .remote_data import RemoteData
 
@@ -30,20 +33,20 @@ class Item(pydantic.BaseModel):
     purchase_price: typing.Optional[float] = pydantic.Field(
         description="The price at which the item is purchased from a vendor."
     )
-    purchase_account: typing.Optional[str] = pydantic.Field(
+    purchase_account: typing.Optional[ItemPurchaseAccount] = pydantic.Field(
         description="References the default account used to record a purchase of the item."
     )
-    sales_account: typing.Optional[str] = pydantic.Field(
+    sales_account: typing.Optional[ItemSalesAccount] = pydantic.Field(
         description="References the default account used to record a sale."
     )
-    company: typing.Optional[str] = pydantic.Field(description="The company the item belongs to.")
-    remote_updated_at: typing.Optional[str] = pydantic.Field(
+    company: typing.Optional[ItemCompany] = pydantic.Field(description="The company the item belongs to.")
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="When the third party's item note was updated."
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

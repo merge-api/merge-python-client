@@ -21,8 +21,8 @@ class Issue(pydantic.BaseModel):
     )
     error_description: str
     end_user: typing.Optional[typing.Dict[str, typing.Any]]
-    first_incident_time: typing.Optional[str]
-    last_incident_time: typing.Optional[str]
+    first_incident_time: typing.Optional[dt.datetime]
+    last_incident_time: typing.Optional[dt.datetime]
     is_muted: typing.Optional[bool]
     error_details: typing.Optional[typing.List[str]]
 

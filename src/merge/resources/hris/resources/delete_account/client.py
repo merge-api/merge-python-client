@@ -15,7 +15,7 @@ class DeleteAccountClient:
         self._environment = environment
         self._client_wrapper = client_wrapper
 
-    def create(self) -> None:
+    def delete(self) -> None:
         """
         Delete a linked account.
         """
@@ -41,7 +41,7 @@ class AsyncDeleteAccountClient:
         self._environment = environment
         self._client_wrapper = client_wrapper
 
-    async def create(self) -> None:
+    async def delete(self) -> None:
         """
         Delete a linked account.
         """

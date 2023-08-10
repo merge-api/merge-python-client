@@ -4,13 +4,19 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...environment import MergeEnvironment
 from .resources.account_details.client import AccountDetailsClient, AsyncAccountDetailsClient
 from .resources.account_token.client import AccountTokenClient, AsyncAccountTokenClient
+from .resources.async_passthrough.client import AsyncAsyncPassthroughClient
+from .resources.async_passthrough.client import (
+    AsyncPassthroughClient as resources_hris_resources_async_passthrough_client_AsyncPassthroughClient,
+)
 from .resources.available_actions.client import AsyncAvailableActionsClient, AvailableActionsClient
 from .resources.bank_info.client import AsyncBankInfoClient, BankInfoClient
 from .resources.benefits.client import AsyncBenefitsClient, BenefitsClient
 from .resources.companies.client import AsyncCompaniesClient, CompaniesClient
 from .resources.delete_account.client import AsyncDeleteAccountClient, DeleteAccountClient
+from .resources.dependents.client import AsyncDependentsClient, DependentsClient
 from .resources.employee_payroll_runs.client import AsyncEmployeePayrollRunsClient, EmployeePayrollRunsClient
 from .resources.employees.client import AsyncEmployeesClient, EmployeesClient
+from .resources.employer_benefits.client import AsyncEmployerBenefitsClient, EmployerBenefitsClient
 from .resources.employments.client import AsyncEmploymentsClient, EmploymentsClient
 from .resources.force_resync.client import AsyncForceResyncClient, ForceResyncClient
 from .resources.generate_key.client import AsyncGenerateKeyClient, GenerateKeyClient
@@ -19,7 +25,10 @@ from .resources.issues.client import AsyncIssuesClient, IssuesClient
 from .resources.link_token.client import AsyncLinkTokenClient, LinkTokenClient
 from .resources.linked_accounts.client import AsyncLinkedAccountsClient, LinkedAccountsClient
 from .resources.locations.client import AsyncLocationsClient, LocationsClient
-from .resources.passthrough.client import AsyncPassthroughClient, PassthroughClient
+from .resources.passthrough.client import (
+    AsyncPassthroughClient as resources_hris_resources_passthrough_client_AsyncPassthroughClient,
+)
+from .resources.passthrough.client import PassthroughClient
 from .resources.pay_groups.client import AsyncPayGroupsClient, PayGroupsClient
 from .resources.payroll_runs.client import AsyncPayrollRunsClient, PayrollRunsClient
 from .resources.regenerate_key.client import AsyncRegenerateKeyClient, RegenerateKeyClient
@@ -39,6 +48,9 @@ class HrisClient:
         self._client_wrapper = client_wrapper
         self.account_details = AccountDetailsClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.account_token = AccountTokenClient(environment=self._environment, client_wrapper=self._client_wrapper)
+        self.async_passthrough = resources_hris_resources_async_passthrough_client_AsyncPassthroughClient(
+            environment=self._environment, client_wrapper=self._client_wrapper
+        )
         self.available_actions = AvailableActionsClient(
             environment=self._environment, client_wrapper=self._client_wrapper
         )
@@ -46,10 +58,14 @@ class HrisClient:
         self.benefits = BenefitsClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.companies = CompaniesClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.delete_account = DeleteAccountClient(environment=self._environment, client_wrapper=self._client_wrapper)
+        self.dependents = DependentsClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.employee_payroll_runs = EmployeePayrollRunsClient(
             environment=self._environment, client_wrapper=self._client_wrapper
         )
         self.employees = EmployeesClient(environment=self._environment, client_wrapper=self._client_wrapper)
+        self.employer_benefits = EmployerBenefitsClient(
+            environment=self._environment, client_wrapper=self._client_wrapper
+        )
         self.employments = EmploymentsClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.generate_key = GenerateKeyClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.groups = GroupsClient(environment=self._environment, client_wrapper=self._client_wrapper)
@@ -84,6 +100,9 @@ class AsyncHrisClient:
             environment=self._environment, client_wrapper=self._client_wrapper
         )
         self.account_token = AsyncAccountTokenClient(environment=self._environment, client_wrapper=self._client_wrapper)
+        self.async_passthrough = AsyncAsyncPassthroughClient(
+            environment=self._environment, client_wrapper=self._client_wrapper
+        )
         self.available_actions = AsyncAvailableActionsClient(
             environment=self._environment, client_wrapper=self._client_wrapper
         )
@@ -93,10 +112,14 @@ class AsyncHrisClient:
         self.delete_account = AsyncDeleteAccountClient(
             environment=self._environment, client_wrapper=self._client_wrapper
         )
+        self.dependents = AsyncDependentsClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.employee_payroll_runs = AsyncEmployeePayrollRunsClient(
             environment=self._environment, client_wrapper=self._client_wrapper
         )
         self.employees = AsyncEmployeesClient(environment=self._environment, client_wrapper=self._client_wrapper)
+        self.employer_benefits = AsyncEmployerBenefitsClient(
+            environment=self._environment, client_wrapper=self._client_wrapper
+        )
         self.employments = AsyncEmploymentsClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.generate_key = AsyncGenerateKeyClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.groups = AsyncGroupsClient(environment=self._environment, client_wrapper=self._client_wrapper)
@@ -106,7 +129,9 @@ class AsyncHrisClient:
             environment=self._environment, client_wrapper=self._client_wrapper
         )
         self.locations = AsyncLocationsClient(environment=self._environment, client_wrapper=self._client_wrapper)
-        self.passthrough = AsyncPassthroughClient(environment=self._environment, client_wrapper=self._client_wrapper)
+        self.passthrough = resources_hris_resources_passthrough_client_AsyncPassthroughClient(
+            environment=self._environment, client_wrapper=self._client_wrapper
+        )
         self.pay_groups = AsyncPayGroupsClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.payroll_runs = AsyncPayrollRunsClient(environment=self._environment, client_wrapper=self._client_wrapper)
         self.regenerate_key = AsyncRegenerateKeyClient(

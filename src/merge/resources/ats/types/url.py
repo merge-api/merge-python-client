@@ -32,7 +32,7 @@ class Url(pydantic.BaseModel):
             "* `JOB_POSTING` - JOB_POSTING\n"
         )
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
 

@@ -7,6 +7,7 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .purchase_order_line_item_request_currency import PurchaseOrderLineItemRequestCurrency
+from .purchase_order_line_item_request_item import PurchaseOrderLineItemRequestItem
 
 
 class PurchaseOrderLineItemRequest(pydantic.BaseModel):
@@ -23,7 +24,7 @@ class PurchaseOrderLineItemRequest(pydantic.BaseModel):
     description: typing.Optional[str] = pydantic.Field(description="A description of the good being purchased.")
     unit_price: typing.Optional[float] = pydantic.Field(description="The line item's unit price.")
     quantity: typing.Optional[float] = pydantic.Field(description="The line item's quantity.")
-    item: typing.Optional[str]
+    item: typing.Optional[PurchaseOrderLineItemRequestItem]
     account: typing.Optional[str] = pydantic.Field(description="The purchase order line item's account.")
     tracking_category: typing.Optional[str] = pydantic.Field(
         description="The purchase order line item's associated tracking category."

@@ -7,6 +7,7 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .transaction_line_item_currency import TransactionLineItemCurrency
+from .transaction_line_item_item import TransactionLineItemItem
 
 
 class TransactionLineItem(pydantic.BaseModel):
@@ -25,7 +26,7 @@ class TransactionLineItem(pydantic.BaseModel):
     )
     unit_price: typing.Optional[str] = pydantic.Field(description="The line item's unit price.")
     quantity: typing.Optional[str] = pydantic.Field(description="The line item's quantity.")
-    item: typing.Optional[str]
+    item: typing.Optional[TransactionLineItemItem]
     account: typing.Optional[str] = pydantic.Field(description="The line item's account.")
     tracking_category: typing.Optional[str] = pydantic.Field(description="The line's associated tracking category.")
     tracking_categories: typing.List[str] = pydantic.Field(description="The line's associated tracking categories.")
@@ -345,7 +346,7 @@ class TransactionLineItem(pydantic.BaseModel):
     )
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The line item's exchange rate.")
     company: typing.Optional[str] = pydantic.Field(description="The company the line belongs to.")
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
 

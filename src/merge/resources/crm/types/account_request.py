@@ -6,6 +6,7 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .account_request_owner import AccountRequestOwner
 from .remote_field_request import RemoteFieldRequest
 
 
@@ -18,13 +19,13 @@ class AccountRequest(pydantic.BaseModel):
     TODO
     """
 
-    owner: typing.Optional[str] = pydantic.Field(description="The account's owner.")
+    owner: typing.Optional[AccountRequestOwner] = pydantic.Field(description="The account's owner.")
     name: typing.Optional[str] = pydantic.Field(description="The account's name.")
     description: typing.Optional[str] = pydantic.Field(description="The account's description.")
     industry: typing.Optional[str] = pydantic.Field(description="The account's industry.")
     website: typing.Optional[str] = pydantic.Field(description="The account's website.")
     number_of_employees: typing.Optional[int] = pydantic.Field(description="The account's number of employees.")
-    last_activity_at: typing.Optional[str] = pydantic.Field(
+    last_activity_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="The last date (either most recent or furthest in the future) of when an activity occurs in an account."
     )
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]

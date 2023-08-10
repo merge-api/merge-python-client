@@ -24,7 +24,7 @@ class PatchedTicketRequest(pydantic.BaseModel):
     name: typing.Optional[str] = pydantic.Field(description="The ticket's name.")
     assignees: typing.Optional[typing.List[typing.Optional[str]]]
     creator: typing.Optional[str] = pydantic.Field(description="The user who created this ticket.")
-    due_date: typing.Optional[str] = pydantic.Field(description="The ticket's due date.")
+    due_date: typing.Optional[dt.datetime] = pydantic.Field(description="The ticket's due date.")
     status: typing.Optional[PatchedTicketRequestStatus] = pydantic.Field(
         description=(
             "The current status of the ticket.\n"
@@ -44,7 +44,7 @@ class PatchedTicketRequest(pydantic.BaseModel):
     contact: typing.Optional[str] = pydantic.Field(description="The contact associated with the ticket.")
     parent_ticket: typing.Optional[str] = pydantic.Field(description="The ticket's parent ticket.")
     tags: typing.Optional[typing.List[typing.Optional[str]]]
-    completed_at: typing.Optional[str] = pydantic.Field(description="When the ticket was completed.")
+    completed_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the ticket was completed.")
     ticket_url: typing.Optional[str] = pydantic.Field(description="The 3rd party url of the Ticket.")
     priority: typing.Optional[PatchedTicketRequestPriority] = pydantic.Field(
         description=(

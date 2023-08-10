@@ -7,6 +7,7 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .remote_data import RemoteData
+from .time_off_balance_employee import TimeOffBalanceEmployee
 from .time_off_balance_policy_type import TimeOffBalancePolicyType
 
 
@@ -22,7 +23,9 @@ class TimeOffBalance(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    employee: typing.Optional[str] = pydantic.Field(description="The employee the balance belongs to.")
+    employee: typing.Optional[TimeOffBalanceEmployee] = pydantic.Field(
+        description="The employee the balance belongs to."
+    )
     balance: typing.Optional[float] = pydantic.Field(
         description="The current remaining PTO balance, always measured in terms of hours."
     )
@@ -42,7 +45,7 @@ class TimeOffBalance(pydantic.BaseModel):
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

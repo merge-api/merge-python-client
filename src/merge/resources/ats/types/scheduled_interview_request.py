@@ -6,6 +6,10 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .scheduled_interview_request_application import ScheduledInterviewRequestApplication
+from .scheduled_interview_request_interviewers_item import ScheduledInterviewRequestInterviewersItem
+from .scheduled_interview_request_job_interview_stage import ScheduledInterviewRequestJobInterviewStage
+from .scheduled_interview_request_organizer import ScheduledInterviewRequestOrganizer
 from .scheduled_interview_request_status import ScheduledInterviewRequestStatus
 
 
@@ -18,15 +22,21 @@ class ScheduledInterviewRequest(pydantic.BaseModel):
     Fetch from the `LIST ScheduledInterviews` endpoint and filter by `interviewers` to show all office locations.
     """
 
-    application: typing.Optional[str] = pydantic.Field(description="The application being interviewed.")
-    job_interview_stage: typing.Optional[str] = pydantic.Field(description="The stage of the interview.")
-    organizer: typing.Optional[str] = pydantic.Field(description="The user organizing the interview.")
-    interviewers: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(
-        description="Array of `RemoteUser` IDs."
+    application: typing.Optional[ScheduledInterviewRequestApplication] = pydantic.Field(
+        description="The application being interviewed."
     )
+    job_interview_stage: typing.Optional[ScheduledInterviewRequestJobInterviewStage] = pydantic.Field(
+        description="The stage of the interview."
+    )
+    organizer: typing.Optional[ScheduledInterviewRequestOrganizer] = pydantic.Field(
+        description="The user organizing the interview."
+    )
+    interviewers: typing.Optional[
+        typing.List[typing.Optional[ScheduledInterviewRequestInterviewersItem]]
+    ] = pydantic.Field(description="Array of `RemoteUser` IDs.")
     location: typing.Optional[str] = pydantic.Field(description="The interview's location.")
-    start_at: typing.Optional[str] = pydantic.Field(description="When the interview was started.")
-    end_at: typing.Optional[str] = pydantic.Field(description="When the interview was ended.")
+    start_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the interview was started.")
+    end_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the interview was ended.")
     status: typing.Optional[ScheduledInterviewRequestStatus] = pydantic.Field(
         description=(
             "The interview's status.\n"

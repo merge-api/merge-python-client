@@ -7,6 +7,9 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .remote_field_request import RemoteFieldRequest
+from .task_request_account import TaskRequestAccount
+from .task_request_opportunity import TaskRequestOpportunity
+from .task_request_owner import TaskRequestOwner
 from .task_request_status import TaskRequestStatus
 
 
@@ -21,11 +24,11 @@ class TaskRequest(pydantic.BaseModel):
 
     subject: typing.Optional[str] = pydantic.Field(description="The task's subject.")
     content: typing.Optional[str] = pydantic.Field(description="The task's content.")
-    owner: typing.Optional[str] = pydantic.Field(description="The task's owner.")
-    account: typing.Optional[str] = pydantic.Field(description="The task's account.")
-    opportunity: typing.Optional[str] = pydantic.Field(description="The task's opportunity.")
-    completed_date: typing.Optional[str] = pydantic.Field(description="When the task is completed.")
-    due_date: typing.Optional[str] = pydantic.Field(description="When the task is due.")
+    owner: typing.Optional[TaskRequestOwner] = pydantic.Field(description="The task's owner.")
+    account: typing.Optional[TaskRequestAccount] = pydantic.Field(description="The task's account.")
+    opportunity: typing.Optional[TaskRequestOpportunity] = pydantic.Field(description="The task's opportunity.")
+    completed_date: typing.Optional[dt.datetime] = pydantic.Field(description="When the task is completed.")
+    due_date: typing.Optional[dt.datetime] = pydantic.Field(description="When the task is due.")
     status: typing.Optional[TaskRequestStatus] = pydantic.Field(
         description=("The task's status.\n" "\n" "* `OPEN` - OPEN\n" "* `CLOSED` - CLOSED\n")
     )

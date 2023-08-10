@@ -7,6 +7,8 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .remote_data import RemoteData
+from .time_off_approver import TimeOffApprover
+from .time_off_employee import TimeOffEmployee
 from .time_off_request_type import TimeOffRequestType
 from .time_off_status import TimeOffStatus
 from .time_off_units import TimeOffUnits
@@ -24,8 +26,8 @@ class TimeOff(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    employee: typing.Optional[str] = pydantic.Field(description="The employee requesting time off.")
-    approver: typing.Optional[str] = pydantic.Field(
+    employee: typing.Optional[TimeOffEmployee] = pydantic.Field(description="The employee requesting time off.")
+    approver: typing.Optional[TimeOffApprover] = pydantic.Field(
         description="The Merge ID of the employee with the ability to approve the time off request."
     )
     status: typing.Optional[TimeOffStatus] = pydantic.Field(
@@ -63,14 +65,14 @@ class TimeOff(pydantic.BaseModel):
             "* `BEREAVEMENT` - BEREAVEMENT\n"
         )
     )
-    start_time: typing.Optional[str] = pydantic.Field(
+    start_time: typing.Optional[dt.datetime] = pydantic.Field(
         description="The day and time of the start of the time requested off."
     )
-    end_time: typing.Optional[str] = pydantic.Field(
+    end_time: typing.Optional[dt.datetime] = pydantic.Field(
         description="The day and time of the end of the time requested off."
     )
     remote_was_deleted: typing.Optional[bool]
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

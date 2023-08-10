@@ -7,6 +7,7 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .purchase_order_line_item_currency import PurchaseOrderLineItemCurrency
+from .purchase_order_line_item_item import PurchaseOrderLineItemItem
 
 
 class PurchaseOrderLineItem(pydantic.BaseModel):
@@ -23,7 +24,7 @@ class PurchaseOrderLineItem(pydantic.BaseModel):
     description: typing.Optional[str] = pydantic.Field(description="A description of the good being purchased.")
     unit_price: typing.Optional[float] = pydantic.Field(description="The line item's unit price.")
     quantity: typing.Optional[float] = pydantic.Field(description="The line item's quantity.")
-    item: typing.Optional[str]
+    item: typing.Optional[PurchaseOrderLineItemItem]
     account: typing.Optional[str] = pydantic.Field(description="The purchase order line item's account.")
     tracking_category: typing.Optional[str] = pydantic.Field(
         description="The purchase order line item's associated tracking category."
@@ -347,7 +348,7 @@ class PurchaseOrderLineItem(pydantic.BaseModel):
     )
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The purchase order line item's exchange rate.")
     company: typing.Optional[str] = pydantic.Field(description="The company the purchase order line item belongs to.")
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
 

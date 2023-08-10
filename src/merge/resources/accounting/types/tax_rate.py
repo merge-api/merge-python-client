@@ -7,6 +7,7 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .remote_data import RemoteData
+from .tax_rate_company import TaxRateCompany
 
 
 class TaxRate(pydantic.BaseModel):
@@ -22,13 +23,13 @@ class TaxRate(pydantic.BaseModel):
     description: typing.Optional[str] = pydantic.Field(description="The tax rate's description.")
     total_tax_rate: typing.Optional[float] = pydantic.Field(description="The tax rate's total tax rate.")
     effective_tax_rate: typing.Optional[float] = pydantic.Field(description="The tax rate's effective tax rate.")
-    company: typing.Optional[str] = pydantic.Field(description="The company the tax rate belongs to.")
+    company: typing.Optional[TaxRateCompany] = pydantic.Field(description="The company the tax rate belongs to.")
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

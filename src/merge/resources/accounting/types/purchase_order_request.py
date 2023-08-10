@@ -7,8 +7,11 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .purchase_order_line_item_request import PurchaseOrderLineItemRequest
+from .purchase_order_request_company import PurchaseOrderRequestCompany
 from .purchase_order_request_currency import PurchaseOrderRequestCurrency
+from .purchase_order_request_delivery_address import PurchaseOrderRequestDeliveryAddress
 from .purchase_order_request_status import PurchaseOrderRequestStatus
+from .purchase_order_request_vendor import PurchaseOrderRequestVendor
 
 
 class PurchaseOrderRequest(pydantic.BaseModel):
@@ -32,13 +35,19 @@ class PurchaseOrderRequest(pydantic.BaseModel):
             "* `DELETED` - DELETED\n"
         )
     )
-    issue_date: typing.Optional[str] = pydantic.Field(description="The purchase order's issue date.")
-    delivery_date: typing.Optional[str] = pydantic.Field(description="The purchase order's delivery date.")
-    delivery_address: typing.Optional[str] = pydantic.Field(description="The purchase order's delivery address.")
+    issue_date: typing.Optional[dt.datetime] = pydantic.Field(description="The purchase order's issue date.")
+    delivery_date: typing.Optional[dt.datetime] = pydantic.Field(description="The purchase order's delivery date.")
+    delivery_address: typing.Optional[PurchaseOrderRequestDeliveryAddress] = pydantic.Field(
+        description="The purchase order's delivery address."
+    )
     customer: typing.Optional[str] = pydantic.Field(description="The contact making the purchase order.")
-    vendor: typing.Optional[str] = pydantic.Field(description="The party fulfilling the purchase order.")
+    vendor: typing.Optional[PurchaseOrderRequestVendor] = pydantic.Field(
+        description="The party fulfilling the purchase order."
+    )
     memo: typing.Optional[str] = pydantic.Field(description="A memo attached to the purchase order.")
-    company: typing.Optional[str] = pydantic.Field(description="The company the purchase order belongs to.")
+    company: typing.Optional[PurchaseOrderRequestCompany] = pydantic.Field(
+        description="The company the purchase order belongs to."
+    )
     total_amount: typing.Optional[float] = pydantic.Field(description="The purchase order's total amount.")
     currency: typing.Optional[PurchaseOrderRequestCurrency] = pydantic.Field(
         description=(

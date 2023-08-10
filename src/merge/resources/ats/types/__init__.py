@@ -15,15 +15,28 @@ from .activity import Activity
 from .activity_activity_type import ActivityActivityType
 from .activity_request import ActivityRequest
 from .activity_request_activity_type import ActivityRequestActivityType
+from .activity_request_user import ActivityRequestUser
 from .activity_request_visibility import ActivityRequestVisibility
 from .activity_response import ActivityResponse
 from .activity_type_enum import ActivityTypeEnum
+from .activity_user import ActivityUser
 from .activity_visibility import ActivityVisibility
 from .application import Application
+from .application_candidate import ApplicationCandidate
+from .application_credited_to import ApplicationCreditedTo
+from .application_current_stage import ApplicationCurrentStage
+from .application_job import ApplicationJob
+from .application_reject_reason import ApplicationRejectReason
 from .application_request import ApplicationRequest
+from .application_request_candidate import ApplicationRequestCandidate
+from .application_request_credited_to import ApplicationRequestCreditedTo
+from .application_request_current_stage import ApplicationRequestCurrentStage
+from .application_request_job import ApplicationRequestJob
+from .application_request_reject_reason import ApplicationRequestRejectReason
 from .application_response import ApplicationResponse
 from .applications_list_request_expand import ApplicationsListRequestExpand
 from .applications_retrieve_request_expand import ApplicationsRetrieveRequestExpand
+from .async_passthrough_reciept import AsyncPassthroughReciept
 from .attachment import Attachment
 from .attachment_attachment_type import AttachmentAttachmentType
 from .attachment_request import AttachmentRequest
@@ -32,7 +45,11 @@ from .attachment_response import AttachmentResponse
 from .attachment_type_enum import AttachmentTypeEnum
 from .available_actions import AvailableActions
 from .candidate import Candidate
+from .candidate_applications_item import CandidateApplicationsItem
+from .candidate_attachments_item import CandidateAttachmentsItem
 from .candidate_request import CandidateRequest
+from .candidate_request_applications_item import CandidateRequestApplicationsItem
+from .candidate_request_attachments_item import CandidateRequestAttachmentsItem
 from .candidate_response import CandidateResponse
 from .candidates_list_request_expand import CandidatesListRequestExpand
 from .candidates_retrieve_request_expand import CandidatesRetrieveRequestExpand
@@ -42,11 +59,13 @@ from .common_model_scopes_body_request import CommonModelScopesBodyRequest
 from .condition_schema import ConditionSchema
 from .condition_schema_condition_type import ConditionSchemaConditionType
 from .condition_type_enum import ConditionTypeEnum
+from .data_passthrough_request import DataPassthroughRequest
 from .debug_mode_log import DebugModeLog
 from .debug_model_log_summary import DebugModelLogSummary
 from .department import Department
 from .disability_status_enum import DisabilityStatusEnum
 from .eeoc import Eeoc
+from .eeoc_candidate import EeocCandidate
 from .eeoc_disability_status import EeocDisabilityStatus
 from .eeoc_gender import EeocGender
 from .eeoc_race import EeocRace
@@ -71,7 +90,12 @@ from .issue_status import IssueStatus
 from .issue_status_enum import IssueStatusEnum
 from .issues_list_request_status import IssuesListRequestStatus
 from .job import Job
+from .job_departments_item import JobDepartmentsItem
+from .job_hiring_managers_item import JobHiringManagersItem
 from .job_interview_stage import JobInterviewStage
+from .job_interview_stage_job import JobInterviewStageJob
+from .job_offices_item import JobOfficesItem
+from .job_recruiters_item import JobRecruitersItem
 from .job_status import JobStatus
 from .job_status_enum import JobStatusEnum
 from .jobs_list_request_expand import JobsListRequestExpand
@@ -90,6 +114,8 @@ from .model_operation import ModelOperation
 from .multipart_form_field_request import MultipartFormFieldRequest
 from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
 from .offer import Offer
+from .offer_application import OfferApplication
+from .offer_creator import OfferCreator
 from .offer_status import OfferStatus
 from .offer_status_enum import OfferStatusEnum
 from .offers_list_request_expand import OffersListRequestExpand
@@ -134,12 +160,23 @@ from .remote_user_access_role import RemoteUserAccessRole
 from .request_format_enum import RequestFormatEnum
 from .response_type_enum import ResponseTypeEnum
 from .scheduled_interview import ScheduledInterview
+from .scheduled_interview_application import ScheduledInterviewApplication
+from .scheduled_interview_interviewers_item import ScheduledInterviewInterviewersItem
+from .scheduled_interview_job_interview_stage import ScheduledInterviewJobInterviewStage
+from .scheduled_interview_organizer import ScheduledInterviewOrganizer
 from .scheduled_interview_request import ScheduledInterviewRequest
+from .scheduled_interview_request_application import ScheduledInterviewRequestApplication
+from .scheduled_interview_request_interviewers_item import ScheduledInterviewRequestInterviewersItem
+from .scheduled_interview_request_job_interview_stage import ScheduledInterviewRequestJobInterviewStage
+from .scheduled_interview_request_organizer import ScheduledInterviewRequestOrganizer
 from .scheduled_interview_request_status import ScheduledInterviewRequestStatus
 from .scheduled_interview_response import ScheduledInterviewResponse
 from .scheduled_interview_status import ScheduledInterviewStatus
 from .scheduled_interview_status_enum import ScheduledInterviewStatusEnum
 from .scorecard import Scorecard
+from .scorecard_application import ScorecardApplication
+from .scorecard_interview import ScorecardInterview
+from .scorecard_interviewer import ScorecardInterviewer
 from .scorecard_overall_recommendation import ScorecardOverallRecommendation
 from .scorecards_list_request_expand import ScorecardsListRequestExpand
 from .scorecards_retrieve_request_expand import ScorecardsRetrieveRequestExpand
@@ -174,15 +211,28 @@ __all__ = [
     "ActivityActivityType",
     "ActivityRequest",
     "ActivityRequestActivityType",
+    "ActivityRequestUser",
     "ActivityRequestVisibility",
     "ActivityResponse",
     "ActivityTypeEnum",
+    "ActivityUser",
     "ActivityVisibility",
     "Application",
+    "ApplicationCandidate",
+    "ApplicationCreditedTo",
+    "ApplicationCurrentStage",
+    "ApplicationJob",
+    "ApplicationRejectReason",
     "ApplicationRequest",
+    "ApplicationRequestCandidate",
+    "ApplicationRequestCreditedTo",
+    "ApplicationRequestCurrentStage",
+    "ApplicationRequestJob",
+    "ApplicationRequestRejectReason",
     "ApplicationResponse",
     "ApplicationsListRequestExpand",
     "ApplicationsRetrieveRequestExpand",
+    "AsyncPassthroughReciept",
     "Attachment",
     "AttachmentAttachmentType",
     "AttachmentRequest",
@@ -191,7 +241,11 @@ __all__ = [
     "AttachmentTypeEnum",
     "AvailableActions",
     "Candidate",
+    "CandidateApplicationsItem",
+    "CandidateAttachmentsItem",
     "CandidateRequest",
+    "CandidateRequestApplicationsItem",
+    "CandidateRequestAttachmentsItem",
     "CandidateResponse",
     "CandidatesListRequestExpand",
     "CandidatesRetrieveRequestExpand",
@@ -201,11 +255,13 @@ __all__ = [
     "ConditionSchema",
     "ConditionSchemaConditionType",
     "ConditionTypeEnum",
+    "DataPassthroughRequest",
     "DebugModeLog",
     "DebugModelLogSummary",
     "Department",
     "DisabilityStatusEnum",
     "Eeoc",
+    "EeocCandidate",
     "EeocDisabilityStatus",
     "EeocGender",
     "EeocRace",
@@ -230,7 +286,12 @@ __all__ = [
     "IssueStatusEnum",
     "IssuesListRequestStatus",
     "Job",
+    "JobDepartmentsItem",
+    "JobHiringManagersItem",
     "JobInterviewStage",
+    "JobInterviewStageJob",
+    "JobOfficesItem",
+    "JobRecruitersItem",
     "JobStatus",
     "JobStatusEnum",
     "JobsListRequestExpand",
@@ -249,6 +310,8 @@ __all__ = [
     "MultipartFormFieldRequest",
     "MultipartFormFieldRequestEncoding",
     "Offer",
+    "OfferApplication",
+    "OfferCreator",
     "OfferStatus",
     "OfferStatusEnum",
     "OffersListRequestExpand",
@@ -293,12 +356,23 @@ __all__ = [
     "RequestFormatEnum",
     "ResponseTypeEnum",
     "ScheduledInterview",
+    "ScheduledInterviewApplication",
+    "ScheduledInterviewInterviewersItem",
+    "ScheduledInterviewJobInterviewStage",
+    "ScheduledInterviewOrganizer",
     "ScheduledInterviewRequest",
+    "ScheduledInterviewRequestApplication",
+    "ScheduledInterviewRequestInterviewersItem",
+    "ScheduledInterviewRequestJobInterviewStage",
+    "ScheduledInterviewRequestOrganizer",
     "ScheduledInterviewRequestStatus",
     "ScheduledInterviewResponse",
     "ScheduledInterviewStatus",
     "ScheduledInterviewStatusEnum",
     "Scorecard",
+    "ScorecardApplication",
+    "ScorecardInterview",
+    "ScorecardInterviewer",
     "ScorecardOverallRecommendation",
     "ScorecardsListRequestExpand",
     "ScorecardsRetrieveRequestExpand",

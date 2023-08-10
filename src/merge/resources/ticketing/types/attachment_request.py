@@ -6,6 +6,7 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .attachment_request_ticket import AttachmentRequestTicket
 
 
 class AttachmentRequest(pydantic.BaseModel):
@@ -21,7 +22,9 @@ class AttachmentRequest(pydantic.BaseModel):
     file_name: typing.Optional[str] = pydantic.Field(
         description="The attachment's name. It is required to include the file extension in the attachment's name."
     )
-    ticket: typing.Optional[str] = pydantic.Field(description="The ticket associated with the attachment.")
+    ticket: typing.Optional[AttachmentRequestTicket] = pydantic.Field(
+        description="The ticket associated with the attachment."
+    )
     file_url: typing.Optional[str] = pydantic.Field(
         description="The attachment's url. It is required to include the file extension in the file's URL."
     )

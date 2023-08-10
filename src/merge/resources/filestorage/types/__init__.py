@@ -6,6 +6,7 @@ from .account_details_and_actions_integration import AccountDetailsAndActionsInt
 from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
 from .account_integration import AccountIntegration
 from .account_token import AccountToken
+from .async_passthrough_reciept import AsyncPassthroughReciept
 from .available_actions import AvailableActions
 from .categories_enum import CategoriesEnum
 from .category_enum import CategoryEnum
@@ -13,6 +14,7 @@ from .common_model_scopes_body_request import CommonModelScopesBodyRequest
 from .condition_schema import ConditionSchema
 from .condition_schema_condition_type import ConditionSchemaConditionType
 from .condition_type_enum import ConditionTypeEnum
+from .data_passthrough_request import DataPassthroughRequest
 from .debug_mode_log import DebugModeLog
 from .debug_model_log_summary import DebugModelLogSummary
 from .drive import Drive
@@ -75,6 +77,7 @@ __all__ = [
     "AccountDetailsAndActionsStatusEnum",
     "AccountIntegration",
     "AccountToken",
+    "AsyncPassthroughReciept",
     "AvailableActions",
     "CategoriesEnum",
     "CategoryEnum",
@@ -82,6 +85,7 @@ __all__ = [
     "ConditionSchema",
     "ConditionSchemaConditionType",
     "ConditionTypeEnum",
+    "DataPassthroughRequest",
     "DebugModeLog",
     "DebugModelLogSummary",
     "Drive",

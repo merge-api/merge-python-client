@@ -7,8 +7,11 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .remote_data import RemoteData
+from .vendor_credit_company import VendorCreditCompany
 from .vendor_credit_currency import VendorCreditCurrency
 from .vendor_credit_line import VendorCreditLine
+from .vendor_credit_tracking_categories_item import VendorCreditTrackingCategoriesItem
+from .vendor_credit_vendor import VendorCreditVendor
 
 
 class VendorCredit(pydantic.BaseModel):
@@ -24,8 +27,8 @@ class VendorCredit(pydantic.BaseModel):
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
     number: typing.Optional[str] = pydantic.Field(description="The vendor credit's number.")
-    transaction_date: typing.Optional[str] = pydantic.Field(description="The vendor credit's transaction date.")
-    vendor: typing.Optional[str] = pydantic.Field(description="The vendor that owes the gift or refund.")
+    transaction_date: typing.Optional[dt.datetime] = pydantic.Field(description="The vendor credit's transaction date.")
+    vendor: typing.Optional[VendorCreditVendor] = pydantic.Field(description="The vendor that owes the gift or refund.")
     total_amount: typing.Optional[float] = pydantic.Field(description="The vendor credit's total amount.")
     currency: typing.Optional[VendorCreditCurrency] = pydantic.Field(
         description=(
@@ -340,13 +343,15 @@ class VendorCredit(pydantic.BaseModel):
         )
     )
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The vendor credit's exchange rate.")
-    company: typing.Optional[str] = pydantic.Field(description="The company the vendor credit belongs to.")
+    company: typing.Optional[VendorCreditCompany] = pydantic.Field(
+        description="The company the vendor credit belongs to."
+    )
     lines: typing.Optional[typing.List[VendorCreditLine]]
-    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]]
+    tracking_categories: typing.Optional[typing.List[typing.Optional[VendorCreditTrackingCategoriesItem]]]
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

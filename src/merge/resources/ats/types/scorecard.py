@@ -7,6 +7,9 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .remote_data import RemoteData
+from .scorecard_application import ScorecardApplication
+from .scorecard_interview import ScorecardInterview
+from .scorecard_interviewer import ScorecardInterviewer
 from .scorecard_overall_recommendation import ScorecardOverallRecommendation
 
 
@@ -21,13 +24,15 @@ class Scorecard(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    application: typing.Optional[str] = pydantic.Field(description="The application being scored.")
-    interview: typing.Optional[str] = pydantic.Field(description="The interview being scored.")
-    interviewer: typing.Optional[str] = pydantic.Field(description="The interviewer doing the scoring.")
-    remote_created_at: typing.Optional[str] = pydantic.Field(
+    application: typing.Optional[ScorecardApplication] = pydantic.Field(description="The application being scored.")
+    interview: typing.Optional[ScorecardInterview] = pydantic.Field(description="The interview being scored.")
+    interviewer: typing.Optional[ScorecardInterviewer] = pydantic.Field(
+        description="The interviewer doing the scoring."
+    )
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="When the third party's scorecard was created."
     )
-    submitted_at: typing.Optional[str] = pydantic.Field(description="When the scorecard was submitted.")
+    submitted_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the scorecard was submitted.")
     overall_recommendation: typing.Optional[ScorecardOverallRecommendation] = pydantic.Field(
         description=(
             "The inteviewer's recommendation.\n"
@@ -42,7 +47,7 @@ class Scorecard(pydantic.BaseModel):
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

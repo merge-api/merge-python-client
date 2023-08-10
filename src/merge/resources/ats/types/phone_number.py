@@ -30,7 +30,7 @@ class PhoneNumber(pydantic.BaseModel):
             "* `OTHER` - OTHER\n"
         )
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
 

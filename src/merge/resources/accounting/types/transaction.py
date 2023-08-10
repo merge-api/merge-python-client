@@ -7,8 +7,11 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .remote_data import RemoteData
+from .transaction_account import TransactionAccount
+from .transaction_contact import TransactionContact
 from .transaction_currency import TransactionCurrency
 from .transaction_line_item import TransactionLineItem
+from .transaction_tracking_categories_item import TransactionTrackingCategoriesItem
 
 
 class Transaction(pydantic.BaseModel):
@@ -25,9 +28,13 @@ class Transaction(pydantic.BaseModel):
         description="The type of transaction, which can by any transaction object not already included in Merge’s common model."
     )
     number: typing.Optional[str] = pydantic.Field(description="The transaction's number used for identifying purposes.")
-    transaction_date: typing.Optional[str] = pydantic.Field(description="The date upon which the transaction occurred.")
-    account: typing.Optional[str] = pydantic.Field(description="The transaction's account.")
-    contact: typing.Optional[str] = pydantic.Field(description="The contact to whom the transaction relates to.")
+    transaction_date: typing.Optional[dt.datetime] = pydantic.Field(
+        description="The date upon which the transaction occurred."
+    )
+    account: typing.Optional[TransactionAccount] = pydantic.Field(description="The transaction's account.")
+    contact: typing.Optional[TransactionContact] = pydantic.Field(
+        description="The contact to whom the transaction relates to."
+    )
     total_amount: typing.Optional[str] = pydantic.Field(description="The total amount being paid after taxes.")
     currency: typing.Optional[TransactionCurrency] = pydantic.Field(
         description=(
@@ -343,14 +350,14 @@ class Transaction(pydantic.BaseModel):
     )
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The transaction's exchange rate.")
     company: typing.Optional[str] = pydantic.Field(description="The company the transaction belongs to.")
-    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]]
+    tracking_categories: typing.Optional[typing.List[typing.Optional[TransactionTrackingCategoriesItem]]]
     line_items: typing.Optional[typing.List[TransactionLineItem]]
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

@@ -6,6 +6,7 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .account_owner import AccountOwner
 from .address import Address
 from .phone_number import PhoneNumber
 from .remote_data import RemoteData
@@ -21,7 +22,7 @@ class Account(pydantic.BaseModel):
     TODO
     """
 
-    owner: typing.Optional[str] = pydantic.Field(description="The account's owner.")
+    owner: typing.Optional[AccountOwner] = pydantic.Field(description="The account's owner.")
     name: typing.Optional[str] = pydantic.Field(description="The account's name.")
     description: typing.Optional[str] = pydantic.Field(description="The account's description.")
     industry: typing.Optional[str] = pydantic.Field(description="The account's industry.")
@@ -29,17 +30,19 @@ class Account(pydantic.BaseModel):
     number_of_employees: typing.Optional[int] = pydantic.Field(description="The account's number of employees.")
     addresses: typing.Optional[typing.List[Address]]
     phone_numbers: typing.Optional[typing.List[PhoneNumber]]
-    last_activity_at: typing.Optional[str] = pydantic.Field(
+    last_activity_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="The last date (either most recent or furthest in the future) of when an activity occurs in an account."
     )
-    remote_updated_at: typing.Optional[str] = pydantic.Field(
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="When the CRM system account data was last modified by a user with a login."
     )
-    remote_created_at: typing.Optional[str] = pydantic.Field(description="When the third party's account was created.")
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="When the third party's account was created."
+    )
     remote_was_deleted: typing.Optional[bool]
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]

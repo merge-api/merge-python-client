@@ -6,7 +6,11 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .payment_account import PaymentAccount
+from .payment_company import PaymentCompany
+from .payment_contact import PaymentContact
 from .payment_currency import PaymentCurrency
+from .payment_tracking_categories_item import PaymentTrackingCategoriesItem
 from .remote_data import RemoteData
 
 
@@ -22,9 +26,11 @@ class Payment(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    transaction_date: typing.Optional[str] = pydantic.Field(description="The payment's transaction date.")
-    contact: typing.Optional[str] = pydantic.Field(description="The supplier, or customer involved in the payment.")
-    account: typing.Optional[str] = pydantic.Field(
+    transaction_date: typing.Optional[dt.datetime] = pydantic.Field(description="The payment's transaction date.")
+    contact: typing.Optional[PaymentContact] = pydantic.Field(
+        description="The supplier, or customer involved in the payment."
+    )
+    account: typing.Optional[PaymentAccount] = pydantic.Field(
         description="The supplier’s or customer’s account in which the payment is made."
     )
     currency: typing.Optional[PaymentCurrency] = pydantic.Field(
@@ -340,18 +346,18 @@ class Payment(pydantic.BaseModel):
         )
     )
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The payment's exchange rate.")
-    company: typing.Optional[str] = pydantic.Field(description="The company the payment belongs to.")
+    company: typing.Optional[PaymentCompany] = pydantic.Field(description="The company the payment belongs to.")
     total_amount: typing.Optional[float] = pydantic.Field(
         description="The total amount of money being paid to the supplier, or customer, after taxes."
     )
-    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]]
-    remote_updated_at: typing.Optional[str] = pydantic.Field(
+    tracking_categories: typing.Optional[typing.List[typing.Optional[PaymentTrackingCategoriesItem]]]
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="When the third party's payment entry was updated."
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
-    modified_at: typing.Optional[str] = pydantic.Field(
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
