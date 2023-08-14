@@ -168,7 +168,13 @@ from .reason_enum import ReasonEnum
 from .remote_data import RemoteData
 from .remote_field import RemoteField
 from .remote_field_class import RemoteFieldClass
+from .remote_field_class_field_choices_item import RemoteFieldClassFieldChoicesItem
+from .remote_field_class_field_format import RemoteFieldClassFieldFormat
+from .remote_field_class_field_type import RemoteFieldClassFieldType
 from .remote_field_class_for_custom_object_class import RemoteFieldClassForCustomObjectClass
+from .remote_field_class_for_custom_object_class_field_choices_item import (
+    RemoteFieldClassForCustomObjectClassFieldChoicesItem,
+)
 from .remote_field_class_for_custom_object_class_field_format import RemoteFieldClassForCustomObjectClassFieldFormat
 from .remote_field_class_for_custom_object_class_field_type import RemoteFieldClassForCustomObjectClassFieldType
 from .remote_field_class_for_custom_object_class_item_schema import RemoteFieldClassForCustomObjectClassItemSchema
@@ -370,7 +376,11 @@ __all__ = [
     "RemoteData",
     "RemoteField",
     "RemoteFieldClass",
+    "RemoteFieldClassFieldChoicesItem",
+    "RemoteFieldClassFieldFormat",
+    "RemoteFieldClassFieldType",
     "RemoteFieldClassForCustomObjectClass",
+    "RemoteFieldClassForCustomObjectClassFieldChoicesItem",
     "RemoteFieldClassForCustomObjectClassFieldFormat",
     "RemoteFieldClassForCustomObjectClassFieldType",
     "RemoteFieldClassForCustomObjectClassItemSchema",

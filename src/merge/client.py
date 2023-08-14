@@ -30,9 +30,9 @@ class Merge:
         self.ats = AtsClient(environment=environment, client_wrapper=self._client_wrapper)
         self.crm = CrmClient(environment=environment, client_wrapper=self._client_wrapper)
         self.filestorage = FilestorageClient(environment=environment, client_wrapper=self._client_wrapper)
-        self.hris = HrisClient(environment=environment, client_wrapper=self._client_wrapper)
         self.ticketing = TicketingClient(environment=environment, client_wrapper=self._client_wrapper)
         self.accounting = AccountingClient(environment=environment, client_wrapper=self._client_wrapper)
+        self.hris = HrisClient(environment=environment, client_wrapper=self._client_wrapper)
 
 
 class AsyncMerge:
@@ -51,6 +51,6 @@ class AsyncMerge:
         self.ats = AsyncAtsClient(environment=environment, client_wrapper=self._client_wrapper)
         self.crm = AsyncCrmClient(environment=environment, client_wrapper=self._client_wrapper)
         self.filestorage = AsyncFilestorageClient(environment=environment, client_wrapper=self._client_wrapper)
-        self.hris = AsyncHrisClient(environment=environment, client_wrapper=self._client_wrapper)
         self.ticketing = AsyncTicketingClient(environment=environment, client_wrapper=self._client_wrapper)
         self.accounting = AsyncAccountingClient(environment=environment, client_wrapper=self._client_wrapper)
+        self.hris = AsyncHrisClient(environment=environment, client_wrapper=self._client_wrapper)
