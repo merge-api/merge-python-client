@@ -6,9 +6,10 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
-from .field_format_enum import FieldFormatEnum
-from .field_type_enum import FieldTypeEnum
 from .item_schema import ItemSchema
+from .remote_field_class_field_choices_item import RemoteFieldClassFieldChoicesItem
+from .remote_field_class_field_format import RemoteFieldClassFieldFormat
+from .remote_field_class_field_type import RemoteFieldClassFieldType
 
 
 class RemoteFieldClass(pydantic.BaseModel):
@@ -18,9 +19,9 @@ class RemoteFieldClass(pydantic.BaseModel):
     description: typing.Optional[str]
     is_custom: typing.Optional[bool]
     is_required: typing.Optional[bool]
-    field_type: typing.Optional[FieldTypeEnum]
-    field_format: typing.Optional[FieldFormatEnum]
-    field_choices: typing.Optional[typing.List[str]]
+    field_type: typing.Optional[RemoteFieldClassFieldType]
+    field_format: typing.Optional[RemoteFieldClassFieldFormat]
+    field_choices: typing.Optional[typing.List[RemoteFieldClassFieldChoicesItem]]
     item_schema: typing.Optional[ItemSchema]
 
     def json(self, **kwargs: typing.Any) -> str:

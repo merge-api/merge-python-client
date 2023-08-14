@@ -6,6 +6,9 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .remote_field_class_for_custom_object_class_field_choices_item import (
+    RemoteFieldClassForCustomObjectClassFieldChoicesItem,
+)
 from .remote_field_class_for_custom_object_class_field_format import RemoteFieldClassForCustomObjectClassFieldFormat
 from .remote_field_class_for_custom_object_class_field_type import RemoteFieldClassForCustomObjectClassFieldType
 from .remote_field_class_for_custom_object_class_item_schema import RemoteFieldClassForCustomObjectClassItemSchema
@@ -18,7 +21,7 @@ class RemoteFieldClassForCustomObjectClass(pydantic.BaseModel):
     is_required: typing.Optional[bool]
     field_type: typing.Optional[RemoteFieldClassForCustomObjectClassFieldType]
     field_format: typing.Optional[RemoteFieldClassForCustomObjectClassFieldFormat]
-    field_choices: typing.Optional[typing.List[typing.Optional[str]]]
+    field_choices: typing.Optional[typing.List[RemoteFieldClassForCustomObjectClassFieldChoicesItem]]
     item_schema: typing.Optional[RemoteFieldClassForCustomObjectClassItemSchema]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"

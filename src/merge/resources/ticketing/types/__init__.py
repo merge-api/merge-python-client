@@ -92,6 +92,9 @@ from .projects_users_list_request_expand import ProjectsUsersListRequestExpand
 from .remote_data import RemoteData
 from .remote_field import RemoteField
 from .remote_field_class import RemoteFieldClass
+from .remote_field_class_field_choices_item import RemoteFieldClassFieldChoicesItem
+from .remote_field_class_field_format import RemoteFieldClassFieldFormat
+from .remote_field_class_field_type import RemoteFieldClassFieldType
 from .remote_field_request import RemoteFieldRequest
 from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
 from .remote_key import RemoteKey
@@ -236,6 +239,9 @@ __all__ = [
     "RemoteData",
     "RemoteField",
     "RemoteFieldClass",
+    "RemoteFieldClassFieldChoicesItem",
+    "RemoteFieldClassFieldFormat",
+    "RemoteFieldClassFieldType",
     "RemoteFieldRequest",
     "RemoteFieldRequestRemoteFieldClass",
     "RemoteKey",
