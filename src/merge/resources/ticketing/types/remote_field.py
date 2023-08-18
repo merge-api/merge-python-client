@@ -6,12 +6,12 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
-from .remote_field_class import RemoteFieldClass
+from .remote_field_remote_field_class import RemoteFieldRemoteFieldClass
 
 
 class RemoteField(pydantic.BaseModel):
-    remote_field_class: RemoteFieldClass
-    value: typing.Optional[typing.Dict[str, typing.Any]]
+    remote_field_class: RemoteFieldRemoteFieldClass
+    value: typing.Optional[typing.Any]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

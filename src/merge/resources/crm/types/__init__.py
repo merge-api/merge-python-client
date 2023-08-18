@@ -178,6 +178,7 @@ from .remote_field_class_for_custom_object_class_field_choices_item import (
 from .remote_field_class_for_custom_object_class_field_format import RemoteFieldClassForCustomObjectClassFieldFormat
 from .remote_field_class_for_custom_object_class_field_type import RemoteFieldClassForCustomObjectClassFieldType
 from .remote_field_class_for_custom_object_class_item_schema import RemoteFieldClassForCustomObjectClassItemSchema
+from .remote_field_remote_field_class import RemoteFieldRemoteFieldClass
 from .remote_field_request import RemoteFieldRequest
 from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
 from .remote_key import RemoteKey
@@ -384,6 +385,7 @@ __all__ = [
     "RemoteFieldClassForCustomObjectClassFieldFormat",
     "RemoteFieldClassForCustomObjectClassFieldType",
     "RemoteFieldClassForCustomObjectClassItemSchema",
+    "RemoteFieldRemoteFieldClass",
     "RemoteFieldRequest",
     "RemoteFieldRequestRemoteFieldClass",
     "RemoteKey",
