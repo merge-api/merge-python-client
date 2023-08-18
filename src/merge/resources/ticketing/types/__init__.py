@@ -95,6 +95,7 @@ from .remote_field_class import RemoteFieldClass
 from .remote_field_class_field_choices_item import RemoteFieldClassFieldChoicesItem
 from .remote_field_class_field_format import RemoteFieldClassFieldFormat
 from .remote_field_class_field_type import RemoteFieldClassFieldType
+from .remote_field_remote_field_class import RemoteFieldRemoteFieldClass
 from .remote_field_request import RemoteFieldRequest
 from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
 from .remote_key import RemoteKey
@@ -242,6 +243,7 @@ __all__ = [
     "RemoteFieldClassFieldChoicesItem",
     "RemoteFieldClassFieldFormat",
     "RemoteFieldClassFieldType",
+    "RemoteFieldRemoteFieldClass",
     "RemoteFieldRequest",
     "RemoteFieldRequestRemoteFieldClass",
     "RemoteKey",
