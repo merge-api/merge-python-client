@@ -63,7 +63,7 @@ jobs:
   publish:
     needs: [compile, test]
     if: github.event_name == 'release'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -75,7 +75,7 @@ jobs:
         run: |
           curl --location --show-error --silent --output poetry.py https://install.python-poetry.org \
           && echo '66db5477a597b6176202ef77792076057ce50d2c5a2d2d2978c63e1f144d7b95' poetry.py | sha256sum -c \
-          && python poetry.py -y \
+          && python poetry.py -y --version 1.5.1 \
           && rm poetry.py
       - name: Install dependencies
         run: poetry install
