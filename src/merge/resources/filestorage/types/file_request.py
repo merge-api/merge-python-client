@@ -6,6 +6,7 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .file_request_permissions import FileRequestPermissions
 
 
 class FileRequest(pydantic.BaseModel):
@@ -26,7 +27,7 @@ class FileRequest(pydantic.BaseModel):
     mime_type: typing.Optional[str] = pydantic.Field(description="The file's mime type.")
     description: typing.Optional[str] = pydantic.Field(description="The file's description.")
     folder: typing.Optional[str] = pydantic.Field(description="The folder that the file belongs to.")
-    permissions: typing.List[str] = pydantic.Field(
+    permissions: typing.Optional[FileRequestPermissions] = pydantic.Field(
         description="The Permission object is used to represent a user's or group's access to a File or Folder. Permissions are unexpanded by default. Use the query param `expand=permissions` to see more details under `GET /files`."
     )
     drive: typing.Optional[str] = pydantic.Field(description="The drive that the file belongs to.")
