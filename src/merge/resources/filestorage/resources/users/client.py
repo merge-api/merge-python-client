@@ -31,7 +31,7 @@ class UsersClient:
         cursor: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
-        is_me: typing.Optional[bool] = None,
+        is_me: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
@@ -51,7 +51,7 @@ class UsersClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - is_me: typing.Optional[bool]. If provided, will only return the user object for requestor.
+            - is_me: typing.Optional[str]. If provided, will only return the user object for requestor.
 
             - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
 
@@ -129,7 +129,7 @@ class AsyncUsersClient:
         cursor: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
-        is_me: typing.Optional[bool] = None,
+        is_me: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
@@ -149,7 +149,7 @@ class AsyncUsersClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - is_me: typing.Optional[bool]. If provided, will only return the user object for requestor.
+            - is_me: typing.Optional[str]. If provided, will only return the user object for requestor.
 
             - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
 

@@ -6,6 +6,7 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .folder_permissions import FolderPermissions
 
 
 class Folder(pydantic.BaseModel):
@@ -25,7 +26,7 @@ class Folder(pydantic.BaseModel):
     description: typing.Optional[str] = pydantic.Field(description="The folder's description.")
     parent_folder: typing.Optional[str] = pydantic.Field(description="The folder that the folder belongs to.")
     drive: typing.Optional[str] = pydantic.Field(description="The drive that the folder belongs to.")
-    permissions: typing.List[str] = pydantic.Field(
+    permissions: typing.Optional[FolderPermissions] = pydantic.Field(
         description="The Permission object is used to represent a user's or group's access to a File or Folder. Permissions are unexpanded by default. Use the query param `expand=permissions` to see more details under `GET /folders`."
     )
     remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(

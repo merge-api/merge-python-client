@@ -22,13 +22,21 @@ from .enabled_actions_enum import EnabledActionsEnum
 from .encoding_enum import EncodingEnum
 from .error_validation_problem import ErrorValidationProblem
 from .file import File
+from .file_permissions import FilePermissions
+from .file_permissions_item import FilePermissionsItem
 from .file_request import FileRequest
+from .file_request_permissions import FileRequestPermissions
+from .file_request_permissions_item import FileRequestPermissionsItem
 from .file_storage_file_response import FileStorageFileResponse
 from .file_storage_folder_response import FileStorageFolderResponse
 from .files_list_request_expand import FilesListRequestExpand
 from .files_retrieve_request_expand import FilesRetrieveRequestExpand
 from .folder import Folder
+from .folder_permissions import FolderPermissions
+from .folder_permissions_item import FolderPermissionsItem
 from .folder_request import FolderRequest
+from .folder_request_permissions import FolderRequestPermissions
+from .folder_request_permissions_item import FolderRequestPermissionsItem
 from .folders_list_request_expand import FoldersListRequestExpand
 from .folders_retrieve_request_expand import FoldersRetrieveRequestExpand
 from .group import Group
@@ -58,13 +66,17 @@ from .paginated_group_list import PaginatedGroupList
 from .paginated_issue_list import PaginatedIssueList
 from .paginated_sync_status_list import PaginatedSyncStatusList
 from .paginated_user_list import PaginatedUserList
+from .permission import Permission
+from .permission_request import PermissionRequest
 from .remote_key import RemoteKey
 from .remote_response import RemoteResponse
 from .request_format_enum import RequestFormatEnum
 from .response_type_enum import ResponseTypeEnum
+from .roles_enum import RolesEnum
 from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
 from .sync_status import SyncStatus
 from .sync_status_status_enum import SyncStatusStatusEnum
+from .type_enum import TypeEnum
 from .user import User
 from .validation_problem_source import ValidationProblemSource
 from .warning_validation_problem import WarningValidationProblem
@@ -93,13 +105,21 @@ __all__ = [
     "EncodingEnum",
     "ErrorValidationProblem",
     "File",
+    "FilePermissions",
+    "FilePermissionsItem",
     "FileRequest",
+    "FileRequestPermissions",
+    "FileRequestPermissionsItem",
     "FileStorageFileResponse",
     "FileStorageFolderResponse",
     "FilesListRequestExpand",
     "FilesRetrieveRequestExpand",
     "Folder",
+    "FolderPermissions",
+    "FolderPermissionsItem",
     "FolderRequest",
+    "FolderRequestPermissions",
+    "FolderRequestPermissionsItem",
     "FoldersListRequestExpand",
     "FoldersRetrieveRequestExpand",
     "Group",
@@ -129,13 +149,17 @@ __all__ = [
     "PaginatedIssueList",
     "PaginatedSyncStatusList",
     "PaginatedUserList",
+    "Permission",
+    "PermissionRequest",
     "RemoteKey",
     "RemoteResponse",
     "RequestFormatEnum",
     "ResponseTypeEnum",
+    "RolesEnum",
     "SelectiveSyncConfigurationsUsageEnum",
     "SyncStatus",
     "SyncStatusStatusEnum",
+    "TypeEnum",
     "User",
     "ValidationProblemSource",
     "WarningValidationProblem",
