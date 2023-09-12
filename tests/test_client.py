@@ -77,7 +77,7 @@ def test_candidates(ats_client: AtsClient) -> None:
         retrieved = ats_client.candidates.retrieve(id=candidate.id)
         assert retrieved.id == candidate.id
 
-    first_candidate = response.results[1]
+    first_candidate = response.results[2]
     filtered = ats_client.candidates.list(
         first_name=first_candidate.first_name,
         last_name=first_candidate.last_name,
