@@ -72,12 +72,15 @@ def test_candidates(ats_client: AtsClient) -> None:
     assert response.results is not None
     assert len(response.results) > 0
 
+    value = 0
     for i, candidate in enumerate(response.results):
         assert candidate.id is not None
         retrieved = ats_client.candidates.retrieve(id=candidate.id)
         assert retrieved.id == candidate.id
+        if candidate.first_name is not None and candidate.last_name is not None:
+            value = i
 
-    first_candidate = response.results[2]
+    first_candidate = response.results[value]
     filtered = ats_client.candidates.list(
         first_name=first_candidate.first_name,
         last_name=first_candidate.last_name,
