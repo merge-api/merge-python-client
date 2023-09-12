@@ -6,6 +6,7 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .credit_note_apply_line import CreditNoteApplyLine
 from .credit_note_currency import CreditNoteCurrency
 from .credit_note_line_item import CreditNoteLineItem
 from .credit_note_payments_item import CreditNotePaymentsItem
@@ -18,8 +19,7 @@ class CreditNote(pydantic.BaseModel):
     """
     # The CreditNote Object
     ### Description
-    The `CreditNote` object are an accounts payable transaction used when to represent a gift or refund to a customer. A credit note will contain information on the amount of credit owed, the customer, and the account.
-
+    The `CreditNote` object is an accounts payable transaction used when to represent a gift or refund to a customer. A credit note will contain information on the amount of credit owed, the customer, and the account.
     ### Usage Example
     Fetch from the `LIST CreditNotes` endpoint and view a company's credit notes.
     """
@@ -370,6 +370,7 @@ class CreditNote(pydantic.BaseModel):
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
+    applied_to_lines: typing.Optional[typing.List[CreditNoteApplyLine]]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

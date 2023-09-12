@@ -36,6 +36,7 @@ class EmployeeRequest(pydantic.BaseModel):
     company: typing.Optional[EmployeeRequestCompany] = pydantic.Field(description="The ID of the employee's company.")
     first_name: typing.Optional[str] = pydantic.Field(description="The employee's first name.")
     last_name: typing.Optional[str] = pydantic.Field(description="The employee's last name.")
+    preferred_name: typing.Optional[str] = pydantic.Field(description="The employee's preferred first name.")
     display_full_name: typing.Optional[str] = pydantic.Field(
         description="The employee's full name, to use for display purposes. If a preferred first name is available, the full name will include the preferred first name."
     )

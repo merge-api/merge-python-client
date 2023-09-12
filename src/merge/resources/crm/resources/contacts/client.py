@@ -41,6 +41,7 @@ class ContactsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        email_addresses: typing.Optional[str] = None,
         expand: typing.Optional[typing_extensions.Literal["account"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
@@ -48,6 +49,7 @@ class ContactsClient:
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
+        phone_numbers: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
     ) -> PaginatedContactList:
         """
@@ -61,6 +63,8 @@ class ContactsClient:
             - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
 
             - cursor: typing.Optional[str]. The pagination cursor value.
+
+            - email_addresses: typing.Optional[str]. If provided, will only return contacts matching the email addresses; multiple email_addresses can be separated by commas.
 
             - expand: typing.Optional[typing_extensions.Literal["account"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
@@ -76,6 +80,8 @@ class ContactsClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
 
+            - phone_numbers: typing.Optional[str]. If provided, will only return contacts matching the phone numbers; multiple phone numbers can be separated by commas.
+
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -87,6 +93,7 @@ class ContactsClient:
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
                     "created_before": serialize_datetime(created_before) if created_before is not None else None,
                     "cursor": cursor,
+                    "email_addresses": email_addresses,
                     "expand": expand,
                     "include_deleted_data": include_deleted_data,
                     "include_remote_data": include_remote_data,
@@ -94,6 +101,7 @@ class ContactsClient:
                     "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                     "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                     "page_size": page_size,
+                    "phone_numbers": phone_numbers,
                     "remote_id": remote_id,
                 }
             ),
@@ -342,6 +350,7 @@ class AsyncContactsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        email_addresses: typing.Optional[str] = None,
         expand: typing.Optional[typing_extensions.Literal["account"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
@@ -349,6 +358,7 @@ class AsyncContactsClient:
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
+        phone_numbers: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
     ) -> PaginatedContactList:
         """
@@ -362,6 +372,8 @@ class AsyncContactsClient:
             - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
 
             - cursor: typing.Optional[str]. The pagination cursor value.
+
+            - email_addresses: typing.Optional[str]. If provided, will only return contacts matching the email addresses; multiple email_addresses can be separated by commas.
 
             - expand: typing.Optional[typing_extensions.Literal["account"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
@@ -377,6 +389,8 @@ class AsyncContactsClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
 
+            - phone_numbers: typing.Optional[str]. If provided, will only return contacts matching the phone numbers; multiple phone numbers can be separated by commas.
+
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -388,6 +402,7 @@ class AsyncContactsClient:
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
                     "created_before": serialize_datetime(created_before) if created_before is not None else None,
                     "cursor": cursor,
+                    "email_addresses": email_addresses,
                     "expand": expand,
                     "include_deleted_data": include_deleted_data,
                     "include_remote_data": include_remote_data,
@@ -395,6 +410,7 @@ class AsyncContactsClient:
                     "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                     "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                     "page_size": page_size,
+                    "phone_numbers": phone_numbers,
                     "remote_id": remote_id,
                 }
             ),

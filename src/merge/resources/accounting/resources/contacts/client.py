@@ -43,6 +43,8 @@ class ContactsClient:
         expand: typing.Optional[ContactsListRequestExpand] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
+        is_customer: typing.Optional[str] = None,
+        is_supplier: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
@@ -68,6 +70,10 @@ class ContactsClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
+            - is_customer: typing.Optional[str]. If provided, will only return Contacts that are denoted as customers.
+
+            - is_supplier: typing.Optional[str]. If provided, will only return Contacts that are denoted as suppliers.
+
             - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
 
             - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
@@ -92,6 +98,8 @@ class ContactsClient:
                     "expand": expand,
                     "include_deleted_data": include_deleted_data,
                     "include_remote_data": include_remote_data,
+                    "is_customer": is_customer,
+                    "is_supplier": is_supplier,
                     "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                     "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                     "page_size": page_size,
@@ -225,6 +233,8 @@ class AsyncContactsClient:
         expand: typing.Optional[ContactsListRequestExpand] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
+        is_customer: typing.Optional[str] = None,
+        is_supplier: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
@@ -250,6 +260,10 @@ class AsyncContactsClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
+            - is_customer: typing.Optional[str]. If provided, will only return Contacts that are denoted as customers.
+
+            - is_supplier: typing.Optional[str]. If provided, will only return Contacts that are denoted as suppliers.
+
             - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
 
             - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
@@ -274,6 +288,8 @@ class AsyncContactsClient:
                     "expand": expand,
                     "include_deleted_data": include_deleted_data,
                     "include_remote_data": include_remote_data,
+                    "is_customer": is_customer,
+                    "is_supplier": is_supplier,
                     "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                     "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                     "page_size": page_size,

@@ -38,6 +38,9 @@ class PurchaseOrder(pydantic.BaseModel):
         )
     )
     issue_date: typing.Optional[dt.datetime] = pydantic.Field(description="The purchase order's issue date.")
+    purchase_order_number: typing.Optional[str] = pydantic.Field(
+        description="The human-readable number of the purchase order."
+    )
     delivery_date: typing.Optional[dt.datetime] = pydantic.Field(description="The purchase order's delivery date.")
     delivery_address: typing.Optional[PurchaseOrderDeliveryAddress] = pydantic.Field(
         description="The purchase order's delivery address."

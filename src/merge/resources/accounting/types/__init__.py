@@ -58,6 +58,8 @@ from .contacts_list_request_expand import ContactsListRequestExpand
 from .contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
 from .country_enum import CountryEnum
 from .credit_note import CreditNote
+from .credit_note_apply_line import CreditNoteApplyLine
+from .credit_note_apply_line_invoice import CreditNoteApplyLineInvoice
 from .credit_note_currency import CreditNoteCurrency
 from .credit_note_line_item import CreditNoteLineItem
 from .credit_note_line_item_company import CreditNoteLineItemCompany
@@ -87,6 +89,7 @@ from .expense_currency import ExpenseCurrency
 from .expense_line import ExpenseLine
 from .expense_line_account import ExpenseLineAccount
 from .expense_line_contact import ExpenseLineContact
+from .expense_line_currency import ExpenseLineCurrency
 from .expense_line_item import ExpenseLineItem
 from .expense_line_request import ExpenseLineRequest
 from .expense_line_request_account import ExpenseLineRequestAccount
@@ -131,9 +134,11 @@ from .invoice_request_company import InvoiceRequestCompany
 from .invoice_request_contact import InvoiceRequestContact
 from .invoice_request_currency import InvoiceRequestCurrency
 from .invoice_request_payments_item import InvoiceRequestPaymentsItem
+from .invoice_request_status import InvoiceRequestStatus
 from .invoice_request_tracking_categories_item import InvoiceRequestTrackingCategoriesItem
 from .invoice_request_type import InvoiceRequestType
 from .invoice_response import InvoiceResponse
+from .invoice_status_enum import InvoiceStatusEnum
 from .invoice_tracking_categories_item import InvoiceTrackingCategoriesItem
 from .invoice_type import InvoiceType
 from .invoice_type_enum import InvoiceTypeEnum
@@ -163,12 +168,15 @@ from .journal_entry_request_company import JournalEntryRequestCompany
 from .journal_entry_request_currency import JournalEntryRequestCurrency
 from .journal_entry_request_payments_item import JournalEntryRequestPaymentsItem
 from .journal_entry_request_posting_status import JournalEntryRequestPostingStatus
+from .journal_entry_request_tracking_categories_item import JournalEntryRequestTrackingCategoriesItem
 from .journal_entry_response import JournalEntryResponse
 from .journal_entry_tracking_categories_item import JournalEntryTrackingCategoriesItem
 from .journal_line import JournalLine
 from .journal_line_account import JournalLineAccount
+from .journal_line_currency import JournalLineCurrency
 from .journal_line_request import JournalLineRequest
 from .journal_line_request_account import JournalLineRequestAccount
+from .journal_line_request_currency import JournalLineRequestCurrency
 from .journal_line_request_tracking_categories_item import JournalLineRequestTrackingCategoriesItem
 from .journal_line_request_tracking_category import JournalLineRequestTrackingCategory
 from .journal_line_tracking_categories_item import JournalLineTrackingCategoriesItem
@@ -213,6 +221,10 @@ from .payment_account import PaymentAccount
 from .payment_company import PaymentCompany
 from .payment_contact import PaymentContact
 from .payment_currency import PaymentCurrency
+from .payment_line_item import PaymentLineItem
+from .payment_line_item_related_object_type import PaymentLineItemRelatedObjectType
+from .payment_line_item_request import PaymentLineItemRequest
+from .payment_line_item_request_related_object_type import PaymentLineItemRequestRelatedObjectType
 from .payment_request import PaymentRequest
 from .payment_request_account import PaymentRequestAccount
 from .payment_request_company import PaymentRequestCompany
@@ -239,6 +251,7 @@ from .purchase_order_request_company import PurchaseOrderRequestCompany
 from .purchase_order_request_currency import PurchaseOrderRequestCurrency
 from .purchase_order_request_delivery_address import PurchaseOrderRequestDeliveryAddress
 from .purchase_order_request_status import PurchaseOrderRequestStatus
+from .purchase_order_request_tracking_categories_item import PurchaseOrderRequestTrackingCategoriesItem
 from .purchase_order_request_vendor import PurchaseOrderRequestVendor
 from .purchase_order_response import PurchaseOrderResponse
 from .purchase_order_status import PurchaseOrderStatus
@@ -247,6 +260,7 @@ from .purchase_order_tracking_categories_item import PurchaseOrderTrackingCatego
 from .purchase_order_vendor import PurchaseOrderVendor
 from .purchase_orders_list_request_expand import PurchaseOrdersListRequestExpand
 from .purchase_orders_retrieve_request_expand import PurchaseOrdersRetrieveRequestExpand
+from .related_object_type_enum import RelatedObjectTypeEnum
 from .remote_data import RemoteData
 from .remote_key import RemoteKey
 from .remote_response import RemoteResponse
@@ -275,6 +289,8 @@ from .transactions_list_request_expand import TransactionsListRequestExpand
 from .transactions_retrieve_request_expand import TransactionsRetrieveRequestExpand
 from .validation_problem_source import ValidationProblemSource
 from .vendor_credit import VendorCredit
+from .vendor_credit_apply_line import VendorCreditApplyLine
+from .vendor_credit_apply_line_invoice import VendorCreditApplyLineInvoice
 from .vendor_credit_company import VendorCreditCompany
 from .vendor_credit_currency import VendorCreditCurrency
 from .vendor_credit_line import VendorCreditLine
@@ -345,6 +361,8 @@ __all__ = [
     "ContactsRetrieveRequestExpand",
     "CountryEnum",
     "CreditNote",
+    "CreditNoteApplyLine",
+    "CreditNoteApplyLineInvoice",
     "CreditNoteCurrency",
     "CreditNoteLineItem",
     "CreditNoteLineItemCompany",
@@ -374,6 +392,7 @@ __all__ = [
     "ExpenseLine",
     "ExpenseLineAccount",
     "ExpenseLineContact",
+    "ExpenseLineCurrency",
     "ExpenseLineItem",
     "ExpenseLineRequest",
     "ExpenseLineRequestAccount",
@@ -418,9 +437,11 @@ __all__ = [
     "InvoiceRequestContact",
     "InvoiceRequestCurrency",
     "InvoiceRequestPaymentsItem",
+    "InvoiceRequestStatus",
     "InvoiceRequestTrackingCategoriesItem",
     "InvoiceRequestType",
     "InvoiceResponse",
+    "InvoiceStatusEnum",
     "InvoiceTrackingCategoriesItem",
     "InvoiceType",
     "InvoiceTypeEnum",
@@ -450,12 +471,15 @@ __all__ = [
     "JournalEntryRequestCurrency",
     "JournalEntryRequestPaymentsItem",
     "JournalEntryRequestPostingStatus",
+    "JournalEntryRequestTrackingCategoriesItem",
     "JournalEntryResponse",
     "JournalEntryTrackingCategoriesItem",
     "JournalLine",
     "JournalLineAccount",
+    "JournalLineCurrency",
     "JournalLineRequest",
     "JournalLineRequestAccount",
+    "JournalLineRequestCurrency",
     "JournalLineRequestTrackingCategoriesItem",
     "JournalLineRequestTrackingCategory",
     "JournalLineTrackingCategoriesItem",
@@ -500,6 +524,10 @@ __all__ = [
     "PaymentCompany",
     "PaymentContact",
     "PaymentCurrency",
+    "PaymentLineItem",
+    "PaymentLineItemRelatedObjectType",
+    "PaymentLineItemRequest",
+    "PaymentLineItemRequestRelatedObjectType",
     "PaymentRequest",
     "PaymentRequestAccount",
     "PaymentRequestCompany",
@@ -526,6 +554,7 @@ __all__ = [
     "PurchaseOrderRequestCurrency",
     "PurchaseOrderRequestDeliveryAddress",
     "PurchaseOrderRequestStatus",
+    "PurchaseOrderRequestTrackingCategoriesItem",
     "PurchaseOrderRequestVendor",
     "PurchaseOrderResponse",
     "PurchaseOrderStatus",
@@ -534,6 +563,7 @@ __all__ = [
     "PurchaseOrderVendor",
     "PurchaseOrdersListRequestExpand",
     "PurchaseOrdersRetrieveRequestExpand",
+    "RelatedObjectTypeEnum",
     "RemoteData",
     "RemoteKey",
     "RemoteResponse",
@@ -562,6 +592,8 @@ __all__ = [
     "TransactionsRetrieveRequestExpand",
     "ValidationProblemSource",
     "VendorCredit",
+    "VendorCreditApplyLine",
+    "VendorCreditApplyLineInvoice",
     "VendorCreditCompany",
     "VendorCreditCurrency",
     "VendorCreditLine",
