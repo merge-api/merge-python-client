@@ -10,6 +10,7 @@ from .journal_entry_request_company import JournalEntryRequestCompany
 from .journal_entry_request_currency import JournalEntryRequestCurrency
 from .journal_entry_request_payments_item import JournalEntryRequestPaymentsItem
 from .journal_entry_request_posting_status import JournalEntryRequestPostingStatus
+from .journal_entry_request_tracking_categories_item import JournalEntryRequestTrackingCategoriesItem
 from .journal_line_request import JournalLineRequest
 
 
@@ -344,7 +345,11 @@ class JournalEntryRequest(pydantic.BaseModel):
     company: typing.Optional[JournalEntryRequestCompany] = pydantic.Field(
         description="The company the journal entry belongs to."
     )
+    tracking_categories: typing.Optional[typing.List[typing.Optional[JournalEntryRequestTrackingCategoriesItem]]]
     lines: typing.Optional[typing.List[JournalLineRequest]]
+    journal_number: typing.Optional[str] = pydantic.Field(
+        description="Reference number for identifying journal entries."
+    )
     posting_status: typing.Optional[JournalEntryRequestPostingStatus] = pydantic.Field(
         description=("The journal's posting status.\n" "\n" "* `UNPOSTED` - UNPOSTED\n" "* `POSTED` - POSTED\n")
     )

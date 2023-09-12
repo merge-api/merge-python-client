@@ -11,6 +11,7 @@ from .invoice_request_company import InvoiceRequestCompany
 from .invoice_request_contact import InvoiceRequestContact
 from .invoice_request_currency import InvoiceRequestCurrency
 from .invoice_request_payments_item import InvoiceRequestPaymentsItem
+from .invoice_request_status import InvoiceRequestStatus
 from .invoice_request_tracking_categories_item import InvoiceRequestTrackingCategoriesItem
 from .invoice_request_type import InvoiceRequestType
 
@@ -40,6 +41,18 @@ class InvoiceRequest(pydantic.BaseModel):
     due_date: typing.Optional[dt.datetime] = pydantic.Field(description="The invoice's due date.")
     paid_on_date: typing.Optional[dt.datetime] = pydantic.Field(description="The invoice's paid date.")
     memo: typing.Optional[str] = pydantic.Field(description="The invoice's private note.")
+    status: typing.Optional[InvoiceRequestStatus] = pydantic.Field(
+        description=(
+            "The status of the invoice.\n"
+            "\n"
+            "* `PAID` - PAID\n"
+            "* `DRAFT` - DRAFT\n"
+            "* `SUBMITTED` - SUBMITTED\n"
+            "* `PARTIALLY_PAID` - PARTIALLY_PAID\n"
+            "* `OPEN` - OPEN\n"
+            "* `VOID` - VOID\n"
+        )
+    )
     company: typing.Optional[InvoiceRequestCompany] = pydantic.Field(description="The company the invoice belongs to.")
     currency: typing.Optional[InvoiceRequestCurrency] = pydantic.Field(
         description=(

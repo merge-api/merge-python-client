@@ -7,6 +7,7 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .remote_data import RemoteData
+from .vendor_credit_apply_line import VendorCreditApplyLine
 from .vendor_credit_company import VendorCreditCompany
 from .vendor_credit_currency import VendorCreditCurrency
 from .vendor_credit_line import VendorCreditLine
@@ -351,6 +352,7 @@ class VendorCredit(pydantic.BaseModel):
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
+    applied_to_lines: typing.Optional[typing.List[VendorCreditApplyLine]]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

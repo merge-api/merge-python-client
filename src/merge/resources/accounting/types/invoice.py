@@ -11,6 +11,7 @@ from .invoice_contact import InvoiceContact
 from .invoice_currency import InvoiceCurrency
 from .invoice_line_item import InvoiceLineItem
 from .invoice_payments_item import InvoicePaymentsItem
+from .invoice_status_enum import InvoiceStatusEnum
 from .invoice_tracking_categories_item import InvoiceTrackingCategoriesItem
 from .invoice_type import InvoiceType
 from .remote_data import RemoteData
@@ -359,6 +360,18 @@ class Invoice(pydantic.BaseModel):
         description="The total discounts applied to the total cost."
     )
     sub_total: typing.Optional[float] = pydantic.Field(description="The total amount being paid before taxes.")
+    status: typing.Optional[InvoiceStatusEnum] = pydantic.Field(
+        description=(
+            "The status of the invoice.\n"
+            "\n"
+            "* `PAID` - PAID\n"
+            "* `DRAFT` - DRAFT\n"
+            "* `SUBMITTED` - SUBMITTED\n"
+            "* `PARTIALLY_PAID` - PARTIALLY_PAID\n"
+            "* `OPEN` - OPEN\n"
+            "* `VOID` - VOID\n"
+        )
+    )
     total_tax_amount: typing.Optional[float] = pydantic.Field(description="The total amount being paid in taxes.")
     total_amount: typing.Optional[float] = pydantic.Field(description="The invoice's total amount.")
     balance: typing.Optional[float] = pydantic.Field(description="The invoice's remaining balance.")

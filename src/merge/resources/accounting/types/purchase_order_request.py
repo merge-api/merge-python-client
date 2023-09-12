@@ -11,6 +11,7 @@ from .purchase_order_request_company import PurchaseOrderRequestCompany
 from .purchase_order_request_currency import PurchaseOrderRequestCurrency
 from .purchase_order_request_delivery_address import PurchaseOrderRequestDeliveryAddress
 from .purchase_order_request_status import PurchaseOrderRequestStatus
+from .purchase_order_request_tracking_categories_item import PurchaseOrderRequestTrackingCategoriesItem
 from .purchase_order_request_vendor import PurchaseOrderRequestVendor
 
 
@@ -362,6 +363,7 @@ class PurchaseOrderRequest(pydantic.BaseModel):
         )
     )
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The purchase order's exchange rate.")
+    tracking_categories: typing.Optional[typing.List[typing.Optional[PurchaseOrderRequestTrackingCategoriesItem]]]
     line_items: typing.Optional[typing.List[PurchaseOrderLineItemRequest]]
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]

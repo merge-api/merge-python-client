@@ -30,6 +30,8 @@ class Expense(pydantic.BaseModel):
     account: typing.Optional[ExpenseAccount] = pydantic.Field(description="The expense's payment account.")
     contact: typing.Optional[ExpenseContact] = pydantic.Field(description="The expense's contact.")
     total_amount: typing.Optional[float] = pydantic.Field(description="The expense's total amount.")
+    sub_total: typing.Optional[float] = pydantic.Field(description="The expense's total amount before tax.")
+    total_tax_amount: typing.Optional[float] = pydantic.Field(description="The expense's total tax amount.")
     currency: typing.Optional[ExpenseCurrency] = pydantic.Field(
         description=(
             "The expense's currency.\n"

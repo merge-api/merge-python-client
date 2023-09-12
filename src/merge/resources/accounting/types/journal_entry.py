@@ -353,6 +353,9 @@ class JournalEntry(pydantic.BaseModel):
         description="The company the journal entry belongs to."
     )
     lines: typing.Optional[typing.List[JournalLine]]
+    journal_number: typing.Optional[str] = pydantic.Field(
+        description="Reference number for identifying journal entries."
+    )
     tracking_categories: typing.Optional[typing.List[typing.Optional[JournalEntryTrackingCategoriesItem]]]
     remote_was_deleted: typing.Optional[bool]
     posting_status: typing.Optional[JournalEntryPostingStatus] = pydantic.Field(

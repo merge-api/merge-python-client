@@ -41,6 +41,7 @@ class LeadsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        email_addresses: typing.Optional[str] = None,
         expand: typing.Optional[LeadsListRequestExpand] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
@@ -49,6 +50,7 @@ class LeadsClient:
         modified_before: typing.Optional[dt.datetime] = None,
         owner_id: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
+        phone_numbers: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
     ) -> PaginatedLeadList:
         """
@@ -64,6 +66,8 @@ class LeadsClient:
             - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
 
             - cursor: typing.Optional[str]. The pagination cursor value.
+
+            - email_addresses: typing.Optional[str]. If provided, will only return contacts matching the email addresses; multiple email_addresses can be separated by commas.
 
             - expand: typing.Optional[LeadsListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
@@ -81,6 +85,8 @@ class LeadsClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
 
+            - phone_numbers: typing.Optional[str]. If provided, will only return contacts matching the phone numbers; multiple phone numbers can be separated by commas.
+
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -93,6 +99,7 @@ class LeadsClient:
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
                     "created_before": serialize_datetime(created_before) if created_before is not None else None,
                     "cursor": cursor,
+                    "email_addresses": email_addresses,
                     "expand": expand,
                     "include_deleted_data": include_deleted_data,
                     "include_remote_data": include_remote_data,
@@ -101,6 +108,7 @@ class LeadsClient:
                     "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                     "owner_id": owner_id,
                     "page_size": page_size,
+                    "phone_numbers": phone_numbers,
                     "remote_id": remote_id,
                 }
             ),
@@ -269,6 +277,7 @@ class AsyncLeadsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        email_addresses: typing.Optional[str] = None,
         expand: typing.Optional[LeadsListRequestExpand] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
@@ -277,6 +286,7 @@ class AsyncLeadsClient:
         modified_before: typing.Optional[dt.datetime] = None,
         owner_id: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
+        phone_numbers: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
     ) -> PaginatedLeadList:
         """
@@ -292,6 +302,8 @@ class AsyncLeadsClient:
             - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
 
             - cursor: typing.Optional[str]. The pagination cursor value.
+
+            - email_addresses: typing.Optional[str]. If provided, will only return contacts matching the email addresses; multiple email_addresses can be separated by commas.
 
             - expand: typing.Optional[LeadsListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
@@ -309,6 +321,8 @@ class AsyncLeadsClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
 
+            - phone_numbers: typing.Optional[str]. If provided, will only return contacts matching the phone numbers; multiple phone numbers can be separated by commas.
+
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -321,6 +335,7 @@ class AsyncLeadsClient:
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
                     "created_before": serialize_datetime(created_before) if created_before is not None else None,
                     "cursor": cursor,
+                    "email_addresses": email_addresses,
                     "expand": expand,
                     "include_deleted_data": include_deleted_data,
                     "include_remote_data": include_remote_data,
@@ -329,6 +344,7 @@ class AsyncLeadsClient:
                     "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                     "owner_id": owner_id,
                     "page_size": page_size,
+                    "phone_numbers": phone_numbers,
                     "remote_id": remote_id,
                 }
             ),

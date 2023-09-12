@@ -24,7 +24,7 @@ class SyncStatusClient:
         self, *, cursor: typing.Optional[str] = None, page_size: typing.Optional[int] = None
     ) -> PaginatedSyncStatusList:
         """
-        Get syncing status. Possible values: `DISABLED`, `DONE`, `FAILED`, `PARTIALLY_SYNCED`, `PAUSED`, `SYNCING`
+        Get syncing status. Possible values: `DISABLED`, `DONE`, `FAILED`, `PARTIALLY_SYNCED`, `PAUSED`, `SYNCING`. Learn more about sync status in our [Help Center](https://help.merge.dev/en/articles/8184193-merge-sync-statuses).
 
         Parameters:
             - cursor: typing.Optional[str]. The pagination cursor value.
@@ -58,7 +58,7 @@ class AsyncSyncStatusClient:
         self, *, cursor: typing.Optional[str] = None, page_size: typing.Optional[int] = None
     ) -> PaginatedSyncStatusList:
         """
-        Get syncing status. Possible values: `DISABLED`, `DONE`, `FAILED`, `PARTIALLY_SYNCED`, `PAUSED`, `SYNCING`
+        Get syncing status. Possible values: `DISABLED`, `DONE`, `FAILED`, `PARTIALLY_SYNCED`, `PAUSED`, `SYNCING`. Learn more about sync status in our [Help Center](https://help.merge.dev/en/articles/8184193-merge-sync-statuses).
 
         Parameters:
             - cursor: typing.Optional[str]. The pagination cursor value.

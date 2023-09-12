@@ -7,16 +7,34 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class VendorCreditsListRequestExpand(str, enum.Enum):
+    APPLIED_TO_LINES = "applied_to_lines"
+    APPLIED_TO_LINES_COMPANY = "applied_to_lines,company"
+    APPLIED_TO_LINES_VENDOR = "applied_to_lines,vendor"
+    APPLIED_TO_LINES_VENDOR_COMPANY = "applied_to_lines,vendor,company"
     COMPANY = "company"
     LINES = "lines"
+    LINES_APPLIED_TO_LINES = "lines,applied_to_lines"
+    LINES_APPLIED_TO_LINES_COMPANY = "lines,applied_to_lines,company"
+    LINES_APPLIED_TO_LINES_VENDOR = "lines,applied_to_lines,vendor"
+    LINES_APPLIED_TO_LINES_VENDOR_COMPANY = "lines,applied_to_lines,vendor,company"
     LINES_COMPANY = "lines,company"
     LINES_TRACKING_CATEGORIES = "lines,tracking_categories"
+    LINES_TRACKING_CATEGORIES_APPLIED_TO_LINES = "lines,tracking_categories,applied_to_lines"
+    LINES_TRACKING_CATEGORIES_APPLIED_TO_LINES_COMPANY = "lines,tracking_categories,applied_to_lines,company"
+    LINES_TRACKING_CATEGORIES_APPLIED_TO_LINES_VENDOR = "lines,tracking_categories,applied_to_lines,vendor"
+    LINES_TRACKING_CATEGORIES_APPLIED_TO_LINES_VENDOR_COMPANY = (
+        "lines,tracking_categories,applied_to_lines,vendor,company"
+    )
     LINES_TRACKING_CATEGORIES_COMPANY = "lines,tracking_categories,company"
     LINES_TRACKING_CATEGORIES_VENDOR = "lines,tracking_categories,vendor"
     LINES_TRACKING_CATEGORIES_VENDOR_COMPANY = "lines,tracking_categories,vendor,company"
     LINES_VENDOR = "lines,vendor"
     LINES_VENDOR_COMPANY = "lines,vendor,company"
     TRACKING_CATEGORIES = "tracking_categories"
+    TRACKING_CATEGORIES_APPLIED_TO_LINES = "tracking_categories,applied_to_lines"
+    TRACKING_CATEGORIES_APPLIED_TO_LINES_COMPANY = "tracking_categories,applied_to_lines,company"
+    TRACKING_CATEGORIES_APPLIED_TO_LINES_VENDOR = "tracking_categories,applied_to_lines,vendor"
+    TRACKING_CATEGORIES_APPLIED_TO_LINES_VENDOR_COMPANY = "tracking_categories,applied_to_lines,vendor,company"
     TRACKING_CATEGORIES_COMPANY = "tracking_categories,company"
     TRACKING_CATEGORIES_VENDOR = "tracking_categories,vendor"
     TRACKING_CATEGORIES_VENDOR_COMPANY = "tracking_categories,vendor,company"
@@ -25,30 +43,70 @@ class VendorCreditsListRequestExpand(str, enum.Enum):
 
     def visit(
         self,
+        applied_to_lines: typing.Callable[[], T_Result],
+        applied_to_lines_company: typing.Callable[[], T_Result],
+        applied_to_lines_vendor: typing.Callable[[], T_Result],
+        applied_to_lines_vendor_company: typing.Callable[[], T_Result],
         company: typing.Callable[[], T_Result],
         lines: typing.Callable[[], T_Result],
+        lines_applied_to_lines: typing.Callable[[], T_Result],
+        lines_applied_to_lines_company: typing.Callable[[], T_Result],
+        lines_applied_to_lines_vendor: typing.Callable[[], T_Result],
+        lines_applied_to_lines_vendor_company: typing.Callable[[], T_Result],
         lines_company: typing.Callable[[], T_Result],
         lines_tracking_categories: typing.Callable[[], T_Result],
+        lines_tracking_categories_applied_to_lines: typing.Callable[[], T_Result],
+        lines_tracking_categories_applied_to_lines_company: typing.Callable[[], T_Result],
+        lines_tracking_categories_applied_to_lines_vendor: typing.Callable[[], T_Result],
+        lines_tracking_categories_applied_to_lines_vendor_company: typing.Callable[[], T_Result],
         lines_tracking_categories_company: typing.Callable[[], T_Result],
         lines_tracking_categories_vendor: typing.Callable[[], T_Result],
         lines_tracking_categories_vendor_company: typing.Callable[[], T_Result],
         lines_vendor: typing.Callable[[], T_Result],
         lines_vendor_company: typing.Callable[[], T_Result],
         tracking_categories: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines_company: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines_vendor: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines_vendor_company: typing.Callable[[], T_Result],
         tracking_categories_company: typing.Callable[[], T_Result],
         tracking_categories_vendor: typing.Callable[[], T_Result],
         tracking_categories_vendor_company: typing.Callable[[], T_Result],
         vendor: typing.Callable[[], T_Result],
         vendor_company: typing.Callable[[], T_Result],
     ) -> T_Result:
+        if self is VendorCreditsListRequestExpand.APPLIED_TO_LINES:
+            return applied_to_lines()
+        if self is VendorCreditsListRequestExpand.APPLIED_TO_LINES_COMPANY:
+            return applied_to_lines_company()
+        if self is VendorCreditsListRequestExpand.APPLIED_TO_LINES_VENDOR:
+            return applied_to_lines_vendor()
+        if self is VendorCreditsListRequestExpand.APPLIED_TO_LINES_VENDOR_COMPANY:
+            return applied_to_lines_vendor_company()
         if self is VendorCreditsListRequestExpand.COMPANY:
             return company()
         if self is VendorCreditsListRequestExpand.LINES:
             return lines()
+        if self is VendorCreditsListRequestExpand.LINES_APPLIED_TO_LINES:
+            return lines_applied_to_lines()
+        if self is VendorCreditsListRequestExpand.LINES_APPLIED_TO_LINES_COMPANY:
+            return lines_applied_to_lines_company()
+        if self is VendorCreditsListRequestExpand.LINES_APPLIED_TO_LINES_VENDOR:
+            return lines_applied_to_lines_vendor()
+        if self is VendorCreditsListRequestExpand.LINES_APPLIED_TO_LINES_VENDOR_COMPANY:
+            return lines_applied_to_lines_vendor_company()
         if self is VendorCreditsListRequestExpand.LINES_COMPANY:
             return lines_company()
         if self is VendorCreditsListRequestExpand.LINES_TRACKING_CATEGORIES:
             return lines_tracking_categories()
+        if self is VendorCreditsListRequestExpand.LINES_TRACKING_CATEGORIES_APPLIED_TO_LINES:
+            return lines_tracking_categories_applied_to_lines()
+        if self is VendorCreditsListRequestExpand.LINES_TRACKING_CATEGORIES_APPLIED_TO_LINES_COMPANY:
+            return lines_tracking_categories_applied_to_lines_company()
+        if self is VendorCreditsListRequestExpand.LINES_TRACKING_CATEGORIES_APPLIED_TO_LINES_VENDOR:
+            return lines_tracking_categories_applied_to_lines_vendor()
+        if self is VendorCreditsListRequestExpand.LINES_TRACKING_CATEGORIES_APPLIED_TO_LINES_VENDOR_COMPANY:
+            return lines_tracking_categories_applied_to_lines_vendor_company()
         if self is VendorCreditsListRequestExpand.LINES_TRACKING_CATEGORIES_COMPANY:
             return lines_tracking_categories_company()
         if self is VendorCreditsListRequestExpand.LINES_TRACKING_CATEGORIES_VENDOR:
@@ -61,6 +119,14 @@ class VendorCreditsListRequestExpand(str, enum.Enum):
             return lines_vendor_company()
         if self is VendorCreditsListRequestExpand.TRACKING_CATEGORIES:
             return tracking_categories()
+        if self is VendorCreditsListRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES:
+            return tracking_categories_applied_to_lines()
+        if self is VendorCreditsListRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES_COMPANY:
+            return tracking_categories_applied_to_lines_company()
+        if self is VendorCreditsListRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES_VENDOR:
+            return tracking_categories_applied_to_lines_vendor()
+        if self is VendorCreditsListRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES_VENDOR_COMPANY:
+            return tracking_categories_applied_to_lines_vendor_company()
         if self is VendorCreditsListRequestExpand.TRACKING_CATEGORIES_COMPANY:
             return tracking_categories_company()
         if self is VendorCreditsListRequestExpand.TRACKING_CATEGORIES_VENDOR:

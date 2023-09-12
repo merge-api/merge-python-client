@@ -47,12 +47,15 @@ class EmployeesClient:
         cursor: typing.Optional[str] = None,
         display_full_name: typing.Optional[str] = None,
         employment_status: typing.Optional[EmployeesListRequestEmploymentStatus] = None,
+        employment_type: typing.Optional[str] = None,
         expand: typing.Optional[EmployeesListRequestExpand] = None,
         first_name: typing.Optional[str] = None,
         groups: typing.Optional[str] = None,
+        home_location_id: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
+        job_title: typing.Optional[str] = None,
         last_name: typing.Optional[str] = None,
         manager_id: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
@@ -90,17 +93,23 @@ class EmployeesClient:
                                                                                         * `ACTIVE` - ACTIVE
                                                                                         * `PENDING` - PENDING
                                                                                         * `INACTIVE` - INACTIVE
+            - employment_type: typing.Optional[str]. If provided, will only return employees that have an employment of the specified employment_type.
+
             - expand: typing.Optional[EmployeesListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - first_name: typing.Optional[str]. If provided, will only return employees with this first name.
 
             - groups: typing.Optional[str]. If provided, will only return employees matching the group ids; multiple groups can be separated by commas.
 
+            - home_location_id: typing.Optional[str]. If provided, will only return employees for this home location.
+
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - include_sensitive_fields: typing.Optional[bool]. Whether to include sensitive fields (such as social security numbers) in the response.
+
+            - job_title: typing.Optional[str]. If provided, will only return employees that have an employment of the specified job_title.
 
             - last_name: typing.Optional[str]. If provided, will only return employees with this last name.
 
@@ -147,12 +156,15 @@ class EmployeesClient:
                     "cursor": cursor,
                     "display_full_name": display_full_name,
                     "employment_status": employment_status,
+                    "employment_type": employment_type,
                     "expand": expand,
                     "first_name": first_name,
                     "groups": groups,
+                    "home_location_id": home_location_id,
                     "include_deleted_data": include_deleted_data,
                     "include_remote_data": include_remote_data,
                     "include_sensitive_fields": include_sensitive_fields,
+                    "job_title": job_title,
                     "last_name": last_name,
                     "manager_id": manager_id,
                     "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
@@ -333,12 +345,15 @@ class AsyncEmployeesClient:
         cursor: typing.Optional[str] = None,
         display_full_name: typing.Optional[str] = None,
         employment_status: typing.Optional[EmployeesListRequestEmploymentStatus] = None,
+        employment_type: typing.Optional[str] = None,
         expand: typing.Optional[EmployeesListRequestExpand] = None,
         first_name: typing.Optional[str] = None,
         groups: typing.Optional[str] = None,
+        home_location_id: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
+        job_title: typing.Optional[str] = None,
         last_name: typing.Optional[str] = None,
         manager_id: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
@@ -376,17 +391,23 @@ class AsyncEmployeesClient:
                                                                                         * `ACTIVE` - ACTIVE
                                                                                         * `PENDING` - PENDING
                                                                                         * `INACTIVE` - INACTIVE
+            - employment_type: typing.Optional[str]. If provided, will only return employees that have an employment of the specified employment_type.
+
             - expand: typing.Optional[EmployeesListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - first_name: typing.Optional[str]. If provided, will only return employees with this first name.
 
             - groups: typing.Optional[str]. If provided, will only return employees matching the group ids; multiple groups can be separated by commas.
 
+            - home_location_id: typing.Optional[str]. If provided, will only return employees for this home location.
+
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - include_sensitive_fields: typing.Optional[bool]. Whether to include sensitive fields (such as social security numbers) in the response.
+
+            - job_title: typing.Optional[str]. If provided, will only return employees that have an employment of the specified job_title.
 
             - last_name: typing.Optional[str]. If provided, will only return employees with this last name.
 
@@ -433,12 +454,15 @@ class AsyncEmployeesClient:
                     "cursor": cursor,
                     "display_full_name": display_full_name,
                     "employment_status": employment_status,
+                    "employment_type": employment_type,
                     "expand": expand,
                     "first_name": first_name,
                     "groups": groups,
+                    "home_location_id": home_location_id,
                     "include_deleted_data": include_deleted_data,
                     "include_remote_data": include_remote_data,
                     "include_sensitive_fields": include_sensitive_fields,
+                    "job_title": job_title,
                     "last_name": last_name,
                     "manager_id": manager_id,
                     "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,

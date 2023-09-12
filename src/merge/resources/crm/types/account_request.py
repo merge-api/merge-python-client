@@ -7,6 +7,8 @@ import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .account_request_owner import AccountRequestOwner
+from .address import Address
+from .phone_number import PhoneNumber
 from .remote_field_request import RemoteFieldRequest
 
 
@@ -25,6 +27,8 @@ class AccountRequest(pydantic.BaseModel):
     industry: typing.Optional[str] = pydantic.Field(description="The account's industry.")
     website: typing.Optional[str] = pydantic.Field(description="The account's website.")
     number_of_employees: typing.Optional[int] = pydantic.Field(description="The account's number of employees.")
+    addresses: typing.Optional[typing.List[Address]]
+    phone_numbers: typing.Optional[typing.List[PhoneNumber]]
     last_activity_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="The last date (either most recent or furthest in the future) of when an activity occurs in an account."
     )

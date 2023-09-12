@@ -10,6 +10,7 @@ from .payment_account import PaymentAccount
 from .payment_company import PaymentCompany
 from .payment_contact import PaymentContact
 from .payment_currency import PaymentCurrency
+from .payment_line_item import PaymentLineItem
 from .payment_tracking_categories_item import PaymentTrackingCategoriesItem
 from .remote_data import RemoteData
 
@@ -357,6 +358,7 @@ class Payment(pydantic.BaseModel):
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted by third party webhooks."
     )
+    applied_to_lines: typing.Optional[typing.List[PaymentLineItem]]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
