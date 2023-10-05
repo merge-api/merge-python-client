@@ -3,7 +3,10 @@
 import datetime as dt
 import typing
 
-import pydantic
+try:
+    import pydantic.v1 as pydantic
+except ImportError:
+    import pydantic
 
 from ....core.datetime_utils import serialize_datetime
 from .remote_field_class_for_custom_object_class import RemoteFieldClassForCustomObjectClass

@@ -3,7 +3,10 @@
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import pydantic
+try:
+    import pydantic.v1 as pydantic
+except ImportError:
+    import pydantic
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
