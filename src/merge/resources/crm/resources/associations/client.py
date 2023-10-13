@@ -5,23 +5,23 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import pydantic
 import typing_extensions
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
-from .....environment import MergeEnvironment
 from ...types.association import Association
 from ...types.paginated_association_list import PaginatedAssociationList
 
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
+
 
 class AssociationsClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: SyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     def custom_object_classes_custom_objects_associations_list(
@@ -74,7 +74,7 @@ class AssociationsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._environment.value}/",
+                f"{self._client_wrapper.get_base_url()}/",
                 f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{object_id}/associations",
             ),
             params=remove_none_from_dict(
@@ -135,7 +135,7 @@ class AssociationsClient:
         _response = self._client_wrapper.httpx_client.request(
             "PUT",
             urllib.parse.urljoin(
-                f"{self._environment.value}/",
+                f"{self._client_wrapper.get_base_url()}/",
                 f"api/crm/v1/custom-object-classes/{source_class_id}/custom-objects/{source_object_id}/associations/{target_class_id}/{target_object_id}/{association_type_id}",
             ),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
@@ -152,10 +152,7 @@ class AssociationsClient:
 
 
 class AsyncAssociationsClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: AsyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     async def custom_object_classes_custom_objects_associations_list(
@@ -208,7 +205,7 @@ class AsyncAssociationsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._environment.value}/",
+                f"{self._client_wrapper.get_base_url()}/",
                 f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{object_id}/associations",
             ),
             params=remove_none_from_dict(
@@ -269,7 +266,7 @@ class AsyncAssociationsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "PUT",
             urllib.parse.urljoin(
-                f"{self._environment.value}/",
+                f"{self._client_wrapper.get_base_url()}/",
                 f"api/crm/v1/custom-object-classes/{source_class_id}/custom-objects/{source_object_id}/associations/{target_class_id}/{target_object_id}/{association_type_id}",
             ),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),

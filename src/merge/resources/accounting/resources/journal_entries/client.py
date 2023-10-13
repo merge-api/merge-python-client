@@ -5,14 +5,11 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import pydantic
-
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
-from .....environment import MergeEnvironment
 from ...types.journal_entries_list_request_expand import JournalEntriesListRequestExpand
 from ...types.journal_entries_retrieve_request_expand import JournalEntriesRetrieveRequestExpand
 from ...types.journal_entry import JournalEntry
@@ -21,15 +18,17 @@ from ...types.journal_entry_response import JournalEntryResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_journal_entry_list import PaginatedJournalEntryList
 
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
+
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
 
 class JournalEntriesClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: SyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     def list(
@@ -81,7 +80,7 @@ class JournalEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/journal-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -133,7 +132,7 @@ class JournalEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/journal-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -166,7 +165,7 @@ class JournalEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/journal-entries/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/journal-entries/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -185,7 +184,9 @@ class JournalEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/journal-entries/meta/post"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries/meta/post"
+            ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -199,10 +200,7 @@ class JournalEntriesClient:
 
 
 class AsyncJournalEntriesClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: AsyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     async def list(
@@ -254,7 +252,7 @@ class AsyncJournalEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/journal-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -306,7 +304,7 @@ class AsyncJournalEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/journal-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -339,7 +337,7 @@ class AsyncJournalEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"api/accounting/v1/journal-entries/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/journal-entries/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -358,7 +356,9 @@ class AsyncJournalEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/journal-entries/meta/post"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries/meta/post"
+            ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

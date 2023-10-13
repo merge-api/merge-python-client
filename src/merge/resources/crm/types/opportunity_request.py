@@ -3,14 +3,17 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .opportunity_request_account import OpportunityRequestAccount
 from .opportunity_request_owner import OpportunityRequestOwner
 from .opportunity_request_stage import OpportunityRequestStage
 from .opportunity_request_status import OpportunityRequestStatus
 from .remote_field_request import RemoteFieldRequest
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class OpportunityRequest(pydantic.BaseModel):
@@ -49,4 +52,5 @@ class OpportunityRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

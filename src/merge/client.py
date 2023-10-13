@@ -18,39 +18,54 @@ class Merge:
     def __init__(
         self,
         *,
+        base_url: typing.Optional[str] = None,
         environment: MergeEnvironment = MergeEnvironment.PRODUCTION,
         account_token: typing.Optional[str] = None,
         api_key: typing.Union[str, typing.Callable[[], str]],
         timeout: typing.Optional[float] = 60
     ):
-        self._environment = environment
         self._client_wrapper = SyncClientWrapper(
-            account_token=account_token, api_key=api_key, httpx_client=httpx.Client(timeout=timeout)
+            base_url=_get_base_url(base_url=base_url, environment=environment),
+            account_token=account_token,
+            api_key=api_key,
+            httpx_client=httpx.Client(timeout=timeout),
         )
-        self.ats = AtsClient(environment=environment, client_wrapper=self._client_wrapper)
-        self.crm = CrmClient(environment=environment, client_wrapper=self._client_wrapper)
-        self.filestorage = FilestorageClient(environment=environment, client_wrapper=self._client_wrapper)
-        self.hris = HrisClient(environment=environment, client_wrapper=self._client_wrapper)
-        self.ticketing = TicketingClient(environment=environment, client_wrapper=self._client_wrapper)
-        self.accounting = AccountingClient(environment=environment, client_wrapper=self._client_wrapper)
+        self.ats = AtsClient(client_wrapper=self._client_wrapper)
+        self.crm = CrmClient(client_wrapper=self._client_wrapper)
+        self.filestorage = FilestorageClient(client_wrapper=self._client_wrapper)
+        self.hris = HrisClient(client_wrapper=self._client_wrapper)
+        self.ticketing = TicketingClient(client_wrapper=self._client_wrapper)
+        self.accounting = AccountingClient(client_wrapper=self._client_wrapper)
 
 
 class AsyncMerge:
     def __init__(
         self,
         *,
+        base_url: typing.Optional[str] = None,
         environment: MergeEnvironment = MergeEnvironment.PRODUCTION,
         account_token: typing.Optional[str] = None,
         api_key: typing.Union[str, typing.Callable[[], str]],
         timeout: typing.Optional[float] = 60
     ):
-        self._environment = environment
         self._client_wrapper = AsyncClientWrapper(
-            account_token=account_token, api_key=api_key, httpx_client=httpx.AsyncClient(timeout=timeout)
+            base_url=_get_base_url(base_url=base_url, environment=environment),
+            account_token=account_token,
+            api_key=api_key,
+            httpx_client=httpx.AsyncClient(timeout=timeout),
         )
-        self.ats = AsyncAtsClient(environment=environment, client_wrapper=self._client_wrapper)
-        self.crm = AsyncCrmClient(environment=environment, client_wrapper=self._client_wrapper)
-        self.filestorage = AsyncFilestorageClient(environment=environment, client_wrapper=self._client_wrapper)
-        self.hris = AsyncHrisClient(environment=environment, client_wrapper=self._client_wrapper)
-        self.ticketing = AsyncTicketingClient(environment=environment, client_wrapper=self._client_wrapper)
-        self.accounting = AsyncAccountingClient(environment=environment, client_wrapper=self._client_wrapper)
+        self.ats = AsyncAtsClient(client_wrapper=self._client_wrapper)
+        self.crm = AsyncCrmClient(client_wrapper=self._client_wrapper)
+        self.filestorage = AsyncFilestorageClient(client_wrapper=self._client_wrapper)
+        self.hris = AsyncHrisClient(client_wrapper=self._client_wrapper)
+        self.ticketing = AsyncTicketingClient(client_wrapper=self._client_wrapper)
+        self.accounting = AsyncAccountingClient(client_wrapper=self._client_wrapper)
+
+
+def _get_base_url(*, base_url: typing.Optional[str] = None, environment: MergeEnvironment) -> str:
+    if base_url is not None:
+        return base_url
+    elif environment is not None:
+        return environment.value
+    else:
+        raise Exception("Please pass in either base_url or environment to construct the client")

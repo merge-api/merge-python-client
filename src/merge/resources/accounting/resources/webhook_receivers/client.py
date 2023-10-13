@@ -4,23 +4,22 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import pydantic
-
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.jsonable_encoder import jsonable_encoder
-from .....environment import MergeEnvironment
 from ...types.webhook_receiver import WebhookReceiver
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
 
 class WebhookReceiversClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: SyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     def list(self) -> typing.List[WebhookReceiver]:
@@ -29,7 +28,7 @@ class WebhookReceiversClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/webhook-receivers"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/webhook-receivers"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -46,18 +45,18 @@ class WebhookReceiversClient:
         Creates a `WebhookReceiver` object with the given values.
 
         Parameters:
-            - event: str. <span style="white-space: nowrap">`non-empty`</span>
+            - event: str.
 
             - is_active: bool.
 
-            - key: typing.Optional[str]. <span style="white-space: nowrap">`non-empty`</span>
+            - key: typing.Optional[str].
         """
         _request: typing.Dict[str, typing.Any] = {"event": event, "is_active": is_active}
         if key is not OMIT:
             _request["key"] = key
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/webhook-receivers"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/webhook-receivers"),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -72,10 +71,7 @@ class WebhookReceiversClient:
 
 
 class AsyncWebhookReceiversClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: AsyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     async def list(self) -> typing.List[WebhookReceiver]:
@@ -84,7 +80,7 @@ class AsyncWebhookReceiversClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/webhook-receivers"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/webhook-receivers"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -101,18 +97,18 @@ class AsyncWebhookReceiversClient:
         Creates a `WebhookReceiver` object with the given values.
 
         Parameters:
-            - event: str. <span style="white-space: nowrap">`non-empty`</span>
+            - event: str.
 
             - is_active: bool.
 
-            - key: typing.Optional[str]. <span style="white-space: nowrap">`non-empty`</span>
+            - key: typing.Optional[str].
         """
         _request: typing.Dict[str, typing.Any] = {"event": event, "is_active": is_active}
         if key is not OMIT:
             _request["key"] = key
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/accounting/v1/webhook-receivers"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/webhook-receivers"),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

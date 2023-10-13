@@ -3,8 +3,6 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .employee_request_company import EmployeeRequestCompany
 from .employee_request_employment_status import EmployeeRequestEmploymentStatus
@@ -18,6 +16,11 @@ from .employee_request_marital_status import EmployeeRequestMaritalStatus
 from .employee_request_pay_group import EmployeeRequestPayGroup
 from .employee_request_team import EmployeeRequestTeam
 from .employee_request_work_location import EmployeeRequestWorkLocation
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class EmployeeRequest(pydantic.BaseModel):
@@ -129,4 +132,5 @@ class EmployeeRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

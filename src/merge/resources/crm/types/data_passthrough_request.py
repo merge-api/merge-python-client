@@ -3,12 +3,15 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .method_enum import MethodEnum
 from .multipart_form_field_request import MultipartFormFieldRequest
 from .request_format_enum import RequestFormatEnum
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class DataPassthroughRequest(pydantic.BaseModel):
@@ -22,11 +25,9 @@ class DataPassthroughRequest(pydantic.BaseModel):
     """
 
     method: MethodEnum
-    path: str = pydantic.Field(description='<span style="white-space: nowrap">`non-empty`</span>')
-    base_url_override: typing.Optional[str] = pydantic.Field(
-        description='<span style="white-space: nowrap">`non-empty`</span>'
-    )
-    data: typing.Optional[str] = pydantic.Field(description='<span style="white-space: nowrap">`non-empty`</span>')
+    path: str
+    base_url_override: typing.Optional[str]
+    data: typing.Optional[str]
     multipart_form_data: typing.Optional[typing.List[MultipartFormFieldRequest]] = pydantic.Field(
         description="Pass an array of `MultipartFormField` objects in here instead of using the `data` param if `request_format` is set to `MULTIPART`."
     )
@@ -48,4 +49,5 @@ class DataPassthroughRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

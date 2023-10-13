@@ -3,8 +3,6 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .currency_enum import CurrencyEnum
 from .expense_line_request_account import ExpenseLineRequestAccount
@@ -12,6 +10,11 @@ from .expense_line_request_contact import ExpenseLineRequestContact
 from .expense_line_request_item import ExpenseLineRequestItem
 from .expense_line_request_tracking_categories_item import ExpenseLineRequestTrackingCategoriesItem
 from .expense_line_request_tracking_category import ExpenseLineRequestTrackingCategory
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class ExpenseLineRequest(pydantic.BaseModel):
@@ -361,4 +364,5 @@ class ExpenseLineRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

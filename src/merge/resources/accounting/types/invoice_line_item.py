@@ -3,14 +3,17 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .invoice_line_item_account import InvoiceLineItemAccount
 from .invoice_line_item_currency import InvoiceLineItemCurrency
 from .invoice_line_item_item import InvoiceLineItemItem
 from .invoice_line_item_tracking_categories_item import InvoiceLineItemTrackingCategoriesItem
 from .invoice_line_item_tracking_category import InvoiceLineItemTrackingCategory
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class InvoiceLineItem(pydantic.BaseModel):
@@ -362,4 +365,5 @@ class InvoiceLineItem(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

@@ -5,14 +5,12 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import pydantic
 import typing_extensions
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
-from .....environment import MergeEnvironment
 from ...types.eeoc import Eeoc
 from ...types.eeocs_list_request_remote_fields import EeocsListRequestRemoteFields
 from ...types.eeocs_list_request_show_enum_origins import EeocsListRequestShowEnumOrigins
@@ -20,12 +18,14 @@ from ...types.eeocs_retrieve_request_remote_fields import EeocsRetrieveRequestRe
 from ...types.eeocs_retrieve_request_show_enum_origins import EeocsRetrieveRequestShowEnumOrigins
 from ...types.paginated_eeoc_list import PaginatedEeocList
 
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
+
 
 class EeocsClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: SyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     def list(
@@ -77,7 +77,7 @@ class EeocsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ats/v1/eeocs"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/eeocs"),
             params=remove_none_from_dict(
                 {
                     "candidate_id": candidate_id,
@@ -131,7 +131,7 @@ class EeocsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ats/v1/eeocs/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/eeocs/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -153,10 +153,7 @@ class EeocsClient:
 
 
 class AsyncEeocsClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: AsyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     async def list(
@@ -208,7 +205,7 @@ class AsyncEeocsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ats/v1/eeocs"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/eeocs"),
             params=remove_none_from_dict(
                 {
                     "candidate_id": candidate_id,
@@ -262,7 +259,7 @@ class AsyncEeocsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ats/v1/eeocs/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/eeocs/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,

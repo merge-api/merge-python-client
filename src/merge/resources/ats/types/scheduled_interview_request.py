@@ -3,14 +3,17 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .scheduled_interview_request_application import ScheduledInterviewRequestApplication
 from .scheduled_interview_request_interviewers_item import ScheduledInterviewRequestInterviewersItem
 from .scheduled_interview_request_job_interview_stage import ScheduledInterviewRequestJobInterviewStage
 from .scheduled_interview_request_organizer import ScheduledInterviewRequestOrganizer
 from .scheduled_interview_request_status import ScheduledInterviewRequestStatus
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class ScheduledInterviewRequest(pydantic.BaseModel):
@@ -59,4 +62,5 @@ class ScheduledInterviewRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

@@ -3,8 +3,6 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .payment_line_item_request import PaymentLineItemRequest
 from .payment_request_account import PaymentRequestAccount
@@ -12,6 +10,11 @@ from .payment_request_company import PaymentRequestCompany
 from .payment_request_contact import PaymentRequestContact
 from .payment_request_currency import PaymentRequestCurrency
 from .payment_request_tracking_categories_item import PaymentRequestTrackingCategoriesItem
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class PaymentRequest(pydantic.BaseModel):
@@ -363,4 +366,5 @@ class PaymentRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

@@ -3,14 +3,17 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .origin_type_enum import OriginTypeEnum
 
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
+
 
 class ObjectClassDescriptionRequest(pydantic.BaseModel):
-    id: str = pydantic.Field(description='<span style="white-space: nowrap">`non-empty`</span>')
+    id: str
     origin_type: OriginTypeEnum
 
     def json(self, **kwargs: typing.Any) -> str:
@@ -23,4 +26,5 @@ class ObjectClassDescriptionRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

@@ -3,10 +3,13 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class MultipartFormFieldRequest(pydantic.BaseModel):
@@ -19,12 +22,8 @@ class MultipartFormFieldRequest(pydantic.BaseModel):
     Create a `MultipartFormField` to define a multipart form entry.
     """
 
-    name: str = pydantic.Field(
-        description='The name of the form field <span style="white-space: nowrap">`non-empty`</span> '
-    )
-    data: str = pydantic.Field(
-        description='The data for the form field. <span style="white-space: nowrap">`non-empty`</span> '
-    )
+    name: str = pydantic.Field(description="The name of the form field")
+    data: str = pydantic.Field(description="The data for the form field.")
     encoding: typing.Optional[MultipartFormFieldRequestEncoding] = pydantic.Field(
         description=(
             "The encoding of the value of `data`. Defaults to `RAW` if not defined.\n"
@@ -51,4 +50,5 @@ class MultipartFormFieldRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

@@ -3,8 +3,6 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .purchase_order_line_item_request import PurchaseOrderLineItemRequest
 from .purchase_order_request_company import PurchaseOrderRequestCompany
@@ -13,6 +11,11 @@ from .purchase_order_request_delivery_address import PurchaseOrderRequestDeliver
 from .purchase_order_request_status import PurchaseOrderRequestStatus
 from .purchase_order_request_tracking_categories_item import PurchaseOrderRequestTrackingCategoriesItem
 from .purchase_order_request_vendor import PurchaseOrderRequestVendor
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class PurchaseOrderRequest(pydantic.BaseModel):
@@ -378,4 +381,5 @@ class PurchaseOrderRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

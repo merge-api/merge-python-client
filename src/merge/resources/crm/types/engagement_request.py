@@ -3,8 +3,6 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .engagement_request_account import EngagementRequestAccount
 from .engagement_request_contacts_item import EngagementRequestContactsItem
@@ -12,6 +10,11 @@ from .engagement_request_direction import EngagementRequestDirection
 from .engagement_request_engagement_type import EngagementRequestEngagementType
 from .engagement_request_owner import EngagementRequestOwner
 from .remote_field_request import RemoteFieldRequest
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class EngagementRequest(pydantic.BaseModel):
@@ -50,4 +53,5 @@ class EngagementRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

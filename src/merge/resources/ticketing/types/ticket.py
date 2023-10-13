@@ -5,8 +5,6 @@ from __future__ import annotations
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .remote_data import RemoteData
 from .remote_field import RemoteField
@@ -17,6 +15,11 @@ from .ticket_contact import TicketContact
 from .ticket_creator import TicketCreator
 from .ticket_priority import TicketPriority
 from .ticket_status import TicketStatus
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class Ticket(pydantic.BaseModel):
@@ -91,6 +94,7 @@ class Ticket(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}
 
 

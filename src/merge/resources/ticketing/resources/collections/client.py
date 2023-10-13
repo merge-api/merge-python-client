@@ -5,26 +5,26 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import pydantic
 import typing_extensions
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
-from .....environment import MergeEnvironment
 from ...types.collection import Collection
 from ...types.collections_list_request_collection_type import CollectionsListRequestCollectionType
 from ...types.collections_users_list_request_expand import CollectionsUsersListRequestExpand
 from ...types.paginated_collection_list import PaginatedCollectionList
 from ...types.paginated_user_list import PaginatedUserList
 
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
+
 
 class CollectionsClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: SyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     def list(
@@ -81,7 +81,7 @@ class CollectionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/collections"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/collections"),
             params=remove_none_from_dict(
                 {
                     "collection_type": collection_type,
@@ -136,7 +136,7 @@ class CollectionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/collections/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/collections/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -184,7 +184,9 @@ class CollectionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/collections/{parent_id}/users"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/collections/{parent_id}/users"
+            ),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -207,10 +209,7 @@ class CollectionsClient:
 
 
 class AsyncCollectionsClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: AsyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     async def list(
@@ -267,7 +266,7 @@ class AsyncCollectionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ticketing/v1/collections"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/collections"),
             params=remove_none_from_dict(
                 {
                     "collection_type": collection_type,
@@ -322,7 +321,7 @@ class AsyncCollectionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/collections/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/collections/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -370,7 +369,9 @@ class AsyncCollectionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ticketing/v1/collections/{parent_id}/users"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/collections/{parent_id}/users"
+            ),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

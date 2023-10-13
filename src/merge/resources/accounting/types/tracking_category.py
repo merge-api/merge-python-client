@@ -3,13 +3,16 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .remote_data import RemoteData
 from .tracking_category_category_type import TrackingCategoryCategoryType
 from .tracking_category_company import TrackingCategoryCompany
 from .tracking_category_status import TrackingCategoryStatus
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class TrackingCategory(pydantic.BaseModel):
@@ -54,4 +57,5 @@ class TrackingCategory(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

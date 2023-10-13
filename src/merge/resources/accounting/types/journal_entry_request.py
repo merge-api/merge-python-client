@@ -3,8 +3,6 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .journal_entry_request_company import JournalEntryRequestCompany
 from .journal_entry_request_currency import JournalEntryRequestCurrency
@@ -12,6 +10,11 @@ from .journal_entry_request_payments_item import JournalEntryRequestPaymentsItem
 from .journal_entry_request_posting_status import JournalEntryRequestPostingStatus
 from .journal_entry_request_tracking_categories_item import JournalEntryRequestTrackingCategoriesItem
 from .journal_line_request import JournalLineRequest
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class JournalEntryRequest(pydantic.BaseModel):
@@ -366,4 +369,5 @@ class JournalEntryRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

@@ -3,20 +3,21 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .cardinality_enum import CardinalityEnum
 from .object_class_description_request import ObjectClassDescriptionRequest
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class AssociationTypeRequestRequest(pydantic.BaseModel):
     source_object_class: ObjectClassDescriptionRequest
     target_object_classes: typing.List[ObjectClassDescriptionRequest]
-    remote_key_name: str = pydantic.Field(description='<span style="white-space: nowrap">`non-empty`</span>')
-    display_name: typing.Optional[str] = pydantic.Field(
-        description='<span style="white-space: nowrap">`non-empty`</span>'
-    )
+    remote_key_name: str
+    display_name: typing.Optional[str]
     cardinality: typing.Optional[CardinalityEnum]
     is_required: typing.Optional[bool]
 
@@ -30,4 +31,5 @@ class AssociationTypeRequestRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

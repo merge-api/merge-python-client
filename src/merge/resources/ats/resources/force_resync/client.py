@@ -4,19 +4,18 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import pydantic
-
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from .....environment import MergeEnvironment
 from ...types.sync_status import SyncStatus
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class ForceResyncClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: SyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     def sync_status_resync_create(self) -> typing.List[SyncStatus]:
@@ -25,7 +24,7 @@ class ForceResyncClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ats/v1/sync-status/resync"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/sync-status/resync"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -39,10 +38,7 @@ class ForceResyncClient:
 
 
 class AsyncForceResyncClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: AsyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     async def sync_status_resync_create(self) -> typing.List[SyncStatus]:
@@ -51,7 +47,7 @@ class AsyncForceResyncClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ats/v1/sync-status/resync"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/sync-status/resync"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

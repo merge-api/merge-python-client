@@ -3,10 +3,13 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .categories_enum import CategoriesEnum
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class AccountIntegration(pydantic.BaseModel):
@@ -21,7 +24,7 @@ class AccountIntegration(pydantic.BaseModel):
         description="Company logo in square shape. <b>Upload an image with a white background.</b>"
     )
     color: typing.Optional[str] = pydantic.Field(
-        description='The color of this integration used for buttons and text throughout the app and landing pages. <b>Choose a darker, saturated color.</b> <span style="white-space: nowrap">`<= 18 characters`</span> '
+        description="The color of this integration used for buttons and text throughout the app and landing pages. <b>Choose a darker, saturated color.</b>"
     )
     slug: typing.Optional[str]
     is_in_beta: typing.Optional[bool] = pydantic.Field(
@@ -41,4 +44,5 @@ class AccountIntegration(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

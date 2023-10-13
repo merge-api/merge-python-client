@@ -5,7 +5,6 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import pydantic
 import typing_extensions
 
 from .....core.api_error import ApiError
@@ -13,22 +12,23 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
-from .....environment import MergeEnvironment
 from ...types.association_type import AssociationType
 from ...types.association_type_request_request import AssociationTypeRequestRequest
 from ...types.crm_association_type_response import CrmAssociationTypeResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_association_type_list import PaginatedAssociationTypeList
 
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
+
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
 
 class AssociationTypesClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: SyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     def custom_object_classes_association_types_list(
@@ -75,7 +75,7 @@ class AssociationTypesClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._environment.value}/",
+                f"{self._client_wrapper.get_base_url()}/",
                 f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types",
             ),
             params=remove_none_from_dict(
@@ -126,7 +126,7 @@ class AssociationTypesClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(
-                f"{self._environment.value}/",
+                f"{self._client_wrapper.get_base_url()}/",
                 f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types",
             ),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
@@ -165,7 +165,7 @@ class AssociationTypesClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._environment.value}/",
+                f"{self._client_wrapper.get_base_url()}/",
                 f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types/{id}",
             ),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
@@ -190,7 +190,7 @@ class AssociationTypesClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._environment.value}/",
+                f"{self._client_wrapper.get_base_url()}/",
                 f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types/meta/post",
             ),
             headers=self._client_wrapper.get_headers(),
@@ -206,10 +206,7 @@ class AssociationTypesClient:
 
 
 class AsyncAssociationTypesClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: AsyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     async def custom_object_classes_association_types_list(
@@ -256,7 +253,7 @@ class AsyncAssociationTypesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._environment.value}/",
+                f"{self._client_wrapper.get_base_url()}/",
                 f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types",
             ),
             params=remove_none_from_dict(
@@ -307,7 +304,7 @@ class AsyncAssociationTypesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(
-                f"{self._environment.value}/",
+                f"{self._client_wrapper.get_base_url()}/",
                 f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types",
             ),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
@@ -346,7 +343,7 @@ class AsyncAssociationTypesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._environment.value}/",
+                f"{self._client_wrapper.get_base_url()}/",
                 f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types/{id}",
             ),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
@@ -373,7 +370,7 @@ class AsyncAssociationTypesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._environment.value}/",
+                f"{self._client_wrapper.get_base_url()}/",
                 f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types/meta/post",
             ),
             headers=self._client_wrapper.get_headers(),

@@ -3,11 +3,14 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .categories_enum import CategoriesEnum
 from .model_operation import ModelOperation
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class AccountDetailsAndActionsIntegration(pydantic.BaseModel):
@@ -30,4 +33,5 @@ class AccountDetailsAndActionsIntegration(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

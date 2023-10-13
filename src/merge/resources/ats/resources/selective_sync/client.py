@@ -4,26 +4,25 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import pydantic
-
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
-from .....environment import MergeEnvironment
 from ...types.linked_account_selective_sync_configuration import LinkedAccountSelectiveSyncConfiguration
 from ...types.linked_account_selective_sync_configuration_request import LinkedAccountSelectiveSyncConfigurationRequest
 from ...types.paginated_condition_schema_list import PaginatedConditionSchemaList
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
 
 class SelectiveSyncClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: SyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     def configurations_list(self) -> typing.List[LinkedAccountSelectiveSyncConfiguration]:
@@ -32,7 +31,7 @@ class SelectiveSyncClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ats/v1/selective-sync/configurations"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/selective-sync/configurations"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -55,7 +54,7 @@ class SelectiveSyncClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "PUT",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ats/v1/selective-sync/configurations"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/selective-sync/configurations"),
             json=jsonable_encoder({"sync_configurations": sync_configurations}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -87,7 +86,7 @@ class SelectiveSyncClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ats/v1/selective-sync/meta"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/selective-sync/meta"),
             params=remove_none_from_dict({"common_model": common_model, "cursor": cursor, "page_size": page_size}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -102,10 +101,7 @@ class SelectiveSyncClient:
 
 
 class AsyncSelectiveSyncClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: AsyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     async def configurations_list(self) -> typing.List[LinkedAccountSelectiveSyncConfiguration]:
@@ -114,7 +110,7 @@ class AsyncSelectiveSyncClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ats/v1/selective-sync/configurations"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/selective-sync/configurations"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -137,7 +133,7 @@ class AsyncSelectiveSyncClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PUT",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ats/v1/selective-sync/configurations"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/selective-sync/configurations"),
             json=jsonable_encoder({"sync_configurations": sync_configurations}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -169,7 +165,7 @@ class AsyncSelectiveSyncClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ats/v1/selective-sync/meta"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/selective-sync/meta"),
             params=remove_none_from_dict({"common_model": common_model, "cursor": cursor, "page_size": page_size}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

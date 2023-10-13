@@ -3,12 +3,15 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .activity_request_activity_type import ActivityRequestActivityType
 from .activity_request_user import ActivityRequestUser
 from .activity_request_visibility import ActivityRequestVisibility
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class ActivityRequest(pydantic.BaseModel):
@@ -49,4 +52,5 @@ class ActivityRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}
