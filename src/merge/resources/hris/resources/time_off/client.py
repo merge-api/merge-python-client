@@ -5,14 +5,11 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import pydantic
-
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
-from .....environment import MergeEnvironment
 from ...types.meta_response import MetaResponse
 from ...types.paginated_time_off_list import PaginatedTimeOffList
 from ...types.time_off import TimeOff
@@ -27,15 +24,17 @@ from ...types.time_off_retrieve_request_expand import TimeOffRetrieveRequestExpa
 from ...types.time_off_retrieve_request_remote_fields import TimeOffRetrieveRequestRemoteFields
 from ...types.time_off_retrieve_request_show_enum_origins import TimeOffRetrieveRequestShowEnumOrigins
 
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
+
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
 
 class TimeOffClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: SyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     def list(
@@ -108,7 +107,7 @@ class TimeOffClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/hris/v1/time-off"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off"),
             params=remove_none_from_dict(
                 {
                     "approver_id": approver_id,
@@ -159,7 +158,7 @@ class TimeOffClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/hris/v1/time-off"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -198,7 +197,7 @@ class TimeOffClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"api/hris/v1/time-off/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/time-off/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -224,7 +223,7 @@ class TimeOffClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/hris/v1/time-off/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -238,10 +237,7 @@ class TimeOffClient:
 
 
 class AsyncTimeOffClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: AsyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     async def list(
@@ -314,7 +310,7 @@ class AsyncTimeOffClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/hris/v1/time-off"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off"),
             params=remove_none_from_dict(
                 {
                     "approver_id": approver_id,
@@ -365,7 +361,7 @@ class AsyncTimeOffClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/hris/v1/time-off"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -404,7 +400,7 @@ class AsyncTimeOffClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"api/hris/v1/time-off/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/time-off/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -430,7 +426,7 @@ class AsyncTimeOffClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/hris/v1/time-off/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

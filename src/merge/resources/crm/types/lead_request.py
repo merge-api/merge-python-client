@@ -3,8 +3,6 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .address_request import AddressRequest
 from .email_address_request import EmailAddressRequest
@@ -13,6 +11,11 @@ from .lead_request_converted_contact import LeadRequestConvertedContact
 from .lead_request_owner import LeadRequestOwner
 from .phone_number_request import PhoneNumberRequest
 from .remote_field_request import RemoteFieldRequest
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class LeadRequest(pydantic.BaseModel):
@@ -54,4 +57,5 @@ class LeadRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

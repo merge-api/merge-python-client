@@ -3,14 +3,17 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .application_request_candidate import ApplicationRequestCandidate
 from .application_request_credited_to import ApplicationRequestCreditedTo
 from .application_request_current_stage import ApplicationRequestCurrentStage
 from .application_request_job import ApplicationRequestJob
 from .application_request_reject_reason import ApplicationRequestRejectReason
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class ApplicationRequest(pydantic.BaseModel):
@@ -37,9 +40,7 @@ class ApplicationRequest(pydantic.BaseModel):
     reject_reason: typing.Optional[ApplicationRequestRejectReason] = pydantic.Field(
         description="The application's reason for rejection."
     )
-    remote_template_id: typing.Optional[str] = pydantic.Field(
-        description='<span style="white-space: nowrap">`non-empty`</span>'
-    )
+    remote_template_id: typing.Optional[str]
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -53,4 +54,5 @@ class ApplicationRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

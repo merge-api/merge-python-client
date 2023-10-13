@@ -3,14 +3,17 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .candidate_request_applications_item import CandidateRequestApplicationsItem
 from .candidate_request_attachments_item import CandidateRequestAttachmentsItem
 from .email_address_request import EmailAddressRequest
 from .phone_number_request import PhoneNumberRequest
 from .url_request import UrlRequest
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class CandidateRequest(pydantic.BaseModel):
@@ -46,9 +49,7 @@ class CandidateRequest(pydantic.BaseModel):
     attachments: typing.Optional[typing.List[typing.Optional[CandidateRequestAttachmentsItem]]] = pydantic.Field(
         description="Array of `Attachment` object IDs."
     )
-    remote_template_id: typing.Optional[str] = pydantic.Field(
-        description='<span style="white-space: nowrap">`non-empty`</span>'
-    )
+    remote_template_id: typing.Optional[str]
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -62,4 +63,5 @@ class CandidateRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

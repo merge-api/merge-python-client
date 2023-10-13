@@ -5,14 +5,11 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import pydantic
-
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
-from .....environment import MergeEnvironment
 from ...types.application import Application
 from ...types.application_request import ApplicationRequest
 from ...types.application_response import ApplicationResponse
@@ -21,15 +18,17 @@ from ...types.applications_retrieve_request_expand import ApplicationsRetrieveRe
 from ...types.meta_response import MetaResponse
 from ...types.paginated_application_list import PaginatedApplicationList
 
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
+
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
 
 class ApplicationsClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: SyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     def list(
@@ -90,7 +89,7 @@ class ApplicationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ats/v1/applications"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications"),
             params=remove_none_from_dict(
                 {
                     "candidate_id": candidate_id,
@@ -144,7 +143,7 @@ class ApplicationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ats/v1/applications"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
             headers=self._client_wrapper.get_headers(),
@@ -177,7 +176,7 @@ class ApplicationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ats/v1/applications/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/applications/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -211,7 +210,7 @@ class ApplicationsClient:
 
             - job_interview_stage: typing.Optional[str]. The interview stage to move the application to.
 
-            - remote_user_id: typing.Optional[str]. <span style="white-space: nowrap">`non-empty`</span>
+            - remote_user_id: typing.Optional[str].
         """
         _request: typing.Dict[str, typing.Any] = {}
         if job_interview_stage is not OMIT:
@@ -220,7 +219,9 @@ class ApplicationsClient:
             _request["remote_user_id"] = remote_user_id
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ats/v1/applications/{id}/change-stage"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/applications/{id}/change-stage"
+            ),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
@@ -243,7 +244,7 @@ class ApplicationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ats/v1/applications/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications/meta/post"),
             params=remove_none_from_dict({"application_remote_template_id": application_remote_template_id}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -258,10 +259,7 @@ class ApplicationsClient:
 
 
 class AsyncApplicationsClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: AsyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     async def list(
@@ -322,7 +320,7 @@ class AsyncApplicationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ats/v1/applications"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications"),
             params=remove_none_from_dict(
                 {
                     "candidate_id": candidate_id,
@@ -376,7 +374,7 @@ class AsyncApplicationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ats/v1/applications"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
             headers=self._client_wrapper.get_headers(),
@@ -409,7 +407,7 @@ class AsyncApplicationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ats/v1/applications/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/applications/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -443,7 +441,7 @@ class AsyncApplicationsClient:
 
             - job_interview_stage: typing.Optional[str]. The interview stage to move the application to.
 
-            - remote_user_id: typing.Optional[str]. <span style="white-space: nowrap">`non-empty`</span>
+            - remote_user_id: typing.Optional[str].
         """
         _request: typing.Dict[str, typing.Any] = {}
         if job_interview_stage is not OMIT:
@@ -452,7 +450,9 @@ class AsyncApplicationsClient:
             _request["remote_user_id"] = remote_user_id
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", f"api/ats/v1/applications/{id}/change-stage"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/applications/{id}/change-stage"
+            ),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
@@ -475,7 +475,7 @@ class AsyncApplicationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/ats/v1/applications/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications/meta/post"),
             params=remove_none_from_dict({"application_remote_template_id": application_remote_template_id}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

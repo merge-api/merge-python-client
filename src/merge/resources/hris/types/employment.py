@@ -5,8 +5,6 @@ from __future__ import annotations
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .employment_employment_type import EmploymentEmploymentType
 from .employment_flsa_status import EmploymentFlsaStatus
@@ -15,6 +13,11 @@ from .employment_pay_frequency import EmploymentPayFrequency
 from .employment_pay_group import EmploymentPayGroup
 from .employment_pay_period import EmploymentPayPeriod
 from .remote_data import RemoteData
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class Employment(pydantic.BaseModel):
@@ -418,6 +421,7 @@ class Employment(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}
 
 

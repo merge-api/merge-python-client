@@ -5,14 +5,10 @@ from json.decoder import JSONDecodeError
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from .....environment import MergeEnvironment
 
 
 class DeleteAccountClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: SyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     def delete(self) -> None:
@@ -21,7 +17,7 @@ class DeleteAccountClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/delete-account"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/delete-account"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -35,10 +31,7 @@ class DeleteAccountClient:
 
 
 class AsyncDeleteAccountClient:
-    def __init__(
-        self, *, environment: MergeEnvironment = MergeEnvironment.PRODUCTION, client_wrapper: AsyncClientWrapper
-    ):
-        self._environment = environment
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     async def delete(self) -> None:
@@ -47,7 +40,7 @@ class AsyncDeleteAccountClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._environment.value}/", "api/crm/v1/delete-account"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/delete-account"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

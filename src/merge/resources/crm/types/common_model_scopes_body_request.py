@@ -3,14 +3,17 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .enabled_actions_enum import EnabledActionsEnum
 
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
+
 
 class CommonModelScopesBodyRequest(pydantic.BaseModel):
-    model_id: str = pydantic.Field(description='<span style="white-space: nowrap">`non-empty`</span>')
+    model_id: str
     enabled_actions: typing.List[EnabledActionsEnum]
     disabled_fields: typing.List[str]
 
@@ -24,4 +27,5 @@ class CommonModelScopesBodyRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

@@ -3,8 +3,6 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .job_departments_item import JobDepartmentsItem
 from .job_hiring_managers_item import JobHiringManagersItem
@@ -13,6 +11,11 @@ from .job_recruiters_item import JobRecruitersItem
 from .job_status import JobStatus
 from .remote_data import RemoteData
 from .url import Url
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class Job(pydantic.BaseModel):
@@ -81,4 +84,5 @@ class Job(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

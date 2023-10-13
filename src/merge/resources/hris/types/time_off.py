@@ -3,8 +3,6 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .remote_data import RemoteData
 from .time_off_approver import TimeOffApprover
@@ -12,6 +10,11 @@ from .time_off_employee import TimeOffEmployee
 from .time_off_request_type import TimeOffRequestType
 from .time_off_status import TimeOffStatus
 from .time_off_units import TimeOffUnits
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class TimeOff(pydantic.BaseModel):
@@ -88,4 +91,5 @@ class TimeOff(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

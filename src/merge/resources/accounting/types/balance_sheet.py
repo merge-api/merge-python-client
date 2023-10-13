@@ -3,13 +3,16 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .balance_sheet_company import BalanceSheetCompany
 from .balance_sheet_currency import BalanceSheetCurrency
 from .remote_data import RemoteData
 from .report_item import ReportItem
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class BalanceSheet(pydantic.BaseModel):
@@ -369,4 +372,5 @@ class BalanceSheet(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

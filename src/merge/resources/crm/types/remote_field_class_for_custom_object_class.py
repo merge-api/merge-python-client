@@ -3,8 +3,6 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .remote_field_class_for_custom_object_class_field_choices_item import (
     RemoteFieldClassForCustomObjectClassFieldChoicesItem,
@@ -12,6 +10,11 @@ from .remote_field_class_for_custom_object_class_field_choices_item import (
 from .remote_field_class_for_custom_object_class_field_format import RemoteFieldClassForCustomObjectClassFieldFormat
 from .remote_field_class_for_custom_object_class_field_type import RemoteFieldClassForCustomObjectClassFieldType
 from .remote_field_class_for_custom_object_class_item_schema import RemoteFieldClassForCustomObjectClassItemSchema
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class RemoteFieldClassForCustomObjectClass(pydantic.BaseModel):
@@ -37,4 +40,5 @@ class RemoteFieldClassForCustomObjectClass(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

@@ -3,8 +3,6 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .credit_note_apply_line import CreditNoteApplyLine
 from .credit_note_currency import CreditNoteCurrency
@@ -13,6 +11,11 @@ from .credit_note_payments_item import CreditNotePaymentsItem
 from .credit_note_status import CreditNoteStatus
 from .credit_note_tracking_categories_item import CreditNoteTrackingCategoriesItem
 from .remote_data import RemoteData
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class CreditNote(pydantic.BaseModel):
@@ -387,4 +390,5 @@ class CreditNote(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

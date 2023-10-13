@@ -3,13 +3,16 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .cash_flow_statement_company import CashFlowStatementCompany
 from .cash_flow_statement_currency import CashFlowStatementCurrency
 from .remote_data import RemoteData
 from .report_item import ReportItem
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class CashFlowStatement(pydantic.BaseModel):
@@ -373,4 +376,5 @@ class CashFlowStatement(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

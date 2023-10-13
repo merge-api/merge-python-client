@@ -3,18 +3,19 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class LinkedAccountConditionRequest(pydantic.BaseModel):
     condition_schema_id: str = pydantic.Field(
         description="The ID indicating which condition schema to use for a specific condition."
     )
-    operator: str = pydantic.Field(
-        description='The operator for a specific condition. <span style="white-space: nowrap">`non-empty`</span> '
-    )
+    operator: str = pydantic.Field(description="The operator for a specific condition.")
     value: typing.Any
 
     def json(self, **kwargs: typing.Any) -> str:
@@ -27,4 +28,5 @@ class LinkedAccountConditionRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

@@ -3,13 +3,16 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .attachment import Attachment
 from .debug_mode_log import DebugModeLog
 from .error_validation_problem import ErrorValidationProblem
 from .warning_validation_problem import WarningValidationProblem
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class AttachmentResponse(pydantic.BaseModel):
@@ -28,4 +31,5 @@ class AttachmentResponse(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

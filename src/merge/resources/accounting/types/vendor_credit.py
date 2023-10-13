@@ -3,8 +3,6 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .remote_data import RemoteData
 from .vendor_credit_apply_line import VendorCreditApplyLine
@@ -13,6 +11,11 @@ from .vendor_credit_currency import VendorCreditCurrency
 from .vendor_credit_line import VendorCreditLine
 from .vendor_credit_tracking_categories_item import VendorCreditTrackingCategoriesItem
 from .vendor_credit_vendor import VendorCreditVendor
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class VendorCredit(pydantic.BaseModel):
@@ -369,4 +372,5 @@ class VendorCredit(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

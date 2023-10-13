@@ -3,12 +3,15 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .comment_request_contact import CommentRequestContact
 from .comment_request_ticket import CommentRequestTicket
 from .comment_request_user import CommentRequestUser
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class CommentRequest(pydantic.BaseModel):
@@ -46,4 +49,5 @@ class CommentRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

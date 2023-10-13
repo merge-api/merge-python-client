@@ -3,14 +3,17 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .note_request_account import NoteRequestAccount
 from .note_request_contact import NoteRequestContact
 from .note_request_opportunity import NoteRequestOpportunity
 from .note_request_owner import NoteRequestOwner
 from .remote_field_request import RemoteFieldRequest
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class NoteRequest(pydantic.BaseModel):
@@ -41,4 +44,5 @@ class NoteRequest(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}

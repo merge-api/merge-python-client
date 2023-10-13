@@ -3,8 +3,6 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .eeoc_candidate import EeocCandidate
 from .eeoc_disability_status import EeocDisabilityStatus
@@ -12,6 +10,11 @@ from .eeoc_gender import EeocGender
 from .eeoc_race import EeocRace
 from .eeoc_veteran_status import EeocVeteranStatus
 from .remote_data import RemoteData
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class Eeoc(pydantic.BaseModel):
@@ -89,4 +92,5 @@ class Eeoc(pydantic.BaseModel):
 
     class Config:
         frozen = True
+        smart_union = True
         json_encoders = {dt.datetime: serialize_datetime}
