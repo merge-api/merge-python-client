@@ -5,6 +5,7 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from .accounting_phone_number import AccountingPhoneNumber
+from .contact_addresses_item import ContactAddressesItem
 from .contact_status import ContactStatus
 from .remote_data import RemoteData
 
@@ -39,7 +40,7 @@ class Contact(pydantic.BaseModel):
         description="When the third party's contact was updated."
     )
     company: typing.Optional[str] = pydantic.Field(description="The company the contact belongs to.")
-    addresses: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(
+    addresses: typing.Optional[typing.List[typing.Optional[ContactAddressesItem]]] = pydantic.Field(
         description="`Address` object IDs for the given `Contacts` object."
     )
     phone_numbers: typing.Optional[typing.List[AccountingPhoneNumber]] = pydantic.Field(

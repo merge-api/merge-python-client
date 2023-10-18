@@ -50,7 +50,9 @@ from .condition_schema import ConditionSchema
 from .condition_schema_condition_type import ConditionSchemaConditionType
 from .condition_type_enum import ConditionTypeEnum
 from .contact import Contact
+from .contact_addresses_item import ContactAddressesItem
 from .contact_request import ContactRequest
+from .contact_request_addresses_item import ContactRequestAddressesItem
 from .contact_request_status import ContactRequestStatus
 from .contact_response import ContactResponse
 from .contact_status import ContactStatus
@@ -353,7 +355,9 @@ __all__ = [
     "ConditionSchemaConditionType",
     "ConditionTypeEnum",
     "Contact",
+    "ContactAddressesItem",
     "ContactRequest",
+    "ContactRequestAddressesItem",
     "ContactRequestStatus",
     "ContactResponse",
     "ContactStatus",

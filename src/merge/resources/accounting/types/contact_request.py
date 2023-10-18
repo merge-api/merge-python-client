@@ -5,6 +5,7 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from .accounting_phone_number_request import AccountingPhoneNumberRequest
+from .contact_request_addresses_item import ContactRequestAddressesItem
 from .contact_request_status import ContactRequestStatus
 
 try:
@@ -33,7 +34,7 @@ class ContactRequest(pydantic.BaseModel):
     )
     currency: typing.Optional[str] = pydantic.Field(description="The currency the contact's transactions are in.")
     company: typing.Optional[str] = pydantic.Field(description="The company the contact belongs to.")
-    addresses: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(
+    addresses: typing.Optional[typing.List[typing.Optional[ContactRequestAddressesItem]]] = pydantic.Field(
         description="`Address` object IDs for the given `Contacts` object."
     )
     phone_numbers: typing.Optional[typing.List[AccountingPhoneNumberRequest]] = pydantic.Field(
