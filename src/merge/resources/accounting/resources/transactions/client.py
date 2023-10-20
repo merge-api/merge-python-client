@@ -70,6 +70,17 @@ class TransactionsClient:
             - transaction_date_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        ---
+        from merge import TransactionsListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.list(
+            expand=TransactionsListRequestExpand.ACCOUNT,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -122,6 +133,18 @@ class TransactionsClient:
             - expand: typing.Optional[TransactionsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import TransactionsRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.retrieve(
+            id="id",
+            expand=TransactionsRetrieveRequestExpand.ACCOUNT,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -189,6 +212,17 @@ class AsyncTransactionsClient:
             - transaction_date_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        ---
+        from merge import TransactionsListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.list(
+            expand=TransactionsListRequestExpand.ACCOUNT,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -241,6 +275,18 @@ class AsyncTransactionsClient:
             - expand: typing.Optional[TransactionsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import TransactionsRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.retrieve(
+            id="id",
+            expand=TransactionsRetrieveRequestExpand.ACCOUNT,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

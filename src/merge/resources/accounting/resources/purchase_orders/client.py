@@ -85,6 +85,19 @@ class PurchaseOrdersClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import PurchaseOrdersListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.list(
+            expand=PurchaseOrdersListRequestExpand.COMPANY,
+            remote_fields="status",
+            show_enum_origins="status",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -137,6 +150,30 @@ class PurchaseOrdersClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: PurchaseOrderRequest.
+        ---
+        from merge import PurchaseOrderLineItemRequest, PurchaseOrderRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.create(
+            model=PurchaseOrderRequest(
+                line_items=[
+                    PurchaseOrderLineItemRequest(
+                        remote_id="121222",
+                        description="Pickleball paddles",
+                        unit_price=25.0,
+                        quantity=10.0,
+                        tracking_category="f1214c24-2702-4617-b74b-3ddecfc0d384",
+                        tracking_categories=[],
+                        exchange_rate="2.9",
+                        company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
+                    )
+                ],
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -176,6 +213,20 @@ class PurchaseOrdersClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["status"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import PurchaseOrdersRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.retrieve(
+            id="id",
+            expand=PurchaseOrdersRetrieveRequestExpand.COMPANY,
+            remote_fields="status",
+            show_enum_origins="status",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -276,6 +327,19 @@ class AsyncPurchaseOrdersClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import PurchaseOrdersListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.list(
+            expand=PurchaseOrdersListRequestExpand.COMPANY,
+            remote_fields="status",
+            show_enum_origins="status",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -328,6 +392,30 @@ class AsyncPurchaseOrdersClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: PurchaseOrderRequest.
+        ---
+        from merge import PurchaseOrderLineItemRequest, PurchaseOrderRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.create(
+            model=PurchaseOrderRequest(
+                line_items=[
+                    PurchaseOrderLineItemRequest(
+                        remote_id="121222",
+                        description="Pickleball paddles",
+                        unit_price=25.0,
+                        quantity=10.0,
+                        tracking_category="f1214c24-2702-4617-b74b-3ddecfc0d384",
+                        tracking_categories=[],
+                        exchange_rate="2.9",
+                        company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
+                    )
+                ],
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -367,6 +455,20 @@ class AsyncPurchaseOrdersClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["status"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import PurchaseOrdersRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.retrieve(
+            id="id",
+            expand=PurchaseOrdersRetrieveRequestExpand.COMPANY,
+            remote_fields="status",
+            show_enum_origins="status",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

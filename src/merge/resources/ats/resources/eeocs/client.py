@@ -74,6 +74,19 @@ class EeocsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[EeocsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import EeocsListRequestRemoteFields, EeocsListRequestShowEnumOrigins
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.list(
+            expand="candidate",
+            remote_fields=EeocsListRequestRemoteFields.DISABILITY_STATUS,
+            show_enum_origins=EeocsListRequestShowEnumOrigins.DISABILITY_STATUS,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -128,6 +141,23 @@ class EeocsClient:
             - remote_fields: typing.Optional[EeocsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[EeocsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import (
+            EeocsRetrieveRequestRemoteFields,
+            EeocsRetrieveRequestShowEnumOrigins,
+        )
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.retrieve(
+            id="id",
+            expand="candidate",
+            remote_fields=EeocsRetrieveRequestRemoteFields.DISABILITY_STATUS,
+            show_enum_origins=EeocsRetrieveRequestShowEnumOrigins.DISABILITY_STATUS,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -202,6 +232,19 @@ class AsyncEeocsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[EeocsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import EeocsListRequestRemoteFields, EeocsListRequestShowEnumOrigins
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.list(
+            expand="candidate",
+            remote_fields=EeocsListRequestRemoteFields.DISABILITY_STATUS,
+            show_enum_origins=EeocsListRequestShowEnumOrigins.DISABILITY_STATUS,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -256,6 +299,23 @@ class AsyncEeocsClient:
             - remote_fields: typing.Optional[EeocsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[EeocsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import (
+            EeocsRetrieveRequestRemoteFields,
+            EeocsRetrieveRequestShowEnumOrigins,
+        )
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.retrieve(
+            id="id",
+            expand="candidate",
+            remote_fields=EeocsRetrieveRequestRemoteFields.DISABILITY_STATUS,
+            show_enum_origins=EeocsRetrieveRequestShowEnumOrigins.DISABILITY_STATUS,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

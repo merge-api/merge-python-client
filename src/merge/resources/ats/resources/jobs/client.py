@@ -84,7 +84,20 @@ class JobsClient:
                                                               * `CLOSED` - CLOSED
                                                               * `DRAFT` - DRAFT
                                                               * `ARCHIVED` - ARCHIVED
-                                                              * `PENDING` - PENDING
+                                                              * `PENDING` - PENDING---
+        from merge import JobsListRequestExpand, JobsListRequestStatus
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.list(
+            expand=JobsListRequestExpand.DEPARTMENTS,
+            remote_fields="status",
+            show_enum_origins="status",
+            status=JobsListRequestStatus.ARCHIVED,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -141,6 +154,20 @@ class JobsClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["status"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import JobsRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.retrieve(
+            id="id",
+            expand=JobsRetrieveRequestExpand.DEPARTMENTS,
+            remote_fields="status",
+            show_enum_origins="status",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -226,7 +253,20 @@ class AsyncJobsClient:
                                                               * `CLOSED` - CLOSED
                                                               * `DRAFT` - DRAFT
                                                               * `ARCHIVED` - ARCHIVED
-                                                              * `PENDING` - PENDING
+                                                              * `PENDING` - PENDING---
+        from merge import JobsListRequestExpand, JobsListRequestStatus
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.list(
+            expand=JobsListRequestExpand.DEPARTMENTS,
+            remote_fields="status",
+            show_enum_origins="status",
+            status=JobsListRequestStatus.ARCHIVED,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -283,6 +323,20 @@ class AsyncJobsClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["status"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import JobsRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.retrieve(
+            id="id",
+            expand=JobsRetrieveRequestExpand.DEPARTMENTS,
+            remote_fields="status",
+            show_enum_origins="status",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

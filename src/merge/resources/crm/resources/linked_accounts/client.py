@@ -73,6 +73,17 @@ class LinkedAccountsClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - status: typing.Optional[str]. Filter by status. Options: `COMPLETE`, `INCOMPLETE`, `RELINK_NEEDED`
+        ---
+        from merge import LinkedAccountsListRequestCategory
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.list(
+            category=LinkedAccountsListRequestCategory.ACCOUNTING,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -163,6 +174,17 @@ class AsyncLinkedAccountsClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - status: typing.Optional[str]. Filter by status. Options: `COMPLETE`, `INCOMPLETE`, `RELINK_NEEDED`
+        ---
+        from merge import LinkedAccountsListRequestCategory
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.list(
+            category=LinkedAccountsListRequestCategory.ACCOUNTING,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

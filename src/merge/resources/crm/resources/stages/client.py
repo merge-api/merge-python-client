@@ -60,6 +60,14 @@ class StagesClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -105,6 +113,16 @@ class StagesClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.retrieve(
+            id="id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -145,6 +163,14 @@ class StagesClient:
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -211,6 +237,14 @@ class AsyncStagesClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -256,6 +290,16 @@ class AsyncStagesClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.retrieve(
+            id="id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -296,6 +340,14 @@ class AsyncStagesClient:
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

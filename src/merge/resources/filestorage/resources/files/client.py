@@ -77,6 +77,17 @@ class FilesClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge import FilesListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.filestorage.list(
+            expand=FilesListRequestExpand.DRIVE,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -125,6 +136,26 @@ class FilesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: FileRequest.
+        ---
+        from merge import FileRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.filestorage.create(
+            model=FileRequest(
+                name="omg_common_model_scope.docx",
+                file_url="https://drive.com/1234",
+                file_thumbnail_url="https://drive.com/1234/thumbnail.png",
+                size=254,
+                mime_type=".docx",
+                description="This file is OP",
+                folder="56ce474c-asdf-34a2-754r-629f799f7d31",
+                drive="31ce474c-asdf-34a2-754r-629f799f7d12",
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -158,6 +189,18 @@ class FilesClient:
             - expand: typing.Optional[FilesRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import FilesRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.filestorage.retrieve(
+            id="id",
+            expand=FilesRetrieveRequestExpand.DRIVE,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -267,6 +310,17 @@ class AsyncFilesClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge import FilesListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.filestorage.list(
+            expand=FilesListRequestExpand.DRIVE,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -315,6 +369,26 @@ class AsyncFilesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: FileRequest.
+        ---
+        from merge import FileRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.filestorage.create(
+            model=FileRequest(
+                name="omg_common_model_scope.docx",
+                file_url="https://drive.com/1234",
+                file_thumbnail_url="https://drive.com/1234/thumbnail.png",
+                size=254,
+                mime_type=".docx",
+                description="This file is OP",
+                folder="56ce474c-asdf-34a2-754r-629f799f7d31",
+                drive="31ce474c-asdf-34a2-754r-629f799f7d12",
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -348,6 +422,18 @@ class AsyncFilesClient:
             - expand: typing.Optional[FilesRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import FilesRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.filestorage.retrieve(
+            id="id",
+            expand=FilesRetrieveRequestExpand.DRIVE,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

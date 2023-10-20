@@ -61,6 +61,16 @@ class CustomObjectClassesClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.list(
+            expand="fields",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -106,6 +116,17 @@ class CustomObjectClassesClient:
             - expand: typing.Optional[typing_extensions.Literal["fields"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.retrieve(
+            id="id",
+            expand="fields",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -134,6 +155,16 @@ class CustomObjectClassesClient:
             - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
 
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.generator_update(
+            generator_id="generator-id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PUT",
@@ -194,6 +225,16 @@ class AsyncCustomObjectClassesClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.list(
+            expand="fields",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -239,6 +280,17 @@ class AsyncCustomObjectClassesClient:
             - expand: typing.Optional[typing_extensions.Literal["fields"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.retrieve(
+            id="id",
+            expand="fields",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -267,6 +319,16 @@ class AsyncCustomObjectClassesClient:
             - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
 
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.generator_update(
+            generator_id="generator-id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PUT",

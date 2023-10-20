@@ -97,7 +97,20 @@ class OpportunitiesClient:
 
                                                                        * `OPEN` - OPEN
                                                                        * `WON` - WON
-                                                                       * `LOST` - LOST
+                                                                       * `LOST` - LOST---
+        from merge import OpportunitiesListRequestExpand, OpportunitiesListRequestStatus
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.list(
+            expand=OpportunitiesListRequestExpand.ACCOUNT,
+            remote_fields="status",
+            show_enum_origins="status",
+            status=OpportunitiesListRequestStatus.LOST,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -150,6 +163,29 @@ class OpportunitiesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: OpportunityRequest.
+        ---
+        import datetime
+
+        from merge import OpportunityRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.create(
+            model=OpportunityRequest(
+                name="Needs Integrations",
+                description="Needs a Unified API for Integrations!",
+                amount=100000,
+                last_activity_at=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+                close_date=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -192,6 +228,20 @@ class OpportunitiesClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["status"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import OpportunitiesRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.retrieve(
+            id="id",
+            expand=OpportunitiesRetrieveRequestExpand.ACCOUNT,
+            remote_fields="status",
+            show_enum_origins="status",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -235,6 +285,33 @@ class OpportunitiesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: PatchedOpportunityRequest.
+        ---
+        import datetime
+
+        from merge import PatchedOpportunityRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.partial_update(
+            id="id",
+            model=PatchedOpportunityRequest(
+                name="Needs Integrations",
+                description="Needs a Unified API for Integrations!",
+                amount=100000,
+                owner="0358cbc6-2040-430a-848e-aafacbadf3aa",
+                account="0958cbc6-6040-430a-848e-aafacbadf4ae",
+                stage="1968cbc6-6040-430a-848e-aafacbadf4ad",
+                last_activity_at=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+                close_date=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
@@ -315,6 +392,14 @@ class OpportunitiesClient:
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -407,7 +492,20 @@ class AsyncOpportunitiesClient:
 
                                                                        * `OPEN` - OPEN
                                                                        * `WON` - WON
-                                                                       * `LOST` - LOST
+                                                                       * `LOST` - LOST---
+        from merge import OpportunitiesListRequestExpand, OpportunitiesListRequestStatus
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.list(
+            expand=OpportunitiesListRequestExpand.ACCOUNT,
+            remote_fields="status",
+            show_enum_origins="status",
+            status=OpportunitiesListRequestStatus.LOST,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -460,6 +558,29 @@ class AsyncOpportunitiesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: OpportunityRequest.
+        ---
+        import datetime
+
+        from merge import OpportunityRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.create(
+            model=OpportunityRequest(
+                name="Needs Integrations",
+                description="Needs a Unified API for Integrations!",
+                amount=100000,
+                last_activity_at=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+                close_date=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -502,6 +623,20 @@ class AsyncOpportunitiesClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["status"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import OpportunitiesRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.retrieve(
+            id="id",
+            expand=OpportunitiesRetrieveRequestExpand.ACCOUNT,
+            remote_fields="status",
+            show_enum_origins="status",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -545,6 +680,33 @@ class AsyncOpportunitiesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: PatchedOpportunityRequest.
+        ---
+        import datetime
+
+        from merge import PatchedOpportunityRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.partial_update(
+            id="id",
+            model=PatchedOpportunityRequest(
+                name="Needs Integrations",
+                description="Needs a Unified API for Integrations!",
+                amount=100000,
+                owner="0358cbc6-2040-430a-848e-aafacbadf3aa",
+                account="0958cbc6-6040-430a-848e-aafacbadf4ae",
+                stage="1968cbc6-6040-430a-848e-aafacbadf4ad",
+                last_activity_at=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+                close_date=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
@@ -625,6 +787,14 @@ class AsyncOpportunitiesClient:
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

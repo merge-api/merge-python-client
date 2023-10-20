@@ -78,6 +78,25 @@ class EmploymentsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[EmploymentsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import (
+            EmploymentsListRequestExpand,
+            EmploymentsListRequestOrderBy,
+            EmploymentsListRequestRemoteFields,
+            EmploymentsListRequestShowEnumOrigins,
+        )
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.list(
+            expand=EmploymentsListRequestExpand.EMPLOYEE,
+            order_by=EmploymentsListRequestOrderBy.EFFECTIVE_DATE_DESCENDING,
+            remote_fields=EmploymentsListRequestRemoteFields.EMPLOYMENT_TYPE,
+            show_enum_origins=EmploymentsListRequestShowEnumOrigins.EMPLOYMENT_TYPE,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -133,6 +152,24 @@ class EmploymentsClient:
             - remote_fields: typing.Optional[EmploymentsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[EmploymentsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import (
+            EmploymentsRetrieveRequestExpand,
+            EmploymentsRetrieveRequestRemoteFields,
+            EmploymentsRetrieveRequestShowEnumOrigins,
+        )
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.retrieve(
+            id="id",
+            expand=EmploymentsRetrieveRequestExpand.EMPLOYEE,
+            remote_fields=EmploymentsRetrieveRequestRemoteFields.EMPLOYMENT_TYPE,
+            show_enum_origins=EmploymentsRetrieveRequestShowEnumOrigins.EMPLOYMENT_TYPE,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -210,6 +247,25 @@ class AsyncEmploymentsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[EmploymentsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import (
+            EmploymentsListRequestExpand,
+            EmploymentsListRequestOrderBy,
+            EmploymentsListRequestRemoteFields,
+            EmploymentsListRequestShowEnumOrigins,
+        )
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.list(
+            expand=EmploymentsListRequestExpand.EMPLOYEE,
+            order_by=EmploymentsListRequestOrderBy.EFFECTIVE_DATE_DESCENDING,
+            remote_fields=EmploymentsListRequestRemoteFields.EMPLOYMENT_TYPE,
+            show_enum_origins=EmploymentsListRequestShowEnumOrigins.EMPLOYMENT_TYPE,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -265,6 +321,24 @@ class AsyncEmploymentsClient:
             - remote_fields: typing.Optional[EmploymentsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[EmploymentsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import (
+            EmploymentsRetrieveRequestExpand,
+            EmploymentsRetrieveRequestRemoteFields,
+            EmploymentsRetrieveRequestShowEnumOrigins,
+        )
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.retrieve(
+            id="id",
+            expand=EmploymentsRetrieveRequestExpand.EMPLOYEE,
+            remote_fields=EmploymentsRetrieveRequestRemoteFields.EMPLOYMENT_TYPE,
+            show_enum_origins=EmploymentsRetrieveRequestShowEnumOrigins.EMPLOYMENT_TYPE,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

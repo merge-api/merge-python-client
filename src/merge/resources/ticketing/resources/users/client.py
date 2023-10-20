@@ -64,6 +64,17 @@ class UsersClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge import UsersListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.list(
+            expand=UsersListRequestExpand.ROLES,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -110,6 +121,18 @@ class UsersClient:
             - expand: typing.Optional[UsersRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import UsersRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.retrieve(
+            id="id",
+            expand=UsersRetrieveRequestExpand.ROLES,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -171,6 +194,17 @@ class AsyncUsersClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge import UsersListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ticketing.list(
+            expand=UsersListRequestExpand.ROLES,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -217,6 +251,18 @@ class AsyncUsersClient:
             - expand: typing.Optional[UsersRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import UsersRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ticketing.retrieve(
+            id="id",
+            expand=UsersRetrieveRequestExpand.ROLES,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

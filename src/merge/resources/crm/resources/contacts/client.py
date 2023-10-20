@@ -83,6 +83,16 @@ class ContactsClient:
             - phone_numbers: typing.Optional[str]. If provided, will only return contacts matching the phone numbers; multiple phone numbers can be separated by commas.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.list(
+            expand="account",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -132,6 +142,51 @@ class ContactsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: ContactRequest.
+        ---
+        import datetime
+
+        from merge import (
+            AddressRequest,
+            ContactRequest,
+            EmailAddressRequest,
+            PhoneNumberRequest,
+        )
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.create(
+            model=ContactRequest(
+                first_name="Gil",
+                last_name="Feig",
+                addresses=[
+                    AddressRequest(
+                        street_1="50 Bowling Green Dr",
+                        street_2="Golden Gate Park",
+                        city="San Francisco",
+                        state="CA",
+                        postal_code="94122",
+                    )
+                ],
+                email_addresses=[
+                    EmailAddressRequest(
+                        email_address="merge_is_hiring@merge.dev",
+                        email_address_type="Work",
+                    )
+                ],
+                phone_numbers=[
+                    PhoneNumberRequest(
+                        phone_number="+3198675309",
+                        phone_number_type="Mobile",
+                    )
+                ],
+                last_activity_at=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -168,6 +223,17 @@ class ContactsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.retrieve(
+            id="id",
+            expand="account",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -209,6 +275,53 @@ class ContactsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: PatchedContactRequest.
+        ---
+        import datetime
+
+        from merge import (
+            AddressRequest,
+            EmailAddressRequest,
+            PatchedContactRequest,
+            PhoneNumberRequest,
+        )
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.partial_update(
+            id="id",
+            model=PatchedContactRequest(
+                first_name="Gil",
+                last_name="Feig",
+                account="0958cbc6-6040-430a-848e-aafacbadf4ae",
+                addresses=[
+                    AddressRequest(
+                        street_1="50 Bowling Green Dr",
+                        street_2="Golden Gate Park",
+                        city="San Francisco",
+                        state="CA",
+                        postal_code="94122",
+                    )
+                ],
+                email_addresses=[
+                    EmailAddressRequest(
+                        email_address="merge_is_hiring@merge.dev",
+                        email_address_type="Work",
+                    )
+                ],
+                phone_numbers=[
+                    PhoneNumberRequest(
+                        phone_number="+3198675309",
+                        phone_number_type="Mobile",
+                    )
+                ],
+                last_activity_at=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
@@ -234,6 +347,21 @@ class ContactsClient:
             - model_id: str.
 
             - request: IgnoreCommonModelRequest.
+        ---
+        from merge import IgnoreCommonModelRequest, ReasonEnum
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.ignore_create(
+            model_id="model-id",
+            request=IgnoreCommonModelRequest(
+                reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
+                message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -311,6 +439,14 @@ class ContactsClient:
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -389,6 +525,16 @@ class AsyncContactsClient:
             - phone_numbers: typing.Optional[str]. If provided, will only return contacts matching the phone numbers; multiple phone numbers can be separated by commas.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.list(
+            expand="account",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -438,6 +584,51 @@ class AsyncContactsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: ContactRequest.
+        ---
+        import datetime
+
+        from merge import (
+            AddressRequest,
+            ContactRequest,
+            EmailAddressRequest,
+            PhoneNumberRequest,
+        )
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.create(
+            model=ContactRequest(
+                first_name="Gil",
+                last_name="Feig",
+                addresses=[
+                    AddressRequest(
+                        street_1="50 Bowling Green Dr",
+                        street_2="Golden Gate Park",
+                        city="San Francisco",
+                        state="CA",
+                        postal_code="94122",
+                    )
+                ],
+                email_addresses=[
+                    EmailAddressRequest(
+                        email_address="merge_is_hiring@merge.dev",
+                        email_address_type="Work",
+                    )
+                ],
+                phone_numbers=[
+                    PhoneNumberRequest(
+                        phone_number="+3198675309",
+                        phone_number_type="Mobile",
+                    )
+                ],
+                last_activity_at=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -474,6 +665,17 @@ class AsyncContactsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.retrieve(
+            id="id",
+            expand="account",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -515,6 +717,53 @@ class AsyncContactsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: PatchedContactRequest.
+        ---
+        import datetime
+
+        from merge import (
+            AddressRequest,
+            EmailAddressRequest,
+            PatchedContactRequest,
+            PhoneNumberRequest,
+        )
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.partial_update(
+            id="id",
+            model=PatchedContactRequest(
+                first_name="Gil",
+                last_name="Feig",
+                account="0958cbc6-6040-430a-848e-aafacbadf4ae",
+                addresses=[
+                    AddressRequest(
+                        street_1="50 Bowling Green Dr",
+                        street_2="Golden Gate Park",
+                        city="San Francisco",
+                        state="CA",
+                        postal_code="94122",
+                    )
+                ],
+                email_addresses=[
+                    EmailAddressRequest(
+                        email_address="merge_is_hiring@merge.dev",
+                        email_address_type="Work",
+                    )
+                ],
+                phone_numbers=[
+                    PhoneNumberRequest(
+                        phone_number="+3198675309",
+                        phone_number_type="Mobile",
+                    )
+                ],
+                last_activity_at=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
@@ -540,6 +789,21 @@ class AsyncContactsClient:
             - model_id: str.
 
             - request: IgnoreCommonModelRequest.
+        ---
+        from merge import IgnoreCommonModelRequest, ReasonEnum
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.ignore_create(
+            model_id="model-id",
+            request=IgnoreCommonModelRequest(
+                reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
+                message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -617,6 +881,14 @@ class AsyncContactsClient:
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

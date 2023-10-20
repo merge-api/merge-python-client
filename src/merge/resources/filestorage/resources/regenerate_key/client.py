@@ -28,6 +28,16 @@ class RegenerateKeyClient:
 
         Parameters:
             - name: str.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.filestorage.create(
+            name="Remote Deployment Key 1",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -55,6 +65,16 @@ class AsyncRegenerateKeyClient:
 
         Parameters:
             - name: str.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.filestorage.create(
+            name="Remote Deployment Key 1",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",

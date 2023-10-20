@@ -77,6 +77,17 @@ class FoldersClient:
             - parent_folder_id: typing.Optional[str]. If provided, will only return folders in this parent folder. If null, will return folders in root directory.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge import FoldersListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.filestorage.list(
+            expand=FoldersListRequestExpand.DRIVE,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -125,6 +136,24 @@ class FoldersClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: FolderRequest.
+        ---
+        from merge import FolderRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.filestorage.create(
+            model=FolderRequest(
+                name="Platform",
+                folder_url="https://drive.com/1234",
+                size=2738000,
+                description="This is a wild folder.",
+                parent_folder="47ce474c-asdf-34a2-754r-629f799f7d31",
+                drive="31ce474c-asdf-34a2-754r-629f799f7d12",
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -158,6 +187,18 @@ class FoldersClient:
             - expand: typing.Optional[FoldersRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import FoldersRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.filestorage.retrieve(
+            id="id",
+            expand=FoldersRetrieveRequestExpand.DRIVE,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -243,6 +284,17 @@ class AsyncFoldersClient:
             - parent_folder_id: typing.Optional[str]. If provided, will only return folders in this parent folder. If null, will return folders in root directory.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge import FoldersListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.filestorage.list(
+            expand=FoldersListRequestExpand.DRIVE,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -291,6 +343,24 @@ class AsyncFoldersClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: FolderRequest.
+        ---
+        from merge import FolderRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.filestorage.create(
+            model=FolderRequest(
+                name="Platform",
+                folder_url="https://drive.com/1234",
+                size=2738000,
+                description="This is a wild folder.",
+                parent_folder="47ce474c-asdf-34a2-754r-629f799f7d31",
+                drive="31ce474c-asdf-34a2-754r-629f799f7d12",
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -324,6 +394,18 @@ class AsyncFoldersClient:
             - expand: typing.Optional[FoldersRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import FoldersRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.filestorage.retrieve(
+            id="id",
+            expand=FoldersRetrieveRequestExpand.DRIVE,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

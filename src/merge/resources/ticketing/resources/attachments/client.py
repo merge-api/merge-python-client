@@ -74,6 +74,16 @@ class AttachmentsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - ticket_id: typing.Optional[str]. If provided, will only return comments for this ticket.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.list(
+            expand="ticket",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -123,6 +133,22 @@ class AttachmentsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: AttachmentRequest.
+        ---
+        from merge import AttachmentRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.create(
+            model=AttachmentRequest(
+                file_name="Screenshot.png",
+                file_url="http://alturl.com/p749b",
+                content_type="jpeg",
+                uploaded_by="28b54125-287f-494d-965e-3c5b330c9a68",
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -156,6 +182,17 @@ class AttachmentsClient:
             - expand: typing.Optional[typing_extensions.Literal["ticket"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.retrieve(
+            id="id",
+            expand="ticket",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -264,6 +301,16 @@ class AsyncAttachmentsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - ticket_id: typing.Optional[str]. If provided, will only return comments for this ticket.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ticketing.list(
+            expand="ticket",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -313,6 +360,22 @@ class AsyncAttachmentsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: AttachmentRequest.
+        ---
+        from merge import AttachmentRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ticketing.create(
+            model=AttachmentRequest(
+                file_name="Screenshot.png",
+                file_url="http://alturl.com/p749b",
+                content_type="jpeg",
+                uploaded_by="28b54125-287f-494d-965e-3c5b330c9a68",
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -346,6 +409,17 @@ class AsyncAttachmentsClient:
             - expand: typing.Optional[typing_extensions.Literal["ticket"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ticketing.retrieve(
+            id="id",
+            expand="ticket",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

@@ -70,6 +70,18 @@ class AssociationsClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.custom_object_classes_custom_objects_associations_list(
+            custom_object_class_id="custom-object-class-id",
+            object_id="object-id",
+            expand="association_type",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -131,6 +143,20 @@ class AssociationsClient:
             - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
 
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.custom_object_classes_custom_objects_associations_update(
+            association_type_id="association-type-id",
+            source_class_id="source-class-id",
+            source_object_id="source-object-id",
+            target_class_id="target-class-id",
+            target_object_id="target-object-id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PUT",
@@ -201,6 +227,18 @@ class AsyncAssociationsClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.custom_object_classes_custom_objects_associations_list(
+            custom_object_class_id="custom-object-class-id",
+            object_id="object-id",
+            expand="association_type",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -262,6 +300,20 @@ class AsyncAssociationsClient:
             - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
 
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.custom_object_classes_custom_objects_associations_update(
+            association_type_id="association-type-id",
+            source_class_id="source-class-id",
+            source_object_id="source-object-id",
+            target_class_id="target-class-id",
+            target_object_id="target-object-id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PUT",

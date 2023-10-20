@@ -74,6 +74,17 @@ class CommentsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - ticket_id: typing.Optional[str]. If provided, will only return comments for this ticket.
+        ---
+        from merge import CommentsListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.list(
+            expand=CommentsListRequestExpand.CONTACT,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -123,6 +134,20 @@ class CommentsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: CommentRequest.
+        ---
+        from merge import CommentRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.create(
+            model=CommentRequest(
+                body="When will these integrations be done? You all should use Merge.",
+                html_body="When will these integrations be done? You all should use <b>Merge<b>.",
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -156,6 +181,18 @@ class CommentsClient:
             - expand: typing.Optional[CommentsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import CommentsRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.retrieve(
+            id="id",
+            expand=CommentsRetrieveRequestExpand.CONTACT,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -238,6 +275,17 @@ class AsyncCommentsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - ticket_id: typing.Optional[str]. If provided, will only return comments for this ticket.
+        ---
+        from merge import CommentsListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ticketing.list(
+            expand=CommentsListRequestExpand.CONTACT,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -287,6 +335,20 @@ class AsyncCommentsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: CommentRequest.
+        ---
+        from merge import CommentRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ticketing.create(
+            model=CommentRequest(
+                body="When will these integrations be done? You all should use Merge.",
+                html_body="When will these integrations be done? You all should use <b>Merge<b>.",
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -320,6 +382,18 @@ class AsyncCommentsClient:
             - expand: typing.Optional[CommentsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import CommentsRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ticketing.retrieve(
+            id="id",
+            expand=CommentsRetrieveRequestExpand.CONTACT,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

@@ -29,6 +29,14 @@ class SyncStatusClient:
             - cursor: typing.Optional[str]. The pagination cursor value.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.filestorage.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -60,6 +68,14 @@ class AsyncSyncStatusClient:
             - cursor: typing.Optional[str]. The pagination cursor value.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.filestorage.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

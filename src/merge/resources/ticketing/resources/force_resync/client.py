@@ -21,6 +21,15 @@ class ForceResyncClient:
     def sync_status_resync_create(self) -> typing.List[SyncStatus]:
         """
         Force re-sync of all models. This is available for all organizations via the dashboard. Force re-sync is also available programmatically via API for monthly, quarterly, and highest sync frequency customers on the Core, Professional, or Enterprise plans. Doing so will consume a sync credit for the relevant linked account.
+
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.sync_status_resync_create()
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -44,6 +53,15 @@ class AsyncForceResyncClient:
     async def sync_status_resync_create(self) -> typing.List[SyncStatus]:
         """
         Force re-sync of all models. This is available for all organizations via the dashboard. Force re-sync is also available programmatically via API for monthly, quarterly, and highest sync frequency customers on the Core, Professional, or Enterprise plans. Doing so will consume a sync credit for the relevant linked account.
+
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ticketing.sync_status_resync_create()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",

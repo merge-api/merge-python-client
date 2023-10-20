@@ -81,6 +81,22 @@ class AccountsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[AccountsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import (
+            AccountsListRequestRemoteFields,
+            AccountsListRequestShowEnumOrigins,
+        )
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.list(
+            expand="company",
+            remote_fields=AccountsListRequestRemoteFields.CLASSIFICATION,
+            show_enum_origins=AccountsListRequestShowEnumOrigins.CLASSIFICATION,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -129,6 +145,24 @@ class AccountsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: AccountRequest.
+        ---
+        from merge import AccountRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.create(
+            model=AccountRequest(
+                name="Cash",
+                description="Cash",
+                type="Asset",
+                account_number="X12Y9AB",
+                parent_account="22d92d6c-22f9-11ed-861d-0242ac120002",
+                company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -168,6 +202,23 @@ class AccountsClient:
             - remote_fields: typing.Optional[AccountsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[AccountsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import (
+            AccountsRetrieveRequestRemoteFields,
+            AccountsRetrieveRequestShowEnumOrigins,
+        )
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.retrieve(
+            id="id",
+            expand="company",
+            remote_fields=AccountsRetrieveRequestRemoteFields.CLASSIFICATION,
+            show_enum_origins=AccountsRetrieveRequestShowEnumOrigins.CLASSIFICATION,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -260,6 +311,22 @@ class AsyncAccountsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[AccountsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import (
+            AccountsListRequestRemoteFields,
+            AccountsListRequestShowEnumOrigins,
+        )
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.list(
+            expand="company",
+            remote_fields=AccountsListRequestRemoteFields.CLASSIFICATION,
+            show_enum_origins=AccountsListRequestShowEnumOrigins.CLASSIFICATION,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -308,6 +375,24 @@ class AsyncAccountsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: AccountRequest.
+        ---
+        from merge import AccountRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.create(
+            model=AccountRequest(
+                name="Cash",
+                description="Cash",
+                type="Asset",
+                account_number="X12Y9AB",
+                parent_account="22d92d6c-22f9-11ed-861d-0242ac120002",
+                company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -347,6 +432,23 @@ class AsyncAccountsClient:
             - remote_fields: typing.Optional[AccountsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[AccountsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import (
+            AccountsRetrieveRequestRemoteFields,
+            AccountsRetrieveRequestShowEnumOrigins,
+        )
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.retrieve(
+            id="id",
+            expand="company",
+            remote_fields=AccountsRetrieveRequestRemoteFields.CLASSIFICATION,
+            show_enum_origins=AccountsRetrieveRequestShowEnumOrigins.CLASSIFICATION,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

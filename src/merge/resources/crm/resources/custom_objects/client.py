@@ -69,6 +69,16 @@ class CustomObjectsClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.custom_object_classes_custom_objects_list(
+            custom_object_class_id="custom-object-class-id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -120,6 +130,20 @@ class CustomObjectsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: CustomObjectRequest.
+        ---
+        from merge import CustomObjectRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.custom_object_classes_custom_objects_create(
+            custom_object_class_id="custom-object-class-id",
+            model=CustomObjectRequest(
+                fields={},
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -159,6 +183,17 @@ class CustomObjectsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.custom_object_classes_custom_objects_retrieve(
+            custom_object_class_id="custom-object-class-id",
+            id="id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -202,6 +237,21 @@ class CustomObjectsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: CustomObjectRequest.
+        ---
+        from merge import CustomObjectRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.custom_object_classes_custom_objects_partial_update(
+            custom_object_class_id="custom-object-class-id",
+            id="id",
+            model=CustomObjectRequest(
+                fields={},
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
@@ -319,6 +369,16 @@ class AsyncCustomObjectsClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.custom_object_classes_custom_objects_list(
+            custom_object_class_id="custom-object-class-id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -370,6 +430,20 @@ class AsyncCustomObjectsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: CustomObjectRequest.
+        ---
+        from merge import CustomObjectRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.custom_object_classes_custom_objects_create(
+            custom_object_class_id="custom-object-class-id",
+            model=CustomObjectRequest(
+                fields={},
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -409,6 +483,17 @@ class AsyncCustomObjectsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.custom_object_classes_custom_objects_retrieve(
+            custom_object_class_id="custom-object-class-id",
+            id="id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -452,6 +537,21 @@ class AsyncCustomObjectsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: CustomObjectRequest.
+        ---
+        from merge import CustomObjectRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.custom_object_classes_custom_objects_partial_update(
+            custom_object_class_id="custom-object-class-id",
+            id="id",
+            model=CustomObjectRequest(
+                fields={},
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",

@@ -149,6 +149,27 @@ class TicketsClient:
             - tags: typing.Optional[str]. If provided, will only return tickets matching the tags; multiple tags can be separated by commas.
 
             - ticket_type: typing.Optional[str]. If provided, will only return tickets of this type.
+        ---
+        from merge import (
+            TicketsListRequestExpand,
+            TicketsListRequestPriority,
+            TicketsListRequestRemoteFields,
+            TicketsListRequestShowEnumOrigins,
+            TicketsListRequestStatus,
+        )
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.list(
+            expand=TicketsListRequestExpand.ACCOUNT,
+            priority=TicketsListRequestPriority.HIGH,
+            remote_fields=TicketsListRequestRemoteFields.PRIORITY,
+            show_enum_origins=TicketsListRequestShowEnumOrigins.PRIORITY,
+            status=TicketsListRequestStatus.CLOSED,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -223,6 +244,30 @@ class TicketsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: TicketRequest.
+        ---
+        import datetime
+
+        from merge import TicketRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.create(
+            model=TicketRequest(
+                name="Please add more integrations",
+                due_date=datetime.datetime.fromisoformat(
+                    "2022-10-11 00:00:00+00:00",
+                ),
+                description="Can you please add more integrations? It'll make syncing data much easier!",
+                ticket_type="incident",
+                completed_at=datetime.datetime.fromisoformat(
+                    "2021-12-09 00:00:00+00:00",
+                ),
+                ticket_url="https://thirdpartysoftware.com/project/3/issue/1",
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -265,6 +310,24 @@ class TicketsClient:
             - remote_fields: typing.Optional[TicketsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[TicketsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import (
+            TicketsRetrieveRequestExpand,
+            TicketsRetrieveRequestRemoteFields,
+            TicketsRetrieveRequestShowEnumOrigins,
+        )
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.retrieve(
+            id="id",
+            expand=TicketsRetrieveRequestExpand.ACCOUNT,
+            remote_fields=TicketsRetrieveRequestRemoteFields.PRIORITY,
+            show_enum_origins=TicketsRetrieveRequestShowEnumOrigins.PRIORITY,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -308,6 +371,34 @@ class TicketsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: PatchedTicketRequest.
+        ---
+        import datetime
+
+        from merge import PatchedTicketRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.partial_update(
+            id="id",
+            model=PatchedTicketRequest(
+                name="Please add more integrations",
+                due_date=datetime.datetime.fromisoformat(
+                    "2022-10-11 00:00:00+00:00",
+                ),
+                description="Can you please add more integrations? It'll make syncing data much easier!",
+                ticket_type="incident",
+                account="0958cbc6-6040-430a-848e-aafacbadf4ae",
+                contact="65c345ba-6870-4974-87ba-dd31509c367a",
+                parent_ticket="75b33d04-30d2-4f3e-be45-27838bc94342",
+                completed_at=datetime.datetime.fromisoformat(
+                    "2021-12-09 00:00:00+00:00",
+                ),
+                ticket_url="https://thirdpartysoftware.com/project/3/issue/1",
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
@@ -350,6 +441,18 @@ class TicketsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge import TicketsCollaboratorsListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.collaborators_list(
+            parent_id="parent-id",
+            expand=TicketsCollaboratorsListRequestExpand.ROLES,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -436,6 +539,14 @@ class TicketsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -574,6 +685,27 @@ class AsyncTicketsClient:
             - tags: typing.Optional[str]. If provided, will only return tickets matching the tags; multiple tags can be separated by commas.
 
             - ticket_type: typing.Optional[str]. If provided, will only return tickets of this type.
+        ---
+        from merge import (
+            TicketsListRequestExpand,
+            TicketsListRequestPriority,
+            TicketsListRequestRemoteFields,
+            TicketsListRequestShowEnumOrigins,
+            TicketsListRequestStatus,
+        )
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ticketing.list(
+            expand=TicketsListRequestExpand.ACCOUNT,
+            priority=TicketsListRequestPriority.HIGH,
+            remote_fields=TicketsListRequestRemoteFields.PRIORITY,
+            show_enum_origins=TicketsListRequestShowEnumOrigins.PRIORITY,
+            status=TicketsListRequestStatus.CLOSED,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -648,6 +780,30 @@ class AsyncTicketsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: TicketRequest.
+        ---
+        import datetime
+
+        from merge import TicketRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ticketing.create(
+            model=TicketRequest(
+                name="Please add more integrations",
+                due_date=datetime.datetime.fromisoformat(
+                    "2022-10-11 00:00:00+00:00",
+                ),
+                description="Can you please add more integrations? It'll make syncing data much easier!",
+                ticket_type="incident",
+                completed_at=datetime.datetime.fromisoformat(
+                    "2021-12-09 00:00:00+00:00",
+                ),
+                ticket_url="https://thirdpartysoftware.com/project/3/issue/1",
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -690,6 +846,24 @@ class AsyncTicketsClient:
             - remote_fields: typing.Optional[TicketsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[TicketsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import (
+            TicketsRetrieveRequestExpand,
+            TicketsRetrieveRequestRemoteFields,
+            TicketsRetrieveRequestShowEnumOrigins,
+        )
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ticketing.retrieve(
+            id="id",
+            expand=TicketsRetrieveRequestExpand.ACCOUNT,
+            remote_fields=TicketsRetrieveRequestRemoteFields.PRIORITY,
+            show_enum_origins=TicketsRetrieveRequestShowEnumOrigins.PRIORITY,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -733,6 +907,34 @@ class AsyncTicketsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: PatchedTicketRequest.
+        ---
+        import datetime
+
+        from merge import PatchedTicketRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ticketing.partial_update(
+            id="id",
+            model=PatchedTicketRequest(
+                name="Please add more integrations",
+                due_date=datetime.datetime.fromisoformat(
+                    "2022-10-11 00:00:00+00:00",
+                ),
+                description="Can you please add more integrations? It'll make syncing data much easier!",
+                ticket_type="incident",
+                account="0958cbc6-6040-430a-848e-aafacbadf4ae",
+                contact="65c345ba-6870-4974-87ba-dd31509c367a",
+                parent_ticket="75b33d04-30d2-4f3e-be45-27838bc94342",
+                completed_at=datetime.datetime.fromisoformat(
+                    "2021-12-09 00:00:00+00:00",
+                ),
+                ticket_url="https://thirdpartysoftware.com/project/3/issue/1",
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
@@ -775,6 +977,18 @@ class AsyncTicketsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge import TicketsCollaboratorsListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ticketing.collaborators_list(
+            parent_id="parent-id",
+            expand=TicketsCollaboratorsListRequestExpand.ROLES,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -861,6 +1075,14 @@ class AsyncTicketsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ticketing.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

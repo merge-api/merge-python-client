@@ -79,6 +79,17 @@ class EmployeePayrollRunsClient:
             - started_after: typing.Optional[dt.datetime]. If provided, will only return employee payroll runs started after this datetime.
 
             - started_before: typing.Optional[dt.datetime]. If provided, will only return employee payroll runs started before this datetime.
+        ---
+        from merge import EmployeePayrollRunsListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.list(
+            expand=EmployeePayrollRunsListRequestExpand.EMPLOYEE,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -130,6 +141,18 @@ class EmployeePayrollRunsClient:
             - expand: typing.Optional[EmployeePayrollRunsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import EmployeePayrollRunsRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.retrieve(
+            id="id",
+            expand=EmployeePayrollRunsRetrieveRequestExpand.EMPLOYEE,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -206,6 +229,17 @@ class AsyncEmployeePayrollRunsClient:
             - started_after: typing.Optional[dt.datetime]. If provided, will only return employee payroll runs started after this datetime.
 
             - started_before: typing.Optional[dt.datetime]. If provided, will only return employee payroll runs started before this datetime.
+        ---
+        from merge import EmployeePayrollRunsListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.list(
+            expand=EmployeePayrollRunsListRequestExpand.EMPLOYEE,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -257,6 +291,18 @@ class AsyncEmployeePayrollRunsClient:
             - expand: typing.Optional[EmployeePayrollRunsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import EmployeePayrollRunsRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.retrieve(
+            id="id",
+            expand=EmployeePayrollRunsRetrieveRequestExpand.EMPLOYEE,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

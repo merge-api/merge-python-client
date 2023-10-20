@@ -77,6 +77,18 @@ class AttachmentsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["attachment_type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.list(
+            expand="candidate",
+            remote_fields="attachment_type",
+            show_enum_origins="attachment_type",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -167,6 +179,19 @@ class AttachmentsClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["attachment_type"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["attachment_type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.retrieve(
+            id="id",
+            expand="candidate",
+            remote_fields="attachment_type",
+            show_enum_origins="attachment_type",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -259,6 +284,18 @@ class AsyncAttachmentsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["attachment_type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.list(
+            expand="candidate",
+            remote_fields="attachment_type",
+            show_enum_origins="attachment_type",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -349,6 +386,19 @@ class AsyncAttachmentsClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["attachment_type"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["attachment_type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.retrieve(
+            id="id",
+            expand="candidate",
+            remote_fields="attachment_type",
+            show_enum_origins="attachment_type",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

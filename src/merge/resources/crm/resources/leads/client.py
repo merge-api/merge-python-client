@@ -87,6 +87,17 @@ class LeadsClient:
             - phone_numbers: typing.Optional[str]. If provided, will only return contacts matching the phone numbers; multiple phone numbers can be separated by commas.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge import LeadsListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.list(
+            expand=LeadsListRequestExpand.CONVERTED_ACCOUNT,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -138,6 +149,54 @@ class LeadsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: LeadRequest.
+        ---
+        import datetime
+
+        from merge import (
+            AddressRequest,
+            EmailAddressRequest,
+            LeadRequest,
+            PhoneNumberRequest,
+        )
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.create(
+            model=LeadRequest(
+                lead_source="API Blogger",
+                title="Co-Founder",
+                company="Merge API",
+                first_name="Gil",
+                last_name="Feig",
+                addresses=[
+                    AddressRequest(
+                        street_1="50 Bowling Green Dr",
+                        street_2="Golden Gate Park",
+                        city="San Francisco",
+                        state="CA",
+                        postal_code="94122",
+                    )
+                ],
+                email_addresses=[
+                    EmailAddressRequest(
+                        email_address="merge_is_hiring@merge.dev",
+                        email_address_type="Work",
+                    )
+                ],
+                phone_numbers=[
+                    PhoneNumberRequest(
+                        phone_number="+3198675309",
+                        phone_number_type="Mobile",
+                    )
+                ],
+                converted_date=datetime.datetime.fromisoformat(
+                    "2022-03-10 00:00:00+00:00",
+                ),
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -174,6 +233,18 @@ class LeadsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        ---
+        from merge import LeadsRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.retrieve(
+            id="id",
+            expand=LeadsRetrieveRequestExpand.CONVERTED_ACCOUNT,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -236,6 +307,14 @@ class LeadsClient:
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -320,6 +399,17 @@ class AsyncLeadsClient:
             - phone_numbers: typing.Optional[str]. If provided, will only return contacts matching the phone numbers; multiple phone numbers can be separated by commas.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge import LeadsListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.list(
+            expand=LeadsListRequestExpand.CONVERTED_ACCOUNT,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -371,6 +461,54 @@ class AsyncLeadsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: LeadRequest.
+        ---
+        import datetime
+
+        from merge import (
+            AddressRequest,
+            EmailAddressRequest,
+            LeadRequest,
+            PhoneNumberRequest,
+        )
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.create(
+            model=LeadRequest(
+                lead_source="API Blogger",
+                title="Co-Founder",
+                company="Merge API",
+                first_name="Gil",
+                last_name="Feig",
+                addresses=[
+                    AddressRequest(
+                        street_1="50 Bowling Green Dr",
+                        street_2="Golden Gate Park",
+                        city="San Francisco",
+                        state="CA",
+                        postal_code="94122",
+                    )
+                ],
+                email_addresses=[
+                    EmailAddressRequest(
+                        email_address="merge_is_hiring@merge.dev",
+                        email_address_type="Work",
+                    )
+                ],
+                phone_numbers=[
+                    PhoneNumberRequest(
+                        phone_number="+3198675309",
+                        phone_number_type="Mobile",
+                    )
+                ],
+                converted_date=datetime.datetime.fromisoformat(
+                    "2022-03-10 00:00:00+00:00",
+                ),
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -407,6 +545,18 @@ class AsyncLeadsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        ---
+        from merge import LeadsRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.retrieve(
+            id="id",
+            expand=LeadsRetrieveRequestExpand.CONVERTED_ACCOUNT,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -469,6 +619,14 @@ class AsyncLeadsClient:
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
