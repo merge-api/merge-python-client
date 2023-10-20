@@ -80,6 +80,23 @@ class CreditNotesClient:
             - transaction_date_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        ---
+        from merge import (
+            CreditNotesListRequestExpand,
+            CreditNotesListRequestRemoteFields,
+            CreditNotesListRequestShowEnumOrigins,
+        )
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.list(
+            expand=CreditNotesListRequestExpand.APPLIED_TO_LINES,
+            remote_fields=CreditNotesListRequestRemoteFields.STATUS,
+            show_enum_origins=CreditNotesListRequestShowEnumOrigins.STATUS,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -140,6 +157,24 @@ class CreditNotesClient:
             - remote_fields: typing.Optional[CreditNotesRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[CreditNotesRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import (
+            CreditNotesRetrieveRequestExpand,
+            CreditNotesRetrieveRequestRemoteFields,
+            CreditNotesRetrieveRequestShowEnumOrigins,
+        )
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.retrieve(
+            id="id",
+            expand=CreditNotesRetrieveRequestExpand.APPLIED_TO_LINES,
+            remote_fields=CreditNotesRetrieveRequestRemoteFields.STATUS,
+            show_enum_origins=CreditNotesRetrieveRequestShowEnumOrigins.STATUS,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -220,6 +255,23 @@ class AsyncCreditNotesClient:
             - transaction_date_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        ---
+        from merge import (
+            CreditNotesListRequestExpand,
+            CreditNotesListRequestRemoteFields,
+            CreditNotesListRequestShowEnumOrigins,
+        )
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.list(
+            expand=CreditNotesListRequestExpand.APPLIED_TO_LINES,
+            remote_fields=CreditNotesListRequestRemoteFields.STATUS,
+            show_enum_origins=CreditNotesListRequestShowEnumOrigins.STATUS,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -280,6 +332,24 @@ class AsyncCreditNotesClient:
             - remote_fields: typing.Optional[CreditNotesRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[CreditNotesRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import (
+            CreditNotesRetrieveRequestExpand,
+            CreditNotesRetrieveRequestRemoteFields,
+            CreditNotesRetrieveRequestShowEnumOrigins,
+        )
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.retrieve(
+            id="id",
+            expand=CreditNotesRetrieveRequestExpand.APPLIED_TO_LINES,
+            remote_fields=CreditNotesRetrieveRequestRemoteFields.STATUS,
+            show_enum_origins=CreditNotesRetrieveRequestShowEnumOrigins.STATUS,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

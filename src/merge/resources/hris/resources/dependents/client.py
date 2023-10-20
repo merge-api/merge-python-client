@@ -59,6 +59,14 @@ class DependentsClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -104,6 +112,16 @@ class DependentsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - include_sensitive_fields: typing.Optional[bool]. Whether to include sensitive fields (such as social security numbers) in the response.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.retrieve(
+            id="id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -164,6 +182,14 @@ class AsyncDependentsClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -209,6 +235,16 @@ class AsyncDependentsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - include_sensitive_fields: typing.Optional[bool]. Whether to include sensitive fields (such as social security numbers) in the response.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.retrieve(
+            id="id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

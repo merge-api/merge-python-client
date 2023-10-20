@@ -71,6 +71,17 @@ class AssociationTypesClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.custom_object_classes_association_types_list(
+            custom_object_class_id="custom-object-class-id",
+            expand="target_object_classes",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -161,6 +172,18 @@ class AssociationTypesClient:
             - expand: typing.Optional[typing_extensions.Literal["target_object_classes"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.custom_object_classes_association_types_retrieve(
+            custom_object_class_id="custom-object-class-id",
+            id="id",
+            expand="target_object_classes",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -249,6 +272,17 @@ class AsyncAssociationTypesClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.custom_object_classes_association_types_list(
+            custom_object_class_id="custom-object-class-id",
+            expand="target_object_classes",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -339,6 +373,18 @@ class AsyncAssociationTypesClient:
             - expand: typing.Optional[typing_extensions.Literal["target_object_classes"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.custom_object_classes_association_types_retrieve(
+            custom_object_class_id="custom-object-class-id",
+            id="id",
+            expand="target_object_classes",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

@@ -64,6 +64,17 @@ class LocationsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["location_type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.list(
+            remote_fields="location_type",
+            show_enum_origins="location_type",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -113,6 +124,18 @@ class LocationsClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["location_type"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["location_type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.retrieve(
+            id="id",
+            remote_fields="location_type",
+            show_enum_origins="location_type",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -180,6 +203,17 @@ class AsyncLocationsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["location_type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.list(
+            remote_fields="location_type",
+            show_enum_origins="location_type",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -229,6 +263,18 @@ class AsyncLocationsClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["location_type"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["location_type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.retrieve(
+            id="id",
+            remote_fields="location_type",
+            show_enum_origins="location_type",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

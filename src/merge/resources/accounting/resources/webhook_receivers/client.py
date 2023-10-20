@@ -25,6 +25,15 @@ class WebhookReceiversClient:
     def list(self) -> typing.List[WebhookReceiver]:
         """
         Returns a list of `WebhookReceiver` objects.
+
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -77,6 +86,15 @@ class AsyncWebhookReceiversClient:
     async def list(self) -> typing.List[WebhookReceiver]:
         """
         Returns a list of `WebhookReceiver` objects.
+
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

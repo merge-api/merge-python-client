@@ -71,7 +71,17 @@ class IssuesClient:
             - status: typing.Optional[IssuesListRequestStatus]. Status of the issue. Options: ('ONGOING', 'RESOLVED')
 
                                                                 * `ONGOING` - ONGOING
-                                                                * `RESOLVED` - RESOLVED
+                                                                * `RESOLVED` - RESOLVED---
+        from merge import IssuesListRequestStatus
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.list(
+            status=IssuesListRequestStatus.ONGOING,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -118,6 +128,16 @@ class IssuesClient:
 
         Parameters:
             - id: str.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.retrieve(
+            id="id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -186,7 +206,17 @@ class AsyncIssuesClient:
             - status: typing.Optional[IssuesListRequestStatus]. Status of the issue. Options: ('ONGOING', 'RESOLVED')
 
                                                                 * `ONGOING` - ONGOING
-                                                                * `RESOLVED` - RESOLVED
+                                                                * `RESOLVED` - RESOLVED---
+        from merge import IssuesListRequestStatus
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.list(
+            status=IssuesListRequestStatus.ONGOING,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -233,6 +263,16 @@ class AsyncIssuesClient:
 
         Parameters:
             - id: str.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.retrieve(
+            id="id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

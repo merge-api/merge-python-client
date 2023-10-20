@@ -83,6 +83,21 @@ class BankInfoClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["account_type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import BankInfoListRequestAccountType, BankInfoListRequestOrderBy
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.list(
+            account_type=BankInfoListRequestAccountType.CHECKING,
+            expand="employee",
+            order_by=BankInfoListRequestOrderBy.REMOTE_CREATED_AT_DESCENDING,
+            remote_fields="account_type",
+            show_enum_origins="account_type",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -140,6 +155,19 @@ class BankInfoClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["account_type"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["account_type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.retrieve(
+            id="id",
+            expand="employee",
+            remote_fields="account_type",
+            show_enum_origins="account_type",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -225,6 +253,21 @@ class AsyncBankInfoClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["account_type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import BankInfoListRequestAccountType, BankInfoListRequestOrderBy
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.list(
+            account_type=BankInfoListRequestAccountType.CHECKING,
+            expand="employee",
+            order_by=BankInfoListRequestOrderBy.REMOTE_CREATED_AT_DESCENDING,
+            remote_fields="account_type",
+            show_enum_origins="account_type",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -282,6 +325,19 @@ class AsyncBankInfoClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["account_type"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["account_type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.retrieve(
+            id="id",
+            expand="employee",
+            remote_fields="account_type",
+            show_enum_origins="account_type",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

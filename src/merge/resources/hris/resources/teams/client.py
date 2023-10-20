@@ -64,6 +64,16 @@ class TeamsClient:
             - parent_team_id: typing.Optional[str]. If provided, will only return teams with this parent team.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.list(
+            expand="parent_team",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -110,6 +120,17 @@ class TeamsClient:
             - expand: typing.Optional[typing_extensions.Literal["parent_team"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.retrieve(
+            id="id",
+            expand="parent_team",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -171,6 +192,16 @@ class AsyncTeamsClient:
             - parent_team_id: typing.Optional[str]. If provided, will only return teams with this parent team.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.list(
+            expand="parent_team",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -217,6 +248,17 @@ class AsyncTeamsClient:
             - expand: typing.Optional[typing_extensions.Literal["parent_team"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.retrieve(
+            id="id",
+            expand="parent_team",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

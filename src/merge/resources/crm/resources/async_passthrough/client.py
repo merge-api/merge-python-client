@@ -30,6 +30,13 @@ class AsyncPassthroughClient:
 
         Parameters:
             - request: DataPassthroughRequest.
+        ---
+        from merge import (DataPassthroughRequest, MethodEnum,
+                           MultipartFormFieldRequest, RequestFormatEnum)
+        from merge.client import Merge
+
+        client = Merge(account_token="YOUR_ACCOUNT_TOKEN", api_key="YOUR_API_KEY", )
+        client.crm.create(request=DataPassthroughRequest(method=MethodEnum.GET, path="/scooters", data="{"company": "Lime", "model": "Gen 2.5"}", multipart_form_data=[MultipartFormFieldRequest(name="resume", data="SW50ZWdyYXRlIGZhc3QKSW50ZWdyYXRlIG9uY2U=", file_name="resume.pdf", content_type="application/pdf", )], request_format=RequestFormatEnum.JSON, ), )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -81,6 +88,13 @@ class AsyncAsyncPassthroughClient:
 
         Parameters:
             - request: DataPassthroughRequest.
+        ---
+        from merge import (DataPassthroughRequest, MethodEnum,
+                           MultipartFormFieldRequest, RequestFormatEnum)
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(account_token="YOUR_ACCOUNT_TOKEN", api_key="YOUR_API_KEY", )
+        await client.crm.create(request=DataPassthroughRequest(method=MethodEnum.GET, path="/scooters", data="{"company": "Lime", "model": "Gen 2.5"}", multipart_form_data=[MultipartFormFieldRequest(name="resume", data="SW50ZWdyYXRlIGZhc3QKSW50ZWdyYXRlIG9uY2U=", file_name="resume.pdf", content_type="application/pdf", )], request_format=RequestFormatEnum.JSON, ), )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",

@@ -77,6 +77,17 @@ class ExpensesClient:
             - transaction_date_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        ---
+        from merge import ExpensesListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.list(
+            expand=ExpensesListRequestExpand.ACCOUNT,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -129,6 +140,31 @@ class ExpensesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: ExpenseRequest.
+        ---
+        from merge import CurrencyEnum, ExpenseLineRequest, ExpenseRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.create(
+            model=ExpenseRequest(
+                total_amount=10000.0,
+                exchange_rate="2.9",
+                memo="New employee supplies",
+                lines=[
+                    ExpenseLineRequest(
+                        remote_id="121222",
+                        net_amount=25.54,
+                        company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
+                        currency=CurrencyEnum.XUA,
+                        description="MacBook Pro",
+                        exchange_rate="2.9",
+                    )
+                ],
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -162,6 +198,18 @@ class ExpensesClient:
             - expand: typing.Optional[ExpensesRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import ExpensesRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.retrieve(
+            id="id",
+            expand=ExpensesRetrieveRequestExpand.ACCOUNT,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -247,6 +295,17 @@ class AsyncExpensesClient:
             - transaction_date_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        ---
+        from merge import ExpensesListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.list(
+            expand=ExpensesListRequestExpand.ACCOUNT,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -299,6 +358,31 @@ class AsyncExpensesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: ExpenseRequest.
+        ---
+        from merge import CurrencyEnum, ExpenseLineRequest, ExpenseRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.create(
+            model=ExpenseRequest(
+                total_amount=10000.0,
+                exchange_rate="2.9",
+                memo="New employee supplies",
+                lines=[
+                    ExpenseLineRequest(
+                        remote_id="121222",
+                        net_amount=25.54,
+                        company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
+                        currency=CurrencyEnum.XUA,
+                        description="MacBook Pro",
+                        exchange_rate="2.9",
+                    )
+                ],
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -332,6 +416,18 @@ class AsyncExpensesClient:
             - expand: typing.Optional[ExpensesRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import ExpensesRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.retrieve(
+            id="id",
+            expand=ExpensesRetrieveRequestExpand.ACCOUNT,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

@@ -103,7 +103,27 @@ class TimeOffClient:
                                                                  * `APPROVED` - APPROVED
                                                                  * `DECLINED` - DECLINED
                                                                  * `CANCELLED` - CANCELLED
-                                                                 * `DELETED` - DELETED
+                                                                 * `DELETED` - DELETED---
+        from merge import (
+            TimeOffListRequestExpand,
+            TimeOffListRequestRemoteFields,
+            TimeOffListRequestRequestType,
+            TimeOffListRequestShowEnumOrigins,
+            TimeOffListRequestStatus,
+        )
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.list(
+            expand=TimeOffListRequestExpand.APPROVER,
+            remote_fields=TimeOffListRequestRemoteFields.REQUEST_TYPE,
+            request_type=TimeOffListRequestRequestType.BEREAVEMENT,
+            show_enum_origins=TimeOffListRequestShowEnumOrigins.REQUEST_TYPE,
+            status=TimeOffListRequestStatus.APPROVED,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -155,6 +175,28 @@ class TimeOffClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: TimeOffRequest.
+        ---
+        import datetime
+
+        from merge import TimeOffRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.create(
+            model=TimeOffRequest(
+                employee_note="Moving into the new apartment Kendall Roy gave me!",
+                amount=3.0,
+                start_time=datetime.datetime.fromisoformat(
+                    "2020-11-10 00:00:00+00:00",
+                ),
+                end_time=datetime.datetime.fromisoformat(
+                    "2020-11-17 00:00:00+00:00",
+                ),
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -194,6 +236,24 @@ class TimeOffClient:
             - remote_fields: typing.Optional[TimeOffRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[TimeOffRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import (
+            TimeOffRetrieveRequestExpand,
+            TimeOffRetrieveRequestRemoteFields,
+            TimeOffRetrieveRequestShowEnumOrigins,
+        )
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.retrieve(
+            id="id",
+            expand=TimeOffRetrieveRequestExpand.APPROVER,
+            remote_fields=TimeOffRetrieveRequestRemoteFields.REQUEST_TYPE,
+            show_enum_origins=TimeOffRetrieveRequestShowEnumOrigins.REQUEST_TYPE,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -306,7 +366,27 @@ class AsyncTimeOffClient:
                                                                  * `APPROVED` - APPROVED
                                                                  * `DECLINED` - DECLINED
                                                                  * `CANCELLED` - CANCELLED
-                                                                 * `DELETED` - DELETED
+                                                                 * `DELETED` - DELETED---
+        from merge import (
+            TimeOffListRequestExpand,
+            TimeOffListRequestRemoteFields,
+            TimeOffListRequestRequestType,
+            TimeOffListRequestShowEnumOrigins,
+            TimeOffListRequestStatus,
+        )
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.list(
+            expand=TimeOffListRequestExpand.APPROVER,
+            remote_fields=TimeOffListRequestRemoteFields.REQUEST_TYPE,
+            request_type=TimeOffListRequestRequestType.BEREAVEMENT,
+            show_enum_origins=TimeOffListRequestShowEnumOrigins.REQUEST_TYPE,
+            status=TimeOffListRequestStatus.APPROVED,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -358,6 +438,28 @@ class AsyncTimeOffClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: TimeOffRequest.
+        ---
+        import datetime
+
+        from merge import TimeOffRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.create(
+            model=TimeOffRequest(
+                employee_note="Moving into the new apartment Kendall Roy gave me!",
+                amount=3.0,
+                start_time=datetime.datetime.fromisoformat(
+                    "2020-11-10 00:00:00+00:00",
+                ),
+                end_time=datetime.datetime.fromisoformat(
+                    "2020-11-17 00:00:00+00:00",
+                ),
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -397,6 +499,24 @@ class AsyncTimeOffClient:
             - remote_fields: typing.Optional[TimeOffRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[TimeOffRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import (
+            TimeOffRetrieveRequestExpand,
+            TimeOffRetrieveRequestRemoteFields,
+            TimeOffRetrieveRequestShowEnumOrigins,
+        )
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.retrieve(
+            id="id",
+            expand=TimeOffRetrieveRequestExpand.APPROVER,
+            remote_fields=TimeOffRetrieveRequestRemoteFields.REQUEST_TYPE,
+            show_enum_origins=TimeOffRetrieveRequestShowEnumOrigins.REQUEST_TYPE,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

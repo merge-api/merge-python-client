@@ -67,6 +67,17 @@ class GroupsClient:
             - show_enum_origins: typing.Optional[typing_extensions.Literal["type"]]. Which fields should be returned in non-normalized form.
 
             - types: typing.Optional[str]. If provided, will only return groups of these types. Multiple values can be separated by commas.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.list(
+            remote_fields="type",
+            show_enum_origins="type",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -117,6 +128,18 @@ class GroupsClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["type"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.retrieve(
+            id="id",
+            remote_fields="type",
+            show_enum_origins="type",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -187,6 +210,17 @@ class AsyncGroupsClient:
             - show_enum_origins: typing.Optional[typing_extensions.Literal["type"]]. Which fields should be returned in non-normalized form.
 
             - types: typing.Optional[str]. If provided, will only return groups of these types. Multiple values can be separated by commas.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.list(
+            remote_fields="type",
+            show_enum_origins="type",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -237,6 +271,18 @@ class AsyncGroupsClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["type"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.retrieve(
+            id="id",
+            remote_fields="type",
+            show_enum_origins="type",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

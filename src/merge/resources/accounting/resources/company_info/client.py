@@ -61,6 +61,17 @@ class CompanyInfoClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge import CompanyInfoListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.list(
+            expand=CompanyInfoListRequestExpand.ADDRESSES,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -106,6 +117,18 @@ class CompanyInfoClient:
             - expand: typing.Optional[CompanyInfoRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import CompanyInfoRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.retrieve(
+            id="id",
+            expand=CompanyInfoRetrieveRequestExpand.ADDRESSES,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -164,6 +187,17 @@ class AsyncCompanyInfoClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge import CompanyInfoListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.list(
+            expand=CompanyInfoListRequestExpand.ADDRESSES,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -209,6 +243,18 @@ class AsyncCompanyInfoClient:
             - expand: typing.Optional[CompanyInfoRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import CompanyInfoRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.retrieve(
+            id="id",
+            expand=CompanyInfoRetrieveRequestExpand.ADDRESSES,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

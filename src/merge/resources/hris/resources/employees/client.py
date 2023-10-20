@@ -143,6 +143,25 @@ class EmployeesClient:
             - work_email: typing.Optional[str]. If provided, will only return Employees with this work email
 
             - work_location_id: typing.Optional[str]. If provided, will only return employees for this location.
+        ---
+        from merge import (
+            EmployeesListRequestEmploymentStatus,
+            EmployeesListRequestExpand,
+            EmployeesListRequestRemoteFields,
+            EmployeesListRequestShowEnumOrigins,
+        )
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.list(
+            employment_status=EmployeesListRequestEmploymentStatus.ACTIVE,
+            expand=EmployeesListRequestExpand.COMPANY,
+            remote_fields=EmployeesListRequestRemoteFields.EMPLOYMENT_STATUS,
+            show_enum_origins=EmployeesListRequestShowEnumOrigins.EMPLOYMENT_STATUS,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -212,6 +231,43 @@ class EmployeesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: EmployeeRequest.
+        ---
+        import datetime
+
+        from merge import EmployeeRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.create(
+            model=EmployeeRequest(
+                employee_number="2",
+                first_name="Greg",
+                last_name="Hirsch",
+                preferred_name="Greg the egg",
+                display_full_name="Cousin Greg Hirsch",
+                username="cousingreg",
+                work_email="greg@merge.dev",
+                personal_email="greg@gmail.com",
+                mobile_phone_number="+1234567890",
+                ssn="1234567890",
+                date_of_birth=datetime.datetime.fromisoformat(
+                    "1990-11-10 00:00:00+00:00",
+                ),
+                hire_date=datetime.datetime.fromisoformat(
+                    "2020-10-10 00:00:00+00:00",
+                ),
+                start_date=datetime.datetime.fromisoformat(
+                    "2020-10-11 00:00:00+00:00",
+                ),
+                termination_date=datetime.datetime.fromisoformat(
+                    "2021-10-12 00:00:00+00:00",
+                ),
+                avatar="http://alturl.com/h2h8m",
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -254,6 +310,24 @@ class EmployeesClient:
             - remote_fields: typing.Optional[EmployeesRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[EmployeesRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import (
+            EmployeesRetrieveRequestExpand,
+            EmployeesRetrieveRequestRemoteFields,
+            EmployeesRetrieveRequestShowEnumOrigins,
+        )
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.retrieve(
+            id="id",
+            expand=EmployeesRetrieveRequestExpand.COMPANY,
+            remote_fields=EmployeesRetrieveRequestRemoteFields.EMPLOYMENT_STATUS,
+            show_enum_origins=EmployeesRetrieveRequestShowEnumOrigins.EMPLOYMENT_STATUS,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -438,6 +512,25 @@ class AsyncEmployeesClient:
             - work_email: typing.Optional[str]. If provided, will only return Employees with this work email
 
             - work_location_id: typing.Optional[str]. If provided, will only return employees for this location.
+        ---
+        from merge import (
+            EmployeesListRequestEmploymentStatus,
+            EmployeesListRequestExpand,
+            EmployeesListRequestRemoteFields,
+            EmployeesListRequestShowEnumOrigins,
+        )
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.list(
+            employment_status=EmployeesListRequestEmploymentStatus.ACTIVE,
+            expand=EmployeesListRequestExpand.COMPANY,
+            remote_fields=EmployeesListRequestRemoteFields.EMPLOYMENT_STATUS,
+            show_enum_origins=EmployeesListRequestShowEnumOrigins.EMPLOYMENT_STATUS,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -507,6 +600,43 @@ class AsyncEmployeesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: EmployeeRequest.
+        ---
+        import datetime
+
+        from merge import EmployeeRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.create(
+            model=EmployeeRequest(
+                employee_number="2",
+                first_name="Greg",
+                last_name="Hirsch",
+                preferred_name="Greg the egg",
+                display_full_name="Cousin Greg Hirsch",
+                username="cousingreg",
+                work_email="greg@merge.dev",
+                personal_email="greg@gmail.com",
+                mobile_phone_number="+1234567890",
+                ssn="1234567890",
+                date_of_birth=datetime.datetime.fromisoformat(
+                    "1990-11-10 00:00:00+00:00",
+                ),
+                hire_date=datetime.datetime.fromisoformat(
+                    "2020-10-10 00:00:00+00:00",
+                ),
+                start_date=datetime.datetime.fromisoformat(
+                    "2020-10-11 00:00:00+00:00",
+                ),
+                termination_date=datetime.datetime.fromisoformat(
+                    "2021-10-12 00:00:00+00:00",
+                ),
+                avatar="http://alturl.com/h2h8m",
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -549,6 +679,24 @@ class AsyncEmployeesClient:
             - remote_fields: typing.Optional[EmployeesRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[EmployeesRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import (
+            EmployeesRetrieveRequestExpand,
+            EmployeesRetrieveRequestRemoteFields,
+            EmployeesRetrieveRequestShowEnumOrigins,
+        )
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.retrieve(
+            id="id",
+            expand=EmployeesRetrieveRequestExpand.COMPANY,
+            remote_fields=EmployeesRetrieveRequestRemoteFields.EMPLOYMENT_STATUS,
+            show_enum_origins=EmployeesRetrieveRequestShowEnumOrigins.EMPLOYMENT_STATUS,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

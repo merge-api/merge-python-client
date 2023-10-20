@@ -86,6 +86,17 @@ class ApplicationsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - source: typing.Optional[str]. If provided, will only return applications with this source.
+        ---
+        from merge import ApplicationsListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.list(
+            expand=ApplicationsListRequestExpand.CANDIDATE,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -173,6 +184,18 @@ class ApplicationsClient:
             - expand: typing.Optional[ApplicationsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import ApplicationsRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.retrieve(
+            id="id",
+            expand=ApplicationsRetrieveRequestExpand.CANDIDATE,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -211,6 +234,16 @@ class ApplicationsClient:
             - job_interview_stage: typing.Optional[str]. The interview stage to move the application to.
 
             - remote_user_id: typing.Optional[str].
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.change_stage_create(
+            id="id",
+        )
         """
         _request: typing.Dict[str, typing.Any] = {}
         if job_interview_stage is not OMIT:
@@ -317,6 +350,17 @@ class AsyncApplicationsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - source: typing.Optional[str]. If provided, will only return applications with this source.
+        ---
+        from merge import ApplicationsListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.list(
+            expand=ApplicationsListRequestExpand.CANDIDATE,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -404,6 +448,18 @@ class AsyncApplicationsClient:
             - expand: typing.Optional[ApplicationsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import ApplicationsRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.retrieve(
+            id="id",
+            expand=ApplicationsRetrieveRequestExpand.CANDIDATE,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -442,6 +498,16 @@ class AsyncApplicationsClient:
             - job_interview_stage: typing.Optional[str]. The interview stage to move the application to.
 
             - remote_user_id: typing.Optional[str].
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.change_stage_create(
+            id="id",
+        )
         """
         _request: typing.Dict[str, typing.Any] = {}
         if job_interview_stage is not OMIT:

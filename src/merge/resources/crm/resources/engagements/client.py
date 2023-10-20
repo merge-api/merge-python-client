@@ -73,6 +73,17 @@ class EngagementsClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge import EngagementsListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.list(
+            expand=EngagementsListRequestExpand.ACCOUNT,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -119,6 +130,28 @@ class EngagementsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: EngagementRequest.
+        ---
+        import datetime
+
+        from merge import EngagementRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.create(
+            model=EngagementRequest(
+                content="Call for negotiation",
+                subject="Call from customer",
+                start_time=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+                end_time=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:05:00+00:00",
+                ),
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -155,6 +188,18 @@ class EngagementsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        ---
+        from merge import EngagementsRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.retrieve(
+            id="id",
+            expand=EngagementsRetrieveRequestExpand.ACCOUNT,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -196,6 +241,32 @@ class EngagementsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: PatchedEngagementRequest.
+        ---
+        import datetime
+
+        from merge import PatchedEngagementRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.partial_update(
+            id="id",
+            model=PatchedEngagementRequest(
+                owner="0358cbc6-2040-430a-848e-aafacbadf3aa",
+                content="Call for negotiation",
+                subject="Call from customer",
+                engagement_type="0358cbc6-2040-430a-848e-aafacbadf3aa",
+                start_time=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+                end_time=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:05:00+00:00",
+                ),
+                account="025fjlc6-6000-430a-848e-aafacbadf4fe",
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
@@ -274,6 +345,14 @@ class EngagementsClient:
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -345,6 +424,17 @@ class AsyncEngagementsClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge import EngagementsListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.list(
+            expand=EngagementsListRequestExpand.ACCOUNT,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -391,6 +481,28 @@ class AsyncEngagementsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: EngagementRequest.
+        ---
+        import datetime
+
+        from merge import EngagementRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.create(
+            model=EngagementRequest(
+                content="Call for negotiation",
+                subject="Call from customer",
+                start_time=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+                end_time=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:05:00+00:00",
+                ),
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -427,6 +539,18 @@ class AsyncEngagementsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        ---
+        from merge import EngagementsRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.retrieve(
+            id="id",
+            expand=EngagementsRetrieveRequestExpand.ACCOUNT,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -468,6 +592,32 @@ class AsyncEngagementsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: PatchedEngagementRequest.
+        ---
+        import datetime
+
+        from merge import PatchedEngagementRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.partial_update(
+            id="id",
+            model=PatchedEngagementRequest(
+                owner="0358cbc6-2040-430a-848e-aafacbadf3aa",
+                content="Call for negotiation",
+                subject="Call from customer",
+                engagement_type="0358cbc6-2040-430a-848e-aafacbadf3aa",
+                start_time=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+                end_time=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:05:00+00:00",
+                ),
+                account="025fjlc6-6000-430a-848e-aafacbadf4fe",
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
@@ -546,6 +696,14 @@ class AsyncEngagementsClient:
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

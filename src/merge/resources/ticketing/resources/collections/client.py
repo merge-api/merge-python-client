@@ -78,6 +78,20 @@ class CollectionsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["collection_type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import CollectionsListRequestCollectionType
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.list(
+            collection_type=CollectionsListRequestCollectionType.LIST,
+            expand="parent_collection",
+            remote_fields="collection_type",
+            show_enum_origins="collection_type",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -133,6 +147,19 @@ class CollectionsClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["collection_type"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["collection_type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.retrieve(
+            id="id",
+            expand="parent_collection",
+            remote_fields="collection_type",
+            show_enum_origins="collection_type",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -181,6 +208,18 @@ class CollectionsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge import CollectionsUsersListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.users_list(
+            parent_id="parent-id",
+            expand=CollectionsUsersListRequestExpand.ROLES,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -263,6 +302,20 @@ class AsyncCollectionsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["collection_type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import CollectionsListRequestCollectionType
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ticketing.list(
+            collection_type=CollectionsListRequestCollectionType.LIST,
+            expand="parent_collection",
+            remote_fields="collection_type",
+            show_enum_origins="collection_type",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -318,6 +371,19 @@ class AsyncCollectionsClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["collection_type"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["collection_type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ticketing.retrieve(
+            id="id",
+            expand="parent_collection",
+            remote_fields="collection_type",
+            show_enum_origins="collection_type",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -366,6 +432,18 @@ class AsyncCollectionsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge import CollectionsUsersListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ticketing.users_list(
+            parent_id="parent-id",
+            expand=CollectionsUsersListRequestExpand.ROLES,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

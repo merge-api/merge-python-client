@@ -77,6 +77,17 @@ class JournalEntriesClient:
             - transaction_date_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        ---
+        from merge import JournalEntriesListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.list(
+            expand=JournalEntriesListRequestExpand.COMPANY,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -129,6 +140,27 @@ class JournalEntriesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: JournalEntryRequest.
+        ---
+        from merge import JournalEntryRequest, JournalLineRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.create(
+            model=JournalEntryRequest(
+                lines=[
+                    JournalLineRequest(
+                        remote_id="121222",
+                        net_amount=25.54,
+                        contact="d2d5ea3c-b032-11ec-b909-0242ac120002",
+                        description="Cash payment for lunch",
+                        exchange_rate="2.9",
+                    )
+                ],
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -162,6 +194,18 @@ class JournalEntriesClient:
             - expand: typing.Optional[JournalEntriesRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import JournalEntriesRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.retrieve(
+            id="id",
+            expand=JournalEntriesRetrieveRequestExpand.COMPANY,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -249,6 +293,17 @@ class AsyncJournalEntriesClient:
             - transaction_date_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        ---
+        from merge import JournalEntriesListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.list(
+            expand=JournalEntriesListRequestExpand.COMPANY,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -301,6 +356,27 @@ class AsyncJournalEntriesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: JournalEntryRequest.
+        ---
+        from merge import JournalEntryRequest, JournalLineRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.create(
+            model=JournalEntryRequest(
+                lines=[
+                    JournalLineRequest(
+                        remote_id="121222",
+                        net_amount=25.54,
+                        contact="d2d5ea3c-b032-11ec-b909-0242ac120002",
+                        description="Cash payment for lunch",
+                        exchange_rate="2.9",
+                    )
+                ],
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -334,6 +410,18 @@ class AsyncJournalEntriesClient:
             - expand: typing.Optional[JournalEntriesRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import JournalEntriesRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.retrieve(
+            id="id",
+            expand=JournalEntriesRetrieveRequestExpand.COMPANY,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

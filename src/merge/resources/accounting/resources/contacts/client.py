@@ -85,6 +85,19 @@ class ContactsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import ContactsListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.list(
+            expand=ContactsListRequestExpand.ADDRESSES,
+            remote_fields="status",
+            show_enum_origins="status",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -135,6 +148,30 @@ class ContactsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: ContactRequest.
+        ---
+        from merge import AccountingPhoneNumberRequest, ContactRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.create(
+            model=ContactRequest(
+                name="Gil Feig's Pickleball Team",
+                is_customer=True,
+                email_address="pickleball@merge.dev",
+                tax_number="12-3456789",
+                currency="USD",
+                company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
+                phone_numbers=[
+                    AccountingPhoneNumberRequest(
+                        number="+3198675309",
+                        type="Mobile",
+                    )
+                ],
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -174,6 +211,20 @@ class ContactsClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["status"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import ContactsRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.retrieve(
+            id="id",
+            expand=ContactsRetrieveRequestExpand.ADDRESSES,
+            remote_fields="status",
+            show_enum_origins="status",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -272,6 +323,19 @@ class AsyncContactsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import ContactsListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.list(
+            expand=ContactsListRequestExpand.ADDRESSES,
+            remote_fields="status",
+            show_enum_origins="status",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -322,6 +386,30 @@ class AsyncContactsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: ContactRequest.
+        ---
+        from merge import AccountingPhoneNumberRequest, ContactRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.create(
+            model=ContactRequest(
+                name="Gil Feig's Pickleball Team",
+                is_customer=True,
+                email_address="pickleball@merge.dev",
+                tax_number="12-3456789",
+                currency="USD",
+                company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
+                phone_numbers=[
+                    AccountingPhoneNumberRequest(
+                        number="+3198675309",
+                        type="Mobile",
+                    )
+                ],
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -361,6 +449,20 @@ class AsyncContactsClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["status"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import ContactsRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.retrieve(
+            id="id",
+            expand=ContactsRetrieveRequestExpand.ADDRESSES,
+            remote_fields="status",
+            show_enum_origins="status",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

@@ -66,6 +66,14 @@ class AttachmentsClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -111,6 +119,21 @@ class AttachmentsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: AccountingAttachmentRequest.
+        ---
+        from merge import AccountingAttachmentRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.create(
+            model=AccountingAttachmentRequest(
+                file_name="invoice.png",
+                file_url="https://merge-brand.s3.amazonaws.com/20210315/rect-logo-270x80%402x.png",
+                company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -136,6 +159,16 @@ class AttachmentsClient:
             - id: str.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.retrieve(
+            id="id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -212,6 +245,14 @@ class AsyncAttachmentsClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -257,6 +298,21 @@ class AsyncAttachmentsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: AccountingAttachmentRequest.
+        ---
+        from merge import AccountingAttachmentRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.create(
+            model=AccountingAttachmentRequest(
+                file_name="invoice.png",
+                file_url="https://merge-brand.s3.amazonaws.com/20210315/rect-logo-270x80%402x.png",
+                company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -282,6 +338,16 @@ class AsyncAttachmentsClient:
             - id: str.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.retrieve(
+            id="id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

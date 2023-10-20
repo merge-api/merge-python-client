@@ -85,6 +85,19 @@ class InterviewsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import InterviewsListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.list(
+            expand=InterviewsListRequestExpand.APPLICATION,
+            remote_fields="status",
+            show_enum_origins="status",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -177,6 +190,20 @@ class InterviewsClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["status"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import InterviewsRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.retrieve(
+            id="id",
+            expand=InterviewsRetrieveRequestExpand.APPLICATION,
+            remote_fields="status",
+            show_enum_origins="status",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -275,6 +302,19 @@ class AsyncInterviewsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import InterviewsListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.list(
+            expand=InterviewsListRequestExpand.APPLICATION,
+            remote_fields="status",
+            show_enum_origins="status",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -367,6 +407,20 @@ class AsyncInterviewsClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["status"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import InterviewsRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.retrieve(
+            id="id",
+            expand=InterviewsRetrieveRequestExpand.APPLICATION,
+            remote_fields="status",
+            show_enum_origins="status",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

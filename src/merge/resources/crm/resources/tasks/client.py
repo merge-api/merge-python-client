@@ -73,6 +73,17 @@ class TasksClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge import TasksListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.list(
+            expand=TasksListRequestExpand.ACCOUNT,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -119,6 +130,28 @@ class TasksClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: TaskRequest.
+        ---
+        import datetime
+
+        from merge import TaskRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.create(
+            model=TaskRequest(
+                subject="Contact about Integration Strategy",
+                content="Follow up to see whether they need integrations",
+                completed_date=datetime.datetime.fromisoformat(
+                    "2022-02-11 00:00:00+00:00",
+                ),
+                due_date=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -155,6 +188,18 @@ class TasksClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        ---
+        from merge import TasksRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.retrieve(
+            id="id",
+            expand=TasksRetrieveRequestExpand.ACCOUNT,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -196,6 +241,32 @@ class TasksClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: PatchedTaskRequest.
+        ---
+        import datetime
+
+        from merge import PatchedTaskRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.partial_update(
+            id="id",
+            model=PatchedTaskRequest(
+                subject="Contact about Integration Strategy",
+                content="Follow up to see whether they need integrations",
+                owner="0358cbc6-2040-430a-848e-aafacbadf3aa",
+                account="3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                opportunity="03455bc6-6040-430a-848e-aafacbfdf4fg",
+                completed_date=datetime.datetime.fromisoformat(
+                    "2022-02-11 00:00:00+00:00",
+                ),
+                due_date=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
@@ -274,6 +345,14 @@ class TasksClient:
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -343,6 +422,17 @@ class AsyncTasksClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        ---
+        from merge import TasksListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.list(
+            expand=TasksListRequestExpand.ACCOUNT,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -389,6 +479,28 @@ class AsyncTasksClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: TaskRequest.
+        ---
+        import datetime
+
+        from merge import TaskRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.create(
+            model=TaskRequest(
+                subject="Contact about Integration Strategy",
+                content="Follow up to see whether they need integrations",
+                completed_date=datetime.datetime.fromisoformat(
+                    "2022-02-11 00:00:00+00:00",
+                ),
+                due_date=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -425,6 +537,18 @@ class AsyncTasksClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        ---
+        from merge import TasksRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.retrieve(
+            id="id",
+            expand=TasksRetrieveRequestExpand.ACCOUNT,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -466,6 +590,32 @@ class AsyncTasksClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: PatchedTaskRequest.
+        ---
+        import datetime
+
+        from merge import PatchedTaskRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.partial_update(
+            id="id",
+            model=PatchedTaskRequest(
+                subject="Contact about Integration Strategy",
+                content="Follow up to see whether they need integrations",
+                owner="0358cbc6-2040-430a-848e-aafacbadf3aa",
+                account="3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                opportunity="03455bc6-6040-430a-848e-aafacbfdf4fg",
+                completed_date=datetime.datetime.fromisoformat(
+                    "2022-02-11 00:00:00+00:00",
+                ),
+                due_date=datetime.datetime.fromisoformat(
+                    "2022-02-10 00:00:00+00:00",
+                ),
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
@@ -544,6 +694,14 @@ class AsyncTasksClient:
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

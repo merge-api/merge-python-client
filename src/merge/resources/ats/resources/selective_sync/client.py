@@ -28,6 +28,15 @@ class SelectiveSyncClient:
     def configurations_list(self) -> typing.List[LinkedAccountSelectiveSyncConfiguration]:
         """
         Get a linked account's selective syncs.
+
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.configurations_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -51,6 +60,21 @@ class SelectiveSyncClient:
 
         Parameters:
             - sync_configurations: typing.List[LinkedAccountSelectiveSyncConfigurationRequest]. The selective syncs associated with a linked account.
+        ---
+        from merge import LinkedAccountSelectiveSyncConfigurationRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.configurations_update(
+            sync_configurations=[
+                LinkedAccountSelectiveSyncConfigurationRequest(
+                    linked_account_conditions=[],
+                )
+            ],
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PUT",
@@ -83,6 +107,14 @@ class SelectiveSyncClient:
             - cursor: typing.Optional[str]. The pagination cursor value.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.meta_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -107,6 +139,15 @@ class AsyncSelectiveSyncClient:
     async def configurations_list(self) -> typing.List[LinkedAccountSelectiveSyncConfiguration]:
         """
         Get a linked account's selective syncs.
+
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.configurations_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -130,6 +171,21 @@ class AsyncSelectiveSyncClient:
 
         Parameters:
             - sync_configurations: typing.List[LinkedAccountSelectiveSyncConfigurationRequest]. The selective syncs associated with a linked account.
+        ---
+        from merge import LinkedAccountSelectiveSyncConfigurationRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.configurations_update(
+            sync_configurations=[
+                LinkedAccountSelectiveSyncConfigurationRequest(
+                    linked_account_conditions=[],
+                )
+            ],
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PUT",
@@ -162,6 +218,14 @@ class AsyncSelectiveSyncClient:
             - cursor: typing.Optional[str]. The pagination cursor value.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.meta_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

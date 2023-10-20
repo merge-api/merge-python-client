@@ -94,7 +94,20 @@ class InvoicesClient:
             - type: typing.Optional[InvoicesListRequestType]. If provided, will only return Invoices with this type
 
                                                               * `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
-                                                              * `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE
+                                                              * `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE---
+        from merge import InvoicesListRequestExpand, InvoicesListRequestType
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.list(
+            expand=InvoicesListRequestExpand.COMPANY,
+            remote_fields="type",
+            show_enum_origins="type",
+            type=InvoicesListRequestType.ACCOUNTS_PAYABLE,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -149,6 +162,29 @@ class InvoicesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: InvoiceRequest.
+        ---
+        from merge import InvoiceLineItemRequest, InvoiceRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.create(
+            model=InvoiceRequest(
+                line_items=[
+                    InvoiceLineItemRequest(
+                        remote_id="8765432",
+                        description="Pickleball lessons",
+                        unit_price=50.0,
+                        quantity=1.0,
+                        total_amount=50.0,
+                        exchange_rate="2.9",
+                        company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
+                    )
+                ],
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -188,6 +224,20 @@ class InvoicesClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["type"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import InvoicesRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.retrieve(
+            id="id",
+            expand=InvoicesRetrieveRequestExpand.COMPANY,
+            remote_fields="type",
+            show_enum_origins="type",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -294,7 +344,20 @@ class AsyncInvoicesClient:
             - type: typing.Optional[InvoicesListRequestType]. If provided, will only return Invoices with this type
 
                                                               * `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
-                                                              * `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE
+                                                              * `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE---
+        from merge import InvoicesListRequestExpand, InvoicesListRequestType
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.list(
+            expand=InvoicesListRequestExpand.COMPANY,
+            remote_fields="type",
+            show_enum_origins="type",
+            type=InvoicesListRequestType.ACCOUNTS_PAYABLE,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -349,6 +412,29 @@ class AsyncInvoicesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: InvoiceRequest.
+        ---
+        from merge import InvoiceLineItemRequest, InvoiceRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.create(
+            model=InvoiceRequest(
+                line_items=[
+                    InvoiceLineItemRequest(
+                        remote_id="8765432",
+                        description="Pickleball lessons",
+                        unit_price=50.0,
+                        quantity=1.0,
+                        total_amount=50.0,
+                        exchange_rate="2.9",
+                        company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
+                    )
+                ],
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -388,6 +474,20 @@ class AsyncInvoicesClient:
             - remote_fields: typing.Optional[typing_extensions.Literal["type"]]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["type"]]. Which fields should be returned in non-normalized form.
+        ---
+        from merge import InvoicesRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.retrieve(
+            id="id",
+            expand=InvoicesRetrieveRequestExpand.COMPANY,
+            remote_fields="type",
+            show_enum_origins="type",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

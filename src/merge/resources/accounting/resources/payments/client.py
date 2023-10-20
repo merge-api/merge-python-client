@@ -83,6 +83,17 @@ class PaymentsClient:
             - transaction_date_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        ---
+        from merge import PaymentsListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.list(
+            expand=PaymentsListRequestExpand.ACCOUNT,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -137,6 +148,34 @@ class PaymentsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: PaymentRequest.
+        ---
+        import datetime
+
+        from merge import PaymentLineItemRequest, PaymentRequest
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.create(
+            model=PaymentRequest(
+                transaction_date=datetime.datetime.fromisoformat(
+                    "2020-03-31 00:00:00+00:00",
+                ),
+                exchange_rate="2.9",
+                total_amount=50.0,
+                applied_to_lines=[
+                    PaymentLineItemRequest(
+                        related_object_id="a47e11b6-c73b-4a0c-be31-130fc48177fa",
+                        applied_date=datetime.datetime.fromisoformat(
+                            "2020-03-31 00:00:00+00:00",
+                        ),
+                        remote_id="234",
+                    )
+                ],
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -170,6 +209,18 @@ class PaymentsClient:
             - expand: typing.Optional[PaymentsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import PaymentsRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.retrieve(
+            id="id",
+            expand=PaymentsRetrieveRequestExpand.ACCOUNT,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -261,6 +312,17 @@ class AsyncPaymentsClient:
             - transaction_date_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        ---
+        from merge import PaymentsListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.list(
+            expand=PaymentsListRequestExpand.ACCOUNT,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -315,6 +377,34 @@ class AsyncPaymentsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: PaymentRequest.
+        ---
+        import datetime
+
+        from merge import PaymentLineItemRequest, PaymentRequest
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.create(
+            model=PaymentRequest(
+                transaction_date=datetime.datetime.fromisoformat(
+                    "2020-03-31 00:00:00+00:00",
+                ),
+                exchange_rate="2.9",
+                total_amount=50.0,
+                applied_to_lines=[
+                    PaymentLineItemRequest(
+                        related_object_id="a47e11b6-c73b-4a0c-be31-130fc48177fa",
+                        applied_date=datetime.datetime.fromisoformat(
+                            "2020-03-31 00:00:00+00:00",
+                        ),
+                        remote_id="234",
+                    )
+                ],
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -348,6 +438,18 @@ class AsyncPaymentsClient:
             - expand: typing.Optional[PaymentsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import PaymentsRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.retrieve(
+            id="id",
+            expand=PaymentsRetrieveRequestExpand.ACCOUNT,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

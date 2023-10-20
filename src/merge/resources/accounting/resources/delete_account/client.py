@@ -14,6 +14,15 @@ class DeleteAccountClient:
     def delete(self) -> None:
         """
         Delete a linked account.
+
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.delete()
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -37,6 +46,15 @@ class AsyncDeleteAccountClient:
     async def delete(self) -> None:
         """
         Delete a linked account.
+
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.delete()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",

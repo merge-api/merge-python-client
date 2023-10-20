@@ -82,6 +82,17 @@ class CandidatesClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - tags: typing.Optional[str]. If provided, will only return candidates with these tags; multiple tags can be separated by commas.
+        ---
+        from merge import CandidatesListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.list(
+            expand=CandidatesListRequestExpand.APPLICATIONS,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -167,6 +178,18 @@ class CandidatesClient:
             - expand: typing.Optional[CandidatesRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import CandidatesRetrieveRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.retrieve(
+            id="id",
+            expand=CandidatesRetrieveRequestExpand.APPLICATIONS,
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -232,6 +255,19 @@ class CandidatesClient:
             - reason: ReasonEnum.
 
             - message: typing.Optional[str].
+        ---
+        from merge import ReasonEnum
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.ignore_create(
+            model_id="model-id",
+            reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
+            message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
+        )
         """
         _request: typing.Dict[str, typing.Any] = {"reason": reason}
         if message is not OMIT:
@@ -344,6 +380,17 @@ class AsyncCandidatesClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - tags: typing.Optional[str]. If provided, will only return candidates with these tags; multiple tags can be separated by commas.
+        ---
+        from merge import CandidatesListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.list(
+            expand=CandidatesListRequestExpand.APPLICATIONS,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -429,6 +476,18 @@ class AsyncCandidatesClient:
             - expand: typing.Optional[CandidatesRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        ---
+        from merge import CandidatesRetrieveRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.retrieve(
+            id="id",
+            expand=CandidatesRetrieveRequestExpand.APPLICATIONS,
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -494,6 +553,19 @@ class AsyncCandidatesClient:
             - reason: ReasonEnum.
 
             - message: typing.Optional[str].
+        ---
+        from merge import ReasonEnum
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.ignore_create(
+            model_id="model-id",
+            reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
+            message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
+        )
         """
         _request: typing.Dict[str, typing.Any] = {"reason": reason}
         if message is not OMIT:
