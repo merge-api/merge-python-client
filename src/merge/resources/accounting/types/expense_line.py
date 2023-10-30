@@ -351,6 +351,10 @@ class ExpenseLine(pydantic.BaseModel):
         description="The description of the item that was purchased by the company."
     )
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The expense line item's exchange rate.")
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(
+        description="Indicates whether or not this object has been deleted in the third party platform."
+    )
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

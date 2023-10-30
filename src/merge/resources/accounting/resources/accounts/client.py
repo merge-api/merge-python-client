@@ -245,6 +245,15 @@ class AccountsClient:
     def meta_post_retrieve(self) -> MetaResponse:
         """
         Returns metadata for `Account` POSTs.
+
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -475,6 +484,15 @@ class AsyncAccountsClient:
     async def meta_post_retrieve(self) -> MetaResponse:
         """
         Returns metadata for `Account` POSTs.
+
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

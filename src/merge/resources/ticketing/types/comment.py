@@ -41,6 +41,7 @@ class Comment(pydantic.BaseModel):
         description="When the third party's comment was created."
     )
     remote_was_deleted: typing.Optional[bool]
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

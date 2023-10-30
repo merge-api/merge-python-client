@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from .purchase_order_accounting_period import PurchaseOrderAccountingPeriod
 from .purchase_order_company import PurchaseOrderCompany
 from .purchase_order_currency import PurchaseOrderCurrency
 from .purchase_order_delivery_address import PurchaseOrderDeliveryAddress
@@ -23,7 +24,9 @@ class PurchaseOrder(pydantic.BaseModel):
     """
     # The PurchaseOrder Object
     ### Description
-    The `PurchaseOrder` object is a record of request for a product or service between a buyer and seller.
+    A `PurchaseOrder` represents a request to purchase goods or services from a vendor. It outlines the details of the purchase, such as the items or services requested, quantities, prices, and delivery details.
+
+    A `PurchaseOrder` is a crucial component of the procurement process, but does not typically result in any impact on the company’s general ledger. The general ledger is typically only affected when the `PurchaseOrder` is fulfilled as an *Accounts Payable* Invoice object.
 
     ### Usage Example
     Fetch from the `LIST PurchaseOrders` endpoint and view a company's purchase orders.
@@ -379,10 +382,14 @@ class PurchaseOrder(pydantic.BaseModel):
         description="When the third party's purchase order note was updated."
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted by third party webhooks."
+        description="Indicates whether or not this object has been deleted in the third party platform."
+    )
+    accounting_period: typing.Optional[PurchaseOrderAccountingPeriod] = pydantic.Field(
+        description="The accounting period that the PurchaseOrder was generated in."
     )
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

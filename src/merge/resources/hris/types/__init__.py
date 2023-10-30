@@ -8,6 +8,9 @@ from .account_integration import AccountIntegration
 from .account_token import AccountToken
 from .account_type_enum import AccountTypeEnum
 from .async_passthrough_reciept import AsyncPassthroughReciept
+from .audit_log_event import AuditLogEvent
+from .audit_log_event_event_type import AuditLogEventEventType
+from .audit_log_event_role import AuditLogEventRole
 from .available_actions import AvailableActions
 from .bank_info import BankInfo
 from .bank_info_account_type import BankInfoAccountType
@@ -97,6 +100,7 @@ from .enabled_actions_enum import EnabledActionsEnum
 from .encoding_enum import EncodingEnum
 from .error_validation_problem import ErrorValidationProblem
 from .ethnicity_enum import EthnicityEnum
+from .event_type_enum import EventTypeEnum
 from .flsa_status_enum import FlsaStatusEnum
 from .gender_enum import GenderEnum
 from .group import Group
@@ -118,6 +122,7 @@ from .location import Location
 from .location_country import LocationCountry
 from .location_location_type import LocationLocationType
 from .location_type_enum import LocationTypeEnum
+from .locations_list_request_location_type import LocationsListRequestLocationType
 from .marital_status_enum import MaritalStatusEnum
 from .meta_response import MetaResponse
 from .method_enum import MethodEnum
@@ -126,6 +131,7 @@ from .multipart_form_field_request import MultipartFormFieldRequest
 from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
 from .operator_schema import OperatorSchema
 from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
+from .paginated_audit_log_event_list import PaginatedAuditLogEventList
 from .paginated_bank_info_list import PaginatedBankInfoList
 from .paginated_benefit_list import PaginatedBenefitList
 from .paginated_company_list import PaginatedCompanyList
@@ -144,6 +150,7 @@ from .paginated_sync_status_list import PaginatedSyncStatusList
 from .paginated_team_list import PaginatedTeamList
 from .paginated_time_off_balance_list import PaginatedTimeOffBalanceList
 from .paginated_time_off_list import PaginatedTimeOffList
+from .paginated_timesheet_entry_list import PaginatedTimesheetEntryList
 from .pay_currency_enum import PayCurrencyEnum
 from .pay_frequency_enum import PayFrequencyEnum
 from .pay_group import PayGroup
@@ -166,6 +173,7 @@ from .remote_response_response_type import RemoteResponseResponseType
 from .request_format_enum import RequestFormatEnum
 from .request_type_enum import RequestTypeEnum
 from .response_type_enum import ResponseTypeEnum
+from .role_enum import RoleEnum
 from .run_state_enum import RunStateEnum
 from .run_type_enum import RunTypeEnum
 from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
@@ -200,6 +208,10 @@ from .time_off_retrieve_request_show_enum_origins import TimeOffRetrieveRequestS
 from .time_off_status import TimeOffStatus
 from .time_off_status_enum import TimeOffStatusEnum
 from .time_off_units import TimeOffUnits
+from .timesheet_entries_list_request_order_by import TimesheetEntriesListRequestOrderBy
+from .timesheet_entry import TimesheetEntry
+from .timesheet_entry_request import TimesheetEntryRequest
+from .timesheet_entry_response import TimesheetEntryResponse
 from .units_enum import UnitsEnum
 from .validation_problem_source import ValidationProblemSource
 from .warning_validation_problem import WarningValidationProblem
@@ -214,6 +226,9 @@ __all__ = [
     "AccountToken",
     "AccountTypeEnum",
     "AsyncPassthroughReciept",
+    "AuditLogEvent",
+    "AuditLogEventEventType",
+    "AuditLogEventRole",
     "AvailableActions",
     "BankInfo",
     "BankInfoAccountType",
@@ -303,6 +318,7 @@ __all__ = [
     "EncodingEnum",
     "ErrorValidationProblem",
     "EthnicityEnum",
+    "EventTypeEnum",
     "FlsaStatusEnum",
     "GenderEnum",
     "Group",
@@ -324,6 +340,7 @@ __all__ = [
     "LocationCountry",
     "LocationLocationType",
     "LocationTypeEnum",
+    "LocationsListRequestLocationType",
     "MaritalStatusEnum",
     "MetaResponse",
     "MethodEnum",
@@ -332,6 +349,7 @@ __all__ = [
     "MultipartFormFieldRequestEncoding",
     "OperatorSchema",
     "PaginatedAccountDetailsAndActionsList",
+    "PaginatedAuditLogEventList",
     "PaginatedBankInfoList",
     "PaginatedBenefitList",
     "PaginatedCompanyList",
@@ -350,6 +368,7 @@ __all__ = [
     "PaginatedTeamList",
     "PaginatedTimeOffBalanceList",
     "PaginatedTimeOffList",
+    "PaginatedTimesheetEntryList",
     "PayCurrencyEnum",
     "PayFrequencyEnum",
     "PayGroup",
@@ -372,6 +391,7 @@ __all__ = [
     "RequestFormatEnum",
     "RequestTypeEnum",
     "ResponseTypeEnum",
+    "RoleEnum",
     "RunStateEnum",
     "RunTypeEnum",
     "SelectiveSyncConfigurationsUsageEnum",
@@ -406,6 +426,10 @@ __all__ = [
     "TimeOffStatus",
     "TimeOffStatusEnum",
     "TimeOffUnits",
+    "TimesheetEntriesListRequestOrderBy",
+    "TimesheetEntry",
+    "TimesheetEntryRequest",
+    "TimesheetEntryResponse",
     "UnitsEnum",
     "ValidationProblemSource",
     "WarningValidationProblem",

@@ -43,6 +43,9 @@ from .attachment_request import AttachmentRequest
 from .attachment_request_attachment_type import AttachmentRequestAttachmentType
 from .attachment_response import AttachmentResponse
 from .attachment_type_enum import AttachmentTypeEnum
+from .audit_log_event import AuditLogEvent
+from .audit_log_event_event_type import AuditLogEventEventType
+from .audit_log_event_role import AuditLogEventRole
 from .available_actions import AvailableActions
 from .candidate import Candidate
 from .candidate_applications_item import CandidateApplicationsItem
@@ -82,6 +85,7 @@ from .email_address_type_enum import EmailAddressTypeEnum
 from .enabled_actions_enum import EnabledActionsEnum
 from .encoding_enum import EncodingEnum
 from .error_validation_problem import ErrorValidationProblem
+from .event_type_enum import EventTypeEnum
 from .gender_enum import GenderEnum
 from .interviews_list_request_expand import InterviewsListRequestExpand
 from .interviews_retrieve_request_expand import InterviewsRetrieveRequestExpand
@@ -101,6 +105,7 @@ from .job_status_enum import JobStatusEnum
 from .jobs_list_request_expand import JobsListRequestExpand
 from .jobs_list_request_status import JobsListRequestStatus
 from .jobs_retrieve_request_expand import JobsRetrieveRequestExpand
+from .jobs_screening_questions_list_request_expand import JobsScreeningQuestionsListRequestExpand
 from .link_token import LinkToken
 from .linked_account_condition import LinkedAccountCondition
 from .linked_account_condition_request import LinkedAccountConditionRequest
@@ -127,6 +132,7 @@ from .paginated_account_details_and_actions_list import PaginatedAccountDetailsA
 from .paginated_activity_list import PaginatedActivityList
 from .paginated_application_list import PaginatedApplicationList
 from .paginated_attachment_list import PaginatedAttachmentList
+from .paginated_audit_log_event_list import PaginatedAuditLogEventList
 from .paginated_candidate_list import PaginatedCandidateList
 from .paginated_condition_schema_list import PaginatedConditionSchemaList
 from .paginated_department_list import PaginatedDepartmentList
@@ -140,6 +146,7 @@ from .paginated_reject_reason_list import PaginatedRejectReasonList
 from .paginated_remote_user_list import PaginatedRemoteUserList
 from .paginated_scheduled_interview_list import PaginatedScheduledInterviewList
 from .paginated_scorecard_list import PaginatedScorecardList
+from .paginated_screening_question_list import PaginatedScreeningQuestionList
 from .paginated_sync_status_list import PaginatedSyncStatusList
 from .paginated_tag_list import PaginatedTagList
 from .patched_candidate_request import PatchedCandidateRequest
@@ -159,6 +166,7 @@ from .remote_user import RemoteUser
 from .remote_user_access_role import RemoteUserAccessRole
 from .request_format_enum import RequestFormatEnum
 from .response_type_enum import ResponseTypeEnum
+from .role_enum import RoleEnum
 from .scheduled_interview import ScheduledInterview
 from .scheduled_interview_application import ScheduledInterviewApplication
 from .scheduled_interview_interviewers_item import ScheduledInterviewInterviewersItem
@@ -180,10 +188,15 @@ from .scorecard_interviewer import ScorecardInterviewer
 from .scorecard_overall_recommendation import ScorecardOverallRecommendation
 from .scorecards_list_request_expand import ScorecardsListRequestExpand
 from .scorecards_retrieve_request_expand import ScorecardsRetrieveRequestExpand
+from .screening_question import ScreeningQuestion
+from .screening_question_job import ScreeningQuestionJob
+from .screening_question_option import ScreeningQuestionOption
+from .screening_question_type import ScreeningQuestionType
 from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
 from .sync_status import SyncStatus
 from .sync_status_status_enum import SyncStatusStatusEnum
 from .tag import Tag
+from .type_enum import TypeEnum
 from .url import Url
 from .url_request import UrlRequest
 from .url_request_url_type import UrlRequestUrlType
@@ -239,6 +252,9 @@ __all__ = [
     "AttachmentRequestAttachmentType",
     "AttachmentResponse",
     "AttachmentTypeEnum",
+    "AuditLogEvent",
+    "AuditLogEventEventType",
+    "AuditLogEventRole",
     "AvailableActions",
     "Candidate",
     "CandidateApplicationsItem",
@@ -278,6 +294,7 @@ __all__ = [
     "EnabledActionsEnum",
     "EncodingEnum",
     "ErrorValidationProblem",
+    "EventTypeEnum",
     "GenderEnum",
     "InterviewsListRequestExpand",
     "InterviewsRetrieveRequestExpand",
@@ -297,6 +314,7 @@ __all__ = [
     "JobsListRequestExpand",
     "JobsListRequestStatus",
     "JobsRetrieveRequestExpand",
+    "JobsScreeningQuestionsListRequestExpand",
     "LinkToken",
     "LinkedAccountCondition",
     "LinkedAccountConditionRequest",
@@ -323,6 +341,7 @@ __all__ = [
     "PaginatedActivityList",
     "PaginatedApplicationList",
     "PaginatedAttachmentList",
+    "PaginatedAuditLogEventList",
     "PaginatedCandidateList",
     "PaginatedConditionSchemaList",
     "PaginatedDepartmentList",
@@ -336,6 +355,7 @@ __all__ = [
     "PaginatedRemoteUserList",
     "PaginatedScheduledInterviewList",
     "PaginatedScorecardList",
+    "PaginatedScreeningQuestionList",
     "PaginatedSyncStatusList",
     "PaginatedTagList",
     "PatchedCandidateRequest",
@@ -355,6 +375,7 @@ __all__ = [
     "RemoteUserAccessRole",
     "RequestFormatEnum",
     "ResponseTypeEnum",
+    "RoleEnum",
     "ScheduledInterview",
     "ScheduledInterviewApplication",
     "ScheduledInterviewInterviewersItem",
@@ -376,10 +397,15 @@ __all__ = [
     "ScorecardOverallRecommendation",
     "ScorecardsListRequestExpand",
     "ScorecardsRetrieveRequestExpand",
+    "ScreeningQuestion",
+    "ScreeningQuestionJob",
+    "ScreeningQuestionOption",
+    "ScreeningQuestionType",
     "SelectiveSyncConfigurationsUsageEnum",
     "SyncStatus",
     "SyncStatusStatusEnum",
     "Tag",
+    "TypeEnum",
     "Url",
     "UrlRequest",
     "UrlRequestUrlType",

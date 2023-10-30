@@ -4,6 +4,8 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from .file_drive import FileDrive
+from .file_folder import FileFolder
 from .file_permissions import FilePermissions
 
 try:
@@ -31,11 +33,11 @@ class File(pydantic.BaseModel):
     size: typing.Optional[int] = pydantic.Field(description="The file's size, in bytes.")
     mime_type: typing.Optional[str] = pydantic.Field(description="The file's mime type.")
     description: typing.Optional[str] = pydantic.Field(description="The file's description.")
-    folder: typing.Optional[str] = pydantic.Field(description="The folder that the file belongs to.")
+    folder: typing.Optional[FileFolder] = pydantic.Field(description="The folder that the file belongs to.")
     permissions: typing.Optional[FilePermissions] = pydantic.Field(
         description="The Permission object is used to represent a user's or group's access to a File or Folder. Permissions are unexpanded by default. Use the query param `expand=permissions` to see more details under `GET /files`."
     )
-    drive: typing.Optional[str] = pydantic.Field(description="The drive that the file belongs to.")
+    drive: typing.Optional[FileDrive] = pydantic.Field(description="The drive that the file belongs to.")
     remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="When the third party's file was created."
     )
@@ -43,8 +45,9 @@ class File(pydantic.BaseModel):
         description="When the third party's file was updated."
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted by third party webhooks."
+        description="Indicates whether or not this object has been deleted in the third party platform."
     )
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

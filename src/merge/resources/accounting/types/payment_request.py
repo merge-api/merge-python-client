@@ -4,8 +4,8 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .payment_line_item_request import PaymentLineItemRequest
 from .payment_request_account import PaymentRequestAccount
+from .payment_request_accounting_period import PaymentRequestAccountingPeriod
 from .payment_request_company import PaymentRequestCompany
 from .payment_request_contact import PaymentRequestContact
 from .payment_request_currency import PaymentRequestCurrency
@@ -352,7 +352,9 @@ class PaymentRequest(pydantic.BaseModel):
         description="The total amount of money being paid to the supplier, or customer, after taxes."
     )
     tracking_categories: typing.Optional[typing.List[typing.Optional[PaymentRequestTrackingCategoriesItem]]]
-    applied_to_lines: typing.Optional[typing.List[PaymentLineItemRequest]]
+    accounting_period: typing.Optional[PaymentRequestAccountingPeriod] = pydantic.Field(
+        description="The accounting period that the Payment was generated in."
+    )
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 

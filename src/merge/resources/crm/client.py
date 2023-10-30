@@ -10,6 +10,7 @@ from .resources.async_passthrough.client import AsyncAsyncPassthroughClient
 from .resources.async_passthrough.client import (
     AsyncPassthroughClient as resources_crm_resources_async_passthrough_client_AsyncPassthroughClient,
 )
+from .resources.audit_trail.client import AsyncAuditTrailClient, AuditTrailClient
 from .resources.available_actions.client import AsyncAvailableActionsClient, AvailableActionsClient
 from .resources.contacts.client import AsyncContactsClient, ContactsClient
 from .resources.custom_object_classes.client import AsyncCustomObjectClassesClient, CustomObjectClassesClient
@@ -47,6 +48,7 @@ class CrmClient:
         self.async_passthrough = resources_crm_resources_async_passthrough_client_AsyncPassthroughClient(
             client_wrapper=self._client_wrapper
         )
+        self.audit_trail = AuditTrailClient(client_wrapper=self._client_wrapper)
         self.available_actions = AvailableActionsClient(client_wrapper=self._client_wrapper)
         self.contacts = ContactsClient(client_wrapper=self._client_wrapper)
         self.custom_object_classes = CustomObjectClassesClient(client_wrapper=self._client_wrapper)
@@ -81,6 +83,7 @@ class AsyncCrmClient:
         self.account_token = AsyncAccountTokenClient(client_wrapper=self._client_wrapper)
         self.accounts = AsyncAccountsClient(client_wrapper=self._client_wrapper)
         self.async_passthrough = AsyncAsyncPassthroughClient(client_wrapper=self._client_wrapper)
+        self.audit_trail = AsyncAuditTrailClient(client_wrapper=self._client_wrapper)
         self.available_actions = AsyncAvailableActionsClient(client_wrapper=self._client_wrapper)
         self.contacts = AsyncContactsClient(client_wrapper=self._client_wrapper)
         self.custom_object_classes = AsyncCustomObjectClassesClient(client_wrapper=self._client_wrapper)

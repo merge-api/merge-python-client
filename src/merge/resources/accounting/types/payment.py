@@ -5,10 +5,10 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from .payment_account import PaymentAccount
+from .payment_accounting_period import PaymentAccountingPeriod
 from .payment_company import PaymentCompany
 from .payment_contact import PaymentContact
 from .payment_currency import PaymentCurrency
-from .payment_line_item import PaymentLineItem
 from .payment_tracking_categories_item import PaymentTrackingCategoriesItem
 from .remote_data import RemoteData
 
@@ -359,9 +359,12 @@ class Payment(pydantic.BaseModel):
         description="When the third party's payment entry was updated."
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted by third party webhooks."
+        description="Indicates whether or not this object has been deleted in the third party platform."
     )
-    applied_to_lines: typing.Optional[typing.List[PaymentLineItem]]
+    accounting_period: typing.Optional[PaymentAccountingPeriod] = pydantic.Field(
+        description="The accounting period that the Payment was generated in."
+    )
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

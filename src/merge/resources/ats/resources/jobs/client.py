@@ -15,7 +15,9 @@ from ...types.job import Job
 from ...types.jobs_list_request_expand import JobsListRequestExpand
 from ...types.jobs_list_request_status import JobsListRequestStatus
 from ...types.jobs_retrieve_request_expand import JobsRetrieveRequestExpand
+from ...types.jobs_screening_questions_list_request_expand import JobsScreeningQuestionsListRequestExpand
 from ...types.paginated_job_list import PaginatedJobList
+from ...types.paginated_screening_question_list import PaginatedScreeningQuestionList
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -191,6 +193,69 @@ class JobsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def screening_questions_list(
+        self,
+        job_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        expand: typing.Optional[JobsScreeningQuestionsListRequestExpand] = None,
+        include_deleted_data: typing.Optional[bool] = None,
+        include_remote_data: typing.Optional[bool] = None,
+        page_size: typing.Optional[int] = None,
+    ) -> PaginatedScreeningQuestionList:
+        """
+        Returns a list of `ScreeningQuestion` objects.
+
+        Parameters:
+            - job_id: str.
+
+            - cursor: typing.Optional[str]. The pagination cursor value.
+
+            - expand: typing.Optional[JobsScreeningQuestionsListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+
+            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+
+            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+
+            - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge import JobsScreeningQuestionsListRequestExpand
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.screening_questions_list(
+            job_id="job-id",
+            expand=JobsScreeningQuestionsListRequestExpand.JOB,
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/jobs/{job_id}/screening-questions"
+            ),
+            params=remove_none_from_dict(
+                {
+                    "cursor": cursor,
+                    "expand": expand,
+                    "include_deleted_data": include_deleted_data,
+                    "include_remote_data": include_remote_data,
+                    "page_size": page_size,
+                }
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(PaginatedScreeningQuestionList, _response.json())  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
 
 class AsyncJobsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -354,6 +419,69 @@ class AsyncJobsClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Job, _response.json())  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def screening_questions_list(
+        self,
+        job_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        expand: typing.Optional[JobsScreeningQuestionsListRequestExpand] = None,
+        include_deleted_data: typing.Optional[bool] = None,
+        include_remote_data: typing.Optional[bool] = None,
+        page_size: typing.Optional[int] = None,
+    ) -> PaginatedScreeningQuestionList:
+        """
+        Returns a list of `ScreeningQuestion` objects.
+
+        Parameters:
+            - job_id: str.
+
+            - cursor: typing.Optional[str]. The pagination cursor value.
+
+            - expand: typing.Optional[JobsScreeningQuestionsListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+
+            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+
+            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+
+            - page_size: typing.Optional[int]. Number of results to return per page.
+        ---
+        from merge import JobsScreeningQuestionsListRequestExpand
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.screening_questions_list(
+            job_id="job-id",
+            expand=JobsScreeningQuestionsListRequestExpand.JOB,
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/jobs/{job_id}/screening-questions"
+            ),
+            params=remove_none_from_dict(
+                {
+                    "cursor": cursor,
+                    "expand": expand,
+                    "include_deleted_data": include_deleted_data,
+                    "include_remote_data": include_remote_data,
+                    "page_size": page_size,
+                }
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(PaginatedScreeningQuestionList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:

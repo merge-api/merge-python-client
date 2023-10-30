@@ -7,131 +7,617 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class InvoicesRetrieveRequestExpand(str, enum.Enum):
+    ACCOUNTING_PERIOD = "accounting_period"
     COMPANY = "company"
+    COMPANY_ACCOUNTING_PERIOD = "company,accounting_period"
     CONTACT = "contact"
+    CONTACT_ACCOUNTING_PERIOD = "contact,accounting_period"
     CONTACT_COMPANY = "contact,company"
+    CONTACT_COMPANY_ACCOUNTING_PERIOD = "contact,company,accounting_period"
     LINE_ITEMS = "line_items"
+    LINE_ITEMS_ACCOUNTING_PERIOD = "line_items,accounting_period"
     LINE_ITEMS_COMPANY = "line_items,company"
+    LINE_ITEMS_COMPANY_ACCOUNTING_PERIOD = "line_items,company,accounting_period"
     LINE_ITEMS_CONTACT = "line_items,contact"
+    LINE_ITEMS_CONTACT_ACCOUNTING_PERIOD = "line_items,contact,accounting_period"
     LINE_ITEMS_CONTACT_COMPANY = "line_items,contact,company"
+    LINE_ITEMS_CONTACT_COMPANY_ACCOUNTING_PERIOD = "line_items,contact,company,accounting_period"
+    LINE_ITEMS_PURCHASE_ORDERS = "line_items,purchase_orders"
+    LINE_ITEMS_PURCHASE_ORDERS_ACCOUNTING_PERIOD = "line_items,purchase_orders,accounting_period"
+    LINE_ITEMS_PURCHASE_ORDERS_COMPANY = "line_items,purchase_orders,company"
+    LINE_ITEMS_PURCHASE_ORDERS_COMPANY_ACCOUNTING_PERIOD = "line_items,purchase_orders,company,accounting_period"
+    LINE_ITEMS_PURCHASE_ORDERS_CONTACT = "line_items,purchase_orders,contact"
+    LINE_ITEMS_PURCHASE_ORDERS_CONTACT_ACCOUNTING_PERIOD = "line_items,purchase_orders,contact,accounting_period"
+    LINE_ITEMS_PURCHASE_ORDERS_CONTACT_COMPANY = "line_items,purchase_orders,contact,company"
+    LINE_ITEMS_PURCHASE_ORDERS_CONTACT_COMPANY_ACCOUNTING_PERIOD = (
+        "line_items,purchase_orders,contact,company,accounting_period"
+    )
     LINE_ITEMS_TRACKING_CATEGORIES = "line_items,tracking_categories"
+    LINE_ITEMS_TRACKING_CATEGORIES_ACCOUNTING_PERIOD = "line_items,tracking_categories,accounting_period"
     LINE_ITEMS_TRACKING_CATEGORIES_COMPANY = "line_items,tracking_categories,company"
+    LINE_ITEMS_TRACKING_CATEGORIES_COMPANY_ACCOUNTING_PERIOD = (
+        "line_items,tracking_categories,company,accounting_period"
+    )
     LINE_ITEMS_TRACKING_CATEGORIES_CONTACT = "line_items,tracking_categories,contact"
+    LINE_ITEMS_TRACKING_CATEGORIES_CONTACT_ACCOUNTING_PERIOD = (
+        "line_items,tracking_categories,contact,accounting_period"
+    )
     LINE_ITEMS_TRACKING_CATEGORIES_CONTACT_COMPANY = "line_items,tracking_categories,contact,company"
+    LINE_ITEMS_TRACKING_CATEGORIES_CONTACT_COMPANY_ACCOUNTING_PERIOD = (
+        "line_items,tracking_categories,contact,company,accounting_period"
+    )
+    LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS = "line_items,tracking_categories,purchase_orders"
+    LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_ACCOUNTING_PERIOD = (
+        "line_items,tracking_categories,purchase_orders,accounting_period"
+    )
+    LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_COMPANY = "line_items,tracking_categories,purchase_orders,company"
+    LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_COMPANY_ACCOUNTING_PERIOD = (
+        "line_items,tracking_categories,purchase_orders,company,accounting_period"
+    )
+    LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT = "line_items,tracking_categories,purchase_orders,contact"
+    LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_ACCOUNTING_PERIOD = (
+        "line_items,tracking_categories,purchase_orders,contact,accounting_period"
+    )
+    LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_COMPANY = (
+        "line_items,tracking_categories,purchase_orders,contact,company"
+    )
+    LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_COMPANY_ACCOUNTING_PERIOD = (
+        "line_items,tracking_categories,purchase_orders,contact,company,accounting_period"
+    )
     PAYMENTS = "payments"
+    PAYMENTS_ACCOUNTING_PERIOD = "payments,accounting_period"
     PAYMENTS_COMPANY = "payments,company"
+    PAYMENTS_COMPANY_ACCOUNTING_PERIOD = "payments,company,accounting_period"
     PAYMENTS_CONTACT = "payments,contact"
+    PAYMENTS_CONTACT_ACCOUNTING_PERIOD = "payments,contact,accounting_period"
     PAYMENTS_CONTACT_COMPANY = "payments,contact,company"
+    PAYMENTS_CONTACT_COMPANY_ACCOUNTING_PERIOD = "payments,contact,company,accounting_period"
     PAYMENTS_LINE_ITEMS = "payments,line_items"
+    PAYMENTS_LINE_ITEMS_ACCOUNTING_PERIOD = "payments,line_items,accounting_period"
     PAYMENTS_LINE_ITEMS_COMPANY = "payments,line_items,company"
+    PAYMENTS_LINE_ITEMS_COMPANY_ACCOUNTING_PERIOD = "payments,line_items,company,accounting_period"
     PAYMENTS_LINE_ITEMS_CONTACT = "payments,line_items,contact"
+    PAYMENTS_LINE_ITEMS_CONTACT_ACCOUNTING_PERIOD = "payments,line_items,contact,accounting_period"
     PAYMENTS_LINE_ITEMS_CONTACT_COMPANY = "payments,line_items,contact,company"
+    PAYMENTS_LINE_ITEMS_CONTACT_COMPANY_ACCOUNTING_PERIOD = "payments,line_items,contact,company,accounting_period"
+    PAYMENTS_LINE_ITEMS_PURCHASE_ORDERS = "payments,line_items,purchase_orders"
+    PAYMENTS_LINE_ITEMS_PURCHASE_ORDERS_ACCOUNTING_PERIOD = "payments,line_items,purchase_orders,accounting_period"
+    PAYMENTS_LINE_ITEMS_PURCHASE_ORDERS_COMPANY = "payments,line_items,purchase_orders,company"
+    PAYMENTS_LINE_ITEMS_PURCHASE_ORDERS_COMPANY_ACCOUNTING_PERIOD = (
+        "payments,line_items,purchase_orders,company,accounting_period"
+    )
+    PAYMENTS_LINE_ITEMS_PURCHASE_ORDERS_CONTACT = "payments,line_items,purchase_orders,contact"
+    PAYMENTS_LINE_ITEMS_PURCHASE_ORDERS_CONTACT_ACCOUNTING_PERIOD = (
+        "payments,line_items,purchase_orders,contact,accounting_period"
+    )
+    PAYMENTS_LINE_ITEMS_PURCHASE_ORDERS_CONTACT_COMPANY = "payments,line_items,purchase_orders,contact,company"
+    PAYMENTS_LINE_ITEMS_PURCHASE_ORDERS_CONTACT_COMPANY_ACCOUNTING_PERIOD = (
+        "payments,line_items,purchase_orders,contact,company,accounting_period"
+    )
     PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES = "payments,line_items,tracking_categories"
+    PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_ACCOUNTING_PERIOD = (
+        "payments,line_items,tracking_categories,accounting_period"
+    )
     PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_COMPANY = "payments,line_items,tracking_categories,company"
+    PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_COMPANY_ACCOUNTING_PERIOD = (
+        "payments,line_items,tracking_categories,company,accounting_period"
+    )
     PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_CONTACT = "payments,line_items,tracking_categories,contact"
+    PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_CONTACT_ACCOUNTING_PERIOD = (
+        "payments,line_items,tracking_categories,contact,accounting_period"
+    )
     PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_CONTACT_COMPANY = "payments,line_items,tracking_categories,contact,company"
+    PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_CONTACT_COMPANY_ACCOUNTING_PERIOD = (
+        "payments,line_items,tracking_categories,contact,company,accounting_period"
+    )
+    PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS = "payments,line_items,tracking_categories,purchase_orders"
+    PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_ACCOUNTING_PERIOD = (
+        "payments,line_items,tracking_categories,purchase_orders,accounting_period"
+    )
+    PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_COMPANY = (
+        "payments,line_items,tracking_categories,purchase_orders,company"
+    )
+    PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_COMPANY_ACCOUNTING_PERIOD = (
+        "payments,line_items,tracking_categories,purchase_orders,company,accounting_period"
+    )
+    PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT = (
+        "payments,line_items,tracking_categories,purchase_orders,contact"
+    )
+    PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_ACCOUNTING_PERIOD = (
+        "payments,line_items,tracking_categories,purchase_orders,contact,accounting_period"
+    )
+    PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_COMPANY = (
+        "payments,line_items,tracking_categories,purchase_orders,contact,company"
+    )
+    PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_COMPANY_ACCOUNTING_PERIOD = (
+        "payments,line_items,tracking_categories,purchase_orders,contact,company,accounting_period"
+    )
+    PAYMENTS_PURCHASE_ORDERS = "payments,purchase_orders"
+    PAYMENTS_PURCHASE_ORDERS_ACCOUNTING_PERIOD = "payments,purchase_orders,accounting_period"
+    PAYMENTS_PURCHASE_ORDERS_COMPANY = "payments,purchase_orders,company"
+    PAYMENTS_PURCHASE_ORDERS_COMPANY_ACCOUNTING_PERIOD = "payments,purchase_orders,company,accounting_period"
+    PAYMENTS_PURCHASE_ORDERS_CONTACT = "payments,purchase_orders,contact"
+    PAYMENTS_PURCHASE_ORDERS_CONTACT_ACCOUNTING_PERIOD = "payments,purchase_orders,contact,accounting_period"
+    PAYMENTS_PURCHASE_ORDERS_CONTACT_COMPANY = "payments,purchase_orders,contact,company"
+    PAYMENTS_PURCHASE_ORDERS_CONTACT_COMPANY_ACCOUNTING_PERIOD = (
+        "payments,purchase_orders,contact,company,accounting_period"
+    )
     PAYMENTS_TRACKING_CATEGORIES = "payments,tracking_categories"
+    PAYMENTS_TRACKING_CATEGORIES_ACCOUNTING_PERIOD = "payments,tracking_categories,accounting_period"
     PAYMENTS_TRACKING_CATEGORIES_COMPANY = "payments,tracking_categories,company"
+    PAYMENTS_TRACKING_CATEGORIES_COMPANY_ACCOUNTING_PERIOD = "payments,tracking_categories,company,accounting_period"
     PAYMENTS_TRACKING_CATEGORIES_CONTACT = "payments,tracking_categories,contact"
+    PAYMENTS_TRACKING_CATEGORIES_CONTACT_ACCOUNTING_PERIOD = "payments,tracking_categories,contact,accounting_period"
     PAYMENTS_TRACKING_CATEGORIES_CONTACT_COMPANY = "payments,tracking_categories,contact,company"
+    PAYMENTS_TRACKING_CATEGORIES_CONTACT_COMPANY_ACCOUNTING_PERIOD = (
+        "payments,tracking_categories,contact,company,accounting_period"
+    )
+    PAYMENTS_TRACKING_CATEGORIES_PURCHASE_ORDERS = "payments,tracking_categories,purchase_orders"
+    PAYMENTS_TRACKING_CATEGORIES_PURCHASE_ORDERS_ACCOUNTING_PERIOD = (
+        "payments,tracking_categories,purchase_orders,accounting_period"
+    )
+    PAYMENTS_TRACKING_CATEGORIES_PURCHASE_ORDERS_COMPANY = "payments,tracking_categories,purchase_orders,company"
+    PAYMENTS_TRACKING_CATEGORIES_PURCHASE_ORDERS_COMPANY_ACCOUNTING_PERIOD = (
+        "payments,tracking_categories,purchase_orders,company,accounting_period"
+    )
+    PAYMENTS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT = "payments,tracking_categories,purchase_orders,contact"
+    PAYMENTS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_ACCOUNTING_PERIOD = (
+        "payments,tracking_categories,purchase_orders,contact,accounting_period"
+    )
+    PAYMENTS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_COMPANY = (
+        "payments,tracking_categories,purchase_orders,contact,company"
+    )
+    PAYMENTS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_COMPANY_ACCOUNTING_PERIOD = (
+        "payments,tracking_categories,purchase_orders,contact,company,accounting_period"
+    )
+    PURCHASE_ORDERS = "purchase_orders"
+    PURCHASE_ORDERS_ACCOUNTING_PERIOD = "purchase_orders,accounting_period"
+    PURCHASE_ORDERS_COMPANY = "purchase_orders,company"
+    PURCHASE_ORDERS_COMPANY_ACCOUNTING_PERIOD = "purchase_orders,company,accounting_period"
+    PURCHASE_ORDERS_CONTACT = "purchase_orders,contact"
+    PURCHASE_ORDERS_CONTACT_ACCOUNTING_PERIOD = "purchase_orders,contact,accounting_period"
+    PURCHASE_ORDERS_CONTACT_COMPANY = "purchase_orders,contact,company"
+    PURCHASE_ORDERS_CONTACT_COMPANY_ACCOUNTING_PERIOD = "purchase_orders,contact,company,accounting_period"
     TRACKING_CATEGORIES = "tracking_categories"
+    TRACKING_CATEGORIES_ACCOUNTING_PERIOD = "tracking_categories,accounting_period"
     TRACKING_CATEGORIES_COMPANY = "tracking_categories,company"
+    TRACKING_CATEGORIES_COMPANY_ACCOUNTING_PERIOD = "tracking_categories,company,accounting_period"
     TRACKING_CATEGORIES_CONTACT = "tracking_categories,contact"
+    TRACKING_CATEGORIES_CONTACT_ACCOUNTING_PERIOD = "tracking_categories,contact,accounting_period"
     TRACKING_CATEGORIES_CONTACT_COMPANY = "tracking_categories,contact,company"
+    TRACKING_CATEGORIES_CONTACT_COMPANY_ACCOUNTING_PERIOD = "tracking_categories,contact,company,accounting_period"
+    TRACKING_CATEGORIES_PURCHASE_ORDERS = "tracking_categories,purchase_orders"
+    TRACKING_CATEGORIES_PURCHASE_ORDERS_ACCOUNTING_PERIOD = "tracking_categories,purchase_orders,accounting_period"
+    TRACKING_CATEGORIES_PURCHASE_ORDERS_COMPANY = "tracking_categories,purchase_orders,company"
+    TRACKING_CATEGORIES_PURCHASE_ORDERS_COMPANY_ACCOUNTING_PERIOD = (
+        "tracking_categories,purchase_orders,company,accounting_period"
+    )
+    TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT = "tracking_categories,purchase_orders,contact"
+    TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_ACCOUNTING_PERIOD = (
+        "tracking_categories,purchase_orders,contact,accounting_period"
+    )
+    TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_COMPANY = "tracking_categories,purchase_orders,contact,company"
+    TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_COMPANY_ACCOUNTING_PERIOD = (
+        "tracking_categories,purchase_orders,contact,company,accounting_period"
+    )
 
     def visit(
         self,
+        accounting_period: typing.Callable[[], T_Result],
         company: typing.Callable[[], T_Result],
+        company_accounting_period: typing.Callable[[], T_Result],
         contact: typing.Callable[[], T_Result],
+        contact_accounting_period: typing.Callable[[], T_Result],
         contact_company: typing.Callable[[], T_Result],
+        contact_company_accounting_period: typing.Callable[[], T_Result],
         line_items: typing.Callable[[], T_Result],
+        line_items_accounting_period: typing.Callable[[], T_Result],
         line_items_company: typing.Callable[[], T_Result],
+        line_items_company_accounting_period: typing.Callable[[], T_Result],
         line_items_contact: typing.Callable[[], T_Result],
+        line_items_contact_accounting_period: typing.Callable[[], T_Result],
         line_items_contact_company: typing.Callable[[], T_Result],
+        line_items_contact_company_accounting_period: typing.Callable[[], T_Result],
+        line_items_purchase_orders: typing.Callable[[], T_Result],
+        line_items_purchase_orders_accounting_period: typing.Callable[[], T_Result],
+        line_items_purchase_orders_company: typing.Callable[[], T_Result],
+        line_items_purchase_orders_company_accounting_period: typing.Callable[[], T_Result],
+        line_items_purchase_orders_contact: typing.Callable[[], T_Result],
+        line_items_purchase_orders_contact_accounting_period: typing.Callable[[], T_Result],
+        line_items_purchase_orders_contact_company: typing.Callable[[], T_Result],
+        line_items_purchase_orders_contact_company_accounting_period: typing.Callable[[], T_Result],
         line_items_tracking_categories: typing.Callable[[], T_Result],
+        line_items_tracking_categories_accounting_period: typing.Callable[[], T_Result],
         line_items_tracking_categories_company: typing.Callable[[], T_Result],
+        line_items_tracking_categories_company_accounting_period: typing.Callable[[], T_Result],
         line_items_tracking_categories_contact: typing.Callable[[], T_Result],
+        line_items_tracking_categories_contact_accounting_period: typing.Callable[[], T_Result],
         line_items_tracking_categories_contact_company: typing.Callable[[], T_Result],
+        line_items_tracking_categories_contact_company_accounting_period: typing.Callable[[], T_Result],
+        line_items_tracking_categories_purchase_orders: typing.Callable[[], T_Result],
+        line_items_tracking_categories_purchase_orders_accounting_period: typing.Callable[[], T_Result],
+        line_items_tracking_categories_purchase_orders_company: typing.Callable[[], T_Result],
+        line_items_tracking_categories_purchase_orders_company_accounting_period: typing.Callable[[], T_Result],
+        line_items_tracking_categories_purchase_orders_contact: typing.Callable[[], T_Result],
+        line_items_tracking_categories_purchase_orders_contact_accounting_period: typing.Callable[[], T_Result],
+        line_items_tracking_categories_purchase_orders_contact_company: typing.Callable[[], T_Result],
+        line_items_tracking_categories_purchase_orders_contact_company_accounting_period: typing.Callable[[], T_Result],
         payments: typing.Callable[[], T_Result],
+        payments_accounting_period: typing.Callable[[], T_Result],
         payments_company: typing.Callable[[], T_Result],
+        payments_company_accounting_period: typing.Callable[[], T_Result],
         payments_contact: typing.Callable[[], T_Result],
+        payments_contact_accounting_period: typing.Callable[[], T_Result],
         payments_contact_company: typing.Callable[[], T_Result],
+        payments_contact_company_accounting_period: typing.Callable[[], T_Result],
         payments_line_items: typing.Callable[[], T_Result],
+        payments_line_items_accounting_period: typing.Callable[[], T_Result],
         payments_line_items_company: typing.Callable[[], T_Result],
+        payments_line_items_company_accounting_period: typing.Callable[[], T_Result],
         payments_line_items_contact: typing.Callable[[], T_Result],
+        payments_line_items_contact_accounting_period: typing.Callable[[], T_Result],
         payments_line_items_contact_company: typing.Callable[[], T_Result],
+        payments_line_items_contact_company_accounting_period: typing.Callable[[], T_Result],
+        payments_line_items_purchase_orders: typing.Callable[[], T_Result],
+        payments_line_items_purchase_orders_accounting_period: typing.Callable[[], T_Result],
+        payments_line_items_purchase_orders_company: typing.Callable[[], T_Result],
+        payments_line_items_purchase_orders_company_accounting_period: typing.Callable[[], T_Result],
+        payments_line_items_purchase_orders_contact: typing.Callable[[], T_Result],
+        payments_line_items_purchase_orders_contact_accounting_period: typing.Callable[[], T_Result],
+        payments_line_items_purchase_orders_contact_company: typing.Callable[[], T_Result],
+        payments_line_items_purchase_orders_contact_company_accounting_period: typing.Callable[[], T_Result],
         payments_line_items_tracking_categories: typing.Callable[[], T_Result],
+        payments_line_items_tracking_categories_accounting_period: typing.Callable[[], T_Result],
         payments_line_items_tracking_categories_company: typing.Callable[[], T_Result],
+        payments_line_items_tracking_categories_company_accounting_period: typing.Callable[[], T_Result],
         payments_line_items_tracking_categories_contact: typing.Callable[[], T_Result],
+        payments_line_items_tracking_categories_contact_accounting_period: typing.Callable[[], T_Result],
         payments_line_items_tracking_categories_contact_company: typing.Callable[[], T_Result],
+        payments_line_items_tracking_categories_contact_company_accounting_period: typing.Callable[[], T_Result],
+        payments_line_items_tracking_categories_purchase_orders: typing.Callable[[], T_Result],
+        payments_line_items_tracking_categories_purchase_orders_accounting_period: typing.Callable[[], T_Result],
+        payments_line_items_tracking_categories_purchase_orders_company: typing.Callable[[], T_Result],
+        payments_line_items_tracking_categories_purchase_orders_company_accounting_period: typing.Callable[
+            [], T_Result
+        ],
+        payments_line_items_tracking_categories_purchase_orders_contact: typing.Callable[[], T_Result],
+        payments_line_items_tracking_categories_purchase_orders_contact_accounting_period: typing.Callable[
+            [], T_Result
+        ],
+        payments_line_items_tracking_categories_purchase_orders_contact_company: typing.Callable[[], T_Result],
+        payments_line_items_tracking_categories_purchase_orders_contact_company_accounting_period: typing.Callable[
+            [], T_Result
+        ],
+        payments_purchase_orders: typing.Callable[[], T_Result],
+        payments_purchase_orders_accounting_period: typing.Callable[[], T_Result],
+        payments_purchase_orders_company: typing.Callable[[], T_Result],
+        payments_purchase_orders_company_accounting_period: typing.Callable[[], T_Result],
+        payments_purchase_orders_contact: typing.Callable[[], T_Result],
+        payments_purchase_orders_contact_accounting_period: typing.Callable[[], T_Result],
+        payments_purchase_orders_contact_company: typing.Callable[[], T_Result],
+        payments_purchase_orders_contact_company_accounting_period: typing.Callable[[], T_Result],
         payments_tracking_categories: typing.Callable[[], T_Result],
+        payments_tracking_categories_accounting_period: typing.Callable[[], T_Result],
         payments_tracking_categories_company: typing.Callable[[], T_Result],
+        payments_tracking_categories_company_accounting_period: typing.Callable[[], T_Result],
         payments_tracking_categories_contact: typing.Callable[[], T_Result],
+        payments_tracking_categories_contact_accounting_period: typing.Callable[[], T_Result],
         payments_tracking_categories_contact_company: typing.Callable[[], T_Result],
+        payments_tracking_categories_contact_company_accounting_period: typing.Callable[[], T_Result],
+        payments_tracking_categories_purchase_orders: typing.Callable[[], T_Result],
+        payments_tracking_categories_purchase_orders_accounting_period: typing.Callable[[], T_Result],
+        payments_tracking_categories_purchase_orders_company: typing.Callable[[], T_Result],
+        payments_tracking_categories_purchase_orders_company_accounting_period: typing.Callable[[], T_Result],
+        payments_tracking_categories_purchase_orders_contact: typing.Callable[[], T_Result],
+        payments_tracking_categories_purchase_orders_contact_accounting_period: typing.Callable[[], T_Result],
+        payments_tracking_categories_purchase_orders_contact_company: typing.Callable[[], T_Result],
+        payments_tracking_categories_purchase_orders_contact_company_accounting_period: typing.Callable[[], T_Result],
+        purchase_orders: typing.Callable[[], T_Result],
+        purchase_orders_accounting_period: typing.Callable[[], T_Result],
+        purchase_orders_company: typing.Callable[[], T_Result],
+        purchase_orders_company_accounting_period: typing.Callable[[], T_Result],
+        purchase_orders_contact: typing.Callable[[], T_Result],
+        purchase_orders_contact_accounting_period: typing.Callable[[], T_Result],
+        purchase_orders_contact_company: typing.Callable[[], T_Result],
+        purchase_orders_contact_company_accounting_period: typing.Callable[[], T_Result],
         tracking_categories: typing.Callable[[], T_Result],
+        tracking_categories_accounting_period: typing.Callable[[], T_Result],
         tracking_categories_company: typing.Callable[[], T_Result],
+        tracking_categories_company_accounting_period: typing.Callable[[], T_Result],
         tracking_categories_contact: typing.Callable[[], T_Result],
+        tracking_categories_contact_accounting_period: typing.Callable[[], T_Result],
         tracking_categories_contact_company: typing.Callable[[], T_Result],
+        tracking_categories_contact_company_accounting_period: typing.Callable[[], T_Result],
+        tracking_categories_purchase_orders: typing.Callable[[], T_Result],
+        tracking_categories_purchase_orders_accounting_period: typing.Callable[[], T_Result],
+        tracking_categories_purchase_orders_company: typing.Callable[[], T_Result],
+        tracking_categories_purchase_orders_company_accounting_period: typing.Callable[[], T_Result],
+        tracking_categories_purchase_orders_contact: typing.Callable[[], T_Result],
+        tracking_categories_purchase_orders_contact_accounting_period: typing.Callable[[], T_Result],
+        tracking_categories_purchase_orders_contact_company: typing.Callable[[], T_Result],
+        tracking_categories_purchase_orders_contact_company_accounting_period: typing.Callable[[], T_Result],
     ) -> T_Result:
+        if self is InvoicesRetrieveRequestExpand.ACCOUNTING_PERIOD:
+            return accounting_period()
         if self is InvoicesRetrieveRequestExpand.COMPANY:
             return company()
+        if self is InvoicesRetrieveRequestExpand.COMPANY_ACCOUNTING_PERIOD:
+            return company_accounting_period()
         if self is InvoicesRetrieveRequestExpand.CONTACT:
             return contact()
+        if self is InvoicesRetrieveRequestExpand.CONTACT_ACCOUNTING_PERIOD:
+            return contact_accounting_period()
         if self is InvoicesRetrieveRequestExpand.CONTACT_COMPANY:
             return contact_company()
+        if self is InvoicesRetrieveRequestExpand.CONTACT_COMPANY_ACCOUNTING_PERIOD:
+            return contact_company_accounting_period()
         if self is InvoicesRetrieveRequestExpand.LINE_ITEMS:
             return line_items()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_ACCOUNTING_PERIOD:
+            return line_items_accounting_period()
         if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_COMPANY:
             return line_items_company()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_COMPANY_ACCOUNTING_PERIOD:
+            return line_items_company_accounting_period()
         if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_CONTACT:
             return line_items_contact()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_CONTACT_ACCOUNTING_PERIOD:
+            return line_items_contact_accounting_period()
         if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_CONTACT_COMPANY:
             return line_items_contact_company()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_CONTACT_COMPANY_ACCOUNTING_PERIOD:
+            return line_items_contact_company_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_PURCHASE_ORDERS:
+            return line_items_purchase_orders()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_PURCHASE_ORDERS_ACCOUNTING_PERIOD:
+            return line_items_purchase_orders_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_PURCHASE_ORDERS_COMPANY:
+            return line_items_purchase_orders_company()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_PURCHASE_ORDERS_COMPANY_ACCOUNTING_PERIOD:
+            return line_items_purchase_orders_company_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_PURCHASE_ORDERS_CONTACT:
+            return line_items_purchase_orders_contact()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_PURCHASE_ORDERS_CONTACT_ACCOUNTING_PERIOD:
+            return line_items_purchase_orders_contact_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_PURCHASE_ORDERS_CONTACT_COMPANY:
+            return line_items_purchase_orders_contact_company()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_PURCHASE_ORDERS_CONTACT_COMPANY_ACCOUNTING_PERIOD:
+            return line_items_purchase_orders_contact_company_accounting_period()
         if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_TRACKING_CATEGORIES:
             return line_items_tracking_categories()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_TRACKING_CATEGORIES_ACCOUNTING_PERIOD:
+            return line_items_tracking_categories_accounting_period()
         if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_TRACKING_CATEGORIES_COMPANY:
             return line_items_tracking_categories_company()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_TRACKING_CATEGORIES_COMPANY_ACCOUNTING_PERIOD:
+            return line_items_tracking_categories_company_accounting_period()
         if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_TRACKING_CATEGORIES_CONTACT:
             return line_items_tracking_categories_contact()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_TRACKING_CATEGORIES_CONTACT_ACCOUNTING_PERIOD:
+            return line_items_tracking_categories_contact_accounting_period()
         if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_TRACKING_CATEGORIES_CONTACT_COMPANY:
             return line_items_tracking_categories_contact_company()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_TRACKING_CATEGORIES_CONTACT_COMPANY_ACCOUNTING_PERIOD:
+            return line_items_tracking_categories_contact_company_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS:
+            return line_items_tracking_categories_purchase_orders()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_ACCOUNTING_PERIOD:
+            return line_items_tracking_categories_purchase_orders_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_COMPANY:
+            return line_items_tracking_categories_purchase_orders_company()
+        if (
+            self
+            is InvoicesRetrieveRequestExpand.LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_COMPANY_ACCOUNTING_PERIOD
+        ):
+            return line_items_tracking_categories_purchase_orders_company_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT:
+            return line_items_tracking_categories_purchase_orders_contact()
+        if (
+            self
+            is InvoicesRetrieveRequestExpand.LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_ACCOUNTING_PERIOD
+        ):
+            return line_items_tracking_categories_purchase_orders_contact_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_COMPANY:
+            return line_items_tracking_categories_purchase_orders_contact_company()
+        if (
+            self
+            is InvoicesRetrieveRequestExpand.LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_COMPANY_ACCOUNTING_PERIOD
+        ):
+            return line_items_tracking_categories_purchase_orders_contact_company_accounting_period()
         if self is InvoicesRetrieveRequestExpand.PAYMENTS:
             return payments()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_ACCOUNTING_PERIOD:
+            return payments_accounting_period()
         if self is InvoicesRetrieveRequestExpand.PAYMENTS_COMPANY:
             return payments_company()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_COMPANY_ACCOUNTING_PERIOD:
+            return payments_company_accounting_period()
         if self is InvoicesRetrieveRequestExpand.PAYMENTS_CONTACT:
             return payments_contact()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_CONTACT_ACCOUNTING_PERIOD:
+            return payments_contact_accounting_period()
         if self is InvoicesRetrieveRequestExpand.PAYMENTS_CONTACT_COMPANY:
             return payments_contact_company()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_CONTACT_COMPANY_ACCOUNTING_PERIOD:
+            return payments_contact_company_accounting_period()
         if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS:
             return payments_line_items()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_ACCOUNTING_PERIOD:
+            return payments_line_items_accounting_period()
         if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_COMPANY:
             return payments_line_items_company()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_COMPANY_ACCOUNTING_PERIOD:
+            return payments_line_items_company_accounting_period()
         if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_CONTACT:
             return payments_line_items_contact()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_CONTACT_ACCOUNTING_PERIOD:
+            return payments_line_items_contact_accounting_period()
         if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_CONTACT_COMPANY:
             return payments_line_items_contact_company()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_CONTACT_COMPANY_ACCOUNTING_PERIOD:
+            return payments_line_items_contact_company_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_PURCHASE_ORDERS:
+            return payments_line_items_purchase_orders()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_PURCHASE_ORDERS_ACCOUNTING_PERIOD:
+            return payments_line_items_purchase_orders_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_PURCHASE_ORDERS_COMPANY:
+            return payments_line_items_purchase_orders_company()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_PURCHASE_ORDERS_COMPANY_ACCOUNTING_PERIOD:
+            return payments_line_items_purchase_orders_company_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_PURCHASE_ORDERS_CONTACT:
+            return payments_line_items_purchase_orders_contact()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_PURCHASE_ORDERS_CONTACT_ACCOUNTING_PERIOD:
+            return payments_line_items_purchase_orders_contact_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_PURCHASE_ORDERS_CONTACT_COMPANY:
+            return payments_line_items_purchase_orders_contact_company()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_PURCHASE_ORDERS_CONTACT_COMPANY_ACCOUNTING_PERIOD:
+            return payments_line_items_purchase_orders_contact_company_accounting_period()
         if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES:
             return payments_line_items_tracking_categories()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_ACCOUNTING_PERIOD:
+            return payments_line_items_tracking_categories_accounting_period()
         if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_COMPANY:
             return payments_line_items_tracking_categories_company()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_COMPANY_ACCOUNTING_PERIOD:
+            return payments_line_items_tracking_categories_company_accounting_period()
         if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_CONTACT:
             return payments_line_items_tracking_categories_contact()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_CONTACT_ACCOUNTING_PERIOD:
+            return payments_line_items_tracking_categories_contact_accounting_period()
         if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_CONTACT_COMPANY:
             return payments_line_items_tracking_categories_contact_company()
+        if (
+            self
+            is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_CONTACT_COMPANY_ACCOUNTING_PERIOD
+        ):
+            return payments_line_items_tracking_categories_contact_company_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS:
+            return payments_line_items_tracking_categories_purchase_orders()
+        if (
+            self
+            is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_ACCOUNTING_PERIOD
+        ):
+            return payments_line_items_tracking_categories_purchase_orders_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_COMPANY:
+            return payments_line_items_tracking_categories_purchase_orders_company()
+        if (
+            self
+            is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_COMPANY_ACCOUNTING_PERIOD
+        ):
+            return payments_line_items_tracking_categories_purchase_orders_company_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT:
+            return payments_line_items_tracking_categories_purchase_orders_contact()
+        if (
+            self
+            is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_ACCOUNTING_PERIOD
+        ):
+            return payments_line_items_tracking_categories_purchase_orders_contact_accounting_period()
+        if (
+            self
+            is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_COMPANY
+        ):
+            return payments_line_items_tracking_categories_purchase_orders_contact_company()
+        if (
+            self
+            is InvoicesRetrieveRequestExpand.PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_COMPANY_ACCOUNTING_PERIOD
+        ):
+            return payments_line_items_tracking_categories_purchase_orders_contact_company_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_PURCHASE_ORDERS:
+            return payments_purchase_orders()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_PURCHASE_ORDERS_ACCOUNTING_PERIOD:
+            return payments_purchase_orders_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_PURCHASE_ORDERS_COMPANY:
+            return payments_purchase_orders_company()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_PURCHASE_ORDERS_COMPANY_ACCOUNTING_PERIOD:
+            return payments_purchase_orders_company_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_PURCHASE_ORDERS_CONTACT:
+            return payments_purchase_orders_contact()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_PURCHASE_ORDERS_CONTACT_ACCOUNTING_PERIOD:
+            return payments_purchase_orders_contact_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_PURCHASE_ORDERS_CONTACT_COMPANY:
+            return payments_purchase_orders_contact_company()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_PURCHASE_ORDERS_CONTACT_COMPANY_ACCOUNTING_PERIOD:
+            return payments_purchase_orders_contact_company_accounting_period()
         if self is InvoicesRetrieveRequestExpand.PAYMENTS_TRACKING_CATEGORIES:
             return payments_tracking_categories()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_TRACKING_CATEGORIES_ACCOUNTING_PERIOD:
+            return payments_tracking_categories_accounting_period()
         if self is InvoicesRetrieveRequestExpand.PAYMENTS_TRACKING_CATEGORIES_COMPANY:
             return payments_tracking_categories_company()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_TRACKING_CATEGORIES_COMPANY_ACCOUNTING_PERIOD:
+            return payments_tracking_categories_company_accounting_period()
         if self is InvoicesRetrieveRequestExpand.PAYMENTS_TRACKING_CATEGORIES_CONTACT:
             return payments_tracking_categories_contact()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_TRACKING_CATEGORIES_CONTACT_ACCOUNTING_PERIOD:
+            return payments_tracking_categories_contact_accounting_period()
         if self is InvoicesRetrieveRequestExpand.PAYMENTS_TRACKING_CATEGORIES_CONTACT_COMPANY:
             return payments_tracking_categories_contact_company()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_TRACKING_CATEGORIES_CONTACT_COMPANY_ACCOUNTING_PERIOD:
+            return payments_tracking_categories_contact_company_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_TRACKING_CATEGORIES_PURCHASE_ORDERS:
+            return payments_tracking_categories_purchase_orders()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_TRACKING_CATEGORIES_PURCHASE_ORDERS_ACCOUNTING_PERIOD:
+            return payments_tracking_categories_purchase_orders_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_TRACKING_CATEGORIES_PURCHASE_ORDERS_COMPANY:
+            return payments_tracking_categories_purchase_orders_company()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_TRACKING_CATEGORIES_PURCHASE_ORDERS_COMPANY_ACCOUNTING_PERIOD:
+            return payments_tracking_categories_purchase_orders_company_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT:
+            return payments_tracking_categories_purchase_orders_contact()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_ACCOUNTING_PERIOD:
+            return payments_tracking_categories_purchase_orders_contact_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.PAYMENTS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_COMPANY:
+            return payments_tracking_categories_purchase_orders_contact_company()
+        if (
+            self
+            is InvoicesRetrieveRequestExpand.PAYMENTS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_COMPANY_ACCOUNTING_PERIOD
+        ):
+            return payments_tracking_categories_purchase_orders_contact_company_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.PURCHASE_ORDERS:
+            return purchase_orders()
+        if self is InvoicesRetrieveRequestExpand.PURCHASE_ORDERS_ACCOUNTING_PERIOD:
+            return purchase_orders_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.PURCHASE_ORDERS_COMPANY:
+            return purchase_orders_company()
+        if self is InvoicesRetrieveRequestExpand.PURCHASE_ORDERS_COMPANY_ACCOUNTING_PERIOD:
+            return purchase_orders_company_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.PURCHASE_ORDERS_CONTACT:
+            return purchase_orders_contact()
+        if self is InvoicesRetrieveRequestExpand.PURCHASE_ORDERS_CONTACT_ACCOUNTING_PERIOD:
+            return purchase_orders_contact_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.PURCHASE_ORDERS_CONTACT_COMPANY:
+            return purchase_orders_contact_company()
+        if self is InvoicesRetrieveRequestExpand.PURCHASE_ORDERS_CONTACT_COMPANY_ACCOUNTING_PERIOD:
+            return purchase_orders_contact_company_accounting_period()
         if self is InvoicesRetrieveRequestExpand.TRACKING_CATEGORIES:
             return tracking_categories()
+        if self is InvoicesRetrieveRequestExpand.TRACKING_CATEGORIES_ACCOUNTING_PERIOD:
+            return tracking_categories_accounting_period()
         if self is InvoicesRetrieveRequestExpand.TRACKING_CATEGORIES_COMPANY:
             return tracking_categories_company()
+        if self is InvoicesRetrieveRequestExpand.TRACKING_CATEGORIES_COMPANY_ACCOUNTING_PERIOD:
+            return tracking_categories_company_accounting_period()
         if self is InvoicesRetrieveRequestExpand.TRACKING_CATEGORIES_CONTACT:
             return tracking_categories_contact()
+        if self is InvoicesRetrieveRequestExpand.TRACKING_CATEGORIES_CONTACT_ACCOUNTING_PERIOD:
+            return tracking_categories_contact_accounting_period()
         if self is InvoicesRetrieveRequestExpand.TRACKING_CATEGORIES_CONTACT_COMPANY:
             return tracking_categories_contact_company()
+        if self is InvoicesRetrieveRequestExpand.TRACKING_CATEGORIES_CONTACT_COMPANY_ACCOUNTING_PERIOD:
+            return tracking_categories_contact_company_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.TRACKING_CATEGORIES_PURCHASE_ORDERS:
+            return tracking_categories_purchase_orders()
+        if self is InvoicesRetrieveRequestExpand.TRACKING_CATEGORIES_PURCHASE_ORDERS_ACCOUNTING_PERIOD:
+            return tracking_categories_purchase_orders_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.TRACKING_CATEGORIES_PURCHASE_ORDERS_COMPANY:
+            return tracking_categories_purchase_orders_company()
+        if self is InvoicesRetrieveRequestExpand.TRACKING_CATEGORIES_PURCHASE_ORDERS_COMPANY_ACCOUNTING_PERIOD:
+            return tracking_categories_purchase_orders_company_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT:
+            return tracking_categories_purchase_orders_contact()
+        if self is InvoicesRetrieveRequestExpand.TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_ACCOUNTING_PERIOD:
+            return tracking_categories_purchase_orders_contact_accounting_period()
+        if self is InvoicesRetrieveRequestExpand.TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_COMPANY:
+            return tracking_categories_purchase_orders_contact_company()
+        if self is InvoicesRetrieveRequestExpand.TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_COMPANY_ACCOUNTING_PERIOD:
+            return tracking_categories_purchase_orders_contact_company_accounting_period()

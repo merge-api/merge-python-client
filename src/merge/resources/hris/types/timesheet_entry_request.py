@@ -4,7 +4,6 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .vendor_credit_apply_line_invoice import VendorCreditApplyLineInvoice
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -12,26 +11,25 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class VendorCreditApplyLine(pydantic.BaseModel):
+class TimesheetEntryRequest(pydantic.BaseModel):
     """
-    # The VendorCreditApplyLine Object
+    # The Timesheet Entry Object
     ### Description
-    The `VendorCreditApplyLine` object is used to represent a applied vendor credit.
+    The `Timesheet Entry` object is used to track coverage for hours worked by an 'Employee'.
+
 
     ### Usage Example
-    Fetch from the `GET VendorCredit` endpoint and view the vendor credit's applied to lines.
+    GET and POST Timesheet Entries
     """
 
-    invoice: typing.Optional[VendorCreditApplyLineInvoice]
-    applied_date: typing.Optional[dt.datetime] = pydantic.Field(
-        description="Date that the vendor credit is applied to the invoice."
+    employee: typing.Optional[str] = pydantic.Field(description="The employee the timesheet entry is for.")
+    hours_worked: typing.Optional[float] = pydantic.Field(description="The number of hours logged by the employee.")
+    start_time: typing.Optional[dt.datetime] = pydantic.Field(
+        description="The time at which the employee started work."
     )
-    applied_amount: typing.Optional[str] = pydantic.Field(
-        description="The amount of the VendorCredit applied to the invoice."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
-    )
+    end_time: typing.Optional[dt.datetime] = pydantic.Field(description="The time at which the employee ended work.")
+    integration_params: typing.Optional[typing.Dict[str, typing.Any]]
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from .journal_entry_accounting_period import JournalEntryAccountingPeriod
 from .journal_entry_company import JournalEntryCompany
 from .journal_entry_currency import JournalEntryCurrency
 from .journal_entry_payments_item import JournalEntryPaymentsItem
@@ -22,7 +23,11 @@ class JournalEntry(pydantic.BaseModel):
     """
     # The JournalEntry Object
     ### Description
-    The `JournalEntry` object is used to get a record of all manually created entries made in a company’s general ledger. The journal line items for each journal entry should sum to zero.
+    A `JournalEntry` is a record of a transaction or event that is entered into a company's accounting system.
+
+    The `JournalEntry` common model contains records that are automatically created as a result of a certain type of transaction, like an Invoice, and records that are manually created against a company’s ledger.
+
+    The lines of a given `JournalEntry` object should always sum to 0. A positive `net_amount` means the line represents a debit and a negative net_amount represents a credit.
 
     ### Usage Example
     Fetch from the `GET JournalEntry` endpoint and view a company's journey entry.
@@ -364,8 +369,12 @@ class JournalEntry(pydantic.BaseModel):
     posting_status: typing.Optional[JournalEntryPostingStatus] = pydantic.Field(
         description=("The journal's posting status.\n" "\n" "* `UNPOSTED` - UNPOSTED\n" "* `POSTED` - POSTED\n")
     )
+    accounting_period: typing.Optional[JournalEntryAccountingPeriod] = pydantic.Field(
+        description="The accounting period that the JournalEntry was generated in."
+    )
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

@@ -4,6 +4,8 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from .folder_request_drive import FolderRequestDrive
+from .folder_request_parent_folder import FolderRequestParentFolder
 from .folder_request_permissions import FolderRequestPermissions
 
 try:
@@ -25,8 +27,10 @@ class FolderRequest(pydantic.BaseModel):
     folder_url: typing.Optional[str] = pydantic.Field(description="The URL to access the folder.")
     size: typing.Optional[int] = pydantic.Field(description="The folder's size, in bytes.")
     description: typing.Optional[str] = pydantic.Field(description="The folder's description.")
-    parent_folder: typing.Optional[str] = pydantic.Field(description="The folder that the folder belongs to.")
-    drive: typing.Optional[str] = pydantic.Field(description="The drive that the folder belongs to.")
+    parent_folder: typing.Optional[FolderRequestParentFolder] = pydantic.Field(
+        description="The folder that the folder belongs to."
+    )
+    drive: typing.Optional[FolderRequestDrive] = pydantic.Field(description="The drive that the folder belongs to.")
     permissions: typing.Optional[FolderRequestPermissions] = pydantic.Field(
         description="The Permission object is used to represent a user's or group's access to a File or Folder. Permissions are unexpanded by default. Use the query param `expand=permissions` to see more details under `GET /folders`."
     )

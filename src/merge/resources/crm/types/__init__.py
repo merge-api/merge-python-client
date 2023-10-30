@@ -25,6 +25,9 @@ from .association_type import AssociationType
 from .association_type_cardinality import AssociationTypeCardinality
 from .association_type_request_request import AssociationTypeRequestRequest
 from .async_passthrough_reciept import AsyncPassthroughReciept
+from .audit_log_event import AuditLogEvent
+from .audit_log_event_event_type import AuditLogEventEventType
+from .audit_log_event_role import AuditLogEventRole
 from .available_actions import AvailableActions
 from .cardinality_enum import CardinalityEnum
 from .categories_enum import CategoriesEnum
@@ -71,6 +74,7 @@ from .engagement_type_activity_type import EngagementTypeActivityType
 from .engagements_list_request_expand import EngagementsListRequestExpand
 from .engagements_retrieve_request_expand import EngagementsRetrieveRequestExpand
 from .error_validation_problem import ErrorValidationProblem
+from .event_type_enum import EventTypeEnum
 from .field_format_enum import FieldFormatEnum
 from .field_type_enum import FieldTypeEnum
 from .ignore_common_model_request import IgnoreCommonModelRequest
@@ -139,6 +143,7 @@ from .paginated_account_details_and_actions_list import PaginatedAccountDetailsA
 from .paginated_account_list import PaginatedAccountList
 from .paginated_association_list import PaginatedAssociationList
 from .paginated_association_type_list import PaginatedAssociationTypeList
+from .paginated_audit_log_event_list import PaginatedAuditLogEventList
 from .paginated_condition_schema_list import PaginatedConditionSchemaList
 from .paginated_contact_list import PaginatedContactList
 from .paginated_custom_object_class_list import PaginatedCustomObjectClassList
@@ -185,6 +190,7 @@ from .remote_key import RemoteKey
 from .remote_response import RemoteResponse
 from .request_format_enum import RequestFormatEnum
 from .response_type_enum import ResponseTypeEnum
+from .role_enum import RoleEnum
 from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
 from .stage import Stage
 from .sync_status import SyncStatus
@@ -234,6 +240,9 @@ __all__ = [
     "AssociationTypeCardinality",
     "AssociationTypeRequestRequest",
     "AsyncPassthroughReciept",
+    "AuditLogEvent",
+    "AuditLogEventEventType",
+    "AuditLogEventRole",
     "AvailableActions",
     "CardinalityEnum",
     "CategoriesEnum",
@@ -280,6 +289,7 @@ __all__ = [
     "EngagementsListRequestExpand",
     "EngagementsRetrieveRequestExpand",
     "ErrorValidationProblem",
+    "EventTypeEnum",
     "FieldFormatEnum",
     "FieldTypeEnum",
     "IgnoreCommonModelRequest",
@@ -348,6 +358,7 @@ __all__ = [
     "PaginatedAccountList",
     "PaginatedAssociationList",
     "PaginatedAssociationTypeList",
+    "PaginatedAuditLogEventList",
     "PaginatedConditionSchemaList",
     "PaginatedContactList",
     "PaginatedCustomObjectClassList",
@@ -392,6 +403,7 @@ __all__ = [
     "RemoteResponse",
     "RequestFormatEnum",
     "ResponseTypeEnum",
+    "RoleEnum",
     "SelectiveSyncConfigurationsUsageEnum",
     "Stage",
     "SyncStatus",

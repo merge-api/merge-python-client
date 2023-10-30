@@ -19,7 +19,7 @@ class CompanyInfo(pydantic.BaseModel):
     """
     # The CompanyInfo Object
     ### Description
-    The `CompanyInfo` object is used to represent a company's information.
+    The `CompanyInfo` object contains information about the company of the linked account. If the company has multiple entities (also known as subsidiaries), each entity may show up as a single `CompanyInfo` record.
 
     ### Usage Example
     Fetch from the `GET CompanyInfo` endpoint and view a company's information.
@@ -351,8 +351,9 @@ class CompanyInfo(pydantic.BaseModel):
     addresses: typing.Optional[typing.List[Address]]
     phone_numbers: typing.Optional[typing.List[AccountingPhoneNumber]]
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted by third party webhooks."
+        description="Indicates whether or not this object has been deleted in the third party platform."
     )
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

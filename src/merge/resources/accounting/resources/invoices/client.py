@@ -103,7 +103,7 @@ class InvoicesClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.list(
-            expand=InvoicesListRequestExpand.COMPANY,
+            expand=InvoicesListRequestExpand.ACCOUNTING_PERIOD,
             remote_fields="type",
             show_enum_origins="type",
             type=InvoicesListRequestType.ACCOUNTS_PAYABLE,
@@ -234,7 +234,7 @@ class InvoicesClient:
         )
         client.accounting.retrieve(
             id="id",
-            expand=InvoicesRetrieveRequestExpand.COMPANY,
+            expand=InvoicesRetrieveRequestExpand.ACCOUNTING_PERIOD,
             remote_fields="type",
             show_enum_origins="type",
         )
@@ -264,6 +264,15 @@ class InvoicesClient:
     def meta_post_retrieve(self) -> MetaResponse:
         """
         Returns metadata for `Invoice` POSTs.
+
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -353,7 +362,7 @@ class AsyncInvoicesClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.list(
-            expand=InvoicesListRequestExpand.COMPANY,
+            expand=InvoicesListRequestExpand.ACCOUNTING_PERIOD,
             remote_fields="type",
             show_enum_origins="type",
             type=InvoicesListRequestType.ACCOUNTS_PAYABLE,
@@ -484,7 +493,7 @@ class AsyncInvoicesClient:
         )
         await client.accounting.retrieve(
             id="id",
-            expand=InvoicesRetrieveRequestExpand.COMPANY,
+            expand=InvoicesRetrieveRequestExpand.ACCOUNTING_PERIOD,
             remote_fields="type",
             show_enum_origins="type",
         )
@@ -514,6 +523,15 @@ class AsyncInvoicesClient:
     async def meta_post_retrieve(self) -> MetaResponse:
         """
         Returns metadata for `Invoice` POSTs.
+
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

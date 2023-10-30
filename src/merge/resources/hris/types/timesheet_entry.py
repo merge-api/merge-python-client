@@ -4,7 +4,6 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .payment_line_item_related_object_type import PaymentLineItemRelatedObjectType
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -12,24 +11,26 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class PaymentLineItem(pydantic.BaseModel):
+class TimesheetEntry(pydantic.BaseModel):
     """
-    # The PaymentLineItem Object
+    # The Timesheet Entry Object
     ### Description
-    The `PaymentLineItem` object is an applied-to-line on a `Payment` that can either be a `Invoice`, `CreditNote`, or `JournalEntry`.
+    The `Timesheet Entry` object is used to track coverage for hours worked by an 'Employee'.
+
 
     ### Usage Example
-    `Payment` will have a field called `applied-to-lines` which will be an array of `PaymentLineItemSerializer` objects that can either be a `Invoice`, `CreditNote`, or `JournalEntry`.
+    GET and POST Timesheet Entries
     """
 
-    applied_amount: typing.Optional[str] = pydantic.Field(description="The amount of the PaymentLineItem.")
-    related_object_type: typing.Optional[PaymentLineItemRelatedObjectType]
-    related_object_id: typing.Optional[str] = pydantic.Field(
-        description="UUID of the related_object_type associated to this PaymentLineItem."
-    )
-    applied_date: typing.Optional[dt.datetime] = pydantic.Field(description="Applied date of the PaymentLineItem")
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
     id: typing.Optional[str]
+    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    employee: typing.Optional[str] = pydantic.Field(description="The employee the timesheet entry is for.")
+    hours_worked: typing.Optional[float] = pydantic.Field(description="The number of hours logged by the employee.")
+    start_time: typing.Optional[dt.datetime] = pydantic.Field(
+        description="The time at which the employee started work."
+    )
+    end_time: typing.Optional[dt.datetime] = pydantic.Field(description="The time at which the employee ended work.")
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

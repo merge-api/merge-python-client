@@ -26,6 +26,7 @@ class ReportItem(pydantic.BaseModel):
     value: typing.Optional[float] = pydantic.Field(description="The report item's value.")
     sub_items: typing.Optional[typing.List[typing.Dict[str, typing.Any]]]
     company: typing.Optional[str] = pydantic.Field(description="The company the report item belongs to.")
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

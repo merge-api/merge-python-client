@@ -10,6 +10,7 @@ from .resources.async_passthrough.client import (
     AsyncPassthroughClient as resources_ats_resources_async_passthrough_client_AsyncPassthroughClient,
 )
 from .resources.attachments.client import AsyncAttachmentsClient, AttachmentsClient
+from .resources.audit_trail.client import AsyncAuditTrailClient, AuditTrailClient
 from .resources.available_actions.client import AsyncAvailableActionsClient, AvailableActionsClient
 from .resources.candidates.client import AsyncCandidatesClient, CandidatesClient
 from .resources.delete_account.client import AsyncDeleteAccountClient, DeleteAccountClient
@@ -50,6 +51,7 @@ class AtsClient:
             client_wrapper=self._client_wrapper
         )
         self.attachments = AttachmentsClient(client_wrapper=self._client_wrapper)
+        self.audit_trail = AuditTrailClient(client_wrapper=self._client_wrapper)
         self.available_actions = AvailableActionsClient(client_wrapper=self._client_wrapper)
         self.candidates = CandidatesClient(client_wrapper=self._client_wrapper)
         self.delete_account = DeleteAccountClient(client_wrapper=self._client_wrapper)
@@ -85,6 +87,7 @@ class AsyncAtsClient:
         self.applications = AsyncApplicationsClient(client_wrapper=self._client_wrapper)
         self.async_passthrough = AsyncAsyncPassthroughClient(client_wrapper=self._client_wrapper)
         self.attachments = AsyncAttachmentsClient(client_wrapper=self._client_wrapper)
+        self.audit_trail = AsyncAuditTrailClient(client_wrapper=self._client_wrapper)
         self.available_actions = AsyncAvailableActionsClient(client_wrapper=self._client_wrapper)
         self.candidates = AsyncCandidatesClient(client_wrapper=self._client_wrapper)
         self.delete_account = AsyncDeleteAccountClient(client_wrapper=self._client_wrapper)

@@ -3,6 +3,7 @@
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .resources.account_details.client import AccountDetailsClient, AsyncAccountDetailsClient
 from .resources.account_token.client import AccountTokenClient, AsyncAccountTokenClient
+from .resources.accounting_periods.client import AccountingPeriodsClient, AsyncAccountingPeriodsClient
 from .resources.accounts.client import AccountsClient, AsyncAccountsClient
 from .resources.addresses.client import AddressesClient, AsyncAddressesClient
 from .resources.async_passthrough.client import AsyncAsyncPassthroughClient
@@ -10,6 +11,7 @@ from .resources.async_passthrough.client import (
     AsyncPassthroughClient as resources_accounting_resources_async_passthrough_client_AsyncPassthroughClient,
 )
 from .resources.attachments.client import AsyncAttachmentsClient, AttachmentsClient
+from .resources.audit_trail.client import AsyncAuditTrailClient, AuditTrailClient
 from .resources.available_actions.client import AsyncAvailableActionsClient, AvailableActionsClient
 from .resources.balance_sheets.client import AsyncBalanceSheetsClient, BalanceSheetsClient
 from .resources.cash_flow_statements.client import AsyncCashFlowStatementsClient, CashFlowStatementsClient
@@ -49,12 +51,14 @@ class AccountingClient:
         self._client_wrapper = client_wrapper
         self.account_details = AccountDetailsClient(client_wrapper=self._client_wrapper)
         self.account_token = AccountTokenClient(client_wrapper=self._client_wrapper)
+        self.accounting_periods = AccountingPeriodsClient(client_wrapper=self._client_wrapper)
         self.accounts = AccountsClient(client_wrapper=self._client_wrapper)
         self.addresses = AddressesClient(client_wrapper=self._client_wrapper)
         self.async_passthrough = resources_accounting_resources_async_passthrough_client_AsyncPassthroughClient(
             client_wrapper=self._client_wrapper
         )
         self.attachments = AttachmentsClient(client_wrapper=self._client_wrapper)
+        self.audit_trail = AuditTrailClient(client_wrapper=self._client_wrapper)
         self.available_actions = AvailableActionsClient(client_wrapper=self._client_wrapper)
         self.balance_sheets = BalanceSheetsClient(client_wrapper=self._client_wrapper)
         self.cash_flow_statements = CashFlowStatementsClient(client_wrapper=self._client_wrapper)
@@ -91,10 +95,12 @@ class AsyncAccountingClient:
         self._client_wrapper = client_wrapper
         self.account_details = AsyncAccountDetailsClient(client_wrapper=self._client_wrapper)
         self.account_token = AsyncAccountTokenClient(client_wrapper=self._client_wrapper)
+        self.accounting_periods = AsyncAccountingPeriodsClient(client_wrapper=self._client_wrapper)
         self.accounts = AsyncAccountsClient(client_wrapper=self._client_wrapper)
         self.addresses = AsyncAddressesClient(client_wrapper=self._client_wrapper)
         self.async_passthrough = AsyncAsyncPassthroughClient(client_wrapper=self._client_wrapper)
         self.attachments = AsyncAttachmentsClient(client_wrapper=self._client_wrapper)
+        self.audit_trail = AsyncAuditTrailClient(client_wrapper=self._client_wrapper)
         self.available_actions = AsyncAvailableActionsClient(client_wrapper=self._client_wrapper)
         self.balance_sheets = AsyncBalanceSheetsClient(client_wrapper=self._client_wrapper)
         self.cash_flow_statements = AsyncCashFlowStatementsClient(client_wrapper=self._client_wrapper)
