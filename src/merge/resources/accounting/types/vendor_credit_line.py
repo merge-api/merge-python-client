@@ -30,6 +30,7 @@ class VendorCreditLine(pydantic.BaseModel):
     account: typing.Optional[VendorCreditLineAccount] = pydantic.Field(description="The line's account.")
     company: typing.Optional[str] = pydantic.Field(description="The company the line belongs to.")
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The vendor credit line item's exchange rate.")
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

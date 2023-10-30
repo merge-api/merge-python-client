@@ -24,6 +24,7 @@ class Association(pydantic.BaseModel):
     source_object: typing.Optional[typing.Dict[str, typing.Any]]
     target_object: typing.Optional[typing.Dict[str, typing.Any]]
     association_type: typing.Optional[AssociationAssociationType]
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

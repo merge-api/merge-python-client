@@ -7,6 +7,9 @@ from .account_details_and_actions_status_enum import AccountDetailsAndActionsSta
 from .account_integration import AccountIntegration
 from .account_token import AccountToken
 from .async_passthrough_reciept import AsyncPassthroughReciept
+from .audit_log_event import AuditLogEvent
+from .audit_log_event_event_type import AuditLogEventEventType
+from .audit_log_event_role import AuditLogEventRole
 from .available_actions import AvailableActions
 from .categories_enum import CategoriesEnum
 from .category_enum import CategoryEnum
@@ -21,10 +24,15 @@ from .drive import Drive
 from .enabled_actions_enum import EnabledActionsEnum
 from .encoding_enum import EncodingEnum
 from .error_validation_problem import ErrorValidationProblem
+from .event_type_enum import EventTypeEnum
 from .file import File
+from .file_drive import FileDrive
+from .file_folder import FileFolder
 from .file_permissions import FilePermissions
 from .file_permissions_item import FilePermissionsItem
 from .file_request import FileRequest
+from .file_request_drive import FileRequestDrive
+from .file_request_folder import FileRequestFolder
 from .file_request_permissions import FileRequestPermissions
 from .file_request_permissions_item import FileRequestPermissionsItem
 from .file_storage_file_response import FileStorageFileResponse
@@ -32,9 +40,13 @@ from .file_storage_folder_response import FileStorageFolderResponse
 from .files_list_request_expand import FilesListRequestExpand
 from .files_retrieve_request_expand import FilesRetrieveRequestExpand
 from .folder import Folder
+from .folder_drive import FolderDrive
+from .folder_parent_folder import FolderParentFolder
 from .folder_permissions import FolderPermissions
 from .folder_permissions_item import FolderPermissionsItem
 from .folder_request import FolderRequest
+from .folder_request_drive import FolderRequestDrive
+from .folder_request_parent_folder import FolderRequestParentFolder
 from .folder_request_permissions import FolderRequestPermissions
 from .folder_request_permissions_item import FolderRequestPermissionsItem
 from .folders_list_request_expand import FoldersListRequestExpand
@@ -58,6 +70,7 @@ from .multipart_form_field_request import MultipartFormFieldRequest
 from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
 from .operator_schema import OperatorSchema
 from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
+from .paginated_audit_log_event_list import PaginatedAuditLogEventList
 from .paginated_condition_schema_list import PaginatedConditionSchemaList
 from .paginated_drive_list import PaginatedDriveList
 from .paginated_file_list import PaginatedFileList
@@ -67,11 +80,20 @@ from .paginated_issue_list import PaginatedIssueList
 from .paginated_sync_status_list import PaginatedSyncStatusList
 from .paginated_user_list import PaginatedUserList
 from .permission import Permission
+from .permission_group import PermissionGroup
 from .permission_request import PermissionRequest
+from .permission_request_group import PermissionRequestGroup
+from .permission_request_roles_item import PermissionRequestRolesItem
+from .permission_request_type import PermissionRequestType
+from .permission_request_user import PermissionRequestUser
+from .permission_roles_item import PermissionRolesItem
+from .permission_type import PermissionType
+from .permission_user import PermissionUser
 from .remote_key import RemoteKey
 from .remote_response import RemoteResponse
 from .request_format_enum import RequestFormatEnum
 from .response_type_enum import ResponseTypeEnum
+from .role_enum import RoleEnum
 from .roles_enum import RolesEnum
 from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
 from .sync_status import SyncStatus
@@ -90,6 +112,9 @@ __all__ = [
     "AccountIntegration",
     "AccountToken",
     "AsyncPassthroughReciept",
+    "AuditLogEvent",
+    "AuditLogEventEventType",
+    "AuditLogEventRole",
     "AvailableActions",
     "CategoriesEnum",
     "CategoryEnum",
@@ -104,10 +129,15 @@ __all__ = [
     "EnabledActionsEnum",
     "EncodingEnum",
     "ErrorValidationProblem",
+    "EventTypeEnum",
     "File",
+    "FileDrive",
+    "FileFolder",
     "FilePermissions",
     "FilePermissionsItem",
     "FileRequest",
+    "FileRequestDrive",
+    "FileRequestFolder",
     "FileRequestPermissions",
     "FileRequestPermissionsItem",
     "FileStorageFileResponse",
@@ -115,9 +145,13 @@ __all__ = [
     "FilesListRequestExpand",
     "FilesRetrieveRequestExpand",
     "Folder",
+    "FolderDrive",
+    "FolderParentFolder",
     "FolderPermissions",
     "FolderPermissionsItem",
     "FolderRequest",
+    "FolderRequestDrive",
+    "FolderRequestParentFolder",
     "FolderRequestPermissions",
     "FolderRequestPermissionsItem",
     "FoldersListRequestExpand",
@@ -141,6 +175,7 @@ __all__ = [
     "MultipartFormFieldRequestEncoding",
     "OperatorSchema",
     "PaginatedAccountDetailsAndActionsList",
+    "PaginatedAuditLogEventList",
     "PaginatedConditionSchemaList",
     "PaginatedDriveList",
     "PaginatedFileList",
@@ -150,11 +185,20 @@ __all__ = [
     "PaginatedSyncStatusList",
     "PaginatedUserList",
     "Permission",
+    "PermissionGroup",
     "PermissionRequest",
+    "PermissionRequestGroup",
+    "PermissionRequestRolesItem",
+    "PermissionRequestType",
+    "PermissionRequestUser",
+    "PermissionRolesItem",
+    "PermissionType",
+    "PermissionUser",
     "RemoteKey",
     "RemoteResponse",
     "RequestFormatEnum",
     "ResponseTypeEnum",
+    "RoleEnum",
     "RolesEnum",
     "SelectiveSyncConfigurationsUsageEnum",
     "SyncStatus",

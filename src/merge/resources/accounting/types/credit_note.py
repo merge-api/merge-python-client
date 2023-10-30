@@ -4,7 +4,9 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .credit_note_apply_line import CreditNoteApplyLine
+from .credit_note_accounting_period import CreditNoteAccountingPeriod
+from .credit_note_company import CreditNoteCompany
+from .credit_note_contact import CreditNoteContact
 from .credit_note_currency import CreditNoteCurrency
 from .credit_note_line_item import CreditNoteLineItem
 from .credit_note_payments_item import CreditNotePaymentsItem
@@ -22,7 +24,8 @@ class CreditNote(pydantic.BaseModel):
     """
     # The CreditNote Object
     ### Description
-    The `CreditNote` object is an accounts payable transaction used when to represent a gift or refund to a customer. A credit note will contain information on the amount of credit owed, the customer, and the account.
+    A `CreditNote` is transaction issued to a customer, indicating a reduction or cancellation of the amount owed by the customer. It is most generally used as an adjustment note used to rectify errors, returns, or overpayments related to a sales transaction. A `CreditNote` can be applied to *Accounts Receivable* Invoices to decrease the overall amount of the Invoice.
+
     ### Usage Example
     Fetch from the `LIST CreditNotes` endpoint and view a company's credit notes.
     """
@@ -40,8 +43,8 @@ class CreditNote(pydantic.BaseModel):
         )
     )
     number: typing.Optional[str] = pydantic.Field(description="The credit note's number.")
-    contact: typing.Optional[str] = pydantic.Field(description="The credit note's contact.")
-    company: typing.Optional[str] = pydantic.Field(description="The company the credit note belongs to.")
+    contact: typing.Optional[CreditNoteContact] = pydantic.Field(description="The credit note's contact.")
+    company: typing.Optional[CreditNoteCompany] = pydantic.Field(description="The company the credit note belongs to.")
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The credit note's exchange rate.")
     total_amount: typing.Optional[float] = pydantic.Field(description="The credit note's total amount.")
     remaining_credit: typing.Optional[float] = pydantic.Field(
@@ -371,9 +374,12 @@ class CreditNote(pydantic.BaseModel):
         description="Array of `Payment` object IDs"
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted by third party webhooks."
+        description="Indicates whether or not this object has been deleted in the third party platform."
     )
-    applied_to_lines: typing.Optional[typing.List[CreditNoteApplyLine]]
+    accounting_period: typing.Optional[CreditNoteAccountingPeriod] = pydantic.Field(
+        description="The accounting period that the CreditNote was generated in."
+    )
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

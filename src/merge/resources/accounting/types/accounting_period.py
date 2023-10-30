@@ -4,7 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .credit_note_apply_line_invoice import CreditNoteApplyLineInvoice
+from .accounting_period_status import AccountingPeriodStatus
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -12,23 +12,22 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class CreditNoteApplyLine(pydantic.BaseModel):
+class AccountingPeriod(pydantic.BaseModel):
     """
-    # The CreditNoteApplyLine Object
+    # The AccountingPeriod Object
     ### Description
-    The `CreditNoteApplyLine` is attached to the CreditNote model.
+    The `AccountingPeriod` object is used to define a period of time in which events occurred.
 
     ### Usage Example
-    Fetch from the `GET CreditNote` endpoint and view the invoice's applied to lines.
+    Common models like `Invoice` and `Transaction` will have `AccountingPeriod` objects which will denote when they occurred.
     """
 
-    invoice: typing.Optional[CreditNoteApplyLineInvoice]
-    applied_date: typing.Optional[dt.datetime] = pydantic.Field(
-        description="Date that the credit note is applied to the invoice."
-    )
-    applied_amount: typing.Optional[str] = pydantic.Field(
-        description="The amount of the Credit Note applied to the invoice."
-    )
+    start_date: typing.Optional[dt.datetime] = pydantic.Field(description="Beginning date of the period")
+    end_date: typing.Optional[dt.datetime] = pydantic.Field(description="End date of the period")
+    status: typing.Optional[AccountingPeriodStatus]
+    name: typing.Optional[str] = pydantic.Field(description="Name of the accounting period.")
+    id: typing.Optional[str]
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

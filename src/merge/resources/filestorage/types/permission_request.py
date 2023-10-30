@@ -4,8 +4,10 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .roles_enum import RolesEnum
-from .type_enum import TypeEnum
+from .permission_request_group import PermissionRequestGroup
+from .permission_request_roles_item import PermissionRequestRolesItem
+from .permission_request_type import PermissionRequestType
+from .permission_request_user import PermissionRequestUser
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -24,9 +26,13 @@ class PermissionRequest(pydantic.BaseModel):
     """
 
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    user: typing.Optional[str] = pydantic.Field(description="The user that is granted this permission.")
-    group: typing.Optional[str] = pydantic.Field(description="The group that is granted this permission.")
-    type: typing.Optional[TypeEnum] = pydantic.Field(
+    user: typing.Optional[PermissionRequestUser] = pydantic.Field(
+        description="The user that is granted this permission."
+    )
+    group: typing.Optional[PermissionRequestGroup] = pydantic.Field(
+        description="The group that is granted this permission."
+    )
+    type: typing.Optional[PermissionRequestType] = pydantic.Field(
         description=(
             "Denotes what type of people have access to the file.\n"
             "\n"
@@ -36,7 +42,7 @@ class PermissionRequest(pydantic.BaseModel):
             "* `ANYONE` - ANYONE\n"
         )
     )
-    roles: typing.Optional[typing.List[typing.Optional[RolesEnum]]] = pydantic.Field(
+    roles: typing.Optional[typing.List[typing.Optional[PermissionRequestRolesItem]]] = pydantic.Field(
         description="The permissions that the user or group has for the File or Folder. It is possible for a user or group to have multiple roles, such as viewing & uploading. Possible values include: `READ`, `WRITE`, `OWNER`. In cases where there is no clear mapping, the original value passed through will be returned."
     )
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]

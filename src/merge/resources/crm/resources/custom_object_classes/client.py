@@ -143,46 +143,6 @@ class CustomObjectClassesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def generator_update(
-        self, generator_id: str, *, is_debug_mode: typing.Optional[bool] = None, run_async: typing.Optional[bool] = None
-    ) -> CustomObjectClass:
-        """
-        Updates a `CustomObjectClass` object with the given `id`.
-
-        Parameters:
-            - generator_id: str.
-
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
-
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
-        ---
-        from merge.client import Merge
-
-        client = Merge(
-            account_token="YOUR_ACCOUNT_TOKEN",
-            api_key="YOUR_API_KEY",
-        )
-        client.crm.generator_update(
-            generator_id="generator-id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "PUT",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/custom-object-classes/generator/{generator_id}"
-            ),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
-        )
-        if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(CustomObjectClass, _response.json())  # type: ignore
-        try:
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
 
 class AsyncCustomObjectClassesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -296,46 +256,6 @@ class AsyncCustomObjectClassesClient:
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/custom-object-classes/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
-        )
-        if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(CustomObjectClass, _response.json())  # type: ignore
-        try:
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def generator_update(
-        self, generator_id: str, *, is_debug_mode: typing.Optional[bool] = None, run_async: typing.Optional[bool] = None
-    ) -> CustomObjectClass:
-        """
-        Updates a `CustomObjectClass` object with the given `id`.
-
-        Parameters:
-            - generator_id: str.
-
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
-
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
-        ---
-        from merge.client import AsyncMerge
-
-        client = AsyncMerge(
-            account_token="YOUR_ACCOUNT_TOKEN",
-            api_key="YOUR_API_KEY",
-        )
-        await client.crm.generator_update(
-            generator_id="generator-id",
-        )
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "PUT",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/custom-object-classes/generator/{generator_id}"
-            ),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

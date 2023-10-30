@@ -5,6 +5,7 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from .expense_account import ExpenseAccount
+from .expense_accounting_period import ExpenseAccountingPeriod
 from .expense_company import ExpenseCompany
 from .expense_contact import ExpenseContact
 from .expense_currency import ExpenseCurrency
@@ -22,7 +23,9 @@ class Expense(pydantic.BaseModel):
     """
     # The Expense Object
     ### Description
-    The `Expense` object is used to represent a purchase made from a business which can be made with a check, credit card, or cash. Each expense object is dedicated to a grouping of expenses, with each expense recorded in the lines object.
+    The `Expense` object is used to represent a direct purchase by a business, typically made with a check, credit card, or cash. Each `Expense` object is dedicated to a grouping of expenses, with each expense recorded in the lines object.
+
+    The `Expense` object is used also used to represent refunds to direct purchases. Refunds can be distinguished from purchases by the amount sign of the records. Expense objects with a negative amount are purchases and `Expense` objects with a positive amount are refunds to those purchases.
 
     ### Usage Example
     Fetch from the `GET Expense` endpoint and view a company's expense.
@@ -353,10 +356,14 @@ class Expense(pydantic.BaseModel):
     lines: typing.Optional[typing.List[ExpenseLine]]
     tracking_categories: typing.Optional[typing.List[typing.Optional[ExpenseTrackingCategoriesItem]]]
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted by third party webhooks."
+        description="Indicates whether or not this object has been deleted in the third party platform."
+    )
+    accounting_period: typing.Optional[ExpenseAccountingPeriod] = pydantic.Field(
+        description="The accounting period that the Expense was generated in."
     )
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

@@ -4,11 +4,13 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from .invoice_accounting_period import InvoiceAccountingPeriod
 from .invoice_company import InvoiceCompany
 from .invoice_contact import InvoiceContact
 from .invoice_currency import InvoiceCurrency
 from .invoice_line_item import InvoiceLineItem
 from .invoice_payments_item import InvoicePaymentsItem
+from .invoice_purchase_orders_item import InvoicePurchaseOrdersItem
 from .invoice_status_enum import InvoiceStatusEnum
 from .invoice_tracking_categories_item import InvoiceTrackingCategoriesItem
 from .invoice_type import InvoiceType
@@ -387,7 +389,12 @@ class Invoice(pydantic.BaseModel):
     )
     line_items: typing.Optional[typing.List[InvoiceLineItem]]
     remote_was_deleted: typing.Optional[bool]
+    accounting_period: typing.Optional[InvoiceAccountingPeriod] = pydantic.Field(
+        description="The accounting period that the Invoice was generated in."
+    )
+    purchase_orders: typing.Optional[typing.List[typing.Optional[InvoicePurchaseOrdersItem]]]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

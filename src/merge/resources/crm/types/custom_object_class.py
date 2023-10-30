@@ -28,6 +28,7 @@ class CustomObjectClass(pydantic.BaseModel):
     association_types: typing.Optional[typing.List[typing.Dict[str, typing.Any]]]
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime]
 
     def json(self, **kwargs: typing.Any) -> str:

@@ -4,6 +4,7 @@ from . import (
     account_details,
     account_token,
     async_passthrough,
+    audit_trail,
     available_actions,
     bank_info,
     benefits,
@@ -30,6 +31,7 @@ from . import (
     teams,
     time_off,
     time_off_balances,
+    timesheet_entries,
     webhook_receivers,
 )
 
@@ -37,6 +39,7 @@ __all__ = [
     "account_details",
     "account_token",
     "async_passthrough",
+    "audit_trail",
     "available_actions",
     "bank_info",
     "benefits",
@@ -63,5 +66,6 @@ __all__ = [
     "teams",
     "time_off",
     "time_off_balances",
+    "timesheet_entries",
     "webhook_receivers",
 ]

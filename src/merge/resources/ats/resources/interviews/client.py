@@ -43,6 +43,7 @@ class InterviewsClient:
         expand: typing.Optional[InterviewsListRequestExpand] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
+        job_id: typing.Optional[str] = None,
         job_interview_stage_id: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
@@ -69,6 +70,8 @@ class InterviewsClient:
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+
+            - job_id: typing.Optional[str]. If provided, wll only return interviews organized for this job.
 
             - job_interview_stage_id: typing.Optional[str]. If provided, will only return interviews at this stage.
 
@@ -111,6 +114,7 @@ class InterviewsClient:
                     "expand": expand,
                     "include_deleted_data": include_deleted_data,
                     "include_remote_data": include_remote_data,
+                    "job_id": job_id,
                     "job_interview_stage_id": job_interview_stage_id,
                     "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                     "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
@@ -230,6 +234,15 @@ class InterviewsClient:
     def meta_post_retrieve(self) -> MetaResponse:
         """
         Returns metadata for `ScheduledInterview` POSTs.
+
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -260,6 +273,7 @@ class AsyncInterviewsClient:
         expand: typing.Optional[InterviewsListRequestExpand] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
+        job_id: typing.Optional[str] = None,
         job_interview_stage_id: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
@@ -286,6 +300,8 @@ class AsyncInterviewsClient:
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+
+            - job_id: typing.Optional[str]. If provided, wll only return interviews organized for this job.
 
             - job_interview_stage_id: typing.Optional[str]. If provided, will only return interviews at this stage.
 
@@ -328,6 +344,7 @@ class AsyncInterviewsClient:
                     "expand": expand,
                     "include_deleted_data": include_deleted_data,
                     "include_remote_data": include_remote_data,
+                    "job_id": job_id,
                     "job_interview_stage_id": job_interview_stage_id,
                     "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                     "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
@@ -447,6 +464,15 @@ class AsyncInterviewsClient:
     async def meta_post_retrieve(self) -> MetaResponse:
         """
         Returns metadata for `ScheduledInterview` POSTs.
+
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

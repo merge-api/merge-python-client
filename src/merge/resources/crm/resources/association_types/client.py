@@ -209,6 +209,16 @@ class AssociationTypesClient:
 
         Parameters:
             - custom_object_class_id: str.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.custom_object_classes_association_types_meta_post_retrieve(
+            custom_object_class_id="custom-object-class-id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -412,6 +422,16 @@ class AsyncAssociationTypesClient:
 
         Parameters:
             - custom_object_class_id: str.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.custom_object_classes_association_types_meta_post_retrieve(
+            custom_object_class_id="custom-object-class-id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

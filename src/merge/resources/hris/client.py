@@ -7,6 +7,7 @@ from .resources.async_passthrough.client import AsyncAsyncPassthroughClient
 from .resources.async_passthrough.client import (
     AsyncPassthroughClient as resources_hris_resources_async_passthrough_client_AsyncPassthroughClient,
 )
+from .resources.audit_trail.client import AsyncAuditTrailClient, AuditTrailClient
 from .resources.available_actions.client import AsyncAvailableActionsClient, AvailableActionsClient
 from .resources.bank_info.client import AsyncBankInfoClient, BankInfoClient
 from .resources.benefits.client import AsyncBenefitsClient, BenefitsClient
@@ -36,6 +37,7 @@ from .resources.sync_status.client import AsyncSyncStatusClient, SyncStatusClien
 from .resources.teams.client import AsyncTeamsClient, TeamsClient
 from .resources.time_off.client import AsyncTimeOffClient, TimeOffClient
 from .resources.time_off_balances.client import AsyncTimeOffBalancesClient, TimeOffBalancesClient
+from .resources.timesheet_entries.client import AsyncTimesheetEntriesClient, TimesheetEntriesClient
 from .resources.webhook_receivers.client import AsyncWebhookReceiversClient, WebhookReceiversClient
 
 
@@ -47,6 +49,7 @@ class HrisClient:
         self.async_passthrough = resources_hris_resources_async_passthrough_client_AsyncPassthroughClient(
             client_wrapper=self._client_wrapper
         )
+        self.audit_trail = AuditTrailClient(client_wrapper=self._client_wrapper)
         self.available_actions = AvailableActionsClient(client_wrapper=self._client_wrapper)
         self.bank_info = BankInfoClient(client_wrapper=self._client_wrapper)
         self.benefits = BenefitsClient(client_wrapper=self._client_wrapper)
@@ -73,6 +76,7 @@ class HrisClient:
         self.teams = TeamsClient(client_wrapper=self._client_wrapper)
         self.time_off = TimeOffClient(client_wrapper=self._client_wrapper)
         self.time_off_balances = TimeOffBalancesClient(client_wrapper=self._client_wrapper)
+        self.timesheet_entries = TimesheetEntriesClient(client_wrapper=self._client_wrapper)
         self.webhook_receivers = WebhookReceiversClient(client_wrapper=self._client_wrapper)
 
 
@@ -82,6 +86,7 @@ class AsyncHrisClient:
         self.account_details = AsyncAccountDetailsClient(client_wrapper=self._client_wrapper)
         self.account_token = AsyncAccountTokenClient(client_wrapper=self._client_wrapper)
         self.async_passthrough = AsyncAsyncPassthroughClient(client_wrapper=self._client_wrapper)
+        self.audit_trail = AsyncAuditTrailClient(client_wrapper=self._client_wrapper)
         self.available_actions = AsyncAvailableActionsClient(client_wrapper=self._client_wrapper)
         self.bank_info = AsyncBankInfoClient(client_wrapper=self._client_wrapper)
         self.benefits = AsyncBenefitsClient(client_wrapper=self._client_wrapper)
@@ -110,4 +115,5 @@ class AsyncHrisClient:
         self.teams = AsyncTeamsClient(client_wrapper=self._client_wrapper)
         self.time_off = AsyncTimeOffClient(client_wrapper=self._client_wrapper)
         self.time_off_balances = AsyncTimeOffBalancesClient(client_wrapper=self._client_wrapper)
+        self.timesheet_entries = AsyncTimesheetEntriesClient(client_wrapper=self._client_wrapper)
         self.webhook_receivers = AsyncWebhookReceiversClient(client_wrapper=self._client_wrapper)

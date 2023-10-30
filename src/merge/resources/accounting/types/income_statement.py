@@ -355,8 +355,9 @@ class IncomeStatement(pydantic.BaseModel):
     non_operating_expenses: typing.Optional[typing.List[ReportItem]]
     net_income: typing.Optional[float] = pydantic.Field(description="The gross profit minus the total expenses.")
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted by third party webhooks."
+        description="Indicates whether or not this object has been deleted in the third party platform."
     )
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

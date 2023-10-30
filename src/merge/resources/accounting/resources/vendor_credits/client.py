@@ -79,7 +79,7 @@ class VendorCreditsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.list(
-            expand=VendorCreditsListRequestExpand.APPLIED_TO_LINES,
+            expand=VendorCreditsListRequestExpand.ACCOUNTING_PERIOD,
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -143,7 +143,7 @@ class VendorCreditsClient:
         )
         client.accounting.retrieve(
             id="id",
-            expand=VendorCreditsRetrieveRequestExpand.APPLIED_TO_LINES,
+            expand=VendorCreditsRetrieveRequestExpand.ACCOUNTING_PERIOD,
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -221,7 +221,7 @@ class AsyncVendorCreditsClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.list(
-            expand=VendorCreditsListRequestExpand.APPLIED_TO_LINES,
+            expand=VendorCreditsListRequestExpand.ACCOUNTING_PERIOD,
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -285,7 +285,7 @@ class AsyncVendorCreditsClient:
         )
         await client.accounting.retrieve(
             id="id",
-            expand=VendorCreditsRetrieveRequestExpand.APPLIED_TO_LINES,
+            expand=VendorCreditsRetrieveRequestExpand.ACCOUNTING_PERIOD,
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
