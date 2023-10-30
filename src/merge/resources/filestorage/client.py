@@ -7,6 +7,7 @@ from .resources.async_passthrough.client import AsyncAsyncPassthroughClient
 from .resources.async_passthrough.client import (
     AsyncPassthroughClient as resources_filestorage_resources_async_passthrough_client_AsyncPassthroughClient,
 )
+from .resources.audit_trail.client import AsyncAuditTrailClient, AuditTrailClient
 from .resources.available_actions.client import AsyncAvailableActionsClient, AvailableActionsClient
 from .resources.delete_account.client import AsyncDeleteAccountClient, DeleteAccountClient
 from .resources.drives.client import AsyncDrivesClient, DrivesClient
@@ -37,6 +38,7 @@ class FilestorageClient:
         self.async_passthrough = resources_filestorage_resources_async_passthrough_client_AsyncPassthroughClient(
             client_wrapper=self._client_wrapper
         )
+        self.audit_trail = AuditTrailClient(client_wrapper=self._client_wrapper)
         self.available_actions = AvailableActionsClient(client_wrapper=self._client_wrapper)
         self.delete_account = DeleteAccountClient(client_wrapper=self._client_wrapper)
         self.drives = DrivesClient(client_wrapper=self._client_wrapper)
@@ -62,6 +64,7 @@ class AsyncFilestorageClient:
         self.account_details = AsyncAccountDetailsClient(client_wrapper=self._client_wrapper)
         self.account_token = AsyncAccountTokenClient(client_wrapper=self._client_wrapper)
         self.async_passthrough = AsyncAsyncPassthroughClient(client_wrapper=self._client_wrapper)
+        self.audit_trail = AsyncAuditTrailClient(client_wrapper=self._client_wrapper)
         self.available_actions = AsyncAvailableActionsClient(client_wrapper=self._client_wrapper)
         self.delete_account = AsyncDeleteAccountClient(client_wrapper=self._client_wrapper)
         self.drives = AsyncDrivesClient(client_wrapper=self._client_wrapper)

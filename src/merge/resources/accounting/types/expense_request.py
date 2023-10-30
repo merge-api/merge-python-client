@@ -6,6 +6,7 @@ import typing
 from ....core.datetime_utils import serialize_datetime
 from .expense_line_request import ExpenseLineRequest
 from .expense_request_account import ExpenseRequestAccount
+from .expense_request_accounting_period import ExpenseRequestAccountingPeriod
 from .expense_request_company import ExpenseRequestCompany
 from .expense_request_contact import ExpenseRequestContact
 from .expense_request_currency import ExpenseRequestCurrency
@@ -21,7 +22,9 @@ class ExpenseRequest(pydantic.BaseModel):
     """
     # The Expense Object
     ### Description
-    The `Expense` object is used to represent a purchase made from a business which can be made with a check, credit card, or cash. Each expense object is dedicated to a grouping of expenses, with each expense recorded in the lines object.
+    The `Expense` object is used to represent a direct purchase by a business, typically made with a check, credit card, or cash. Each `Expense` object is dedicated to a grouping of expenses, with each expense recorded in the lines object.
+
+    The `Expense` object is used also used to represent refunds to direct purchases. Refunds can be distinguished from purchases by the amount sign of the records. Expense objects with a negative amount are purchases and `Expense` objects with a positive amount are refunds to those purchases.
 
     ### Usage Example
     Fetch from the `GET Expense` endpoint and view a company's expense.
@@ -350,6 +353,9 @@ class ExpenseRequest(pydantic.BaseModel):
     memo: typing.Optional[str] = pydantic.Field(description="The expense's private note.")
     lines: typing.Optional[typing.List[ExpenseLineRequest]]
     tracking_categories: typing.Optional[typing.List[typing.Optional[ExpenseRequestTrackingCategoriesItem]]]
+    accounting_period: typing.Optional[ExpenseRequestAccountingPeriod] = pydantic.Field(
+        description="The accounting period that the Expense was generated in."
+    )
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 

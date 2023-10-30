@@ -12,6 +12,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.location import Location
+from ...types.locations_list_request_location_type import LocationsListRequestLocationType
 from ...types.paginated_location_list import PaginatedLocationList
 
 try:
@@ -32,6 +33,7 @@ class LocationsClient:
         cursor: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
+        location_type: typing.Optional[LocationsListRequestLocationType] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
@@ -53,6 +55,10 @@ class LocationsClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
+            - location_type: typing.Optional[LocationsListRequestLocationType]. If provided, will only return locations with this location_type
+
+                                                                                * `HOME` - HOME
+                                                                                * `WORK` - WORK
             - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
 
             - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
@@ -65,6 +71,7 @@ class LocationsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["location_type"]]. Which fields should be returned in non-normalized form.
         ---
+        from merge import LocationsListRequestLocationType
         from merge.client import Merge
 
         client = Merge(
@@ -72,6 +79,7 @@ class LocationsClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.list(
+            location_type=LocationsListRequestLocationType.HOME,
             remote_fields="location_type",
             show_enum_origins="location_type",
         )
@@ -86,6 +94,7 @@ class LocationsClient:
                     "cursor": cursor,
                     "include_deleted_data": include_deleted_data,
                     "include_remote_data": include_remote_data,
+                    "location_type": location_type,
                     "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                     "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                     "page_size": page_size,
@@ -171,6 +180,7 @@ class AsyncLocationsClient:
         cursor: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
+        location_type: typing.Optional[LocationsListRequestLocationType] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
@@ -192,6 +202,10 @@ class AsyncLocationsClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
+            - location_type: typing.Optional[LocationsListRequestLocationType]. If provided, will only return locations with this location_type
+
+                                                                                * `HOME` - HOME
+                                                                                * `WORK` - WORK
             - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
 
             - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
@@ -204,6 +218,7 @@ class AsyncLocationsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["location_type"]]. Which fields should be returned in non-normalized form.
         ---
+        from merge import LocationsListRequestLocationType
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -211,6 +226,7 @@ class AsyncLocationsClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.list(
+            location_type=LocationsListRequestLocationType.HOME,
             remote_fields="location_type",
             show_enum_origins="location_type",
         )
@@ -225,6 +241,7 @@ class AsyncLocationsClient:
                     "cursor": cursor,
                     "include_deleted_data": include_deleted_data,
                     "include_remote_data": include_remote_data,
+                    "location_type": location_type,
                     "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                     "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                     "page_size": page_size,

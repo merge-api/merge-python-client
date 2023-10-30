@@ -136,7 +136,7 @@ class AccountsClient:
         ---
         import datetime
 
-        from merge import AccountRequest, Address, PhoneNumber
+        from merge import AccountRequest
         from merge.client import Merge
 
         client = Merge(
@@ -150,27 +150,6 @@ class AccountsClient:
                 industry="API's",
                 website="https://merge.dev/",
                 number_of_employees=276000,
-                addresses=[
-                    Address(
-                        street_1="50 Bowling Green Dr",
-                        street_2="Golden Gate Park",
-                        city="San Francisco",
-                        state="CA",
-                        postal_code="94122",
-                        modified_at=datetime.datetime.fromisoformat(
-                            "2021-10-16 00:00:00+00:00",
-                        ),
-                    )
-                ],
-                phone_numbers=[
-                    PhoneNumber(
-                        phone_number="+3198675309",
-                        phone_number_type="Mobile",
-                        modified_at=datetime.datetime.fromisoformat(
-                            "2021-10-16 00:00:00+00:00",
-                        ),
-                    )
-                ],
                 last_activity_at=datetime.datetime.fromisoformat(
                     "2022-02-10 00:00:00+00:00",
                 ),
@@ -311,6 +290,16 @@ class AccountsClient:
 
         Parameters:
             - id: str.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.meta_patch_retrieve(
+            id="id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -329,6 +318,15 @@ class AccountsClient:
     def meta_post_retrieve(self) -> MetaResponse:
         """
         Returns metadata for `CRMAccount` POSTs.
+
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -506,7 +504,7 @@ class AsyncAccountsClient:
         ---
         import datetime
 
-        from merge import AccountRequest, Address, PhoneNumber
+        from merge import AccountRequest
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -520,27 +518,6 @@ class AsyncAccountsClient:
                 industry="API's",
                 website="https://merge.dev/",
                 number_of_employees=276000,
-                addresses=[
-                    Address(
-                        street_1="50 Bowling Green Dr",
-                        street_2="Golden Gate Park",
-                        city="San Francisco",
-                        state="CA",
-                        postal_code="94122",
-                        modified_at=datetime.datetime.fromisoformat(
-                            "2021-10-16 00:00:00+00:00",
-                        ),
-                    )
-                ],
-                phone_numbers=[
-                    PhoneNumber(
-                        phone_number="+3198675309",
-                        phone_number_type="Mobile",
-                        modified_at=datetime.datetime.fromisoformat(
-                            "2021-10-16 00:00:00+00:00",
-                        ),
-                    )
-                ],
                 last_activity_at=datetime.datetime.fromisoformat(
                     "2022-02-10 00:00:00+00:00",
                 ),
@@ -681,6 +658,16 @@ class AsyncAccountsClient:
 
         Parameters:
             - id: str.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.meta_patch_retrieve(
+            id="id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -699,6 +686,15 @@ class AsyncAccountsClient:
     async def meta_post_retrieve(self) -> MetaResponse:
         """
         Returns metadata for `CRMAccount` POSTs.
+
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

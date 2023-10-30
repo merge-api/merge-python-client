@@ -4,8 +4,10 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .roles_enum import RolesEnum
-from .type_enum import TypeEnum
+from .permission_group import PermissionGroup
+from .permission_roles_item import PermissionRolesItem
+from .permission_type import PermissionType
+from .permission_user import PermissionUser
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -25,9 +27,9 @@ class Permission(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    user: typing.Optional[str] = pydantic.Field(description="The user that is granted this permission.")
-    group: typing.Optional[str] = pydantic.Field(description="The group that is granted this permission.")
-    type: typing.Optional[TypeEnum] = pydantic.Field(
+    user: typing.Optional[PermissionUser] = pydantic.Field(description="The user that is granted this permission.")
+    group: typing.Optional[PermissionGroup] = pydantic.Field(description="The group that is granted this permission.")
+    type: typing.Optional[PermissionType] = pydantic.Field(
         description=(
             "Denotes what type of people have access to the file.\n"
             "\n"
@@ -37,9 +39,10 @@ class Permission(pydantic.BaseModel):
             "* `ANYONE` - ANYONE\n"
         )
     )
-    roles: typing.Optional[typing.List[typing.Optional[RolesEnum]]] = pydantic.Field(
+    roles: typing.Optional[typing.List[typing.Optional[PermissionRolesItem]]] = pydantic.Field(
         description="The permissions that the user or group has for the File or Folder. It is possible for a user or group to have multiple roles, such as viewing & uploading. Possible values include: `READ`, `WRITE`, `OWNER`. In cases where there is no clear mapping, the original value passed through will be returned."
     )
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

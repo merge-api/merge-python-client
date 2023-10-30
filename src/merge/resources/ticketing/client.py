@@ -9,6 +9,7 @@ from .resources.async_passthrough.client import (
     AsyncPassthroughClient as resources_ticketing_resources_async_passthrough_client_AsyncPassthroughClient,
 )
 from .resources.attachments.client import AsyncAttachmentsClient, AttachmentsClient
+from .resources.audit_trail.client import AsyncAuditTrailClient, AuditTrailClient
 from .resources.available_actions.client import AsyncAvailableActionsClient, AvailableActionsClient
 from .resources.collections.client import AsyncCollectionsClient, CollectionsClient
 from .resources.comments.client import AsyncCommentsClient, CommentsClient
@@ -44,6 +45,7 @@ class TicketingClient:
             client_wrapper=self._client_wrapper
         )
         self.attachments = AttachmentsClient(client_wrapper=self._client_wrapper)
+        self.audit_trail = AuditTrailClient(client_wrapper=self._client_wrapper)
         self.available_actions = AvailableActionsClient(client_wrapper=self._client_wrapper)
         self.collections = CollectionsClient(client_wrapper=self._client_wrapper)
         self.comments = CommentsClient(client_wrapper=self._client_wrapper)
@@ -74,6 +76,7 @@ class AsyncTicketingClient:
         self.accounts = AsyncAccountsClient(client_wrapper=self._client_wrapper)
         self.async_passthrough = AsyncAsyncPassthroughClient(client_wrapper=self._client_wrapper)
         self.attachments = AsyncAttachmentsClient(client_wrapper=self._client_wrapper)
+        self.audit_trail = AsyncAuditTrailClient(client_wrapper=self._client_wrapper)
         self.available_actions = AsyncAvailableActionsClient(client_wrapper=self._client_wrapper)
         self.collections = AsyncCollectionsClient(client_wrapper=self._client_wrapper)
         self.comments = AsyncCommentsClient(client_wrapper=self._client_wrapper)

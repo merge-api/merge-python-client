@@ -25,6 +25,7 @@ class CustomObject(pydantic.BaseModel):
     fields: typing.Optional[typing.Dict[str, typing.Any]]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
     id: typing.Optional[str]
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

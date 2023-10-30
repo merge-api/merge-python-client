@@ -335,6 +335,16 @@ class OpportunitiesClient:
 
         Parameters:
             - id: str.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.meta_patch_retrieve(
+            id="id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -355,6 +365,15 @@ class OpportunitiesClient:
     def meta_post_retrieve(self) -> MetaResponse:
         """
         Returns metadata for `Opportunity` POSTs.
+
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -730,6 +749,16 @@ class AsyncOpportunitiesClient:
 
         Parameters:
             - id: str.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.meta_patch_retrieve(
+            id="id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -750,6 +779,15 @@ class AsyncOpportunitiesClient:
     async def meta_post_retrieve(self) -> MetaResponse:
         """
         Returns metadata for `Opportunity` POSTs.
+
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

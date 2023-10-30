@@ -215,63 +215,6 @@ class CustomObjectsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def custom_object_classes_custom_objects_partial_update(
-        self,
-        custom_object_class_id: str,
-        id: str,
-        *,
-        is_debug_mode: typing.Optional[bool] = None,
-        run_async: typing.Optional[bool] = None,
-        model: CustomObjectRequest,
-    ) -> CrmCustomObjectResponse:
-        """
-        Updates a `CustomObject` object with the given `id`.
-
-        Parameters:
-            - custom_object_class_id: str.
-
-            - id: str.
-
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
-
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
-
-            - model: CustomObjectRequest.
-        ---
-        from merge import CustomObjectRequest
-        from merge.client import Merge
-
-        client = Merge(
-            account_token="YOUR_ACCOUNT_TOKEN",
-            api_key="YOUR_API_KEY",
-        )
-        client.crm.custom_object_classes_custom_objects_partial_update(
-            custom_object_class_id="custom-object-class-id",
-            id="id",
-            model=CustomObjectRequest(
-                fields={},
-            ),
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "PATCH",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{id}",
-            ),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
-        )
-        if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(CrmCustomObjectResponse, _response.json())  # type: ignore
-        try:
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
     def custom_object_classes_custom_objects_meta_patch_retrieve(
         self, custom_object_class_id: str, id: str
     ) -> MetaResponse:
@@ -282,6 +225,17 @@ class CustomObjectsClient:
             - custom_object_class_id: str.
 
             - id: str.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.custom_object_classes_custom_objects_meta_patch_retrieve(
+            custom_object_class_id="custom-object-class-id",
+            id="id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -306,6 +260,16 @@ class CustomObjectsClient:
 
         Parameters:
             - custom_object_class_id: str.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.custom_object_classes_custom_objects_meta_post_retrieve(
+            custom_object_class_id="custom-object-class-id",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -515,63 +479,6 @@ class AsyncCustomObjectsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def custom_object_classes_custom_objects_partial_update(
-        self,
-        custom_object_class_id: str,
-        id: str,
-        *,
-        is_debug_mode: typing.Optional[bool] = None,
-        run_async: typing.Optional[bool] = None,
-        model: CustomObjectRequest,
-    ) -> CrmCustomObjectResponse:
-        """
-        Updates a `CustomObject` object with the given `id`.
-
-        Parameters:
-            - custom_object_class_id: str.
-
-            - id: str.
-
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
-
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
-
-            - model: CustomObjectRequest.
-        ---
-        from merge import CustomObjectRequest
-        from merge.client import AsyncMerge
-
-        client = AsyncMerge(
-            account_token="YOUR_ACCOUNT_TOKEN",
-            api_key="YOUR_API_KEY",
-        )
-        await client.crm.custom_object_classes_custom_objects_partial_update(
-            custom_object_class_id="custom-object-class-id",
-            id="id",
-            model=CustomObjectRequest(
-                fields={},
-            ),
-        )
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "PATCH",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{id}",
-            ),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
-        )
-        if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(CrmCustomObjectResponse, _response.json())  # type: ignore
-        try:
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
     async def custom_object_classes_custom_objects_meta_patch_retrieve(
         self, custom_object_class_id: str, id: str
     ) -> MetaResponse:
@@ -582,6 +489,17 @@ class AsyncCustomObjectsClient:
             - custom_object_class_id: str.
 
             - id: str.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.custom_object_classes_custom_objects_meta_patch_retrieve(
+            custom_object_class_id="custom-object-class-id",
+            id="id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -608,6 +526,16 @@ class AsyncCustomObjectsClient:
 
         Parameters:
             - custom_object_class_id: str.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.custom_object_classes_custom_objects_meta_post_retrieve(
+            custom_object_class_id="custom-object-class-id",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

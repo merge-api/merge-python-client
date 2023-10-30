@@ -93,7 +93,7 @@ class CreditNotesClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.list(
-            expand=CreditNotesListRequestExpand.APPLIED_TO_LINES,
+            expand=CreditNotesListRequestExpand.ACCOUNTING_PERIOD,
             remote_fields=CreditNotesListRequestRemoteFields.STATUS,
             show_enum_origins=CreditNotesListRequestShowEnumOrigins.STATUS,
         )
@@ -171,7 +171,7 @@ class CreditNotesClient:
         )
         client.accounting.retrieve(
             id="id",
-            expand=CreditNotesRetrieveRequestExpand.APPLIED_TO_LINES,
+            expand=CreditNotesRetrieveRequestExpand.ACCOUNTING_PERIOD,
             remote_fields=CreditNotesRetrieveRequestRemoteFields.STATUS,
             show_enum_origins=CreditNotesRetrieveRequestShowEnumOrigins.STATUS,
         )
@@ -268,7 +268,7 @@ class AsyncCreditNotesClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.list(
-            expand=CreditNotesListRequestExpand.APPLIED_TO_LINES,
+            expand=CreditNotesListRequestExpand.ACCOUNTING_PERIOD,
             remote_fields=CreditNotesListRequestRemoteFields.STATUS,
             show_enum_origins=CreditNotesListRequestShowEnumOrigins.STATUS,
         )
@@ -346,7 +346,7 @@ class AsyncCreditNotesClient:
         )
         await client.accounting.retrieve(
             id="id",
-            expand=CreditNotesRetrieveRequestExpand.APPLIED_TO_LINES,
+            expand=CreditNotesRetrieveRequestExpand.ACCOUNTING_PERIOD,
             remote_fields=CreditNotesRetrieveRequestRemoteFields.STATUS,
             show_enum_origins=CreditNotesRetrieveRequestShowEnumOrigins.STATUS,
         )

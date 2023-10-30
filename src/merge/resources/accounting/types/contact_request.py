@@ -18,7 +18,9 @@ class ContactRequest(pydantic.BaseModel):
     """
     # The Contact Object
     ### Description
-    The `Contact` object refers to either a supplier or a customer.
+    A `Contact` is an individual or business entity to which products and services are sold to or purchased from. The `Contact` model contains both Customers, in which products and services are sold to, and Vendors (or Suppliers), in which products and services are purchased from.
+    * A `Contact` is a Vendor/Supplier if the `is_supplier` property is true.
+    * A `Contact` is a customer if the `is_customer` property is true.
 
     ### Usage Example
     Fetch from the `LIST Contacts` endpoint and view a company's contacts.

@@ -274,6 +274,14 @@ class ApplicationsClient:
 
         Parameters:
             - application_remote_template_id: typing.Optional[str]. The template ID associated with the nested application in the request.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -538,6 +546,14 @@ class AsyncApplicationsClient:
 
         Parameters:
             - application_remote_template_id: typing.Optional[str]. The template ID associated with the nested application in the request.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

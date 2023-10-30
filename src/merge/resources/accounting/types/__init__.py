@@ -19,6 +19,9 @@ from .account_token import AccountToken
 from .accounting_attachment import AccountingAttachment
 from .accounting_attachment_request import AccountingAttachmentRequest
 from .accounting_attachment_response import AccountingAttachmentResponse
+from .accounting_period import AccountingPeriod
+from .accounting_period_status import AccountingPeriodStatus
+from .accounting_period_status_enum import AccountingPeriodStatusEnum
 from .accounting_phone_number import AccountingPhoneNumber
 from .accounting_phone_number_request import AccountingPhoneNumberRequest
 from .accounts_list_request_remote_fields import AccountsListRequestRemoteFields
@@ -27,9 +30,15 @@ from .accounts_retrieve_request_remote_fields import AccountsRetrieveRequestRemo
 from .accounts_retrieve_request_show_enum_origins import AccountsRetrieveRequestShowEnumOrigins
 from .address import Address
 from .address_country import AddressCountry
+from .address_request import AddressRequest
+from .address_request_country import AddressRequestCountry
+from .address_request_type import AddressRequestType
 from .address_type import AddressType
 from .address_type_enum import AddressTypeEnum
 from .async_passthrough_reciept import AsyncPassthroughReciept
+from .audit_log_event import AuditLogEvent
+from .audit_log_event_event_type import AuditLogEventEventType
+from .audit_log_event_role import AuditLogEventRole
 from .available_actions import AvailableActions
 from .balance_sheet import BalanceSheet
 from .balance_sheet_company import BalanceSheetCompany
@@ -60,8 +69,9 @@ from .contacts_list_request_expand import ContactsListRequestExpand
 from .contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
 from .country_enum import CountryEnum
 from .credit_note import CreditNote
-from .credit_note_apply_line import CreditNoteApplyLine
-from .credit_note_apply_line_invoice import CreditNoteApplyLineInvoice
+from .credit_note_accounting_period import CreditNoteAccountingPeriod
+from .credit_note_company import CreditNoteCompany
+from .credit_note_contact import CreditNoteContact
 from .credit_note_currency import CreditNoteCurrency
 from .credit_note_line_item import CreditNoteLineItem
 from .credit_note_line_item_company import CreditNoteLineItemCompany
@@ -83,8 +93,10 @@ from .debug_model_log_summary import DebugModelLogSummary
 from .enabled_actions_enum import EnabledActionsEnum
 from .encoding_enum import EncodingEnum
 from .error_validation_problem import ErrorValidationProblem
+from .event_type_enum import EventTypeEnum
 from .expense import Expense
 from .expense_account import ExpenseAccount
+from .expense_accounting_period import ExpenseAccountingPeriod
 from .expense_company import ExpenseCompany
 from .expense_contact import ExpenseContact
 from .expense_currency import ExpenseCurrency
@@ -103,6 +115,7 @@ from .expense_line_tracking_categories_item import ExpenseLineTrackingCategories
 from .expense_line_tracking_category import ExpenseLineTrackingCategory
 from .expense_request import ExpenseRequest
 from .expense_request_account import ExpenseRequestAccount
+from .expense_request_accounting_period import ExpenseRequestAccountingPeriod
 from .expense_request_company import ExpenseRequestCompany
 from .expense_request_contact import ExpenseRequestContact
 from .expense_request_currency import ExpenseRequestCurrency
@@ -115,6 +128,7 @@ from .income_statement import IncomeStatement
 from .income_statement_company import IncomeStatementCompany
 from .income_statement_currency import IncomeStatementCurrency
 from .invoice import Invoice
+from .invoice_accounting_period import InvoiceAccountingPeriod
 from .invoice_company import InvoiceCompany
 from .invoice_contact import InvoiceContact
 from .invoice_currency import InvoiceCurrency
@@ -131,6 +145,7 @@ from .invoice_line_item_request_tracking_category import InvoiceLineItemRequestT
 from .invoice_line_item_tracking_categories_item import InvoiceLineItemTrackingCategoriesItem
 from .invoice_line_item_tracking_category import InvoiceLineItemTrackingCategory
 from .invoice_payments_item import InvoicePaymentsItem
+from .invoice_purchase_orders_item import InvoicePurchaseOrdersItem
 from .invoice_request import InvoiceRequest
 from .invoice_request_company import InvoiceRequestCompany
 from .invoice_request_contact import InvoiceRequestContact
@@ -161,6 +176,7 @@ from .items_retrieve_request_expand import ItemsRetrieveRequestExpand
 from .journal_entries_list_request_expand import JournalEntriesListRequestExpand
 from .journal_entries_retrieve_request_expand import JournalEntriesRetrieveRequestExpand
 from .journal_entry import JournalEntry
+from .journal_entry_accounting_period import JournalEntryAccountingPeriod
 from .journal_entry_company import JournalEntryCompany
 from .journal_entry_currency import JournalEntryCurrency
 from .journal_entry_payments_item import JournalEntryPaymentsItem
@@ -199,6 +215,8 @@ from .operator_schema import OperatorSchema
 from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
 from .paginated_account_list import PaginatedAccountList
 from .paginated_accounting_attachment_list import PaginatedAccountingAttachmentList
+from .paginated_accounting_period_list import PaginatedAccountingPeriodList
+from .paginated_audit_log_event_list import PaginatedAuditLogEventList
 from .paginated_balance_sheet_list import PaginatedBalanceSheetList
 from .paginated_cash_flow_statement_list import PaginatedCashFlowStatementList
 from .paginated_company_info_list import PaginatedCompanyInfoList
@@ -220,15 +238,13 @@ from .paginated_transaction_list import PaginatedTransactionList
 from .paginated_vendor_credit_list import PaginatedVendorCreditList
 from .payment import Payment
 from .payment_account import PaymentAccount
+from .payment_accounting_period import PaymentAccountingPeriod
 from .payment_company import PaymentCompany
 from .payment_contact import PaymentContact
 from .payment_currency import PaymentCurrency
-from .payment_line_item import PaymentLineItem
-from .payment_line_item_related_object_type import PaymentLineItemRelatedObjectType
-from .payment_line_item_request import PaymentLineItemRequest
-from .payment_line_item_request_related_object_type import PaymentLineItemRequestRelatedObjectType
 from .payment_request import PaymentRequest
 from .payment_request_account import PaymentRequestAccount
+from .payment_request_accounting_period import PaymentRequestAccountingPeriod
 from .payment_request_company import PaymentRequestCompany
 from .payment_request_contact import PaymentRequestContact
 from .payment_request_currency import PaymentRequestCurrency
@@ -239,6 +255,7 @@ from .payments_list_request_expand import PaymentsListRequestExpand
 from .payments_retrieve_request_expand import PaymentsRetrieveRequestExpand
 from .posting_status_enum import PostingStatusEnum
 from .purchase_order import PurchaseOrder
+from .purchase_order_accounting_period import PurchaseOrderAccountingPeriod
 from .purchase_order_company import PurchaseOrderCompany
 from .purchase_order_currency import PurchaseOrderCurrency
 from .purchase_order_delivery_address import PurchaseOrderDeliveryAddress
@@ -262,13 +279,13 @@ from .purchase_order_tracking_categories_item import PurchaseOrderTrackingCatego
 from .purchase_order_vendor import PurchaseOrderVendor
 from .purchase_orders_list_request_expand import PurchaseOrdersListRequestExpand
 from .purchase_orders_retrieve_request_expand import PurchaseOrdersRetrieveRequestExpand
-from .related_object_type_enum import RelatedObjectTypeEnum
 from .remote_data import RemoteData
 from .remote_key import RemoteKey
 from .remote_response import RemoteResponse
 from .report_item import ReportItem
 from .request_format_enum import RequestFormatEnum
 from .response_type_enum import ResponseTypeEnum
+from .role_enum import RoleEnum
 from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
 from .status_7_d_1_enum import Status7D1Enum
 from .sync_status import SyncStatus
@@ -281,6 +298,7 @@ from .tracking_category_company import TrackingCategoryCompany
 from .tracking_category_status import TrackingCategoryStatus
 from .transaction import Transaction
 from .transaction_account import TransactionAccount
+from .transaction_accounting_period import TransactionAccountingPeriod
 from .transaction_contact import TransactionContact
 from .transaction_currency import TransactionCurrency
 from .transaction_line_item import TransactionLineItem
@@ -291,8 +309,7 @@ from .transactions_list_request_expand import TransactionsListRequestExpand
 from .transactions_retrieve_request_expand import TransactionsRetrieveRequestExpand
 from .validation_problem_source import ValidationProblemSource
 from .vendor_credit import VendorCredit
-from .vendor_credit_apply_line import VendorCreditApplyLine
-from .vendor_credit_apply_line_invoice import VendorCreditApplyLineInvoice
+from .vendor_credit_accounting_period import VendorCreditAccountingPeriod
 from .vendor_credit_company import VendorCreditCompany
 from .vendor_credit_currency import VendorCreditCurrency
 from .vendor_credit_line import VendorCreditLine
@@ -324,6 +341,9 @@ __all__ = [
     "AccountingAttachment",
     "AccountingAttachmentRequest",
     "AccountingAttachmentResponse",
+    "AccountingPeriod",
+    "AccountingPeriodStatus",
+    "AccountingPeriodStatusEnum",
     "AccountingPhoneNumber",
     "AccountingPhoneNumberRequest",
     "AccountsListRequestRemoteFields",
@@ -332,9 +352,15 @@ __all__ = [
     "AccountsRetrieveRequestShowEnumOrigins",
     "Address",
     "AddressCountry",
+    "AddressRequest",
+    "AddressRequestCountry",
+    "AddressRequestType",
     "AddressType",
     "AddressTypeEnum",
     "AsyncPassthroughReciept",
+    "AuditLogEvent",
+    "AuditLogEventEventType",
+    "AuditLogEventRole",
     "AvailableActions",
     "BalanceSheet",
     "BalanceSheetCompany",
@@ -365,8 +391,9 @@ __all__ = [
     "ContactsRetrieveRequestExpand",
     "CountryEnum",
     "CreditNote",
-    "CreditNoteApplyLine",
-    "CreditNoteApplyLineInvoice",
+    "CreditNoteAccountingPeriod",
+    "CreditNoteCompany",
+    "CreditNoteContact",
     "CreditNoteCurrency",
     "CreditNoteLineItem",
     "CreditNoteLineItemCompany",
@@ -388,8 +415,10 @@ __all__ = [
     "EnabledActionsEnum",
     "EncodingEnum",
     "ErrorValidationProblem",
+    "EventTypeEnum",
     "Expense",
     "ExpenseAccount",
+    "ExpenseAccountingPeriod",
     "ExpenseCompany",
     "ExpenseContact",
     "ExpenseCurrency",
@@ -408,6 +437,7 @@ __all__ = [
     "ExpenseLineTrackingCategory",
     "ExpenseRequest",
     "ExpenseRequestAccount",
+    "ExpenseRequestAccountingPeriod",
     "ExpenseRequestCompany",
     "ExpenseRequestContact",
     "ExpenseRequestCurrency",
@@ -420,6 +450,7 @@ __all__ = [
     "IncomeStatementCompany",
     "IncomeStatementCurrency",
     "Invoice",
+    "InvoiceAccountingPeriod",
     "InvoiceCompany",
     "InvoiceContact",
     "InvoiceCurrency",
@@ -436,6 +467,7 @@ __all__ = [
     "InvoiceLineItemTrackingCategoriesItem",
     "InvoiceLineItemTrackingCategory",
     "InvoicePaymentsItem",
+    "InvoicePurchaseOrdersItem",
     "InvoiceRequest",
     "InvoiceRequestCompany",
     "InvoiceRequestContact",
@@ -466,6 +498,7 @@ __all__ = [
     "JournalEntriesListRequestExpand",
     "JournalEntriesRetrieveRequestExpand",
     "JournalEntry",
+    "JournalEntryAccountingPeriod",
     "JournalEntryCompany",
     "JournalEntryCurrency",
     "JournalEntryPaymentsItem",
@@ -504,6 +537,8 @@ __all__ = [
     "PaginatedAccountDetailsAndActionsList",
     "PaginatedAccountList",
     "PaginatedAccountingAttachmentList",
+    "PaginatedAccountingPeriodList",
+    "PaginatedAuditLogEventList",
     "PaginatedBalanceSheetList",
     "PaginatedCashFlowStatementList",
     "PaginatedCompanyInfoList",
@@ -525,15 +560,13 @@ __all__ = [
     "PaginatedVendorCreditList",
     "Payment",
     "PaymentAccount",
+    "PaymentAccountingPeriod",
     "PaymentCompany",
     "PaymentContact",
     "PaymentCurrency",
-    "PaymentLineItem",
-    "PaymentLineItemRelatedObjectType",
-    "PaymentLineItemRequest",
-    "PaymentLineItemRequestRelatedObjectType",
     "PaymentRequest",
     "PaymentRequestAccount",
+    "PaymentRequestAccountingPeriod",
     "PaymentRequestCompany",
     "PaymentRequestContact",
     "PaymentRequestCurrency",
@@ -544,6 +577,7 @@ __all__ = [
     "PaymentsRetrieveRequestExpand",
     "PostingStatusEnum",
     "PurchaseOrder",
+    "PurchaseOrderAccountingPeriod",
     "PurchaseOrderCompany",
     "PurchaseOrderCurrency",
     "PurchaseOrderDeliveryAddress",
@@ -567,13 +601,13 @@ __all__ = [
     "PurchaseOrderVendor",
     "PurchaseOrdersListRequestExpand",
     "PurchaseOrdersRetrieveRequestExpand",
-    "RelatedObjectTypeEnum",
     "RemoteData",
     "RemoteKey",
     "RemoteResponse",
     "ReportItem",
     "RequestFormatEnum",
     "ResponseTypeEnum",
+    "RoleEnum",
     "SelectiveSyncConfigurationsUsageEnum",
     "Status7D1Enum",
     "SyncStatus",
@@ -586,6 +620,7 @@ __all__ = [
     "TrackingCategoryStatus",
     "Transaction",
     "TransactionAccount",
+    "TransactionAccountingPeriod",
     "TransactionContact",
     "TransactionCurrency",
     "TransactionLineItem",
@@ -596,8 +631,7 @@ __all__ = [
     "TransactionsRetrieveRequestExpand",
     "ValidationProblemSource",
     "VendorCredit",
-    "VendorCreditApplyLine",
-    "VendorCreditApplyLineInvoice",
+    "VendorCreditAccountingPeriod",
     "VendorCreditCompany",
     "VendorCreditCurrency",
     "VendorCreditLine",

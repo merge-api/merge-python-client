@@ -33,6 +33,9 @@ class AccountIntegration(pydantic.BaseModel):
     api_endpoints_to_documentation_urls: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(
         description="Mapping of API endpoints to documentation urls for support. Example: {'GET': [['/common-model-scopes', 'https://docs.merge.dev/accounting/common-model-scopes/#common_model_scopes_retrieve'],['/common-model-actions', 'https://docs.merge.dev/accounting/common-model-actions/#common_model_actions_retrieve']], 'POST': []}"
     )
+    webhook_setup_guide_url: typing.Optional[str] = pydantic.Field(
+        description="Setup guide URL for third party webhook creation. Exposed in Merge Docs."
+    )
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

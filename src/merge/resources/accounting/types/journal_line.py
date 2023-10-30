@@ -347,6 +347,10 @@ class JournalLine(pydantic.BaseModel):
     contact: typing.Optional[str]
     description: typing.Optional[str] = pydantic.Field(description="The line's description.")
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The journal line item's exchange rate.")
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(
+        description="Indicates whether or not this object has been deleted in the third party platform."
+    )
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

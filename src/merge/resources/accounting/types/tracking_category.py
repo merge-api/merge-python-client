@@ -19,7 +19,7 @@ class TrackingCategory(pydantic.BaseModel):
     """
     # The TrackingCategory Object
     ### Description
-    The `TrackingCategory` object is used to represent a company's tracking categories.
+    A `TrackingCategory` object represents a categorization method used to classify transactions within an accounting platform. They are often used to group records for reporting and analysis purposes. The most common types of `TrackingCategories` are Classes and Departments.
 
     ### Usage Example
     Fetch from the `GET TrackingCategory` endpoint and view a company's tracking category.
@@ -37,10 +37,11 @@ class TrackingCategory(pydantic.BaseModel):
         description="The company the tracking category belongs to."
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted by third party webhooks."
+        description="Indicates whether or not this object has been deleted in the third party platform."
     )
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

@@ -14,6 +14,7 @@ except ImportError:
 class AssociationSubType(pydantic.BaseModel):
     id: typing.Optional[str]
     origin_type: typing.Optional[str]
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

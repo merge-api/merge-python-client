@@ -19,7 +19,14 @@ class Account(pydantic.BaseModel):
     """
     # The Account Object
     ### Description
-    The `Account` object is what companies use to track transactions. They can be both bank accounts or a general ledger account (also called a chart of accounts).
+    An `Account` represents a category in a company’s ledger in which a financial transaction is recorded against. The aggregation of each `Account` object is often referred to as the **Chart of Accounts**.
+
+    An `Account` can be classified into one of the following categories, determined through the `classification` field:
+    * __Asset:__ Accounts Receivable and Bank Accounts
+    * __Liability:__ Accounts Payable and Credit Card Accounts
+    * __Equity:__ Treasury Accounts and Retained Earnings
+    * __Revenue:__ Income and Other Income
+    * __Expense:__ Cost of Goods Sold and Office Expenses
 
     ### Usage Example
     Fetch from the `LIST Accounts` endpoint and view a company's accounts.
@@ -365,8 +372,9 @@ class Account(pydantic.BaseModel):
     parent_account: typing.Optional[str] = pydantic.Field(description="ID of the parent account.")
     company: typing.Optional[str] = pydantic.Field(description="The company the account belongs to.")
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted by third party webhooks."
+        description="Indicates whether or not this object has been deleted in the third party platform."
     )
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

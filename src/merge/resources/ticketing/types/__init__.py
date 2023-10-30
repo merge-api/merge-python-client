@@ -13,6 +13,9 @@ from .attachment import Attachment
 from .attachment_request import AttachmentRequest
 from .attachment_request_ticket import AttachmentRequestTicket
 from .attachment_ticket import AttachmentTicket
+from .audit_log_event import AuditLogEvent
+from .audit_log_event_event_type import AuditLogEventEventType
+from .audit_log_event_role import AuditLogEventRole
 from .available_actions import AvailableActions
 from .categories_enum import CategoriesEnum
 from .category_enum import CategoryEnum
@@ -46,6 +49,7 @@ from .debug_model_log_summary import DebugModelLogSummary
 from .enabled_actions_enum import EnabledActionsEnum
 from .encoding_enum import EncodingEnum
 from .error_validation_problem import ErrorValidationProblem
+from .event_type_enum import EventTypeEnum
 from .field_format_enum import FieldFormatEnum
 from .field_type_enum import FieldTypeEnum
 from .issue import Issue
@@ -71,6 +75,7 @@ from .operator_schema import OperatorSchema
 from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
 from .paginated_account_list import PaginatedAccountList
 from .paginated_attachment_list import PaginatedAttachmentList
+from .paginated_audit_log_event_list import PaginatedAuditLogEventList
 from .paginated_collection_list import PaginatedCollectionList
 from .paginated_comment_list import PaginatedCommentList
 from .paginated_condition_schema_list import PaginatedConditionSchemaList
@@ -102,6 +107,7 @@ from .remote_key import RemoteKey
 from .remote_response import RemoteResponse
 from .request_format_enum import RequestFormatEnum
 from .response_type_enum import ResponseTypeEnum
+from .role_enum import RoleEnum
 from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
 from .sync_status import SyncStatus
 from .sync_status_status_enum import SyncStatusStatusEnum
@@ -161,6 +167,9 @@ __all__ = [
     "AttachmentRequest",
     "AttachmentRequestTicket",
     "AttachmentTicket",
+    "AuditLogEvent",
+    "AuditLogEventEventType",
+    "AuditLogEventRole",
     "AvailableActions",
     "CategoriesEnum",
     "CategoryEnum",
@@ -194,6 +203,7 @@ __all__ = [
     "EnabledActionsEnum",
     "EncodingEnum",
     "ErrorValidationProblem",
+    "EventTypeEnum",
     "FieldFormatEnum",
     "FieldTypeEnum",
     "Issue",
@@ -219,6 +229,7 @@ __all__ = [
     "PaginatedAccountDetailsAndActionsList",
     "PaginatedAccountList",
     "PaginatedAttachmentList",
+    "PaginatedAuditLogEventList",
     "PaginatedCollectionList",
     "PaginatedCommentList",
     "PaginatedConditionSchemaList",
@@ -250,6 +261,7 @@ __all__ = [
     "RemoteResponse",
     "RequestFormatEnum",
     "ResponseTypeEnum",
+    "RoleEnum",
     "SelectiveSyncConfigurationsUsageEnum",
     "SyncStatus",
     "SyncStatusStatusEnum",

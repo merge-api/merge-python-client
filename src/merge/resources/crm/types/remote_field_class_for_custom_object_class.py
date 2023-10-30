@@ -26,6 +26,7 @@ class RemoteFieldClassForCustomObjectClass(pydantic.BaseModel):
     field_format: typing.Optional[RemoteFieldClassForCustomObjectClassFieldFormat]
     field_choices: typing.Optional[typing.List[RemoteFieldClassForCustomObjectClassFieldChoicesItem]]
     item_schema: typing.Optional[RemoteFieldClassForCustomObjectClassItemSchema]
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )

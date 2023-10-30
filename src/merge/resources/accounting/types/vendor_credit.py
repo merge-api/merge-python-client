@@ -5,7 +5,7 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from .remote_data import RemoteData
-from .vendor_credit_apply_line import VendorCreditApplyLine
+from .vendor_credit_accounting_period import VendorCreditAccountingPeriod
 from .vendor_credit_company import VendorCreditCompany
 from .vendor_credit_currency import VendorCreditCurrency
 from .vendor_credit_line import VendorCreditLine
@@ -22,7 +22,7 @@ class VendorCredit(pydantic.BaseModel):
     """
     # The VendorCredit Object
     ### Description
-    The `VendorCredit` object is an accounts receivable transaction used to show that a customer is owed a gift or refund. A vendor credit will contain information on the amount of credit owed to the customer, the vendor that owes the credit, and the account.
+    A `VendorCredit` is transaction issued by a vendor to the accounting company, indicating a reduction or cancellation of the amount owed to the vendor. It is most generally used as an adjustment note used to rectify errors, returns, or overpayments related to a purchasing transaction. A `VendorCredit` can be applied to *Accounts Payable* Invoices to decrease the overall amount of the Invoice.
 
     ### Usage Example
     Fetch from the `GET VendorCredit` endpoint and view a company's vendor credits.
@@ -353,9 +353,12 @@ class VendorCredit(pydantic.BaseModel):
     lines: typing.Optional[typing.List[VendorCreditLine]]
     tracking_categories: typing.Optional[typing.List[typing.Optional[VendorCreditTrackingCategoriesItem]]]
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted by third party webhooks."
+        description="Indicates whether or not this object has been deleted in the third party platform."
     )
-    applied_to_lines: typing.Optional[typing.List[VendorCreditApplyLine]]
+    accounting_period: typing.Optional[VendorCreditAccountingPeriod] = pydantic.Field(
+        description="The accounting period that the VendorCredit was generated in."
+    )
+    created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
