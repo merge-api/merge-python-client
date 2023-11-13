@@ -70,6 +70,7 @@ from .contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
 from .country_enum import CountryEnum
 from .credit_note import CreditNote
 from .credit_note_accounting_period import CreditNoteAccountingPeriod
+from .credit_note_applied_payments_item import CreditNoteAppliedPaymentsItem
 from .credit_note_company import CreditNoteCompany
 from .credit_note_contact import CreditNoteContact
 from .credit_note_currency import CreditNoteCurrency
@@ -129,6 +130,7 @@ from .income_statement_company import IncomeStatementCompany
 from .income_statement_currency import IncomeStatementCurrency
 from .invoice import Invoice
 from .invoice_accounting_period import InvoiceAccountingPeriod
+from .invoice_applied_payments_item import InvoiceAppliedPaymentsItem
 from .invoice_company import InvoiceCompany
 from .invoice_contact import InvoiceContact
 from .invoice_currency import InvoiceCurrency
@@ -177,6 +179,7 @@ from .journal_entries_list_request_expand import JournalEntriesListRequestExpand
 from .journal_entries_retrieve_request_expand import JournalEntriesRetrieveRequestExpand
 from .journal_entry import JournalEntry
 from .journal_entry_accounting_period import JournalEntryAccountingPeriod
+from .journal_entry_applied_payments_item import JournalEntryAppliedPaymentsItem
 from .journal_entry_company import JournalEntryCompany
 from .journal_entry_currency import JournalEntryCurrency
 from .journal_entry_payments_item import JournalEntryPaymentsItem
@@ -239,12 +242,16 @@ from .paginated_vendor_credit_list import PaginatedVendorCreditList
 from .payment import Payment
 from .payment_account import PaymentAccount
 from .payment_accounting_period import PaymentAccountingPeriod
+from .payment_applied_to_lines_item import PaymentAppliedToLinesItem
 from .payment_company import PaymentCompany
 from .payment_contact import PaymentContact
 from .payment_currency import PaymentCurrency
+from .payment_line_item import PaymentLineItem
+from .payment_line_item_request import PaymentLineItemRequest
 from .payment_request import PaymentRequest
 from .payment_request_account import PaymentRequestAccount
 from .payment_request_accounting_period import PaymentRequestAccountingPeriod
+from .payment_request_applied_to_lines_item import PaymentRequestAppliedToLinesItem
 from .payment_request_company import PaymentRequestCompany
 from .payment_request_contact import PaymentRequestContact
 from .payment_request_currency import PaymentRequestCurrency
@@ -392,6 +399,7 @@ __all__ = [
     "CountryEnum",
     "CreditNote",
     "CreditNoteAccountingPeriod",
+    "CreditNoteAppliedPaymentsItem",
     "CreditNoteCompany",
     "CreditNoteContact",
     "CreditNoteCurrency",
@@ -451,6 +459,7 @@ __all__ = [
     "IncomeStatementCurrency",
     "Invoice",
     "InvoiceAccountingPeriod",
+    "InvoiceAppliedPaymentsItem",
     "InvoiceCompany",
     "InvoiceContact",
     "InvoiceCurrency",
@@ -499,6 +508,7 @@ __all__ = [
     "JournalEntriesRetrieveRequestExpand",
     "JournalEntry",
     "JournalEntryAccountingPeriod",
+    "JournalEntryAppliedPaymentsItem",
     "JournalEntryCompany",
     "JournalEntryCurrency",
     "JournalEntryPaymentsItem",
@@ -561,12 +571,16 @@ __all__ = [
     "Payment",
     "PaymentAccount",
     "PaymentAccountingPeriod",
+    "PaymentAppliedToLinesItem",
     "PaymentCompany",
     "PaymentContact",
     "PaymentCurrency",
+    "PaymentLineItem",
+    "PaymentLineItemRequest",
     "PaymentRequest",
     "PaymentRequestAccount",
     "PaymentRequestAccountingPeriod",
+    "PaymentRequestAppliedToLinesItem",
     "PaymentRequestCompany",
     "PaymentRequestContact",
     "PaymentRequestCurrency",

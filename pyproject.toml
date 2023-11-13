@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "MergePythonClient"
-version = "0.2.11"
+version = "1.0.0"
 description = ""
 readme = "README.md"
 authors = []

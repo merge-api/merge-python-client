@@ -5,6 +5,7 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from .journal_entry_accounting_period import JournalEntryAccountingPeriod
+from .journal_entry_applied_payments_item import JournalEntryAppliedPaymentsItem
 from .journal_entry_company import JournalEntryCompany
 from .journal_entry_currency import JournalEntryCurrency
 from .journal_entry_payments_item import JournalEntryPaymentsItem
@@ -42,6 +43,9 @@ class JournalEntry(pydantic.BaseModel):
     )
     payments: typing.Optional[typing.List[typing.Optional[JournalEntryPaymentsItem]]] = pydantic.Field(
         description="Array of `Payment` object IDs."
+    )
+    applied_payments: typing.Optional[typing.List[typing.Optional[JournalEntryAppliedPaymentsItem]]] = pydantic.Field(
+        description="Array of `PaymentLineItems` object IDs."
     )
     memo: typing.Optional[str] = pydantic.Field(description="The journal entry's private note.")
     currency: typing.Optional[JournalEntryCurrency] = pydantic.Field(

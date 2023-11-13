@@ -344,6 +344,7 @@ class JournalLine(pydantic.BaseModel):
             "* `ZWL` - Zimbabwean Dollar (2009)\n"
         )
     )
+    company: typing.Optional[str] = pydantic.Field(description="The company the journal entry belongs to.")
     contact: typing.Optional[str]
     description: typing.Optional[str] = pydantic.Field(description="The line's description.")
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The journal line item's exchange rate.")

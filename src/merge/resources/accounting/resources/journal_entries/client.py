@@ -154,6 +154,7 @@ class JournalEntriesClient:
                     JournalLineRequest(
                         remote_id="121222",
                         net_amount=25.54,
+                        company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
                         contact="d2d5ea3c-b032-11ec-b909-0242ac120002",
                         description="Cash payment for lunch",
                         exchange_rate="2.9",
@@ -379,6 +380,7 @@ class AsyncJournalEntriesClient:
                     JournalLineRequest(
                         remote_id="121222",
                         net_amount=25.54,
+                        company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
                         contact="d2d5ea3c-b032-11ec-b909-0242ac120002",
                         description="Cash payment for lunch",
                         exchange_rate="2.9",

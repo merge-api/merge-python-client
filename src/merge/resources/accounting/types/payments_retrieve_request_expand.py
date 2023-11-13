@@ -12,6 +12,24 @@ class PaymentsRetrieveRequestExpand(str, enum.Enum):
     ACCOUNT_COMPANY = "account,company"
     ACCOUNT_COMPANY_ACCOUNTING_PERIOD = "account,company,accounting_period"
     ACCOUNTING_PERIOD = "accounting_period"
+    APPLIED_TO_LINES = "applied_to_lines"
+    APPLIED_TO_LINES_ACCOUNT = "applied_to_lines,account"
+    APPLIED_TO_LINES_ACCOUNT_ACCOUNTING_PERIOD = "applied_to_lines,account,accounting_period"
+    APPLIED_TO_LINES_ACCOUNT_COMPANY = "applied_to_lines,account,company"
+    APPLIED_TO_LINES_ACCOUNT_COMPANY_ACCOUNTING_PERIOD = "applied_to_lines,account,company,accounting_period"
+    APPLIED_TO_LINES_ACCOUNTING_PERIOD = "applied_to_lines,accounting_period"
+    APPLIED_TO_LINES_COMPANY = "applied_to_lines,company"
+    APPLIED_TO_LINES_COMPANY_ACCOUNTING_PERIOD = "applied_to_lines,company,accounting_period"
+    APPLIED_TO_LINES_CONTACT = "applied_to_lines,contact"
+    APPLIED_TO_LINES_CONTACT_ACCOUNT = "applied_to_lines,contact,account"
+    APPLIED_TO_LINES_CONTACT_ACCOUNT_ACCOUNTING_PERIOD = "applied_to_lines,contact,account,accounting_period"
+    APPLIED_TO_LINES_CONTACT_ACCOUNT_COMPANY = "applied_to_lines,contact,account,company"
+    APPLIED_TO_LINES_CONTACT_ACCOUNT_COMPANY_ACCOUNTING_PERIOD = (
+        "applied_to_lines,contact,account,company,accounting_period"
+    )
+    APPLIED_TO_LINES_CONTACT_ACCOUNTING_PERIOD = "applied_to_lines,contact,accounting_period"
+    APPLIED_TO_LINES_CONTACT_COMPANY = "applied_to_lines,contact,company"
+    APPLIED_TO_LINES_CONTACT_COMPANY_ACCOUNTING_PERIOD = "applied_to_lines,contact,company,accounting_period"
     COMPANY = "company"
     COMPANY_ACCOUNTING_PERIOD = "company,accounting_period"
     CONTACT = "contact"
@@ -28,6 +46,38 @@ class PaymentsRetrieveRequestExpand(str, enum.Enum):
     TRACKING_CATEGORIES_ACCOUNT_COMPANY = "tracking_categories,account,company"
     TRACKING_CATEGORIES_ACCOUNT_COMPANY_ACCOUNTING_PERIOD = "tracking_categories,account,company,accounting_period"
     TRACKING_CATEGORIES_ACCOUNTING_PERIOD = "tracking_categories,accounting_period"
+    TRACKING_CATEGORIES_APPLIED_TO_LINES = "tracking_categories,applied_to_lines"
+    TRACKING_CATEGORIES_APPLIED_TO_LINES_ACCOUNT = "tracking_categories,applied_to_lines,account"
+    TRACKING_CATEGORIES_APPLIED_TO_LINES_ACCOUNT_ACCOUNTING_PERIOD = (
+        "tracking_categories,applied_to_lines,account,accounting_period"
+    )
+    TRACKING_CATEGORIES_APPLIED_TO_LINES_ACCOUNT_COMPANY = "tracking_categories,applied_to_lines,account,company"
+    TRACKING_CATEGORIES_APPLIED_TO_LINES_ACCOUNT_COMPANY_ACCOUNTING_PERIOD = (
+        "tracking_categories,applied_to_lines,account,company,accounting_period"
+    )
+    TRACKING_CATEGORIES_APPLIED_TO_LINES_ACCOUNTING_PERIOD = "tracking_categories,applied_to_lines,accounting_period"
+    TRACKING_CATEGORIES_APPLIED_TO_LINES_COMPANY = "tracking_categories,applied_to_lines,company"
+    TRACKING_CATEGORIES_APPLIED_TO_LINES_COMPANY_ACCOUNTING_PERIOD = (
+        "tracking_categories,applied_to_lines,company,accounting_period"
+    )
+    TRACKING_CATEGORIES_APPLIED_TO_LINES_CONTACT = "tracking_categories,applied_to_lines,contact"
+    TRACKING_CATEGORIES_APPLIED_TO_LINES_CONTACT_ACCOUNT = "tracking_categories,applied_to_lines,contact,account"
+    TRACKING_CATEGORIES_APPLIED_TO_LINES_CONTACT_ACCOUNT_ACCOUNTING_PERIOD = (
+        "tracking_categories,applied_to_lines,contact,account,accounting_period"
+    )
+    TRACKING_CATEGORIES_APPLIED_TO_LINES_CONTACT_ACCOUNT_COMPANY = (
+        "tracking_categories,applied_to_lines,contact,account,company"
+    )
+    TRACKING_CATEGORIES_APPLIED_TO_LINES_CONTACT_ACCOUNT_COMPANY_ACCOUNTING_PERIOD = (
+        "tracking_categories,applied_to_lines,contact,account,company,accounting_period"
+    )
+    TRACKING_CATEGORIES_APPLIED_TO_LINES_CONTACT_ACCOUNTING_PERIOD = (
+        "tracking_categories,applied_to_lines,contact,accounting_period"
+    )
+    TRACKING_CATEGORIES_APPLIED_TO_LINES_CONTACT_COMPANY = "tracking_categories,applied_to_lines,contact,company"
+    TRACKING_CATEGORIES_APPLIED_TO_LINES_CONTACT_COMPANY_ACCOUNTING_PERIOD = (
+        "tracking_categories,applied_to_lines,contact,company,accounting_period"
+    )
     TRACKING_CATEGORIES_COMPANY = "tracking_categories,company"
     TRACKING_CATEGORIES_COMPANY_ACCOUNTING_PERIOD = "tracking_categories,company,accounting_period"
     TRACKING_CATEGORIES_CONTACT = "tracking_categories,contact"
@@ -48,6 +98,22 @@ class PaymentsRetrieveRequestExpand(str, enum.Enum):
         account_company: typing.Callable[[], T_Result],
         account_company_accounting_period: typing.Callable[[], T_Result],
         accounting_period: typing.Callable[[], T_Result],
+        applied_to_lines: typing.Callable[[], T_Result],
+        applied_to_lines_account: typing.Callable[[], T_Result],
+        applied_to_lines_account_accounting_period: typing.Callable[[], T_Result],
+        applied_to_lines_account_company: typing.Callable[[], T_Result],
+        applied_to_lines_account_company_accounting_period: typing.Callable[[], T_Result],
+        applied_to_lines_accounting_period: typing.Callable[[], T_Result],
+        applied_to_lines_company: typing.Callable[[], T_Result],
+        applied_to_lines_company_accounting_period: typing.Callable[[], T_Result],
+        applied_to_lines_contact: typing.Callable[[], T_Result],
+        applied_to_lines_contact_account: typing.Callable[[], T_Result],
+        applied_to_lines_contact_account_accounting_period: typing.Callable[[], T_Result],
+        applied_to_lines_contact_account_company: typing.Callable[[], T_Result],
+        applied_to_lines_contact_account_company_accounting_period: typing.Callable[[], T_Result],
+        applied_to_lines_contact_accounting_period: typing.Callable[[], T_Result],
+        applied_to_lines_contact_company: typing.Callable[[], T_Result],
+        applied_to_lines_contact_company_accounting_period: typing.Callable[[], T_Result],
         company: typing.Callable[[], T_Result],
         company_accounting_period: typing.Callable[[], T_Result],
         contact: typing.Callable[[], T_Result],
@@ -64,6 +130,22 @@ class PaymentsRetrieveRequestExpand(str, enum.Enum):
         tracking_categories_account_company: typing.Callable[[], T_Result],
         tracking_categories_account_company_accounting_period: typing.Callable[[], T_Result],
         tracking_categories_accounting_period: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines_account: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines_account_accounting_period: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines_account_company: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines_account_company_accounting_period: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines_accounting_period: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines_company: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines_company_accounting_period: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines_contact: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines_contact_account: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines_contact_account_accounting_period: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines_contact_account_company: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines_contact_account_company_accounting_period: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines_contact_accounting_period: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines_contact_company: typing.Callable[[], T_Result],
+        tracking_categories_applied_to_lines_contact_company_accounting_period: typing.Callable[[], T_Result],
         tracking_categories_company: typing.Callable[[], T_Result],
         tracking_categories_company_accounting_period: typing.Callable[[], T_Result],
         tracking_categories_contact: typing.Callable[[], T_Result],
@@ -85,6 +167,38 @@ class PaymentsRetrieveRequestExpand(str, enum.Enum):
             return account_company_accounting_period()
         if self is PaymentsRetrieveRequestExpand.ACCOUNTING_PERIOD:
             return accounting_period()
+        if self is PaymentsRetrieveRequestExpand.APPLIED_TO_LINES:
+            return applied_to_lines()
+        if self is PaymentsRetrieveRequestExpand.APPLIED_TO_LINES_ACCOUNT:
+            return applied_to_lines_account()
+        if self is PaymentsRetrieveRequestExpand.APPLIED_TO_LINES_ACCOUNT_ACCOUNTING_PERIOD:
+            return applied_to_lines_account_accounting_period()
+        if self is PaymentsRetrieveRequestExpand.APPLIED_TO_LINES_ACCOUNT_COMPANY:
+            return applied_to_lines_account_company()
+        if self is PaymentsRetrieveRequestExpand.APPLIED_TO_LINES_ACCOUNT_COMPANY_ACCOUNTING_PERIOD:
+            return applied_to_lines_account_company_accounting_period()
+        if self is PaymentsRetrieveRequestExpand.APPLIED_TO_LINES_ACCOUNTING_PERIOD:
+            return applied_to_lines_accounting_period()
+        if self is PaymentsRetrieveRequestExpand.APPLIED_TO_LINES_COMPANY:
+            return applied_to_lines_company()
+        if self is PaymentsRetrieveRequestExpand.APPLIED_TO_LINES_COMPANY_ACCOUNTING_PERIOD:
+            return applied_to_lines_company_accounting_period()
+        if self is PaymentsRetrieveRequestExpand.APPLIED_TO_LINES_CONTACT:
+            return applied_to_lines_contact()
+        if self is PaymentsRetrieveRequestExpand.APPLIED_TO_LINES_CONTACT_ACCOUNT:
+            return applied_to_lines_contact_account()
+        if self is PaymentsRetrieveRequestExpand.APPLIED_TO_LINES_CONTACT_ACCOUNT_ACCOUNTING_PERIOD:
+            return applied_to_lines_contact_account_accounting_period()
+        if self is PaymentsRetrieveRequestExpand.APPLIED_TO_LINES_CONTACT_ACCOUNT_COMPANY:
+            return applied_to_lines_contact_account_company()
+        if self is PaymentsRetrieveRequestExpand.APPLIED_TO_LINES_CONTACT_ACCOUNT_COMPANY_ACCOUNTING_PERIOD:
+            return applied_to_lines_contact_account_company_accounting_period()
+        if self is PaymentsRetrieveRequestExpand.APPLIED_TO_LINES_CONTACT_ACCOUNTING_PERIOD:
+            return applied_to_lines_contact_accounting_period()
+        if self is PaymentsRetrieveRequestExpand.APPLIED_TO_LINES_CONTACT_COMPANY:
+            return applied_to_lines_contact_company()
+        if self is PaymentsRetrieveRequestExpand.APPLIED_TO_LINES_CONTACT_COMPANY_ACCOUNTING_PERIOD:
+            return applied_to_lines_contact_company_accounting_period()
         if self is PaymentsRetrieveRequestExpand.COMPANY:
             return company()
         if self is PaymentsRetrieveRequestExpand.COMPANY_ACCOUNTING_PERIOD:
@@ -117,6 +231,41 @@ class PaymentsRetrieveRequestExpand(str, enum.Enum):
             return tracking_categories_account_company_accounting_period()
         if self is PaymentsRetrieveRequestExpand.TRACKING_CATEGORIES_ACCOUNTING_PERIOD:
             return tracking_categories_accounting_period()
+        if self is PaymentsRetrieveRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES:
+            return tracking_categories_applied_to_lines()
+        if self is PaymentsRetrieveRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES_ACCOUNT:
+            return tracking_categories_applied_to_lines_account()
+        if self is PaymentsRetrieveRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES_ACCOUNT_ACCOUNTING_PERIOD:
+            return tracking_categories_applied_to_lines_account_accounting_period()
+        if self is PaymentsRetrieveRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES_ACCOUNT_COMPANY:
+            return tracking_categories_applied_to_lines_account_company()
+        if self is PaymentsRetrieveRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES_ACCOUNT_COMPANY_ACCOUNTING_PERIOD:
+            return tracking_categories_applied_to_lines_account_company_accounting_period()
+        if self is PaymentsRetrieveRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES_ACCOUNTING_PERIOD:
+            return tracking_categories_applied_to_lines_accounting_period()
+        if self is PaymentsRetrieveRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES_COMPANY:
+            return tracking_categories_applied_to_lines_company()
+        if self is PaymentsRetrieveRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES_COMPANY_ACCOUNTING_PERIOD:
+            return tracking_categories_applied_to_lines_company_accounting_period()
+        if self is PaymentsRetrieveRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES_CONTACT:
+            return tracking_categories_applied_to_lines_contact()
+        if self is PaymentsRetrieveRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES_CONTACT_ACCOUNT:
+            return tracking_categories_applied_to_lines_contact_account()
+        if self is PaymentsRetrieveRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES_CONTACT_ACCOUNT_ACCOUNTING_PERIOD:
+            return tracking_categories_applied_to_lines_contact_account_accounting_period()
+        if self is PaymentsRetrieveRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES_CONTACT_ACCOUNT_COMPANY:
+            return tracking_categories_applied_to_lines_contact_account_company()
+        if (
+            self
+            is PaymentsRetrieveRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES_CONTACT_ACCOUNT_COMPANY_ACCOUNTING_PERIOD
+        ):
+            return tracking_categories_applied_to_lines_contact_account_company_accounting_period()
+        if self is PaymentsRetrieveRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES_CONTACT_ACCOUNTING_PERIOD:
+            return tracking_categories_applied_to_lines_contact_accounting_period()
+        if self is PaymentsRetrieveRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES_CONTACT_COMPANY:
+            return tracking_categories_applied_to_lines_contact_company()
+        if self is PaymentsRetrieveRequestExpand.TRACKING_CATEGORIES_APPLIED_TO_LINES_CONTACT_COMPANY_ACCOUNTING_PERIOD:
+            return tracking_categories_applied_to_lines_contact_company_accounting_period()
         if self is PaymentsRetrieveRequestExpand.TRACKING_CATEGORIES_COMPANY:
             return tracking_categories_company()
         if self is PaymentsRetrieveRequestExpand.TRACKING_CATEGORIES_COMPANY_ACCOUNTING_PERIOD:

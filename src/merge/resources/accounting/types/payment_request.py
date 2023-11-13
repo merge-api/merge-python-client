@@ -6,6 +6,7 @@ import typing
 from ....core.datetime_utils import serialize_datetime
 from .payment_request_account import PaymentRequestAccount
 from .payment_request_accounting_period import PaymentRequestAccountingPeriod
+from .payment_request_applied_to_lines_item import PaymentRequestAppliedToLinesItem
 from .payment_request_company import PaymentRequestCompany
 from .payment_request_contact import PaymentRequestContact
 from .payment_request_currency import PaymentRequestCurrency
@@ -355,6 +356,7 @@ class PaymentRequest(pydantic.BaseModel):
     accounting_period: typing.Optional[PaymentRequestAccountingPeriod] = pydantic.Field(
         description="The accounting period that the Payment was generated in."
     )
+    applied_to_lines: typing.Optional[typing.List[PaymentRequestAppliedToLinesItem]]
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 
