@@ -79,14 +79,14 @@ class CollectionsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["collection_type"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import CollectionsListRequestCollectionType
         from merge.client import Merge
+        from merge.resources.ticketing import CollectionsListRequestCollectionType
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.list(
+        client.ticketing.collections.list(
             collection_type=CollectionsListRequestCollectionType.LIST,
             expand="parent_collection",
             remote_fields="collection_type",
@@ -154,7 +154,7 @@ class CollectionsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.retrieve(
+        client.ticketing.collections.retrieve(
             id="id",
             expand="parent_collection",
             remote_fields="collection_type",
@@ -209,14 +209,14 @@ class CollectionsClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
         ---
-        from merge import CollectionsUsersListRequestExpand
         from merge.client import Merge
+        from merge.resources.ticketing import CollectionsUsersListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.users_list(
+        client.ticketing.collections.users_list(
             parent_id="parent-id",
             expand=CollectionsUsersListRequestExpand.ROLES,
         )
@@ -303,14 +303,14 @@ class AsyncCollectionsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["collection_type"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import CollectionsListRequestCollectionType
         from merge.client import AsyncMerge
+        from merge.resources.ticketing import CollectionsListRequestCollectionType
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.list(
+        await client.ticketing.collections.list(
             collection_type=CollectionsListRequestCollectionType.LIST,
             expand="parent_collection",
             remote_fields="collection_type",
@@ -378,7 +378,7 @@ class AsyncCollectionsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.retrieve(
+        await client.ticketing.collections.retrieve(
             id="id",
             expand="parent_collection",
             remote_fields="collection_type",
@@ -433,14 +433,14 @@ class AsyncCollectionsClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
         ---
-        from merge import CollectionsUsersListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.ticketing import CollectionsUsersListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.users_list(
+        await client.ticketing.collections.users_list(
             parent_id="parent-id",
             expand=CollectionsUsersListRequestExpand.ROLES,
         )

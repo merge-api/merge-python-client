@@ -77,7 +77,7 @@ class AssociationsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.custom_object_classes_custom_objects_associations_list(
+        client.crm.associations.custom_object_classes_custom_objects_associations_list(
             custom_object_class_id="custom-object-class-id",
             object_id="object-id",
             expand="association_type",
@@ -150,7 +150,7 @@ class AssociationsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.custom_object_classes_custom_objects_associations_update(
+        client.crm.associations.custom_object_classes_custom_objects_associations_update(
             association_type_id="association-type-id",
             source_class_id="source-class-id",
             source_object_id="source-object-id",
@@ -234,7 +234,7 @@ class AsyncAssociationsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.custom_object_classes_custom_objects_associations_list(
+        await client.crm.associations.custom_object_classes_custom_objects_associations_list(
             custom_object_class_id="custom-object-class-id",
             object_id="object-id",
             expand="association_type",
@@ -307,7 +307,7 @@ class AsyncAssociationsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.custom_object_classes_custom_objects_associations_update(
+        await client.crm.associations.custom_object_classes_custom_objects_associations_update(
             association_type_id="association-type-id",
             source_class_id="source-class-id",
             source_object_id="source-object-id",

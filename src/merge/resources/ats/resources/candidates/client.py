@@ -83,14 +83,14 @@ class CandidatesClient:
 
             - tags: typing.Optional[str]. If provided, will only return candidates with these tags; multiple tags can be separated by commas.
         ---
-        from merge import CandidatesListRequestExpand
         from merge.client import Merge
+        from merge.resources.ats import CandidatesListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.list(
+        client.ats.candidates.list(
             expand=CandidatesListRequestExpand.APPLICATIONS,
         )
         """
@@ -179,14 +179,14 @@ class CandidatesClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import CandidatesRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.ats import CandidatesRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.retrieve(
+        client.ats.candidates.retrieve(
             id="id",
             expand=CandidatesRetrieveRequestExpand.APPLICATIONS,
         )
@@ -256,14 +256,14 @@ class CandidatesClient:
 
             - message: typing.Optional[str].
         ---
-        from merge import ReasonEnum
         from merge.client import Merge
+        from merge.resources.ats import ReasonEnum
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.ignore_create(
+        client.ats.candidates.ignore_create(
             model_id="model-id",
             reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
             message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
@@ -300,7 +300,7 @@ class CandidatesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.meta_patch_retrieve(
+        client.ats.candidates.meta_patch_retrieve(
             id="id",
         )
         """
@@ -329,7 +329,7 @@ class CandidatesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.meta_post_retrieve()
+        client.ats.candidates.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -400,14 +400,14 @@ class AsyncCandidatesClient:
 
             - tags: typing.Optional[str]. If provided, will only return candidates with these tags; multiple tags can be separated by commas.
         ---
-        from merge import CandidatesListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.ats import CandidatesListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.list(
+        await client.ats.candidates.list(
             expand=CandidatesListRequestExpand.APPLICATIONS,
         )
         """
@@ -496,14 +496,14 @@ class AsyncCandidatesClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import CandidatesRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.ats import CandidatesRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.retrieve(
+        await client.ats.candidates.retrieve(
             id="id",
             expand=CandidatesRetrieveRequestExpand.APPLICATIONS,
         )
@@ -573,14 +573,14 @@ class AsyncCandidatesClient:
 
             - message: typing.Optional[str].
         ---
-        from merge import ReasonEnum
         from merge.client import AsyncMerge
+        from merge.resources.ats import ReasonEnum
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.ignore_create(
+        await client.ats.candidates.ignore_create(
             model_id="model-id",
             reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
             message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
@@ -617,7 +617,7 @@ class AsyncCandidatesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.meta_patch_retrieve(
+        await client.ats.candidates.meta_patch_retrieve(
             id="id",
         )
         """
@@ -646,7 +646,7 @@ class AsyncCandidatesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.meta_post_retrieve()
+        await client.ats.candidates.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

@@ -71,7 +71,7 @@ class TeamsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.list(
+        client.hris.teams.list(
             expand="parent_team",
         )
         """
@@ -127,7 +127,7 @@ class TeamsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.retrieve(
+        client.hris.teams.retrieve(
             id="id",
             expand="parent_team",
         )
@@ -199,7 +199,7 @@ class AsyncTeamsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.list(
+        await client.hris.teams.list(
             expand="parent_team",
         )
         """
@@ -255,7 +255,7 @@ class AsyncTeamsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.retrieve(
+        await client.hris.teams.retrieve(
             id="id",
             expand="parent_team",
         )

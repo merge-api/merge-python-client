@@ -88,18 +88,18 @@ class PayrollRunsClient:
 
             - started_before: typing.Optional[dt.datetime]. If provided, will only return payroll runs started before this datetime.
         ---
-        from merge import (
+        from merge.client import Merge
+        from merge.resources.hris import (
             PayrollRunsListRequestRemoteFields,
             PayrollRunsListRequestRunType,
             PayrollRunsListRequestShowEnumOrigins,
         )
-        from merge.client import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.list(
+        client.hris.payroll_runs.list(
             remote_fields=PayrollRunsListRequestRemoteFields.RUN_STATE,
             run_type=PayrollRunsListRequestRunType.CORRECTION,
             show_enum_origins=PayrollRunsListRequestShowEnumOrigins.RUN_STATE,
@@ -159,17 +159,17 @@ class PayrollRunsClient:
 
             - show_enum_origins: typing.Optional[PayrollRunsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
         ---
-        from merge import (
+        from merge.client import Merge
+        from merge.resources.hris import (
             PayrollRunsRetrieveRequestRemoteFields,
             PayrollRunsRetrieveRequestShowEnumOrigins,
         )
-        from merge.client import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.retrieve(
+        client.hris.payroll_runs.retrieve(
             id="id",
             remote_fields=PayrollRunsRetrieveRequestRemoteFields.RUN_STATE,
             show_enum_origins=PayrollRunsRetrieveRequestShowEnumOrigins.RUN_STATE,
@@ -262,18 +262,18 @@ class AsyncPayrollRunsClient:
 
             - started_before: typing.Optional[dt.datetime]. If provided, will only return payroll runs started before this datetime.
         ---
-        from merge import (
+        from merge.client import AsyncMerge
+        from merge.resources.hris import (
             PayrollRunsListRequestRemoteFields,
             PayrollRunsListRequestRunType,
             PayrollRunsListRequestShowEnumOrigins,
         )
-        from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.list(
+        await client.hris.payroll_runs.list(
             remote_fields=PayrollRunsListRequestRemoteFields.RUN_STATE,
             run_type=PayrollRunsListRequestRunType.CORRECTION,
             show_enum_origins=PayrollRunsListRequestShowEnumOrigins.RUN_STATE,
@@ -333,17 +333,17 @@ class AsyncPayrollRunsClient:
 
             - show_enum_origins: typing.Optional[PayrollRunsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
         ---
-        from merge import (
+        from merge.client import AsyncMerge
+        from merge.resources.hris import (
             PayrollRunsRetrieveRequestRemoteFields,
             PayrollRunsRetrieveRequestShowEnumOrigins,
         )
-        from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.retrieve(
+        await client.hris.payroll_runs.retrieve(
             id="id",
             remote_fields=PayrollRunsRetrieveRequestRemoteFields.RUN_STATE,
             show_enum_origins=PayrollRunsRetrieveRequestShowEnumOrigins.RUN_STATE,

@@ -79,14 +79,14 @@ class ScorecardsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["overall_recommendation"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import ScorecardsListRequestExpand
         from merge.client import Merge
+        from merge.resources.ats import ScorecardsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.list(
+        client.ats.scorecards.list(
             expand=ScorecardsListRequestExpand.APPLICATION,
             remote_fields="overall_recommendation",
             show_enum_origins="overall_recommendation",
@@ -148,14 +148,14 @@ class ScorecardsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["overall_recommendation"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import ScorecardsRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.ats import ScorecardsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.retrieve(
+        client.ats.scorecards.retrieve(
             id="id",
             expand=ScorecardsRetrieveRequestExpand.APPLICATION,
             remote_fields="overall_recommendation",
@@ -242,14 +242,14 @@ class AsyncScorecardsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["overall_recommendation"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import ScorecardsListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.ats import ScorecardsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.list(
+        await client.ats.scorecards.list(
             expand=ScorecardsListRequestExpand.APPLICATION,
             remote_fields="overall_recommendation",
             show_enum_origins="overall_recommendation",
@@ -311,14 +311,14 @@ class AsyncScorecardsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["overall_recommendation"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import ScorecardsRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.ats import ScorecardsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.retrieve(
+        await client.ats.scorecards.retrieve(
             id="id",
             expand=ScorecardsRetrieveRequestExpand.APPLICATION,
             remote_fields="overall_recommendation",

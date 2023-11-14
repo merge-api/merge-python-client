@@ -68,7 +68,7 @@ class ContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.list(
+        client.ticketing.contacts.list(
             expand="account",
         )
         """
@@ -123,7 +123,7 @@ class ContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.retrieve(
+        client.ticketing.contacts.retrieve(
             id="id",
             expand="account",
         )
@@ -192,7 +192,7 @@ class AsyncContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.list(
+        await client.ticketing.contacts.list(
             expand="account",
         )
         """
@@ -247,7 +247,7 @@ class AsyncContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.retrieve(
+        await client.ticketing.contacts.retrieve(
             id="id",
             expand="account",
         )

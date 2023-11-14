@@ -84,14 +84,14 @@ class PaymentsClient:
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
         ---
-        from merge import PaymentsListRequestExpand
         from merge.client import Merge
+        from merge.resources.accounting import PaymentsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.list(
+        client.accounting.payments.list(
             expand=PaymentsListRequestExpand.ACCOUNT,
         )
         """
@@ -151,14 +151,14 @@ class PaymentsClient:
         ---
         import datetime
 
-        from merge import PaymentRequest
         from merge.client import Merge
+        from merge.resources.accounting import PaymentRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.create(
+        client.accounting.payments.create(
             model=PaymentRequest(
                 transaction_date=datetime.datetime.fromisoformat(
                     "2020-03-31 00:00:00+00:00",
@@ -201,14 +201,14 @@ class PaymentsClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import PaymentsRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.accounting import PaymentsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.payments.retrieve(
             id="id",
             expand=PaymentsRetrieveRequestExpand.ACCOUNT,
         )
@@ -239,7 +239,7 @@ class PaymentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.meta_post_retrieve()
+        client.accounting.payments.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -313,14 +313,14 @@ class AsyncPaymentsClient:
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
         ---
-        from merge import PaymentsListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.accounting import PaymentsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.list(
+        await client.accounting.payments.list(
             expand=PaymentsListRequestExpand.ACCOUNT,
         )
         """
@@ -380,14 +380,14 @@ class AsyncPaymentsClient:
         ---
         import datetime
 
-        from merge import PaymentRequest
         from merge.client import AsyncMerge
+        from merge.resources.accounting import PaymentRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.create(
+        await client.accounting.payments.create(
             model=PaymentRequest(
                 transaction_date=datetime.datetime.fromisoformat(
                     "2020-03-31 00:00:00+00:00",
@@ -430,14 +430,14 @@ class AsyncPaymentsClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import PaymentsRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.accounting import PaymentsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.payments.retrieve(
             id="id",
             expand=PaymentsRetrieveRequestExpand.ACCOUNT,
         )
@@ -468,7 +468,7 @@ class AsyncPaymentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.meta_post_retrieve()
+        await client.accounting.payments.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

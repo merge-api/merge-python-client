@@ -150,20 +150,20 @@ class TicketsClient:
 
             - ticket_type: typing.Optional[str]. If provided, will only return tickets of this type.
         ---
-        from merge import (
+        from merge.client import Merge
+        from merge.resources.ticketing import (
             TicketsListRequestExpand,
             TicketsListRequestPriority,
             TicketsListRequestRemoteFields,
             TicketsListRequestShowEnumOrigins,
             TicketsListRequestStatus,
         )
-        from merge.client import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.list(
+        client.ticketing.tickets.list(
             expand=TicketsListRequestExpand.ACCOUNT,
             priority=TicketsListRequestPriority.HIGH,
             remote_fields=TicketsListRequestRemoteFields.PRIORITY,
@@ -247,14 +247,14 @@ class TicketsClient:
         ---
         import datetime
 
-        from merge import TicketRequest
         from merge.client import Merge
+        from merge.resources.ticketing import TicketRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.create(
+        client.ticketing.tickets.create(
             model=TicketRequest(
                 name="Please add more integrations",
                 due_date=datetime.datetime.fromisoformat(
@@ -311,18 +311,18 @@ class TicketsClient:
 
             - show_enum_origins: typing.Optional[TicketsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
         ---
-        from merge import (
+        from merge.client import Merge
+        from merge.resources.ticketing import (
             TicketsRetrieveRequestExpand,
             TicketsRetrieveRequestRemoteFields,
             TicketsRetrieveRequestShowEnumOrigins,
         )
-        from merge.client import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.retrieve(
+        client.ticketing.tickets.retrieve(
             id="id",
             expand=TicketsRetrieveRequestExpand.ACCOUNT,
             remote_fields=TicketsRetrieveRequestRemoteFields.PRIORITY,
@@ -374,14 +374,14 @@ class TicketsClient:
         ---
         import datetime
 
-        from merge import PatchedTicketRequest
         from merge.client import Merge
+        from merge.resources.ticketing import PatchedTicketRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.partial_update(
+        client.ticketing.tickets.partial_update(
             id="id",
             model=PatchedTicketRequest(
                 name="Please add more integrations",
@@ -442,14 +442,14 @@ class TicketsClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
         ---
-        from merge import TicketsCollaboratorsListRequestExpand
         from merge.client import Merge
+        from merge.resources.ticketing import TicketsCollaboratorsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.collaborators_list(
+        client.ticketing.tickets.collaborators_list(
             parent_id="parent-id",
             expand=TicketsCollaboratorsListRequestExpand.ROLES,
         )
@@ -492,7 +492,7 @@ class TicketsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.meta_patch_retrieve(
+        client.ticketing.tickets.meta_patch_retrieve(
             id="id",
         )
         """
@@ -523,7 +523,7 @@ class TicketsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.meta_post_retrieve()
+        client.ticketing.tickets.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -565,7 +565,7 @@ class TicketsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.remote_field_classes_list()
+        client.ticketing.tickets.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -705,20 +705,20 @@ class AsyncTicketsClient:
 
             - ticket_type: typing.Optional[str]. If provided, will only return tickets of this type.
         ---
-        from merge import (
+        from merge.client import AsyncMerge
+        from merge.resources.ticketing import (
             TicketsListRequestExpand,
             TicketsListRequestPriority,
             TicketsListRequestRemoteFields,
             TicketsListRequestShowEnumOrigins,
             TicketsListRequestStatus,
         )
-        from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.list(
+        await client.ticketing.tickets.list(
             expand=TicketsListRequestExpand.ACCOUNT,
             priority=TicketsListRequestPriority.HIGH,
             remote_fields=TicketsListRequestRemoteFields.PRIORITY,
@@ -802,14 +802,14 @@ class AsyncTicketsClient:
         ---
         import datetime
 
-        from merge import TicketRequest
         from merge.client import AsyncMerge
+        from merge.resources.ticketing import TicketRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.create(
+        await client.ticketing.tickets.create(
             model=TicketRequest(
                 name="Please add more integrations",
                 due_date=datetime.datetime.fromisoformat(
@@ -866,18 +866,18 @@ class AsyncTicketsClient:
 
             - show_enum_origins: typing.Optional[TicketsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
         ---
-        from merge import (
+        from merge.client import AsyncMerge
+        from merge.resources.ticketing import (
             TicketsRetrieveRequestExpand,
             TicketsRetrieveRequestRemoteFields,
             TicketsRetrieveRequestShowEnumOrigins,
         )
-        from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.retrieve(
+        await client.ticketing.tickets.retrieve(
             id="id",
             expand=TicketsRetrieveRequestExpand.ACCOUNT,
             remote_fields=TicketsRetrieveRequestRemoteFields.PRIORITY,
@@ -929,14 +929,14 @@ class AsyncTicketsClient:
         ---
         import datetime
 
-        from merge import PatchedTicketRequest
         from merge.client import AsyncMerge
+        from merge.resources.ticketing import PatchedTicketRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.partial_update(
+        await client.ticketing.tickets.partial_update(
             id="id",
             model=PatchedTicketRequest(
                 name="Please add more integrations",
@@ -997,14 +997,14 @@ class AsyncTicketsClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
         ---
-        from merge import TicketsCollaboratorsListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.ticketing import TicketsCollaboratorsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.collaborators_list(
+        await client.ticketing.tickets.collaborators_list(
             parent_id="parent-id",
             expand=TicketsCollaboratorsListRequestExpand.ROLES,
         )
@@ -1047,7 +1047,7 @@ class AsyncTicketsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.meta_patch_retrieve(
+        await client.ticketing.tickets.meta_patch_retrieve(
             id="id",
         )
         """
@@ -1078,7 +1078,7 @@ class AsyncTicketsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.meta_post_retrieve()
+        await client.ticketing.tickets.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -1120,7 +1120,7 @@ class AsyncTicketsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.remote_field_classes_list()
+        await client.ticketing.tickets.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

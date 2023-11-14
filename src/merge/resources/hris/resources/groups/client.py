@@ -74,7 +74,7 @@ class GroupsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.list(
+        client.hris.groups.list(
             remote_fields="type",
             show_enum_origins="type",
         )
@@ -135,7 +135,7 @@ class GroupsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.retrieve(
+        client.hris.groups.retrieve(
             id="id",
             remote_fields="type",
             show_enum_origins="type",
@@ -217,7 +217,7 @@ class AsyncGroupsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.list(
+        await client.hris.groups.list(
             remote_fields="type",
             show_enum_origins="type",
         )
@@ -278,7 +278,7 @@ class AsyncGroupsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.retrieve(
+        await client.hris.groups.retrieve(
             id="id",
             remote_fields="type",
             show_enum_origins="type",

@@ -81,14 +81,14 @@ class TimeOffBalancesClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["policy_type"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import TimeOffBalancesListRequestPolicyType
         from merge.client import Merge
+        from merge.resources.hris import TimeOffBalancesListRequestPolicyType
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.list(
+        client.hris.time_off_balances.list(
             expand="employee",
             policy_type=TimeOffBalancesListRequestPolicyType.BEREAVEMENT,
             remote_fields="policy_type",
@@ -156,7 +156,7 @@ class TimeOffBalancesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.retrieve(
+        client.hris.time_off_balances.retrieve(
             id="id",
             expand="employee",
             remote_fields="policy_type",
@@ -246,14 +246,14 @@ class AsyncTimeOffBalancesClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["policy_type"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import TimeOffBalancesListRequestPolicyType
         from merge.client import AsyncMerge
+        from merge.resources.hris import TimeOffBalancesListRequestPolicyType
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.list(
+        await client.hris.time_off_balances.list(
             expand="employee",
             policy_type=TimeOffBalancesListRequestPolicyType.BEREAVEMENT,
             remote_fields="policy_type",
@@ -321,7 +321,7 @@ class AsyncTimeOffBalancesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.retrieve(
+        await client.hris.time_off_balances.retrieve(
             id="id",
             expand="employee",
             remote_fields="policy_type",

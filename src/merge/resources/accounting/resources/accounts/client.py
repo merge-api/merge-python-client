@@ -82,17 +82,17 @@ class AccountsClient:
 
             - show_enum_origins: typing.Optional[AccountsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
         ---
-        from merge import (
+        from merge.client import Merge
+        from merge.resources.accounting import (
             AccountsListRequestRemoteFields,
             AccountsListRequestShowEnumOrigins,
         )
-        from merge.client import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.list(
+        client.accounting.accounts.list(
             expand="company",
             remote_fields=AccountsListRequestRemoteFields.CLASSIFICATION,
             show_enum_origins=AccountsListRequestShowEnumOrigins.CLASSIFICATION,
@@ -146,14 +146,14 @@ class AccountsClient:
 
             - model: AccountRequest.
         ---
-        from merge import AccountRequest
         from merge.client import Merge
+        from merge.resources.accounting import AccountRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.create(
+        client.accounting.accounts.create(
             model=AccountRequest(
                 name="Cash",
                 description="Cash",
@@ -203,17 +203,17 @@ class AccountsClient:
 
             - show_enum_origins: typing.Optional[AccountsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
         ---
-        from merge import (
+        from merge.client import Merge
+        from merge.resources.accounting import (
             AccountsRetrieveRequestRemoteFields,
             AccountsRetrieveRequestShowEnumOrigins,
         )
-        from merge.client import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.accounts.retrieve(
             id="id",
             expand="company",
             remote_fields=AccountsRetrieveRequestRemoteFields.CLASSIFICATION,
@@ -253,7 +253,7 @@ class AccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.meta_post_retrieve()
+        client.accounting.accounts.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -321,17 +321,17 @@ class AsyncAccountsClient:
 
             - show_enum_origins: typing.Optional[AccountsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
         ---
-        from merge import (
+        from merge.client import AsyncMerge
+        from merge.resources.accounting import (
             AccountsListRequestRemoteFields,
             AccountsListRequestShowEnumOrigins,
         )
-        from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.list(
+        await client.accounting.accounts.list(
             expand="company",
             remote_fields=AccountsListRequestRemoteFields.CLASSIFICATION,
             show_enum_origins=AccountsListRequestShowEnumOrigins.CLASSIFICATION,
@@ -385,14 +385,14 @@ class AsyncAccountsClient:
 
             - model: AccountRequest.
         ---
-        from merge import AccountRequest
         from merge.client import AsyncMerge
+        from merge.resources.accounting import AccountRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.create(
+        await client.accounting.accounts.create(
             model=AccountRequest(
                 name="Cash",
                 description="Cash",
@@ -442,17 +442,17 @@ class AsyncAccountsClient:
 
             - show_enum_origins: typing.Optional[AccountsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
         ---
-        from merge import (
+        from merge.client import AsyncMerge
+        from merge.resources.accounting import (
             AccountsRetrieveRequestRemoteFields,
             AccountsRetrieveRequestShowEnumOrigins,
         )
-        from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.accounts.retrieve(
             id="id",
             expand="company",
             remote_fields=AccountsRetrieveRequestRemoteFields.CLASSIFICATION,
@@ -492,7 +492,7 @@ class AsyncAccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.meta_post_retrieve()
+        await client.accounting.accounts.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

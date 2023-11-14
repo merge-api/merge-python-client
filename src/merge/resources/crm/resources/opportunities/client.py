@@ -98,14 +98,17 @@ class OpportunitiesClient:
                                                                        * `OPEN` - OPEN
                                                                        * `WON` - WON
                                                                        * `LOST` - LOST---
-        from merge import OpportunitiesListRequestExpand, OpportunitiesListRequestStatus
         from merge.client import Merge
+        from merge.resources.crm import (
+            OpportunitiesListRequestExpand,
+            OpportunitiesListRequestStatus,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.list(
+        client.crm.opportunities.list(
             expand=OpportunitiesListRequestExpand.ACCOUNT,
             remote_fields="status",
             show_enum_origins="status",
@@ -166,14 +169,14 @@ class OpportunitiesClient:
         ---
         import datetime
 
-        from merge import OpportunityRequest
         from merge.client import Merge
+        from merge.resources.crm import OpportunityRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.create(
+        client.crm.opportunities.create(
             model=OpportunityRequest(
                 name="Needs Integrations",
                 description="Needs a Unified API for Integrations!",
@@ -229,14 +232,14 @@ class OpportunitiesClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import OpportunitiesRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.crm import OpportunitiesRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.retrieve(
+        client.crm.opportunities.retrieve(
             id="id",
             expand=OpportunitiesRetrieveRequestExpand.ACCOUNT,
             remote_fields="status",
@@ -288,14 +291,14 @@ class OpportunitiesClient:
         ---
         import datetime
 
-        from merge import PatchedOpportunityRequest
         from merge.client import Merge
+        from merge.resources.crm import PatchedOpportunityRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.partial_update(
+        client.crm.opportunities.partial_update(
             id="id",
             model=PatchedOpportunityRequest(
                 name="Needs Integrations",
@@ -342,7 +345,7 @@ class OpportunitiesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.meta_patch_retrieve(
+        client.crm.opportunities.meta_patch_retrieve(
             id="id",
         )
         """
@@ -373,7 +376,7 @@ class OpportunitiesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.meta_post_retrieve()
+        client.crm.opportunities.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -418,7 +421,7 @@ class OpportunitiesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.remote_field_classes_list()
+        client.crm.opportunities.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -512,14 +515,17 @@ class AsyncOpportunitiesClient:
                                                                        * `OPEN` - OPEN
                                                                        * `WON` - WON
                                                                        * `LOST` - LOST---
-        from merge import OpportunitiesListRequestExpand, OpportunitiesListRequestStatus
         from merge.client import AsyncMerge
+        from merge.resources.crm import (
+            OpportunitiesListRequestExpand,
+            OpportunitiesListRequestStatus,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.list(
+        await client.crm.opportunities.list(
             expand=OpportunitiesListRequestExpand.ACCOUNT,
             remote_fields="status",
             show_enum_origins="status",
@@ -580,14 +586,14 @@ class AsyncOpportunitiesClient:
         ---
         import datetime
 
-        from merge import OpportunityRequest
         from merge.client import AsyncMerge
+        from merge.resources.crm import OpportunityRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.create(
+        await client.crm.opportunities.create(
             model=OpportunityRequest(
                 name="Needs Integrations",
                 description="Needs a Unified API for Integrations!",
@@ -643,14 +649,14 @@ class AsyncOpportunitiesClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import OpportunitiesRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.crm import OpportunitiesRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.retrieve(
+        await client.crm.opportunities.retrieve(
             id="id",
             expand=OpportunitiesRetrieveRequestExpand.ACCOUNT,
             remote_fields="status",
@@ -702,14 +708,14 @@ class AsyncOpportunitiesClient:
         ---
         import datetime
 
-        from merge import PatchedOpportunityRequest
         from merge.client import AsyncMerge
+        from merge.resources.crm import PatchedOpportunityRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.partial_update(
+        await client.crm.opportunities.partial_update(
             id="id",
             model=PatchedOpportunityRequest(
                 name="Needs Integrations",
@@ -756,7 +762,7 @@ class AsyncOpportunitiesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.meta_patch_retrieve(
+        await client.crm.opportunities.meta_patch_retrieve(
             id="id",
         )
         """
@@ -787,7 +793,7 @@ class AsyncOpportunitiesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.meta_post_retrieve()
+        await client.crm.opportunities.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -832,7 +838,7 @@ class AsyncOpportunitiesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.remote_field_classes_list()
+        await client.crm.opportunities.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

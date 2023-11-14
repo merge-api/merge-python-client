@@ -29,7 +29,7 @@ class ForceResyncClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.sync_status_resync_create()
+        client.filestorage.force_resync.sync_status_resync_create()
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -61,7 +61,7 @@ class AsyncForceResyncClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.sync_status_resync_create()
+        await client.filestorage.force_resync.sync_status_resync_create()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",

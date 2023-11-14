@@ -5,6 +5,7 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from .credit_note_accounting_period import CreditNoteAccountingPeriod
+from .credit_note_applied_payments_item import CreditNoteAppliedPaymentsItem
 from .credit_note_company import CreditNoteCompany
 from .credit_note_contact import CreditNoteContact
 from .credit_note_currency import CreditNoteCurrency
@@ -372,6 +373,9 @@ class CreditNote(pydantic.BaseModel):
     )
     payments: typing.Optional[typing.List[typing.Optional[CreditNotePaymentsItem]]] = pydantic.Field(
         description="Array of `Payment` object IDs"
+    )
+    applied_payments: typing.Optional[typing.List[typing.Optional[CreditNoteAppliedPaymentsItem]]] = pydantic.Field(
+        description="Array of `PaymentLineItems` object IDs."
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted in the third party platform."

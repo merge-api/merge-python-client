@@ -78,14 +78,14 @@ class ExpensesClient:
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
         ---
-        from merge import ExpensesListRequestExpand
         from merge.client import Merge
+        from merge.resources.accounting import ExpensesListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.list(
+        client.accounting.expenses.list(
             expand=ExpensesListRequestExpand.ACCOUNT,
         )
         """
@@ -141,14 +141,18 @@ class ExpensesClient:
 
             - model: ExpenseRequest.
         ---
-        from merge import CurrencyEnum, ExpenseLineRequest, ExpenseRequest
         from merge.client import Merge
+        from merge.resources.accounting import (
+            CurrencyEnum,
+            ExpenseLineRequest,
+            ExpenseRequest,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.create(
+        client.accounting.expenses.create(
             model=ExpenseRequest(
                 total_amount=10000.0,
                 exchange_rate="2.9",
@@ -199,14 +203,14 @@ class ExpensesClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import ExpensesRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.accounting import ExpensesRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.expenses.retrieve(
             id="id",
             expand=ExpensesRetrieveRequestExpand.ACCOUNT,
         )
@@ -237,7 +241,7 @@ class ExpensesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.meta_post_retrieve()
+        client.accounting.expenses.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -305,14 +309,14 @@ class AsyncExpensesClient:
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
         ---
-        from merge import ExpensesListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.accounting import ExpensesListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.list(
+        await client.accounting.expenses.list(
             expand=ExpensesListRequestExpand.ACCOUNT,
         )
         """
@@ -368,14 +372,18 @@ class AsyncExpensesClient:
 
             - model: ExpenseRequest.
         ---
-        from merge import CurrencyEnum, ExpenseLineRequest, ExpenseRequest
         from merge.client import AsyncMerge
+        from merge.resources.accounting import (
+            CurrencyEnum,
+            ExpenseLineRequest,
+            ExpenseRequest,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.create(
+        await client.accounting.expenses.create(
             model=ExpenseRequest(
                 total_amount=10000.0,
                 exchange_rate="2.9",
@@ -426,14 +434,14 @@ class AsyncExpensesClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import ExpensesRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.accounting import ExpensesRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.expenses.retrieve(
             id="id",
             expand=ExpensesRetrieveRequestExpand.ACCOUNT,
         )
@@ -464,7 +472,7 @@ class AsyncExpensesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.meta_post_retrieve()
+        await client.accounting.expenses.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

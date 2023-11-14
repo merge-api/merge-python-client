@@ -33,7 +33,7 @@ class WebhookReceiversClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.list()
+        client.filestorage.webhook_receivers.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -94,7 +94,7 @@ class AsyncWebhookReceiversClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.list()
+        await client.filestorage.webhook_receivers.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

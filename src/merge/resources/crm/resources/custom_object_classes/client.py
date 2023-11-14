@@ -68,7 +68,7 @@ class CustomObjectClassesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.list(
+        client.crm.custom_object_classes.list(
             expand="fields",
         )
         """
@@ -123,7 +123,7 @@ class CustomObjectClassesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.retrieve(
+        client.crm.custom_object_classes.retrieve(
             id="id",
             expand="fields",
         )
@@ -192,7 +192,7 @@ class AsyncCustomObjectClassesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.list(
+        await client.crm.custom_object_classes.list(
             expand="fields",
         )
         """
@@ -247,7 +247,7 @@ class AsyncCustomObjectClassesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.retrieve(
+        await client.crm.custom_object_classes.retrieve(
             id="id",
             expand="fields",
         )

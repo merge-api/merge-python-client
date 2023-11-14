@@ -65,14 +65,14 @@ class UsersClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         ---
-        from merge import UsersListRequestExpand
         from merge.client import Merge
+        from merge.resources.ticketing import UsersListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.list(
+        client.ticketing.users.list(
             expand=UsersListRequestExpand.ROLES,
         )
         """
@@ -122,14 +122,14 @@ class UsersClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import UsersRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.ticketing import UsersRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.retrieve(
+        client.ticketing.users.retrieve(
             id="id",
             expand=UsersRetrieveRequestExpand.ROLES,
         )
@@ -195,14 +195,14 @@ class AsyncUsersClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         ---
-        from merge import UsersListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.ticketing import UsersListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.list(
+        await client.ticketing.users.list(
             expand=UsersListRequestExpand.ROLES,
         )
         """
@@ -252,14 +252,14 @@ class AsyncUsersClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import UsersRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.ticketing import UsersRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.retrieve(
+        await client.ticketing.users.retrieve(
             id="id",
             expand=UsersRetrieveRequestExpand.ROLES,
         )

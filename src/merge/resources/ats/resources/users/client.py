@@ -74,7 +74,7 @@ class UsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.list(
+        client.ats.users.list(
             remote_fields="access_role",
             show_enum_origins="access_role",
         )
@@ -135,7 +135,7 @@ class UsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.retrieve(
+        client.ats.users.retrieve(
             id="id",
             remote_fields="access_role",
             show_enum_origins="access_role",
@@ -217,7 +217,7 @@ class AsyncUsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.list(
+        await client.ats.users.list(
             remote_fields="access_role",
             show_enum_origins="access_role",
         )
@@ -278,7 +278,7 @@ class AsyncUsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.retrieve(
+        await client.ats.users.retrieve(
             id="id",
             remote_fields="access_role",
             show_enum_origins="access_role",

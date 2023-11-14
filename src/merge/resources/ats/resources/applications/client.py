@@ -87,14 +87,14 @@ class ApplicationsClient:
 
             - source: typing.Optional[str]. If provided, will only return applications with this source.
         ---
-        from merge import ApplicationsListRequestExpand
         from merge.client import Merge
+        from merge.resources.ats import ApplicationsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.list(
+        client.ats.applications.list(
             expand=ApplicationsListRequestExpand.CANDIDATE,
         )
         """
@@ -185,14 +185,14 @@ class ApplicationsClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import ApplicationsRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.ats import ApplicationsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.retrieve(
+        client.ats.applications.retrieve(
             id="id",
             expand=ApplicationsRetrieveRequestExpand.CANDIDATE,
         )
@@ -241,7 +241,7 @@ class ApplicationsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.change_stage_create(
+        client.ats.applications.change_stage_create(
             id="id",
         )
         """
@@ -281,7 +281,7 @@ class ApplicationsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.meta_post_retrieve()
+        client.ats.applications.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -359,14 +359,14 @@ class AsyncApplicationsClient:
 
             - source: typing.Optional[str]. If provided, will only return applications with this source.
         ---
-        from merge import ApplicationsListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.ats import ApplicationsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.list(
+        await client.ats.applications.list(
             expand=ApplicationsListRequestExpand.CANDIDATE,
         )
         """
@@ -457,14 +457,14 @@ class AsyncApplicationsClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import ApplicationsRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.ats import ApplicationsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.retrieve(
+        await client.ats.applications.retrieve(
             id="id",
             expand=ApplicationsRetrieveRequestExpand.CANDIDATE,
         )
@@ -513,7 +513,7 @@ class AsyncApplicationsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.change_stage_create(
+        await client.ats.applications.change_stage_create(
             id="id",
         )
         """
@@ -553,7 +553,7 @@ class AsyncApplicationsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.meta_post_retrieve()
+        await client.ats.applications.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

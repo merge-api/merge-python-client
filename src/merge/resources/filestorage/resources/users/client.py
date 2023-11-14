@@ -66,7 +66,7 @@ class UsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.list()
+        client.filestorage.users.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -111,7 +111,7 @@ class UsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.retrieve(
+        client.filestorage.users.retrieve(
             id="id",
         )
         """
@@ -179,7 +179,7 @@ class AsyncUsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.list()
+        await client.filestorage.users.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -224,7 +224,7 @@ class AsyncUsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.retrieve(
+        await client.filestorage.users.retrieve(
             id="id",
         )
         """

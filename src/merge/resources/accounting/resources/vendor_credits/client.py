@@ -71,14 +71,14 @@ class VendorCreditsClient:
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
         ---
-        from merge import VendorCreditsListRequestExpand
         from merge.client import Merge
+        from merge.resources.accounting import VendorCreditsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.list(
+        client.accounting.vendor_credits.list(
             expand=VendorCreditsListRequestExpand.ACCOUNTING_PERIOD,
         )
         """
@@ -134,14 +134,14 @@ class VendorCreditsClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import VendorCreditsRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.accounting import VendorCreditsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.vendor_credits.retrieve(
             id="id",
             expand=VendorCreditsRetrieveRequestExpand.ACCOUNTING_PERIOD,
         )
@@ -213,14 +213,14 @@ class AsyncVendorCreditsClient:
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
         ---
-        from merge import VendorCreditsListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.accounting import VendorCreditsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.list(
+        await client.accounting.vendor_credits.list(
             expand=VendorCreditsListRequestExpand.ACCOUNTING_PERIOD,
         )
         """
@@ -276,14 +276,14 @@ class AsyncVendorCreditsClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import VendorCreditsRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.accounting import VendorCreditsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.vendor_credits.retrieve(
             id="id",
             expand=VendorCreditsRetrieveRequestExpand.ACCOUNTING_PERIOD,
         )

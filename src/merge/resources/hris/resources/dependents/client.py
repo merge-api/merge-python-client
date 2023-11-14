@@ -66,7 +66,7 @@ class DependentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.list()
+        client.hris.dependents.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -119,7 +119,7 @@ class DependentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.retrieve(
+        client.hris.dependents.retrieve(
             id="id",
         )
         """
@@ -189,7 +189,7 @@ class AsyncDependentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.list()
+        await client.hris.dependents.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -242,7 +242,7 @@ class AsyncDependentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.retrieve(
+        await client.hris.dependents.retrieve(
             id="id",
         )
         """

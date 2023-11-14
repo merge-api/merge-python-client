@@ -47,7 +47,7 @@ class AddressesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.addresses.retrieve(
             id="id",
             remote_fields="type",
             show_enum_origins="type",
@@ -105,7 +105,7 @@ class AsyncAddressesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.addresses.retrieve(
             id="id",
             remote_fields="type",
             show_enum_origins="type",

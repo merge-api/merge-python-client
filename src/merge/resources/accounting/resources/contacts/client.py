@@ -86,14 +86,14 @@ class ContactsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import ContactsListRequestExpand
         from merge.client import Merge
+        from merge.resources.accounting import ContactsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.list(
+        client.accounting.contacts.list(
             expand=ContactsListRequestExpand.ADDRESSES,
             remote_fields="status",
             show_enum_origins="status",
@@ -149,14 +149,17 @@ class ContactsClient:
 
             - model: ContactRequest.
         ---
-        from merge import AccountingPhoneNumberRequest, ContactRequest
         from merge.client import Merge
+        from merge.resources.accounting import (
+            AccountingPhoneNumberRequest,
+            ContactRequest,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.create(
+        client.accounting.contacts.create(
             model=ContactRequest(
                 name="Gil Feig's Pickleball Team",
                 is_customer=True,
@@ -212,14 +215,14 @@ class ContactsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import ContactsRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.accounting import ContactsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.contacts.retrieve(
             id="id",
             expand=ContactsRetrieveRequestExpand.ADDRESSES,
             remote_fields="status",
@@ -259,7 +262,7 @@ class ContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.meta_post_retrieve()
+        client.accounting.contacts.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -333,14 +336,14 @@ class AsyncContactsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import ContactsListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.accounting import ContactsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.list(
+        await client.accounting.contacts.list(
             expand=ContactsListRequestExpand.ADDRESSES,
             remote_fields="status",
             show_enum_origins="status",
@@ -396,14 +399,17 @@ class AsyncContactsClient:
 
             - model: ContactRequest.
         ---
-        from merge import AccountingPhoneNumberRequest, ContactRequest
         from merge.client import AsyncMerge
+        from merge.resources.accounting import (
+            AccountingPhoneNumberRequest,
+            ContactRequest,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.create(
+        await client.accounting.contacts.create(
             model=ContactRequest(
                 name="Gil Feig's Pickleball Team",
                 is_customer=True,
@@ -459,14 +465,14 @@ class AsyncContactsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import ContactsRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.accounting import ContactsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.contacts.retrieve(
             id="id",
             expand=ContactsRetrieveRequestExpand.ADDRESSES,
             remote_fields="status",
@@ -506,7 +512,7 @@ class AsyncContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.meta_post_retrieve()
+        await client.accounting.contacts.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

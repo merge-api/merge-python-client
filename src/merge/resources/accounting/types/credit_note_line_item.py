@@ -33,6 +33,9 @@ class CreditNoteLineItem(pydantic.BaseModel):
         description="The company the credit note belongs to."
     )
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(
+        description="Indicates whether or not this object has been deleted in the third party platform."
+    )
     created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"

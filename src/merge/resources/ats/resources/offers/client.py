@@ -76,14 +76,14 @@ class OffersClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import OffersListRequestExpand
         from merge.client import Merge
+        from merge.resources.ats import OffersListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.list(
+        client.ats.offers.list(
             expand=OffersListRequestExpand.APPLICATION,
             remote_fields="status",
             show_enum_origins="status",
@@ -144,14 +144,14 @@ class OffersClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import OffersRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.ats import OffersRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.retrieve(
+        client.ats.offers.retrieve(
             id="id",
             expand=OffersRetrieveRequestExpand.APPLICATION,
             remote_fields="status",
@@ -235,14 +235,14 @@ class AsyncOffersClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import OffersListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.ats import OffersListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.list(
+        await client.ats.offers.list(
             expand=OffersListRequestExpand.APPLICATION,
             remote_fields="status",
             show_enum_origins="status",
@@ -303,14 +303,14 @@ class AsyncOffersClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import OffersRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.ats import OffersRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.retrieve(
+        await client.ats.offers.retrieve(
             id="id",
             expand=OffersRetrieveRequestExpand.APPLICATION,
             remote_fields="status",

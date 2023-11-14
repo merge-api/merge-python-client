@@ -71,7 +71,7 @@ class BalanceSheetsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.list(
+        client.accounting.balance_sheets.list(
             expand="company",
         )
         """
@@ -127,7 +127,7 @@ class BalanceSheetsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.balance_sheets.retrieve(
             id="id",
             expand="company",
         )
@@ -199,7 +199,7 @@ class AsyncBalanceSheetsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.list(
+        await client.accounting.balance_sheets.list(
             expand="company",
         )
         """
@@ -255,7 +255,7 @@ class AsyncBalanceSheetsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.balance_sheets.retrieve(
             id="id",
             expand="company",
         )

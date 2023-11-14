@@ -78,7 +78,7 @@ class AssociationTypesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.custom_object_classes_association_types_list(
+        client.crm.association_types.custom_object_classes_association_types_list(
             custom_object_class_id="custom-object-class-id",
             expand="target_object_classes",
         )
@@ -179,7 +179,7 @@ class AssociationTypesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.custom_object_classes_association_types_retrieve(
+        client.crm.association_types.custom_object_classes_association_types_retrieve(
             custom_object_class_id="custom-object-class-id",
             id="id",
             expand="target_object_classes",
@@ -216,7 +216,7 @@ class AssociationTypesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.custom_object_classes_association_types_meta_post_retrieve(
+        client.crm.association_types.custom_object_classes_association_types_meta_post_retrieve(
             custom_object_class_id="custom-object-class-id",
         )
         """
@@ -289,7 +289,7 @@ class AsyncAssociationTypesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.custom_object_classes_association_types_list(
+        await client.crm.association_types.custom_object_classes_association_types_list(
             custom_object_class_id="custom-object-class-id",
             expand="target_object_classes",
         )
@@ -390,7 +390,7 @@ class AsyncAssociationTypesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.custom_object_classes_association_types_retrieve(
+        await client.crm.association_types.custom_object_classes_association_types_retrieve(
             custom_object_class_id="custom-object-class-id",
             id="id",
             expand="target_object_classes",
@@ -429,7 +429,7 @@ class AsyncAssociationTypesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.custom_object_classes_association_types_meta_post_retrieve(
+        await client.crm.association_types.custom_object_classes_association_types_meta_post_retrieve(
             custom_object_class_id="custom-object-class-id",
         )
         """

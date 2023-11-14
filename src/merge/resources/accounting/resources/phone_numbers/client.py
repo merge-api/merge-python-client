@@ -34,7 +34,7 @@ class PhoneNumbersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.phone_numbers.retrieve(
             id="id",
         )
         """
@@ -73,7 +73,7 @@ class AsyncPhoneNumbersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.phone_numbers.retrieve(
             id="id",
         )
         """

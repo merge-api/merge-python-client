@@ -84,7 +84,7 @@ class AttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.list(
+        client.ats.attachments.list(
             expand="candidate",
             remote_fields="attachment_type",
             show_enum_origins="attachment_type",
@@ -186,7 +186,7 @@ class AttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.retrieve(
+        client.ats.attachments.retrieve(
             id="id",
             expand="candidate",
             remote_fields="attachment_type",
@@ -226,7 +226,7 @@ class AttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.meta_post_retrieve()
+        client.ats.attachments.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -300,7 +300,7 @@ class AsyncAttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.list(
+        await client.ats.attachments.list(
             expand="candidate",
             remote_fields="attachment_type",
             show_enum_origins="attachment_type",
@@ -402,7 +402,7 @@ class AsyncAttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.retrieve(
+        await client.ats.attachments.retrieve(
             id="id",
             expand="candidate",
             remote_fields="attachment_type",
@@ -442,7 +442,7 @@ class AsyncAttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.meta_post_retrieve()
+        await client.ats.attachments.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

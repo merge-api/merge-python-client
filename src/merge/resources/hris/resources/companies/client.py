@@ -63,7 +63,7 @@ class CompaniesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.list()
+        client.hris.companies.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -107,7 +107,7 @@ class CompaniesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.retrieve(
+        client.hris.companies.retrieve(
             id="id",
         )
         """
@@ -172,7 +172,7 @@ class AsyncCompaniesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.list()
+        await client.hris.companies.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -216,7 +216,7 @@ class AsyncCompaniesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.retrieve(
+        await client.hris.companies.retrieve(
             id="id",
         )
         """

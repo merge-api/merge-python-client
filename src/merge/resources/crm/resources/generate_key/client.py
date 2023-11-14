@@ -35,7 +35,7 @@ class GenerateKeyClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.create(
+        client.crm.generate_key.create(
             name="Remote Deployment Key 1",
         )
         """
@@ -72,7 +72,7 @@ class AsyncGenerateKeyClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.create(
+        await client.crm.generate_key.create(
             name="Remote Deployment Key 1",
         )
         """

@@ -83,14 +83,14 @@ class TimesheetEntriesClient:
 
             - started_before: typing.Optional[str]. If provided, will only return employee payroll runs started before this datetime.
         ---
-        from merge import TimesheetEntriesListRequestOrderBy
         from merge.client import Merge
+        from merge.resources.hris import TimesheetEntriesListRequestOrderBy
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.list(
+        client.hris.timesheet_entries.list(
             order_by=TimesheetEntriesListRequestOrderBy.START_TIME_DESCENDING,
         )
         """
@@ -146,14 +146,14 @@ class TimesheetEntriesClient:
         ---
         import datetime
 
-        from merge import TimesheetEntryRequest
         from merge.client import Merge
+        from merge.resources.hris import TimesheetEntryRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.create(
+        client.hris.timesheet_entries.create(
             model=TimesheetEntryRequest(
                 employee="d2f972d0-2526-434b-9409-4c3b468e08f0",
                 hours_worked=10.0,
@@ -197,7 +197,7 @@ class TimesheetEntriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.retrieve(
+        client.hris.timesheet_entries.retrieve(
             id="id",
         )
         """
@@ -227,7 +227,7 @@ class TimesheetEntriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.meta_post_retrieve()
+        client.hris.timesheet_entries.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -301,14 +301,14 @@ class AsyncTimesheetEntriesClient:
 
             - started_before: typing.Optional[str]. If provided, will only return employee payroll runs started before this datetime.
         ---
-        from merge import TimesheetEntriesListRequestOrderBy
         from merge.client import AsyncMerge
+        from merge.resources.hris import TimesheetEntriesListRequestOrderBy
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.list(
+        await client.hris.timesheet_entries.list(
             order_by=TimesheetEntriesListRequestOrderBy.START_TIME_DESCENDING,
         )
         """
@@ -364,14 +364,14 @@ class AsyncTimesheetEntriesClient:
         ---
         import datetime
 
-        from merge import TimesheetEntryRequest
         from merge.client import AsyncMerge
+        from merge.resources.hris import TimesheetEntryRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.create(
+        await client.hris.timesheet_entries.create(
             model=TimesheetEntryRequest(
                 employee="d2f972d0-2526-434b-9409-4c3b468e08f0",
                 hours_worked=10.0,
@@ -415,7 +415,7 @@ class AsyncTimesheetEntriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.retrieve(
+        await client.hris.timesheet_entries.retrieve(
             id="id",
         )
         """
@@ -445,7 +445,7 @@ class AsyncTimesheetEntriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.meta_post_retrieve()
+        await client.hris.timesheet_entries.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

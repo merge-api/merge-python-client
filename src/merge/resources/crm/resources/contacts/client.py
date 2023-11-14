@@ -90,7 +90,7 @@ class ContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.list(
+        client.crm.contacts.list(
             expand="account",
         )
         """
@@ -145,19 +145,19 @@ class ContactsClient:
         ---
         import datetime
 
-        from merge import (
+        from merge.client import Merge
+        from merge.resources.crm import (
             AddressRequest,
             ContactRequest,
             EmailAddressRequest,
             PhoneNumberRequest,
         )
-        from merge.client import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.create(
+        client.crm.contacts.create(
             model=ContactRequest(
                 first_name="Gil",
                 last_name="Feig",
@@ -230,7 +230,7 @@ class ContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.retrieve(
+        client.crm.contacts.retrieve(
             id="id",
             expand="account",
         )
@@ -278,19 +278,19 @@ class ContactsClient:
         ---
         import datetime
 
-        from merge import (
+        from merge.client import Merge
+        from merge.resources.crm import (
             AddressRequest,
             EmailAddressRequest,
             PatchedContactRequest,
             PhoneNumberRequest,
         )
-        from merge.client import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.partial_update(
+        client.crm.contacts.partial_update(
             id="id",
             model=PatchedContactRequest(
                 first_name="Gil",
@@ -348,14 +348,14 @@ class ContactsClient:
 
             - request: IgnoreCommonModelRequest.
         ---
-        from merge import IgnoreCommonModelRequest, ReasonEnum
         from merge.client import Merge
+        from merge.resources.crm import IgnoreCommonModelRequest, ReasonEnum
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.ignore_create(
+        client.crm.contacts.ignore_create(
             model_id="model-id",
             request=IgnoreCommonModelRequest(
                 reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
@@ -391,7 +391,7 @@ class ContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.meta_patch_retrieve(
+        client.crm.contacts.meta_patch_retrieve(
             id="id",
         )
         """
@@ -420,7 +420,7 @@ class ContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.meta_post_retrieve()
+        client.crm.contacts.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -465,7 +465,7 @@ class ContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.remote_field_classes_list()
+        client.crm.contacts.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -551,7 +551,7 @@ class AsyncContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.list(
+        await client.crm.contacts.list(
             expand="account",
         )
         """
@@ -606,19 +606,19 @@ class AsyncContactsClient:
         ---
         import datetime
 
-        from merge import (
+        from merge.client import AsyncMerge
+        from merge.resources.crm import (
             AddressRequest,
             ContactRequest,
             EmailAddressRequest,
             PhoneNumberRequest,
         )
-        from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.create(
+        await client.crm.contacts.create(
             model=ContactRequest(
                 first_name="Gil",
                 last_name="Feig",
@@ -691,7 +691,7 @@ class AsyncContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.retrieve(
+        await client.crm.contacts.retrieve(
             id="id",
             expand="account",
         )
@@ -739,19 +739,19 @@ class AsyncContactsClient:
         ---
         import datetime
 
-        from merge import (
+        from merge.client import AsyncMerge
+        from merge.resources.crm import (
             AddressRequest,
             EmailAddressRequest,
             PatchedContactRequest,
             PhoneNumberRequest,
         )
-        from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.partial_update(
+        await client.crm.contacts.partial_update(
             id="id",
             model=PatchedContactRequest(
                 first_name="Gil",
@@ -809,14 +809,14 @@ class AsyncContactsClient:
 
             - request: IgnoreCommonModelRequest.
         ---
-        from merge import IgnoreCommonModelRequest, ReasonEnum
         from merge.client import AsyncMerge
+        from merge.resources.crm import IgnoreCommonModelRequest, ReasonEnum
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.ignore_create(
+        await client.crm.contacts.ignore_create(
             model_id="model-id",
             request=IgnoreCommonModelRequest(
                 reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
@@ -852,7 +852,7 @@ class AsyncContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.meta_patch_retrieve(
+        await client.crm.contacts.meta_patch_retrieve(
             id="id",
         )
         """
@@ -881,7 +881,7 @@ class AsyncContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.meta_post_retrieve()
+        await client.crm.contacts.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -926,7 +926,7 @@ class AsyncContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.remote_field_classes_list()
+        await client.crm.contacts.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

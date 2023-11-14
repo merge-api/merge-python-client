@@ -86,14 +86,14 @@ class PurchaseOrdersClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import PurchaseOrdersListRequestExpand
         from merge.client import Merge
+        from merge.resources.accounting import PurchaseOrdersListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.list(
+        client.accounting.purchase_orders.list(
             expand=PurchaseOrdersListRequestExpand.ACCOUNTING_PERIOD,
             remote_fields="status",
             show_enum_origins="status",
@@ -151,14 +151,17 @@ class PurchaseOrdersClient:
 
             - model: PurchaseOrderRequest.
         ---
-        from merge import PurchaseOrderLineItemRequest, PurchaseOrderRequest
         from merge.client import Merge
+        from merge.resources.accounting import (
+            PurchaseOrderLineItemRequest,
+            PurchaseOrderRequest,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.create(
+        client.accounting.purchase_orders.create(
             model=PurchaseOrderRequest(
                 line_items=[
                     PurchaseOrderLineItemRequest(
@@ -214,14 +217,14 @@ class PurchaseOrdersClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import PurchaseOrdersRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.accounting import PurchaseOrdersRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.purchase_orders.retrieve(
             id="id",
             expand=PurchaseOrdersRetrieveRequestExpand.ACCOUNTING_PERIOD,
             remote_fields="status",
@@ -261,7 +264,7 @@ class PurchaseOrdersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.meta_post_retrieve()
+        client.accounting.purchase_orders.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -337,14 +340,14 @@ class AsyncPurchaseOrdersClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import PurchaseOrdersListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.accounting import PurchaseOrdersListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.list(
+        await client.accounting.purchase_orders.list(
             expand=PurchaseOrdersListRequestExpand.ACCOUNTING_PERIOD,
             remote_fields="status",
             show_enum_origins="status",
@@ -402,14 +405,17 @@ class AsyncPurchaseOrdersClient:
 
             - model: PurchaseOrderRequest.
         ---
-        from merge import PurchaseOrderLineItemRequest, PurchaseOrderRequest
         from merge.client import AsyncMerge
+        from merge.resources.accounting import (
+            PurchaseOrderLineItemRequest,
+            PurchaseOrderRequest,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.create(
+        await client.accounting.purchase_orders.create(
             model=PurchaseOrderRequest(
                 line_items=[
                     PurchaseOrderLineItemRequest(
@@ -465,14 +471,14 @@ class AsyncPurchaseOrdersClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import PurchaseOrdersRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.accounting import PurchaseOrdersRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.purchase_orders.retrieve(
             id="id",
             expand=PurchaseOrdersRetrieveRequestExpand.ACCOUNTING_PERIOD,
             remote_fields="status",
@@ -512,7 +518,7 @@ class AsyncPurchaseOrdersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.meta_post_retrieve()
+        await client.accounting.purchase_orders.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

@@ -71,14 +71,14 @@ class LocationsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["location_type"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import LocationsListRequestLocationType
         from merge.client import Merge
+        from merge.resources.hris import LocationsListRequestLocationType
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.list(
+        client.hris.locations.list(
             location_type=LocationsListRequestLocationType.HOME,
             remote_fields="location_type",
             show_enum_origins="location_type",
@@ -140,7 +140,7 @@ class LocationsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.retrieve(
+        client.hris.locations.retrieve(
             id="id",
             remote_fields="location_type",
             show_enum_origins="location_type",
@@ -218,14 +218,14 @@ class AsyncLocationsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["location_type"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import LocationsListRequestLocationType
         from merge.client import AsyncMerge
+        from merge.resources.hris import LocationsListRequestLocationType
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.list(
+        await client.hris.locations.list(
             location_type=LocationsListRequestLocationType.HOME,
             remote_fields="location_type",
             show_enum_origins="location_type",
@@ -287,7 +287,7 @@ class AsyncLocationsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.retrieve(
+        await client.hris.locations.retrieve(
             id="id",
             remote_fields="location_type",
             show_enum_origins="location_type",

@@ -78,14 +78,14 @@ class JournalEntriesClient:
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
         ---
-        from merge import JournalEntriesListRequestExpand
         from merge.client import Merge
+        from merge.resources.accounting import JournalEntriesListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.list(
+        client.accounting.journal_entries.list(
             expand=JournalEntriesListRequestExpand.ACCOUNTING_PERIOD,
         )
         """
@@ -141,19 +141,20 @@ class JournalEntriesClient:
 
             - model: JournalEntryRequest.
         ---
-        from merge import JournalEntryRequest, JournalLineRequest
         from merge.client import Merge
+        from merge.resources.accounting import JournalEntryRequest, JournalLineRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.create(
+        client.accounting.journal_entries.create(
             model=JournalEntryRequest(
                 lines=[
                     JournalLineRequest(
                         remote_id="121222",
                         net_amount=25.54,
+                        company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
                         contact="d2d5ea3c-b032-11ec-b909-0242ac120002",
                         description="Cash payment for lunch",
                         exchange_rate="2.9",
@@ -195,14 +196,14 @@ class JournalEntriesClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import JournalEntriesRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.accounting import JournalEntriesRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.journal_entries.retrieve(
             id="id",
             expand=JournalEntriesRetrieveRequestExpand.ACCOUNTING_PERIOD,
         )
@@ -233,7 +234,7 @@ class JournalEntriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.meta_post_retrieve()
+        client.accounting.journal_entries.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -303,14 +304,14 @@ class AsyncJournalEntriesClient:
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
         ---
-        from merge import JournalEntriesListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.accounting import JournalEntriesListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.list(
+        await client.accounting.journal_entries.list(
             expand=JournalEntriesListRequestExpand.ACCOUNTING_PERIOD,
         )
         """
@@ -366,19 +367,20 @@ class AsyncJournalEntriesClient:
 
             - model: JournalEntryRequest.
         ---
-        from merge import JournalEntryRequest, JournalLineRequest
         from merge.client import AsyncMerge
+        from merge.resources.accounting import JournalEntryRequest, JournalLineRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.create(
+        await client.accounting.journal_entries.create(
             model=JournalEntryRequest(
                 lines=[
                     JournalLineRequest(
                         remote_id="121222",
                         net_amount=25.54,
+                        company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
                         contact="d2d5ea3c-b032-11ec-b909-0242ac120002",
                         description="Cash payment for lunch",
                         exchange_rate="2.9",
@@ -420,14 +422,14 @@ class AsyncJournalEntriesClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import JournalEntriesRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.accounting import JournalEntriesRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.journal_entries.retrieve(
             id="id",
             expand=JournalEntriesRetrieveRequestExpand.ACCOUNTING_PERIOD,
         )
@@ -458,7 +460,7 @@ class AsyncJournalEntriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.meta_post_retrieve()
+        await client.accounting.journal_entries.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

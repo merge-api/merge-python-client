@@ -51,7 +51,7 @@ class AuditTrailClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.list()
+        client.filestorage.audit_trail.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -114,7 +114,7 @@ class AsyncAuditTrailClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.list()
+        await client.filestorage.audit_trail.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

@@ -74,14 +74,14 @@ class LinkedAccountsClient:
 
             - status: typing.Optional[str]. Filter by status. Options: `COMPLETE`, `INCOMPLETE`, `RELINK_NEEDED`
         ---
-        from merge import LinkedAccountsListRequestCategory
         from merge.client import Merge
+        from merge.resources.filestorage import LinkedAccountsListRequestCategory
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.list(
+        client.filestorage.linked_accounts.list(
             category=LinkedAccountsListRequestCategory.ACCOUNTING,
         )
         """
@@ -175,14 +175,14 @@ class AsyncLinkedAccountsClient:
 
             - status: typing.Optional[str]. Filter by status. Options: `COMPLETE`, `INCOMPLETE`, `RELINK_NEEDED`
         ---
-        from merge import LinkedAccountsListRequestCategory
         from merge.client import AsyncMerge
+        from merge.resources.filestorage import LinkedAccountsListRequestCategory
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.list(
+        await client.filestorage.linked_accounts.list(
             category=LinkedAccountsListRequestCategory.ACCOUNTING,
         )
         """

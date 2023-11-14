@@ -87,14 +87,14 @@ class JobsClient:
                                                               * `DRAFT` - DRAFT
                                                               * `ARCHIVED` - ARCHIVED
                                                               * `PENDING` - PENDING---
-        from merge import JobsListRequestExpand, JobsListRequestStatus
         from merge.client import Merge
+        from merge.resources.ats import JobsListRequestExpand, JobsListRequestStatus
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.list(
+        client.ats.jobs.list(
             expand=JobsListRequestExpand.DEPARTMENTS,
             remote_fields="status",
             show_enum_origins="status",
@@ -157,14 +157,14 @@ class JobsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import JobsRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.ats import JobsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.retrieve(
+        client.ats.jobs.retrieve(
             id="id",
             expand=JobsRetrieveRequestExpand.DEPARTMENTS,
             remote_fields="status",
@@ -219,14 +219,14 @@ class JobsClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
         ---
-        from merge import JobsScreeningQuestionsListRequestExpand
         from merge.client import Merge
+        from merge.resources.ats import JobsScreeningQuestionsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.screening_questions_list(
+        client.ats.jobs.screening_questions_list(
             job_id="job-id",
             expand=JobsScreeningQuestionsListRequestExpand.JOB,
         )
@@ -319,14 +319,14 @@ class AsyncJobsClient:
                                                               * `DRAFT` - DRAFT
                                                               * `ARCHIVED` - ARCHIVED
                                                               * `PENDING` - PENDING---
-        from merge import JobsListRequestExpand, JobsListRequestStatus
         from merge.client import AsyncMerge
+        from merge.resources.ats import JobsListRequestExpand, JobsListRequestStatus
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.list(
+        await client.ats.jobs.list(
             expand=JobsListRequestExpand.DEPARTMENTS,
             remote_fields="status",
             show_enum_origins="status",
@@ -389,14 +389,14 @@ class AsyncJobsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import JobsRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.ats import JobsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.retrieve(
+        await client.ats.jobs.retrieve(
             id="id",
             expand=JobsRetrieveRequestExpand.DEPARTMENTS,
             remote_fields="status",
@@ -451,14 +451,14 @@ class AsyncJobsClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
         ---
-        from merge import JobsScreeningQuestionsListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.ats import JobsScreeningQuestionsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.screening_questions_list(
+        await client.ats.jobs.screening_questions_list(
             job_id="job-id",
             expand=JobsScreeningQuestionsListRequestExpand.JOB,
         )
