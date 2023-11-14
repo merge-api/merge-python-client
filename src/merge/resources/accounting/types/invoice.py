@@ -5,6 +5,7 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from .invoice_accounting_period import InvoiceAccountingPeriod
+from .invoice_applied_payments_item import InvoiceAppliedPaymentsItem
 from .invoice_company import InvoiceCompany
 from .invoice_contact import InvoiceContact
 from .invoice_currency import InvoiceCurrency
@@ -386,6 +387,9 @@ class Invoice(pydantic.BaseModel):
     tracking_categories: typing.Optional[typing.List[typing.Optional[InvoiceTrackingCategoriesItem]]]
     payments: typing.Optional[typing.List[typing.Optional[InvoicePaymentsItem]]] = pydantic.Field(
         description="Array of `Payment` object IDs."
+    )
+    applied_payments: typing.Optional[typing.List[typing.Optional[InvoiceAppliedPaymentsItem]]] = pydantic.Field(
+        description="Array of `PaymentLineItems` object IDs."
     )
     line_items: typing.Optional[typing.List[InvoiceLineItem]]
     remote_was_deleted: typing.Optional[bool]

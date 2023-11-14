@@ -72,14 +72,14 @@ class IssuesClient:
 
                                                                 * `ONGOING` - ONGOING
                                                                 * `RESOLVED` - RESOLVED---
-        from merge import IssuesListRequestStatus
         from merge.client import Merge
+        from merge.resources.ats import IssuesListRequestStatus
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.list(
+        client.ats.issues.list(
             status=IssuesListRequestStatus.ONGOING,
         )
         """
@@ -135,7 +135,7 @@ class IssuesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.retrieve(
+        client.ats.issues.retrieve(
             id="id",
         )
         """
@@ -207,14 +207,14 @@ class AsyncIssuesClient:
 
                                                                 * `ONGOING` - ONGOING
                                                                 * `RESOLVED` - RESOLVED---
-        from merge import IssuesListRequestStatus
         from merge.client import AsyncMerge
+        from merge.resources.ats import IssuesListRequestStatus
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.list(
+        await client.ats.issues.list(
             status=IssuesListRequestStatus.ONGOING,
         )
         """
@@ -270,7 +270,7 @@ class AsyncIssuesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.retrieve(
+        await client.ats.issues.retrieve(
             id="id",
         )
         """

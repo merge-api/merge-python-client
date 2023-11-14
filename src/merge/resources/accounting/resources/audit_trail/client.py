@@ -51,7 +51,7 @@ class AuditTrailClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.list()
+        client.accounting.audit_trail.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -114,7 +114,7 @@ class AsyncAuditTrailClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.list()
+        await client.accounting.audit_trail.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

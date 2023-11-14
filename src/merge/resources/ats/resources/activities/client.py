@@ -82,17 +82,17 @@ class ActivitiesClient:
 
             - user_id: typing.Optional[str]. If provided, will only return activities done by this user.
         ---
-        from merge import (
+        from merge.client import Merge
+        from merge.resources.ats import (
             ActivitiesListRequestRemoteFields,
             ActivitiesListRequestShowEnumOrigins,
         )
-        from merge.client import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.list(
+        client.ats.activities.list(
             expand="user",
             remote_fields=ActivitiesListRequestRemoteFields.ACTIVITY_TYPE,
             show_enum_origins=ActivitiesListRequestShowEnumOrigins.ACTIVITY_TYPE,
@@ -188,17 +188,17 @@ class ActivitiesClient:
 
             - show_enum_origins: typing.Optional[ActivitiesRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
         ---
-        from merge import (
+        from merge.client import Merge
+        from merge.resources.ats import (
             ActivitiesRetrieveRequestRemoteFields,
             ActivitiesRetrieveRequestShowEnumOrigins,
         )
-        from merge.client import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.retrieve(
+        client.ats.activities.retrieve(
             id="id",
             expand="user",
             remote_fields=ActivitiesRetrieveRequestRemoteFields.ACTIVITY_TYPE,
@@ -238,7 +238,7 @@ class ActivitiesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.meta_post_retrieve()
+        client.ats.activities.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -306,17 +306,17 @@ class AsyncActivitiesClient:
 
             - user_id: typing.Optional[str]. If provided, will only return activities done by this user.
         ---
-        from merge import (
+        from merge.client import AsyncMerge
+        from merge.resources.ats import (
             ActivitiesListRequestRemoteFields,
             ActivitiesListRequestShowEnumOrigins,
         )
-        from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.list(
+        await client.ats.activities.list(
             expand="user",
             remote_fields=ActivitiesListRequestRemoteFields.ACTIVITY_TYPE,
             show_enum_origins=ActivitiesListRequestShowEnumOrigins.ACTIVITY_TYPE,
@@ -412,17 +412,17 @@ class AsyncActivitiesClient:
 
             - show_enum_origins: typing.Optional[ActivitiesRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
         ---
-        from merge import (
+        from merge.client import AsyncMerge
+        from merge.resources.ats import (
             ActivitiesRetrieveRequestRemoteFields,
             ActivitiesRetrieveRequestShowEnumOrigins,
         )
-        from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.retrieve(
+        await client.ats.activities.retrieve(
             id="id",
             expand="user",
             remote_fields=ActivitiesRetrieveRequestRemoteFields.ACTIVITY_TYPE,
@@ -462,7 +462,7 @@ class AsyncActivitiesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.meta_post_retrieve()
+        await client.ats.activities.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

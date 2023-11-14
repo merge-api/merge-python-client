@@ -80,14 +80,14 @@ class EmployeePayrollRunsClient:
 
             - started_before: typing.Optional[dt.datetime]. If provided, will only return employee payroll runs started before this datetime.
         ---
-        from merge import EmployeePayrollRunsListRequestExpand
         from merge.client import Merge
+        from merge.resources.hris import EmployeePayrollRunsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.list(
+        client.hris.employee_payroll_runs.list(
             expand=EmployeePayrollRunsListRequestExpand.EMPLOYEE,
         )
         """
@@ -142,14 +142,14 @@ class EmployeePayrollRunsClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import EmployeePayrollRunsRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.hris import EmployeePayrollRunsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.retrieve(
+        client.hris.employee_payroll_runs.retrieve(
             id="id",
             expand=EmployeePayrollRunsRetrieveRequestExpand.EMPLOYEE,
         )
@@ -230,14 +230,14 @@ class AsyncEmployeePayrollRunsClient:
 
             - started_before: typing.Optional[dt.datetime]. If provided, will only return employee payroll runs started before this datetime.
         ---
-        from merge import EmployeePayrollRunsListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.hris import EmployeePayrollRunsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.list(
+        await client.hris.employee_payroll_runs.list(
             expand=EmployeePayrollRunsListRequestExpand.EMPLOYEE,
         )
         """
@@ -292,14 +292,14 @@ class AsyncEmployeePayrollRunsClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import EmployeePayrollRunsRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.hris import EmployeePayrollRunsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.retrieve(
+        await client.hris.employee_payroll_runs.retrieve(
             id="id",
             expand=EmployeePayrollRunsRetrieveRequestExpand.EMPLOYEE,
         )

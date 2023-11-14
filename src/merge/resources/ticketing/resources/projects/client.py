@@ -65,7 +65,7 @@ class ProjectsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.list()
+        client.ticketing.projects.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -109,7 +109,7 @@ class ProjectsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.retrieve(
+        client.ticketing.projects.retrieve(
             id="id",
         )
         """
@@ -154,14 +154,14 @@ class ProjectsClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
         ---
-        from merge import ProjectsUsersListRequestExpand
         from merge.client import Merge
+        from merge.resources.ticketing import ProjectsUsersListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.users_list(
+        client.ticketing.projects.users_list(
             parent_id="parent-id",
             expand=ProjectsUsersListRequestExpand.ROLES,
         )
@@ -237,7 +237,7 @@ class AsyncProjectsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.list()
+        await client.ticketing.projects.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -281,7 +281,7 @@ class AsyncProjectsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.retrieve(
+        await client.ticketing.projects.retrieve(
             id="id",
         )
         """
@@ -326,14 +326,14 @@ class AsyncProjectsClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
         ---
-        from merge import ProjectsUsersListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.ticketing import ProjectsUsersListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.users_list(
+        await client.ticketing.projects.users_list(
             parent_id="parent-id",
             expand=ProjectsUsersListRequestExpand.ROLES,
         )

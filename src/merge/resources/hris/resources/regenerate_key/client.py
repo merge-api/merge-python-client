@@ -35,7 +35,7 @@ class RegenerateKeyClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.create(
+        client.hris.regenerate_key.create(
             name="Remote Deployment Key 1",
         )
         """
@@ -72,7 +72,7 @@ class AsyncRegenerateKeyClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.create(
+        await client.hris.regenerate_key.create(
             name="Remote Deployment Key 1",
         )
         """

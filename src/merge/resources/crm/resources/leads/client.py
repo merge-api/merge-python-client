@@ -88,14 +88,14 @@ class LeadsClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         ---
-        from merge import LeadsListRequestExpand
         from merge.client import Merge
+        from merge.resources.crm import LeadsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.list(
+        client.crm.leads.list(
             expand=LeadsListRequestExpand.CONVERTED_ACCOUNT,
         )
         """
@@ -152,19 +152,19 @@ class LeadsClient:
         ---
         import datetime
 
-        from merge import (
+        from merge.client import Merge
+        from merge.resources.crm import (
             AddressRequest,
             EmailAddressRequest,
             LeadRequest,
             PhoneNumberRequest,
         )
-        from merge.client import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.create(
+        client.crm.leads.create(
             model=LeadRequest(
                 lead_source="API Blogger",
                 title="Co-Founder",
@@ -234,14 +234,14 @@ class LeadsClient:
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
         ---
-        from merge import LeadsRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.crm import LeadsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.retrieve(
+        client.crm.leads.retrieve(
             id="id",
             expand=LeadsRetrieveRequestExpand.CONVERTED_ACCOUNT,
         )
@@ -278,7 +278,7 @@ class LeadsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.meta_post_retrieve()
+        client.crm.leads.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -323,7 +323,7 @@ class LeadsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.remote_field_classes_list()
+        client.crm.leads.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -409,14 +409,14 @@ class AsyncLeadsClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         ---
-        from merge import LeadsListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.crm import LeadsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.list(
+        await client.crm.leads.list(
             expand=LeadsListRequestExpand.CONVERTED_ACCOUNT,
         )
         """
@@ -473,19 +473,19 @@ class AsyncLeadsClient:
         ---
         import datetime
 
-        from merge import (
+        from merge.client import AsyncMerge
+        from merge.resources.crm import (
             AddressRequest,
             EmailAddressRequest,
             LeadRequest,
             PhoneNumberRequest,
         )
-        from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.create(
+        await client.crm.leads.create(
             model=LeadRequest(
                 lead_source="API Blogger",
                 title="Co-Founder",
@@ -555,14 +555,14 @@ class AsyncLeadsClient:
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
         ---
-        from merge import LeadsRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.crm import LeadsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.retrieve(
+        await client.crm.leads.retrieve(
             id="id",
             expand=LeadsRetrieveRequestExpand.CONVERTED_ACCOUNT,
         )
@@ -599,7 +599,7 @@ class AsyncLeadsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.meta_post_retrieve()
+        await client.crm.leads.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -644,7 +644,7 @@ class AsyncLeadsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.remote_field_classes_list()
+        await client.crm.leads.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

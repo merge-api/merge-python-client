@@ -36,7 +36,7 @@ class SyncStatusClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.list()
+        client.hris.sync_status.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -75,7 +75,7 @@ class AsyncSyncStatusClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.list()
+        await client.hris.sync_status.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

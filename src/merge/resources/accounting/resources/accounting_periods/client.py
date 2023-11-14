@@ -46,7 +46,7 @@ class AccountingPeriodsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.list()
+        client.accounting.accounting_periods.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -85,7 +85,7 @@ class AccountingPeriodsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.accounting_periods.retrieve(
             id="id",
         )
         """
@@ -137,7 +137,7 @@ class AsyncAccountingPeriodsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.list()
+        await client.accounting.accounting_periods.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -176,7 +176,7 @@ class AsyncAccountingPeriodsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.accounting_periods.retrieve(
             id="id",
         )
         """

@@ -22,7 +22,7 @@ class DeleteAccountClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.delete()
+        client.ats.delete_account.delete()
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -54,7 +54,7 @@ class AsyncDeleteAccountClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.delete()
+        await client.ats.delete_account.delete()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",

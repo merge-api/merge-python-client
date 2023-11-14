@@ -76,7 +76,7 @@ class CustomObjectsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.custom_object_classes_custom_objects_list(
+        client.crm.custom_objects.custom_object_classes_custom_objects_list(
             custom_object_class_id="custom-object-class-id",
         )
         """
@@ -131,14 +131,14 @@ class CustomObjectsClient:
 
             - model: CustomObjectRequest.
         ---
-        from merge import CustomObjectRequest
         from merge.client import Merge
+        from merge.resources.crm import CustomObjectRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.custom_object_classes_custom_objects_create(
+        client.crm.custom_objects.custom_object_classes_custom_objects_create(
             custom_object_class_id="custom-object-class-id",
             model=CustomObjectRequest(
                 fields={},
@@ -190,7 +190,7 @@ class CustomObjectsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.custom_object_classes_custom_objects_retrieve(
+        client.crm.custom_objects.custom_object_classes_custom_objects_retrieve(
             custom_object_class_id="custom-object-class-id",
             id="id",
         )
@@ -232,7 +232,7 @@ class CustomObjectsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.custom_object_classes_custom_objects_meta_patch_retrieve(
+        client.crm.custom_objects.custom_object_classes_custom_objects_meta_patch_retrieve(
             custom_object_class_id="custom-object-class-id",
             id="id",
         )
@@ -267,7 +267,7 @@ class CustomObjectsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.custom_object_classes_custom_objects_meta_post_retrieve(
+        client.crm.custom_objects.custom_object_classes_custom_objects_meta_post_retrieve(
             custom_object_class_id="custom-object-class-id",
         )
         """
@@ -340,7 +340,7 @@ class AsyncCustomObjectsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.custom_object_classes_custom_objects_list(
+        await client.crm.custom_objects.custom_object_classes_custom_objects_list(
             custom_object_class_id="custom-object-class-id",
         )
         """
@@ -395,14 +395,14 @@ class AsyncCustomObjectsClient:
 
             - model: CustomObjectRequest.
         ---
-        from merge import CustomObjectRequest
         from merge.client import AsyncMerge
+        from merge.resources.crm import CustomObjectRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.custom_object_classes_custom_objects_create(
+        await client.crm.custom_objects.custom_object_classes_custom_objects_create(
             custom_object_class_id="custom-object-class-id",
             model=CustomObjectRequest(
                 fields={},
@@ -454,7 +454,7 @@ class AsyncCustomObjectsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.custom_object_classes_custom_objects_retrieve(
+        await client.crm.custom_objects.custom_object_classes_custom_objects_retrieve(
             custom_object_class_id="custom-object-class-id",
             id="id",
         )
@@ -496,7 +496,7 @@ class AsyncCustomObjectsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.custom_object_classes_custom_objects_meta_patch_retrieve(
+        await client.crm.custom_objects.custom_object_classes_custom_objects_meta_patch_retrieve(
             custom_object_class_id="custom-object-class-id",
             id="id",
         )
@@ -533,7 +533,7 @@ class AsyncCustomObjectsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.custom_object_classes_custom_objects_meta_post_retrieve(
+        await client.crm.custom_objects.custom_object_classes_custom_objects_meta_post_retrieve(
             custom_object_class_id="custom-object-class-id",
         )
         """

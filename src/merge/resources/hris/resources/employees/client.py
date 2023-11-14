@@ -144,19 +144,19 @@ class EmployeesClient:
 
             - work_location_id: typing.Optional[str]. If provided, will only return employees for this location.
         ---
-        from merge import (
+        from merge.client import Merge
+        from merge.resources.hris import (
             EmployeesListRequestEmploymentStatus,
             EmployeesListRequestExpand,
             EmployeesListRequestRemoteFields,
             EmployeesListRequestShowEnumOrigins,
         )
-        from merge.client import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.list(
+        client.hris.employees.list(
             employment_status=EmployeesListRequestEmploymentStatus.ACTIVE,
             expand=EmployeesListRequestExpand.COMPANY,
             remote_fields=EmployeesListRequestRemoteFields.EMPLOYMENT_STATUS,
@@ -234,14 +234,14 @@ class EmployeesClient:
         ---
         import datetime
 
-        from merge import EmployeeRequest
         from merge.client import Merge
+        from merge.resources.hris import EmployeeRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.create(
+        client.hris.employees.create(
             model=EmployeeRequest(
                 employee_number="2",
                 first_name="Greg",
@@ -311,18 +311,18 @@ class EmployeesClient:
 
             - show_enum_origins: typing.Optional[EmployeesRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
         ---
-        from merge import (
+        from merge.client import Merge
+        from merge.resources.hris import (
             EmployeesRetrieveRequestExpand,
             EmployeesRetrieveRequestRemoteFields,
             EmployeesRetrieveRequestShowEnumOrigins,
         )
-        from merge.client import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.retrieve(
+        client.hris.employees.retrieve(
             id="id",
             expand=EmployeesRetrieveRequestExpand.COMPANY,
             remote_fields=EmployeesRetrieveRequestRemoteFields.EMPLOYMENT_STATUS,
@@ -394,7 +394,7 @@ class EmployeesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.meta_post_retrieve()
+        client.hris.employees.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -522,19 +522,19 @@ class AsyncEmployeesClient:
 
             - work_location_id: typing.Optional[str]. If provided, will only return employees for this location.
         ---
-        from merge import (
+        from merge.client import AsyncMerge
+        from merge.resources.hris import (
             EmployeesListRequestEmploymentStatus,
             EmployeesListRequestExpand,
             EmployeesListRequestRemoteFields,
             EmployeesListRequestShowEnumOrigins,
         )
-        from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.list(
+        await client.hris.employees.list(
             employment_status=EmployeesListRequestEmploymentStatus.ACTIVE,
             expand=EmployeesListRequestExpand.COMPANY,
             remote_fields=EmployeesListRequestRemoteFields.EMPLOYMENT_STATUS,
@@ -612,14 +612,14 @@ class AsyncEmployeesClient:
         ---
         import datetime
 
-        from merge import EmployeeRequest
         from merge.client import AsyncMerge
+        from merge.resources.hris import EmployeeRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.create(
+        await client.hris.employees.create(
             model=EmployeeRequest(
                 employee_number="2",
                 first_name="Greg",
@@ -689,18 +689,18 @@ class AsyncEmployeesClient:
 
             - show_enum_origins: typing.Optional[EmployeesRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
         ---
-        from merge import (
+        from merge.client import AsyncMerge
+        from merge.resources.hris import (
             EmployeesRetrieveRequestExpand,
             EmployeesRetrieveRequestRemoteFields,
             EmployeesRetrieveRequestShowEnumOrigins,
         )
-        from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.retrieve(
+        await client.hris.employees.retrieve(
             id="id",
             expand=EmployeesRetrieveRequestExpand.COMPANY,
             remote_fields=EmployeesRetrieveRequestRemoteFields.EMPLOYMENT_STATUS,
@@ -772,7 +772,7 @@ class AsyncEmployeesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.meta_post_retrieve()
+        await client.hris.employees.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

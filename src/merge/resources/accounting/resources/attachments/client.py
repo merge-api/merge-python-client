@@ -73,7 +73,7 @@ class AttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.list()
+        client.accounting.attachments.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -120,14 +120,14 @@ class AttachmentsClient:
 
             - model: AccountingAttachmentRequest.
         ---
-        from merge import AccountingAttachmentRequest
         from merge.client import Merge
+        from merge.resources.accounting import AccountingAttachmentRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.create(
+        client.accounting.attachments.create(
             model=AccountingAttachmentRequest(
                 file_name="invoice.png",
                 file_url="https://merge-brand.s3.amazonaws.com/20210315/rect-logo-270x80%402x.png",
@@ -166,7 +166,7 @@ class AttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.attachments.retrieve(
             id="id",
         )
         """
@@ -196,7 +196,7 @@ class AttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.meta_post_retrieve()
+        client.accounting.attachments.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -261,7 +261,7 @@ class AsyncAttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.list()
+        await client.accounting.attachments.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -308,14 +308,14 @@ class AsyncAttachmentsClient:
 
             - model: AccountingAttachmentRequest.
         ---
-        from merge import AccountingAttachmentRequest
         from merge.client import AsyncMerge
+        from merge.resources.accounting import AccountingAttachmentRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.create(
+        await client.accounting.attachments.create(
             model=AccountingAttachmentRequest(
                 file_name="invoice.png",
                 file_url="https://merge-brand.s3.amazonaws.com/20210315/rect-logo-270x80%402x.png",
@@ -354,7 +354,7 @@ class AsyncAttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.attachments.retrieve(
             id="id",
         )
         """
@@ -384,7 +384,7 @@ class AsyncAttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.meta_post_retrieve()
+        await client.accounting.attachments.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

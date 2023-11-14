@@ -63,7 +63,7 @@ class GroupsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.list()
+        client.filestorage.groups.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -107,7 +107,7 @@ class GroupsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.retrieve(
+        client.filestorage.groups.retrieve(
             id="id",
         )
         """
@@ -172,7 +172,7 @@ class AsyncGroupsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.list()
+        await client.filestorage.groups.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -216,7 +216,7 @@ class AsyncGroupsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.retrieve(
+        await client.filestorage.groups.retrieve(
             id="id",
         )
         """

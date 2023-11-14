@@ -71,7 +71,7 @@ class JobInterviewStagesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.list(
+        client.ats.job_interview_stages.list(
             expand="job",
         )
         """
@@ -127,7 +127,7 @@ class JobInterviewStagesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.retrieve(
+        client.ats.job_interview_stages.retrieve(
             id="id",
             expand="job",
         )
@@ -199,7 +199,7 @@ class AsyncJobInterviewStagesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.list(
+        await client.ats.job_interview_stages.list(
             expand="job",
         )
         """
@@ -255,7 +255,7 @@ class AsyncJobInterviewStagesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.retrieve(
+        await client.ats.job_interview_stages.retrieve(
             id="id",
             expand="job",
         )

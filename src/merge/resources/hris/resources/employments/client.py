@@ -79,19 +79,19 @@ class EmploymentsClient:
 
             - show_enum_origins: typing.Optional[EmploymentsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
         ---
-        from merge import (
+        from merge.client import Merge
+        from merge.resources.hris import (
             EmploymentsListRequestExpand,
             EmploymentsListRequestOrderBy,
             EmploymentsListRequestRemoteFields,
             EmploymentsListRequestShowEnumOrigins,
         )
-        from merge.client import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.list(
+        client.hris.employments.list(
             expand=EmploymentsListRequestExpand.EMPLOYEE,
             order_by=EmploymentsListRequestOrderBy.EFFECTIVE_DATE_DESCENDING,
             remote_fields=EmploymentsListRequestRemoteFields.EMPLOYMENT_TYPE,
@@ -153,18 +153,18 @@ class EmploymentsClient:
 
             - show_enum_origins: typing.Optional[EmploymentsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
         ---
-        from merge import (
+        from merge.client import Merge
+        from merge.resources.hris import (
             EmploymentsRetrieveRequestExpand,
             EmploymentsRetrieveRequestRemoteFields,
             EmploymentsRetrieveRequestShowEnumOrigins,
         )
-        from merge.client import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.retrieve(
+        client.hris.employments.retrieve(
             id="id",
             expand=EmploymentsRetrieveRequestExpand.EMPLOYEE,
             remote_fields=EmploymentsRetrieveRequestRemoteFields.EMPLOYMENT_TYPE,
@@ -248,19 +248,19 @@ class AsyncEmploymentsClient:
 
             - show_enum_origins: typing.Optional[EmploymentsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
         ---
-        from merge import (
+        from merge.client import AsyncMerge
+        from merge.resources.hris import (
             EmploymentsListRequestExpand,
             EmploymentsListRequestOrderBy,
             EmploymentsListRequestRemoteFields,
             EmploymentsListRequestShowEnumOrigins,
         )
-        from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.list(
+        await client.hris.employments.list(
             expand=EmploymentsListRequestExpand.EMPLOYEE,
             order_by=EmploymentsListRequestOrderBy.EFFECTIVE_DATE_DESCENDING,
             remote_fields=EmploymentsListRequestRemoteFields.EMPLOYMENT_TYPE,
@@ -322,18 +322,18 @@ class AsyncEmploymentsClient:
 
             - show_enum_origins: typing.Optional[EmploymentsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
         ---
-        from merge import (
+        from merge.client import AsyncMerge
+        from merge.resources.hris import (
             EmploymentsRetrieveRequestExpand,
             EmploymentsRetrieveRequestRemoteFields,
             EmploymentsRetrieveRequestShowEnumOrigins,
         )
-        from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.retrieve(
+        await client.hris.employments.retrieve(
             id="id",
             expand=EmploymentsRetrieveRequestExpand.EMPLOYEE,
             remote_fields=EmploymentsRetrieveRequestRemoteFields.EMPLOYMENT_TYPE,

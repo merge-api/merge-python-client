@@ -73,14 +73,14 @@ class ItemsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import ItemsListRequestExpand
         from merge.client import Merge
+        from merge.resources.accounting import ItemsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.list(
+        client.accounting.items.list(
             expand=ItemsListRequestExpand.COMPANY,
             remote_fields="status",
             show_enum_origins="status",
@@ -140,14 +140,14 @@ class ItemsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import ItemsRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.accounting import ItemsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.items.retrieve(
             id="id",
             expand=ItemsRetrieveRequestExpand.COMPANY,
             remote_fields="status",
@@ -228,14 +228,14 @@ class AsyncItemsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import ItemsListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.accounting import ItemsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.list(
+        await client.accounting.items.list(
             expand=ItemsListRequestExpand.COMPANY,
             remote_fields="status",
             show_enum_origins="status",
@@ -295,14 +295,14 @@ class AsyncItemsClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import ItemsRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.accounting import ItemsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.items.retrieve(
             id="id",
             expand=ItemsRetrieveRequestExpand.COMPANY,
             remote_fields="status",

@@ -62,7 +62,7 @@ class TagsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.list()
+        client.ats.tags.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -137,7 +137,7 @@ class AsyncTagsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.list()
+        await client.ats.tags.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

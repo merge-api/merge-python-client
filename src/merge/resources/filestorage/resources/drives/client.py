@@ -66,7 +66,7 @@ class DrivesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.list()
+        client.filestorage.drives.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -111,7 +111,7 @@ class DrivesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.retrieve(
+        client.filestorage.drives.retrieve(
             id="id",
         )
         """
@@ -179,7 +179,7 @@ class AsyncDrivesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.list()
+        await client.filestorage.drives.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -224,7 +224,7 @@ class AsyncDrivesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.retrieve(
+        await client.filestorage.drives.retrieve(
             id="id",
         )
         """

@@ -28,7 +28,7 @@ class AccountDetailsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.retrieve()
+        client.crm.account_details.retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -60,7 +60,7 @@ class AsyncAccountDetailsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.retrieve()
+        await client.crm.account_details.retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

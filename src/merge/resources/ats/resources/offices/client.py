@@ -63,7 +63,7 @@ class OfficesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.list()
+        client.ats.offices.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -107,7 +107,7 @@ class OfficesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.retrieve(
+        client.ats.offices.retrieve(
             id="id",
         )
         """
@@ -172,7 +172,7 @@ class AsyncOfficesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.list()
+        await client.ats.offices.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -216,7 +216,7 @@ class AsyncOfficesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.retrieve(
+        await client.ats.offices.retrieve(
             id="id",
         )
         """

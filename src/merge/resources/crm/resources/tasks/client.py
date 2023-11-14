@@ -74,14 +74,14 @@ class TasksClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         ---
-        from merge import TasksListRequestExpand
         from merge.client import Merge
+        from merge.resources.crm import TasksListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.list(
+        client.crm.tasks.list(
             expand=TasksListRequestExpand.ACCOUNT,
         )
         """
@@ -133,14 +133,14 @@ class TasksClient:
         ---
         import datetime
 
-        from merge import TaskRequest
         from merge.client import Merge
+        from merge.resources.crm import TaskRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.create(
+        client.crm.tasks.create(
             model=TaskRequest(
                 subject="Contact about Integration Strategy",
                 content="Follow up to see whether they need integrations",
@@ -189,14 +189,14 @@ class TasksClient:
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
         ---
-        from merge import TasksRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.crm import TasksRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.retrieve(
+        client.crm.tasks.retrieve(
             id="id",
             expand=TasksRetrieveRequestExpand.ACCOUNT,
         )
@@ -244,14 +244,14 @@ class TasksClient:
         ---
         import datetime
 
-        from merge import PatchedTaskRequest
         from merge.client import Merge
+        from merge.resources.crm import PatchedTaskRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.partial_update(
+        client.crm.tasks.partial_update(
             id="id",
             model=PatchedTaskRequest(
                 subject="Contact about Integration Strategy",
@@ -297,7 +297,7 @@ class TasksClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.meta_patch_retrieve(
+        client.crm.tasks.meta_patch_retrieve(
             id="id",
         )
         """
@@ -326,7 +326,7 @@ class TasksClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.meta_post_retrieve()
+        client.crm.tasks.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -371,7 +371,7 @@ class TasksClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.remote_field_classes_list()
+        client.crm.tasks.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -442,14 +442,14 @@ class AsyncTasksClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         ---
-        from merge import TasksListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.crm import TasksListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.list(
+        await client.crm.tasks.list(
             expand=TasksListRequestExpand.ACCOUNT,
         )
         """
@@ -501,14 +501,14 @@ class AsyncTasksClient:
         ---
         import datetime
 
-        from merge import TaskRequest
         from merge.client import AsyncMerge
+        from merge.resources.crm import TaskRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.create(
+        await client.crm.tasks.create(
             model=TaskRequest(
                 subject="Contact about Integration Strategy",
                 content="Follow up to see whether they need integrations",
@@ -557,14 +557,14 @@ class AsyncTasksClient:
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
         ---
-        from merge import TasksRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.crm import TasksRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.retrieve(
+        await client.crm.tasks.retrieve(
             id="id",
             expand=TasksRetrieveRequestExpand.ACCOUNT,
         )
@@ -612,14 +612,14 @@ class AsyncTasksClient:
         ---
         import datetime
 
-        from merge import PatchedTaskRequest
         from merge.client import AsyncMerge
+        from merge.resources.crm import PatchedTaskRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.partial_update(
+        await client.crm.tasks.partial_update(
             id="id",
             model=PatchedTaskRequest(
                 subject="Contact about Integration Strategy",
@@ -665,7 +665,7 @@ class AsyncTasksClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.meta_patch_retrieve(
+        await client.crm.tasks.meta_patch_retrieve(
             id="id",
         )
         """
@@ -694,7 +694,7 @@ class AsyncTasksClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.meta_post_retrieve()
+        await client.crm.tasks.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -739,7 +739,7 @@ class AsyncTasksClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.remote_field_classes_list()
+        await client.crm.tasks.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

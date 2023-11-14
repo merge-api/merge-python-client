@@ -63,7 +63,7 @@ class DepartmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.list()
+        client.ats.departments.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -107,7 +107,7 @@ class DepartmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.retrieve(
+        client.ats.departments.retrieve(
             id="id",
         )
         """
@@ -172,7 +172,7 @@ class AsyncDepartmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.list()
+        await client.ats.departments.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -216,7 +216,7 @@ class AsyncDepartmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.retrieve(
+        await client.ats.departments.retrieve(
             id="id",
         )
         """

@@ -81,18 +81,18 @@ class CreditNotesClient:
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
         ---
-        from merge import (
+        from merge.client import Merge
+        from merge.resources.accounting import (
             CreditNotesListRequestExpand,
             CreditNotesListRequestRemoteFields,
             CreditNotesListRequestShowEnumOrigins,
         )
-        from merge.client import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.list(
+        client.accounting.credit_notes.list(
             expand=CreditNotesListRequestExpand.ACCOUNTING_PERIOD,
             remote_fields=CreditNotesListRequestRemoteFields.STATUS,
             show_enum_origins=CreditNotesListRequestShowEnumOrigins.STATUS,
@@ -158,18 +158,18 @@ class CreditNotesClient:
 
             - show_enum_origins: typing.Optional[CreditNotesRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
         ---
-        from merge import (
+        from merge.client import Merge
+        from merge.resources.accounting import (
             CreditNotesRetrieveRequestExpand,
             CreditNotesRetrieveRequestRemoteFields,
             CreditNotesRetrieveRequestShowEnumOrigins,
         )
-        from merge.client import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.credit_notes.retrieve(
             id="id",
             expand=CreditNotesRetrieveRequestExpand.ACCOUNTING_PERIOD,
             remote_fields=CreditNotesRetrieveRequestRemoteFields.STATUS,
@@ -256,18 +256,18 @@ class AsyncCreditNotesClient:
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
         ---
-        from merge import (
+        from merge.client import AsyncMerge
+        from merge.resources.accounting import (
             CreditNotesListRequestExpand,
             CreditNotesListRequestRemoteFields,
             CreditNotesListRequestShowEnumOrigins,
         )
-        from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.list(
+        await client.accounting.credit_notes.list(
             expand=CreditNotesListRequestExpand.ACCOUNTING_PERIOD,
             remote_fields=CreditNotesListRequestRemoteFields.STATUS,
             show_enum_origins=CreditNotesListRequestShowEnumOrigins.STATUS,
@@ -333,18 +333,18 @@ class AsyncCreditNotesClient:
 
             - show_enum_origins: typing.Optional[CreditNotesRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
         ---
-        from merge import (
+        from merge.client import AsyncMerge
+        from merge.resources.accounting import (
             CreditNotesRetrieveRequestExpand,
             CreditNotesRetrieveRequestRemoteFields,
             CreditNotesRetrieveRequestShowEnumOrigins,
         )
-        from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.credit_notes.retrieve(
             id="id",
             expand=CreditNotesRetrieveRequestExpand.ACCOUNTING_PERIOD,
             remote_fields=CreditNotesRetrieveRequestRemoteFields.STATUS,

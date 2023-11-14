@@ -78,14 +78,14 @@ class FoldersClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         ---
-        from merge import FoldersListRequestExpand
         from merge.client import Merge
+        from merge.resources.filestorage import FoldersListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.list(
+        client.filestorage.folders.list(
             expand=FoldersListRequestExpand.DRIVE,
         )
         """
@@ -137,14 +137,14 @@ class FoldersClient:
 
             - model: FolderRequest.
         ---
-        from merge import FolderRequest
         from merge.client import Merge
+        from merge.resources.filestorage import FolderRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.create(
+        client.filestorage.folders.create(
             model=FolderRequest(
                 name="Platform",
                 folder_url="https://drive.com/1234",
@@ -186,14 +186,14 @@ class FoldersClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import FoldersRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.filestorage import FoldersRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.retrieve(
+        client.filestorage.folders.retrieve(
             id="id",
             expand=FoldersRetrieveRequestExpand.DRIVE,
         )
@@ -224,7 +224,7 @@ class FoldersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.meta_post_retrieve()
+        client.filestorage.folders.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -292,14 +292,14 @@ class AsyncFoldersClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         ---
-        from merge import FoldersListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.filestorage import FoldersListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.list(
+        await client.filestorage.folders.list(
             expand=FoldersListRequestExpand.DRIVE,
         )
         """
@@ -351,14 +351,14 @@ class AsyncFoldersClient:
 
             - model: FolderRequest.
         ---
-        from merge import FolderRequest
         from merge.client import AsyncMerge
+        from merge.resources.filestorage import FolderRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.create(
+        await client.filestorage.folders.create(
             model=FolderRequest(
                 name="Platform",
                 folder_url="https://drive.com/1234",
@@ -400,14 +400,14 @@ class AsyncFoldersClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import FoldersRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.filestorage import FoldersRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.retrieve(
+        await client.filestorage.folders.retrieve(
             id="id",
             expand=FoldersRetrieveRequestExpand.DRIVE,
         )
@@ -438,7 +438,7 @@ class AsyncFoldersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.meta_post_retrieve()
+        await client.filestorage.folders.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

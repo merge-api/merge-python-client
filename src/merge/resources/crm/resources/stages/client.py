@@ -67,7 +67,7 @@ class StagesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.list()
+        client.crm.stages.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -120,7 +120,7 @@ class StagesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.retrieve(
+        client.crm.stages.retrieve(
             id="id",
         )
         """
@@ -170,7 +170,7 @@ class StagesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.remote_field_classes_list()
+        client.crm.stages.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -244,7 +244,7 @@ class AsyncStagesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.list()
+        await client.crm.stages.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -297,7 +297,7 @@ class AsyncStagesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.retrieve(
+        await client.crm.stages.retrieve(
             id="id",
         )
         """
@@ -347,7 +347,7 @@ class AsyncStagesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.remote_field_classes_list()
+        await client.crm.stages.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

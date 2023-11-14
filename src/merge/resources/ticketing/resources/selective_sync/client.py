@@ -36,7 +36,7 @@ class SelectiveSyncClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.configurations_list()
+        client.ticketing.selective_sync.configurations_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -63,14 +63,16 @@ class SelectiveSyncClient:
         Parameters:
             - sync_configurations: typing.List[LinkedAccountSelectiveSyncConfigurationRequest]. The selective syncs associated with a linked account.
         ---
-        from merge import LinkedAccountSelectiveSyncConfigurationRequest
         from merge.client import Merge
+        from merge.resources.ticketing import (
+            LinkedAccountSelectiveSyncConfigurationRequest,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.configurations_update(
+        client.ticketing.selective_sync.configurations_update(
             sync_configurations=[
                 LinkedAccountSelectiveSyncConfigurationRequest(
                     linked_account_conditions=[],
@@ -118,7 +120,7 @@ class SelectiveSyncClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.meta_list()
+        client.ticketing.selective_sync.meta_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -151,7 +153,7 @@ class AsyncSelectiveSyncClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.configurations_list()
+        await client.ticketing.selective_sync.configurations_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -178,14 +180,16 @@ class AsyncSelectiveSyncClient:
         Parameters:
             - sync_configurations: typing.List[LinkedAccountSelectiveSyncConfigurationRequest]. The selective syncs associated with a linked account.
         ---
-        from merge import LinkedAccountSelectiveSyncConfigurationRequest
         from merge.client import AsyncMerge
+        from merge.resources.ticketing import (
+            LinkedAccountSelectiveSyncConfigurationRequest,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.configurations_update(
+        await client.ticketing.selective_sync.configurations_update(
             sync_configurations=[
                 LinkedAccountSelectiveSyncConfigurationRequest(
                     linked_account_conditions=[],
@@ -233,7 +237,7 @@ class AsyncSelectiveSyncClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.meta_list()
+        await client.ticketing.selective_sync.meta_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

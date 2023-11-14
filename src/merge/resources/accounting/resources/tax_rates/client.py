@@ -71,7 +71,7 @@ class TaxRatesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.list(
+        client.accounting.tax_rates.list(
             expand="company",
         )
         """
@@ -127,7 +127,7 @@ class TaxRatesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.tax_rates.retrieve(
             id="id",
             expand="company",
         )
@@ -199,7 +199,7 @@ class AsyncTaxRatesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.list(
+        await client.accounting.tax_rates.list(
             expand="company",
         )
         """
@@ -255,7 +255,7 @@ class AsyncTaxRatesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.tax_rates.retrieve(
             id="id",
             expand="company",
         )

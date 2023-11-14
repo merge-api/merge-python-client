@@ -75,14 +75,14 @@ class CommentsClient:
 
             - ticket_id: typing.Optional[str]. If provided, will only return comments for this ticket.
         ---
-        from merge import CommentsListRequestExpand
         from merge.client import Merge
+        from merge.resources.ticketing import CommentsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.list(
+        client.ticketing.comments.list(
             expand=CommentsListRequestExpand.CONTACT,
         )
         """
@@ -135,14 +135,14 @@ class CommentsClient:
 
             - model: CommentRequest.
         ---
-        from merge import CommentRequest
         from merge.client import Merge
+        from merge.resources.ticketing import CommentRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.create(
+        client.ticketing.comments.create(
             model=CommentRequest(
                 body="When will these integrations be done? You all should use Merge.",
                 html_body="When will these integrations be done? You all should use <b>Merge<b>.",
@@ -182,14 +182,14 @@ class CommentsClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import CommentsRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.ticketing import CommentsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.retrieve(
+        client.ticketing.comments.retrieve(
             id="id",
             expand=CommentsRetrieveRequestExpand.CONTACT,
         )
@@ -220,7 +220,7 @@ class CommentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.meta_post_retrieve()
+        client.ticketing.comments.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -285,14 +285,14 @@ class AsyncCommentsClient:
 
             - ticket_id: typing.Optional[str]. If provided, will only return comments for this ticket.
         ---
-        from merge import CommentsListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.ticketing import CommentsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.list(
+        await client.ticketing.comments.list(
             expand=CommentsListRequestExpand.CONTACT,
         )
         """
@@ -345,14 +345,14 @@ class AsyncCommentsClient:
 
             - model: CommentRequest.
         ---
-        from merge import CommentRequest
         from merge.client import AsyncMerge
+        from merge.resources.ticketing import CommentRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.create(
+        await client.ticketing.comments.create(
             model=CommentRequest(
                 body="When will these integrations be done? You all should use Merge.",
                 html_body="When will these integrations be done? You all should use <b>Merge<b>.",
@@ -392,14 +392,14 @@ class AsyncCommentsClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import CommentsRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.ticketing import CommentsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.retrieve(
+        await client.ticketing.comments.retrieve(
             id="id",
             expand=CommentsRetrieveRequestExpand.CONTACT,
         )
@@ -430,7 +430,7 @@ class AsyncCommentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.meta_post_retrieve()
+        await client.ticketing.comments.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

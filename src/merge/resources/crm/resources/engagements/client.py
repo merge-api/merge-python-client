@@ -74,14 +74,14 @@ class EngagementsClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         ---
-        from merge import EngagementsListRequestExpand
         from merge.client import Merge
+        from merge.resources.crm import EngagementsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.list(
+        client.crm.engagements.list(
             expand=EngagementsListRequestExpand.ACCOUNT,
         )
         """
@@ -133,14 +133,14 @@ class EngagementsClient:
         ---
         import datetime
 
-        from merge import EngagementRequest
         from merge.client import Merge
+        from merge.resources.crm import EngagementRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.create(
+        client.crm.engagements.create(
             model=EngagementRequest(
                 content="Call for negotiation",
                 subject="Call from customer",
@@ -189,14 +189,14 @@ class EngagementsClient:
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
         ---
-        from merge import EngagementsRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.crm import EngagementsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.retrieve(
+        client.crm.engagements.retrieve(
             id="id",
             expand=EngagementsRetrieveRequestExpand.ACCOUNT,
         )
@@ -244,14 +244,14 @@ class EngagementsClient:
         ---
         import datetime
 
-        from merge import PatchedEngagementRequest
         from merge.client import Merge
+        from merge.resources.crm import PatchedEngagementRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.partial_update(
+        client.crm.engagements.partial_update(
             id="id",
             model=PatchedEngagementRequest(
                 owner="0358cbc6-2040-430a-848e-aafacbadf3aa",
@@ -297,7 +297,7 @@ class EngagementsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.meta_patch_retrieve(
+        client.crm.engagements.meta_patch_retrieve(
             id="id",
         )
         """
@@ -326,7 +326,7 @@ class EngagementsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.meta_post_retrieve()
+        client.crm.engagements.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -371,7 +371,7 @@ class EngagementsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.remote_field_classes_list()
+        client.crm.engagements.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -444,14 +444,14 @@ class AsyncEngagementsClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         ---
-        from merge import EngagementsListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.crm import EngagementsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.list(
+        await client.crm.engagements.list(
             expand=EngagementsListRequestExpand.ACCOUNT,
         )
         """
@@ -503,14 +503,14 @@ class AsyncEngagementsClient:
         ---
         import datetime
 
-        from merge import EngagementRequest
         from merge.client import AsyncMerge
+        from merge.resources.crm import EngagementRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.create(
+        await client.crm.engagements.create(
             model=EngagementRequest(
                 content="Call for negotiation",
                 subject="Call from customer",
@@ -559,14 +559,14 @@ class AsyncEngagementsClient:
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
         ---
-        from merge import EngagementsRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.crm import EngagementsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.retrieve(
+        await client.crm.engagements.retrieve(
             id="id",
             expand=EngagementsRetrieveRequestExpand.ACCOUNT,
         )
@@ -614,14 +614,14 @@ class AsyncEngagementsClient:
         ---
         import datetime
 
-        from merge import PatchedEngagementRequest
         from merge.client import AsyncMerge
+        from merge.resources.crm import PatchedEngagementRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.partial_update(
+        await client.crm.engagements.partial_update(
             id="id",
             model=PatchedEngagementRequest(
                 owner="0358cbc6-2040-430a-848e-aafacbadf3aa",
@@ -667,7 +667,7 @@ class AsyncEngagementsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.meta_patch_retrieve(
+        await client.crm.engagements.meta_patch_retrieve(
             id="id",
         )
         """
@@ -696,7 +696,7 @@ class AsyncEngagementsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.meta_post_retrieve()
+        await client.crm.engagements.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -741,7 +741,7 @@ class AsyncEngagementsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.remote_field_classes_list()
+        await client.crm.engagements.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

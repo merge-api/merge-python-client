@@ -72,7 +72,7 @@ class UsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.list()
+        client.crm.users.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -125,7 +125,7 @@ class UsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.retrieve(
+        client.crm.users.retrieve(
             id="id",
         )
         """
@@ -155,14 +155,14 @@ class UsersClient:
 
             - request: IgnoreCommonModelRequest.
         ---
-        from merge import IgnoreCommonModelRequest, ReasonEnum
         from merge.client import Merge
+        from merge.resources.crm import IgnoreCommonModelRequest, ReasonEnum
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.ignore_create(
+        client.crm.users.ignore_create(
             model_id="model-id",
             request=IgnoreCommonModelRequest(
                 reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
@@ -214,7 +214,7 @@ class UsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.remote_field_classes_list()
+        client.crm.users.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -288,7 +288,7 @@ class AsyncUsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.list()
+        await client.crm.users.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -341,7 +341,7 @@ class AsyncUsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.retrieve(
+        await client.crm.users.retrieve(
             id="id",
         )
         """
@@ -371,14 +371,14 @@ class AsyncUsersClient:
 
             - request: IgnoreCommonModelRequest.
         ---
-        from merge import IgnoreCommonModelRequest, ReasonEnum
         from merge.client import AsyncMerge
+        from merge.resources.crm import IgnoreCommonModelRequest, ReasonEnum
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.ignore_create(
+        await client.crm.users.ignore_create(
             model_id="model-id",
             request=IgnoreCommonModelRequest(
                 reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
@@ -430,7 +430,7 @@ class AsyncUsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.remote_field_classes_list()
+        await client.crm.users.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

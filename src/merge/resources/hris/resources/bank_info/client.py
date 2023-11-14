@@ -84,14 +84,17 @@ class BankInfoClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["account_type"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import BankInfoListRequestAccountType, BankInfoListRequestOrderBy
         from merge.client import Merge
+        from merge.resources.hris import (
+            BankInfoListRequestAccountType,
+            BankInfoListRequestOrderBy,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.list(
+        client.hris.bank_info.list(
             account_type=BankInfoListRequestAccountType.CHECKING,
             expand="employee",
             order_by=BankInfoListRequestOrderBy.REMOTE_CREATED_AT_DESCENDING,
@@ -162,7 +165,7 @@ class BankInfoClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.retrieve(
+        client.hris.bank_info.retrieve(
             id="id",
             expand="employee",
             remote_fields="account_type",
@@ -254,14 +257,17 @@ class AsyncBankInfoClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["account_type"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import BankInfoListRequestAccountType, BankInfoListRequestOrderBy
         from merge.client import AsyncMerge
+        from merge.resources.hris import (
+            BankInfoListRequestAccountType,
+            BankInfoListRequestOrderBy,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.list(
+        await client.hris.bank_info.list(
             account_type=BankInfoListRequestAccountType.CHECKING,
             expand="employee",
             order_by=BankInfoListRequestOrderBy.REMOTE_CREATED_AT_DESCENDING,
@@ -332,7 +338,7 @@ class AsyncBankInfoClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.retrieve(
+        await client.hris.bank_info.retrieve(
             id="id",
             expand="employee",
             remote_fields="account_type",

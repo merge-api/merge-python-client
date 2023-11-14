@@ -95,14 +95,17 @@ class InvoicesClient:
 
                                                               * `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
                                                               * `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE---
-        from merge import InvoicesListRequestExpand, InvoicesListRequestType
         from merge.client import Merge
+        from merge.resources.accounting import (
+            InvoicesListRequestExpand,
+            InvoicesListRequestType,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.list(
+        client.accounting.invoices.list(
             expand=InvoicesListRequestExpand.ACCOUNTING_PERIOD,
             remote_fields="type",
             show_enum_origins="type",
@@ -163,14 +166,14 @@ class InvoicesClient:
 
             - model: InvoiceRequest.
         ---
-        from merge import InvoiceLineItemRequest, InvoiceRequest
         from merge.client import Merge
+        from merge.resources.accounting import InvoiceLineItemRequest, InvoiceRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.create(
+        client.accounting.invoices.create(
             model=InvoiceRequest(
                 line_items=[
                     InvoiceLineItemRequest(
@@ -225,14 +228,14 @@ class InvoicesClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["type"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import InvoicesRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.accounting import InvoicesRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.invoices.retrieve(
             id="id",
             expand=InvoicesRetrieveRequestExpand.ACCOUNTING_PERIOD,
             remote_fields="type",
@@ -272,7 +275,7 @@ class InvoicesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.meta_post_retrieve()
+        client.accounting.invoices.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -354,14 +357,17 @@ class AsyncInvoicesClient:
 
                                                               * `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
                                                               * `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE---
-        from merge import InvoicesListRequestExpand, InvoicesListRequestType
         from merge.client import AsyncMerge
+        from merge.resources.accounting import (
+            InvoicesListRequestExpand,
+            InvoicesListRequestType,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.list(
+        await client.accounting.invoices.list(
             expand=InvoicesListRequestExpand.ACCOUNTING_PERIOD,
             remote_fields="type",
             show_enum_origins="type",
@@ -422,14 +428,14 @@ class AsyncInvoicesClient:
 
             - model: InvoiceRequest.
         ---
-        from merge import InvoiceLineItemRequest, InvoiceRequest
         from merge.client import AsyncMerge
+        from merge.resources.accounting import InvoiceLineItemRequest, InvoiceRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.create(
+        await client.accounting.invoices.create(
             model=InvoiceRequest(
                 line_items=[
                     InvoiceLineItemRequest(
@@ -484,14 +490,14 @@ class AsyncInvoicesClient:
 
             - show_enum_origins: typing.Optional[typing_extensions.Literal["type"]]. Which fields should be returned in non-normalized form.
         ---
-        from merge import InvoicesRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.accounting import InvoicesRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.invoices.retrieve(
             id="id",
             expand=InvoicesRetrieveRequestExpand.ACCOUNTING_PERIOD,
             remote_fields="type",
@@ -531,7 +537,7 @@ class AsyncInvoicesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.meta_post_retrieve()
+        await client.accounting.invoices.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

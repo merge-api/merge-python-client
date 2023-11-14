@@ -77,7 +77,7 @@ class TrackingCategoriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.list(
+        client.accounting.tracking_categories.list(
             expand="company",
             remote_fields="status",
             show_enum_origins="status",
@@ -143,7 +143,7 @@ class TrackingCategoriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.tracking_categories.retrieve(
             id="id",
             expand="company",
             remote_fields="status",
@@ -232,7 +232,7 @@ class AsyncTrackingCategoriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.list(
+        await client.accounting.tracking_categories.list(
             expand="company",
             remote_fields="status",
             show_enum_origins="status",
@@ -298,7 +298,7 @@ class AsyncTrackingCategoriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.tracking_categories.retrieve(
             id="id",
             expand="company",
             remote_fields="status",

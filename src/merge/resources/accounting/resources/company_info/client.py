@@ -62,14 +62,14 @@ class CompanyInfoClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         ---
-        from merge import CompanyInfoListRequestExpand
         from merge.client import Merge
+        from merge.resources.accounting import CompanyInfoListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.list(
+        client.accounting.company_info.list(
             expand=CompanyInfoListRequestExpand.ADDRESSES,
         )
         """
@@ -118,14 +118,14 @@ class CompanyInfoClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import CompanyInfoRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.accounting import CompanyInfoRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.company_info.retrieve(
             id="id",
             expand=CompanyInfoRetrieveRequestExpand.ADDRESSES,
         )
@@ -188,14 +188,14 @@ class AsyncCompanyInfoClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         ---
-        from merge import CompanyInfoListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.accounting import CompanyInfoListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.list(
+        await client.accounting.company_info.list(
             expand=CompanyInfoListRequestExpand.ADDRESSES,
         )
         """
@@ -244,14 +244,14 @@ class AsyncCompanyInfoClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import CompanyInfoRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.accounting import CompanyInfoRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.company_info.retrieve(
             id="id",
             expand=CompanyInfoRetrieveRequestExpand.ADDRESSES,
         )

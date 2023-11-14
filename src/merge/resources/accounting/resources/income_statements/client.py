@@ -71,7 +71,7 @@ class IncomeStatementsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.list(
+        client.accounting.income_statements.list(
             expand="company",
         )
         """
@@ -127,7 +127,7 @@ class IncomeStatementsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.income_statements.retrieve(
             id="id",
             expand="company",
         )
@@ -201,7 +201,7 @@ class AsyncIncomeStatementsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.list(
+        await client.accounting.income_statements.list(
             expand="company",
         )
         """
@@ -257,7 +257,7 @@ class AsyncIncomeStatementsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.income_statements.retrieve(
             id="id",
             expand="company",
         )

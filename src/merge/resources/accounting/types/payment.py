@@ -6,6 +6,7 @@ import typing
 from ....core.datetime_utils import serialize_datetime
 from .payment_account import PaymentAccount
 from .payment_accounting_period import PaymentAccountingPeriod
+from .payment_applied_to_lines_item import PaymentAppliedToLinesItem
 from .payment_company import PaymentCompany
 from .payment_contact import PaymentContact
 from .payment_currency import PaymentCurrency
@@ -364,6 +365,7 @@ class Payment(pydantic.BaseModel):
     accounting_period: typing.Optional[PaymentAccountingPeriod] = pydantic.Field(
         description="The accounting period that the Payment was generated in."
     )
+    applied_to_lines: typing.Optional[typing.List[PaymentAppliedToLinesItem]]
     created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"

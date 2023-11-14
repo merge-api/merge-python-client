@@ -85,14 +85,14 @@ class NotesClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         ---
-        from merge import NotesListRequestExpand
         from merge.client import Merge
+        from merge.resources.crm import NotesListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.list(
+        client.crm.notes.list(
             expand=NotesListRequestExpand.ACCOUNT,
         )
         """
@@ -146,14 +146,14 @@ class NotesClient:
 
             - model: NoteRequest.
         ---
-        from merge import NoteRequest
         from merge.client import Merge
+        from merge.resources.crm import NoteRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.create(
+        client.crm.notes.create(
             model=NoteRequest(
                 content="Merge is hiring!",
             ),
@@ -195,14 +195,14 @@ class NotesClient:
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
         ---
-        from merge import NotesRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.crm import NotesRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.retrieve(
+        client.crm.notes.retrieve(
             id="id",
             expand=NotesRetrieveRequestExpand.ACCOUNT,
         )
@@ -239,7 +239,7 @@ class NotesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.meta_post_retrieve()
+        client.crm.notes.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -284,7 +284,7 @@ class NotesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.remote_field_classes_list()
+        client.crm.notes.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -367,14 +367,14 @@ class AsyncNotesClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         ---
-        from merge import NotesListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.crm import NotesListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.list(
+        await client.crm.notes.list(
             expand=NotesListRequestExpand.ACCOUNT,
         )
         """
@@ -428,14 +428,14 @@ class AsyncNotesClient:
 
             - model: NoteRequest.
         ---
-        from merge import NoteRequest
         from merge.client import AsyncMerge
+        from merge.resources.crm import NoteRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.create(
+        await client.crm.notes.create(
             model=NoteRequest(
                 content="Merge is hiring!",
             ),
@@ -477,14 +477,14 @@ class AsyncNotesClient:
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
         ---
-        from merge import NotesRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.crm import NotesRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.retrieve(
+        await client.crm.notes.retrieve(
             id="id",
             expand=NotesRetrieveRequestExpand.ACCOUNT,
         )
@@ -521,7 +521,7 @@ class AsyncNotesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.meta_post_retrieve()
+        await client.crm.notes.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -566,7 +566,7 @@ class AsyncNotesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.remote_field_classes_list()
+        await client.crm.notes.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

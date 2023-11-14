@@ -83,7 +83,7 @@ class AccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.list(
+        client.crm.accounts.list(
             expand="owner",
         )
         """
@@ -136,14 +136,14 @@ class AccountsClient:
         ---
         import datetime
 
-        from merge import AccountRequest
         from merge.client import Merge
+        from merge.resources.crm import AccountRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.create(
+        client.crm.accounts.create(
             model=AccountRequest(
                 name="Merge API",
                 description="One API for all integrations",
@@ -198,7 +198,7 @@ class AccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.retrieve(
+        client.crm.accounts.retrieve(
             id="id",
             expand="owner",
         )
@@ -246,14 +246,14 @@ class AccountsClient:
         ---
         import datetime
 
-        from merge import PatchedAccountRequest
         from merge.client import Merge
+        from merge.resources.crm import PatchedAccountRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.partial_update(
+        client.crm.accounts.partial_update(
             id="id",
             model=PatchedAccountRequest(
                 owner="0258cbc6-6020-430a-848e-aafacbadf4ae",
@@ -297,7 +297,7 @@ class AccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.meta_patch_retrieve(
+        client.crm.accounts.meta_patch_retrieve(
             id="id",
         )
         """
@@ -326,7 +326,7 @@ class AccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.meta_post_retrieve()
+        client.crm.accounts.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -371,7 +371,7 @@ class AccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.remote_field_classes_list()
+        client.crm.accounts.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -451,7 +451,7 @@ class AsyncAccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.list(
+        await client.crm.accounts.list(
             expand="owner",
         )
         """
@@ -504,14 +504,14 @@ class AsyncAccountsClient:
         ---
         import datetime
 
-        from merge import AccountRequest
         from merge.client import AsyncMerge
+        from merge.resources.crm import AccountRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.create(
+        await client.crm.accounts.create(
             model=AccountRequest(
                 name="Merge API",
                 description="One API for all integrations",
@@ -566,7 +566,7 @@ class AsyncAccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.retrieve(
+        await client.crm.accounts.retrieve(
             id="id",
             expand="owner",
         )
@@ -614,14 +614,14 @@ class AsyncAccountsClient:
         ---
         import datetime
 
-        from merge import PatchedAccountRequest
         from merge.client import AsyncMerge
+        from merge.resources.crm import PatchedAccountRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.partial_update(
+        await client.crm.accounts.partial_update(
             id="id",
             model=PatchedAccountRequest(
                 owner="0258cbc6-6020-430a-848e-aafacbadf4ae",
@@ -665,7 +665,7 @@ class AsyncAccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.meta_patch_retrieve(
+        await client.crm.accounts.meta_patch_retrieve(
             id="id",
         )
         """
@@ -694,7 +694,7 @@ class AsyncAccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.meta_post_retrieve()
+        await client.crm.accounts.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -739,7 +739,7 @@ class AsyncAccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.remote_field_classes_list()
+        await client.crm.accounts.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

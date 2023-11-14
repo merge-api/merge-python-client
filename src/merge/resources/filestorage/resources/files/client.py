@@ -78,14 +78,14 @@ class FilesClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         ---
-        from merge import FilesListRequestExpand
         from merge.client import Merge
+        from merge.resources.filestorage import FilesListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.list(
+        client.filestorage.files.list(
             expand=FilesListRequestExpand.DRIVE,
         )
         """
@@ -137,14 +137,14 @@ class FilesClient:
 
             - model: FileRequest.
         ---
-        from merge import FileRequest
         from merge.client import Merge
+        from merge.resources.filestorage import FileRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.create(
+        client.filestorage.files.create(
             model=FileRequest(
                 name="omg_common_model_scope.docx",
                 file_url="https://drive.com/1234",
@@ -188,14 +188,14 @@ class FilesClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import FilesRetrieveRequestExpand
         from merge.client import Merge
+        from merge.resources.filestorage import FilesRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.retrieve(
+        client.filestorage.files.retrieve(
             id="id",
             expand=FilesRetrieveRequestExpand.DRIVE,
         )
@@ -250,7 +250,7 @@ class FilesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.meta_post_retrieve()
+        client.filestorage.files.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -318,14 +318,14 @@ class AsyncFilesClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
         ---
-        from merge import FilesListRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.filestorage import FilesListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.list(
+        await client.filestorage.files.list(
             expand=FilesListRequestExpand.DRIVE,
         )
         """
@@ -377,14 +377,14 @@ class AsyncFilesClient:
 
             - model: FileRequest.
         ---
-        from merge import FileRequest
         from merge.client import AsyncMerge
+        from merge.resources.filestorage import FileRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.create(
+        await client.filestorage.files.create(
             model=FileRequest(
                 name="omg_common_model_scope.docx",
                 file_url="https://drive.com/1234",
@@ -428,14 +428,14 @@ class AsyncFilesClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
         ---
-        from merge import FilesRetrieveRequestExpand
         from merge.client import AsyncMerge
+        from merge.resources.filestorage import FilesRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.retrieve(
+        await client.filestorage.files.retrieve(
             id="id",
             expand=FilesRetrieveRequestExpand.DRIVE,
         )
@@ -490,7 +490,7 @@ class AsyncFilesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.meta_post_retrieve()
+        await client.filestorage.files.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

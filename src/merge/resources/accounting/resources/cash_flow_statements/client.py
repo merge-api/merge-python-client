@@ -71,7 +71,7 @@ class CashFlowStatementsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.list(
+        client.accounting.cash_flow_statements.list(
             expand="company",
         )
         """
@@ -127,7 +127,7 @@ class CashFlowStatementsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.retrieve(
+        client.accounting.cash_flow_statements.retrieve(
             id="id",
             expand="company",
         )
@@ -201,7 +201,7 @@ class AsyncCashFlowStatementsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.list(
+        await client.accounting.cash_flow_statements.list(
             expand="company",
         )
         """
@@ -257,7 +257,7 @@ class AsyncCashFlowStatementsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.retrieve(
+        await client.accounting.cash_flow_statements.retrieve(
             id="id",
             expand="company",
         )
