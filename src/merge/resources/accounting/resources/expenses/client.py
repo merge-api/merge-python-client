@@ -142,11 +142,7 @@ class ExpensesClient:
             - model: ExpenseRequest.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import (
-            CurrencyEnum,
-            ExpenseLineRequest,
-            ExpenseRequest,
-        )
+        from merge.resources.accounting import ExpenseLineRequest, ExpenseRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -162,7 +158,6 @@ class ExpensesClient:
                         remote_id="121222",
                         net_amount=25.54,
                         company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
-                        currency=CurrencyEnum.XUA,
                         description="MacBook Pro",
                         exchange_rate="2.9",
                     )
@@ -373,11 +368,7 @@ class AsyncExpensesClient:
             - model: ExpenseRequest.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import (
-            CurrencyEnum,
-            ExpenseLineRequest,
-            ExpenseRequest,
-        )
+        from merge.resources.accounting import ExpenseLineRequest, ExpenseRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -393,7 +384,6 @@ class AsyncExpensesClient:
                         remote_id="121222",
                         net_amount=25.54,
                         company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
-                        currency=CurrencyEnum.XUA,
                         description="MacBook Pro",
                         exchange_rate="2.9",
                     )
