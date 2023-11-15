@@ -12,7 +12,7 @@ from .invoice_currency import InvoiceCurrency
 from .invoice_line_item import InvoiceLineItem
 from .invoice_payments_item import InvoicePaymentsItem
 from .invoice_purchase_orders_item import InvoicePurchaseOrdersItem
-from .invoice_status_enum import InvoiceStatusEnum
+from .invoice_status import InvoiceStatus
 from .invoice_tracking_categories_item import InvoiceTrackingCategoriesItem
 from .invoice_type import InvoiceType
 from .remote_data import RemoteData
@@ -366,7 +366,7 @@ class Invoice(pydantic.BaseModel):
         description="The total discounts applied to the total cost."
     )
     sub_total: typing.Optional[float] = pydantic.Field(description="The total amount being paid before taxes.")
-    status: typing.Optional[InvoiceStatusEnum] = pydantic.Field(
+    status: typing.Optional[InvoiceStatus] = pydantic.Field(
         description=(
             "The status of the invoice.\n"
             "\n"

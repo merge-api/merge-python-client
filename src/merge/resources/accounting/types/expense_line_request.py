@@ -4,9 +4,9 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .currency_enum import CurrencyEnum
 from .expense_line_request_account import ExpenseLineRequestAccount
 from .expense_line_request_contact import ExpenseLineRequestContact
+from .expense_line_request_currency import ExpenseLineRequestCurrency
 from .expense_line_request_item import ExpenseLineRequestItem
 from .expense_line_request_tracking_categories_item import ExpenseLineRequestTrackingCategoriesItem
 from .expense_line_request_tracking_category import ExpenseLineRequestTrackingCategory
@@ -33,7 +33,7 @@ class ExpenseLineRequest(pydantic.BaseModel):
     tracking_category: typing.Optional[ExpenseLineRequestTrackingCategory]
     tracking_categories: typing.Optional[typing.List[typing.Optional[ExpenseLineRequestTrackingCategoriesItem]]]
     company: typing.Optional[str] = pydantic.Field(description="The company the line belongs to.")
-    currency: typing.Optional[CurrencyEnum] = pydantic.Field(
+    currency: typing.Optional[ExpenseLineRequestCurrency] = pydantic.Field(
         description=(
             "The expense line item's currency.\n"
             "\n"

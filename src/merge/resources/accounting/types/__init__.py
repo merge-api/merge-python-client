@@ -109,6 +109,7 @@ from .expense_line_item import ExpenseLineItem
 from .expense_line_request import ExpenseLineRequest
 from .expense_line_request_account import ExpenseLineRequestAccount
 from .expense_line_request_contact import ExpenseLineRequestContact
+from .expense_line_request_currency import ExpenseLineRequestCurrency
 from .expense_line_request_item import ExpenseLineRequestItem
 from .expense_line_request_tracking_categories_item import ExpenseLineRequestTrackingCategoriesItem
 from .expense_line_request_tracking_category import ExpenseLineRequestTrackingCategory
@@ -157,6 +158,7 @@ from .invoice_request_status import InvoiceRequestStatus
 from .invoice_request_tracking_categories_item import InvoiceRequestTrackingCategoriesItem
 from .invoice_request_type import InvoiceRequestType
 from .invoice_response import InvoiceResponse
+from .invoice_status import InvoiceStatus
 from .invoice_status_enum import InvoiceStatusEnum
 from .invoice_tracking_categories_item import InvoiceTrackingCategoriesItem
 from .invoice_type import InvoiceType
@@ -438,6 +440,7 @@ __all__ = [
     "ExpenseLineRequest",
     "ExpenseLineRequestAccount",
     "ExpenseLineRequestContact",
+    "ExpenseLineRequestCurrency",
     "ExpenseLineRequestItem",
     "ExpenseLineRequestTrackingCategoriesItem",
     "ExpenseLineRequestTrackingCategory",
@@ -486,6 +489,7 @@ __all__ = [
     "InvoiceRequestTrackingCategoriesItem",
     "InvoiceRequestType",
     "InvoiceResponse",
+    "InvoiceStatus",
     "InvoiceStatusEnum",
     "InvoiceTrackingCategoriesItem",
     "InvoiceType",
