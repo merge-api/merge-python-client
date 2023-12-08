@@ -14,7 +14,9 @@ from ...types.engagement import Engagement
 from ...types.engagement_request import EngagementRequest
 from ...types.engagement_response import EngagementResponse
 from ...types.engagements_list_request_expand import EngagementsListRequestExpand
-from ...types.engagements_retrieve_request_expand import EngagementsRetrieveRequestExpand
+from ...types.engagements_retrieve_request_expand import (
+    EngagementsRetrieveRequestExpand,
+)
 from ...types.meta_response import MetaResponse
 from ...types.paginated_engagement_list import PaginatedEngagementList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
@@ -47,6 +49,8 @@ class EngagementsClient:
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
+        started_after: typing.Optional[dt.datetime] = None,
+        started_before: typing.Optional[dt.datetime] = None,
     ) -> PaginatedEngagementList:
         """
         Returns a list of `Engagement` objects.
@@ -73,6 +77,10 @@ class EngagementsClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+
+            - started_after: typing.Optional[dt.datetime]. If provided, will only return objects started after this datetime.
+
+            - started_before: typing.Optional[dt.datetime]. If provided, will only return objects started before this datetime.
         ---
         from merge.client import Merge
         from merge.resources.crm import EngagementsListRequestExpand
@@ -87,20 +95,36 @@ class EngagementsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements"
+            ),
             params=remove_none_from_dict(
                 {
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                    "created_after": serialize_datetime(created_after)
+                    if created_after is not None
+                    else None,
+                    "created_before": serialize_datetime(created_before)
+                    if created_before is not None
+                    else None,
                     "cursor": cursor,
-                    "expand": expand,
+                    "expand": expand.value if expand is not None else None,
                     "include_deleted_data": include_deleted_data,
                     "include_remote_data": include_remote_data,
                     "include_remote_fields": include_remote_fields,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                    "modified_after": serialize_datetime(modified_after)
+                    if modified_after is not None
+                    else None,
+                    "modified_before": serialize_datetime(modified_before)
+                    if modified_before is not None
+                    else None,
                     "page_size": page_size,
                     "remote_id": remote_id,
+                    "started_after": serialize_datetime(started_after)
+                    if modified_after is not None
+                    else None,
+                    "started_before": serialize_datetime(started_before)
+                    if modified_before is not None
+                    else None,
                 }
             ),
             headers=self._client_wrapper.get_headers(),
@@ -155,8 +179,12 @@ class EngagementsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements"
+            ),
+            params=remove_none_from_dict(
+                {"is_debug_mode": is_debug_mode, "run_async": run_async}
+            ),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -203,10 +231,13 @@ class EngagementsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/engagements/{id}"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/",
+                f"api/crm/v1/engagements/{id}",
+            ),
             params=remove_none_from_dict(
                 {
-                    "expand": expand,
+                    "expand": expand.value if expand is not None else None,
                     "include_remote_data": include_remote_data,
                     "include_remote_fields": include_remote_fields,
                 }
@@ -270,8 +301,13 @@ class EngagementsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/engagements/{id}"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/",
+                f"api/crm/v1/engagements/{id}",
+            ),
+            params=remove_none_from_dict(
+                {"is_debug_mode": is_debug_mode, "run_async": run_async}
+            ),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -303,7 +339,10 @@ class EngagementsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/engagements/meta/patch/{id}"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/",
+                f"api/crm/v1/engagements/meta/patch/{id}",
+            ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -330,7 +369,10 @@ class EngagementsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements/meta/post"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/",
+                "api/crm/v1/engagements/meta/post",
+            ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -376,7 +418,8 @@ class EngagementsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements/remote-field-classes"
+                f"{self._client_wrapper.get_base_url()}/",
+                "api/crm/v1/engagements/remote-field-classes",
             ),
             params=remove_none_from_dict(
                 {
@@ -457,18 +500,28 @@ class AsyncEngagementsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements"
+            ),
             params=remove_none_from_dict(
                 {
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                    "created_after": serialize_datetime(created_after)
+                    if created_after is not None
+                    else None,
+                    "created_before": serialize_datetime(created_before)
+                    if created_before is not None
+                    else None,
                     "cursor": cursor,
-                    "expand": expand,
+                    "expand": expand.value if expand is not None else None,
                     "include_deleted_data": include_deleted_data,
                     "include_remote_data": include_remote_data,
                     "include_remote_fields": include_remote_fields,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                    "modified_after": serialize_datetime(modified_after)
+                    if modified_after is not None
+                    else None,
+                    "modified_before": serialize_datetime(modified_before)
+                    if modified_before is not None
+                    else None,
                     "page_size": page_size,
                     "remote_id": remote_id,
                 }
@@ -525,8 +578,12 @@ class AsyncEngagementsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements"
+            ),
+            params=remove_none_from_dict(
+                {"is_debug_mode": is_debug_mode, "run_async": run_async}
+            ),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -573,10 +630,13 @@ class AsyncEngagementsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/engagements/{id}"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/",
+                f"api/crm/v1/engagements/{id}",
+            ),
             params=remove_none_from_dict(
                 {
-                    "expand": expand,
+                    "expand": expand.value if expand is not None else None,
                     "include_remote_data": include_remote_data,
                     "include_remote_fields": include_remote_fields,
                 }
@@ -640,8 +700,13 @@ class AsyncEngagementsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/engagements/{id}"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/",
+                f"api/crm/v1/engagements/{id}",
+            ),
+            params=remove_none_from_dict(
+                {"is_debug_mode": is_debug_mode, "run_async": run_async}
+            ),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -673,7 +738,10 @@ class AsyncEngagementsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/engagements/meta/patch/{id}"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/",
+                f"api/crm/v1/engagements/meta/patch/{id}",
+            ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -700,7 +768,10 @@ class AsyncEngagementsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements/meta/post"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/",
+                "api/crm/v1/engagements/meta/post",
+            ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -746,7 +817,8 @@ class AsyncEngagementsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements/remote-field-classes"
+                f"{self._client_wrapper.get_base_url()}/",
+                "api/crm/v1/engagements/remote-field-classes",
             ),
             params=remove_none_from_dict(
                 {
