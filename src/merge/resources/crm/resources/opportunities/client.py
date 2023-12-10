@@ -15,7 +15,9 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.meta_response import MetaResponse
 from ...types.opportunities_list_request_expand import OpportunitiesListRequestExpand
 from ...types.opportunities_list_request_status import OpportunitiesListRequestStatus
-from ...types.opportunities_retrieve_request_expand import OpportunitiesRetrieveRequestExpand
+from ...types.opportunities_retrieve_request_expand import (
+    OpportunitiesRetrieveRequestExpand,
+)
 from ...types.opportunity import Opportunity
 from ...types.opportunity_request import OpportunityRequest
 from ...types.opportunity_response import OpportunityResponse
@@ -117,19 +119,29 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"
+            ),
             params=remove_none_from_dict(
                 {
                     "account_id": account_id,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                    "created_after": serialize_datetime(created_after)
+                    if created_after is not None
+                    else None,
+                    "created_before": serialize_datetime(created_before)
+                    if created_before is not None
+                    else None,
                     "cursor": cursor,
-                    "expand": expand,
+                    "expand": expand.value if expand is not None else None,
                     "include_deleted_data": include_deleted_data,
                     "include_remote_data": include_remote_data,
                     "include_remote_fields": include_remote_fields,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                    "modified_after": serialize_datetime(modified_after)
+                    if modified_after is not None
+                    else None,
+                    "modified_before": serialize_datetime(modified_before)
+                    if modified_before is not None
+                    else None,
                     "owner_id": owner_id,
                     "page_size": page_size,
                     "remote_fields": remote_fields,
@@ -192,8 +204,12 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"
+            ),
+            params=remove_none_from_dict(
+                {"is_debug_mode": is_debug_mode, "run_async": run_async}
+            ),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -248,10 +264,13 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/{id}"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/",
+                f"api/crm/v1/opportunities/{id}",
+            ),
             params=remove_none_from_dict(
                 {
-                    "expand": expand,
+                    "expand": expand.value if expand is not None else None,
                     "include_remote_data": include_remote_data,
                     "include_remote_fields": include_remote_fields,
                     "remote_fields": remote_fields,
@@ -318,8 +337,13 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/{id}"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/",
+                f"api/crm/v1/opportunities/{id}",
+            ),
+            params=remove_none_from_dict(
+                {"is_debug_mode": is_debug_mode, "run_async": run_async}
+            ),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -352,7 +376,8 @@ class OpportunitiesClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/meta/patch/{id}"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"api/crm/v1/opportunities/meta/patch/{id}",
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -380,7 +405,10 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities/meta/post"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/",
+                "api/crm/v1/opportunities/meta/post",
+            ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -426,7 +454,8 @@ class OpportunitiesClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities/remote-field-classes"
+                f"{self._client_wrapper.get_base_url()}/",
+                "api/crm/v1/opportunities/remote-field-classes",
             ),
             params=remove_none_from_dict(
                 {
@@ -534,19 +563,29 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"
+            ),
             params=remove_none_from_dict(
                 {
                     "account_id": account_id,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                    "created_after": serialize_datetime(created_after)
+                    if created_after is not None
+                    else None,
+                    "created_before": serialize_datetime(created_before)
+                    if created_before is not None
+                    else None,
                     "cursor": cursor,
-                    "expand": expand,
+                    "expand": expand.value if expand is not None else None,
                     "include_deleted_data": include_deleted_data,
                     "include_remote_data": include_remote_data,
                     "include_remote_fields": include_remote_fields,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                    "modified_after": serialize_datetime(modified_after)
+                    if modified_after is not None
+                    else None,
+                    "modified_before": serialize_datetime(modified_before)
+                    if modified_before is not None
+                    else None,
                     "owner_id": owner_id,
                     "page_size": page_size,
                     "remote_fields": remote_fields,
@@ -609,8 +648,12 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"
+            ),
+            params=remove_none_from_dict(
+                {"is_debug_mode": is_debug_mode, "run_async": run_async}
+            ),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -665,10 +708,13 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/{id}"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/",
+                f"api/crm/v1/opportunities/{id}",
+            ),
             params=remove_none_from_dict(
                 {
-                    "expand": expand,
+                    "expand": expand.value if expand is not None else None,
                     "include_remote_data": include_remote_data,
                     "include_remote_fields": include_remote_fields,
                     "remote_fields": remote_fields,
@@ -735,8 +781,13 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/{id}"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/",
+                f"api/crm/v1/opportunities/{id}",
+            ),
+            params=remove_none_from_dict(
+                {"is_debug_mode": is_debug_mode, "run_async": run_async}
+            ),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -769,7 +820,8 @@ class AsyncOpportunitiesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/meta/patch/{id}"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"api/crm/v1/opportunities/meta/patch/{id}",
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -797,7 +849,10 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities/meta/post"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/",
+                "api/crm/v1/opportunities/meta/post",
+            ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -843,7 +898,8 @@ class AsyncOpportunitiesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities/remote-field-classes"
+                f"{self._client_wrapper.get_base_url()}/",
+                "api/crm/v1/opportunities/remote-field-classes",
             ),
             params=remove_none_from_dict(
                 {
