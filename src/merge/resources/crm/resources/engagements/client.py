@@ -120,10 +120,10 @@ class EngagementsClient:
                     "page_size": page_size,
                     "remote_id": remote_id,
                     "started_after": serialize_datetime(started_after)
-                    if modified_after is not None
+                    if started_after is not None
                     else None,
                     "started_before": serialize_datetime(started_before)
-                    if modified_before is not None
+                    if started_before is not None
                     else None,
                 }
             ),
