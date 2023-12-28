@@ -32,7 +32,7 @@ class AccountDetailsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/account-details"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "account-details"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -64,7 +64,7 @@ class AsyncAccountDetailsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/account-details"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "account-details"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

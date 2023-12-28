@@ -10,13 +10,13 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.credit_note import CreditNote
-from ...types.credit_notes_list_request_expand import CreditNotesListRequestExpand
-from ...types.credit_notes_list_request_remote_fields import CreditNotesListRequestRemoteFields
-from ...types.credit_notes_list_request_show_enum_origins import CreditNotesListRequestShowEnumOrigins
-from ...types.credit_notes_retrieve_request_expand import CreditNotesRetrieveRequestExpand
-from ...types.credit_notes_retrieve_request_remote_fields import CreditNotesRetrieveRequestRemoteFields
-from ...types.credit_notes_retrieve_request_show_enum_origins import CreditNotesRetrieveRequestShowEnumOrigins
 from ...types.paginated_credit_note_list import PaginatedCreditNoteList
+from .types.credit_notes_list_request_expand import CreditNotesListRequestExpand
+from .types.credit_notes_list_request_remote_fields import CreditNotesListRequestRemoteFields
+from .types.credit_notes_list_request_show_enum_origins import CreditNotesListRequestShowEnumOrigins
+from .types.credit_notes_retrieve_request_expand import CreditNotesRetrieveRequestExpand
+from .types.credit_notes_retrieve_request_remote_fields import CreditNotesRetrieveRequestRemoteFields
+from .types.credit_notes_retrieve_request_show_enum_origins import CreditNotesRetrieveRequestShowEnumOrigins
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -100,7 +100,7 @@ class CreditNotesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/credit-notes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "credit-notes"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -178,7 +178,7 @@ class CreditNotesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/credit-notes/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"credit-notes/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -275,7 +275,7 @@ class AsyncCreditNotesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/credit-notes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "credit-notes"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -353,7 +353,7 @@ class AsyncCreditNotesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/credit-notes/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"credit-notes/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,

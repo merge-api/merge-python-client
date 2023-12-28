@@ -17,10 +17,13 @@ except ImportError:
 class BankInfo(pydantic.BaseModel):
     """
     # The BankInfo Object
+
     ### Description
+
     The `BankInfo` object is used to represent the Bank Account information for an Employee.
 
     ### Usage Example
+
     Fetch from the `LIST BankInfo` endpoint and filter by `ID` to show all bank information.
     """
 
@@ -31,7 +34,7 @@ class BankInfo(pydantic.BaseModel):
     routing_number: typing.Optional[str] = pydantic.Field(description="The routing number.")
     bank_name: typing.Optional[str] = pydantic.Field(description="The bank name.")
     account_type: typing.Optional[BankInfoAccountType] = pydantic.Field(
-        description=("The bank account type\n" "\n" "* `SAVINGS` - SAVINGS\n" "* `CHECKING` - CHECKING\n")
+        description=("The bank account type\n" "\n" "- `SAVINGS` - SAVINGS\n" "- `CHECKING` - CHECKING\n")
     )
     remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="When the matching bank object was created in the third party system."

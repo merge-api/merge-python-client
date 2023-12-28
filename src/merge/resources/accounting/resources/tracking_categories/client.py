@@ -85,7 +85,7 @@ class TrackingCategoriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/tracking-categories"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "tracking-categories"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -152,9 +152,7 @@ class TrackingCategoriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/tracking-categories/{id}"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"tracking-categories/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -240,7 +238,7 @@ class AsyncTrackingCategoriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/tracking-categories"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "tracking-categories"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -307,9 +305,7 @@ class AsyncTrackingCategoriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/tracking-categories/{id}"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"tracking-categories/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,

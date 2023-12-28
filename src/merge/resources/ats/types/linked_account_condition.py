@@ -17,7 +17,7 @@ class LinkedAccountCondition(pydantic.BaseModel):
     )
     common_model: typing.Optional[str] = pydantic.Field(description="The common model for a specific condition.")
     native_name: typing.Optional[str] = pydantic.Field(
-        description='User-facing *native condition* name. e.g. "Skip Manager".'
+        description='User-facing _native condition_ name. e.g. "Skip Manager".'
     )
     operator: str = pydantic.Field(description="The operator for a specific condition.")
     value: typing.Optional[typing.Any]

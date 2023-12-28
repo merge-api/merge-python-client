@@ -15,10 +15,13 @@ except ImportError:
 class Tag(pydantic.BaseModel):
     """
     # The Tag Object
+
     ### Description
+
     The `Tag` object is used to represent a tag or label for a ticket.
 
     ### Usage Example
+
     TODO
     """
 

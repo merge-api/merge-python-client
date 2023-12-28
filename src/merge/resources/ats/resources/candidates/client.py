@@ -13,12 +13,12 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.candidate import Candidate
 from ...types.candidate_request import CandidateRequest
 from ...types.candidate_response import CandidateResponse
-from ...types.candidates_list_request_expand import CandidatesListRequestExpand
-from ...types.candidates_retrieve_request_expand import CandidatesRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
 from ...types.paginated_candidate_list import PaginatedCandidateList
 from ...types.patched_candidate_request import PatchedCandidateRequest
 from ...types.reason_enum import ReasonEnum
+from .types.candidates_list_request_expand import CandidatesListRequestExpand
+from .types.candidates_retrieve_request_expand import CandidatesRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -96,7 +96,7 @@ class CandidatesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/candidates"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "candidates"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -148,7 +148,7 @@ class CandidatesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/candidates"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "candidates"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
             headers=self._client_wrapper.get_headers(),
@@ -193,7 +193,7 @@ class CandidatesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"candidates/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -231,7 +231,7 @@ class CandidatesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"candidates/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
             headers=self._client_wrapper.get_headers(),
@@ -274,7 +274,7 @@ class CandidatesClient:
             _request["message"] = message
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/ignore/{model_id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"candidates/ignore/{model_id}"),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -306,7 +306,7 @@ class CandidatesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"candidates/meta/patch/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -333,7 +333,7 @@ class CandidatesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/candidates/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "candidates/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -413,7 +413,7 @@ class AsyncCandidatesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/candidates"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "candidates"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -465,7 +465,7 @@ class AsyncCandidatesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/candidates"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "candidates"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
             headers=self._client_wrapper.get_headers(),
@@ -510,7 +510,7 @@ class AsyncCandidatesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"candidates/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -548,7 +548,7 @@ class AsyncCandidatesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"candidates/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
             headers=self._client_wrapper.get_headers(),
@@ -591,7 +591,7 @@ class AsyncCandidatesClient:
             _request["message"] = message
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/ignore/{model_id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"candidates/ignore/{model_id}"),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -623,7 +623,7 @@ class AsyncCandidatesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"candidates/meta/patch/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -650,7 +650,7 @@ class AsyncCandidatesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/candidates/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "candidates/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

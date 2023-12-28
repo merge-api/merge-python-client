@@ -8,9 +8,9 @@ T_Result = typing.TypeVar("T_Result")
 
 class ActivityTypeEnum(str, enum.Enum):
     """
-    * `NOTE` - NOTE
-    * `EMAIL` - EMAIL
-    * `OTHER` - OTHER
+    - `NOTE` - NOTE
+    - `EMAIL` - EMAIL
+    - `OTHER` - OTHER
     """
 
     NOTE = "NOTE"

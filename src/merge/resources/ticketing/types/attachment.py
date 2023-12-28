@@ -17,10 +17,13 @@ except ImportError:
 class Attachment(pydantic.BaseModel):
     """
     # The Attachment Object
+
     ### Description
+
     The `Attachment` object is used to represent an attachment for a ticket.
 
     ### Usage Example
+
     TODO
     """
 

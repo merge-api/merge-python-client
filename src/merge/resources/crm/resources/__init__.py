@@ -32,8 +32,35 @@ from . import (
     users,
     webhook_receivers,
 )
+from .contacts import ContactsListRequestExpand, ContactsRetrieveRequestExpand
+from .engagements import EngagementsListRequestExpand, EngagementsRetrieveRequestExpand
+from .issues import IssuesListRequestStatus
+from .leads import LeadsListRequestExpand, LeadsRetrieveRequestExpand
+from .linked_accounts import LinkedAccountsListRequestCategory
+from .notes import NotesListRequestExpand, NotesRetrieveRequestExpand
+from .opportunities import (
+    OpportunitiesListRequestExpand,
+    OpportunitiesListRequestStatus,
+    OpportunitiesRetrieveRequestExpand,
+)
+from .tasks import TasksListRequestExpand, TasksRetrieveRequestExpand
 
 __all__ = [
+    "ContactsListRequestExpand",
+    "ContactsRetrieveRequestExpand",
+    "EngagementsListRequestExpand",
+    "EngagementsRetrieveRequestExpand",
+    "IssuesListRequestStatus",
+    "LeadsListRequestExpand",
+    "LeadsRetrieveRequestExpand",
+    "LinkedAccountsListRequestCategory",
+    "NotesListRequestExpand",
+    "NotesRetrieveRequestExpand",
+    "OpportunitiesListRequestExpand",
+    "OpportunitiesListRequestStatus",
+    "OpportunitiesRetrieveRequestExpand",
+    "TasksListRequestExpand",
+    "TasksRetrieveRequestExpand",
     "account_details",
     "account_token",
     "accounts",

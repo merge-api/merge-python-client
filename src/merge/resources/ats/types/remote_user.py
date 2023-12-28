@@ -16,9 +16,13 @@ except ImportError:
 class RemoteUser(pydantic.BaseModel):
     """
     # The RemoteUser Object
+
     ### Description
+
     The `RemoteUser` object is used to represent a user with a login to the ATS system.
+
     ### Usage Example
+
     Fetch from the `LIST RemoteUsers` endpoint to show all users for a third party.
     """
 
@@ -35,11 +39,11 @@ class RemoteUser(pydantic.BaseModel):
         description=(
             "The user's role.\n"
             "\n"
-            "* `SUPER_ADMIN` - SUPER_ADMIN\n"
-            "* `ADMIN` - ADMIN\n"
-            "* `TEAM_MEMBER` - TEAM_MEMBER\n"
-            "* `LIMITED_TEAM_MEMBER` - LIMITED_TEAM_MEMBER\n"
-            "* `INTERVIEWER` - INTERVIEWER\n"
+            "- `SUPER_ADMIN` - SUPER_ADMIN\n"
+            "- `ADMIN` - ADMIN\n"
+            "- `TEAM_MEMBER` - TEAM_MEMBER\n"
+            "- `LIMITED_TEAM_MEMBER` - LIMITED_TEAM_MEMBER\n"
+            "- `INTERVIEWER` - INTERVIEWER\n"
         )
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(

@@ -24,8 +24,6 @@ from .collection_access_level import CollectionAccessLevel
 from .collection_collection_type import CollectionCollectionType
 from .collection_parent_collection import CollectionParentCollection
 from .collection_type_enum import CollectionTypeEnum
-from .collections_list_request_collection_type import CollectionsListRequestCollectionType
-from .collections_users_list_request_expand import CollectionsUsersListRequestExpand
 from .comment import Comment
 from .comment_contact import CommentContact
 from .comment_request import CommentRequest
@@ -35,8 +33,6 @@ from .comment_request_user import CommentRequestUser
 from .comment_response import CommentResponse
 from .comment_ticket import CommentTicket
 from .comment_user import CommentUser
-from .comments_list_request_expand import CommentsListRequestExpand
-from .comments_retrieve_request_expand import CommentsRetrieveRequestExpand
 from .common_model_scopes_body_request import CommonModelScopesBodyRequest
 from .condition_schema import ConditionSchema
 from .condition_schema_condition_type import ConditionSchemaConditionType
@@ -55,7 +51,6 @@ from .field_type_enum import FieldTypeEnum
 from .issue import Issue
 from .issue_status import IssueStatus
 from .issue_status_enum import IssueStatusEnum
-from .issues_list_request_status import IssuesListRequestStatus
 from .item_format_enum import ItemFormatEnum
 from .item_schema import ItemSchema
 from .item_type_enum import ItemTypeEnum
@@ -65,7 +60,6 @@ from .linked_account_condition_request import LinkedAccountConditionRequest
 from .linked_account_selective_sync_configuration import LinkedAccountSelectiveSyncConfiguration
 from .linked_account_selective_sync_configuration_request import LinkedAccountSelectiveSyncConfigurationRequest
 from .linked_account_status import LinkedAccountStatus
-from .linked_accounts_list_request_category import LinkedAccountsListRequestCategory
 from .meta_response import MetaResponse
 from .method_enum import MethodEnum
 from .model_operation import ModelOperation
@@ -83,6 +77,7 @@ from .paginated_contact_list import PaginatedContactList
 from .paginated_issue_list import PaginatedIssueList
 from .paginated_project_list import PaginatedProjectList
 from .paginated_remote_field_class_list import PaginatedRemoteFieldClassList
+from .paginated_role_list import PaginatedRoleList
 from .paginated_sync_status_list import PaginatedSyncStatusList
 from .paginated_tag_list import PaginatedTagList
 from .paginated_team_list import PaginatedTeamList
@@ -93,7 +88,6 @@ from .patched_ticket_request_priority import PatchedTicketRequestPriority
 from .patched_ticket_request_status import PatchedTicketRequestStatus
 from .priority_enum import PriorityEnum
 from .project import Project
-from .projects_users_list_request_expand import ProjectsUsersListRequestExpand
 from .remote_data import RemoteData
 from .remote_field import RemoteField
 from .remote_field_class import RemoteFieldClass
@@ -107,14 +101,19 @@ from .remote_key import RemoteKey
 from .remote_response import RemoteResponse
 from .request_format_enum import RequestFormatEnum
 from .response_type_enum import ResponseTypeEnum
+from .role import Role
 from .role_enum import RoleEnum
+from .role_ticket_access import RoleTicketAccess
+from .role_ticket_actions_item import RoleTicketActionsItem
 from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
 from .sync_status import SyncStatus
 from .sync_status_status_enum import SyncStatusStatusEnum
 from .tag import Tag
 from .team import Team
 from .ticket import Ticket
+from .ticket_access_enum import TicketAccessEnum
 from .ticket_account import TicketAccount
+from .ticket_actions_enum import TicketActionsEnum
 from .ticket_assignees_item import TicketAssigneesItem
 from .ticket_attachments_item import TicketAttachmentsItem
 from .ticket_collections_item import TicketCollectionsItem
@@ -136,19 +135,9 @@ from .ticket_response import TicketResponse
 from .ticket_status import TicketStatus
 from .ticket_status_enum import TicketStatusEnum
 from .ticketing_attachment_response import TicketingAttachmentResponse
-from .tickets_collaborators_list_request_expand import TicketsCollaboratorsListRequestExpand
-from .tickets_list_request_expand import TicketsListRequestExpand
-from .tickets_list_request_priority import TicketsListRequestPriority
-from .tickets_list_request_remote_fields import TicketsListRequestRemoteFields
-from .tickets_list_request_show_enum_origins import TicketsListRequestShowEnumOrigins
-from .tickets_list_request_status import TicketsListRequestStatus
-from .tickets_retrieve_request_expand import TicketsRetrieveRequestExpand
-from .tickets_retrieve_request_remote_fields import TicketsRetrieveRequestRemoteFields
-from .tickets_retrieve_request_show_enum_origins import TicketsRetrieveRequestShowEnumOrigins
 from .user import User
+from .user_roles_item import UserRolesItem
 from .user_teams_item import UserTeamsItem
-from .users_list_request_expand import UsersListRequestExpand
-from .users_retrieve_request_expand import UsersRetrieveRequestExpand
 from .validation_problem_source import ValidationProblemSource
 from .warning_validation_problem import WarningValidationProblem
 from .webhook_receiver import WebhookReceiver
@@ -178,8 +167,6 @@ __all__ = [
     "CollectionCollectionType",
     "CollectionParentCollection",
     "CollectionTypeEnum",
-    "CollectionsListRequestCollectionType",
-    "CollectionsUsersListRequestExpand",
     "Comment",
     "CommentContact",
     "CommentRequest",
@@ -189,8 +176,6 @@ __all__ = [
     "CommentResponse",
     "CommentTicket",
     "CommentUser",
-    "CommentsListRequestExpand",
-    "CommentsRetrieveRequestExpand",
     "CommonModelScopesBodyRequest",
     "ConditionSchema",
     "ConditionSchemaConditionType",
@@ -209,7 +194,6 @@ __all__ = [
     "Issue",
     "IssueStatus",
     "IssueStatusEnum",
-    "IssuesListRequestStatus",
     "ItemFormatEnum",
     "ItemSchema",
     "ItemTypeEnum",
@@ -219,7 +203,6 @@ __all__ = [
     "LinkedAccountSelectiveSyncConfiguration",
     "LinkedAccountSelectiveSyncConfigurationRequest",
     "LinkedAccountStatus",
-    "LinkedAccountsListRequestCategory",
     "MetaResponse",
     "MethodEnum",
     "ModelOperation",
@@ -237,6 +220,7 @@ __all__ = [
     "PaginatedIssueList",
     "PaginatedProjectList",
     "PaginatedRemoteFieldClassList",
+    "PaginatedRoleList",
     "PaginatedSyncStatusList",
     "PaginatedTagList",
     "PaginatedTeamList",
@@ -247,7 +231,6 @@ __all__ = [
     "PatchedTicketRequestStatus",
     "PriorityEnum",
     "Project",
-    "ProjectsUsersListRequestExpand",
     "RemoteData",
     "RemoteField",
     "RemoteFieldClass",
@@ -261,14 +244,19 @@ __all__ = [
     "RemoteResponse",
     "RequestFormatEnum",
     "ResponseTypeEnum",
+    "Role",
     "RoleEnum",
+    "RoleTicketAccess",
+    "RoleTicketActionsItem",
     "SelectiveSyncConfigurationsUsageEnum",
     "SyncStatus",
     "SyncStatusStatusEnum",
     "Tag",
     "Team",
     "Ticket",
+    "TicketAccessEnum",
     "TicketAccount",
+    "TicketActionsEnum",
     "TicketAssigneesItem",
     "TicketAttachmentsItem",
     "TicketCollectionsItem",
@@ -290,19 +278,9 @@ __all__ = [
     "TicketStatus",
     "TicketStatusEnum",
     "TicketingAttachmentResponse",
-    "TicketsCollaboratorsListRequestExpand",
-    "TicketsListRequestExpand",
-    "TicketsListRequestPriority",
-    "TicketsListRequestRemoteFields",
-    "TicketsListRequestShowEnumOrigins",
-    "TicketsListRequestStatus",
-    "TicketsRetrieveRequestExpand",
-    "TicketsRetrieveRequestRemoteFields",
-    "TicketsRetrieveRequestShowEnumOrigins",
     "User",
+    "UserRolesItem",
     "UserTeamsItem",
-    "UsersListRequestExpand",
-    "UsersRetrieveRequestExpand",
     "ValidationProblemSource",
     "WarningValidationProblem",
     "WebhookReceiver",

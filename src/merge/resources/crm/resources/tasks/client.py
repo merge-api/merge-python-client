@@ -17,8 +17,8 @@ from ...types.patched_task_request import PatchedTaskRequest
 from ...types.task import Task
 from ...types.task_request import TaskRequest
 from ...types.task_response import TaskResponse
-from ...types.tasks_list_request_expand import TasksListRequestExpand
-from ...types.tasks_retrieve_request_expand import TasksRetrieveRequestExpand
+from .types.tasks_list_request_expand import TasksListRequestExpand
+from .types.tasks_retrieve_request_expand import TasksRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -87,7 +87,7 @@ class TasksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/tasks"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "tasks"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -155,7 +155,7 @@ class TasksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/tasks"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "tasks"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -203,7 +203,7 @@ class TasksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/tasks/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"tasks/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -270,7 +270,7 @@ class TasksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/tasks/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"tasks/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -303,7 +303,7 @@ class TasksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/tasks/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"tasks/meta/patch/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -330,7 +330,7 @@ class TasksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/tasks/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "tasks/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -375,7 +375,7 @@ class TasksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/tasks/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "tasks/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -455,7 +455,7 @@ class AsyncTasksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/tasks"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "tasks"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -523,7 +523,7 @@ class AsyncTasksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/tasks"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "tasks"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -571,7 +571,7 @@ class AsyncTasksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/tasks/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"tasks/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -638,7 +638,7 @@ class AsyncTasksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/tasks/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"tasks/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -671,7 +671,7 @@ class AsyncTasksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/tasks/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"tasks/meta/patch/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -698,7 +698,7 @@ class AsyncTasksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/tasks/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "tasks/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -743,7 +743,7 @@ class AsyncTasksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/tasks/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "tasks/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

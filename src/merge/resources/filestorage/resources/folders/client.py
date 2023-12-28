@@ -13,10 +13,10 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.file_storage_folder_response import FileStorageFolderResponse
 from ...types.folder import Folder
 from ...types.folder_request import FolderRequest
-from ...types.folders_list_request_expand import FoldersListRequestExpand
-from ...types.folders_retrieve_request_expand import FoldersRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
 from ...types.paginated_folder_list import PaginatedFolderList
+from .types.folders_list_request_expand import FoldersListRequestExpand
+from .types.folders_retrieve_request_expand import FoldersRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -91,7 +91,7 @@ class FoldersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/folders"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "folders"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -155,7 +155,7 @@ class FoldersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/folders"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "folders"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -200,7 +200,7 @@ class FoldersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/folders/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"folders/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -228,7 +228,7 @@ class FoldersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/folders/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "folders/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -305,7 +305,7 @@ class AsyncFoldersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/folders"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "folders"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -369,7 +369,7 @@ class AsyncFoldersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/folders"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "folders"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -414,7 +414,7 @@ class AsyncFoldersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/folders/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"folders/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -442,7 +442,7 @@ class AsyncFoldersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/folders/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "folders/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

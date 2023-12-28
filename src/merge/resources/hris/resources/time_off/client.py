@@ -13,16 +13,16 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.meta_response import MetaResponse
 from ...types.paginated_time_off_list import PaginatedTimeOffList
 from ...types.time_off import TimeOff
-from ...types.time_off_list_request_expand import TimeOffListRequestExpand
-from ...types.time_off_list_request_remote_fields import TimeOffListRequestRemoteFields
-from ...types.time_off_list_request_request_type import TimeOffListRequestRequestType
-from ...types.time_off_list_request_show_enum_origins import TimeOffListRequestShowEnumOrigins
-from ...types.time_off_list_request_status import TimeOffListRequestStatus
 from ...types.time_off_request import TimeOffRequest
 from ...types.time_off_response import TimeOffResponse
-from ...types.time_off_retrieve_request_expand import TimeOffRetrieveRequestExpand
-from ...types.time_off_retrieve_request_remote_fields import TimeOffRetrieveRequestRemoteFields
-from ...types.time_off_retrieve_request_show_enum_origins import TimeOffRetrieveRequestShowEnumOrigins
+from .types.time_off_list_request_expand import TimeOffListRequestExpand
+from .types.time_off_list_request_remote_fields import TimeOffListRequestRemoteFields
+from .types.time_off_list_request_request_type import TimeOffListRequestRequestType
+from .types.time_off_list_request_show_enum_origins import TimeOffListRequestShowEnumOrigins
+from .types.time_off_list_request_status import TimeOffListRequestStatus
+from .types.time_off_retrieve_request_expand import TimeOffRetrieveRequestExpand
+from .types.time_off_retrieve_request_remote_fields import TimeOffRetrieveRequestRemoteFields
+from .types.time_off_retrieve_request_show_enum_origins import TimeOffRetrieveRequestShowEnumOrigins
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -89,21 +89,21 @@ class TimeOffClient:
 
             - request_type: typing.Optional[TimeOffListRequestRequestType]. If provided, will only return TimeOff with this request type. Options: ('VACATION', 'SICK', 'PERSONAL', 'JURY_DUTY', 'VOLUNTEER', 'BEREAVEMENT')
 
-                                                                            * `VACATION` - VACATION
-                                                                            * `SICK` - SICK
-                                                                            * `PERSONAL` - PERSONAL
-                                                                            * `JURY_DUTY` - JURY_DUTY
-                                                                            * `VOLUNTEER` - VOLUNTEER
-                                                                            * `BEREAVEMENT` - BEREAVEMENT
+                                                                            - `VACATION` - VACATION
+                                                                            - `SICK` - SICK
+                                                                            - `PERSONAL` - PERSONAL
+                                                                            - `JURY_DUTY` - JURY_DUTY
+                                                                            - `VOLUNTEER` - VOLUNTEER
+                                                                            - `BEREAVEMENT` - BEREAVEMENT
             - show_enum_origins: typing.Optional[TimeOffListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
 
             - status: typing.Optional[TimeOffListRequestStatus]. If provided, will only return TimeOff with this status. Options: ('REQUESTED', 'APPROVED', 'DECLINED', 'CANCELLED', 'DELETED')
 
-                                                                 * `REQUESTED` - REQUESTED
-                                                                 * `APPROVED` - APPROVED
-                                                                 * `DECLINED` - DECLINED
-                                                                 * `CANCELLED` - CANCELLED
-                                                                 * `DELETED` - DELETED---
+                                                                 - `REQUESTED` - REQUESTED
+                                                                 - `APPROVED` - APPROVED
+                                                                 - `DECLINED` - DECLINED
+                                                                 - `CANCELLED` - CANCELLED
+                                                                 - `DELETED` - DELETED---
         from merge.client import Merge
         from merge.resources.hris import (
             TimeOffListRequestExpand,
@@ -127,7 +127,7 @@ class TimeOffClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "time-off"),
             params=remove_none_from_dict(
                 {
                     "approver_id": approver_id,
@@ -200,7 +200,7 @@ class TimeOffClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "time-off"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -257,7 +257,7 @@ class TimeOffClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/time-off/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"time-off/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -292,7 +292,7 @@ class TimeOffClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "time-off/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -361,21 +361,21 @@ class AsyncTimeOffClient:
 
             - request_type: typing.Optional[TimeOffListRequestRequestType]. If provided, will only return TimeOff with this request type. Options: ('VACATION', 'SICK', 'PERSONAL', 'JURY_DUTY', 'VOLUNTEER', 'BEREAVEMENT')
 
-                                                                            * `VACATION` - VACATION
-                                                                            * `SICK` - SICK
-                                                                            * `PERSONAL` - PERSONAL
-                                                                            * `JURY_DUTY` - JURY_DUTY
-                                                                            * `VOLUNTEER` - VOLUNTEER
-                                                                            * `BEREAVEMENT` - BEREAVEMENT
+                                                                            - `VACATION` - VACATION
+                                                                            - `SICK` - SICK
+                                                                            - `PERSONAL` - PERSONAL
+                                                                            - `JURY_DUTY` - JURY_DUTY
+                                                                            - `VOLUNTEER` - VOLUNTEER
+                                                                            - `BEREAVEMENT` - BEREAVEMENT
             - show_enum_origins: typing.Optional[TimeOffListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
 
             - status: typing.Optional[TimeOffListRequestStatus]. If provided, will only return TimeOff with this status. Options: ('REQUESTED', 'APPROVED', 'DECLINED', 'CANCELLED', 'DELETED')
 
-                                                                 * `REQUESTED` - REQUESTED
-                                                                 * `APPROVED` - APPROVED
-                                                                 * `DECLINED` - DECLINED
-                                                                 * `CANCELLED` - CANCELLED
-                                                                 * `DELETED` - DELETED---
+                                                                 - `REQUESTED` - REQUESTED
+                                                                 - `APPROVED` - APPROVED
+                                                                 - `DECLINED` - DECLINED
+                                                                 - `CANCELLED` - CANCELLED
+                                                                 - `DELETED` - DELETED---
         from merge.client import AsyncMerge
         from merge.resources.hris import (
             TimeOffListRequestExpand,
@@ -399,7 +399,7 @@ class AsyncTimeOffClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "time-off"),
             params=remove_none_from_dict(
                 {
                     "approver_id": approver_id,
@@ -472,7 +472,7 @@ class AsyncTimeOffClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "time-off"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -529,7 +529,7 @@ class AsyncTimeOffClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/time-off/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"time-off/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -564,7 +564,7 @@ class AsyncTimeOffClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "time-off/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

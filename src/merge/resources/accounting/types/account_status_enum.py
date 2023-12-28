@@ -8,9 +8,9 @@ T_Result = typing.TypeVar("T_Result")
 
 class AccountStatusEnum(str, enum.Enum):
     """
-    * `ACTIVE` - ACTIVE
-    * `PENDING` - PENDING
-    * `INACTIVE` - INACTIVE
+    - `ACTIVE` - ACTIVE
+    - `PENDING` - PENDING
+    - `INACTIVE` - INACTIVE
     """
 
     ACTIVE = "ACTIVE"

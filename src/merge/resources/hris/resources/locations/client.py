@@ -12,8 +12,8 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.location import Location
-from ...types.locations_list_request_location_type import LocationsListRequestLocationType
 from ...types.paginated_location_list import PaginatedLocationList
+from .types.locations_list_request_location_type import LocationsListRequestLocationType
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -57,8 +57,8 @@ class LocationsClient:
 
             - location_type: typing.Optional[LocationsListRequestLocationType]. If provided, will only return locations with this location_type
 
-                                                                                * `HOME` - HOME
-                                                                                * `WORK` - WORK
+                                                                                - `HOME` - HOME
+                                                                                - `WORK` - WORK
             - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
 
             - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
@@ -86,7 +86,7 @@ class LocationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/locations"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "locations"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -148,7 +148,7 @@ class LocationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/locations/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"locations/{id}"),
             params=remove_none_from_dict(
                 {
                     "include_remote_data": include_remote_data,
@@ -204,8 +204,8 @@ class AsyncLocationsClient:
 
             - location_type: typing.Optional[LocationsListRequestLocationType]. If provided, will only return locations with this location_type
 
-                                                                                * `HOME` - HOME
-                                                                                * `WORK` - WORK
+                                                                                - `HOME` - HOME
+                                                                                - `WORK` - WORK
             - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
 
             - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
@@ -233,7 +233,7 @@ class AsyncLocationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/locations"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "locations"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -295,7 +295,7 @@ class AsyncLocationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/locations/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"locations/{id}"),
             params=remove_none_from_dict(
                 {
                     "include_remote_data": include_remote_data,

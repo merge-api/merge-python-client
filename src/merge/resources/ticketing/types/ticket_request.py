@@ -24,10 +24,13 @@ except ImportError:
 class TicketRequest(pydantic.BaseModel):
     """
     # The Ticket Object
+
     ### Description
+
     The `Ticket` object is used to represent a ticket or a task within a system.
 
     ### Usage Example
+
     TODO
     """
 
@@ -39,10 +42,10 @@ class TicketRequest(pydantic.BaseModel):
         description=(
             "The current status of the ticket.\n"
             "\n"
-            "* `OPEN` - OPEN\n"
-            "* `CLOSED` - CLOSED\n"
-            "* `IN_PROGRESS` - IN_PROGRESS\n"
-            "* `ON_HOLD` - ON_HOLD\n"
+            "- `OPEN` - OPEN\n"
+            "- `CLOSED` - CLOSED\n"
+            "- `IN_PROGRESS` - IN_PROGRESS\n"
+            "- `ON_HOLD` - ON_HOLD\n"
         )
     )
     description: typing.Optional[str] = pydantic.Field(
@@ -67,10 +70,10 @@ class TicketRequest(pydantic.BaseModel):
         description=(
             "The priority or urgency of the Ticket.\n"
             "\n"
-            "* `URGENT` - URGENT\n"
-            "* `HIGH` - HIGH\n"
-            "* `NORMAL` - NORMAL\n"
-            "* `LOW` - LOW\n"
+            "- `URGENT` - URGENT\n"
+            "- `HIGH` - HIGH\n"
+            "- `NORMAL` - NORMAL\n"
+            "- `LOW` - LOW\n"
         )
     )
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]

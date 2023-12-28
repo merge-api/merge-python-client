@@ -8,10 +8,10 @@ T_Result = typing.TypeVar("T_Result")
 
 class AttachmentTypeEnum(str, enum.Enum):
     """
-    * `RESUME` - RESUME
-    * `COVER_LETTER` - COVER_LETTER
-    * `OFFER_LETTER` - OFFER_LETTER
-    * `OTHER` - OTHER
+    - `RESUME` - RESUME
+    - `COVER_LETTER` - COVER_LETTER
+    - `OFFER_LETTER` - OFFER_LETTER
+    - `OTHER` - OTHER
     """
 
     RESUME = "RESUME"

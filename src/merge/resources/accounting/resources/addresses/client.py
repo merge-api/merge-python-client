@@ -55,7 +55,7 @@ class AddressesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/addresses/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"addresses/{id}"),
             params=remove_none_from_dict(
                 {
                     "include_remote_data": include_remote_data,
@@ -113,7 +113,7 @@ class AsyncAddressesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/addresses/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"addresses/{id}"),
             params=remove_none_from_dict(
                 {
                     "include_remote_data": include_remote_data,

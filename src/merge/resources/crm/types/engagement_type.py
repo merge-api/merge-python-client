@@ -16,9 +16,13 @@ except ImportError:
 class EngagementType(pydantic.BaseModel):
     """
     # The Engagement Type Object
+
     ### Description
+
     The `Engagement Type` object is used to represent an interaction activity. A given `Engagement` typically has an `Engagement Type` object represented in the engagement_type field.
+
     ### Usage Example
+
     TODO
     """
 
@@ -26,9 +30,9 @@ class EngagementType(pydantic.BaseModel):
         description=(
             "The engagement type's activity type.\n"
             "\n"
-            "* `CALL` - CALL\n"
-            "* `MEETING` - MEETING\n"
-            "* `EMAIL` - EMAIL\n"
+            "- `CALL` - CALL\n"
+            "- `MEETING` - MEETING\n"
+            "- `EMAIL` - EMAIL\n"
         )
     )
     name: typing.Optional[str] = pydantic.Field(description="The engagement type's name.")

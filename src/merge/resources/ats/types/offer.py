@@ -18,9 +18,13 @@ except ImportError:
 class Offer(pydantic.BaseModel):
     """
     # The Offer Object
+
     ### Description
+
     The `Offer` object is used to represent an offer for a candidate's application specific to a job.
+
     ### Usage Example
+
     Fetch from the `LIST Offers` endpoint and filter by `ID` to show all offers.
     """
 
@@ -40,15 +44,15 @@ class Offer(pydantic.BaseModel):
         description=(
             "The offer's status.\n"
             "\n"
-            "* `DRAFT` - DRAFT\n"
-            "* `APPROVAL-SENT` - APPROVAL-SENT\n"
-            "* `APPROVED` - APPROVED\n"
-            "* `SENT` - SENT\n"
-            "* `SENT-MANUALLY` - SENT-MANUALLY\n"
-            "* `OPENED` - OPENED\n"
-            "* `DENIED` - DENIED\n"
-            "* `SIGNED` - SIGNED\n"
-            "* `DEPRECATED` - DEPRECATED\n"
+            "- `DRAFT` - DRAFT\n"
+            "- `APPROVAL-SENT` - APPROVAL-SENT\n"
+            "- `APPROVED` - APPROVED\n"
+            "- `SENT` - SENT\n"
+            "- `SENT-MANUALLY` - SENT-MANUALLY\n"
+            "- `OPENED` - OPENED\n"
+            "- `DENIED` - DENIED\n"
+            "- `SIGNED` - SIGNED\n"
+            "- `DEPRECATED` - DEPRECATED\n"
         )
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(

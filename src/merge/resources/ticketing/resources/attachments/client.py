@@ -87,7 +87,7 @@ class AttachmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "attachments"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -152,7 +152,7 @@ class AttachmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "attachments"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -196,7 +196,7 @@ class AttachmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/attachments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"attachments/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -209,18 +209,19 @@ class AttachmentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def download_retrieve(self, id: str) -> typing.Iterator[bytes]:
+    def download_retrieve(self, id: str, *, mime_type: typing.Optional[str] = None) -> typing.Iterator[bytes]:
         """
         Returns an `Attachment` object with the given `id`.
 
         Parameters:
             - id: str.
+
+            - mime_type: typing.Optional[str]. If provided, specifies the export format of the file to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
         """
         with self._client_wrapper.httpx_client.stream(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/attachments/{id}/download"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"attachments/{id}/download"),
+            params=remove_none_from_dict({"mime_type": mime_type}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         ) as _response:
@@ -250,7 +251,7 @@ class AttachmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/attachments/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "attachments/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -323,7 +324,7 @@ class AsyncAttachmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "attachments"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -388,7 +389,7 @@ class AsyncAttachmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "attachments"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -432,7 +433,7 @@ class AsyncAttachmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/attachments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"attachments/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -445,18 +446,21 @@ class AsyncAttachmentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def download_retrieve(self, id: str) -> typing.AsyncIterator[bytes]:
+    async def download_retrieve(
+        self, id: str, *, mime_type: typing.Optional[str] = None
+    ) -> typing.AsyncIterator[bytes]:
         """
         Returns an `Attachment` object with the given `id`.
 
         Parameters:
             - id: str.
+
+            - mime_type: typing.Optional[str]. If provided, specifies the export format of the file to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
         """
         async with self._client_wrapper.httpx_client.stream(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/attachments/{id}/download"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"attachments/{id}/download"),
+            params=remove_none_from_dict({"mime_type": mime_type}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         ) as _response:
@@ -486,7 +490,7 @@ class AsyncAttachmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/attachments/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "attachments/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

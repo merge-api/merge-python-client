@@ -8,10 +8,10 @@ T_Result = typing.TypeVar("T_Result")
 
 class EarningTypeEnum(str, enum.Enum):
     """
-    * `SALARY` - SALARY
-    * `REIMBURSEMENT` - REIMBURSEMENT
-    * `OVERTIME` - OVERTIME
-    * `BONUS` - BONUS
+    - `SALARY` - SALARY
+    - `REIMBURSEMENT` - REIMBURSEMENT
+    - `OVERTIME` - OVERTIME
+    - `BONUS` - BONUS
     """
 
     SALARY = "SALARY"

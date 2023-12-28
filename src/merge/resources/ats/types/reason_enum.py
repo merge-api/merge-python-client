@@ -8,9 +8,9 @@ T_Result = typing.TypeVar("T_Result")
 
 class ReasonEnum(str, enum.Enum):
     """
-    * `GENERAL_CUSTOMER_REQUEST` - GENERAL_CUSTOMER_REQUEST
-    * `GDPR` - GDPR
-    * `OTHER` - OTHER
+    - `GENERAL_CUSTOMER_REQUEST` - GENERAL_CUSTOMER_REQUEST
+    - `GDPR` - GDPR
+    - `OTHER` - OTHER
     """
 
     GENERAL_CUSTOMER_REQUEST = "GENERAL_CUSTOMER_REQUEST"

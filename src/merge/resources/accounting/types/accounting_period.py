@@ -15,10 +15,13 @@ except ImportError:
 class AccountingPeriod(pydantic.BaseModel):
     """
     # The AccountingPeriod Object
+
     ### Description
+
     The `AccountingPeriod` object is used to define a period of time in which events occurred.
 
     ### Usage Example
+
     Common models like `Invoice` and `Transaction` will have `AccountingPeriod` objects which will denote when they occurred.
     """
 

@@ -8,8 +8,8 @@ T_Result = typing.TypeVar("T_Result")
 
 class AddressTypeEnum(str, enum.Enum):
     """
-    * `BILLING` - BILLING
-    * `SHIPPING` - SHIPPING
+    - `BILLING` - BILLING
+    - `SHIPPING` - SHIPPING
     """
 
     BILLING = "BILLING"

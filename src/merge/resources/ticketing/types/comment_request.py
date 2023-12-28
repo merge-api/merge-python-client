@@ -17,10 +17,13 @@ except ImportError:
 class CommentRequest(pydantic.BaseModel):
     """
     # The Comment Object
+
     ### Description
+
     The `Comment` object is used to represent a comment on a ticket.
 
     ### Usage Example
+
     TODO
     """
 
@@ -33,7 +36,7 @@ class CommentRequest(pydantic.BaseModel):
     body: typing.Optional[str] = pydantic.Field(description="The comment's text body.")
     html_body: typing.Optional[str] = pydantic.Field(description="The comment's text body formatted as html.")
     ticket: typing.Optional[CommentRequestTicket] = pydantic.Field(
-        description="The ticket associated with the comment. "
+        description="The ticket associated with the comment."
     )
     is_private: typing.Optional[bool] = pydantic.Field(description="Whether or not the comment is internal.")
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]

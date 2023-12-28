@@ -12,9 +12,9 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.bank_info import BankInfo
-from ...types.bank_info_list_request_account_type import BankInfoListRequestAccountType
-from ...types.bank_info_list_request_order_by import BankInfoListRequestOrderBy
 from ...types.paginated_bank_info_list import PaginatedBankInfoList
+from .types.bank_info_list_request_account_type import BankInfoListRequestAccountType
+from .types.bank_info_list_request_order_by import BankInfoListRequestOrderBy
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -52,8 +52,8 @@ class BankInfoClient:
         Parameters:
             - account_type: typing.Optional[BankInfoListRequestAccountType]. If provided, will only return BankInfo's with this account type. Options: ('SAVINGS', 'CHECKING')
 
-                                                                             * `SAVINGS` - SAVINGS
-                                                                             * `CHECKING` - CHECKING
+                                                                             - `SAVINGS` - SAVINGS
+                                                                             - `CHECKING` - CHECKING
             - bank_name: typing.Optional[str]. If provided, will only return BankInfo's with this bank name.
 
             - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
@@ -104,7 +104,7 @@ class BankInfoClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/bank-info"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "bank-info"),
             params=remove_none_from_dict(
                 {
                     "account_type": account_type,
@@ -174,7 +174,7 @@ class BankInfoClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/bank-info/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"bank-info/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -225,8 +225,8 @@ class AsyncBankInfoClient:
         Parameters:
             - account_type: typing.Optional[BankInfoListRequestAccountType]. If provided, will only return BankInfo's with this account type. Options: ('SAVINGS', 'CHECKING')
 
-                                                                             * `SAVINGS` - SAVINGS
-                                                                             * `CHECKING` - CHECKING
+                                                                             - `SAVINGS` - SAVINGS
+                                                                             - `CHECKING` - CHECKING
             - bank_name: typing.Optional[str]. If provided, will only return BankInfo's with this bank name.
 
             - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
@@ -277,7 +277,7 @@ class AsyncBankInfoClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/bank-info"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "bank-info"),
             params=remove_none_from_dict(
                 {
                     "account_type": account_type,
@@ -347,7 +347,7 @@ class AsyncBankInfoClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/bank-info/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"bank-info/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,

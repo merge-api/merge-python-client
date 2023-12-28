@@ -26,6 +26,7 @@ from .resources.passthrough.client import (
 from .resources.passthrough.client import PassthroughClient
 from .resources.projects.client import AsyncProjectsClient, ProjectsClient
 from .resources.regenerate_key.client import AsyncRegenerateKeyClient, RegenerateKeyClient
+from .resources.roles.client import AsyncRolesClient, RolesClient
 from .resources.selective_sync.client import AsyncSelectiveSyncClient, SelectiveSyncClient
 from .resources.sync_status.client import AsyncSyncStatusClient, SyncStatusClient
 from .resources.tags.client import AsyncTagsClient, TagsClient
@@ -58,6 +59,7 @@ class TicketingClient:
         self.passthrough = PassthroughClient(client_wrapper=self._client_wrapper)
         self.projects = ProjectsClient(client_wrapper=self._client_wrapper)
         self.regenerate_key = RegenerateKeyClient(client_wrapper=self._client_wrapper)
+        self.roles = RolesClient(client_wrapper=self._client_wrapper)
         self.selective_sync = SelectiveSyncClient(client_wrapper=self._client_wrapper)
         self.sync_status = SyncStatusClient(client_wrapper=self._client_wrapper)
         self.force_resync = ForceResyncClient(client_wrapper=self._client_wrapper)
@@ -91,6 +93,7 @@ class AsyncTicketingClient:
         )
         self.projects = AsyncProjectsClient(client_wrapper=self._client_wrapper)
         self.regenerate_key = AsyncRegenerateKeyClient(client_wrapper=self._client_wrapper)
+        self.roles = AsyncRolesClient(client_wrapper=self._client_wrapper)
         self.selective_sync = AsyncSelectiveSyncClient(client_wrapper=self._client_wrapper)
         self.sync_status = AsyncSyncStatusClient(client_wrapper=self._client_wrapper)
         self.force_resync = AsyncForceResyncClient(client_wrapper=self._client_wrapper)
