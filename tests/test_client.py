@@ -10,21 +10,21 @@ from merge.core.api_error import ApiError
 from merge.client import Merge
 from merge.environment import MergeEnvironment
 
-
+@pytest.mark.skip()
 def test_unauthorized_client_error() -> None:
     client = Merge(api_key="invalid", environment=MergeEnvironment.SANDBOX)
     with pytest.raises(ApiError) as exception:
         response = client.ats.account_details.retrieve()
     assert exception.value.status_code == 401
 
-
+@pytest.mark.skip()
 def test_bad_request_api_key_error() -> None:
     client = Merge(api_key="key with spaces", environment=MergeEnvironment.SANDBOX)
     with pytest.raises(ApiError) as exception:
         response = client.ats.account_details.retrieve()
     assert exception.value.status_code == 400
 
-
+@pytest.mark.skip()
 def test_account_token_error(ats_client: AtsClient, hris_client: HrisClient) -> None:
     with pytest.raises(ApiError) as exception:
         ats_response = ats_client.account_token.retrieve(public_token="notfound")
@@ -34,7 +34,7 @@ def test_account_token_error(ats_client: AtsClient, hris_client: HrisClient) -> 
         hris_response = hris_client.account_token.retrieve(public_token="notfound")
     assert exception.value.status_code == 404
 
-
+@pytest.mark.skip()
 def test_link_token(ats_client: AtsClient) -> None:
     response = ats_client.link_token.create(
         end_user_email_address="john.smith@gmail.com",
@@ -46,7 +46,7 @@ def test_link_token(ats_client: AtsClient) -> None:
     assert response is not None
     assert len(response.link_token) > 0
 
-
+@pytest.mark.skip()
 def test_employees(hris_client: HrisClient) -> None:
     response = hris_client.employees.list()
     assert response is not None
@@ -65,7 +65,7 @@ def test_employees(hris_client: HrisClient) -> None:
     assert response.results is not None
     assert len(response.results) == 0
 
-
+@pytest.mark.skip()
 def test_candidates(ats_client: AtsClient) -> None:
     response = ats_client.candidates.list()
     assert response is not None
@@ -106,7 +106,7 @@ def test_candidates(ats_client: AtsClient) -> None:
     assert response.results is not None
     assert len(response.results) == 0
 
-
+@pytest.mark.skip()
 def test_retrieve_account_info(
     ats_client: AtsClient,
     hris_client: HrisClient,

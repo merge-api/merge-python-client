@@ -45,6 +45,7 @@ class AccountsClient:
         include_remote_fields: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        name: typing.Optional[str] = None,
         owner_id: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
@@ -71,6 +72,8 @@ class AccountsClient:
 
             - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
 
+            - name: typing.Optional[str]. If provided, will only return accounts with this name.
+
             - owner_id: typing.Optional[str]. If provided, will only return accounts with this owner.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
@@ -89,7 +92,7 @@ class AccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounts"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -101,6 +104,7 @@ class AccountsClient:
                     "include_remote_fields": include_remote_fields,
                     "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                     "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                    "name": name,
                     "owner_id": owner_id,
                     "page_size": page_size,
                     "remote_id": remote_id,
@@ -158,7 +162,7 @@ class AccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounts"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -205,7 +209,7 @@ class AccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/accounts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounts/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -270,7 +274,7 @@ class AccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/accounts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounts/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -303,7 +307,7 @@ class AccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/accounts/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounts/meta/patch/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -330,7 +334,7 @@ class AccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/accounts/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounts/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -375,7 +379,7 @@ class AccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/accounts/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounts/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -413,6 +417,7 @@ class AsyncAccountsClient:
         include_remote_fields: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        name: typing.Optional[str] = None,
         owner_id: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
@@ -439,6 +444,8 @@ class AsyncAccountsClient:
 
             - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
 
+            - name: typing.Optional[str]. If provided, will only return accounts with this name.
+
             - owner_id: typing.Optional[str]. If provided, will only return accounts with this owner.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
@@ -457,7 +464,7 @@ class AsyncAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounts"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -469,6 +476,7 @@ class AsyncAccountsClient:
                     "include_remote_fields": include_remote_fields,
                     "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                     "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                    "name": name,
                     "owner_id": owner_id,
                     "page_size": page_size,
                     "remote_id": remote_id,
@@ -526,7 +534,7 @@ class AsyncAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounts"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -573,7 +581,7 @@ class AsyncAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/accounts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounts/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -638,7 +646,7 @@ class AsyncAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/accounts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounts/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -671,7 +679,7 @@ class AsyncAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/accounts/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounts/meta/patch/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -698,7 +706,7 @@ class AsyncAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/accounts/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounts/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -743,7 +751,7 @@ class AsyncAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/accounts/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounts/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

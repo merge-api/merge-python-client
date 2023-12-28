@@ -8,11 +8,11 @@ T_Result = typing.TypeVar("T_Result")
 
 class OverallRecommendationEnum(str, enum.Enum):
     """
-    * `DEFINITELY_NO` - DEFINITELY_NO
-    * `NO` - NO
-    * `YES` - YES
-    * `STRONG_YES` - STRONG_YES
-    * `NO_DECISION` - NO_DECISION
+    - `DEFINITELY_NO` - DEFINITELY_NO
+    - `NO` - NO
+    - `YES` - YES
+    - `STRONG_YES` - STRONG_YES
+    - `NO_DECISION` - NO_DECISION
     """
 
     DEFINITELY_NO = "DEFINITELY_NO"

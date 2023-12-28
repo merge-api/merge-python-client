@@ -13,10 +13,10 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.application import Application
 from ...types.application_request import ApplicationRequest
 from ...types.application_response import ApplicationResponse
-from ...types.applications_list_request_expand import ApplicationsListRequestExpand
-from ...types.applications_retrieve_request_expand import ApplicationsRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
 from ...types.paginated_application_list import PaginatedApplicationList
+from .types.applications_list_request_expand import ApplicationsListRequestExpand
+from .types.applications_retrieve_request_expand import ApplicationsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -100,7 +100,7 @@ class ApplicationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "applications"),
             params=remove_none_from_dict(
                 {
                     "candidate_id": candidate_id,
@@ -154,7 +154,7 @@ class ApplicationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "applications"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
             headers=self._client_wrapper.get_headers(),
@@ -199,7 +199,7 @@ class ApplicationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/applications/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"applications/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -252,9 +252,7 @@ class ApplicationsClient:
             _request["remote_user_id"] = remote_user_id
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/applications/{id}/change-stage"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"applications/{id}/change-stage"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
@@ -285,7 +283,7 @@ class ApplicationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "applications/meta/post"),
             params=remove_none_from_dict({"application_remote_template_id": application_remote_template_id}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -372,7 +370,7 @@ class AsyncApplicationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "applications"),
             params=remove_none_from_dict(
                 {
                     "candidate_id": candidate_id,
@@ -426,7 +424,7 @@ class AsyncApplicationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "applications"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
             headers=self._client_wrapper.get_headers(),
@@ -471,7 +469,7 @@ class AsyncApplicationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/applications/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"applications/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -524,9 +522,7 @@ class AsyncApplicationsClient:
             _request["remote_user_id"] = remote_user_id
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/applications/{id}/change-stage"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"applications/{id}/change-stage"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
@@ -557,7 +553,7 @@ class AsyncApplicationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "applications/meta/post"),
             params=remove_none_from_dict({"application_remote_template_id": application_remote_template_id}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

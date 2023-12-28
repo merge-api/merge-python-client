@@ -23,8 +23,18 @@ from . import (
     users,
     webhook_receivers,
 )
+from .files import FilesListRequestExpand, FilesRetrieveRequestExpand
+from .folders import FoldersListRequestExpand, FoldersRetrieveRequestExpand
+from .issues import IssuesListRequestStatus
+from .linked_accounts import LinkedAccountsListRequestCategory
 
 __all__ = [
+    "FilesListRequestExpand",
+    "FilesRetrieveRequestExpand",
+    "FoldersListRequestExpand",
+    "FoldersRetrieveRequestExpand",
+    "IssuesListRequestStatus",
+    "LinkedAccountsListRequestCategory",
     "account_details",
     "account_token",
     "async_passthrough",

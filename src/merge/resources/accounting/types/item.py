@@ -19,10 +19,13 @@ except ImportError:
 class Item(pydantic.BaseModel):
     """
     # The Item Object
+
     ### Description
+
     The `Item` object refers to the goods involved in a transaction.
 
     ### Usage Example
+
     Fetch from the `LIST Items` endpoint and view a company's items.
     """
 
@@ -30,7 +33,7 @@ class Item(pydantic.BaseModel):
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
     name: typing.Optional[str] = pydantic.Field(description="The item's name.")
     status: typing.Optional[ItemStatus] = pydantic.Field(
-        description=("The item's status.\n" "\n" "* `ACTIVE` - ACTIVE\n" "* `ARCHIVED` - ARCHIVED\n")
+        description=("The item's status.\n" "\n" "- `ACTIVE` - ACTIVE\n" "- `ARCHIVED` - ARCHIVED\n")
     )
     unit_price: typing.Optional[float] = pydantic.Field(description="The item's unit price.")
     purchase_price: typing.Optional[float] = pydantic.Field(

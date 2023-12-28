@@ -8,8 +8,8 @@ T_Result = typing.TypeVar("T_Result")
 
 class PostingStatusEnum(str, enum.Enum):
     """
-    * `UNPOSTED` - UNPOSTED
-    * `POSTED` - POSTED
+    - `UNPOSTED` - UNPOSTED
+    - `POSTED` - POSTED
     """
 
     UNPOSTED = "UNPOSTED"

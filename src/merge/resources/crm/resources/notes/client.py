@@ -14,10 +14,10 @@ from ...types.meta_response import MetaResponse
 from ...types.note import Note
 from ...types.note_request import NoteRequest
 from ...types.note_response import NoteResponse
-from ...types.notes_list_request_expand import NotesListRequestExpand
-from ...types.notes_retrieve_request_expand import NotesRetrieveRequestExpand
 from ...types.paginated_note_list import PaginatedNoteList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
+from .types.notes_list_request_expand import NotesListRequestExpand
+from .types.notes_retrieve_request_expand import NotesRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -98,7 +98,7 @@ class NotesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/notes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "notes"),
             params=remove_none_from_dict(
                 {
                     "account_id": account_id,
@@ -161,7 +161,7 @@ class NotesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/notes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "notes"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -209,7 +209,7 @@ class NotesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/notes/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"notes/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -243,7 +243,7 @@ class NotesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/notes/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "notes/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -288,7 +288,7 @@ class NotesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/notes/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "notes/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -380,7 +380,7 @@ class AsyncNotesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/notes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "notes"),
             params=remove_none_from_dict(
                 {
                     "account_id": account_id,
@@ -443,7 +443,7 @@ class AsyncNotesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/notes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "notes"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -491,7 +491,7 @@ class AsyncNotesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/notes/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"notes/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -525,7 +525,7 @@ class AsyncNotesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/notes/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "notes/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -570,7 +570,7 @@ class AsyncNotesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/notes/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "notes/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

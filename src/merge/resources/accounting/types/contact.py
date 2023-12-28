@@ -18,12 +18,16 @@ except ImportError:
 class Contact(pydantic.BaseModel):
     """
     # The Contact Object
+
     ### Description
+
     A `Contact` is an individual or business entity to which products and services are sold to or purchased from. The `Contact` model contains both Customers, in which products and services are sold to, and Vendors (or Suppliers), in which products and services are purchased from.
-    * A `Contact` is a Vendor/Supplier if the `is_supplier` property is true.
-    * A `Contact` is a customer if the `is_customer` property is true.
+
+    - A `Contact` is a Vendor/Supplier if the `is_supplier` property is true.
+    - A `Contact` is a customer if the `is_customer` property is true.
 
     ### Usage Example
+
     Fetch from the `LIST Contacts` endpoint and view a company's contacts.
     """
 
@@ -35,7 +39,7 @@ class Contact(pydantic.BaseModel):
     email_address: typing.Optional[str] = pydantic.Field(description="The contact's email address.")
     tax_number: typing.Optional[str] = pydantic.Field(description="The contact's tax number.")
     status: typing.Optional[ContactStatus] = pydantic.Field(
-        description=("The contact's status\n" "\n" "* `ACTIVE` - ACTIVE\n" "* `ARCHIVED` - ARCHIVED\n")
+        description=("The contact's status\n" "\n" "- `ACTIVE` - ACTIVE\n" "- `ARCHIVED` - ARCHIVED\n")
     )
     currency: typing.Optional[str] = pydantic.Field(description="The currency the contact's transactions are in.")
     remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(

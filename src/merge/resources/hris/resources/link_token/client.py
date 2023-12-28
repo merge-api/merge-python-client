@@ -72,7 +72,7 @@ class LinkTokenClient:
             _request["common_models"] = common_models
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/link-token"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "link-token"),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -138,7 +138,7 @@ class AsyncLinkTokenClient:
             _request["common_models"] = common_models
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/link-token"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "link-token"),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

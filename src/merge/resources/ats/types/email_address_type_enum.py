@@ -8,9 +8,9 @@ T_Result = typing.TypeVar("T_Result")
 
 class EmailAddressTypeEnum(str, enum.Enum):
     """
-    * `PERSONAL` - PERSONAL
-    * `WORK` - WORK
-    * `OTHER` - OTHER
+    - `PERSONAL` - PERSONAL
+    - `WORK` - WORK
+    - `OTHER` - OTHER
     """
 
     PERSONAL = "PERSONAL"

@@ -8,8 +8,8 @@ T_Result = typing.TypeVar("T_Result")
 
 class DirectionEnum(str, enum.Enum):
     """
-    * `INBOUND` - INBOUND
-    * `OUTBOUND` - OUTBOUND
+    - `INBOUND` - INBOUND
+    - `OUTBOUND` - OUTBOUND
     """
 
     INBOUND = "INBOUND"

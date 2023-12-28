@@ -13,10 +13,10 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.comment import Comment
 from ...types.comment_request import CommentRequest
 from ...types.comment_response import CommentResponse
-from ...types.comments_list_request_expand import CommentsListRequestExpand
-from ...types.comments_retrieve_request_expand import CommentsRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
 from ...types.paginated_comment_list import PaginatedCommentList
+from .types.comments_list_request_expand import CommentsListRequestExpand
+from .types.comments_retrieve_request_expand import CommentsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -88,7 +88,7 @@ class CommentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/comments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "comments"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -151,7 +151,7 @@ class CommentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/comments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "comments"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -196,7 +196,7 @@ class CommentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/comments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"comments/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -224,7 +224,7 @@ class CommentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/comments/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "comments/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -298,7 +298,7 @@ class AsyncCommentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/comments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "comments"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -361,7 +361,7 @@ class AsyncCommentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/comments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "comments"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -406,7 +406,7 @@ class AsyncCommentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/comments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"comments/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -434,7 +434,7 @@ class AsyncCommentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/comments/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "comments/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

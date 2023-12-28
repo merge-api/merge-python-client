@@ -13,10 +13,10 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.file import File
 from ...types.file_request import FileRequest
 from ...types.file_storage_file_response import FileStorageFileResponse
-from ...types.files_list_request_expand import FilesListRequestExpand
-from ...types.files_retrieve_request_expand import FilesRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
 from ...types.paginated_file_list import PaginatedFileList
+from .types.files_list_request_expand import FilesListRequestExpand
+from .types.files_retrieve_request_expand import FilesRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -58,11 +58,11 @@ class FilesClient:
 
             - cursor: typing.Optional[str]. The pagination cursor value.
 
-            - drive_id: typing.Optional[str]. If provided, will only return files in this drive. If null, will return files in the top level drive.
+            - drive_id: typing.Optional[str]. Specifying a drive id returns only the files in that drive. Specifying null returns only the files outside the top-level drive.
 
             - expand: typing.Optional[FilesListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - folder_id: typing.Optional[str]. If provided, will only return files in this folder. If null, will return files in root directory.
+            - folder_id: typing.Optional[str]. Specifying a folder id returns only the files in that folder. Specifying null returns only the files in root directory.
 
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
@@ -91,7 +91,7 @@ class FilesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/files"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "files"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -157,7 +157,7 @@ class FilesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/files"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "files"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -202,7 +202,7 @@ class FilesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/files/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"files/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -215,16 +215,19 @@ class FilesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def download_retrieve(self, id: str) -> typing.Iterator[bytes]:
+    def download_retrieve(self, id: str, *, mime_type: typing.Optional[str] = None) -> typing.Iterator[bytes]:
         """
         Returns a `File` object with the given `id`.
 
         Parameters:
             - id: str.
+
+            - mime_type: typing.Optional[str]. If provided, specifies the export format of the file to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
         """
         with self._client_wrapper.httpx_client.stream(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/files/{id}/download"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"files/{id}/download"),
+            params=remove_none_from_dict({"mime_type": mime_type}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         ) as _response:
@@ -254,7 +257,7 @@ class FilesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/files/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "files/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -298,11 +301,11 @@ class AsyncFilesClient:
 
             - cursor: typing.Optional[str]. The pagination cursor value.
 
-            - drive_id: typing.Optional[str]. If provided, will only return files in this drive. If null, will return files in the top level drive.
+            - drive_id: typing.Optional[str]. Specifying a drive id returns only the files in that drive. Specifying null returns only the files outside the top-level drive.
 
             - expand: typing.Optional[FilesListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - folder_id: typing.Optional[str]. If provided, will only return files in this folder. If null, will return files in root directory.
+            - folder_id: typing.Optional[str]. Specifying a folder id returns only the files in that folder. Specifying null returns only the files in root directory.
 
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
@@ -331,7 +334,7 @@ class AsyncFilesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/files"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "files"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -397,7 +400,7 @@ class AsyncFilesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/files"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "files"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -442,7 +445,7 @@ class AsyncFilesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/files/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"files/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -455,16 +458,21 @@ class AsyncFilesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def download_retrieve(self, id: str) -> typing.AsyncIterator[bytes]:
+    async def download_retrieve(
+        self, id: str, *, mime_type: typing.Optional[str] = None
+    ) -> typing.AsyncIterator[bytes]:
         """
         Returns a `File` object with the given `id`.
 
         Parameters:
             - id: str.
+
+            - mime_type: typing.Optional[str]. If provided, specifies the export format of the file to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
         """
         async with self._client_wrapper.httpx_client.stream(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/files/{id}/download"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"files/{id}/download"),
+            params=remove_none_from_dict({"mime_type": mime_type}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         ) as _response:
@@ -494,7 +502,7 @@ class AsyncFilesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/files/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "files/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

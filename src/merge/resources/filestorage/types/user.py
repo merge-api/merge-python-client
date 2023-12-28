@@ -14,9 +14,13 @@ except ImportError:
 class User(pydantic.BaseModel):
     """
     # The User Object
+
     ### Description
+
     The `User` object is used to represent a user within the File Storage account.
+
     ### Usage Example
+
     Fetch from the `GET /api/filestorage/v1/users` endpoint and view their users.
     """
 

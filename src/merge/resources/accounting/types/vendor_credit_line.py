@@ -15,10 +15,13 @@ except ImportError:
 class VendorCreditLine(pydantic.BaseModel):
     """
     # The VendorCreditLine Object
+
     ### Description
+
     The `VendorCreditLine` object is used to represent a vendor credit's line items.
 
     ### Usage Example
+
     Fetch from the `GET VendorCredit` endpoint and view the vendor credit's line items.
     """
 
@@ -33,6 +36,7 @@ class VendorCreditLine(pydantic.BaseModel):
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted in the third party platform."
     )
+    id: typing.Optional[str]
     created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"

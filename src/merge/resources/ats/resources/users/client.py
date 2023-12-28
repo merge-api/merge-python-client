@@ -81,7 +81,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/users"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "users"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -143,7 +143,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/users/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"users/{id}"),
             params=remove_none_from_dict(
                 {
                     "include_remote_data": include_remote_data,
@@ -224,7 +224,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/users"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "users"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -286,7 +286,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/users/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"users/{id}"),
             params=remove_none_from_dict(
                 {
                     "include_remote_data": include_remote_data,

@@ -5,6 +5,7 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from .remote_data import RemoteData
+from .user_roles_item import UserRolesItem
 from .user_teams_item import UserTeamsItem
 
 try:
@@ -16,10 +17,13 @@ except ImportError:
 class User(pydantic.BaseModel):
     """
     # The User Object
+
     ### Description
+
     The `User` object is used to represent an employee within a company.
 
     ### Usage Example
+
     TODO
     """
 
@@ -29,6 +33,7 @@ class User(pydantic.BaseModel):
     email_address: typing.Optional[str] = pydantic.Field(description="The user's email address.")
     is_active: typing.Optional[bool] = pydantic.Field(description="Whether or not the user is active.")
     teams: typing.Optional[typing.List[typing.Optional[UserTeamsItem]]]
+    roles: typing.Optional[typing.List[typing.Optional[UserRolesItem]]]
     avatar: typing.Optional[str] = pydantic.Field(description="The user's avatar picture.")
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted in the third party platform."

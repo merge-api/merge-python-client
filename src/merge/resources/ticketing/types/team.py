@@ -15,10 +15,13 @@ except ImportError:
 class Team(pydantic.BaseModel):
     """
     # The Team Object
+
     ### Description
+
     The `Team` object is used to represent a team within the company receiving the ticket.
 
     ### Usage Example
+
     TODO
     """
 

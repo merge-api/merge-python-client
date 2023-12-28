@@ -8,13 +8,13 @@ T_Result = typing.TypeVar("T_Result")
 
 class MethodEnum(str, enum.Enum):
     """
-    * `GET` - GET
-    * `OPTIONS` - OPTIONS
-    * `HEAD` - HEAD
-    * `POST` - POST
-    * `PUT` - PUT
-    * `PATCH` - PATCH
-    * `DELETE` - DELETE
+    - `GET` - GET
+    - `OPTIONS` - OPTIONS
+    - `HEAD` - HEAD
+    - `POST` - POST
+    - `PUT` - PUT
+    - `PATCH` - PATCH
+    - `DELETE` - DELETE
     """
 
     GET = "GET"

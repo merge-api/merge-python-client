@@ -27,10 +27,13 @@ except ImportError:
 class Employee(pydantic.BaseModel):
     """
     # The Employee Object
+
     ### Description
+
     The `Employee` object is used to represent any person who has been employed by a company.
 
     ### Usage Example
+
     Fetch from the `LIST Employee` endpoint and filter by `ID` to show all employees.
     """
 
@@ -66,36 +69,36 @@ class Employee(pydantic.BaseModel):
         description=(
             "The employee's gender.\n"
             "\n"
-            "* `MALE` - MALE\n"
-            "* `FEMALE` - FEMALE\n"
-            "* `NON-BINARY` - NON-BINARY\n"
-            "* `OTHER` - OTHER\n"
-            "* `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE\n"
+            "- `MALE` - MALE\n"
+            "- `FEMALE` - FEMALE\n"
+            "- `NON-BINARY` - NON-BINARY\n"
+            "- `OTHER` - OTHER\n"
+            "- `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE\n"
         )
     )
     ethnicity: typing.Optional[EmployeeEthnicity] = pydantic.Field(
         description=(
             "The employee's ethnicity.\n"
             "\n"
-            "* `AMERICAN_INDIAN_OR_ALASKA_NATIVE` - AMERICAN_INDIAN_OR_ALASKA_NATIVE\n"
-            "* `ASIAN_OR_INDIAN_SUBCONTINENT` - ASIAN_OR_INDIAN_SUBCONTINENT\n"
-            "* `BLACK_OR_AFRICAN_AMERICAN` - BLACK_OR_AFRICAN_AMERICAN\n"
-            "* `HISPANIC_OR_LATINO` - HISPANIC_OR_LATINO\n"
-            "* `NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER` - NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER\n"
-            "* `TWO_OR_MORE_RACES` - TWO_OR_MORE_RACES\n"
-            "* `WHITE` - WHITE\n"
-            "* `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE\n"
+            "- `AMERICAN_INDIAN_OR_ALASKA_NATIVE` - AMERICAN_INDIAN_OR_ALASKA_NATIVE\n"
+            "- `ASIAN_OR_INDIAN_SUBCONTINENT` - ASIAN_OR_INDIAN_SUBCONTINENT\n"
+            "- `BLACK_OR_AFRICAN_AMERICAN` - BLACK_OR_AFRICAN_AMERICAN\n"
+            "- `HISPANIC_OR_LATINO` - HISPANIC_OR_LATINO\n"
+            "- `NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER` - NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER\n"
+            "- `TWO_OR_MORE_RACES` - TWO_OR_MORE_RACES\n"
+            "- `WHITE` - WHITE\n"
+            "- `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE\n"
         )
     )
     marital_status: typing.Optional[EmployeeMaritalStatus] = pydantic.Field(
         description=(
             "The employee's filing status as related to marital status.\n"
             "\n"
-            "* `SINGLE` - SINGLE\n"
-            "* `MARRIED_FILING_JOINTLY` - MARRIED_FILING_JOINTLY\n"
-            "* `MARRIED_FILING_SEPARATELY` - MARRIED_FILING_SEPARATELY\n"
-            "* `HEAD_OF_HOUSEHOLD` - HEAD_OF_HOUSEHOLD\n"
-            "* `QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD` - QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD\n"
+            "- `SINGLE` - SINGLE\n"
+            "- `MARRIED_FILING_JOINTLY` - MARRIED_FILING_JOINTLY\n"
+            "- `MARRIED_FILING_SEPARATELY` - MARRIED_FILING_SEPARATELY\n"
+            "- `HEAD_OF_HOUSEHOLD` - HEAD_OF_HOUSEHOLD\n"
+            "- `QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD` - QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD\n"
         )
     )
     date_of_birth: typing.Optional[dt.datetime] = pydantic.Field(description="The employee's date of birth.")
@@ -112,9 +115,9 @@ class Employee(pydantic.BaseModel):
         description=(
             "The employment status of the employee.\n"
             "\n"
-            "* `ACTIVE` - ACTIVE\n"
-            "* `PENDING` - PENDING\n"
-            "* `INACTIVE` - INACTIVE\n"
+            "- `ACTIVE` - ACTIVE\n"
+            "- `PENDING` - PENDING\n"
+            "- `INACTIVE` - INACTIVE\n"
         )
     )
     termination_date: typing.Optional[dt.datetime] = pydantic.Field(description="The employee's termination date.")

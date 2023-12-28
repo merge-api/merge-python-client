@@ -6,3 +6,4 @@ import enum
 class MergeEnvironment(enum.Enum):
     PRODUCTION = "https://api.merge.dev"
     SANDBOX = "https://api-sandbox.merge.dev"
+    PRODUCTION_EU = "https://api-eu.merge.dev"

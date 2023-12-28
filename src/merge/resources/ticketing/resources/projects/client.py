@@ -12,7 +12,7 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.paginated_project_list import PaginatedProjectList
 from ...types.paginated_user_list import PaginatedUserList
 from ...types.project import Project
-from ...types.projects_users_list_request_expand import ProjectsUsersListRequestExpand
+from .types.projects_users_list_request_expand import ProjectsUsersListRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -69,7 +69,7 @@ class ProjectsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/projects"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "projects"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -115,7 +115,7 @@ class ProjectsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/projects/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"projects/{id}"),
             params=remove_none_from_dict({"include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -168,9 +168,7 @@ class ProjectsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/projects/{parent_id}/users"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"projects/{parent_id}/users"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -241,7 +239,7 @@ class AsyncProjectsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/projects"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "projects"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -287,7 +285,7 @@ class AsyncProjectsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/projects/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"projects/{id}"),
             params=remove_none_from_dict({"include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -340,9 +338,7 @@ class AsyncProjectsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/projects/{parent_id}/users"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"projects/{parent_id}/users"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

@@ -20,6 +20,7 @@ from . import (
     passthrough,
     projects,
     regenerate_key,
+    roles,
     selective_sync,
     sync_status,
     tags,
@@ -28,8 +29,43 @@ from . import (
     users,
     webhook_receivers,
 )
+from .collections import CollectionsListRequestCollectionType, CollectionsUsersListRequestExpand
+from .comments import CommentsListRequestExpand, CommentsRetrieveRequestExpand
+from .issues import IssuesListRequestStatus
+from .linked_accounts import LinkedAccountsListRequestCategory
+from .projects import ProjectsUsersListRequestExpand
+from .tickets import (
+    TicketsCollaboratorsListRequestExpand,
+    TicketsListRequestExpand,
+    TicketsListRequestPriority,
+    TicketsListRequestRemoteFields,
+    TicketsListRequestShowEnumOrigins,
+    TicketsListRequestStatus,
+    TicketsRetrieveRequestExpand,
+    TicketsRetrieveRequestRemoteFields,
+    TicketsRetrieveRequestShowEnumOrigins,
+)
+from .users import UsersListRequestExpand, UsersRetrieveRequestExpand
 
 __all__ = [
+    "CollectionsListRequestCollectionType",
+    "CollectionsUsersListRequestExpand",
+    "CommentsListRequestExpand",
+    "CommentsRetrieveRequestExpand",
+    "IssuesListRequestStatus",
+    "LinkedAccountsListRequestCategory",
+    "ProjectsUsersListRequestExpand",
+    "TicketsCollaboratorsListRequestExpand",
+    "TicketsListRequestExpand",
+    "TicketsListRequestPriority",
+    "TicketsListRequestRemoteFields",
+    "TicketsListRequestShowEnumOrigins",
+    "TicketsListRequestStatus",
+    "TicketsRetrieveRequestExpand",
+    "TicketsRetrieveRequestRemoteFields",
+    "TicketsRetrieveRequestShowEnumOrigins",
+    "UsersListRequestExpand",
+    "UsersRetrieveRequestExpand",
     "account_details",
     "account_token",
     "accounts",
@@ -49,6 +85,7 @@ __all__ = [
     "passthrough",
     "projects",
     "regenerate_key",
+    "roles",
     "selective_sync",
     "sync_status",
     "tags",

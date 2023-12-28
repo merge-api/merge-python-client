@@ -13,16 +13,16 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.employee import Employee
 from ...types.employee_request import EmployeeRequest
 from ...types.employee_response import EmployeeResponse
-from ...types.employees_list_request_employment_status import EmployeesListRequestEmploymentStatus
-from ...types.employees_list_request_expand import EmployeesListRequestExpand
-from ...types.employees_list_request_remote_fields import EmployeesListRequestRemoteFields
-from ...types.employees_list_request_show_enum_origins import EmployeesListRequestShowEnumOrigins
-from ...types.employees_retrieve_request_expand import EmployeesRetrieveRequestExpand
-from ...types.employees_retrieve_request_remote_fields import EmployeesRetrieveRequestRemoteFields
-from ...types.employees_retrieve_request_show_enum_origins import EmployeesRetrieveRequestShowEnumOrigins
-from ...types.ignore_common_model_request_reason import IgnoreCommonModelRequestReason
 from ...types.meta_response import MetaResponse
 from ...types.paginated_employee_list import PaginatedEmployeeList
+from .types.employees_list_request_employment_status import EmployeesListRequestEmploymentStatus
+from .types.employees_list_request_expand import EmployeesListRequestExpand
+from .types.employees_list_request_remote_fields import EmployeesListRequestRemoteFields
+from .types.employees_list_request_show_enum_origins import EmployeesListRequestShowEnumOrigins
+from .types.employees_retrieve_request_expand import EmployeesRetrieveRequestExpand
+from .types.employees_retrieve_request_remote_fields import EmployeesRetrieveRequestRemoteFields
+from .types.employees_retrieve_request_show_enum_origins import EmployeesRetrieveRequestShowEnumOrigins
+from .types.ignore_common_model_request_reason import IgnoreCommonModelRequestReason
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -89,9 +89,9 @@ class EmployeesClient:
 
             - employment_status: typing.Optional[EmployeesListRequestEmploymentStatus]. If provided, will only return employees with this employment status.
 
-                                                                                        * `ACTIVE` - ACTIVE
-                                                                                        * `PENDING` - PENDING
-                                                                                        * `INACTIVE` - INACTIVE
+                                                                                        - `ACTIVE` - ACTIVE
+                                                                                        - `PENDING` - PENDING
+                                                                                        - `INACTIVE` - INACTIVE
             - employment_type: typing.Optional[str]. If provided, will only return employees that have an employment of the specified employment_type.
 
             - expand: typing.Optional[EmployeesListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
@@ -165,7 +165,7 @@ class EmployeesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employees"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "employees"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -271,7 +271,7 @@ class EmployeesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employees"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "employees"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -331,7 +331,7 @@ class EmployeesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employees/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"employees/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -370,7 +370,7 @@ class EmployeesClient:
             _request["message"] = message
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employees/ignore/{model_id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"employees/ignore/{model_id}"),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -398,7 +398,7 @@ class EmployeesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employees/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "employees/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -467,9 +467,9 @@ class AsyncEmployeesClient:
 
             - employment_status: typing.Optional[EmployeesListRequestEmploymentStatus]. If provided, will only return employees with this employment status.
 
-                                                                                        * `ACTIVE` - ACTIVE
-                                                                                        * `PENDING` - PENDING
-                                                                                        * `INACTIVE` - INACTIVE
+                                                                                        - `ACTIVE` - ACTIVE
+                                                                                        - `PENDING` - PENDING
+                                                                                        - `INACTIVE` - INACTIVE
             - employment_type: typing.Optional[str]. If provided, will only return employees that have an employment of the specified employment_type.
 
             - expand: typing.Optional[EmployeesListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
@@ -543,7 +543,7 @@ class AsyncEmployeesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employees"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "employees"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -649,7 +649,7 @@ class AsyncEmployeesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employees"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "employees"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -709,7 +709,7 @@ class AsyncEmployeesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employees/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"employees/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -748,7 +748,7 @@ class AsyncEmployeesClient:
             _request["message"] = message
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employees/ignore/{model_id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"employees/ignore/{model_id}"),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -776,7 +776,7 @@ class AsyncEmployeesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employees/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "employees/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

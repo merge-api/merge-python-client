@@ -6,6 +6,7 @@ import typing
 from ....core.datetime_utils import serialize_datetime
 from .address import Address
 from .contact_account import ContactAccount
+from .contact_owner import ContactOwner
 from .email_address import EmailAddress
 from .phone_number import PhoneNumber
 from .remote_data import RemoteData
@@ -20,15 +21,20 @@ except ImportError:
 class Contact(pydantic.BaseModel):
     """
     # The Contact Object
+
     ### Description
+
     The `Contact` object is used to represent an existing point of contact at a company in a CRM system.
+
     ### Usage Example
+
     TODO
     """
 
     first_name: typing.Optional[str] = pydantic.Field(description="The contact's first name.")
     last_name: typing.Optional[str] = pydantic.Field(description="The contact's last name.")
     account: typing.Optional[ContactAccount] = pydantic.Field(description="The contact's account.")
+    owner: typing.Optional[ContactOwner] = pydantic.Field(description="The contact's owner.")
     addresses: typing.Optional[typing.List[Address]]
     email_addresses: typing.Optional[typing.List[EmailAddress]]
     phone_numbers: typing.Optional[typing.List[PhoneNumber]]
