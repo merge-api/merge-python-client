@@ -15,12 +15,12 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.account import Account
 from ...types.account_request import AccountRequest
 from ...types.account_response import AccountResponse
+from ...types.accounts_list_request_remote_fields import AccountsListRequestRemoteFields
+from ...types.accounts_list_request_show_enum_origins import AccountsListRequestShowEnumOrigins
+from ...types.accounts_retrieve_request_remote_fields import AccountsRetrieveRequestRemoteFields
+from ...types.accounts_retrieve_request_show_enum_origins import AccountsRetrieveRequestShowEnumOrigins
 from ...types.meta_response import MetaResponse
 from ...types.paginated_account_list import PaginatedAccountList
-from .types.accounts_list_request_remote_fields import AccountsListRequestRemoteFields
-from .types.accounts_list_request_show_enum_origins import AccountsListRequestShowEnumOrigins
-from .types.accounts_retrieve_request_remote_fields import AccountsRetrieveRequestRemoteFields
-from .types.accounts_retrieve_request_show_enum_origins import AccountsRetrieveRequestShowEnumOrigins
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -100,7 +100,7 @@ class AccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/accounts"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -166,7 +166,7 @@ class AccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/accounts"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -222,7 +222,7 @@ class AccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/accounts/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -257,7 +257,7 @@ class AccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounts/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/accounts/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -339,7 +339,7 @@ class AsyncAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/accounts"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -405,7 +405,7 @@ class AsyncAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/accounts"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -461,7 +461,7 @@ class AsyncAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/accounts/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -496,7 +496,7 @@ class AsyncAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounts/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/accounts/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

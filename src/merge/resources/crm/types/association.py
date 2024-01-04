@@ -15,13 +15,9 @@ except ImportError:
 class Association(pydantic.BaseModel):
     """
     # The Association Object
-
     ### Description
-
     The `Association` record refers to an instance of an Association Type.
-
     ### Usage Example
-
     TODO
     """
 

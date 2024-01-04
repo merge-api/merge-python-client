@@ -8,11 +8,11 @@ T_Result = typing.TypeVar("T_Result")
 
 class ClassificationEnum(str, enum.Enum):
     """
-    - `ASSET` - ASSET
-    - `EQUITY` - EQUITY
-    - `EXPENSE` - EXPENSE
-    - `LIABILITY` - LIABILITY
-    - `REVENUE` - REVENUE
+    * `ASSET` - ASSET
+    * `EQUITY` - EQUITY
+    * `EXPENSE` - EXPENSE
+    * `LIABILITY` - LIABILITY
+    * `REVENUE` - REVENUE
     """
 
     ASSET = "ASSET"

@@ -8,12 +8,12 @@ T_Result = typing.TypeVar("T_Result")
 
 class ItemFormatEnum(str, enum.Enum):
     """
-    - `string` - uuid
-    - `number` - url
-    - `date` - email
-    - `datetime` - phone
-    - `bool` - currency
-    - `list` - decimal
+    * `string` - uuid
+    * `number` - url
+    * `date` - email
+    * `datetime` - phone
+    * `bool` - currency
+    * `list` - decimal
     """
 
     STRING = "string"

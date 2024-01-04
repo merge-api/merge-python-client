@@ -12,10 +12,10 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.collection import Collection
+from ...types.collections_list_request_collection_type import CollectionsListRequestCollectionType
+from ...types.collections_users_list_request_expand import CollectionsUsersListRequestExpand
 from ...types.paginated_collection_list import PaginatedCollectionList
 from ...types.paginated_user_list import PaginatedUserList
-from .types.collections_list_request_collection_type import CollectionsListRequestCollectionType
-from .types.collections_users_list_request_expand import CollectionsUsersListRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -51,8 +51,8 @@ class CollectionsClient:
         Parameters:
             - collection_type: typing.Optional[CollectionsListRequestCollectionType]. If provided, will only return collections of the given type.
 
-                                                                                      - `LIST` - LIST
-                                                                                      - `PROJECT` - PROJECT
+                                                                                      * `LIST` - LIST
+                                                                                      * `PROJECT` - PROJECT
             - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
 
             - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
@@ -95,7 +95,7 @@ class CollectionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "collections"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/collections"),
             params=remove_none_from_dict(
                 {
                     "collection_type": collection_type,
@@ -163,7 +163,7 @@ class CollectionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"collections/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/collections/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -223,7 +223,9 @@ class CollectionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"collections/{parent_id}/users"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/collections/{parent_id}/users"
+            ),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -273,8 +275,8 @@ class AsyncCollectionsClient:
         Parameters:
             - collection_type: typing.Optional[CollectionsListRequestCollectionType]. If provided, will only return collections of the given type.
 
-                                                                                      - `LIST` - LIST
-                                                                                      - `PROJECT` - PROJECT
+                                                                                      * `LIST` - LIST
+                                                                                      * `PROJECT` - PROJECT
             - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
 
             - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
@@ -317,7 +319,7 @@ class AsyncCollectionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "collections"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/collections"),
             params=remove_none_from_dict(
                 {
                     "collection_type": collection_type,
@@ -385,7 +387,7 @@ class AsyncCollectionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"collections/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/collections/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -445,7 +447,9 @@ class AsyncCollectionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"collections/{parent_id}/users"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/collections/{parent_id}/users"
+            ),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

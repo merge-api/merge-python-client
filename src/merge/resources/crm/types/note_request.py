@@ -19,13 +19,9 @@ except ImportError:
 class NoteRequest(pydantic.BaseModel):
     """
     # The Note Object
-
     ### Description
-
     The `Note` object is used to represent a note on another object.
-
     ### Usage Example
-
     TODO
     """
 

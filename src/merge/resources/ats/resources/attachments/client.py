@@ -92,7 +92,7 @@ class AttachmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/attachments"),
             params=remove_none_from_dict(
                 {
                     "candidate_id": candidate_id,
@@ -143,7 +143,7 @@ class AttachmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/attachments"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
             headers=self._client_wrapper.get_headers(),
@@ -195,7 +195,7 @@ class AttachmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"attachments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/attachments/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -230,7 +230,7 @@ class AttachmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "attachments/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/attachments/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -308,7 +308,7 @@ class AsyncAttachmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/attachments"),
             params=remove_none_from_dict(
                 {
                     "candidate_id": candidate_id,
@@ -359,7 +359,7 @@ class AsyncAttachmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/attachments"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
             headers=self._client_wrapper.get_headers(),
@@ -411,7 +411,7 @@ class AsyncAttachmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"attachments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/attachments/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -446,7 +446,7 @@ class AsyncAttachmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "attachments/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/attachments/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

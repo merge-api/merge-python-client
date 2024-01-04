@@ -16,13 +16,10 @@ except ImportError:
 class Earning(pydantic.BaseModel):
     """
     # The Earning Object
-
     ### Description
-
     The `Earning` object is used to represent an array of different compensations that an employee receives within specific wage categories.
 
     ### Usage Example
-
     Fetch from the `LIST Earnings` endpoint and filter by `ID` to show all earnings.
     """
 
@@ -34,10 +31,10 @@ class Earning(pydantic.BaseModel):
         description=(
             "The type of earning.\n"
             "\n"
-            "- `SALARY` - SALARY\n"
-            "- `REIMBURSEMENT` - REIMBURSEMENT\n"
-            "- `OVERTIME` - OVERTIME\n"
-            "- `BONUS` - BONUS\n"
+            "* `SALARY` - SALARY\n"
+            "* `REIMBURSEMENT` - REIMBURSEMENT\n"
+            "* `OVERTIME` - OVERTIME\n"
+            "* `BONUS` - BONUS\n"
         )
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(

@@ -10,8 +10,8 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.issue import Issue
+from ...types.issues_list_request_status import IssuesListRequestStatus
 from ...types.paginated_issue_list import PaginatedIssueList
-from .types.issues_list_request_status import IssuesListRequestStatus
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -70,8 +70,8 @@ class IssuesClient:
 
             - status: typing.Optional[IssuesListRequestStatus]. Status of the issue. Options: ('ONGOING', 'RESOLVED')
 
-                                                                - `ONGOING` - ONGOING
-                                                                - `RESOLVED` - RESOLVED---
+                                                                * `ONGOING` - ONGOING
+                                                                * `RESOLVED` - RESOLVED---
         from merge.client import Merge
         from merge.resources.hris import IssuesListRequestStatus
 
@@ -85,7 +85,7 @@ class IssuesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "issues"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/issues"),
             params=remove_none_from_dict(
                 {
                     "account_token": account_token,
@@ -141,7 +141,7 @@ class IssuesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"issues/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/issues/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -205,8 +205,8 @@ class AsyncIssuesClient:
 
             - status: typing.Optional[IssuesListRequestStatus]. Status of the issue. Options: ('ONGOING', 'RESOLVED')
 
-                                                                - `ONGOING` - ONGOING
-                                                                - `RESOLVED` - RESOLVED---
+                                                                * `ONGOING` - ONGOING
+                                                                * `RESOLVED` - RESOLVED---
         from merge.client import AsyncMerge
         from merge.resources.hris import IssuesListRequestStatus
 
@@ -220,7 +220,7 @@ class AsyncIssuesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "issues"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/issues"),
             params=remove_none_from_dict(
                 {
                     "account_token": account_token,
@@ -276,7 +276,7 @@ class AsyncIssuesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"issues/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/issues/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

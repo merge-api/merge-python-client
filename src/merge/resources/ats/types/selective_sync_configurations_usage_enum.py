@@ -8,8 +8,8 @@ T_Result = typing.TypeVar("T_Result")
 
 class SelectiveSyncConfigurationsUsageEnum(str, enum.Enum):
     """
-    - `IN_NEXT_SYNC` - IN_NEXT_SYNC
-    - `IN_LAST_SYNC` - IN_LAST_SYNC
+    * `IN_NEXT_SYNC` - IN_NEXT_SYNC
+    * `IN_LAST_SYNC` - IN_LAST_SYNC
     """
 
     IN_NEXT_SYNC = "IN_NEXT_SYNC"

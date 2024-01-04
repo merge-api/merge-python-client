@@ -32,7 +32,7 @@ class PassthroughClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "passthrough"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/passthrough"),
             json=jsonable_encoder(request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -59,7 +59,7 @@ class AsyncPassthroughClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "passthrough"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/passthrough"),
             json=jsonable_encoder(request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

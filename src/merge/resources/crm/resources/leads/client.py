@@ -13,11 +13,11 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.lead import Lead
 from ...types.lead_request import LeadRequest
 from ...types.lead_response import LeadResponse
+from ...types.leads_list_request_expand import LeadsListRequestExpand
+from ...types.leads_retrieve_request_expand import LeadsRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
 from ...types.paginated_lead_list import PaginatedLeadList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
-from .types.leads_list_request_expand import LeadsListRequestExpand
-from .types.leads_retrieve_request_expand import LeadsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -101,7 +101,7 @@ class LeadsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "leads"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/leads"),
             params=remove_none_from_dict(
                 {
                     "converted_account_id": converted_account_id,
@@ -200,7 +200,7 @@ class LeadsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "leads"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/leads"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -248,7 +248,7 @@ class LeadsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"leads/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/leads/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -282,7 +282,7 @@ class LeadsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "leads/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/leads/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -327,7 +327,7 @@ class LeadsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "leads/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/leads/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -422,7 +422,7 @@ class AsyncLeadsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "leads"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/leads"),
             params=remove_none_from_dict(
                 {
                     "converted_account_id": converted_account_id,
@@ -521,7 +521,7 @@ class AsyncLeadsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "leads"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/leads"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -569,7 +569,7 @@ class AsyncLeadsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"leads/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/leads/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -603,7 +603,7 @@ class AsyncLeadsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "leads/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/leads/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -648,7 +648,7 @@ class AsyncLeadsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "leads/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/leads/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

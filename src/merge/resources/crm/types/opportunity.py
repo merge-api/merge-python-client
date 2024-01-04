@@ -20,13 +20,9 @@ except ImportError:
 class Opportunity(pydantic.BaseModel):
     """
     # The Opportunity Object
-
     ### Description
-
     The `Opportunity` object is used to represent a deal opportunity in a CRM system.
-
     ### Usage Example
-
     TODO
     """
 
@@ -37,7 +33,7 @@ class Opportunity(pydantic.BaseModel):
     account: typing.Optional[OpportunityAccount] = pydantic.Field(description="The account of the opportunity.")
     stage: typing.Optional[OpportunityStage] = pydantic.Field(description="The stage of the opportunity.")
     status: typing.Optional[OpportunityStatus] = pydantic.Field(
-        description=("The opportunity's status.\n" "\n" "- `OPEN` - OPEN\n" "- `WON` - WON\n" "- `LOST` - LOST\n")
+        description=("The opportunity's status.\n" "\n" "* `OPEN` - OPEN\n" "* `WON` - WON\n" "* `LOST` - LOST\n")
     )
     last_activity_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="When the opportunity's last activity occurred."

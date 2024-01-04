@@ -15,13 +15,9 @@ except ImportError:
 class PhoneNumberRequest(pydantic.BaseModel):
     """
     # The PhoneNumber Object
-
     ### Description
-
     The `PhoneNumber` object is used to represent a candidate's phone number.
-
     ### Usage Example
-
     Fetch from the `GET Candidate` endpoint and view their phone numbers.
     """
 
@@ -30,11 +26,11 @@ class PhoneNumberRequest(pydantic.BaseModel):
         description=(
             "The type of phone number.\n"
             "\n"
-            "- `HOME` - HOME\n"
-            "- `WORK` - WORK\n"
-            "- `MOBILE` - MOBILE\n"
-            "- `SKYPE` - SKYPE\n"
-            "- `OTHER` - OTHER\n"
+            "* `HOME` - HOME\n"
+            "* `WORK` - WORK\n"
+            "* `MOBILE` - MOBILE\n"
+            "* `SKYPE` - SKYPE\n"
+            "* `OTHER` - OTHER\n"
         )
     )
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]

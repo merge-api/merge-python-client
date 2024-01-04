@@ -21,13 +21,9 @@ except ImportError:
 class Contact(pydantic.BaseModel):
     """
     # The Contact Object
-
     ### Description
-
     The `Contact` object is used to represent an existing point of contact at a company in a CRM system.
-
     ### Usage Example
-
     TODO
     """
 

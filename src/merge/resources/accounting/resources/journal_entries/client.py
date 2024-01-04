@@ -10,13 +10,13 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from ...types.journal_entries_list_request_expand import JournalEntriesListRequestExpand
+from ...types.journal_entries_retrieve_request_expand import JournalEntriesRetrieveRequestExpand
 from ...types.journal_entry import JournalEntry
 from ...types.journal_entry_request import JournalEntryRequest
 from ...types.journal_entry_response import JournalEntryResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_journal_entry_list import PaginatedJournalEntryList
-from .types.journal_entries_list_request_expand import JournalEntriesListRequestExpand
-from .types.journal_entries_retrieve_request_expand import JournalEntriesRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -91,7 +91,7 @@ class JournalEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "journal-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -165,7 +165,7 @@ class JournalEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "journal-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -210,7 +210,7 @@ class JournalEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"journal-entries/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/journal-entries/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -238,7 +238,9 @@ class JournalEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "journal-entries/meta/post"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries/meta/post"
+            ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -315,7 +317,7 @@ class AsyncJournalEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "journal-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -389,7 +391,7 @@ class AsyncJournalEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "journal-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -434,7 +436,7 @@ class AsyncJournalEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"journal-entries/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/journal-entries/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -462,7 +464,9 @@ class AsyncJournalEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "journal-entries/meta/post"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries/meta/post"
+            ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

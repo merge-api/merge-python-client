@@ -8,12 +8,12 @@ T_Result = typing.TypeVar("T_Result")
 
 class TicketActionsEnum(str, enum.Enum):
     """
-    - `VIEW` - VIEW
-    - `CREATE` - CREATE
-    - `EDIT` - EDIT
-    - `DELETE` - DELETE
-    - `CLOSE` - CLOSE
-    - `ASSIGN` - ASSIGN
+    * `VIEW` - VIEW
+    * `CREATE` - CREATE
+    * `EDIT` - EDIT
+    * `DELETE` - DELETE
+    * `CLOSE` - CLOSE
+    * `ASSIGN` - ASSIGN
     """
 
     VIEW = "VIEW"

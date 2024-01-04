@@ -10,9 +10,9 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.employee_payroll_run import EmployeePayrollRun
+from ...types.employee_payroll_runs_list_request_expand import EmployeePayrollRunsListRequestExpand
+from ...types.employee_payroll_runs_retrieve_request_expand import EmployeePayrollRunsRetrieveRequestExpand
 from ...types.paginated_employee_payroll_run_list import PaginatedEmployeePayrollRunList
-from .types.employee_payroll_runs_list_request_expand import EmployeePayrollRunsListRequestExpand
-from .types.employee_payroll_runs_retrieve_request_expand import EmployeePayrollRunsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -93,7 +93,7 @@ class EmployeePayrollRunsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "employee-payroll-runs"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employee-payroll-runs"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -156,7 +156,7 @@ class EmployeePayrollRunsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"employee-payroll-runs/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employee-payroll-runs/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -243,7 +243,7 @@ class AsyncEmployeePayrollRunsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "employee-payroll-runs"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employee-payroll-runs"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -306,7 +306,7 @@ class AsyncEmployeePayrollRunsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"employee-payroll-runs/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employee-payroll-runs/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

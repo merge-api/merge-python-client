@@ -20,13 +20,9 @@ except ImportError:
 class ScheduledInterview(pydantic.BaseModel):
     """
     # The ScheduledInterview Object
-
     ### Description
-
     The `ScheduledInterview` object is used to represent a scheduled interview for a given candidate’s application to a job. An `Application` can have multiple `ScheduledInterview`s depending on the particular hiring process.
-
     ### Usage Example
-
     Fetch from the `LIST ScheduledInterviews` endpoint and filter by `interviewers` to show all office locations.
     """
 
@@ -57,9 +53,9 @@ class ScheduledInterview(pydantic.BaseModel):
         description=(
             "The interview's status.\n"
             "\n"
-            "- `SCHEDULED` - SCHEDULED\n"
-            "- `AWAITING_FEEDBACK` - AWAITING_FEEDBACK\n"
-            "- `COMPLETE` - COMPLETE\n"
+            "* `SCHEDULED` - SCHEDULED\n"
+            "* `AWAITING_FEEDBACK` - AWAITING_FEEDBACK\n"
+            "* `COMPLETE` - COMPLETE\n"
         )
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(

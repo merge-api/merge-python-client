@@ -13,15 +13,15 @@ from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.meta_response import MetaResponse
+from ...types.opportunities_list_request_expand import OpportunitiesListRequestExpand
+from ...types.opportunities_list_request_status import OpportunitiesListRequestStatus
+from ...types.opportunities_retrieve_request_expand import OpportunitiesRetrieveRequestExpand
 from ...types.opportunity import Opportunity
 from ...types.opportunity_request import OpportunityRequest
 from ...types.opportunity_response import OpportunityResponse
 from ...types.paginated_opportunity_list import PaginatedOpportunityList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.patched_opportunity_request import PatchedOpportunityRequest
-from .types.opportunities_list_request_expand import OpportunitiesListRequestExpand
-from .types.opportunities_list_request_status import OpportunitiesListRequestStatus
-from .types.opportunities_retrieve_request_expand import OpportunitiesRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -95,9 +95,9 @@ class OpportunitiesClient:
 
             - status: typing.Optional[OpportunitiesListRequestStatus]. If provided, will only return opportunities with this status. Options: ('OPEN', 'WON', 'LOST')
 
-                                                                       - `OPEN` - OPEN
-                                                                       - `WON` - WON
-                                                                       - `LOST` - LOST---
+                                                                       * `OPEN` - OPEN
+                                                                       * `WON` - WON
+                                                                       * `LOST` - LOST---
         from merge.client import Merge
         from merge.resources.crm import (
             OpportunitiesListRequestExpand,
@@ -117,7 +117,7 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "opportunities"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"),
             params=remove_none_from_dict(
                 {
                     "account_id": account_id,
@@ -192,7 +192,7 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "opportunities"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -248,7 +248,7 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"opportunities/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -318,7 +318,7 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"opportunities/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -351,7 +351,9 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"opportunities/meta/patch/{id}"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/meta/patch/{id}"
+            ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -378,7 +380,7 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "opportunities/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -423,7 +425,9 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "opportunities/remote-field-classes"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities/remote-field-classes"
+            ),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -508,9 +512,9 @@ class AsyncOpportunitiesClient:
 
             - status: typing.Optional[OpportunitiesListRequestStatus]. If provided, will only return opportunities with this status. Options: ('OPEN', 'WON', 'LOST')
 
-                                                                       - `OPEN` - OPEN
-                                                                       - `WON` - WON
-                                                                       - `LOST` - LOST---
+                                                                       * `OPEN` - OPEN
+                                                                       * `WON` - WON
+                                                                       * `LOST` - LOST---
         from merge.client import AsyncMerge
         from merge.resources.crm import (
             OpportunitiesListRequestExpand,
@@ -530,7 +534,7 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "opportunities"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"),
             params=remove_none_from_dict(
                 {
                     "account_id": account_id,
@@ -605,7 +609,7 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "opportunities"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -661,7 +665,7 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"opportunities/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -731,7 +735,7 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"opportunities/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -764,7 +768,9 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"opportunities/meta/patch/{id}"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/meta/patch/{id}"
+            ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -791,7 +797,7 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "opportunities/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -836,7 +842,9 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "opportunities/remote-field-classes"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities/remote-field-classes"
+            ),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

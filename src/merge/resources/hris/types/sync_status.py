@@ -16,13 +16,10 @@ except ImportError:
 class SyncStatus(pydantic.BaseModel):
     """
     # The SyncStatus Object
-
     ### Description
-
     The `SyncStatus` object is used to represent the syncing state of an account
 
     ### Usage Example
-
     View the `SyncStatus` for an account to see how recently its models were synced.
     """
 

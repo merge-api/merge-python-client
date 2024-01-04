@@ -18,13 +18,10 @@ except ImportError:
 class PermissionRequest(pydantic.BaseModel):
     """
     # The Permission Object
-
     ### Description
-
     The Permission object is used to represent a user's or group's access to a File or Folder. Permissions are unexpanded by default.
 
     ### Usage Example
-
     Fetch from the `GET Files` or `GET Folders` endpoint. Permissions are unexpanded by default. Use the query param `expand=permissions` to see more details.
     """
 
@@ -39,10 +36,10 @@ class PermissionRequest(pydantic.BaseModel):
         description=(
             "Denotes what type of people have access to the file.\n"
             "\n"
-            "- `USER` - USER\n"
-            "- `GROUP` - GROUP\n"
-            "- `COMPANY` - COMPANY\n"
-            "- `ANYONE` - ANYONE\n"
+            "* `USER` - USER\n"
+            "* `GROUP` - GROUP\n"
+            "* `COMPANY` - COMPANY\n"
+            "* `ANYONE` - ANYONE\n"
         )
     )
     roles: typing.Optional[typing.List[typing.Optional[PermissionRequestRolesItem]]] = pydantic.Field(

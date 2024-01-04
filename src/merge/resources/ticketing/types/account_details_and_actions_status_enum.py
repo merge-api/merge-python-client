@@ -8,9 +8,9 @@ T_Result = typing.TypeVar("T_Result")
 
 class AccountDetailsAndActionsStatusEnum(str, enum.Enum):
     """
-    - `COMPLETE` - COMPLETE
-    - `INCOMPLETE` - INCOMPLETE
-    - `RELINK_NEEDED` - RELINK_NEEDED
+    * `COMPLETE` - COMPLETE
+    * `INCOMPLETE` - INCOMPLETE
+    * `RELINK_NEEDED` - RELINK_NEEDED
     """
 
     COMPLETE = "COMPLETE"

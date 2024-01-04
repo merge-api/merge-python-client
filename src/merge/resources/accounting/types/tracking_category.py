@@ -18,22 +18,19 @@ except ImportError:
 class TrackingCategory(pydantic.BaseModel):
     """
     # The TrackingCategory Object
-
     ### Description
-
     A `TrackingCategory` object represents a categorization method used to classify transactions within an accounting platform. They are often used to group records for reporting and analysis purposes. The most common types of `TrackingCategories` are Classes and Departments.
 
     ### Usage Example
-
     Fetch from the `GET TrackingCategory` endpoint and view a company's tracking category.
     """
 
     name: typing.Optional[str] = pydantic.Field(description="The tracking category's name.")
     status: typing.Optional[TrackingCategoryStatus] = pydantic.Field(
-        description=("The tracking category's status.\n" "\n" "- `ACTIVE` - ACTIVE\n" "- `ARCHIVED` - ARCHIVED\n")
+        description=("The tracking category's status.\n" "\n" "* `ACTIVE` - ACTIVE\n" "* `ARCHIVED` - ARCHIVED\n")
     )
     category_type: typing.Optional[TrackingCategoryCategoryType] = pydantic.Field(
-        description=("The tracking category’s type.\n" "\n" "- `CLASS` - CLASS\n" "- `DEPARTMENT` - DEPARTMENT\n")
+        description=("The tracking category’s type.\n" "\n" "* `CLASS` - CLASS\n" "* `DEPARTMENT` - DEPARTMENT\n")
     )
     parent_category: typing.Optional[str] = pydantic.Field(description="ID of the parent tracking category.")
     company: typing.Optional[TrackingCategoryCompany] = pydantic.Field(

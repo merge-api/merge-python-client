@@ -19,14 +19,11 @@ except ImportError:
 class Collection(pydantic.BaseModel):
     """
     # The Collection Object
-
     ### Description
-
     The `Collection` object is used to represent collections of tickets. Collections may include other collections as
     sub collections.
 
     ### Usage Example
-
     TODO
     """
 
@@ -35,7 +32,7 @@ class Collection(pydantic.BaseModel):
     name: typing.Optional[str] = pydantic.Field(description="The collection's name.")
     description: typing.Optional[str] = pydantic.Field(description="The collection's description.")
     collection_type: typing.Optional[CollectionCollectionType] = pydantic.Field(
-        description=("The collection's type.\n" "\n" "- `LIST` - LIST\n" "- `PROJECT` - PROJECT\n")
+        description=("The collection's type.\n" "\n" "* `LIST` - LIST\n" "* `PROJECT` - PROJECT\n")
     )
     parent_collection: typing.Optional[CollectionParentCollection] = pydantic.Field(
         description="The parent collection for this collection."
@@ -47,9 +44,9 @@ class Collection(pydantic.BaseModel):
         description=(
             "The level of access a User has to the Collection and its sub-objects.\n"
             "\n"
-            "- `PRIVATE` - PRIVATE\n"
-            "- `COMPANY` - COMPANY\n"
-            "- `PUBLIC` - PUBLIC\n"
+            "* `PRIVATE` - PRIVATE\n"
+            "* `COMPANY` - COMPANY\n"
+            "* `PUBLIC` - PUBLIC\n"
         )
     )
     created_at: typing.Optional[dt.datetime]

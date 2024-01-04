@@ -42,6 +42,8 @@ from .contact_owner import ContactOwner
 from .contact_request import ContactRequest
 from .contact_request_account import ContactRequestAccount
 from .contact_request_owner import ContactRequestOwner
+from .contacts_list_request_expand import ContactsListRequestExpand
+from .contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
 from .country_enum import CountryEnum
 from .crm_account_response import CrmAccountResponse
 from .crm_association_type_response import CrmAssociationTypeResponse
@@ -73,6 +75,8 @@ from .engagement_request_owner import EngagementRequestOwner
 from .engagement_response import EngagementResponse
 from .engagement_type import EngagementType
 from .engagement_type_activity_type import EngagementTypeActivityType
+from .engagements_list_request_expand import EngagementsListRequestExpand
+from .engagements_retrieve_request_expand import EngagementsRetrieveRequestExpand
 from .error_validation_problem import ErrorValidationProblem
 from .event_type_enum import EventTypeEnum
 from .field_format_enum import FieldFormatEnum
@@ -81,6 +85,7 @@ from .ignore_common_model_request import IgnoreCommonModelRequest
 from .issue import Issue
 from .issue_status import IssueStatus
 from .issue_status_enum import IssueStatusEnum
+from .issues_list_request_status import IssuesListRequestStatus
 from .item_format_enum import ItemFormatEnum
 from .item_schema import ItemSchema
 from .item_type_enum import ItemTypeEnum
@@ -93,12 +98,15 @@ from .lead_request_converted_account import LeadRequestConvertedAccount
 from .lead_request_converted_contact import LeadRequestConvertedContact
 from .lead_request_owner import LeadRequestOwner
 from .lead_response import LeadResponse
+from .leads_list_request_expand import LeadsListRequestExpand
+from .leads_retrieve_request_expand import LeadsRetrieveRequestExpand
 from .link_token import LinkToken
 from .linked_account_condition import LinkedAccountCondition
 from .linked_account_condition_request import LinkedAccountConditionRequest
 from .linked_account_selective_sync_configuration import LinkedAccountSelectiveSyncConfiguration
 from .linked_account_selective_sync_configuration_request import LinkedAccountSelectiveSyncConfigurationRequest
 from .linked_account_status import LinkedAccountStatus
+from .linked_accounts_list_request_category import LinkedAccountsListRequestCategory
 from .meta_response import MetaResponse
 from .method_enum import MethodEnum
 from .model_operation import ModelOperation
@@ -115,8 +123,13 @@ from .note_request_contact import NoteRequestContact
 from .note_request_opportunity import NoteRequestOpportunity
 from .note_request_owner import NoteRequestOwner
 from .note_response import NoteResponse
+from .notes_list_request_expand import NotesListRequestExpand
+from .notes_retrieve_request_expand import NotesRetrieveRequestExpand
 from .object_class_description_request import ObjectClassDescriptionRequest
 from .operator_schema import OperatorSchema
+from .opportunities_list_request_expand import OpportunitiesListRequestExpand
+from .opportunities_list_request_status import OpportunitiesListRequestStatus
+from .opportunities_retrieve_request_expand import OpportunitiesRetrieveRequestExpand
 from .opportunity import Opportunity
 from .opportunity_account import OpportunityAccount
 from .opportunity_owner import OpportunityOwner
@@ -199,6 +212,8 @@ from .task_request_status import TaskRequestStatus
 from .task_response import TaskResponse
 from .task_status import TaskStatus
 from .task_status_enum import TaskStatusEnum
+from .tasks_list_request_expand import TasksListRequestExpand
+from .tasks_retrieve_request_expand import TasksRetrieveRequestExpand
 from .user import User
 from .validation_problem_source import ValidationProblemSource
 from .warning_validation_problem import WarningValidationProblem
@@ -247,6 +262,8 @@ __all__ = [
     "ContactRequest",
     "ContactRequestAccount",
     "ContactRequestOwner",
+    "ContactsListRequestExpand",
+    "ContactsRetrieveRequestExpand",
     "CountryEnum",
     "CrmAccountResponse",
     "CrmAssociationTypeResponse",
@@ -278,6 +295,8 @@ __all__ = [
     "EngagementResponse",
     "EngagementType",
     "EngagementTypeActivityType",
+    "EngagementsListRequestExpand",
+    "EngagementsRetrieveRequestExpand",
     "ErrorValidationProblem",
     "EventTypeEnum",
     "FieldFormatEnum",
@@ -286,6 +305,7 @@ __all__ = [
     "Issue",
     "IssueStatus",
     "IssueStatusEnum",
+    "IssuesListRequestStatus",
     "ItemFormatEnum",
     "ItemSchema",
     "ItemTypeEnum",
@@ -298,12 +318,15 @@ __all__ = [
     "LeadRequestConvertedContact",
     "LeadRequestOwner",
     "LeadResponse",
+    "LeadsListRequestExpand",
+    "LeadsRetrieveRequestExpand",
     "LinkToken",
     "LinkedAccountCondition",
     "LinkedAccountConditionRequest",
     "LinkedAccountSelectiveSyncConfiguration",
     "LinkedAccountSelectiveSyncConfigurationRequest",
     "LinkedAccountStatus",
+    "LinkedAccountsListRequestCategory",
     "MetaResponse",
     "MethodEnum",
     "ModelOperation",
@@ -320,8 +343,13 @@ __all__ = [
     "NoteRequestOpportunity",
     "NoteRequestOwner",
     "NoteResponse",
+    "NotesListRequestExpand",
+    "NotesRetrieveRequestExpand",
     "ObjectClassDescriptionRequest",
     "OperatorSchema",
+    "OpportunitiesListRequestExpand",
+    "OpportunitiesListRequestStatus",
+    "OpportunitiesRetrieveRequestExpand",
     "Opportunity",
     "OpportunityAccount",
     "OpportunityOwner",
@@ -402,6 +430,8 @@ __all__ = [
     "TaskResponse",
     "TaskStatus",
     "TaskStatusEnum",
+    "TasksListRequestExpand",
+    "TasksRetrieveRequestExpand",
     "User",
     "ValidationProblemSource",
     "WarningValidationProblem",

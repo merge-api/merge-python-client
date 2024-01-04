@@ -7,8 +7,8 @@ from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.remove_none_from_dict import remove_none_from_dict
+from ...types.linked_accounts_list_request_category import LinkedAccountsListRequestCategory
 from ...types.paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
-from .types.linked_accounts_list_request_category import LinkedAccountsListRequestCategory
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -43,13 +43,13 @@ class LinkedAccountsClient:
         Parameters:
             - category: typing.Optional[LinkedAccountsListRequestCategory]. Options: ('hris', 'ats', 'accounting', 'ticketing', 'crm', 'mktg', 'filestorage')
 
-                                                                            - `hris` - hris
-                                                                            - `ats` - ats
-                                                                            - `accounting` - accounting
-                                                                            - `ticketing` - ticketing
-                                                                            - `crm` - crm
-                                                                            - `mktg` - mktg
-                                                                            - `filestorage` - filestorage
+                                                                            * `hris` - hris
+                                                                            * `ats` - ats
+                                                                            * `accounting` - accounting
+                                                                            * `ticketing` - ticketing
+                                                                            * `crm` - crm
+                                                                            * `mktg` - mktg
+                                                                            * `filestorage` - filestorage
             - cursor: typing.Optional[str]. The pagination cursor value.
 
             - end_user_email_address: typing.Optional[str]. If provided, will only return linked accounts associated with the given email address.
@@ -87,7 +87,7 @@ class LinkedAccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "linked-accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/linked-accounts"),
             params=remove_none_from_dict(
                 {
                     "category": category,
@@ -144,13 +144,13 @@ class AsyncLinkedAccountsClient:
         Parameters:
             - category: typing.Optional[LinkedAccountsListRequestCategory]. Options: ('hris', 'ats', 'accounting', 'ticketing', 'crm', 'mktg', 'filestorage')
 
-                                                                            - `hris` - hris
-                                                                            - `ats` - ats
-                                                                            - `accounting` - accounting
-                                                                            - `ticketing` - ticketing
-                                                                            - `crm` - crm
-                                                                            - `mktg` - mktg
-                                                                            - `filestorage` - filestorage
+                                                                            * `hris` - hris
+                                                                            * `ats` - ats
+                                                                            * `accounting` - accounting
+                                                                            * `ticketing` - ticketing
+                                                                            * `crm` - crm
+                                                                            * `mktg` - mktg
+                                                                            * `filestorage` - filestorage
             - cursor: typing.Optional[str]. The pagination cursor value.
 
             - end_user_email_address: typing.Optional[str]. If provided, will only return linked accounts associated with the given email address.
@@ -188,7 +188,7 @@ class AsyncLinkedAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "linked-accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/linked-accounts"),
             params=remove_none_from_dict(
                 {
                     "category": category,

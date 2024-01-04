@@ -19,13 +19,9 @@ except ImportError:
 class Scorecard(pydantic.BaseModel):
     """
     # The Scorecard Object
-
     ### Description
-
     The `Scorecard` object is used to represent an interviewer's candidate recommendation based on a particular interview.
-
     ### Usage Example
-
     Fetch from the `LIST Scorecards` endpoint and filter by `application` to show all scorecard for an applicant.
     """
 
@@ -44,11 +40,11 @@ class Scorecard(pydantic.BaseModel):
         description=(
             "The inteviewer's recommendation.\n"
             "\n"
-            "- `DEFINITELY_NO` - DEFINITELY_NO\n"
-            "- `NO` - NO\n"
-            "- `YES` - YES\n"
-            "- `STRONG_YES` - STRONG_YES\n"
-            "- `NO_DECISION` - NO_DECISION\n"
+            "* `DEFINITELY_NO` - DEFINITELY_NO\n"
+            "* `NO` - NO\n"
+            "* `YES` - YES\n"
+            "* `STRONG_YES` - STRONG_YES\n"
+            "* `NO_DECISION` - NO_DECISION\n"
         )
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(

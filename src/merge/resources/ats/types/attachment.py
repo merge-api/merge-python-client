@@ -16,13 +16,9 @@ except ImportError:
 class Attachment(pydantic.BaseModel):
     """
     # The Attachment Object
-
     ### Description
-
     The `Attachment` object is used to represent a file attached to a candidate.
-
     ### Usage Example
-
     Fetch from the `LIST Attachments` endpoint and view attachments accessible by a company.
     """
 
@@ -35,10 +31,10 @@ class Attachment(pydantic.BaseModel):
         description=(
             "The attachment's type.\n"
             "\n"
-            "- `RESUME` - RESUME\n"
-            "- `COVER_LETTER` - COVER_LETTER\n"
-            "- `OFFER_LETTER` - OFFER_LETTER\n"
-            "- `OTHER` - OTHER\n"
+            "* `RESUME` - RESUME\n"
+            "* `COVER_LETTER` - COVER_LETTER\n"
+            "* `OFFER_LETTER` - OFFER_LETTER\n"
+            "* `OTHER` - OTHER\n"
         )
     )
     remote_was_deleted: typing.Optional[bool]

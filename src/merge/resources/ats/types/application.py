@@ -21,13 +21,10 @@ except ImportError:
 class Application(pydantic.BaseModel):
     """
     # The Application Object
-
     ### Description
-
     The Application Object is used to represent a candidate's journey through a particular Job's recruiting process. If a Candidate applies for multiple Jobs, there will be a separate Application for each Job if the third-party integration allows it.
 
     ### Usage Example
-
     Fetch from the `LIST Applications` endpoint and filter by `ID` to show all applications.
     """
 

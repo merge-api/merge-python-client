@@ -14,13 +14,9 @@ except ImportError:
 class PhoneNumber(pydantic.BaseModel):
     """
     # The PhoneNumber Object
-
     ### Description
-
     The `PhoneNumber` object is used to represent an entity's phone number.
-
     ### Usage Example
-
     Fetch from the `GET Contact` endpoint and view their phone numbers.
     """
 

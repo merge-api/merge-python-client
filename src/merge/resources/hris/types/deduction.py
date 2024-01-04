@@ -15,13 +15,10 @@ except ImportError:
 class Deduction(pydantic.BaseModel):
     """
     # The Deduction Object
-
     ### Description
-
     The `Deduction` object is used to represent an array of the wages withheld from total earnings for the purpose of paying taxes.
 
     ### Usage Example
-
     Fetch from the `LIST Deductions` endpoint and filter by `ID` to show all deductions.
     """
 

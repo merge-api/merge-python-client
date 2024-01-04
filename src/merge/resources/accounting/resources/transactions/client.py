@@ -11,8 +11,8 @@ from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.paginated_transaction_list import PaginatedTransactionList
 from ...types.transaction import Transaction
-from .types.transactions_list_request_expand import TransactionsListRequestExpand
-from .types.transactions_retrieve_request_expand import TransactionsRetrieveRequestExpand
+from ...types.transactions_list_request_expand import TransactionsListRequestExpand
+from ...types.transactions_retrieve_request_expand import TransactionsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -84,7 +84,7 @@ class TransactionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "transactions"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/transactions"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -148,7 +148,7 @@ class TransactionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"transactions/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/transactions/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -226,7 +226,7 @@ class AsyncTransactionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "transactions"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/transactions"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -290,7 +290,7 @@ class AsyncTransactionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"transactions/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/transactions/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

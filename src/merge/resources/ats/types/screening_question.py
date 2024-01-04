@@ -16,13 +16,10 @@ except ImportError:
 class ScreeningQuestion(pydantic.BaseModel):
     """
     # The ScreeningQuestion Object
-
     ### Description
-
     The `ScreeningQuestion` object is used to represent questions asked to screen candidates for a job.
 
     ### Usage Example
-
     TODO
     """
 
@@ -37,14 +34,14 @@ class ScreeningQuestion(pydantic.BaseModel):
         description=(
             "The data type for the screening question.\n"
             "\n"
-            "- `DATE` - DATE\n"
-            "- `FILE` - FILE\n"
-            "- `SINGLE_SELECT` - SINGLE_SELECT\n"
-            "- `MULTI_SELECT` - MULTI_SELECT\n"
-            "- `SINGLE_LINE_TEXT` - SINGLE_LINE_TEXT\n"
-            "- `MULTI_LINE_TEXT` - MULTI_LINE_TEXT\n"
-            "- `NUMERIC` - NUMERIC\n"
-            "- `BOOLEAN` - BOOLEAN\n"
+            "* `DATE` - DATE\n"
+            "* `FILE` - FILE\n"
+            "* `SINGLE_SELECT` - SINGLE_SELECT\n"
+            "* `MULTI_SELECT` - MULTI_SELECT\n"
+            "* `SINGLE_LINE_TEXT` - SINGLE_LINE_TEXT\n"
+            "* `MULTI_LINE_TEXT` - MULTI_LINE_TEXT\n"
+            "* `NUMERIC` - NUMERIC\n"
+            "* `BOOLEAN` - BOOLEAN\n"
         )
     )
     required: typing.Optional[bool] = pydantic.Field(description="Whether or not the screening question is required.")

@@ -8,8 +8,8 @@ T_Result = typing.TypeVar("T_Result")
 
 class LocationTypeEnum(str, enum.Enum):
     """
-    - `HOME` - HOME
-    - `WORK` - WORK
+    * `HOME` - HOME
+    * `WORK` - WORK
     """
 
     HOME = "HOME"

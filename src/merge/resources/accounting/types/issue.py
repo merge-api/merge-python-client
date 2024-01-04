@@ -18,8 +18,8 @@ class Issue(pydantic.BaseModel):
         description=(
             "Status of the issue. Options: ('ONGOING', 'RESOLVED')\n"
             "\n"
-            "- `ONGOING` - ONGOING\n"
-            "- `RESOLVED` - RESOLVED\n"
+            "* `ONGOING` - ONGOING\n"
+            "* `RESOLVED` - RESOLVED\n"
         )
     )
     error_description: str

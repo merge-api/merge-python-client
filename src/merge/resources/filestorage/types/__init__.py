@@ -37,6 +37,8 @@ from .file_request_permissions import FileRequestPermissions
 from .file_request_permissions_item import FileRequestPermissionsItem
 from .file_storage_file_response import FileStorageFileResponse
 from .file_storage_folder_response import FileStorageFolderResponse
+from .files_list_request_expand import FilesListRequestExpand
+from .files_retrieve_request_expand import FilesRetrieveRequestExpand
 from .folder import Folder
 from .folder_drive import FolderDrive
 from .folder_parent_folder import FolderParentFolder
@@ -47,16 +49,20 @@ from .folder_request_drive import FolderRequestDrive
 from .folder_request_parent_folder import FolderRequestParentFolder
 from .folder_request_permissions import FolderRequestPermissions
 from .folder_request_permissions_item import FolderRequestPermissionsItem
+from .folders_list_request_expand import FoldersListRequestExpand
+from .folders_retrieve_request_expand import FoldersRetrieveRequestExpand
 from .group import Group
 from .issue import Issue
 from .issue_status import IssueStatus
 from .issue_status_enum import IssueStatusEnum
+from .issues_list_request_status import IssuesListRequestStatus
 from .link_token import LinkToken
 from .linked_account_condition import LinkedAccountCondition
 from .linked_account_condition_request import LinkedAccountConditionRequest
 from .linked_account_selective_sync_configuration import LinkedAccountSelectiveSyncConfiguration
 from .linked_account_selective_sync_configuration_request import LinkedAccountSelectiveSyncConfigurationRequest
 from .linked_account_status import LinkedAccountStatus
+from .linked_accounts_list_request_category import LinkedAccountsListRequestCategory
 from .meta_response import MetaResponse
 from .method_enum import MethodEnum
 from .model_operation import ModelOperation
@@ -136,6 +142,8 @@ __all__ = [
     "FileRequestPermissionsItem",
     "FileStorageFileResponse",
     "FileStorageFolderResponse",
+    "FilesListRequestExpand",
+    "FilesRetrieveRequestExpand",
     "Folder",
     "FolderDrive",
     "FolderParentFolder",
@@ -146,16 +154,20 @@ __all__ = [
     "FolderRequestParentFolder",
     "FolderRequestPermissions",
     "FolderRequestPermissionsItem",
+    "FoldersListRequestExpand",
+    "FoldersRetrieveRequestExpand",
     "Group",
     "Issue",
     "IssueStatus",
     "IssueStatusEnum",
+    "IssuesListRequestStatus",
     "LinkToken",
     "LinkedAccountCondition",
     "LinkedAccountConditionRequest",
     "LinkedAccountSelectiveSyncConfiguration",
     "LinkedAccountSelectiveSyncConfigurationRequest",
     "LinkedAccountStatus",
+    "LinkedAccountsListRequestCategory",
     "MetaResponse",
     "MethodEnum",
     "ModelOperation",

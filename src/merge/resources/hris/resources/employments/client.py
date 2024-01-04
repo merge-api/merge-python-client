@@ -10,14 +10,14 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.employment import Employment
+from ...types.employments_list_request_expand import EmploymentsListRequestExpand
+from ...types.employments_list_request_order_by import EmploymentsListRequestOrderBy
+from ...types.employments_list_request_remote_fields import EmploymentsListRequestRemoteFields
+from ...types.employments_list_request_show_enum_origins import EmploymentsListRequestShowEnumOrigins
+from ...types.employments_retrieve_request_expand import EmploymentsRetrieveRequestExpand
+from ...types.employments_retrieve_request_remote_fields import EmploymentsRetrieveRequestRemoteFields
+from ...types.employments_retrieve_request_show_enum_origins import EmploymentsRetrieveRequestShowEnumOrigins
 from ...types.paginated_employment_list import PaginatedEmploymentList
-from .types.employments_list_request_expand import EmploymentsListRequestExpand
-from .types.employments_list_request_order_by import EmploymentsListRequestOrderBy
-from .types.employments_list_request_remote_fields import EmploymentsListRequestRemoteFields
-from .types.employments_list_request_show_enum_origins import EmploymentsListRequestShowEnumOrigins
-from .types.employments_retrieve_request_expand import EmploymentsRetrieveRequestExpand
-from .types.employments_retrieve_request_remote_fields import EmploymentsRetrieveRequestRemoteFields
-from .types.employments_retrieve_request_show_enum_origins import EmploymentsRetrieveRequestShowEnumOrigins
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -100,7 +100,7 @@ class EmploymentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "employments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employments"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -173,7 +173,7 @@ class EmploymentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"employments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employments/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -269,7 +269,7 @@ class AsyncEmploymentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "employments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employments"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -342,7 +342,7 @@ class AsyncEmploymentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"employments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employments/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,

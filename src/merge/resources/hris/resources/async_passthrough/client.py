@@ -62,7 +62,7 @@ class AsyncPassthroughClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "async-passthrough"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/async-passthrough"),
             json=jsonable_encoder(request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -85,7 +85,8 @@ class AsyncPassthroughClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"async-passthrough/{async_passthrough_receipt_id}"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"api/hris/v1/async-passthrough/{async_passthrough_receipt_id}",
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -141,7 +142,7 @@ class AsyncAsyncPassthroughClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "async-passthrough"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/async-passthrough"),
             json=jsonable_encoder(request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -164,7 +165,8 @@ class AsyncAsyncPassthroughClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"async-passthrough/{async_passthrough_receipt_id}"
+                f"{self._client_wrapper.get_base_url()}/",
+                f"api/hris/v1/async-passthrough/{async_passthrough_receipt_id}",
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

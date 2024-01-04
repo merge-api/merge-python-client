@@ -15,13 +15,10 @@ except ImportError:
 class MultipartFormFieldRequest(pydantic.BaseModel):
     """
     # The MultipartFormField Object
-
     ### Description
-
     The `MultipartFormField` object is used to represent fields in an HTTP request using `multipart/form-data`.
 
     ### Usage Example
-
     Create a `MultipartFormField` to define a multipart form entry.
     """
 
@@ -31,9 +28,9 @@ class MultipartFormFieldRequest(pydantic.BaseModel):
         description=(
             "The encoding of the value of `data`. Defaults to `RAW` if not defined.\n"
             "\n"
-            "- `RAW` - RAW\n"
-            "- `BASE64` - BASE64\n"
-            "- `GZIP_BASE64` - GZIP_BASE64\n"
+            "* `RAW` - RAW\n"
+            "* `BASE64` - BASE64\n"
+            "* `GZIP_BASE64` - GZIP_BASE64\n"
         )
     )
     file_name: typing.Optional[str] = pydantic.Field(

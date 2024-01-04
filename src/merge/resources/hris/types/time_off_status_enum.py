@@ -8,11 +8,11 @@ T_Result = typing.TypeVar("T_Result")
 
 class TimeOffStatusEnum(str, enum.Enum):
     """
-    - `REQUESTED` - REQUESTED
-    - `APPROVED` - APPROVED
-    - `DECLINED` - DECLINED
-    - `CANCELLED` - CANCELLED
-    - `DELETED` - DELETED
+    * `REQUESTED` - REQUESTED
+    * `APPROVED` - APPROVED
+    * `DECLINED` - DECLINED
+    * `CANCELLED` - CANCELLED
+    * `DELETED` - DELETED
     """
 
     REQUESTED = "REQUESTED"

@@ -16,13 +16,9 @@ except ImportError:
 class AssociationType(pydantic.BaseModel):
     """
     # The AssociationType Object
-
     ### Description
-
     The `Association Type` object represents the relationship between two objects.
-
     ### Usage Example
-
     TODO
     """
 

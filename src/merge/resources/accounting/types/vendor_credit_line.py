@@ -15,13 +15,10 @@ except ImportError:
 class VendorCreditLine(pydantic.BaseModel):
     """
     # The VendorCreditLine Object
-
     ### Description
-
     The `VendorCreditLine` object is used to represent a vendor credit's line items.
 
     ### Usage Example
-
     Fetch from the `GET VendorCredit` endpoint and view the vendor credit's line items.
     """
 

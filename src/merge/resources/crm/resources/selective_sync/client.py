@@ -40,7 +40,7 @@ class SelectiveSyncClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "selective-sync/configurations"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/selective-sync/configurations"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -78,7 +78,7 @@ class SelectiveSyncClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "PUT",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "selective-sync/configurations"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/selective-sync/configurations"),
             json=jsonable_encoder({"sync_configurations": sync_configurations}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -118,7 +118,7 @@ class SelectiveSyncClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "selective-sync/meta"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/selective-sync/meta"),
             params=remove_none_from_dict({"common_model": common_model, "cursor": cursor, "page_size": page_size}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -151,7 +151,7 @@ class AsyncSelectiveSyncClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "selective-sync/configurations"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/selective-sync/configurations"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -189,7 +189,7 @@ class AsyncSelectiveSyncClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PUT",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "selective-sync/configurations"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/selective-sync/configurations"),
             json=jsonable_encoder({"sync_configurations": sync_configurations}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -229,7 +229,7 @@ class AsyncSelectiveSyncClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "selective-sync/meta"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/selective-sync/meta"),
             params=remove_none_from_dict({"common_model": common_model, "cursor": cursor, "page_size": page_size}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
