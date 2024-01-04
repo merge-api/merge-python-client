@@ -8,13 +8,13 @@ T_Result = typing.TypeVar("T_Result")
 
 class UrlTypeEnum(str, enum.Enum):
     """
-    - `PERSONAL` - PERSONAL
-    - `COMPANY` - COMPANY
-    - `PORTFOLIO` - PORTFOLIO
-    - `BLOG` - BLOG
-    - `SOCIAL_MEDIA` - SOCIAL_MEDIA
-    - `OTHER` - OTHER
-    - `JOB_POSTING` - JOB_POSTING
+    * `PERSONAL` - PERSONAL
+    * `COMPANY` - COMPANY
+    * `PORTFOLIO` - PORTFOLIO
+    * `BLOG` - BLOG
+    * `SOCIAL_MEDIA` - SOCIAL_MEDIA
+    * `OTHER` - OTHER
+    * `JOB_POSTING` - JOB_POSTING
     """
 
     PERSONAL = "PERSONAL"

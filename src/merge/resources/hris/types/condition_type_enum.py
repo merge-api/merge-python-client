@@ -8,13 +8,13 @@ T_Result = typing.TypeVar("T_Result")
 
 class ConditionTypeEnum(str, enum.Enum):
     """
-    - `BOOLEAN` - BOOLEAN
-    - `DATE` - DATE
-    - `DATE_TIME` - DATE_TIME
-    - `INTEGER` - INTEGER
-    - `FLOAT` - FLOAT
-    - `STRING` - STRING
-    - `LIST_OF_STRINGS` - LIST_OF_STRINGS
+    * `BOOLEAN` - BOOLEAN
+    * `DATE` - DATE
+    * `DATE_TIME` - DATE_TIME
+    * `INTEGER` - INTEGER
+    * `FLOAT` - FLOAT
+    * `STRING` - STRING
+    * `LIST_OF_STRINGS` - LIST_OF_STRINGS
     """
 
     BOOLEAN = "BOOLEAN"
@@ -31,7 +31,7 @@ class ConditionTypeEnum(str, enum.Enum):
         date: typing.Callable[[], T_Result],
         date_time: typing.Callable[[], T_Result],
         integer: typing.Callable[[], T_Result],
-        float_: typing.Callable[[], T_Result],
+        float: typing.Callable[[], T_Result],
         string: typing.Callable[[], T_Result],
         list_of_strings: typing.Callable[[], T_Result],
     ) -> T_Result:
@@ -44,7 +44,7 @@ class ConditionTypeEnum(str, enum.Enum):
         if self is ConditionTypeEnum.INTEGER:
             return integer()
         if self is ConditionTypeEnum.FLOAT:
-            return float_()
+            return float()
         if self is ConditionTypeEnum.STRING:
             return string()
         if self is ConditionTypeEnum.LIST_OF_STRINGS:

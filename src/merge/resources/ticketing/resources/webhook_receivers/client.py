@@ -37,7 +37,7 @@ class WebhookReceiversClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "webhook-receivers"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/webhook-receivers"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -65,7 +65,7 @@ class WebhookReceiversClient:
             _request["key"] = key
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "webhook-receivers"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/webhook-receivers"),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -98,7 +98,7 @@ class AsyncWebhookReceiversClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "webhook-receivers"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/webhook-receivers"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -126,7 +126,7 @@ class AsyncWebhookReceiversClient:
             _request["key"] = key
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "webhook-receivers"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/webhook-receivers"),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

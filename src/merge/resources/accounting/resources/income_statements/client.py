@@ -77,7 +77,7 @@ class IncomeStatementsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "income-statements"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/income-statements"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -134,7 +134,9 @@ class IncomeStatementsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"income-statements/{id}"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/income-statements/{id}"
+            ),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -205,7 +207,7 @@ class AsyncIncomeStatementsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "income-statements"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/income-statements"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -262,7 +264,9 @@ class AsyncIncomeStatementsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"income-statements/{id}"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/income-statements/{id}"
+            ),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

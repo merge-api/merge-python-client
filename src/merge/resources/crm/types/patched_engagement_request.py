@@ -16,13 +16,9 @@ except ImportError:
 class PatchedEngagementRequest(pydantic.BaseModel):
     """
     # The Engagement Object
-
     ### Description
-
     The `Engagement` object is used to represent an interaction noted in a CRM system.
-
     ### Usage Example
-
     TODO
     """
 
@@ -30,7 +26,7 @@ class PatchedEngagementRequest(pydantic.BaseModel):
     content: typing.Optional[str] = pydantic.Field(description="The engagement's content.")
     subject: typing.Optional[str] = pydantic.Field(description="The engagement's subject.")
     direction: typing.Optional[PatchedEngagementRequestDirection] = pydantic.Field(
-        description=("The engagement's direction.\n" "\n" "- `INBOUND` - INBOUND\n" "- `OUTBOUND` - OUTBOUND\n")
+        description=("The engagement's direction.\n" "\n" "* `INBOUND` - INBOUND\n" "* `OUTBOUND` - OUTBOUND\n")
     )
     engagement_type: typing.Optional[str] = pydantic.Field(description="The engagement type of the engagement.")
     start_time: typing.Optional[dt.datetime] = pydantic.Field(description="The time at which the engagement started.")

@@ -10,9 +10,9 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.company_info import CompanyInfo
+from ...types.company_info_list_request_expand import CompanyInfoListRequestExpand
+from ...types.company_info_retrieve_request_expand import CompanyInfoRetrieveRequestExpand
 from ...types.paginated_company_info_list import PaginatedCompanyInfoList
-from .types.company_info_list_request_expand import CompanyInfoListRequestExpand
-from .types.company_info_retrieve_request_expand import CompanyInfoRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -75,7 +75,7 @@ class CompanyInfoClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "company-info"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/company-info"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -132,7 +132,7 @@ class CompanyInfoClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"company-info/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/company-info/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -201,7 +201,7 @@ class AsyncCompanyInfoClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "company-info"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/company-info"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -258,7 +258,7 @@ class AsyncCompanyInfoClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"company-info/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/company-info/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

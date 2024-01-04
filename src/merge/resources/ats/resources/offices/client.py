@@ -67,7 +67,7 @@ class OfficesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "offices"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/offices"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -113,7 +113,7 @@ class OfficesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"offices/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/offices/{id}"),
             params=remove_none_from_dict({"include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -176,7 +176,7 @@ class AsyncOfficesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "offices"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/offices"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -222,7 +222,7 @@ class AsyncOfficesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"offices/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/offices/{id}"),
             params=remove_none_from_dict({"include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

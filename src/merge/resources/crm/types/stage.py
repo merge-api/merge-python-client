@@ -16,13 +16,9 @@ except ImportError:
 class Stage(pydantic.BaseModel):
     """
     # The Stage Object
-
     ### Description
-
     The `Stage` object is used to represent the stage of an opportunity.
-
     ### Usage Example
-
     TODO
     """
 

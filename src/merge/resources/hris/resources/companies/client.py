@@ -67,7 +67,7 @@ class CompaniesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "companies"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/companies"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -113,7 +113,7 @@ class CompaniesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"companies/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/companies/{id}"),
             params=remove_none_from_dict({"include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -176,7 +176,7 @@ class AsyncCompaniesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "companies"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/companies"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -222,7 +222,7 @@ class AsyncCompaniesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"companies/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/companies/{id}"),
             params=remove_none_from_dict({"include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

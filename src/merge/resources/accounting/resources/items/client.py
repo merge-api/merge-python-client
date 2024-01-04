@@ -12,9 +12,9 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.item import Item
+from ...types.items_list_request_expand import ItemsListRequestExpand
+from ...types.items_retrieve_request_expand import ItemsRetrieveRequestExpand
 from ...types.paginated_item_list import PaginatedItemList
-from .types.items_list_request_expand import ItemsListRequestExpand
-from .types.items_retrieve_request_expand import ItemsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -88,7 +88,7 @@ class ItemsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "items"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/items"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -156,7 +156,7 @@ class ItemsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"items/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/items/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -243,7 +243,7 @@ class AsyncItemsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "items"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/items"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -311,7 +311,7 @@ class AsyncItemsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"items/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/items/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,

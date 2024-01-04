@@ -13,10 +13,10 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.expense import Expense
 from ...types.expense_request import ExpenseRequest
 from ...types.expense_response import ExpenseResponse
+from ...types.expenses_list_request_expand import ExpensesListRequestExpand
+from ...types.expenses_retrieve_request_expand import ExpensesRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
 from ...types.paginated_expense_list import PaginatedExpenseList
-from .types.expenses_list_request_expand import ExpensesListRequestExpand
-from .types.expenses_retrieve_request_expand import ExpensesRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -91,7 +91,7 @@ class ExpensesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "expenses"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/expenses"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -167,7 +167,7 @@ class ExpensesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "expenses"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/expenses"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -212,7 +212,7 @@ class ExpensesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"expenses/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/expenses/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -240,7 +240,7 @@ class ExpensesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "expenses/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/expenses/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -317,7 +317,7 @@ class AsyncExpensesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "expenses"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/expenses"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -393,7 +393,7 @@ class AsyncExpensesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "expenses"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/expenses"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -438,7 +438,7 @@ class AsyncExpensesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"expenses/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/expenses/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -466,7 +466,7 @@ class AsyncExpensesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "expenses/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/expenses/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

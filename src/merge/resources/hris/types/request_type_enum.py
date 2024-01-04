@@ -8,12 +8,12 @@ T_Result = typing.TypeVar("T_Result")
 
 class RequestTypeEnum(str, enum.Enum):
     """
-    - `VACATION` - VACATION
-    - `SICK` - SICK
-    - `PERSONAL` - PERSONAL
-    - `JURY_DUTY` - JURY_DUTY
-    - `VOLUNTEER` - VOLUNTEER
-    - `BEREAVEMENT` - BEREAVEMENT
+    * `VACATION` - VACATION
+    * `SICK` - SICK
+    * `PERSONAL` - PERSONAL
+    * `JURY_DUTY` - JURY_DUTY
+    * `VOLUNTEER` - VOLUNTEER
+    * `BEREAVEMENT` - BEREAVEMENT
     """
 
     VACATION = "VACATION"

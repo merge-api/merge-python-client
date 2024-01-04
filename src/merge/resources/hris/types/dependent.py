@@ -17,13 +17,10 @@ except ImportError:
 class Dependent(pydantic.BaseModel):
     """
     # The Dependent Object
-
     ### Description
-
     The `Dependent` object is used to represent a dependent (e.g. child, spouse, domestic partner, etc) of an `Employee`
 
     ### Usage Example
-
     Fetch from the `LIST Dependents` endpoint and filter by `ID` to show all dependents.
     """
 
@@ -36,9 +33,9 @@ class Dependent(pydantic.BaseModel):
         description=(
             "The dependent's relationship to the employee.\n"
             "\n"
-            "- `CHILD` - CHILD\n"
-            "- `SPOUSE` - SPOUSE\n"
-            "- `DOMESTIC_PARTNER` - DOMESTIC_PARTNER\n"
+            "* `CHILD` - CHILD\n"
+            "* `SPOUSE` - SPOUSE\n"
+            "* `DOMESTIC_PARTNER` - DOMESTIC_PARTNER\n"
         )
     )
     employee: typing.Optional[str] = pydantic.Field(description="The employee this person is a dependent of.")
@@ -47,11 +44,11 @@ class Dependent(pydantic.BaseModel):
         description=(
             "The dependent's gender.\n"
             "\n"
-            "- `MALE` - MALE\n"
-            "- `FEMALE` - FEMALE\n"
-            "- `NON-BINARY` - NON-BINARY\n"
-            "- `OTHER` - OTHER\n"
-            "- `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE\n"
+            "* `MALE` - MALE\n"
+            "* `FEMALE` - FEMALE\n"
+            "* `NON-BINARY` - NON-BINARY\n"
+            "* `OTHER` - OTHER\n"
+            "* `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE\n"
         )
     )
     phone_number: typing.Optional[str] = pydantic.Field(description="The dependent's phone number.")

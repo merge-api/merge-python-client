@@ -20,13 +20,9 @@ except ImportError:
 class EngagementRequest(pydantic.BaseModel):
     """
     # The Engagement Object
-
     ### Description
-
     The `Engagement` object is used to represent an interaction noted in a CRM system.
-
     ### Usage Example
-
     TODO
     """
 
@@ -34,7 +30,7 @@ class EngagementRequest(pydantic.BaseModel):
     content: typing.Optional[str] = pydantic.Field(description="The engagement's content.")
     subject: typing.Optional[str] = pydantic.Field(description="The engagement's subject.")
     direction: typing.Optional[EngagementRequestDirection] = pydantic.Field(
-        description=("The engagement's direction.\n" "\n" "- `INBOUND` - INBOUND\n" "- `OUTBOUND` - OUTBOUND\n")
+        description=("The engagement's direction.\n" "\n" "* `INBOUND` - INBOUND\n" "* `OUTBOUND` - OUTBOUND\n")
     )
     engagement_type: typing.Optional[EngagementRequestEngagementType] = pydantic.Field(
         description="The engagement type of the engagement."

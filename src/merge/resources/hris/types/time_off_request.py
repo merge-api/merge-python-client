@@ -19,13 +19,10 @@ except ImportError:
 class TimeOffRequest(pydantic.BaseModel):
     """
     # The TimeOff Object
-
     ### Description
-
     The `TimeOff` object is used to represent all employees' Time Off entries.
 
     ### Usage Example
-
     Fetch from the `LIST TimeOffs` endpoint and filter by `ID` to show all time off requests.
     """
 
@@ -37,11 +34,11 @@ class TimeOffRequest(pydantic.BaseModel):
         description=(
             "The status of this time off request.\n"
             "\n"
-            "- `REQUESTED` - REQUESTED\n"
-            "- `APPROVED` - APPROVED\n"
-            "- `DECLINED` - DECLINED\n"
-            "- `CANCELLED` - CANCELLED\n"
-            "- `DELETED` - DELETED\n"
+            "* `REQUESTED` - REQUESTED\n"
+            "* `APPROVED` - APPROVED\n"
+            "* `DECLINED` - DECLINED\n"
+            "* `CANCELLED` - CANCELLED\n"
+            "* `DELETED` - DELETED\n"
         )
     )
     employee_note: typing.Optional[str] = pydantic.Field(description="The employee note for this time off request.")
@@ -49,8 +46,8 @@ class TimeOffRequest(pydantic.BaseModel):
         description=(
             "The measurement that the third-party integration uses to count time requested.\n"
             "\n"
-            "- `HOURS` - HOURS\n"
-            "- `DAYS` - DAYS\n"
+            "* `HOURS` - HOURS\n"
+            "* `DAYS` - DAYS\n"
         )
     )
     amount: typing.Optional[float] = pydantic.Field(
@@ -60,12 +57,12 @@ class TimeOffRequest(pydantic.BaseModel):
         description=(
             "The type of time off request.\n"
             "\n"
-            "- `VACATION` - VACATION\n"
-            "- `SICK` - SICK\n"
-            "- `PERSONAL` - PERSONAL\n"
-            "- `JURY_DUTY` - JURY_DUTY\n"
-            "- `VOLUNTEER` - VOLUNTEER\n"
-            "- `BEREAVEMENT` - BEREAVEMENT\n"
+            "* `VACATION` - VACATION\n"
+            "* `SICK` - SICK\n"
+            "* `PERSONAL` - PERSONAL\n"
+            "* `JURY_DUTY` - JURY_DUTY\n"
+            "* `VOLUNTEER` - VOLUNTEER\n"
+            "* `BEREAVEMENT` - BEREAVEMENT\n"
         )
     )
     start_time: typing.Optional[dt.datetime] = pydantic.Field(

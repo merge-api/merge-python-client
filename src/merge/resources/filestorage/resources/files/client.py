@@ -13,10 +13,10 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.file import File
 from ...types.file_request import FileRequest
 from ...types.file_storage_file_response import FileStorageFileResponse
+from ...types.files_list_request_expand import FilesListRequestExpand
+from ...types.files_retrieve_request_expand import FilesRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
 from ...types.paginated_file_list import PaginatedFileList
-from .types.files_list_request_expand import FilesListRequestExpand
-from .types.files_retrieve_request_expand import FilesRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -91,7 +91,7 @@ class FilesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "files"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/files"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -157,7 +157,7 @@ class FilesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "files"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/files"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -202,7 +202,7 @@ class FilesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"files/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/files/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -226,7 +226,7 @@ class FilesClient:
         """
         with self._client_wrapper.httpx_client.stream(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"files/{id}/download"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/files/{id}/download"),
             params=remove_none_from_dict({"mime_type": mime_type}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -257,7 +257,7 @@ class FilesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "files/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/files/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -334,7 +334,7 @@ class AsyncFilesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "files"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/files"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -400,7 +400,7 @@ class AsyncFilesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "files"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/files"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -445,7 +445,7 @@ class AsyncFilesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"files/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/files/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -471,7 +471,7 @@ class AsyncFilesClient:
         """
         async with self._client_wrapper.httpx_client.stream(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"files/{id}/download"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/files/{id}/download"),
             params=remove_none_from_dict({"mime_type": mime_type}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -502,7 +502,7 @@ class AsyncFilesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "files/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/files/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

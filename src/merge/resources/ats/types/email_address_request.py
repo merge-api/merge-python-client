@@ -15,20 +15,16 @@ except ImportError:
 class EmailAddressRequest(pydantic.BaseModel):
     """
     # The EmailAddress Object
-
     ### Description
-
     The `EmailAddress` object is used to represent a candidate's email address.
-
     ### Usage Example
-
     Fetch from the `GET Candidate` endpoint and view their email addresses.
     """
 
     value: typing.Optional[str] = pydantic.Field(description="The email address.")
     email_address_type: typing.Optional[EmailAddressRequestEmailAddressType] = pydantic.Field(
         description=(
-            "The type of email address.\n" "\n" "- `PERSONAL` - PERSONAL\n" "- `WORK` - WORK\n" "- `OTHER` - OTHER\n"
+            "The type of email address.\n" "\n" "* `PERSONAL` - PERSONAL\n" "* `WORK` - WORK\n" "* `OTHER` - OTHER\n"
         )
     )
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]

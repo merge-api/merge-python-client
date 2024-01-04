@@ -14,13 +14,9 @@ except ImportError:
 class Group(pydantic.BaseModel):
     """
     # The Group Object
-
     ### Description
-
     The `Group` object is used to represent any subset of `User`s. This can extend to company domains as well.
-
     ### Usage Example
-
     Fetch from the `GET /api/filestorage/v1/groups` endpoint and view their groups.
     """
 

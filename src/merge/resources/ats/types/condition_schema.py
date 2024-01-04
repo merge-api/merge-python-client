@@ -21,7 +21,7 @@ class ConditionSchema(pydantic.BaseModel):
         description="The common model for which a condition schema is defined."
     )
     native_name: typing.Optional[str] = pydantic.Field(
-        description='User-facing _native condition_ name. e.g. "Skip Manager".'
+        description='User-facing *native condition* name. e.g. "Skip Manager".'
     )
     field_name: typing.Optional[str] = pydantic.Field(
         description='The name of the field on the common model that this condition corresponds to, if they conceptually match. e.g. "location_type".'
@@ -33,13 +33,13 @@ class ConditionSchema(pydantic.BaseModel):
         description=(
             "The type of value(s) that can be set for this condition.\n"
             "\n"
-            "- `BOOLEAN` - BOOLEAN\n"
-            "- `DATE` - DATE\n"
-            "- `DATE_TIME` - DATE_TIME\n"
-            "- `INTEGER` - INTEGER\n"
-            "- `FLOAT` - FLOAT\n"
-            "- `STRING` - STRING\n"
-            "- `LIST_OF_STRINGS` - LIST_OF_STRINGS\n"
+            "* `BOOLEAN` - BOOLEAN\n"
+            "* `DATE` - DATE\n"
+            "* `DATE_TIME` - DATE_TIME\n"
+            "* `INTEGER` - INTEGER\n"
+            "* `FLOAT` - FLOAT\n"
+            "* `STRING` - STRING\n"
+            "* `LIST_OF_STRINGS` - LIST_OF_STRINGS\n"
         )
     )
     operators: typing.List[OperatorSchema] = pydantic.Field(

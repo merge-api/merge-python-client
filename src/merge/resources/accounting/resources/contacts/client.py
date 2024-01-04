@@ -15,10 +15,10 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.contact import Contact
 from ...types.contact_request import ContactRequest
 from ...types.contact_response import ContactResponse
+from ...types.contacts_list_request_expand import ContactsListRequestExpand
+from ...types.contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
 from ...types.paginated_contact_list import PaginatedContactList
-from .types.contacts_list_request_expand import ContactsListRequestExpand
-from .types.contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -101,7 +101,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "contacts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/contacts"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -178,7 +178,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "contacts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/contacts"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -231,7 +231,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"contacts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/contacts/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -266,7 +266,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "contacts/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/contacts/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -351,7 +351,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "contacts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/contacts"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -428,7 +428,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "contacts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/contacts"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -481,7 +481,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"contacts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/contacts/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -516,7 +516,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "contacts/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/contacts/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

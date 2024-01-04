@@ -11,8 +11,8 @@ from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.paginated_vendor_credit_list import PaginatedVendorCreditList
 from ...types.vendor_credit import VendorCredit
-from .types.vendor_credits_list_request_expand import VendorCreditsListRequestExpand
-from .types.vendor_credits_retrieve_request_expand import VendorCreditsRetrieveRequestExpand
+from ...types.vendor_credits_list_request_expand import VendorCreditsListRequestExpand
+from ...types.vendor_credits_retrieve_request_expand import VendorCreditsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -84,7 +84,7 @@ class VendorCreditsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "vendor-credits"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/vendor-credits"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -148,7 +148,7 @@ class VendorCreditsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"vendor-credits/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/vendor-credits/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -226,7 +226,7 @@ class AsyncVendorCreditsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "vendor-credits"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/vendor-credits"),
             params=remove_none_from_dict(
                 {
                     "company_id": company_id,
@@ -290,7 +290,7 @@ class AsyncVendorCreditsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"vendor-credits/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/vendor-credits/{id}"),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

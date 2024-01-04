@@ -12,14 +12,14 @@ from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.contact import Contact
 from ...types.contact_request import ContactRequest
+from ...types.contacts_list_request_expand import ContactsListRequestExpand
+from ...types.contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
 from ...types.crm_contact_response import CrmContactResponse
 from ...types.ignore_common_model_request import IgnoreCommonModelRequest
 from ...types.meta_response import MetaResponse
 from ...types.paginated_contact_list import PaginatedContactList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.patched_contact_request import PatchedContactRequest
-from .types.contacts_list_request_expand import ContactsListRequestExpand
-from .types.contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -97,7 +97,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "contacts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/contacts"),
             params=remove_none_from_dict(
                 {
                     "account_id": account_id,
@@ -191,7 +191,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "contacts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/contacts"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -239,7 +239,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"contacts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/contacts/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -327,7 +327,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"contacts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/contacts/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -367,7 +367,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"contacts/ignore/{model_id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/contacts/ignore/{model_id}"),
             json=jsonable_encoder(request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -399,7 +399,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"contacts/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/contacts/meta/patch/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -426,7 +426,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "contacts/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/contacts/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -471,7 +471,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "contacts/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/contacts/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -560,7 +560,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "contacts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/contacts"),
             params=remove_none_from_dict(
                 {
                     "account_id": account_id,
@@ -654,7 +654,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "contacts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/contacts"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -702,7 +702,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"contacts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/contacts/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -790,7 +790,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"contacts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/contacts/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -830,7 +830,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"contacts/ignore/{model_id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/contacts/ignore/{model_id}"),
             json=jsonable_encoder(request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -862,7 +862,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"contacts/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/contacts/meta/patch/{id}"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -889,7 +889,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "contacts/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/contacts/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -934,7 +934,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "contacts/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/contacts/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

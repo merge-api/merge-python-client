@@ -18,15 +18,15 @@ from ...types.patched_ticket_request import PatchedTicketRequest
 from ...types.ticket import Ticket
 from ...types.ticket_request import TicketRequest
 from ...types.ticket_response import TicketResponse
-from .types.tickets_collaborators_list_request_expand import TicketsCollaboratorsListRequestExpand
-from .types.tickets_list_request_expand import TicketsListRequestExpand
-from .types.tickets_list_request_priority import TicketsListRequestPriority
-from .types.tickets_list_request_remote_fields import TicketsListRequestRemoteFields
-from .types.tickets_list_request_show_enum_origins import TicketsListRequestShowEnumOrigins
-from .types.tickets_list_request_status import TicketsListRequestStatus
-from .types.tickets_retrieve_request_expand import TicketsRetrieveRequestExpand
-from .types.tickets_retrieve_request_remote_fields import TicketsRetrieveRequestRemoteFields
-from .types.tickets_retrieve_request_show_enum_origins import TicketsRetrieveRequestShowEnumOrigins
+from ...types.tickets_collaborators_list_request_expand import TicketsCollaboratorsListRequestExpand
+from ...types.tickets_list_request_expand import TicketsListRequestExpand
+from ...types.tickets_list_request_priority import TicketsListRequestPriority
+from ...types.tickets_list_request_remote_fields import TicketsListRequestRemoteFields
+from ...types.tickets_list_request_show_enum_origins import TicketsListRequestShowEnumOrigins
+from ...types.tickets_list_request_status import TicketsListRequestStatus
+from ...types.tickets_retrieve_request_expand import TicketsRetrieveRequestExpand
+from ...types.tickets_retrieve_request_remote_fields import TicketsRetrieveRequestRemoteFields
+from ...types.tickets_retrieve_request_show_enum_origins import TicketsRetrieveRequestShowEnumOrigins
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -120,10 +120,10 @@ class TicketsClient:
 
             - priority: typing.Optional[TicketsListRequestPriority]. If provided, will only return tickets of this priority.
 
-                                                                     - `URGENT` - URGENT
-                                                                     - `HIGH` - HIGH
-                                                                     - `NORMAL` - NORMAL
-                                                                     - `LOW` - LOW
+                                                                     * `URGENT` - URGENT
+                                                                     * `HIGH` - HIGH
+                                                                     * `NORMAL` - NORMAL
+                                                                     * `LOW` - LOW
             - project_id: typing.Optional[str]. If provided, will only return tickets for this project.
 
             - remote_created_after: typing.Optional[dt.datetime]. If provided, will only return tickets created in the third party platform after this datetime.
@@ -142,10 +142,10 @@ class TicketsClient:
 
             - status: typing.Optional[TicketsListRequestStatus]. If provided, will only return tickets of this status.
 
-                                                                 - `OPEN` - OPEN
-                                                                 - `CLOSED` - CLOSED
-                                                                 - `IN_PROGRESS` - IN_PROGRESS
-                                                                 - `ON_HOLD` - ON_HOLD
+                                                                 * `OPEN` - OPEN
+                                                                 * `CLOSED` - CLOSED
+                                                                 * `IN_PROGRESS` - IN_PROGRESS
+                                                                 * `ON_HOLD` - ON_HOLD
             - tags: typing.Optional[str]. If provided, will only return tickets matching the tags; multiple tags can be separated by commas.
 
             - ticket_type: typing.Optional[str]. If provided, will only return tickets of this type.
@@ -173,7 +173,7 @@ class TicketsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "tickets"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets"),
             params=remove_none_from_dict(
                 {
                     "account_id": account_id,
@@ -271,7 +271,7 @@ class TicketsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "tickets"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -331,7 +331,7 @@ class TicketsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"tickets/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -402,7 +402,7 @@ class TicketsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"tickets/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -456,7 +456,9 @@ class TicketsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"tickets/{parent_id}/collaborators"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/{parent_id}/collaborators"
+            ),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -496,7 +498,9 @@ class TicketsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"tickets/meta/patch/{id}"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/meta/patch/{id}"
+            ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -523,7 +527,7 @@ class TicketsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "tickets/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -565,7 +569,9 @@ class TicketsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "tickets/remote-field-classes"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets/remote-field-classes"
+            ),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -669,10 +675,10 @@ class AsyncTicketsClient:
 
             - priority: typing.Optional[TicketsListRequestPriority]. If provided, will only return tickets of this priority.
 
-                                                                     - `URGENT` - URGENT
-                                                                     - `HIGH` - HIGH
-                                                                     - `NORMAL` - NORMAL
-                                                                     - `LOW` - LOW
+                                                                     * `URGENT` - URGENT
+                                                                     * `HIGH` - HIGH
+                                                                     * `NORMAL` - NORMAL
+                                                                     * `LOW` - LOW
             - project_id: typing.Optional[str]. If provided, will only return tickets for this project.
 
             - remote_created_after: typing.Optional[dt.datetime]. If provided, will only return tickets created in the third party platform after this datetime.
@@ -691,10 +697,10 @@ class AsyncTicketsClient:
 
             - status: typing.Optional[TicketsListRequestStatus]. If provided, will only return tickets of this status.
 
-                                                                 - `OPEN` - OPEN
-                                                                 - `CLOSED` - CLOSED
-                                                                 - `IN_PROGRESS` - IN_PROGRESS
-                                                                 - `ON_HOLD` - ON_HOLD
+                                                                 * `OPEN` - OPEN
+                                                                 * `CLOSED` - CLOSED
+                                                                 * `IN_PROGRESS` - IN_PROGRESS
+                                                                 * `ON_HOLD` - ON_HOLD
             - tags: typing.Optional[str]. If provided, will only return tickets matching the tags; multiple tags can be separated by commas.
 
             - ticket_type: typing.Optional[str]. If provided, will only return tickets of this type.
@@ -722,7 +728,7 @@ class AsyncTicketsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "tickets"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets"),
             params=remove_none_from_dict(
                 {
                     "account_id": account_id,
@@ -820,7 +826,7 @@ class AsyncTicketsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "tickets"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -880,7 +886,7 @@ class AsyncTicketsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"tickets/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -951,7 +957,7 @@ class AsyncTicketsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"tickets/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/{id}"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -1005,7 +1011,9 @@ class AsyncTicketsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"tickets/{parent_id}/collaborators"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/{parent_id}/collaborators"
+            ),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -1045,7 +1053,9 @@ class AsyncTicketsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"tickets/meta/patch/{id}"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/meta/patch/{id}"
+            ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -1072,7 +1082,7 @@ class AsyncTicketsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "tickets/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -1114,7 +1124,9 @@ class AsyncTicketsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "tickets/remote-field-classes"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets/remote-field-classes"
+            ),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

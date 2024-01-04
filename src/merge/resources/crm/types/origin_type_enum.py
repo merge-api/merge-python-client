@@ -8,9 +8,9 @@ T_Result = typing.TypeVar("T_Result")
 
 class OriginTypeEnum(str, enum.Enum):
     """
-    - `CUSTOM_OBJECT` - CUSTOM_OBJECT
-    - `COMMON_MODEL` - COMMON_MODEL
-    - `REMOTE_ONLY_MODEL` - REMOTE_ONLY_MODEL
+    * `CUSTOM_OBJECT` - CUSTOM_OBJECT
+    * `COMMON_MODEL` - COMMON_MODEL
+    * `REMOTE_ONLY_MODEL` - REMOTE_ONLY_MODEL
     """
 
     CUSTOM_OBJECT = "CUSTOM_OBJECT"

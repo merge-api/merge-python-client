@@ -14,13 +14,9 @@ except ImportError:
 class EmailAddress(pydantic.BaseModel):
     """
     # The EmailAddress Object
-
     ### Description
-
     The `EmailAddress` object is used to represent an entity's email address.
-
     ### Usage Example
-
     Fetch from the `GET Contact` endpoint and view their email addresses.
     """
 

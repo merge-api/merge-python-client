@@ -16,13 +16,10 @@ except ImportError:
 class Contact(pydantic.BaseModel):
     """
     # The Contact Object
-
     ### Description
-
     The `Contact` object is used to represent the customer, lead, or external user that a ticket is associated with.
 
     ### Usage Example
-
     TODO
     """
 

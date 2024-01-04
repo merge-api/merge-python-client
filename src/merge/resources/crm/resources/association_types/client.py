@@ -87,7 +87,7 @@ class AssociationTypesClient:
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"custom-object-classes/{custom_object_class_id}/association-types",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types",
             ),
             params=remove_none_from_dict(
                 {
@@ -138,7 +138,7 @@ class AssociationTypesClient:
             "POST",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"custom-object-classes/{custom_object_class_id}/association-types",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types",
             ),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
@@ -189,7 +189,7 @@ class AssociationTypesClient:
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"custom-object-classes/{custom_object_class_id}/association-types/{id}",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types/{id}",
             ),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
@@ -224,7 +224,7 @@ class AssociationTypesClient:
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"custom-object-classes/{custom_object_class_id}/association-types/meta/post",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types/meta/post",
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -298,7 +298,7 @@ class AsyncAssociationTypesClient:
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"custom-object-classes/{custom_object_class_id}/association-types",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types",
             ),
             params=remove_none_from_dict(
                 {
@@ -349,7 +349,7 @@ class AsyncAssociationTypesClient:
             "POST",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"custom-object-classes/{custom_object_class_id}/association-types",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types",
             ),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
@@ -400,7 +400,7 @@ class AsyncAssociationTypesClient:
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"custom-object-classes/{custom_object_class_id}/association-types/{id}",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types/{id}",
             ),
             params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
@@ -437,7 +437,7 @@ class AsyncAssociationTypesClient:
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"custom-object-classes/{custom_object_class_id}/association-types/meta/post",
+                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types/meta/post",
             ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

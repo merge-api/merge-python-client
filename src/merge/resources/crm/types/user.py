@@ -16,13 +16,9 @@ except ImportError:
 class User(pydantic.BaseModel):
     """
     # The User Object
-
     ### Description
-
     The `User` object is used to represent a user with a login to the CRM system.
-
     ### Usage Example
-
     TODO
     """
 

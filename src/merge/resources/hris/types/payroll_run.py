@@ -17,13 +17,10 @@ except ImportError:
 class PayrollRun(pydantic.BaseModel):
     """
     # The PayrollRun Object
-
     ### Description
-
     The `PayrollRun` object is used to represent a group of pay statements for a specific pay schedule.
 
     ### Usage Example
-
     Fetch from the `LIST PayrollRuns` endpoint and filter by `ID` to show all payroll runs.
     """
 
@@ -33,22 +30,22 @@ class PayrollRun(pydantic.BaseModel):
         description=(
             "The state of the payroll run\n"
             "\n"
-            "- `PAID` - PAID\n"
-            "- `DRAFT` - DRAFT\n"
-            "- `APPROVED` - APPROVED\n"
-            "- `FAILED` - FAILED\n"
-            "- `CLOSED` - CLOSED\n"
+            "* `PAID` - PAID\n"
+            "* `DRAFT` - DRAFT\n"
+            "* `APPROVED` - APPROVED\n"
+            "* `FAILED` - FAILED\n"
+            "* `CLOSED` - CLOSED\n"
         )
     )
     run_type: typing.Optional[PayrollRunRunType] = pydantic.Field(
         description=(
             "The type of the payroll run\n"
             "\n"
-            "- `REGULAR` - REGULAR\n"
-            "- `OFF_CYCLE` - OFF_CYCLE\n"
-            "- `CORRECTION` - CORRECTION\n"
-            "- `TERMINATION` - TERMINATION\n"
-            "- `SIGN_ON_BONUS` - SIGN_ON_BONUS\n"
+            "* `REGULAR` - REGULAR\n"
+            "* `OFF_CYCLE` - OFF_CYCLE\n"
+            "* `CORRECTION` - CORRECTION\n"
+            "* `TERMINATION` - TERMINATION\n"
+            "* `SIGN_ON_BONUS` - SIGN_ON_BONUS\n"
         )
     )
     start_date: typing.Optional[dt.datetime] = pydantic.Field(description="The day and time the payroll run started.")

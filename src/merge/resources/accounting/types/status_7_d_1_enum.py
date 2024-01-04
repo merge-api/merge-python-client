@@ -8,8 +8,8 @@ T_Result = typing.TypeVar("T_Result")
 
 class Status7D1Enum(str, enum.Enum):
     """
-    - `ACTIVE` - ACTIVE
-    - `ARCHIVED` - ARCHIVED
+    * `ACTIVE` - ACTIVE
+    * `ARCHIVED` - ARCHIVED
     """
 
     ACTIVE = "ACTIVE"

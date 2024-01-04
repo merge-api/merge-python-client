@@ -12,10 +12,10 @@ from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.meta_response import MetaResponse
 from ...types.paginated_timesheet_entry_list import PaginatedTimesheetEntryList
+from ...types.timesheet_entries_list_request_order_by import TimesheetEntriesListRequestOrderBy
 from ...types.timesheet_entry import TimesheetEntry
 from ...types.timesheet_entry_request import TimesheetEntryRequest
 from ...types.timesheet_entry_response import TimesheetEntryResponse
-from .types.timesheet_entries_list_request_order_by import TimesheetEntriesListRequestOrderBy
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -96,7 +96,7 @@ class TimesheetEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "timesheet-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/timesheet-entries"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -168,7 +168,7 @@ class TimesheetEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "timesheet-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/timesheet-entries"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -203,7 +203,7 @@ class TimesheetEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"timesheet-entries/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/timesheet-entries/{id}"),
             params=remove_none_from_dict({"include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -231,7 +231,7 @@ class TimesheetEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "timesheet-entries/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/timesheet-entries/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -314,7 +314,7 @@ class AsyncTimesheetEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "timesheet-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/timesheet-entries"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -386,7 +386,7 @@ class AsyncTimesheetEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "timesheet-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/timesheet-entries"),
             params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
             json=jsonable_encoder({"model": model}),
             headers=self._client_wrapper.get_headers(),
@@ -421,7 +421,7 @@ class AsyncTimesheetEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"timesheet-entries/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/timesheet-entries/{id}"),
             params=remove_none_from_dict({"include_remote_data": include_remote_data}),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -449,7 +449,7 @@ class AsyncTimesheetEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "timesheet-entries/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/timesheet-entries/meta/post"),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

@@ -71,7 +71,7 @@ class StagesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "stages"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/stages"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -126,7 +126,7 @@ class StagesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"stages/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/stages/{id}"),
             params=remove_none_from_dict(
                 {"include_remote_data": include_remote_data, "include_remote_fields": include_remote_fields}
             ),
@@ -174,7 +174,7 @@ class StagesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "stages/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/stages/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,
@@ -248,7 +248,7 @@ class AsyncStagesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "stages"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/stages"),
             params=remove_none_from_dict(
                 {
                     "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -303,7 +303,7 @@ class AsyncStagesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"stages/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/stages/{id}"),
             params=remove_none_from_dict(
                 {"include_remote_data": include_remote_data, "include_remote_fields": include_remote_fields}
             ),
@@ -351,7 +351,7 @@ class AsyncStagesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "stages/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/stages/remote-field-classes"),
             params=remove_none_from_dict(
                 {
                     "cursor": cursor,

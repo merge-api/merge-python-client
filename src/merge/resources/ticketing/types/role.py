@@ -17,13 +17,10 @@ except ImportError:
 class Role(pydantic.BaseModel):
     """
     # The Role Object
-
     ### Description
-
     The `Role` object is used to represent the set of actions & access that a user with this role is allowed to perform.
 
     ### Usage Example
-
     TODO
     """
 
@@ -37,9 +34,9 @@ class Role(pydantic.BaseModel):
         description=(
             "The level of Ticket access that a User with this Role can perform.\n"
             "\n"
-            "- `ALL` - ALL\n"
-            "- `ASSIGNED_ONLY` - ASSIGNED_ONLY\n"
-            "- `TEAM_ONLY` - TEAM_ONLY\n"
+            "* `ALL` - ALL\n"
+            "* `ASSIGNED_ONLY` - ASSIGNED_ONLY\n"
+            "* `TEAM_ONLY` - TEAM_ONLY\n"
         )
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(

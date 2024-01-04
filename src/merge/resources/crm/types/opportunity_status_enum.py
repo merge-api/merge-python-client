@@ -8,9 +8,9 @@ T_Result = typing.TypeVar("T_Result")
 
 class OpportunityStatusEnum(str, enum.Enum):
     """
-    - `OPEN` - OPEN
-    - `WON` - WON
-    - `LOST` - LOST
+    * `OPEN` - OPEN
+    * `WON` - WON
+    * `LOST` - LOST
     """
 
     OPEN = "OPEN"

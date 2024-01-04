@@ -12,11 +12,11 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.eeoc import Eeoc
+from ...types.eeocs_list_request_remote_fields import EeocsListRequestRemoteFields
+from ...types.eeocs_list_request_show_enum_origins import EeocsListRequestShowEnumOrigins
+from ...types.eeocs_retrieve_request_remote_fields import EeocsRetrieveRequestRemoteFields
+from ...types.eeocs_retrieve_request_show_enum_origins import EeocsRetrieveRequestShowEnumOrigins
 from ...types.paginated_eeoc_list import PaginatedEeocList
-from .types.eeocs_list_request_remote_fields import EeocsListRequestRemoteFields
-from .types.eeocs_list_request_show_enum_origins import EeocsListRequestShowEnumOrigins
-from .types.eeocs_retrieve_request_remote_fields import EeocsRetrieveRequestRemoteFields
-from .types.eeocs_retrieve_request_show_enum_origins import EeocsRetrieveRequestShowEnumOrigins
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -93,7 +93,7 @@ class EeocsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "eeocs"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/eeocs"),
             params=remove_none_from_dict(
                 {
                     "candidate_id": candidate_id,
@@ -164,7 +164,7 @@ class EeocsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"eeocs/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/eeocs/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -254,7 +254,7 @@ class AsyncEeocsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "eeocs"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/eeocs"),
             params=remove_none_from_dict(
                 {
                     "candidate_id": candidate_id,
@@ -325,7 +325,7 @@ class AsyncEeocsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"eeocs/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/eeocs/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,

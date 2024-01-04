@@ -8,9 +8,9 @@ T_Result = typing.TypeVar("T_Result")
 
 class RelationshipEnum(str, enum.Enum):
     """
-    - `CHILD` - CHILD
-    - `SPOUSE` - SPOUSE
-    - `DOMESTIC_PARTNER` - DOMESTIC_PARTNER
+    * `CHILD` - CHILD
+    * `SPOUSE` - SPOUSE
+    * `DOMESTIC_PARTNER` - DOMESTIC_PARTNER
     """
 
     CHILD = "CHILD"

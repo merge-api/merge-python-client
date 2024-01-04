@@ -13,8 +13,8 @@ from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.paginated_scorecard_list import PaginatedScorecardList
 from ...types.scorecard import Scorecard
-from .types.scorecards_list_request_expand import ScorecardsListRequestExpand
-from .types.scorecards_retrieve_request_expand import ScorecardsRetrieveRequestExpand
+from ...types.scorecards_list_request_expand import ScorecardsListRequestExpand
+from ...types.scorecards_retrieve_request_expand import ScorecardsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -94,7 +94,7 @@ class ScorecardsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "scorecards"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/scorecards"),
             params=remove_none_from_dict(
                 {
                     "application_id": application_id,
@@ -164,7 +164,7 @@ class ScorecardsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"scorecards/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/scorecards/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
@@ -257,7 +257,7 @@ class AsyncScorecardsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "scorecards"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/scorecards"),
             params=remove_none_from_dict(
                 {
                     "application_id": application_id,
@@ -327,7 +327,7 @@ class AsyncScorecardsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"scorecards/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/scorecards/{id}"),
             params=remove_none_from_dict(
                 {
                     "expand": expand,
