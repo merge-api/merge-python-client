@@ -8,11 +8,11 @@ T_Result = typing.TypeVar("T_Result")
 
 class JobStatusEnum(str, enum.Enum):
     """
-    * `OPEN` - OPEN
-    * `CLOSED` - CLOSED
-    * `DRAFT` - DRAFT
-    * `ARCHIVED` - ARCHIVED
-    * `PENDING` - PENDING
+    - `OPEN` - OPEN
+    - `CLOSED` - CLOSED
+    - `DRAFT` - DRAFT
+    - `ARCHIVED` - ARCHIVED
+    - `PENDING` - PENDING
     """
 
     OPEN = "OPEN"

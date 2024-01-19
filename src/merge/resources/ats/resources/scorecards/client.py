@@ -13,8 +13,8 @@ from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.paginated_scorecard_list import PaginatedScorecardList
 from ...types.scorecard import Scorecard
-from ...types.scorecards_list_request_expand import ScorecardsListRequestExpand
-from ...types.scorecards_retrieve_request_expand import ScorecardsRetrieveRequestExpand
+from .types.scorecards_list_request_expand import ScorecardsListRequestExpand
+from .types.scorecards_retrieve_request_expand import ScorecardsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

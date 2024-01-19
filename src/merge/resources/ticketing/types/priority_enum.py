@@ -8,10 +8,10 @@ T_Result = typing.TypeVar("T_Result")
 
 class PriorityEnum(str, enum.Enum):
     """
-    * `URGENT` - URGENT
-    * `HIGH` - HIGH
-    * `NORMAL` - NORMAL
-    * `LOW` - LOW
+    - `URGENT` - URGENT
+    - `HIGH` - HIGH
+    - `NORMAL` - NORMAL
+    - `LOW` - LOW
     """
 
     URGENT = "URGENT"

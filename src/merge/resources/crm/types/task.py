@@ -20,9 +20,13 @@ except ImportError:
 class Task(pydantic.BaseModel):
     """
     # The Task Object
+
     ### Description
+
     The `Task` object is used to represent a task, such as a to-do item.
+
     ### Usage Example
+
     TODO
     """
 
@@ -34,7 +38,7 @@ class Task(pydantic.BaseModel):
     completed_date: typing.Optional[dt.datetime] = pydantic.Field(description="When the task is completed.")
     due_date: typing.Optional[dt.datetime] = pydantic.Field(description="When the task is due.")
     status: typing.Optional[TaskStatus] = pydantic.Field(
-        description=("The task's status.\n" "\n" "* `OPEN` - OPEN\n" "* `CLOSED` - CLOSED\n")
+        description=("The task's status.\n" "\n" "- `OPEN` - OPEN\n" "- `CLOSED` - CLOSED\n")
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted in the third party platform."

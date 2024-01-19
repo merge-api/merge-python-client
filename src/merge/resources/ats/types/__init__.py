@@ -7,10 +7,6 @@ from .account_details_and_actions_integration import AccountDetailsAndActionsInt
 from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
 from .account_integration import AccountIntegration
 from .account_token import AccountToken
-from .activities_list_request_remote_fields import ActivitiesListRequestRemoteFields
-from .activities_list_request_show_enum_origins import ActivitiesListRequestShowEnumOrigins
-from .activities_retrieve_request_remote_fields import ActivitiesRetrieveRequestRemoteFields
-from .activities_retrieve_request_show_enum_origins import ActivitiesRetrieveRequestShowEnumOrigins
 from .activity import Activity
 from .activity_activity_type import ActivityActivityType
 from .activity_request import ActivityRequest
@@ -34,8 +30,6 @@ from .application_request_current_stage import ApplicationRequestCurrentStage
 from .application_request_job import ApplicationRequestJob
 from .application_request_reject_reason import ApplicationRequestRejectReason
 from .application_response import ApplicationResponse
-from .applications_list_request_expand import ApplicationsListRequestExpand
-from .applications_retrieve_request_expand import ApplicationsRetrieveRequestExpand
 from .async_passthrough_reciept import AsyncPassthroughReciept
 from .attachment import Attachment
 from .attachment_attachment_type import AttachmentAttachmentType
@@ -54,8 +48,6 @@ from .candidate_request import CandidateRequest
 from .candidate_request_applications_item import CandidateRequestApplicationsItem
 from .candidate_request_attachments_item import CandidateRequestAttachmentsItem
 from .candidate_response import CandidateResponse
-from .candidates_list_request_expand import CandidatesListRequestExpand
-from .candidates_retrieve_request_expand import CandidatesRetrieveRequestExpand
 from .categories_enum import CategoriesEnum
 from .category_enum import CategoryEnum
 from .common_model_scopes_body_request import CommonModelScopesBodyRequest
@@ -73,10 +65,6 @@ from .eeoc_disability_status import EeocDisabilityStatus
 from .eeoc_gender import EeocGender
 from .eeoc_race import EeocRace
 from .eeoc_veteran_status import EeocVeteranStatus
-from .eeocs_list_request_remote_fields import EeocsListRequestRemoteFields
-from .eeocs_list_request_show_enum_origins import EeocsListRequestShowEnumOrigins
-from .eeocs_retrieve_request_remote_fields import EeocsRetrieveRequestRemoteFields
-from .eeocs_retrieve_request_show_enum_origins import EeocsRetrieveRequestShowEnumOrigins
 from .email_address import EmailAddress
 from .email_address_email_address_type import EmailAddressEmailAddressType
 from .email_address_request import EmailAddressRequest
@@ -87,12 +75,9 @@ from .encoding_enum import EncodingEnum
 from .error_validation_problem import ErrorValidationProblem
 from .event_type_enum import EventTypeEnum
 from .gender_enum import GenderEnum
-from .interviews_list_request_expand import InterviewsListRequestExpand
-from .interviews_retrieve_request_expand import InterviewsRetrieveRequestExpand
 from .issue import Issue
 from .issue_status import IssueStatus
 from .issue_status_enum import IssueStatusEnum
-from .issues_list_request_status import IssuesListRequestStatus
 from .job import Job
 from .job_departments_item import JobDepartmentsItem
 from .job_hiring_managers_item import JobHiringManagersItem
@@ -102,17 +87,12 @@ from .job_offices_item import JobOfficesItem
 from .job_recruiters_item import JobRecruitersItem
 from .job_status import JobStatus
 from .job_status_enum import JobStatusEnum
-from .jobs_list_request_expand import JobsListRequestExpand
-from .jobs_list_request_status import JobsListRequestStatus
-from .jobs_retrieve_request_expand import JobsRetrieveRequestExpand
-from .jobs_screening_questions_list_request_expand import JobsScreeningQuestionsListRequestExpand
 from .link_token import LinkToken
 from .linked_account_condition import LinkedAccountCondition
 from .linked_account_condition_request import LinkedAccountConditionRequest
 from .linked_account_selective_sync_configuration import LinkedAccountSelectiveSyncConfiguration
 from .linked_account_selective_sync_configuration_request import LinkedAccountSelectiveSyncConfigurationRequest
 from .linked_account_status import LinkedAccountStatus
-from .linked_accounts_list_request_category import LinkedAccountsListRequestCategory
 from .meta_response import MetaResponse
 from .method_enum import MethodEnum
 from .model_operation import ModelOperation
@@ -123,8 +103,6 @@ from .offer_application import OfferApplication
 from .offer_creator import OfferCreator
 from .offer_status import OfferStatus
 from .offer_status_enum import OfferStatusEnum
-from .offers_list_request_expand import OffersListRequestExpand
-from .offers_retrieve_request_expand import OffersRetrieveRequestExpand
 from .office import Office
 from .operator_schema import OperatorSchema
 from .overall_recommendation_enum import OverallRecommendationEnum
@@ -186,8 +164,6 @@ from .scorecard_application import ScorecardApplication
 from .scorecard_interview import ScorecardInterview
 from .scorecard_interviewer import ScorecardInterviewer
 from .scorecard_overall_recommendation import ScorecardOverallRecommendation
-from .scorecards_list_request_expand import ScorecardsListRequestExpand
-from .scorecards_retrieve_request_expand import ScorecardsRetrieveRequestExpand
 from .screening_question import ScreeningQuestion
 from .screening_question_job import ScreeningQuestionJob
 from .screening_question_option import ScreeningQuestionOption
@@ -216,10 +192,6 @@ __all__ = [
     "AccountDetailsAndActionsStatusEnum",
     "AccountIntegration",
     "AccountToken",
-    "ActivitiesListRequestRemoteFields",
-    "ActivitiesListRequestShowEnumOrigins",
-    "ActivitiesRetrieveRequestRemoteFields",
-    "ActivitiesRetrieveRequestShowEnumOrigins",
     "Activity",
     "ActivityActivityType",
     "ActivityRequest",
@@ -243,8 +215,6 @@ __all__ = [
     "ApplicationRequestJob",
     "ApplicationRequestRejectReason",
     "ApplicationResponse",
-    "ApplicationsListRequestExpand",
-    "ApplicationsRetrieveRequestExpand",
     "AsyncPassthroughReciept",
     "Attachment",
     "AttachmentAttachmentType",
@@ -263,8 +233,6 @@ __all__ = [
     "CandidateRequestApplicationsItem",
     "CandidateRequestAttachmentsItem",
     "CandidateResponse",
-    "CandidatesListRequestExpand",
-    "CandidatesRetrieveRequestExpand",
     "CategoriesEnum",
     "CategoryEnum",
     "CommonModelScopesBodyRequest",
@@ -282,10 +250,6 @@ __all__ = [
     "EeocGender",
     "EeocRace",
     "EeocVeteranStatus",
-    "EeocsListRequestRemoteFields",
-    "EeocsListRequestShowEnumOrigins",
-    "EeocsRetrieveRequestRemoteFields",
-    "EeocsRetrieveRequestShowEnumOrigins",
     "EmailAddress",
     "EmailAddressEmailAddressType",
     "EmailAddressRequest",
@@ -296,12 +260,9 @@ __all__ = [
     "ErrorValidationProblem",
     "EventTypeEnum",
     "GenderEnum",
-    "InterviewsListRequestExpand",
-    "InterviewsRetrieveRequestExpand",
     "Issue",
     "IssueStatus",
     "IssueStatusEnum",
-    "IssuesListRequestStatus",
     "Job",
     "JobDepartmentsItem",
     "JobHiringManagersItem",
@@ -311,17 +272,12 @@ __all__ = [
     "JobRecruitersItem",
     "JobStatus",
     "JobStatusEnum",
-    "JobsListRequestExpand",
-    "JobsListRequestStatus",
-    "JobsRetrieveRequestExpand",
-    "JobsScreeningQuestionsListRequestExpand",
     "LinkToken",
     "LinkedAccountCondition",
     "LinkedAccountConditionRequest",
     "LinkedAccountSelectiveSyncConfiguration",
     "LinkedAccountSelectiveSyncConfigurationRequest",
     "LinkedAccountStatus",
-    "LinkedAccountsListRequestCategory",
     "MetaResponse",
     "MethodEnum",
     "ModelOperation",
@@ -332,8 +288,6 @@ __all__ = [
     "OfferCreator",
     "OfferStatus",
     "OfferStatusEnum",
-    "OffersListRequestExpand",
-    "OffersRetrieveRequestExpand",
     "Office",
     "OperatorSchema",
     "OverallRecommendationEnum",
@@ -395,8 +349,6 @@ __all__ = [
     "ScorecardInterview",
     "ScorecardInterviewer",
     "ScorecardOverallRecommendation",
-    "ScorecardsListRequestExpand",
-    "ScorecardsRetrieveRequestExpand",
     "ScreeningQuestion",
     "ScreeningQuestionJob",
     "ScreeningQuestionOption",

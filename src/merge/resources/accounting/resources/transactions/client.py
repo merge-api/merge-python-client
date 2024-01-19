@@ -11,8 +11,8 @@ from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.paginated_transaction_list import PaginatedTransactionList
 from ...types.transaction import Transaction
-from ...types.transactions_list_request_expand import TransactionsListRequestExpand
-from ...types.transactions_retrieve_request_expand import TransactionsRetrieveRequestExpand
+from .types.transactions_list_request_expand import TransactionsListRequestExpand
+from .types.transactions_retrieve_request_expand import TransactionsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

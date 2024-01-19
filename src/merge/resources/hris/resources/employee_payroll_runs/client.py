@@ -10,9 +10,9 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.employee_payroll_run import EmployeePayrollRun
-from ...types.employee_payroll_runs_list_request_expand import EmployeePayrollRunsListRequestExpand
-from ...types.employee_payroll_runs_retrieve_request_expand import EmployeePayrollRunsRetrieveRequestExpand
 from ...types.paginated_employee_payroll_run_list import PaginatedEmployeePayrollRunList
+from .types.employee_payroll_runs_list_request_expand import EmployeePayrollRunsListRequestExpand
+from .types.employee_payroll_runs_retrieve_request_expand import EmployeePayrollRunsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

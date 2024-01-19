@@ -12,15 +12,15 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
-from ...types.activities_list_request_remote_fields import ActivitiesListRequestRemoteFields
-from ...types.activities_list_request_show_enum_origins import ActivitiesListRequestShowEnumOrigins
-from ...types.activities_retrieve_request_remote_fields import ActivitiesRetrieveRequestRemoteFields
-from ...types.activities_retrieve_request_show_enum_origins import ActivitiesRetrieveRequestShowEnumOrigins
 from ...types.activity import Activity
 from ...types.activity_request import ActivityRequest
 from ...types.activity_response import ActivityResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_activity_list import PaginatedActivityList
+from .types.activities_list_request_remote_fields import ActivitiesListRequestRemoteFields
+from .types.activities_list_request_show_enum_origins import ActivitiesListRequestShowEnumOrigins
+from .types.activities_retrieve_request_remote_fields import ActivitiesRetrieveRequestRemoteFields
+from .types.activities_retrieve_request_show_enum_origins import ActivitiesRetrieveRequestShowEnumOrigins
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

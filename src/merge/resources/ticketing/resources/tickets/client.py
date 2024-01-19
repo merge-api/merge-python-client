@@ -18,15 +18,15 @@ from ...types.patched_ticket_request import PatchedTicketRequest
 from ...types.ticket import Ticket
 from ...types.ticket_request import TicketRequest
 from ...types.ticket_response import TicketResponse
-from ...types.tickets_collaborators_list_request_expand import TicketsCollaboratorsListRequestExpand
-from ...types.tickets_list_request_expand import TicketsListRequestExpand
-from ...types.tickets_list_request_priority import TicketsListRequestPriority
-from ...types.tickets_list_request_remote_fields import TicketsListRequestRemoteFields
-from ...types.tickets_list_request_show_enum_origins import TicketsListRequestShowEnumOrigins
-from ...types.tickets_list_request_status import TicketsListRequestStatus
-from ...types.tickets_retrieve_request_expand import TicketsRetrieveRequestExpand
-from ...types.tickets_retrieve_request_remote_fields import TicketsRetrieveRequestRemoteFields
-from ...types.tickets_retrieve_request_show_enum_origins import TicketsRetrieveRequestShowEnumOrigins
+from .types.tickets_collaborators_list_request_expand import TicketsCollaboratorsListRequestExpand
+from .types.tickets_list_request_expand import TicketsListRequestExpand
+from .types.tickets_list_request_priority import TicketsListRequestPriority
+from .types.tickets_list_request_remote_fields import TicketsListRequestRemoteFields
+from .types.tickets_list_request_show_enum_origins import TicketsListRequestShowEnumOrigins
+from .types.tickets_list_request_status import TicketsListRequestStatus
+from .types.tickets_retrieve_request_expand import TicketsRetrieveRequestExpand
+from .types.tickets_retrieve_request_remote_fields import TicketsRetrieveRequestRemoteFields
+from .types.tickets_retrieve_request_show_enum_origins import TicketsRetrieveRequestShowEnumOrigins
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -120,10 +120,10 @@ class TicketsClient:
 
             - priority: typing.Optional[TicketsListRequestPriority]. If provided, will only return tickets of this priority.
 
-                                                                     * `URGENT` - URGENT
-                                                                     * `HIGH` - HIGH
-                                                                     * `NORMAL` - NORMAL
-                                                                     * `LOW` - LOW
+                                                                     - `URGENT` - URGENT
+                                                                     - `HIGH` - HIGH
+                                                                     - `NORMAL` - NORMAL
+                                                                     - `LOW` - LOW
             - project_id: typing.Optional[str]. If provided, will only return tickets for this project.
 
             - remote_created_after: typing.Optional[dt.datetime]. If provided, will only return tickets created in the third party platform after this datetime.
@@ -142,10 +142,10 @@ class TicketsClient:
 
             - status: typing.Optional[TicketsListRequestStatus]. If provided, will only return tickets of this status.
 
-                                                                 * `OPEN` - OPEN
-                                                                 * `CLOSED` - CLOSED
-                                                                 * `IN_PROGRESS` - IN_PROGRESS
-                                                                 * `ON_HOLD` - ON_HOLD
+                                                                 - `OPEN` - OPEN
+                                                                 - `CLOSED` - CLOSED
+                                                                 - `IN_PROGRESS` - IN_PROGRESS
+                                                                 - `ON_HOLD` - ON_HOLD
             - tags: typing.Optional[str]. If provided, will only return tickets matching the tags; multiple tags can be separated by commas.
 
             - ticket_type: typing.Optional[str]. If provided, will only return tickets of this type.
@@ -675,10 +675,10 @@ class AsyncTicketsClient:
 
             - priority: typing.Optional[TicketsListRequestPriority]. If provided, will only return tickets of this priority.
 
-                                                                     * `URGENT` - URGENT
-                                                                     * `HIGH` - HIGH
-                                                                     * `NORMAL` - NORMAL
-                                                                     * `LOW` - LOW
+                                                                     - `URGENT` - URGENT
+                                                                     - `HIGH` - HIGH
+                                                                     - `NORMAL` - NORMAL
+                                                                     - `LOW` - LOW
             - project_id: typing.Optional[str]. If provided, will only return tickets for this project.
 
             - remote_created_after: typing.Optional[dt.datetime]. If provided, will only return tickets created in the third party platform after this datetime.
@@ -697,10 +697,10 @@ class AsyncTicketsClient:
 
             - status: typing.Optional[TicketsListRequestStatus]. If provided, will only return tickets of this status.
 
-                                                                 * `OPEN` - OPEN
-                                                                 * `CLOSED` - CLOSED
-                                                                 * `IN_PROGRESS` - IN_PROGRESS
-                                                                 * `ON_HOLD` - ON_HOLD
+                                                                 - `OPEN` - OPEN
+                                                                 - `CLOSED` - CLOSED
+                                                                 - `IN_PROGRESS` - IN_PROGRESS
+                                                                 - `ON_HOLD` - ON_HOLD
             - tags: typing.Optional[str]. If provided, will only return tickets matching the tags; multiple tags can be separated by commas.
 
             - ticket_type: typing.Optional[str]. If provided, will only return tickets of this type.

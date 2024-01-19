@@ -8,11 +8,11 @@ T_Result = typing.TypeVar("T_Result")
 
 class GroupTypeEnum(str, enum.Enum):
     """
-    * `TEAM` - TEAM
-    * `DEPARTMENT` - DEPARTMENT
-    * `COST_CENTER` - COST_CENTER
-    * `BUSINESS_UNIT` - BUSINESS_UNIT
-    * `GROUP` - GROUP
+    - `TEAM` - TEAM
+    - `DEPARTMENT` - DEPARTMENT
+    - `COST_CENTER` - COST_CENTER
+    - `BUSINESS_UNIT` - BUSINESS_UNIT
+    - `GROUP` - GROUP
     """
 
     TEAM = "TEAM"

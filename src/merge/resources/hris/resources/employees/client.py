@@ -13,16 +13,16 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.employee import Employee
 from ...types.employee_request import EmployeeRequest
 from ...types.employee_response import EmployeeResponse
-from ...types.employees_list_request_employment_status import EmployeesListRequestEmploymentStatus
-from ...types.employees_list_request_expand import EmployeesListRequestExpand
-from ...types.employees_list_request_remote_fields import EmployeesListRequestRemoteFields
-from ...types.employees_list_request_show_enum_origins import EmployeesListRequestShowEnumOrigins
-from ...types.employees_retrieve_request_expand import EmployeesRetrieveRequestExpand
-from ...types.employees_retrieve_request_remote_fields import EmployeesRetrieveRequestRemoteFields
-from ...types.employees_retrieve_request_show_enum_origins import EmployeesRetrieveRequestShowEnumOrigins
-from ...types.ignore_common_model_request_reason import IgnoreCommonModelRequestReason
 from ...types.meta_response import MetaResponse
 from ...types.paginated_employee_list import PaginatedEmployeeList
+from .types.employees_list_request_employment_status import EmployeesListRequestEmploymentStatus
+from .types.employees_list_request_expand import EmployeesListRequestExpand
+from .types.employees_list_request_remote_fields import EmployeesListRequestRemoteFields
+from .types.employees_list_request_show_enum_origins import EmployeesListRequestShowEnumOrigins
+from .types.employees_retrieve_request_expand import EmployeesRetrieveRequestExpand
+from .types.employees_retrieve_request_remote_fields import EmployeesRetrieveRequestRemoteFields
+from .types.employees_retrieve_request_show_enum_origins import EmployeesRetrieveRequestShowEnumOrigins
+from .types.ignore_common_model_request_reason import IgnoreCommonModelRequestReason
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -89,9 +89,9 @@ class EmployeesClient:
 
             - employment_status: typing.Optional[EmployeesListRequestEmploymentStatus]. If provided, will only return employees with this employment status.
 
-                                                                                        * `ACTIVE` - ACTIVE
-                                                                                        * `PENDING` - PENDING
-                                                                                        * `INACTIVE` - INACTIVE
+                                                                                        - `ACTIVE` - ACTIVE
+                                                                                        - `PENDING` - PENDING
+                                                                                        - `INACTIVE` - INACTIVE
             - employment_type: typing.Optional[str]. If provided, will only return employees that have an employment of the specified employment_type.
 
             - expand: typing.Optional[EmployeesListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
@@ -467,9 +467,9 @@ class AsyncEmployeesClient:
 
             - employment_status: typing.Optional[EmployeesListRequestEmploymentStatus]. If provided, will only return employees with this employment status.
 
-                                                                                        * `ACTIVE` - ACTIVE
-                                                                                        * `PENDING` - PENDING
-                                                                                        * `INACTIVE` - INACTIVE
+                                                                                        - `ACTIVE` - ACTIVE
+                                                                                        - `PENDING` - PENDING
+                                                                                        - `INACTIVE` - INACTIVE
             - employment_type: typing.Optional[str]. If provided, will only return employees that have an employment of the specified employment_type.
 
             - expand: typing.Optional[EmployeesListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.

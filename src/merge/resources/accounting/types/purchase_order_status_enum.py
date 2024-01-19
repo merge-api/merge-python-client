@@ -8,11 +8,11 @@ T_Result = typing.TypeVar("T_Result")
 
 class PurchaseOrderStatusEnum(str, enum.Enum):
     """
-    * `DRAFT` - DRAFT
-    * `SUBMITTED` - SUBMITTED
-    * `AUTHORIZED` - AUTHORIZED
-    * `BILLED` - BILLED
-    * `DELETED` - DELETED
+    - `DRAFT` - DRAFT
+    - `SUBMITTED` - SUBMITTED
+    - `AUTHORIZED` - AUTHORIZED
+    - `BILLED` - BILLED
+    - `DELETED` - DELETED
     """
 
     DRAFT = "DRAFT"

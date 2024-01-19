@@ -10,13 +10,13 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
-from ...types.journal_entries_list_request_expand import JournalEntriesListRequestExpand
-from ...types.journal_entries_retrieve_request_expand import JournalEntriesRetrieveRequestExpand
 from ...types.journal_entry import JournalEntry
 from ...types.journal_entry_request import JournalEntryRequest
 from ...types.journal_entry_response import JournalEntryResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_journal_entry_list import PaginatedJournalEntryList
+from .types.journal_entries_list_request_expand import JournalEntriesListRequestExpand
+from .types.journal_entries_retrieve_request_expand import JournalEntriesRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

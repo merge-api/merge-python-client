@@ -11,8 +11,8 @@ from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.paginated_vendor_credit_list import PaginatedVendorCreditList
 from ...types.vendor_credit import VendorCredit
-from ...types.vendor_credits_list_request_expand import VendorCreditsListRequestExpand
-from ...types.vendor_credits_retrieve_request_expand import VendorCreditsRetrieveRequestExpand
+from .types.vendor_credits_list_request_expand import VendorCreditsListRequestExpand
+from .types.vendor_credits_retrieve_request_expand import VendorCreditsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

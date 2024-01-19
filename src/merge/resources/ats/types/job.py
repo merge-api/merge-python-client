@@ -21,9 +21,13 @@ except ImportError:
 class Job(pydantic.BaseModel):
     """
     # The Job Object
+
     ### Description
+
     The `Job` object can be used to track any jobs that are currently or will be open/closed for applications.
+
     ### Usage Example
+
     Fetch from the `LIST Jobs` endpoint to show all job postings.
     """
 
@@ -38,11 +42,11 @@ class Job(pydantic.BaseModel):
         description=(
             "The job's status.\n"
             "\n"
-            "* `OPEN` - OPEN\n"
-            "* `CLOSED` - CLOSED\n"
-            "* `DRAFT` - DRAFT\n"
-            "* `ARCHIVED` - ARCHIVED\n"
-            "* `PENDING` - PENDING\n"
+            "- `OPEN` - OPEN\n"
+            "- `CLOSED` - CLOSED\n"
+            "- `DRAFT` - DRAFT\n"
+            "- `ARCHIVED` - ARCHIVED\n"
+            "- `PENDING` - PENDING\n"
         )
     )
     job_posting_urls: typing.Optional[typing.List[Url]]

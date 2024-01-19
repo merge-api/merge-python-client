@@ -8,12 +8,12 @@ T_Result = typing.TypeVar("T_Result")
 
 class InvoiceStatusEnum(str, enum.Enum):
     """
-    * `PAID` - PAID
-    * `DRAFT` - DRAFT
-    * `SUBMITTED` - SUBMITTED
-    * `PARTIALLY_PAID` - PARTIALLY_PAID
-    * `OPEN` - OPEN
-    * `VOID` - VOID
+    - `PAID` - PAID
+    - `DRAFT` - DRAFT
+    - `SUBMITTED` - SUBMITTED
+    - `PARTIALLY_PAID` - PARTIALLY_PAID
+    - `OPEN` - OPEN
+    - `VOID` - VOID
     """
 
     PAID = "PAID"

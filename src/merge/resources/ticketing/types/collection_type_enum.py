@@ -8,8 +8,8 @@ T_Result = typing.TypeVar("T_Result")
 
 class CollectionTypeEnum(str, enum.Enum):
     """
-    * `LIST` - LIST
-    * `PROJECT` - PROJECT
+    - `LIST` - LIST
+    - `PROJECT` - PROJECT
     """
 
     LIST = "LIST"

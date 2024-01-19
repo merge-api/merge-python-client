@@ -12,12 +12,12 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.job import Job
-from ...types.jobs_list_request_expand import JobsListRequestExpand
-from ...types.jobs_list_request_status import JobsListRequestStatus
-from ...types.jobs_retrieve_request_expand import JobsRetrieveRequestExpand
-from ...types.jobs_screening_questions_list_request_expand import JobsScreeningQuestionsListRequestExpand
 from ...types.paginated_job_list import PaginatedJobList
 from ...types.paginated_screening_question_list import PaginatedScreeningQuestionList
+from .types.jobs_list_request_expand import JobsListRequestExpand
+from .types.jobs_list_request_status import JobsListRequestStatus
+from .types.jobs_retrieve_request_expand import JobsRetrieveRequestExpand
+from .types.jobs_screening_questions_list_request_expand import JobsScreeningQuestionsListRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -82,11 +82,11 @@ class JobsClient:
 
             - status: typing.Optional[JobsListRequestStatus]. If provided, will only return jobs with this status. Options: ('OPEN', 'CLOSED', 'DRAFT', 'ARCHIVED', 'PENDING')
 
-                                                              * `OPEN` - OPEN
-                                                              * `CLOSED` - CLOSED
-                                                              * `DRAFT` - DRAFT
-                                                              * `ARCHIVED` - ARCHIVED
-                                                              * `PENDING` - PENDING---
+                                                              - `OPEN` - OPEN
+                                                              - `CLOSED` - CLOSED
+                                                              - `DRAFT` - DRAFT
+                                                              - `ARCHIVED` - ARCHIVED
+                                                              - `PENDING` - PENDING---
         from merge.client import Merge
         from merge.resources.ats import JobsListRequestExpand, JobsListRequestStatus
 
@@ -314,11 +314,11 @@ class AsyncJobsClient:
 
             - status: typing.Optional[JobsListRequestStatus]. If provided, will only return jobs with this status. Options: ('OPEN', 'CLOSED', 'DRAFT', 'ARCHIVED', 'PENDING')
 
-                                                              * `OPEN` - OPEN
-                                                              * `CLOSED` - CLOSED
-                                                              * `DRAFT` - DRAFT
-                                                              * `ARCHIVED` - ARCHIVED
-                                                              * `PENDING` - PENDING---
+                                                              - `OPEN` - OPEN
+                                                              - `CLOSED` - CLOSED
+                                                              - `DRAFT` - DRAFT
+                                                              - `ARCHIVED` - ARCHIVED
+                                                              - `PENDING` - PENDING---
         from merge.client import AsyncMerge
         from merge.resources.ats import JobsListRequestExpand, JobsListRequestStatus
 

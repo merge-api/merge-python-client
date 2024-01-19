@@ -15,11 +15,11 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.invoice import Invoice
 from ...types.invoice_request import InvoiceRequest
 from ...types.invoice_response import InvoiceResponse
-from ...types.invoices_list_request_expand import InvoicesListRequestExpand
-from ...types.invoices_list_request_type import InvoicesListRequestType
-from ...types.invoices_retrieve_request_expand import InvoicesRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
 from ...types.paginated_invoice_list import PaginatedInvoiceList
+from .types.invoices_list_request_expand import InvoicesListRequestExpand
+from .types.invoices_list_request_type import InvoicesListRequestType
+from .types.invoices_retrieve_request_expand import InvoicesRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -93,8 +93,8 @@ class InvoicesClient:
 
             - type: typing.Optional[InvoicesListRequestType]. If provided, will only return Invoices with this type
 
-                                                              * `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
-                                                              * `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE---
+                                                              - `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
+                                                              - `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE---
         from merge.client import Merge
         from merge.resources.accounting import (
             InvoicesListRequestExpand,
@@ -355,8 +355,8 @@ class AsyncInvoicesClient:
 
             - type: typing.Optional[InvoicesListRequestType]. If provided, will only return Invoices with this type
 
-                                                              * `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
-                                                              * `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE---
+                                                              - `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
+                                                              - `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE---
         from merge.client import AsyncMerge
         from merge.resources.accounting import (
             InvoicesListRequestExpand,

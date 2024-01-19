@@ -8,9 +8,9 @@ T_Result = typing.TypeVar("T_Result")
 
 class AccessLevelEnum(str, enum.Enum):
     """
-    * `PRIVATE` - PRIVATE
-    * `COMPANY` - COMPANY
-    * `PUBLIC` - PUBLIC
+    - `PRIVATE` - PRIVATE
+    - `COMPANY` - COMPANY
+    - `PUBLIC` - PUBLIC
     """
 
     PRIVATE = "PRIVATE"

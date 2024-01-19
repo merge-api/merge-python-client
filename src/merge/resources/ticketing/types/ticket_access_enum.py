@@ -8,9 +8,9 @@ T_Result = typing.TypeVar("T_Result")
 
 class TicketAccessEnum(str, enum.Enum):
     """
-    * `ALL` - ALL
-    * `ASSIGNED_ONLY` - ASSIGNED_ONLY
-    * `TEAM_ONLY` - TEAM_ONLY
+    - `ALL` - ALL
+    - `ASSIGNED_ONLY` - ASSIGNED_ONLY
+    - `TEAM_ONLY` - TEAM_ONLY
     """
 
     ALL = "ALL"

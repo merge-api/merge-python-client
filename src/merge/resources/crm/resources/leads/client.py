@@ -13,11 +13,11 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.lead import Lead
 from ...types.lead_request import LeadRequest
 from ...types.lead_response import LeadResponse
-from ...types.leads_list_request_expand import LeadsListRequestExpand
-from ...types.leads_retrieve_request_expand import LeadsRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
 from ...types.paginated_lead_list import PaginatedLeadList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
+from .types.leads_list_request_expand import LeadsListRequestExpand
+from .types.leads_retrieve_request_expand import LeadsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

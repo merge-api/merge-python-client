@@ -20,9 +20,13 @@ except ImportError:
 class Eeoc(pydantic.BaseModel):
     """
     # The EEOC Object
+
     ### Description
+
     The `EEOC` object is used to represent the Equal Employment Opportunity Commission information for a candidate (race, gender, veteran status, disability status).
+
     ### Usage Example
+
     Fetch from the `LIST EEOCs` endpoint and filter by `candidate` to show all EEOC information for a candidate.
     """
 
@@ -34,43 +38,43 @@ class Eeoc(pydantic.BaseModel):
         description=(
             "The candidate's race.\n"
             "\n"
-            "* `AMERICAN_INDIAN_OR_ALASKAN_NATIVE` - AMERICAN_INDIAN_OR_ALASKAN_NATIVE\n"
-            "* `ASIAN` - ASIAN\n"
-            "* `BLACK_OR_AFRICAN_AMERICAN` - BLACK_OR_AFRICAN_AMERICAN\n"
-            "* `HISPANIC_OR_LATINO` - HISPANIC_OR_LATINO\n"
-            "* `WHITE` - WHITE\n"
-            "* `NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER` - NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER\n"
-            "* `TWO_OR_MORE_RACES` - TWO_OR_MORE_RACES\n"
-            "* `DECLINE_TO_SELF_IDENTIFY` - DECLINE_TO_SELF_IDENTIFY\n"
+            "- `AMERICAN_INDIAN_OR_ALASKAN_NATIVE` - AMERICAN_INDIAN_OR_ALASKAN_NATIVE\n"
+            "- `ASIAN` - ASIAN\n"
+            "- `BLACK_OR_AFRICAN_AMERICAN` - BLACK_OR_AFRICAN_AMERICAN\n"
+            "- `HISPANIC_OR_LATINO` - HISPANIC_OR_LATINO\n"
+            "- `WHITE` - WHITE\n"
+            "- `NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER` - NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER\n"
+            "- `TWO_OR_MORE_RACES` - TWO_OR_MORE_RACES\n"
+            "- `DECLINE_TO_SELF_IDENTIFY` - DECLINE_TO_SELF_IDENTIFY\n"
         )
     )
     gender: typing.Optional[EeocGender] = pydantic.Field(
         description=(
             "The candidate's gender.\n"
             "\n"
-            "* `MALE` - MALE\n"
-            "* `FEMALE` - FEMALE\n"
-            "* `NON-BINARY` - NON-BINARY\n"
-            "* `OTHER` - OTHER\n"
-            "* `DECLINE_TO_SELF_IDENTIFY` - DECLINE_TO_SELF_IDENTIFY\n"
+            "- `MALE` - MALE\n"
+            "- `FEMALE` - FEMALE\n"
+            "- `NON-BINARY` - NON-BINARY\n"
+            "- `OTHER` - OTHER\n"
+            "- `DECLINE_TO_SELF_IDENTIFY` - DECLINE_TO_SELF_IDENTIFY\n"
         )
     )
     veteran_status: typing.Optional[EeocVeteranStatus] = pydantic.Field(
         description=(
             "The candidate's veteran status.\n"
             "\n"
-            "* `I_AM_NOT_A_PROTECTED_VETERAN` - I_AM_NOT_A_PROTECTED_VETERAN\n"
-            "* `I_IDENTIFY_AS_ONE_OR_MORE_OF_THE_CLASSIFICATIONS_OF_A_PROTECTED_VETERAN` - I_IDENTIFY_AS_ONE_OR_MORE_OF_THE_CLASSIFICATIONS_OF_A_PROTECTED_VETERAN\n"
-            "* `I_DONT_WISH_TO_ANSWER` - I_DONT_WISH_TO_ANSWER\n"
+            "- `I_AM_NOT_A_PROTECTED_VETERAN` - I_AM_NOT_A_PROTECTED_VETERAN\n"
+            "- `I_IDENTIFY_AS_ONE_OR_MORE_OF_THE_CLASSIFICATIONS_OF_A_PROTECTED_VETERAN` - I_IDENTIFY_AS_ONE_OR_MORE_OF_THE_CLASSIFICATIONS_OF_A_PROTECTED_VETERAN\n"
+            "- `I_DONT_WISH_TO_ANSWER` - I_DONT_WISH_TO_ANSWER\n"
         )
     )
     disability_status: typing.Optional[EeocDisabilityStatus] = pydantic.Field(
         description=(
             "The candidate's disability status.\n"
             "\n"
-            "* `YES_I_HAVE_A_DISABILITY_OR_PREVIOUSLY_HAD_A_DISABILITY` - YES_I_HAVE_A_DISABILITY_OR_PREVIOUSLY_HAD_A_DISABILITY\n"
-            "* `NO_I_DONT_HAVE_A_DISABILITY` - NO_I_DONT_HAVE_A_DISABILITY\n"
-            "* `I_DONT_WISH_TO_ANSWER` - I_DONT_WISH_TO_ANSWER\n"
+            "- `YES_I_HAVE_A_DISABILITY_OR_PREVIOUSLY_HAD_A_DISABILITY` - YES_I_HAVE_A_DISABILITY_OR_PREVIOUSLY_HAD_A_DISABILITY\n"
+            "- `NO_I_DONT_HAVE_A_DISABILITY` - NO_I_DONT_HAVE_A_DISABILITY\n"
+            "- `I_DONT_WISH_TO_ANSWER` - I_DONT_WISH_TO_ANSWER\n"
         )
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(

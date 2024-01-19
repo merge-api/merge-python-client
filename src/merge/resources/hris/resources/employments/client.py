@@ -10,14 +10,14 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.employment import Employment
-from ...types.employments_list_request_expand import EmploymentsListRequestExpand
-from ...types.employments_list_request_order_by import EmploymentsListRequestOrderBy
-from ...types.employments_list_request_remote_fields import EmploymentsListRequestRemoteFields
-from ...types.employments_list_request_show_enum_origins import EmploymentsListRequestShowEnumOrigins
-from ...types.employments_retrieve_request_expand import EmploymentsRetrieveRequestExpand
-from ...types.employments_retrieve_request_remote_fields import EmploymentsRetrieveRequestRemoteFields
-from ...types.employments_retrieve_request_show_enum_origins import EmploymentsRetrieveRequestShowEnumOrigins
 from ...types.paginated_employment_list import PaginatedEmploymentList
+from .types.employments_list_request_expand import EmploymentsListRequestExpand
+from .types.employments_list_request_order_by import EmploymentsListRequestOrderBy
+from .types.employments_list_request_remote_fields import EmploymentsListRequestRemoteFields
+from .types.employments_list_request_show_enum_origins import EmploymentsListRequestShowEnumOrigins
+from .types.employments_retrieve_request_expand import EmploymentsRetrieveRequestExpand
+from .types.employments_retrieve_request_remote_fields import EmploymentsRetrieveRequestRemoteFields
+from .types.employments_retrieve_request_show_enum_origins import EmploymentsRetrieveRequestShowEnumOrigins
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -93,7 +93,7 @@ class EmploymentsClient:
         )
         client.hris.employments.list(
             expand=EmploymentsListRequestExpand.EMPLOYEE,
-            order_by=EmploymentsListRequestOrderBy.EFFECTIVE_DATE_DESCENDING,
+            order_by=EmploymentsListRequestOrderBy.EFFECTIVE_DATE,
             remote_fields=EmploymentsListRequestRemoteFields.EMPLOYMENT_TYPE,
             show_enum_origins=EmploymentsListRequestShowEnumOrigins.EMPLOYMENT_TYPE,
         )
@@ -262,7 +262,7 @@ class AsyncEmploymentsClient:
         )
         await client.hris.employments.list(
             expand=EmploymentsListRequestExpand.EMPLOYEE,
-            order_by=EmploymentsListRequestOrderBy.EFFECTIVE_DATE_DESCENDING,
+            order_by=EmploymentsListRequestOrderBy.EFFECTIVE_DATE,
             remote_fields=EmploymentsListRequestRemoteFields.EMPLOYMENT_TYPE,
             show_enum_origins=EmploymentsListRequestShowEnumOrigins.EMPLOYMENT_TYPE,
         )

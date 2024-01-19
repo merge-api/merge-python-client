@@ -11,8 +11,8 @@ from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.paginated_user_list import PaginatedUserList
 from ...types.user import User
-from ...types.users_list_request_expand import UsersListRequestExpand
-from ...types.users_retrieve_request_expand import UsersRetrieveRequestExpand
+from .types.users_list_request_expand import UsersListRequestExpand
+from .types.users_retrieve_request_expand import UsersRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

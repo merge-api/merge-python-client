@@ -13,15 +13,15 @@ from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.meta_response import MetaResponse
-from ...types.opportunities_list_request_expand import OpportunitiesListRequestExpand
-from ...types.opportunities_list_request_status import OpportunitiesListRequestStatus
-from ...types.opportunities_retrieve_request_expand import OpportunitiesRetrieveRequestExpand
 from ...types.opportunity import Opportunity
 from ...types.opportunity_request import OpportunityRequest
 from ...types.opportunity_response import OpportunityResponse
 from ...types.paginated_opportunity_list import PaginatedOpportunityList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.patched_opportunity_request import PatchedOpportunityRequest
+from .types.opportunities_list_request_expand import OpportunitiesListRequestExpand
+from .types.opportunities_list_request_status import OpportunitiesListRequestStatus
+from .types.opportunities_retrieve_request_expand import OpportunitiesRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -95,9 +95,9 @@ class OpportunitiesClient:
 
             - status: typing.Optional[OpportunitiesListRequestStatus]. If provided, will only return opportunities with this status. Options: ('OPEN', 'WON', 'LOST')
 
-                                                                       * `OPEN` - OPEN
-                                                                       * `WON` - WON
-                                                                       * `LOST` - LOST---
+                                                                       - `OPEN` - OPEN
+                                                                       - `WON` - WON
+                                                                       - `LOST` - LOST---
         from merge.client import Merge
         from merge.resources.crm import (
             OpportunitiesListRequestExpand,
@@ -512,9 +512,9 @@ class AsyncOpportunitiesClient:
 
             - status: typing.Optional[OpportunitiesListRequestStatus]. If provided, will only return opportunities with this status. Options: ('OPEN', 'WON', 'LOST')
 
-                                                                       * `OPEN` - OPEN
-                                                                       * `WON` - WON
-                                                                       * `LOST` - LOST---
+                                                                       - `OPEN` - OPEN
+                                                                       - `WON` - WON
+                                                                       - `LOST` - LOST---
         from merge.client import AsyncMerge
         from merge.resources.crm import (
             OpportunitiesListRequestExpand,

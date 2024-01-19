@@ -15,9 +15,13 @@ except ImportError:
 class Url(pydantic.BaseModel):
     """
     # The Url Object
+
     ### Description
+
     The `Url` object is used to represent hyperlinks associated with the parent model.
+
     ### Usage Example
+
     Fetch from the `GET Candidate` endpoint and view their website urls.
     """
 
@@ -26,13 +30,13 @@ class Url(pydantic.BaseModel):
         description=(
             "The type of site.\n"
             "\n"
-            "* `PERSONAL` - PERSONAL\n"
-            "* `COMPANY` - COMPANY\n"
-            "* `PORTFOLIO` - PORTFOLIO\n"
-            "* `BLOG` - BLOG\n"
-            "* `SOCIAL_MEDIA` - SOCIAL_MEDIA\n"
-            "* `OTHER` - OTHER\n"
-            "* `JOB_POSTING` - JOB_POSTING\n"
+            "- `PERSONAL` - PERSONAL\n"
+            "- `COMPANY` - COMPANY\n"
+            "- `PORTFOLIO` - PORTFOLIO\n"
+            "- `BLOG` - BLOG\n"
+            "- `SOCIAL_MEDIA` - SOCIAL_MEDIA\n"
+            "- `OTHER` - OTHER\n"
+            "- `JOB_POSTING` - JOB_POSTING\n"
         )
     )
     created_at: typing.Optional[dt.datetime]

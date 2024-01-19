@@ -16,10 +16,13 @@ except ImportError:
 class Group(pydantic.BaseModel):
     """
     # The Group Object
+
     ### Description
+
     The `Group` object is used to represent any subset of employees, such as `PayGroup` or `Team`. Employees can be in multiple Groups.
 
     ### Usage Example
+
     Fetch from the `LIST Employee` endpoint and expand groups to view an employee's groups.
     """
 
@@ -31,11 +34,11 @@ class Group(pydantic.BaseModel):
         description=(
             "The group type\n"
             "\n"
-            "* `TEAM` - TEAM\n"
-            "* `DEPARTMENT` - DEPARTMENT\n"
-            "* `COST_CENTER` - COST_CENTER\n"
-            "* `BUSINESS_UNIT` - BUSINESS_UNIT\n"
-            "* `GROUP` - GROUP\n"
+            "- `TEAM` - TEAM\n"
+            "- `DEPARTMENT` - DEPARTMENT\n"
+            "- `COST_CENTER` - COST_CENTER\n"
+            "- `BUSINESS_UNIT` - BUSINESS_UNIT\n"
+            "- `GROUP` - GROUP\n"
         )
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(

@@ -17,10 +17,13 @@ except ImportError:
 class TimeOffBalance(pydantic.BaseModel):
     """
     # The TimeOffBalance Object
+
     ### Description
+
     The `TimeOffBalance` object is used to represent current balances for an employee's Time Off plan.
 
     ### Usage Example
+
     Fetch from the `LIST TimeOffBalances` endpoint and filter by `ID` to show all time off balances.
     """
 
@@ -37,12 +40,12 @@ class TimeOffBalance(pydantic.BaseModel):
         description=(
             "The policy type of this time off balance.\n"
             "\n"
-            "* `VACATION` - VACATION\n"
-            "* `SICK` - SICK\n"
-            "* `PERSONAL` - PERSONAL\n"
-            "* `JURY_DUTY` - JURY_DUTY\n"
-            "* `VOLUNTEER` - VOLUNTEER\n"
-            "* `BEREAVEMENT` - BEREAVEMENT\n"
+            "- `VACATION` - VACATION\n"
+            "- `SICK` - SICK\n"
+            "- `PERSONAL` - PERSONAL\n"
+            "- `JURY_DUTY` - JURY_DUTY\n"
+            "- `VOLUNTEER` - VOLUNTEER\n"
+            "- `BEREAVEMENT` - BEREAVEMENT\n"
         )
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(

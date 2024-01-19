@@ -2,6 +2,6 @@
 
 import typing
 
-from .reason_enum import ReasonEnum
+from ....types.reason_enum import ReasonEnum
 
 IgnoreCommonModelRequestReason = typing.Union[ReasonEnum, str]

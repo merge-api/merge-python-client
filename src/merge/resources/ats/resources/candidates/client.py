@@ -13,12 +13,12 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.candidate import Candidate
 from ...types.candidate_request import CandidateRequest
 from ...types.candidate_response import CandidateResponse
-from ...types.candidates_list_request_expand import CandidatesListRequestExpand
-from ...types.candidates_retrieve_request_expand import CandidatesRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
 from ...types.paginated_candidate_list import PaginatedCandidateList
 from ...types.patched_candidate_request import PatchedCandidateRequest
 from ...types.reason_enum import ReasonEnum
+from .types.candidates_list_request_expand import CandidatesListRequestExpand
+from .types.candidates_retrieve_request_expand import CandidatesRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

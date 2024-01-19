@@ -16,9 +16,13 @@ except ImportError:
 class AccountRequest(pydantic.BaseModel):
     """
     # The Account Object
+
     ### Description
+
     The `Account` object is used to represent a company in a CRM system.
+
     ### Usage Example
+
     TODO
     """
 

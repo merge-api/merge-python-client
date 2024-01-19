@@ -8,9 +8,9 @@ T_Result = typing.TypeVar("T_Result")
 
 class ScheduledInterviewStatusEnum(str, enum.Enum):
     """
-    * `SCHEDULED` - SCHEDULED
-    * `AWAITING_FEEDBACK` - AWAITING_FEEDBACK
-    * `COMPLETE` - COMPLETE
+    - `SCHEDULED` - SCHEDULED
+    - `AWAITING_FEEDBACK` - AWAITING_FEEDBACK
+    - `COMPLETE` - COMPLETE
     """
 
     SCHEDULED = "SCHEDULED"
