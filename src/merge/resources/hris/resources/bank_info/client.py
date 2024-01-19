@@ -12,9 +12,9 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.bank_info import BankInfo
-from ...types.bank_info_list_request_account_type import BankInfoListRequestAccountType
-from ...types.bank_info_list_request_order_by import BankInfoListRequestOrderBy
 from ...types.paginated_bank_info_list import PaginatedBankInfoList
+from .types.bank_info_list_request_account_type import BankInfoListRequestAccountType
+from .types.bank_info_list_request_order_by import BankInfoListRequestOrderBy
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -52,8 +52,8 @@ class BankInfoClient:
         Parameters:
             - account_type: typing.Optional[BankInfoListRequestAccountType]. If provided, will only return BankInfo's with this account type. Options: ('SAVINGS', 'CHECKING')
 
-                                                                             * `SAVINGS` - SAVINGS
-                                                                             * `CHECKING` - CHECKING
+                                                                             - `SAVINGS` - SAVINGS
+                                                                             - `CHECKING` - CHECKING
             - bank_name: typing.Optional[str]. If provided, will only return BankInfo's with this bank name.
 
             - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
@@ -97,7 +97,7 @@ class BankInfoClient:
         client.hris.bank_info.list(
             account_type=BankInfoListRequestAccountType.CHECKING,
             expand="employee",
-            order_by=BankInfoListRequestOrderBy.REMOTE_CREATED_AT_DESCENDING,
+            order_by=BankInfoListRequestOrderBy.REMOTE_CREATED_AT,
             remote_fields="account_type",
             show_enum_origins="account_type",
         )
@@ -225,8 +225,8 @@ class AsyncBankInfoClient:
         Parameters:
             - account_type: typing.Optional[BankInfoListRequestAccountType]. If provided, will only return BankInfo's with this account type. Options: ('SAVINGS', 'CHECKING')
 
-                                                                             * `SAVINGS` - SAVINGS
-                                                                             * `CHECKING` - CHECKING
+                                                                             - `SAVINGS` - SAVINGS
+                                                                             - `CHECKING` - CHECKING
             - bank_name: typing.Optional[str]. If provided, will only return BankInfo's with this bank name.
 
             - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
@@ -270,7 +270,7 @@ class AsyncBankInfoClient:
         await client.hris.bank_info.list(
             account_type=BankInfoListRequestAccountType.CHECKING,
             expand="employee",
-            order_by=BankInfoListRequestOrderBy.REMOTE_CREATED_AT_DESCENDING,
+            order_by=BankInfoListRequestOrderBy.REMOTE_CREATED_AT,
             remote_fields="account_type",
             show_enum_origins="account_type",
         )

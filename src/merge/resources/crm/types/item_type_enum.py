@@ -8,12 +8,12 @@ T_Result = typing.TypeVar("T_Result")
 
 class ItemTypeEnum(str, enum.Enum):
     """
-    * `string` - string
-    * `number` - number
-    * `date` - date
-    * `datetime` - datetime
-    * `bool` - bool
-    * `list` - list
+    - `string` - string
+    - `number` - number
+    - `date` - date
+    - `datetime` - datetime
+    - `bool` - bool
+    - `list` - list
     """
 
     STRING = "string"

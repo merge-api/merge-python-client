@@ -15,8 +15,8 @@ from ...types.paginated_payment_list import PaginatedPaymentList
 from ...types.payment import Payment
 from ...types.payment_request import PaymentRequest
 from ...types.payment_response import PaymentResponse
-from ...types.payments_list_request_expand import PaymentsListRequestExpand
-from ...types.payments_retrieve_request_expand import PaymentsRetrieveRequestExpand
+from .types.payments_list_request_expand import PaymentsListRequestExpand
+from .types.payments_retrieve_request_expand import PaymentsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

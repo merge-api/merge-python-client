@@ -15,10 +15,13 @@ except ImportError:
 class EmployerBenefit(pydantic.BaseModel):
     """
     # The EmployerBenefit Object
+
     ### Description
+
     The `Employer Benefit` object is used to represent a benefit plan offered by a company.
 
     ### Usage Example
+
     Fetch from the `LIST EmployerBenefits` endpoint and filter by `ID` to show all EmployerBenefits.
     """
 
@@ -28,11 +31,11 @@ class EmployerBenefit(pydantic.BaseModel):
         description=(
             "The type of benefit plan.\n"
             "\n"
-            "* `MEDICAL` - MEDICAL\n"
-            "* `HEALTH_SAVINGS` - HEALTH_SAVINGS\n"
-            "* `INSURANCE` - INSURANCE\n"
-            "* `RETIREMENT` - RETIREMENT\n"
-            "* `OTHER` - OTHER\n"
+            "- `MEDICAL` - MEDICAL\n"
+            "- `HEALTH_SAVINGS` - HEALTH_SAVINGS\n"
+            "- `INSURANCE` - INSURANCE\n"
+            "- `RETIREMENT` - RETIREMENT\n"
+            "- `OTHER` - OTHER\n"
         )
     )
     name: typing.Optional[str] = pydantic.Field(

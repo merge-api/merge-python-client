@@ -13,7 +13,7 @@ from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.paginated_time_off_balance_list import PaginatedTimeOffBalanceList
 from ...types.time_off_balance import TimeOffBalance
-from ...types.time_off_balances_list_request_policy_type import TimeOffBalancesListRequestPolicyType
+from .types.time_off_balances_list_request_policy_type import TimeOffBalancesListRequestPolicyType
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -69,12 +69,12 @@ class TimeOffBalancesClient:
 
             - policy_type: typing.Optional[TimeOffBalancesListRequestPolicyType]. If provided, will only return TimeOffBalance with this policy type. Options: ('VACATION', 'SICK', 'PERSONAL', 'JURY_DUTY', 'VOLUNTEER', 'BEREAVEMENT')
 
-                                                                                  * `VACATION` - VACATION
-                                                                                  * `SICK` - SICK
-                                                                                  * `PERSONAL` - PERSONAL
-                                                                                  * `JURY_DUTY` - JURY_DUTY
-                                                                                  * `VOLUNTEER` - VOLUNTEER
-                                                                                  * `BEREAVEMENT` - BEREAVEMENT
+                                                                                  - `VACATION` - VACATION
+                                                                                  - `SICK` - SICK
+                                                                                  - `PERSONAL` - PERSONAL
+                                                                                  - `JURY_DUTY` - JURY_DUTY
+                                                                                  - `VOLUNTEER` - VOLUNTEER
+                                                                                  - `BEREAVEMENT` - BEREAVEMENT
             - remote_fields: typing.Optional[typing_extensions.Literal["policy_type"]]. Deprecated. Use show_enum_origins.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
@@ -234,12 +234,12 @@ class AsyncTimeOffBalancesClient:
 
             - policy_type: typing.Optional[TimeOffBalancesListRequestPolicyType]. If provided, will only return TimeOffBalance with this policy type. Options: ('VACATION', 'SICK', 'PERSONAL', 'JURY_DUTY', 'VOLUNTEER', 'BEREAVEMENT')
 
-                                                                                  * `VACATION` - VACATION
-                                                                                  * `SICK` - SICK
-                                                                                  * `PERSONAL` - PERSONAL
-                                                                                  * `JURY_DUTY` - JURY_DUTY
-                                                                                  * `VOLUNTEER` - VOLUNTEER
-                                                                                  * `BEREAVEMENT` - BEREAVEMENT
+                                                                                  - `VACATION` - VACATION
+                                                                                  - `SICK` - SICK
+                                                                                  - `PERSONAL` - PERSONAL
+                                                                                  - `JURY_DUTY` - JURY_DUTY
+                                                                                  - `VOLUNTEER` - VOLUNTEER
+                                                                                  - `BEREAVEMENT` - BEREAVEMENT
             - remote_fields: typing.Optional[typing_extensions.Literal["policy_type"]]. Deprecated. Use show_enum_origins.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.

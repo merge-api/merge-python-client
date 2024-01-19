@@ -17,8 +17,8 @@ from ...types.paginated_purchase_order_list import PaginatedPurchaseOrderList
 from ...types.purchase_order import PurchaseOrder
 from ...types.purchase_order_request import PurchaseOrderRequest
 from ...types.purchase_order_response import PurchaseOrderResponse
-from ...types.purchase_orders_list_request_expand import PurchaseOrdersListRequestExpand
-from ...types.purchase_orders_retrieve_request_expand import PurchaseOrdersRetrieveRequestExpand
+from .types.purchase_orders_list_request_expand import PurchaseOrdersListRequestExpand
+from .types.purchase_orders_retrieve_request_expand import PurchaseOrdersRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

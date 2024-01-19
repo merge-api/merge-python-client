@@ -12,11 +12,11 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.eeoc import Eeoc
-from ...types.eeocs_list_request_remote_fields import EeocsListRequestRemoteFields
-from ...types.eeocs_list_request_show_enum_origins import EeocsListRequestShowEnumOrigins
-from ...types.eeocs_retrieve_request_remote_fields import EeocsRetrieveRequestRemoteFields
-from ...types.eeocs_retrieve_request_show_enum_origins import EeocsRetrieveRequestShowEnumOrigins
 from ...types.paginated_eeoc_list import PaginatedEeocList
+from .types.eeocs_list_request_remote_fields import EeocsListRequestRemoteFields
+from .types.eeocs_list_request_show_enum_origins import EeocsListRequestShowEnumOrigins
+from .types.eeocs_retrieve_request_remote_fields import EeocsRetrieveRequestRemoteFields
+from .types.eeocs_retrieve_request_show_enum_origins import EeocsRetrieveRequestShowEnumOrigins
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

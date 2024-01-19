@@ -10,9 +10,9 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.company_info import CompanyInfo
-from ...types.company_info_list_request_expand import CompanyInfoListRequestExpand
-from ...types.company_info_retrieve_request_expand import CompanyInfoRetrieveRequestExpand
 from ...types.paginated_company_info_list import PaginatedCompanyInfoList
+from .types.company_info_list_request_expand import CompanyInfoListRequestExpand
+from .types.company_info_retrieve_request_expand import CompanyInfoRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

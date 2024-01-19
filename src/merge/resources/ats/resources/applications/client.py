@@ -13,10 +13,10 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.application import Application
 from ...types.application_request import ApplicationRequest
 from ...types.application_response import ApplicationResponse
-from ...types.applications_list_request_expand import ApplicationsListRequestExpand
-from ...types.applications_retrieve_request_expand import ApplicationsRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
 from ...types.paginated_application_list import PaginatedApplicationList
+from .types.applications_list_request_expand import ApplicationsListRequestExpand
+from .types.applications_retrieve_request_expand import ApplicationsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

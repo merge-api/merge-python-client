@@ -12,10 +12,10 @@ from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.meta_response import MetaResponse
 from ...types.paginated_timesheet_entry_list import PaginatedTimesheetEntryList
-from ...types.timesheet_entries_list_request_order_by import TimesheetEntriesListRequestOrderBy
 from ...types.timesheet_entry import TimesheetEntry
 from ...types.timesheet_entry_request import TimesheetEntryRequest
 from ...types.timesheet_entry_response import TimesheetEntryResponse
+from .types.timesheet_entries_list_request_order_by import TimesheetEntriesListRequestOrderBy
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -91,7 +91,7 @@ class TimesheetEntriesClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.timesheet_entries.list(
-            order_by=TimesheetEntriesListRequestOrderBy.START_TIME_DESCENDING,
+            order_by=TimesheetEntriesListRequestOrderBy.START_TIME,
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -309,7 +309,7 @@ class AsyncTimesheetEntriesClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.timesheet_entries.list(
-            order_by=TimesheetEntriesListRequestOrderBy.START_TIME_DESCENDING,
+            order_by=TimesheetEntriesListRequestOrderBy.START_TIME,
         )
         """
         _response = await self._client_wrapper.httpx_client.request(

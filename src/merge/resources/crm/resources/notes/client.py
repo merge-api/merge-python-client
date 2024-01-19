@@ -14,10 +14,10 @@ from ...types.meta_response import MetaResponse
 from ...types.note import Note
 from ...types.note_request import NoteRequest
 from ...types.note_response import NoteResponse
-from ...types.notes_list_request_expand import NotesListRequestExpand
-from ...types.notes_retrieve_request_expand import NotesRetrieveRequestExpand
 from ...types.paginated_note_list import PaginatedNoteList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
+from .types.notes_list_request_expand import NotesListRequestExpand
+from .types.notes_retrieve_request_expand import NotesRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

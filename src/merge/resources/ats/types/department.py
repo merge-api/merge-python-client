@@ -15,9 +15,13 @@ except ImportError:
 class Department(pydantic.BaseModel):
     """
     # The Department Object
+
     ### Description
+
     The `Department` object is used to represent a department within a company.
+
     ### Usage Example
+
     Fetch from the `LIST Departments` endpoint and view the departments within a company.
     """
 

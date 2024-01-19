@@ -13,10 +13,10 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.file import File
 from ...types.file_request import FileRequest
 from ...types.file_storage_file_response import FileStorageFileResponse
-from ...types.files_list_request_expand import FilesListRequestExpand
-from ...types.files_retrieve_request_expand import FilesRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
 from ...types.paginated_file_list import PaginatedFileList
+from .types.files_list_request_expand import FilesListRequestExpand
+from .types.files_retrieve_request_expand import FilesRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

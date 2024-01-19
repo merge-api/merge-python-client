@@ -17,10 +17,13 @@ except ImportError:
 class User(pydantic.BaseModel):
     """
     # The User Object
+
     ### Description
+
     The `User` object is used to represent an employee within a company.
 
     ### Usage Example
+
     TODO
     """
 

@@ -12,13 +12,13 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
-from ...types.interviews_list_request_expand import InterviewsListRequestExpand
-from ...types.interviews_retrieve_request_expand import InterviewsRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
 from ...types.paginated_scheduled_interview_list import PaginatedScheduledInterviewList
 from ...types.scheduled_interview import ScheduledInterview
 from ...types.scheduled_interview_request import ScheduledInterviewRequest
 from ...types.scheduled_interview_response import ScheduledInterviewResponse
+from .types.interviews_list_request_expand import InterviewsListRequestExpand
+from .types.interviews_retrieve_request_expand import InterviewsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

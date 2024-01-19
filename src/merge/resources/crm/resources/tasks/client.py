@@ -17,8 +17,8 @@ from ...types.patched_task_request import PatchedTaskRequest
 from ...types.task import Task
 from ...types.task_request import TaskRequest
 from ...types.task_response import TaskResponse
-from ...types.tasks_list_request_expand import TasksListRequestExpand
-from ...types.tasks_retrieve_request_expand import TasksRetrieveRequestExpand
+from .types.tasks_list_request_expand import TasksListRequestExpand
+from .types.tasks_retrieve_request_expand import TasksRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

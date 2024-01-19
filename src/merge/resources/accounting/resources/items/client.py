@@ -12,9 +12,9 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.item import Item
-from ...types.items_list_request_expand import ItemsListRequestExpand
-from ...types.items_retrieve_request_expand import ItemsRetrieveRequestExpand
 from ...types.paginated_item_list import PaginatedItemList
+from .types.items_list_request_expand import ItemsListRequestExpand
+from .types.items_retrieve_request_expand import ItemsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

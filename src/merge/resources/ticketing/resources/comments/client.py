@@ -13,10 +13,10 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.comment import Comment
 from ...types.comment_request import CommentRequest
 from ...types.comment_response import CommentResponse
-from ...types.comments_list_request_expand import CommentsListRequestExpand
-from ...types.comments_retrieve_request_expand import CommentsRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
 from ...types.paginated_comment_list import PaginatedCommentList
+from .types.comments_list_request_expand import CommentsListRequestExpand
+from .types.comments_retrieve_request_expand import CommentsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

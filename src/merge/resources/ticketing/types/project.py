@@ -15,16 +15,19 @@ except ImportError:
 class Project(pydantic.BaseModel):
     """
     # The Project Object
+
     ### Description
+
     Please use the `Collection` model. This model will be fully deprecated on 3/30/2024.
 
     ### Usage Example
+
     TODO
     """
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    name: typing.Optional[str] = pydantic.Field(description="The project's name. ")
+    name: typing.Optional[str] = pydantic.Field(description="The project's name.")
     description: typing.Optional[str] = pydantic.Field(description="The project's description.")
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted in the third party platform."

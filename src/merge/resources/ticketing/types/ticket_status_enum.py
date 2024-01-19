@@ -8,10 +8,10 @@ T_Result = typing.TypeVar("T_Result")
 
 class TicketStatusEnum(str, enum.Enum):
     """
-    * `OPEN` - OPEN
-    * `CLOSED` - CLOSED
-    * `IN_PROGRESS` - IN_PROGRESS
-    * `ON_HOLD` - ON_HOLD
+    - `OPEN` - OPEN
+    - `CLOSED` - CLOSED
+    - `IN_PROGRESS` - IN_PROGRESS
+    - `ON_HOLD` - ON_HOLD
     """
 
     OPEN = "OPEN"

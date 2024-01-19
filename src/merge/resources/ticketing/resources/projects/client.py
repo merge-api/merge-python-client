@@ -12,7 +12,7 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.paginated_project_list import PaginatedProjectList
 from ...types.paginated_user_list import PaginatedUserList
 from ...types.project import Project
-from ...types.projects_users_list_request_expand import ProjectsUsersListRequestExpand
+from .types.projects_users_list_request_expand import ProjectsUsersListRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

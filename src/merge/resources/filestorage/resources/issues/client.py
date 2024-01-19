@@ -10,8 +10,8 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.issue import Issue
-from ...types.issues_list_request_status import IssuesListRequestStatus
 from ...types.paginated_issue_list import PaginatedIssueList
+from .types.issues_list_request_status import IssuesListRequestStatus
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -70,8 +70,8 @@ class IssuesClient:
 
             - status: typing.Optional[IssuesListRequestStatus]. Status of the issue. Options: ('ONGOING', 'RESOLVED')
 
-                                                                * `ONGOING` - ONGOING
-                                                                * `RESOLVED` - RESOLVED---
+                                                                - `ONGOING` - ONGOING
+                                                                - `RESOLVED` - RESOLVED---
         from merge.client import Merge
         from merge.resources.filestorage import IssuesListRequestStatus
 
@@ -205,8 +205,8 @@ class AsyncIssuesClient:
 
             - status: typing.Optional[IssuesListRequestStatus]. Status of the issue. Options: ('ONGOING', 'RESOLVED')
 
-                                                                * `ONGOING` - ONGOING
-                                                                * `RESOLVED` - RESOLVED---
+                                                                - `ONGOING` - ONGOING
+                                                                - `RESOLVED` - RESOLVED---
         from merge.client import AsyncMerge
         from merge.resources.filestorage import IssuesListRequestStatus
 

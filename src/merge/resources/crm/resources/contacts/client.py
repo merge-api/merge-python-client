@@ -12,14 +12,14 @@ from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.contact import Contact
 from ...types.contact_request import ContactRequest
-from ...types.contacts_list_request_expand import ContactsListRequestExpand
-from ...types.contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
 from ...types.crm_contact_response import CrmContactResponse
 from ...types.ignore_common_model_request import IgnoreCommonModelRequest
 from ...types.meta_response import MetaResponse
 from ...types.paginated_contact_list import PaginatedContactList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.patched_contact_request import PatchedContactRequest
+from .types.contacts_list_request_expand import ContactsListRequestExpand
+from .types.contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

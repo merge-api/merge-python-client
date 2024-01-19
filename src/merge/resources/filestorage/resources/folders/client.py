@@ -13,10 +13,10 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.file_storage_folder_response import FileStorageFolderResponse
 from ...types.folder import Folder
 from ...types.folder_request import FolderRequest
-from ...types.folders_list_request_expand import FoldersListRequestExpand
-from ...types.folders_retrieve_request_expand import FoldersRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
 from ...types.paginated_folder_list import PaginatedFolderList
+from .types.folders_list_request_expand import FoldersListRequestExpand
+from .types.folders_retrieve_request_expand import FoldersRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

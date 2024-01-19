@@ -13,12 +13,12 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.engagement import Engagement
 from ...types.engagement_request import EngagementRequest
 from ...types.engagement_response import EngagementResponse
-from ...types.engagements_list_request_expand import EngagementsListRequestExpand
-from ...types.engagements_retrieve_request_expand import EngagementsRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
 from ...types.paginated_engagement_list import PaginatedEngagementList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.patched_engagement_request import PatchedEngagementRequest
+from .types.engagements_list_request_expand import EngagementsListRequestExpand
+from .types.engagements_retrieve_request_expand import EngagementsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

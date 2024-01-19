@@ -15,12 +15,12 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.account import Account
 from ...types.account_request import AccountRequest
 from ...types.account_response import AccountResponse
-from ...types.accounts_list_request_remote_fields import AccountsListRequestRemoteFields
-from ...types.accounts_list_request_show_enum_origins import AccountsListRequestShowEnumOrigins
-from ...types.accounts_retrieve_request_remote_fields import AccountsRetrieveRequestRemoteFields
-from ...types.accounts_retrieve_request_show_enum_origins import AccountsRetrieveRequestShowEnumOrigins
 from ...types.meta_response import MetaResponse
 from ...types.paginated_account_list import PaginatedAccountList
+from .types.accounts_list_request_remote_fields import AccountsListRequestRemoteFields
+from .types.accounts_list_request_show_enum_origins import AccountsListRequestShowEnumOrigins
+from .types.accounts_retrieve_request_remote_fields import AccountsRetrieveRequestRemoteFields
+from .types.accounts_retrieve_request_show_enum_origins import AccountsRetrieveRequestShowEnumOrigins
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

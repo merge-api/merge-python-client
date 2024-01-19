@@ -15,10 +15,10 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.contact import Contact
 from ...types.contact_request import ContactRequest
 from ...types.contact_response import ContactResponse
-from ...types.contacts_list_request_expand import ContactsListRequestExpand
-from ...types.contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
 from ...types.meta_response import MetaResponse
 from ...types.paginated_contact_list import PaginatedContactList
+from .types.contacts_list_request_expand import ContactsListRequestExpand
+from .types.contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

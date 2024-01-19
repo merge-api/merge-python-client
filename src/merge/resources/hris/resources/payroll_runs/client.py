@@ -11,11 +11,11 @@ from .....core.datetime_utils import serialize_datetime
 from .....core.remove_none_from_dict import remove_none_from_dict
 from ...types.paginated_payroll_run_list import PaginatedPayrollRunList
 from ...types.payroll_run import PayrollRun
-from ...types.payroll_runs_list_request_remote_fields import PayrollRunsListRequestRemoteFields
-from ...types.payroll_runs_list_request_run_type import PayrollRunsListRequestRunType
-from ...types.payroll_runs_list_request_show_enum_origins import PayrollRunsListRequestShowEnumOrigins
-from ...types.payroll_runs_retrieve_request_remote_fields import PayrollRunsRetrieveRequestRemoteFields
-from ...types.payroll_runs_retrieve_request_show_enum_origins import PayrollRunsRetrieveRequestShowEnumOrigins
+from .types.payroll_runs_list_request_remote_fields import PayrollRunsListRequestRemoteFields
+from .types.payroll_runs_list_request_run_type import PayrollRunsListRequestRunType
+from .types.payroll_runs_list_request_show_enum_origins import PayrollRunsListRequestShowEnumOrigins
+from .types.payroll_runs_retrieve_request_remote_fields import PayrollRunsRetrieveRequestRemoteFields
+from .types.payroll_runs_retrieve_request_show_enum_origins import PayrollRunsRetrieveRequestShowEnumOrigins
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -77,11 +77,11 @@ class PayrollRunsClient:
 
             - run_type: typing.Optional[PayrollRunsListRequestRunType]. If provided, will only return PayrollRun's with this status. Options: ('REGULAR', 'OFF_CYCLE', 'CORRECTION', 'TERMINATION', 'SIGN_ON_BONUS')
 
-                                                                        * `REGULAR` - REGULAR
-                                                                        * `OFF_CYCLE` - OFF_CYCLE
-                                                                        * `CORRECTION` - CORRECTION
-                                                                        * `TERMINATION` - TERMINATION
-                                                                        * `SIGN_ON_BONUS` - SIGN_ON_BONUS
+                                                                        - `REGULAR` - REGULAR
+                                                                        - `OFF_CYCLE` - OFF_CYCLE
+                                                                        - `CORRECTION` - CORRECTION
+                                                                        - `TERMINATION` - TERMINATION
+                                                                        - `SIGN_ON_BONUS` - SIGN_ON_BONUS
             - show_enum_origins: typing.Optional[PayrollRunsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
 
             - started_after: typing.Optional[dt.datetime]. If provided, will only return payroll runs started after this datetime.
@@ -251,11 +251,11 @@ class AsyncPayrollRunsClient:
 
             - run_type: typing.Optional[PayrollRunsListRequestRunType]. If provided, will only return PayrollRun's with this status. Options: ('REGULAR', 'OFF_CYCLE', 'CORRECTION', 'TERMINATION', 'SIGN_ON_BONUS')
 
-                                                                        * `REGULAR` - REGULAR
-                                                                        * `OFF_CYCLE` - OFF_CYCLE
-                                                                        * `CORRECTION` - CORRECTION
-                                                                        * `TERMINATION` - TERMINATION
-                                                                        * `SIGN_ON_BONUS` - SIGN_ON_BONUS
+                                                                        - `REGULAR` - REGULAR
+                                                                        - `OFF_CYCLE` - OFF_CYCLE
+                                                                        - `CORRECTION` - CORRECTION
+                                                                        - `TERMINATION` - TERMINATION
+                                                                        - `SIGN_ON_BONUS` - SIGN_ON_BONUS
             - show_enum_origins: typing.Optional[PayrollRunsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
 
             - started_after: typing.Optional[dt.datetime]. If provided, will only return payroll runs started after this datetime.

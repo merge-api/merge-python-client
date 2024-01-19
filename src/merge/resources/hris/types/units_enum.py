@@ -8,8 +8,8 @@ T_Result = typing.TypeVar("T_Result")
 
 class UnitsEnum(str, enum.Enum):
     """
-    * `HOURS` - HOURS
-    * `DAYS` - DAYS
+    - `HOURS` - HOURS
+    - `DAYS` - DAYS
     """
 
     HOURS = "HOURS"
