@@ -269,7 +269,7 @@ class CandidatesClient:
             message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
         )
         """
-        _request: typing.Dict[str, typing.Any] = {"reason": reason}
+        _request: typing.Dict[str, typing.Any] = {"reason": reason.value}
         if message is not OMIT:
             _request["message"] = message
         _response = self._client_wrapper.httpx_client.request(
@@ -586,7 +586,7 @@ class AsyncCandidatesClient:
             message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
         )
         """
-        _request: typing.Dict[str, typing.Any] = {"reason": reason}
+        _request: typing.Dict[str, typing.Any] = {"reason": reason.value}
         if message is not OMIT:
             _request["message"] = message
         _response = await self._client_wrapper.httpx_client.request(
