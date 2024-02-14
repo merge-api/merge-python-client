@@ -37,7 +37,7 @@ class Employment(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    employee: typing.Optional[EmploymentEmployee] = pydantic.Field(description="The employee holding this position.")
+    employee: typing.Optional["EmploymentEmployee"] = pydantic.Field(description="The employee holding this position.")
     job_title: typing.Optional[str] = pydantic.Field(description="The position's title.")
     pay_rate: typing.Optional[float] = pydantic.Field(description="The position's pay rate in dollars.")
     pay_period: typing.Optional[EmploymentPayPeriod] = pydantic.Field(
@@ -429,6 +429,9 @@ class Employment(pydantic.BaseModel):
         json_encoders = {dt.datetime: serialize_datetime}
 
 
+from .employee import Employee  # noqa: E402
+from .employee_employments_item import EmployeeEmploymentsItem  # noqa: E402
+from .employee_manager import EmployeeManager  # noqa: E402
 from .employment_employee import EmploymentEmployee  # noqa: E402
 
-Employment.update_forward_refs()
+Employment.update_forward_refs(EmploymentEmployee=EmploymentEmployee)

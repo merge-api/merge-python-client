@@ -3,5 +3,14 @@
 import typing
 
 from .folder_permissions_item import FolderPermissionsItem
+from .group import Group
+from .permission_request import PermissionRequest
+from .permission_request_group import PermissionRequestGroup
+from .permission_request_roles_item import PermissionRequestRolesItem
+from .permission_request_type import PermissionRequestType
+from .permission_request_user import PermissionRequestUser
+from .roles_enum import RolesEnum
+from .type_enum import TypeEnum
+from .user import User
 
 FolderPermissions = typing.Union[str, typing.Any, typing.List[FolderPermissionsItem]]

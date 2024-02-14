@@ -1,19 +1,6 @@
 name: ci
 
-on:
-  # diff aware on every PR
-  pull_request: {}
-  # allow manual triggering
-  workflow_dispatch: {}
-  # full scan on push to master
-  push:
-    branches: ["main"]
-  # tagging release
-  release:
-    types:
-      - published
-
-
+on: [push]
 jobs:
   compile:
     runs-on: ubuntu-20.04
@@ -23,13 +10,10 @@ jobs:
       - name: Set up python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.7
+          python-version: 3.8
       - name: Bootstrap poetry
         run: |
-          curl --location --show-error --silent --output poetry.py https://install.python-poetry.org \
-          && echo '66db5477a597b6176202ef77792076057ce50d2c5a2d2d2978c63e1f144d7b95' poetry.py | sha256sum -c \
-          && python poetry.py -y --version 1.5.1 \
-          && rm poetry.py
+          curl -sSL https://install.python-poetry.org | python - -y --version 1.5.1
       - name: Install dependencies
         run: poetry install
       - name: Compile
@@ -42,27 +26,18 @@ jobs:
       - name: Set up python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.7
+          python-version: 3.8
       - name: Bootstrap poetry
         run: |
-          curl --location --show-error --silent --output poetry.py https://install.python-poetry.org \
-          && echo '66db5477a597b6176202ef77792076057ce50d2c5a2d2d2978c63e1f144d7b95' poetry.py | sha256sum -c \
-          && python poetry.py -y --version 1.5.1 \
-          && rm poetry.py
+          curl -sSL https://install.python-poetry.org | python - -y --version 1.5.1
       - name: Install dependencies
         run: poetry install
       - name: Test
-        env:
-          TEST_MERGE_API_KEY: ${{ secrets.TEST_MERGE_API_KEY }}
-          TEST_MERGE_ATS_ACCOUNT_ID: ${{ secrets.TEST_MERGE_ATS_ACCOUNT_ID }}
-          TEST_MERGE_ATS_ACCOUNT_TOKEN: ${{ secrets.TEST_MERGE_ATS_ACCOUNT_TOKEN }}
-          TEST_MERGE_HRIS_ACCOUNT_ID: ${{ secrets.TEST_MERGE_HRIS_ACCOUNT_ID }}
-          TEST_MERGE_HRIS_ACCOUNT_TOKEN: ${{ secrets.TEST_MERGE_HRIS_ACCOUNT_TOKEN }}
         run: poetry run pytest .
 
   publish:
     needs: [compile, test]
-    if: github.event_name == 'release'
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout repo
@@ -70,18 +45,16 @@ jobs:
       - name: Set up python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.7
+          python-version: 3.8
       - name: Bootstrap poetry
         run: |
-          curl --location --show-error --silent --output poetry.py https://install.python-poetry.org \
-          && echo '66db5477a597b6176202ef77792076057ce50d2c5a2d2d2978c63e1f144d7b95' poetry.py | sha256sum -c \
-          && python poetry.py -y --version 1.5.1 \
-          && rm poetry.py
+          curl -sSL https://install.python-poetry.org | python - -y --version 1.5.1
       - name: Install dependencies
         run: poetry install
       - name: Publish to pypi
         run: |
-          poetry config pypi-token.pypi $PYPI_TOKEN
-          poetry --no-interaction -v publish --build
+          poetry config repositories.remote https://upload.pypi.org/legacy/
+          poetry --no-interaction -v publish --build --repository remote --username "$PYPI_USERNAME" --password "$PYPI_PASSWORD"
         env:
-          PYPI_TOKEN: ${{ secrets.MERGE_PYPI_TOKEN }}
+          PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}

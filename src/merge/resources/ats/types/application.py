@@ -33,7 +33,7 @@ class Application(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    candidate: typing.Optional[ApplicationCandidate] = pydantic.Field(description="The candidate applying.")
+    candidate: typing.Optional["ApplicationCandidate"] = pydantic.Field(description="The candidate applying.")
     job: typing.Optional[ApplicationJob] = pydantic.Field(description="The job being applied for.")
     applied_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the application was submitted.")
     rejected_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the application was rejected.")
@@ -70,5 +70,7 @@ class Application(pydantic.BaseModel):
 
 
 from .application_candidate import ApplicationCandidate  # noqa: E402
+from .candidate import Candidate  # noqa: E402
+from .candidate_applications_item import CandidateApplicationsItem  # noqa: E402
 
-Application.update_forward_refs()
+Application.update_forward_refs(ApplicationCandidate=ApplicationCandidate)

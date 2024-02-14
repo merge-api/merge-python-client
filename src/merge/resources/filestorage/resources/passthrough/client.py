@@ -7,6 +7,8 @@ from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.data_passthrough_request import DataPassthroughRequest
 from ...types.remote_response import RemoteResponse
 
@@ -23,19 +25,60 @@ class PassthroughClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def create(self, *, request: DataPassthroughRequest) -> RemoteResponse:
+    def create(
+        self, *, request: DataPassthroughRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> RemoteResponse:
         """
         Pull data from an endpoint not currently supported by Merge.
 
         Parameters:
             - request: DataPassthroughRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from merge.client import Merge
+        from merge.resources.filestorage import (
+            DataPassthroughRequest,
+            MethodEnum,
+            RequestFormatEnum,
+        )
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.filestorage.passthrough.create(
+            request=DataPassthroughRequest(
+                method=MethodEnum.GET,
+                path="/scooters",
+                data='{"company": "Lime", "model": "Gen 2.5"}',
+                request_format=RequestFormatEnum.JSON,
+            ),
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/passthrough"),
-            json=jsonable_encoder(request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(RemoteResponse, _response.json())  # type: ignore
@@ -50,19 +93,60 @@ class AsyncPassthroughClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def create(self, *, request: DataPassthroughRequest) -> RemoteResponse:
+    async def create(
+        self, *, request: DataPassthroughRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> RemoteResponse:
         """
         Pull data from an endpoint not currently supported by Merge.
 
         Parameters:
             - request: DataPassthroughRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from merge.client import AsyncMerge
+        from merge.resources.filestorage import (
+            DataPassthroughRequest,
+            MethodEnum,
+            RequestFormatEnum,
+        )
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.filestorage.passthrough.create(
+            request=DataPassthroughRequest(
+                method=MethodEnum.GET,
+                path="/scooters",
+                data='{"company": "Lime", "model": "Gen 2.5"}',
+                request_format=RequestFormatEnum.JSON,
+            ),
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/passthrough"),
-            json=jsonable_encoder(request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(RemoteResponse, _response.json())  # type: ignore

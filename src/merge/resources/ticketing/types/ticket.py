@@ -58,8 +58,8 @@ class Ticket(pydantic.BaseModel):
     ticket_type: typing.Optional[str] = pydantic.Field(description="The ticket's type.")
     account: typing.Optional[TicketAccount] = pydantic.Field(description="The account associated with the ticket.")
     contact: typing.Optional[TicketContact] = pydantic.Field(description="The contact associated with the ticket.")
-    parent_ticket: typing.Optional[TicketParentTicket] = pydantic.Field(description="The ticket's parent ticket.")
-    attachments: typing.Optional[typing.List[typing.Optional[TicketAttachmentsItem]]]
+    parent_ticket: typing.Optional["TicketParentTicket"] = pydantic.Field(description="The ticket's parent ticket.")
+    attachments: typing.Optional[typing.List[typing.Optional["TicketAttachmentsItem"]]]
     tags: typing.Optional[typing.List[typing.Optional[str]]]
     remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="When the third party's ticket was created."
@@ -102,7 +102,9 @@ class Ticket(pydantic.BaseModel):
         json_encoders = {dt.datetime: serialize_datetime}
 
 
+from .attachment import Attachment  # noqa: E402
+from .attachment_ticket import AttachmentTicket  # noqa: E402
 from .ticket_attachments_item import TicketAttachmentsItem  # noqa: E402
 from .ticket_parent_ticket import TicketParentTicket  # noqa: E402
 
-Ticket.update_forward_refs()
+Ticket.update_forward_refs(TicketAttachmentsItem=TicketAttachmentsItem, TicketParentTicket=TicketParentTicket)

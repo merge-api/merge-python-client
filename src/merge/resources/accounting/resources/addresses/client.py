@@ -4,11 +4,11 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import typing_extensions
-
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.address import Address
 
 try:
@@ -26,8 +26,9 @@ class AddressesClient:
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["type"]] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["type"]] = None,
+        remote_fields: typing.Optional[typing.Literal["type"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Address:
         """
         Returns an `Address` object with the given `id`.
@@ -37,9 +38,11 @@ class AddressesClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["type"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["type"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["type"]]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -48,7 +51,7 @@ class AddressesClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.addresses.retrieve(
-            id="id",
+            id="string",
             remote_fields="type",
             show_enum_origins="type",
         )
@@ -56,15 +59,31 @@ class AddressesClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/addresses/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "include_remote_data": include_remote_data,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "include_remote_data": include_remote_data,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Address, _response.json())  # type: ignore
@@ -84,8 +103,9 @@ class AsyncAddressesClient:
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["type"]] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["type"]] = None,
+        remote_fields: typing.Optional[typing.Literal["type"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Address:
         """
         Returns an `Address` object with the given `id`.
@@ -95,9 +115,11 @@ class AsyncAddressesClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["type"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["type"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["type"]]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -106,7 +128,7 @@ class AsyncAddressesClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.addresses.retrieve(
-            id="id",
+            id="string",
             remote_fields="type",
             show_enum_origins="type",
         )
@@ -114,15 +136,31 @@ class AsyncAddressesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/addresses/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "include_remote_data": include_remote_data,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "include_remote_data": include_remote_data,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Address, _response.json())  # type: ignore
