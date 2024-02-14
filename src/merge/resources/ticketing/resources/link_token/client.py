@@ -7,6 +7,8 @@ from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.categories_enum import CategoriesEnum
 from ...types.common_model_scopes_body_request import CommonModelScopesBodyRequest
 from ...types.link_token import LinkToken
@@ -35,6 +37,7 @@ class LinkTokenClient:
         link_expiry_mins: typing.Optional[int] = OMIT,
         should_create_magic_link_url: typing.Optional[bool] = OMIT,
         common_models: typing.Optional[typing.List[CommonModelScopesBodyRequest]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
         """
         Creates a link token to be used when linking a new end user.
@@ -55,6 +58,21 @@ class LinkTokenClient:
             - should_create_magic_link_url: typing.Optional[bool]. Whether to generate a Magic Link URL. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/integrations-fast-say-hello-to-magic-link.
 
             - common_models: typing.Optional[typing.List[CommonModelScopesBodyRequest]]. An array of objects to specify the models and fields that will be disabled for a given Linked Account. Each object uses model_id, enabled_actions, and disabled_fields to specify the model, method, and fields that are scoped for a given Linked Account.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.link_token.create(
+            end_user_email_address="string",
+            end_user_organization_name="string",
+            end_user_origin_id="string",
+            categories=[],
+        )
         """
         _request: typing.Dict[str, typing.Any] = {
             "end_user_email_address": end_user_email_address,
@@ -73,9 +91,26 @@ class LinkTokenClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/link-token"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(LinkToken, _response.json())  # type: ignore
@@ -101,6 +136,7 @@ class AsyncLinkTokenClient:
         link_expiry_mins: typing.Optional[int] = OMIT,
         should_create_magic_link_url: typing.Optional[bool] = OMIT,
         common_models: typing.Optional[typing.List[CommonModelScopesBodyRequest]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
         """
         Creates a link token to be used when linking a new end user.
@@ -121,6 +157,21 @@ class AsyncLinkTokenClient:
             - should_create_magic_link_url: typing.Optional[bool]. Whether to generate a Magic Link URL. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/integrations-fast-say-hello-to-magic-link.
 
             - common_models: typing.Optional[typing.List[CommonModelScopesBodyRequest]]. An array of objects to specify the models and fields that will be disabled for a given Linked Account. Each object uses model_id, enabled_actions, and disabled_fields to specify the model, method, and fields that are scoped for a given Linked Account.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ticketing.link_token.create(
+            end_user_email_address="string",
+            end_user_organization_name="string",
+            end_user_origin_id="string",
+            categories=[],
+        )
         """
         _request: typing.Dict[str, typing.Any] = {
             "end_user_email_address": end_user_email_address,
@@ -139,9 +190,26 @@ class AsyncLinkTokenClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/link-token"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(LinkToken, _response.json())  # type: ignore

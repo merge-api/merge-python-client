@@ -2,6 +2,9 @@
 
 import typing
 
+from .account import Account
 from .contact import Contact
+from .contact_account import ContactAccount
+from .remote_data import RemoteData
 
 CommentContact = typing.Union[str, Contact]

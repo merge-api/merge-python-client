@@ -10,6 +10,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.meta_response import MetaResponse
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.paginated_ticket_list import PaginatedTicketList
@@ -75,6 +76,7 @@ class TicketsClient:
         status: typing.Optional[TicketsListRequestStatus] = None,
         tags: typing.Optional[str] = None,
         ticket_type: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedTicketList:
         """
         Returns a list of `Ticket` objects.
@@ -149,6 +151,8 @@ class TicketsClient:
             - tags: typing.Optional[str]. If provided, will only return tickets matching the tags; multiple tags can be separated by commas.
 
             - ticket_type: typing.Optional[str]. If provided, will only return tickets of this type.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.ticketing import (
@@ -174,51 +178,69 @@ class TicketsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets"),
-            params=remove_none_from_dict(
-                {
-                    "account_id": account_id,
-                    "assignee_ids": assignee_ids,
-                    "collection_ids": collection_ids,
-                    "completed_after": serialize_datetime(completed_after) if completed_after is not None else None,
-                    "completed_before": serialize_datetime(completed_before) if completed_before is not None else None,
-                    "contact_id": contact_id,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "due_after": serialize_datetime(due_after) if due_after is not None else None,
-                    "due_before": serialize_datetime(due_before) if due_before is not None else None,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "include_remote_fields": include_remote_fields,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "parent_ticket_id": parent_ticket_id,
-                    "priority": priority,
-                    "project_id": project_id,
-                    "remote_created_after": serialize_datetime(remote_created_after)
-                    if remote_created_after is not None
-                    else None,
-                    "remote_created_before": serialize_datetime(remote_created_before)
-                    if remote_created_before is not None
-                    else None,
-                    "remote_fields": remote_fields,
-                    "remote_id": remote_id,
-                    "remote_updated_after": serialize_datetime(remote_updated_after)
-                    if remote_updated_after is not None
-                    else None,
-                    "remote_updated_before": serialize_datetime(remote_updated_before)
-                    if remote_updated_before is not None
-                    else None,
-                    "show_enum_origins": show_enum_origins,
-                    "status": status,
-                    "tags": tags,
-                    "ticket_type": ticket_type,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "account_id": account_id,
+                        "assignee_ids": assignee_ids,
+                        "collection_ids": collection_ids,
+                        "completed_after": serialize_datetime(completed_after) if completed_after is not None else None,
+                        "completed_before": serialize_datetime(completed_before)
+                        if completed_before is not None
+                        else None,
+                        "contact_id": contact_id,
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "due_after": serialize_datetime(due_after) if due_after is not None else None,
+                        "due_before": serialize_datetime(due_before) if due_before is not None else None,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "include_remote_fields": include_remote_fields,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "parent_ticket_id": parent_ticket_id,
+                        "priority": priority,
+                        "project_id": project_id,
+                        "remote_created_after": serialize_datetime(remote_created_after)
+                        if remote_created_after is not None
+                        else None,
+                        "remote_created_before": serialize_datetime(remote_created_before)
+                        if remote_created_before is not None
+                        else None,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "remote_updated_after": serialize_datetime(remote_updated_after)
+                        if remote_updated_after is not None
+                        else None,
+                        "remote_updated_before": serialize_datetime(remote_updated_before)
+                        if remote_updated_before is not None
+                        else None,
+                        "show_enum_origins": show_enum_origins,
+                        "status": status,
+                        "tags": tags,
+                        "ticket_type": ticket_type,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedTicketList, _response.json())  # type: ignore
@@ -234,6 +256,7 @@ class TicketsClient:
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
         model: TicketRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TicketResponse:
         """
         Creates a `Ticket` object with the given values.
@@ -244,6 +267,8 @@ class TicketsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: TicketRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         import datetime
 
@@ -272,10 +297,36 @@ class TicketsClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TicketResponse, _response.json())  # type: ignore
@@ -294,6 +345,7 @@ class TicketsClient:
         include_remote_fields: typing.Optional[bool] = None,
         remote_fields: typing.Optional[TicketsRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[TicketsRetrieveRequestShowEnumOrigins] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Ticket:
         """
         Returns a `Ticket` object with the given `id`.
@@ -310,6 +362,8 @@ class TicketsClient:
             - remote_fields: typing.Optional[TicketsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[TicketsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.ticketing import (
@@ -323,7 +377,7 @@ class TicketsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.tickets.retrieve(
-            id="id",
+            id="string",
             expand=TicketsRetrieveRequestExpand.ACCOUNT,
             remote_fields=TicketsRetrieveRequestRemoteFields.PRIORITY,
             show_enum_origins=TicketsRetrieveRequestShowEnumOrigins.PRIORITY,
@@ -332,17 +386,33 @@ class TicketsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "expand": expand,
-                    "include_remote_data": include_remote_data,
-                    "include_remote_fields": include_remote_fields,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        "include_remote_fields": include_remote_fields,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Ticket, _response.json())  # type: ignore
@@ -359,6 +429,7 @@ class TicketsClient:
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
         model: PatchedTicketRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TicketResponse:
         """
         Updates a `Ticket` object with the given `id`.
@@ -371,6 +442,8 @@ class TicketsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: PatchedTicketRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         import datetime
 
@@ -382,7 +455,7 @@ class TicketsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.tickets.partial_update(
-            id="id",
+            id="string",
             model=PatchedTicketRequest(
                 name="Please add more integrations",
                 due_date=datetime.datetime.fromisoformat(
@@ -403,10 +476,36 @@ class TicketsClient:
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/{id}"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TicketResponse, _response.json())  # type: ignore
@@ -425,6 +524,7 @@ class TicketsClient:
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedUserList:
         """
         Returns a list of `User` objects.
@@ -441,6 +541,8 @@ class TicketsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.ticketing import TicketsCollaboratorsListRequestExpand
@@ -450,7 +552,7 @@ class TicketsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.tickets.collaborators_list(
-            parent_id="parent-id",
+            parent_id="string",
             expand=TicketsCollaboratorsListRequestExpand.ROLES,
         )
         """
@@ -459,17 +561,33 @@ class TicketsClient:
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/{parent_id}/collaborators"
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "page_size": page_size,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "page_size": page_size,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedUserList, _response.json())  # type: ignore
@@ -479,12 +597,14 @@ class TicketsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def meta_patch_retrieve(self, id: str) -> MetaResponse:
+    def meta_patch_retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `Ticket` PATCHs.
 
         Parameters:
             - id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -493,7 +613,7 @@ class TicketsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.tickets.meta_patch_retrieve(
-            id="id",
+            id="string",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -501,8 +621,20 @@ class TicketsClient:
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/meta/patch/{id}"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
@@ -512,10 +644,12 @@ class TicketsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def meta_post_retrieve(self) -> MetaResponse:
+    def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `Ticket` POSTs.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -528,8 +662,20 @@ class TicketsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets/meta/post"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
@@ -546,6 +692,7 @@ class TicketsClient:
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedRemoteFieldClassList:
         """
         Returns a list of `RemoteFieldClass` objects.
@@ -558,6 +705,8 @@ class TicketsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -572,16 +721,32 @@ class TicketsClient:
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets/remote-field-classes"
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "page_size": page_size,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "page_size": page_size,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
@@ -630,6 +795,7 @@ class AsyncTicketsClient:
         status: typing.Optional[TicketsListRequestStatus] = None,
         tags: typing.Optional[str] = None,
         ticket_type: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedTicketList:
         """
         Returns a list of `Ticket` objects.
@@ -704,6 +870,8 @@ class AsyncTicketsClient:
             - tags: typing.Optional[str]. If provided, will only return tickets matching the tags; multiple tags can be separated by commas.
 
             - ticket_type: typing.Optional[str]. If provided, will only return tickets of this type.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.ticketing import (
@@ -729,51 +897,69 @@ class AsyncTicketsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets"),
-            params=remove_none_from_dict(
-                {
-                    "account_id": account_id,
-                    "assignee_ids": assignee_ids,
-                    "collection_ids": collection_ids,
-                    "completed_after": serialize_datetime(completed_after) if completed_after is not None else None,
-                    "completed_before": serialize_datetime(completed_before) if completed_before is not None else None,
-                    "contact_id": contact_id,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "due_after": serialize_datetime(due_after) if due_after is not None else None,
-                    "due_before": serialize_datetime(due_before) if due_before is not None else None,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "include_remote_fields": include_remote_fields,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "parent_ticket_id": parent_ticket_id,
-                    "priority": priority,
-                    "project_id": project_id,
-                    "remote_created_after": serialize_datetime(remote_created_after)
-                    if remote_created_after is not None
-                    else None,
-                    "remote_created_before": serialize_datetime(remote_created_before)
-                    if remote_created_before is not None
-                    else None,
-                    "remote_fields": remote_fields,
-                    "remote_id": remote_id,
-                    "remote_updated_after": serialize_datetime(remote_updated_after)
-                    if remote_updated_after is not None
-                    else None,
-                    "remote_updated_before": serialize_datetime(remote_updated_before)
-                    if remote_updated_before is not None
-                    else None,
-                    "show_enum_origins": show_enum_origins,
-                    "status": status,
-                    "tags": tags,
-                    "ticket_type": ticket_type,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "account_id": account_id,
+                        "assignee_ids": assignee_ids,
+                        "collection_ids": collection_ids,
+                        "completed_after": serialize_datetime(completed_after) if completed_after is not None else None,
+                        "completed_before": serialize_datetime(completed_before)
+                        if completed_before is not None
+                        else None,
+                        "contact_id": contact_id,
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "due_after": serialize_datetime(due_after) if due_after is not None else None,
+                        "due_before": serialize_datetime(due_before) if due_before is not None else None,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "include_remote_fields": include_remote_fields,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "parent_ticket_id": parent_ticket_id,
+                        "priority": priority,
+                        "project_id": project_id,
+                        "remote_created_after": serialize_datetime(remote_created_after)
+                        if remote_created_after is not None
+                        else None,
+                        "remote_created_before": serialize_datetime(remote_created_before)
+                        if remote_created_before is not None
+                        else None,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "remote_updated_after": serialize_datetime(remote_updated_after)
+                        if remote_updated_after is not None
+                        else None,
+                        "remote_updated_before": serialize_datetime(remote_updated_before)
+                        if remote_updated_before is not None
+                        else None,
+                        "show_enum_origins": show_enum_origins,
+                        "status": status,
+                        "tags": tags,
+                        "ticket_type": ticket_type,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedTicketList, _response.json())  # type: ignore
@@ -789,6 +975,7 @@ class AsyncTicketsClient:
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
         model: TicketRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TicketResponse:
         """
         Creates a `Ticket` object with the given values.
@@ -799,6 +986,8 @@ class AsyncTicketsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: TicketRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         import datetime
 
@@ -827,10 +1016,36 @@ class AsyncTicketsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TicketResponse, _response.json())  # type: ignore
@@ -849,6 +1064,7 @@ class AsyncTicketsClient:
         include_remote_fields: typing.Optional[bool] = None,
         remote_fields: typing.Optional[TicketsRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[TicketsRetrieveRequestShowEnumOrigins] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Ticket:
         """
         Returns a `Ticket` object with the given `id`.
@@ -865,6 +1081,8 @@ class AsyncTicketsClient:
             - remote_fields: typing.Optional[TicketsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[TicketsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.ticketing import (
@@ -878,7 +1096,7 @@ class AsyncTicketsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.tickets.retrieve(
-            id="id",
+            id="string",
             expand=TicketsRetrieveRequestExpand.ACCOUNT,
             remote_fields=TicketsRetrieveRequestRemoteFields.PRIORITY,
             show_enum_origins=TicketsRetrieveRequestShowEnumOrigins.PRIORITY,
@@ -887,17 +1105,33 @@ class AsyncTicketsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "expand": expand,
-                    "include_remote_data": include_remote_data,
-                    "include_remote_fields": include_remote_fields,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        "include_remote_fields": include_remote_fields,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Ticket, _response.json())  # type: ignore
@@ -914,6 +1148,7 @@ class AsyncTicketsClient:
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
         model: PatchedTicketRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TicketResponse:
         """
         Updates a `Ticket` object with the given `id`.
@@ -926,6 +1161,8 @@ class AsyncTicketsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: PatchedTicketRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         import datetime
 
@@ -937,7 +1174,7 @@ class AsyncTicketsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.tickets.partial_update(
-            id="id",
+            id="string",
             model=PatchedTicketRequest(
                 name="Please add more integrations",
                 due_date=datetime.datetime.fromisoformat(
@@ -958,10 +1195,36 @@ class AsyncTicketsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/{id}"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TicketResponse, _response.json())  # type: ignore
@@ -980,6 +1243,7 @@ class AsyncTicketsClient:
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedUserList:
         """
         Returns a list of `User` objects.
@@ -996,6 +1260,8 @@ class AsyncTicketsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.ticketing import TicketsCollaboratorsListRequestExpand
@@ -1005,7 +1271,7 @@ class AsyncTicketsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.tickets.collaborators_list(
-            parent_id="parent-id",
+            parent_id="string",
             expand=TicketsCollaboratorsListRequestExpand.ROLES,
         )
         """
@@ -1014,17 +1280,33 @@ class AsyncTicketsClient:
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/{parent_id}/collaborators"
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "page_size": page_size,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "page_size": page_size,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedUserList, _response.json())  # type: ignore
@@ -1034,12 +1316,16 @@ class AsyncTicketsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def meta_patch_retrieve(self, id: str) -> MetaResponse:
+    async def meta_patch_retrieve(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> MetaResponse:
         """
         Returns metadata for `Ticket` PATCHs.
 
         Parameters:
             - id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -1048,7 +1334,7 @@ class AsyncTicketsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.tickets.meta_patch_retrieve(
-            id="id",
+            id="string",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1056,8 +1342,20 @@ class AsyncTicketsClient:
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/meta/patch/{id}"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
@@ -1067,10 +1365,12 @@ class AsyncTicketsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def meta_post_retrieve(self) -> MetaResponse:
+    async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `Ticket` POSTs.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -1083,8 +1383,20 @@ class AsyncTicketsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets/meta/post"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
@@ -1101,6 +1413,7 @@ class AsyncTicketsClient:
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedRemoteFieldClassList:
         """
         Returns a list of `RemoteFieldClass` objects.
@@ -1113,6 +1426,8 @@ class AsyncTicketsClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -1127,16 +1442,32 @@ class AsyncTicketsClient:
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets/remote-field-classes"
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "page_size": page_size,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "page_size": page_size,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore

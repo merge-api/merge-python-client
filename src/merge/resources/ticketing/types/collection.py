@@ -37,7 +37,7 @@ class Collection(pydantic.BaseModel):
     collection_type: typing.Optional[CollectionCollectionType] = pydantic.Field(
         description=("The collection's type.\n" "\n" "- `LIST` - LIST\n" "- `PROJECT` - PROJECT\n")
     )
-    parent_collection: typing.Optional[CollectionParentCollection] = pydantic.Field(
+    parent_collection: typing.Optional["CollectionParentCollection"] = pydantic.Field(
         description="The parent collection for this collection."
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
@@ -75,4 +75,4 @@ class Collection(pydantic.BaseModel):
 
 from .collection_parent_collection import CollectionParentCollection  # noqa: E402
 
-Collection.update_forward_refs()
+Collection.update_forward_refs(CollectionParentCollection=CollectionParentCollection)

@@ -3,5 +3,7 @@
 import typing
 
 from .accounting_period import AccountingPeriod
+from .accounting_period_status import AccountingPeriodStatus
+from .accounting_period_status_enum import AccountingPeriodStatusEnum
 
 PaymentRequestAccountingPeriod = typing.Union[str, AccountingPeriod]

@@ -30,7 +30,7 @@ class Team(pydantic.BaseModel):
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
     name: typing.Optional[str] = pydantic.Field(description="The team's name.")
-    parent_team: typing.Optional[TeamParentTeam] = pydantic.Field(description="The team's parent team.")
+    parent_team: typing.Optional["TeamParentTeam"] = pydantic.Field(description="The team's parent team.")
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted in the third party platform."
     )
@@ -57,4 +57,4 @@ class Team(pydantic.BaseModel):
 
 from .team_parent_team import TeamParentTeam  # noqa: E402
 
-Team.update_forward_refs()
+Team.update_forward_refs(TeamParentTeam=TeamParentTeam)

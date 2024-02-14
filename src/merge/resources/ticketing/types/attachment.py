@@ -32,7 +32,9 @@ class Attachment(pydantic.BaseModel):
     file_name: typing.Optional[str] = pydantic.Field(
         description="The attachment's name. It is required to include the file extension in the attachment's name."
     )
-    ticket: typing.Optional[AttachmentTicket] = pydantic.Field(description="The ticket associated with the attachment.")
+    ticket: typing.Optional["AttachmentTicket"] = pydantic.Field(
+        description="The ticket associated with the attachment."
+    )
     file_url: typing.Optional[str] = pydantic.Field(
         description="The attachment's url. It is required to include the file extension in the file's URL."
     )
@@ -64,5 +66,8 @@ class Attachment(pydantic.BaseModel):
 
 
 from .attachment_ticket import AttachmentTicket  # noqa: E402
+from .ticket import Ticket  # noqa: E402
+from .ticket_attachments_item import TicketAttachmentsItem  # noqa: E402
+from .ticket_parent_ticket import TicketParentTicket  # noqa: E402
 
-Attachment.update_forward_refs()
+Attachment.update_forward_refs(AttachmentTicket=AttachmentTicket)

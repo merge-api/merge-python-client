@@ -8,7 +8,9 @@ from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
+from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.employee_payroll_run import EmployeePayrollRun
 from ...types.paginated_employee_payroll_run_list import PaginatedEmployeePayrollRunList
 from .types.employee_payroll_runs_list_request_expand import EmployeePayrollRunsListRequestExpand
@@ -43,6 +45,7 @@ class EmployeePayrollRunsClient:
         remote_id: typing.Optional[str] = None,
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedEmployeePayrollRunList:
         """
         Returns a list of `EmployeePayrollRun` objects.
@@ -79,6 +82,8 @@ class EmployeePayrollRunsClient:
             - started_after: typing.Optional[dt.datetime]. If provided, will only return employee payroll runs started after this datetime.
 
             - started_before: typing.Optional[dt.datetime]. If provided, will only return employee payroll runs started before this datetime.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.hris import EmployeePayrollRunsListRequestExpand
@@ -94,28 +99,44 @@ class EmployeePayrollRunsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employee-payroll-runs"),
-            params=remove_none_from_dict(
-                {
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "employee_id": employee_id,
-                    "ended_after": serialize_datetime(ended_after) if ended_after is not None else None,
-                    "ended_before": serialize_datetime(ended_before) if ended_before is not None else None,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "payroll_run_id": payroll_run_id,
-                    "remote_id": remote_id,
-                    "started_after": serialize_datetime(started_after) if started_after is not None else None,
-                    "started_before": serialize_datetime(started_before) if started_before is not None else None,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "employee_id": employee_id,
+                        "ended_after": serialize_datetime(ended_after) if ended_after is not None else None,
+                        "ended_before": serialize_datetime(ended_before) if ended_before is not None else None,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "payroll_run_id": payroll_run_id,
+                        "remote_id": remote_id,
+                        "started_after": serialize_datetime(started_after) if started_after is not None else None,
+                        "started_before": serialize_datetime(started_before) if started_before is not None else None,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedEmployeePayrollRunList, _response.json())  # type: ignore
@@ -131,6 +152,7 @@ class EmployeePayrollRunsClient:
         *,
         expand: typing.Optional[EmployeePayrollRunsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> EmployeePayrollRun:
         """
         Returns an `EmployeePayrollRun` object with the given `id`.
@@ -141,6 +163,8 @@ class EmployeePayrollRunsClient:
             - expand: typing.Optional[EmployeePayrollRunsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.hris import EmployeePayrollRunsRetrieveRequestExpand
@@ -150,16 +174,37 @@ class EmployeePayrollRunsClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.employee_payroll_runs.retrieve(
-            id="id",
+            id="string",
             expand=EmployeePayrollRunsRetrieveRequestExpand.EMPLOYEE,
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employee-payroll-runs/{id}"),
-            params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(EmployeePayrollRun, _response.json())  # type: ignore
@@ -193,6 +238,7 @@ class AsyncEmployeePayrollRunsClient:
         remote_id: typing.Optional[str] = None,
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedEmployeePayrollRunList:
         """
         Returns a list of `EmployeePayrollRun` objects.
@@ -229,6 +275,8 @@ class AsyncEmployeePayrollRunsClient:
             - started_after: typing.Optional[dt.datetime]. If provided, will only return employee payroll runs started after this datetime.
 
             - started_before: typing.Optional[dt.datetime]. If provided, will only return employee payroll runs started before this datetime.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.hris import EmployeePayrollRunsListRequestExpand
@@ -244,28 +292,44 @@ class AsyncEmployeePayrollRunsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employee-payroll-runs"),
-            params=remove_none_from_dict(
-                {
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "employee_id": employee_id,
-                    "ended_after": serialize_datetime(ended_after) if ended_after is not None else None,
-                    "ended_before": serialize_datetime(ended_before) if ended_before is not None else None,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "payroll_run_id": payroll_run_id,
-                    "remote_id": remote_id,
-                    "started_after": serialize_datetime(started_after) if started_after is not None else None,
-                    "started_before": serialize_datetime(started_before) if started_before is not None else None,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "employee_id": employee_id,
+                        "ended_after": serialize_datetime(ended_after) if ended_after is not None else None,
+                        "ended_before": serialize_datetime(ended_before) if ended_before is not None else None,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "payroll_run_id": payroll_run_id,
+                        "remote_id": remote_id,
+                        "started_after": serialize_datetime(started_after) if started_after is not None else None,
+                        "started_before": serialize_datetime(started_before) if started_before is not None else None,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedEmployeePayrollRunList, _response.json())  # type: ignore
@@ -281,6 +345,7 @@ class AsyncEmployeePayrollRunsClient:
         *,
         expand: typing.Optional[EmployeePayrollRunsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> EmployeePayrollRun:
         """
         Returns an `EmployeePayrollRun` object with the given `id`.
@@ -291,6 +356,8 @@ class AsyncEmployeePayrollRunsClient:
             - expand: typing.Optional[EmployeePayrollRunsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.hris import EmployeePayrollRunsRetrieveRequestExpand
@@ -300,16 +367,37 @@ class AsyncEmployeePayrollRunsClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.employee_payroll_runs.retrieve(
-            id="id",
+            id="string",
             expand=EmployeePayrollRunsRetrieveRequestExpand.EMPLOYEE,
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employee-payroll-runs/{id}"),
-            params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(EmployeePayrollRun, _response.json())  # type: ignore

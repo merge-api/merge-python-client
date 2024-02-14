@@ -2,6 +2,16 @@
 
 import typing
 
+from .accounting_phone_number import AccountingPhoneNumber
+from .address import Address
+from .address_country import AddressCountry
+from .address_type import AddressType
+from .address_type_enum import AddressTypeEnum
 from .contact import Contact
+from .contact_addresses_item import ContactAddressesItem
+from .contact_status import ContactStatus
+from .country_enum import CountryEnum
+from .remote_data import RemoteData
+from .status_7_d_1_enum import Status7D1Enum
 
 TransactionContact = typing.Union[str, Contact]

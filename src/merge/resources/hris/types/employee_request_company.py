@@ -3,5 +3,6 @@
 import typing
 
 from .company import Company
+from .remote_data import RemoteData
 
 EmployeeRequestCompany = typing.Union[str, Company]

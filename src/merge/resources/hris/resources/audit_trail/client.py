@@ -6,7 +6,9 @@ from json.decoder import JSONDecodeError
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.paginated_audit_log_event_list import PaginatedAuditLogEventList
 
 try:
@@ -28,6 +30,7 @@ class AuditTrailClient:
         page_size: typing.Optional[int] = None,
         start_date: typing.Optional[str] = None,
         user_email: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedAuditLogEventList:
         """
         Gets a list of audit trail events.
@@ -44,6 +47,8 @@ class AuditTrailClient:
             - start_date: typing.Optional[str]. If included, will only include audit trail events that occurred after this time
 
             - user_email: typing.Optional[str]. If provided, this will return events associated with the specified user email. Please note that the email address reflects the user's email at the time of the event, and may not be their current email.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -56,18 +61,34 @@ class AuditTrailClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/audit-trail"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "end_date": end_date,
-                    "event_type": event_type,
-                    "page_size": page_size,
-                    "start_date": start_date,
-                    "user_email": user_email,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "end_date": end_date,
+                        "event_type": event_type,
+                        "page_size": page_size,
+                        "start_date": start_date,
+                        "user_email": user_email,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedAuditLogEventList, _response.json())  # type: ignore
@@ -91,6 +112,7 @@ class AsyncAuditTrailClient:
         page_size: typing.Optional[int] = None,
         start_date: typing.Optional[str] = None,
         user_email: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedAuditLogEventList:
         """
         Gets a list of audit trail events.
@@ -107,6 +129,8 @@ class AsyncAuditTrailClient:
             - start_date: typing.Optional[str]. If included, will only include audit trail events that occurred after this time
 
             - user_email: typing.Optional[str]. If provided, this will return events associated with the specified user email. Please note that the email address reflects the user's email at the time of the event, and may not be their current email.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -119,18 +143,34 @@ class AsyncAuditTrailClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/audit-trail"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "end_date": end_date,
-                    "event_type": event_type,
-                    "page_size": page_size,
-                    "start_date": start_date,
-                    "user_email": user_email,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "end_date": end_date,
+                        "event_type": event_type,
+                        "page_size": page_size,
+                        "start_date": start_date,
+                        "user_email": user_email,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedAuditLogEventList, _response.json())  # type: ignore

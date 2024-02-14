@@ -34,7 +34,7 @@ class Folder(pydantic.BaseModel):
     folder_url: typing.Optional[str] = pydantic.Field(description="The URL to access the folder.")
     size: typing.Optional[int] = pydantic.Field(description="The folder's size, in bytes.")
     description: typing.Optional[str] = pydantic.Field(description="The folder's description.")
-    parent_folder: typing.Optional[FolderParentFolder] = pydantic.Field(
+    parent_folder: typing.Optional["FolderParentFolder"] = pydantic.Field(
         description="The folder that the folder belongs to."
     )
     drive: typing.Optional[FolderDrive] = pydantic.Field(description="The drive that the folder belongs to.")
@@ -73,4 +73,4 @@ class Folder(pydantic.BaseModel):
 
 from .folder_parent_folder import FolderParentFolder  # noqa: E402
 
-Folder.update_forward_refs()
+Folder.update_forward_refs(FolderParentFolder=FolderParentFolder)

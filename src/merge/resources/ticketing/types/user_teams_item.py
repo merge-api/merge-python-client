@@ -2,6 +2,7 @@
 
 import typing
 
+from .remote_data import RemoteData
 from .team import Team
 
 UserTeamsItem = typing.Union[str, Team]

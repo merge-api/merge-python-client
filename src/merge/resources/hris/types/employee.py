@@ -56,12 +56,14 @@ class Employee(pydantic.BaseModel):
     work_email: typing.Optional[str] = pydantic.Field(description="The employee's work email.")
     personal_email: typing.Optional[str] = pydantic.Field(description="The employee's personal email.")
     mobile_phone_number: typing.Optional[str] = pydantic.Field(description="The employee's mobile phone number.")
-    employments: typing.Optional[typing.List[typing.Optional[EmployeeEmploymentsItem]]] = pydantic.Field(
+    employments: typing.Optional[typing.List[typing.Optional["EmployeeEmploymentsItem"]]] = pydantic.Field(
         description="Array of `Employment` IDs for this Employee."
     )
     home_location: typing.Optional[EmployeeHomeLocation] = pydantic.Field(description="The employee's home address.")
     work_location: typing.Optional[EmployeeWorkLocation] = pydantic.Field(description="The employee's work address.")
-    manager: typing.Optional[EmployeeManager] = pydantic.Field(description="The employee ID of the employee's manager.")
+    manager: typing.Optional["EmployeeManager"] = pydantic.Field(
+        description="The employee ID of the employee's manager."
+    )
     team: typing.Optional[EmployeeTeam] = pydantic.Field(description="The employee's team.")
     pay_group: typing.Optional[EmployeePayGroup] = pydantic.Field(description="The employee's pay group")
     ssn: typing.Optional[str] = pydantic.Field(description="The employee's social security number.")
@@ -149,5 +151,7 @@ class Employee(pydantic.BaseModel):
 
 from .employee_employments_item import EmployeeEmploymentsItem  # noqa: E402
 from .employee_manager import EmployeeManager  # noqa: E402
+from .employment import Employment  # noqa: E402
+from .employment_employee import EmploymentEmployee  # noqa: E402
 
-Employee.update_forward_refs()
+Employee.update_forward_refs(EmployeeEmploymentsItem=EmployeeEmploymentsItem, EmployeeManager=EmployeeManager)

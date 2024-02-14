@@ -3,5 +3,6 @@
 import typing
 
 from .pay_group import PayGroup
+from .remote_data import RemoteData
 
 EmployeePayGroup = typing.Union[str, PayGroup]

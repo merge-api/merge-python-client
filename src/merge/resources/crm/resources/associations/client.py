@@ -5,12 +5,12 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import typing_extensions
-
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
+from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.association import Association
 from ...types.paginated_association_list import PaginatedAssociationList
 
@@ -33,13 +33,14 @@ class AssociationsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing_extensions.Literal["association_type"]] = None,
+        expand: typing.Optional[typing.Literal["association_type"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedAssociationList:
         """
         Returns a list of `Association` objects.
@@ -57,7 +58,7 @@ class AssociationsClient:
 
             - cursor: typing.Optional[str]. The pagination cursor value.
 
-            - expand: typing.Optional[typing_extensions.Literal["association_type"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+            - expand: typing.Optional[typing.Literal["association_type"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
@@ -70,6 +71,8 @@ class AssociationsClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -78,8 +81,8 @@ class AssociationsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.associations.custom_object_classes_custom_objects_associations_list(
-            custom_object_class_id="custom-object-class-id",
-            object_id="object-id",
+            custom_object_class_id="string",
+            object_id="string",
             expand="association_type",
         )
         """
@@ -89,23 +92,39 @@ class AssociationsClient:
                 f"{self._client_wrapper.get_base_url()}/",
                 f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{object_id}/associations",
             ),
-            params=remove_none_from_dict(
-                {
-                    "association_type_id": association_type_id,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "remote_id": remote_id,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "association_type_id": association_type_id,
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "remote_id": remote_id,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedAssociationList, _response.json())  # type: ignore
@@ -125,6 +144,7 @@ class AssociationsClient:
         *,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Association:
         """
         Creates an Association between `source_object_id` and `target_object_id` of type `association_type_id`.
@@ -143,6 +163,8 @@ class AssociationsClient:
             - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
 
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -151,11 +173,11 @@ class AssociationsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.associations.custom_object_classes_custom_objects_associations_update(
-            association_type_id="association-type-id",
-            source_class_id="source-class-id",
-            source_object_id="source-object-id",
-            target_class_id="target-class-id",
-            target_object_id="target-object-id",
+            association_type_id="string",
+            source_class_id="string",
+            source_object_id="string",
+            target_class_id="string",
+            target_object_id="string",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -164,9 +186,33 @@ class AssociationsClient:
                 f"{self._client_wrapper.get_base_url()}/",
                 f"api/crm/v1/custom-object-classes/{source_class_id}/custom-objects/{source_object_id}/associations/{target_class_id}/{target_object_id}/{association_type_id}",
             ),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))
+            if request_options is not None
+            else None,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Association, _response.json())  # type: ignore
@@ -190,13 +236,14 @@ class AsyncAssociationsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing_extensions.Literal["association_type"]] = None,
+        expand: typing.Optional[typing.Literal["association_type"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedAssociationList:
         """
         Returns a list of `Association` objects.
@@ -214,7 +261,7 @@ class AsyncAssociationsClient:
 
             - cursor: typing.Optional[str]. The pagination cursor value.
 
-            - expand: typing.Optional[typing_extensions.Literal["association_type"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+            - expand: typing.Optional[typing.Literal["association_type"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
@@ -227,6 +274,8 @@ class AsyncAssociationsClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -235,8 +284,8 @@ class AsyncAssociationsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.associations.custom_object_classes_custom_objects_associations_list(
-            custom_object_class_id="custom-object-class-id",
-            object_id="object-id",
+            custom_object_class_id="string",
+            object_id="string",
             expand="association_type",
         )
         """
@@ -246,23 +295,39 @@ class AsyncAssociationsClient:
                 f"{self._client_wrapper.get_base_url()}/",
                 f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{object_id}/associations",
             ),
-            params=remove_none_from_dict(
-                {
-                    "association_type_id": association_type_id,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "remote_id": remote_id,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "association_type_id": association_type_id,
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "remote_id": remote_id,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedAssociationList, _response.json())  # type: ignore
@@ -282,6 +347,7 @@ class AsyncAssociationsClient:
         *,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Association:
         """
         Creates an Association between `source_object_id` and `target_object_id` of type `association_type_id`.
@@ -300,6 +366,8 @@ class AsyncAssociationsClient:
             - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
 
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -308,11 +376,11 @@ class AsyncAssociationsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.associations.custom_object_classes_custom_objects_associations_update(
-            association_type_id="association-type-id",
-            source_class_id="source-class-id",
-            source_object_id="source-object-id",
-            target_class_id="target-class-id",
-            target_object_id="target-object-id",
+            association_type_id="string",
+            source_class_id="string",
+            source_object_id="string",
+            target_class_id="string",
+            target_object_id="string",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -321,9 +389,33 @@ class AsyncAssociationsClient:
                 f"{self._client_wrapper.get_base_url()}/",
                 f"api/crm/v1/custom-object-classes/{source_class_id}/custom-objects/{source_object_id}/associations/{target_class_id}/{target_object_id}/{association_type_id}",
             ),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))
+            if request_options is not None
+            else None,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Association, _response.json())  # type: ignore
