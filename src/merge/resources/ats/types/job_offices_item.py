@@ -3,5 +3,6 @@
 import typing
 
 from .office import Office
+from .remote_data import RemoteData
 
 JobOfficesItem = typing.Union[str, Office]

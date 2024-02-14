@@ -3,5 +3,6 @@
 import typing
 
 from .account import Account
+from .remote_data import RemoteData
 
 TicketAccount = typing.Union[str, Account]

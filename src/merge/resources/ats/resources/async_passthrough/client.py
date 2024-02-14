@@ -7,6 +7,8 @@ from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.async_passthrough_reciept import AsyncPassthroughReciept
 from ...types.data_passthrough_request import DataPassthroughRequest
 from ...types.remote_response import RemoteResponse
@@ -24,18 +26,21 @@ class AsyncPassthroughClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def create(self, *, request: DataPassthroughRequest) -> AsyncPassthroughReciept:
+    def create(
+        self, *, request: DataPassthroughRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncPassthroughReciept:
         """
         Asynchronously pull data from an endpoint not currently supported by Merge.
 
         Parameters:
             - request: DataPassthroughRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.ats import (
             DataPassthroughRequest,
             MethodEnum,
-            MultipartFormFieldRequest,
             RequestFormatEnum,
         )
 
@@ -48,14 +53,6 @@ class AsyncPassthroughClient:
                 method=MethodEnum.GET,
                 path="/scooters",
                 data='{"company": "Lime", "model": "Gen 2.5"}',
-                multipart_form_data=[
-                    MultipartFormFieldRequest(
-                        name="resume",
-                        data="SW50ZWdyYXRlIGZhc3QKSW50ZWdyYXRlIG9uY2U=",
-                        file_name="resume.pdf",
-                        content_type="application/pdf",
-                    )
-                ],
                 request_format=RequestFormatEnum.JSON,
             ),
         )
@@ -63,9 +60,26 @@ class AsyncPassthroughClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/async-passthrough"),
-            json=jsonable_encoder(request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(AsyncPassthroughReciept, _response.json())  # type: ignore
@@ -75,12 +89,26 @@ class AsyncPassthroughClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def retrieve(self, async_passthrough_receipt_id: str) -> RemoteResponse:
+    def retrieve(
+        self, async_passthrough_receipt_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> RemoteResponse:
         """
         Retrieves data from earlier async-passthrough POST request
 
         Parameters:
             - async_passthrough_receipt_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.async_passthrough.retrieve(
+            async_passthrough_receipt_id="string",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -88,8 +116,20 @@ class AsyncPassthroughClient:
                 f"{self._client_wrapper.get_base_url()}/",
                 f"api/ats/v1/async-passthrough/{async_passthrough_receipt_id}",
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(RemoteResponse, _response.json())  # type: ignore
@@ -104,18 +144,21 @@ class AsyncAsyncPassthroughClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def create(self, *, request: DataPassthroughRequest) -> AsyncPassthroughReciept:
+    async def create(
+        self, *, request: DataPassthroughRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncPassthroughReciept:
         """
         Asynchronously pull data from an endpoint not currently supported by Merge.
 
         Parameters:
             - request: DataPassthroughRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.ats import (
             DataPassthroughRequest,
             MethodEnum,
-            MultipartFormFieldRequest,
             RequestFormatEnum,
         )
 
@@ -128,14 +171,6 @@ class AsyncAsyncPassthroughClient:
                 method=MethodEnum.GET,
                 path="/scooters",
                 data='{"company": "Lime", "model": "Gen 2.5"}',
-                multipart_form_data=[
-                    MultipartFormFieldRequest(
-                        name="resume",
-                        data="SW50ZWdyYXRlIGZhc3QKSW50ZWdyYXRlIG9uY2U=",
-                        file_name="resume.pdf",
-                        content_type="application/pdf",
-                    )
-                ],
                 request_format=RequestFormatEnum.JSON,
             ),
         )
@@ -143,9 +178,26 @@ class AsyncAsyncPassthroughClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/async-passthrough"),
-            json=jsonable_encoder(request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(AsyncPassthroughReciept, _response.json())  # type: ignore
@@ -155,12 +207,26 @@ class AsyncAsyncPassthroughClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def retrieve(self, async_passthrough_receipt_id: str) -> RemoteResponse:
+    async def retrieve(
+        self, async_passthrough_receipt_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> RemoteResponse:
         """
         Retrieves data from earlier async-passthrough POST request
 
         Parameters:
             - async_passthrough_receipt_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.async_passthrough.retrieve(
+            async_passthrough_receipt_id="string",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -168,8 +234,20 @@ class AsyncAsyncPassthroughClient:
                 f"{self._client_wrapper.get_base_url()}/",
                 f"api/ats/v1/async-passthrough/{async_passthrough_receipt_id}",
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(RemoteResponse, _response.json())  # type: ignore

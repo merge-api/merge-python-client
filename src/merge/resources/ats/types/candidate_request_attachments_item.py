@@ -3,5 +3,8 @@
 import typing
 
 from .attachment import Attachment
+from .attachment_attachment_type import AttachmentAttachmentType
+from .attachment_type_enum import AttachmentTypeEnum
+from .remote_data import RemoteData
 
 CandidateRequestAttachmentsItem = typing.Union[str, Attachment]

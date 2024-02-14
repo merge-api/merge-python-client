@@ -2,6 +2,9 @@
 
 import typing
 
+from .association_sub_type import AssociationSubType
 from .association_type import AssociationType
+from .association_type_cardinality import AssociationTypeCardinality
+from .cardinality_enum import CardinalityEnum
 
 AssociationAssociationType = typing.Union[str, AssociationType]
