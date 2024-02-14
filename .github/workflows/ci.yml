@@ -42,7 +42,7 @@ jobs:
       - name: Set up python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.7
+          python-version: 3.8
       - name: Bootstrap poetry
         run: |
           curl --location --show-error --silent --output poetry.py https://install.python-poetry.org \
