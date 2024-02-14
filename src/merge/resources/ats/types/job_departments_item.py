@@ -3,5 +3,6 @@
 import typing
 
 from .department import Department
+from .remote_data import RemoteData
 
 JobDepartmentsItem = typing.Union[str, Department]

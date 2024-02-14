@@ -10,6 +10,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.application import Application
 from ...types.application_request import ApplicationRequest
 from ...types.application_response import ApplicationResponse
@@ -50,6 +51,7 @@ class ApplicationsClient:
         reject_reason_id: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
         source: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedApplicationList:
         """
         Returns a list of `Application` objects.
@@ -86,6 +88,8 @@ class ApplicationsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - source: typing.Optional[str]. If provided, will only return applications with this source.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.ats import ApplicationsListRequestExpand
@@ -101,28 +105,44 @@ class ApplicationsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications"),
-            params=remove_none_from_dict(
-                {
-                    "candidate_id": candidate_id,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "credited_to_id": credited_to_id,
-                    "current_stage_id": current_stage_id,
-                    "cursor": cursor,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "job_id": job_id,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "reject_reason_id": reject_reason_id,
-                    "remote_id": remote_id,
-                    "source": source,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "candidate_id": candidate_id,
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "credited_to_id": credited_to_id,
+                        "current_stage_id": current_stage_id,
+                        "cursor": cursor,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "job_id": job_id,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "reject_reason_id": reject_reason_id,
+                        "remote_id": remote_id,
+                        "source": source,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedApplicationList, _response.json())  # type: ignore
@@ -139,6 +159,7 @@ class ApplicationsClient:
         run_async: typing.Optional[bool] = None,
         model: ApplicationRequest,
         remote_user_id: str,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ApplicationResponse:
         """
         Creates an `Application` object with the given values.
@@ -151,14 +172,65 @@ class ApplicationsClient:
             - model: ApplicationRequest.
 
             - remote_user_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        import datetime
+
+        from merge.client import Merge
+        from merge.resources.ats import ApplicationRequest
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.applications.create(
+            model=ApplicationRequest(
+                applied_at=datetime.datetime.fromisoformat(
+                    "2021-10-15 00:00:00+00:00",
+                ),
+                rejected_at=datetime.datetime.fromisoformat(
+                    "2021-11-15 00:00:00+00:00",
+                ),
+                source="Campus recruiting event",
+                remote_template_id="92830948203",
+            ),
+            remote_user_id="string",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ApplicationResponse, _response.json())  # type: ignore
@@ -174,6 +246,7 @@ class ApplicationsClient:
         *,
         expand: typing.Optional[ApplicationsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Application:
         """
         Returns an `Application` object with the given `id`.
@@ -184,6 +257,8 @@ class ApplicationsClient:
             - expand: typing.Optional[ApplicationsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.ats import ApplicationsRetrieveRequestExpand
@@ -193,16 +268,37 @@ class ApplicationsClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.applications.retrieve(
-            id="id",
+            id="string",
             expand=ApplicationsRetrieveRequestExpand.CANDIDATE,
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/applications/{id}"),
-            params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Application, _response.json())  # type: ignore
@@ -220,6 +316,7 @@ class ApplicationsClient:
         run_async: typing.Optional[bool] = None,
         job_interview_stage: typing.Optional[str] = OMIT,
         remote_user_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ApplicationResponse:
         """
         Updates the `current_stage` field of an `Application` object
@@ -234,6 +331,8 @@ class ApplicationsClient:
             - job_interview_stage: typing.Optional[str]. The interview stage to move the application to.
 
             - remote_user_id: typing.Optional[str].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -242,7 +341,7 @@ class ApplicationsClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.applications.change_stage_create(
-            id="id",
+            id="string",
         )
         """
         _request: typing.Dict[str, typing.Any] = {}
@@ -255,10 +354,36 @@ class ApplicationsClient:
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/applications/{id}/change-stage"
             ),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ApplicationResponse, _response.json())  # type: ignore
@@ -268,12 +393,19 @@ class ApplicationsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def meta_post_retrieve(self, *, application_remote_template_id: typing.Optional[str] = None) -> MetaResponse:
+    def meta_post_retrieve(
+        self,
+        *,
+        application_remote_template_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> MetaResponse:
         """
         Returns metadata for `Application` POSTs.
 
         Parameters:
             - application_remote_template_id: typing.Optional[str]. The template ID associated with the nested application in the request.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -286,9 +418,29 @@ class ApplicationsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications/meta/post"),
-            params=remove_none_from_dict({"application_remote_template_id": application_remote_template_id}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "application_remote_template_id": application_remote_template_id,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
@@ -322,6 +474,7 @@ class AsyncApplicationsClient:
         reject_reason_id: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
         source: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedApplicationList:
         """
         Returns a list of `Application` objects.
@@ -358,6 +511,8 @@ class AsyncApplicationsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - source: typing.Optional[str]. If provided, will only return applications with this source.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.ats import ApplicationsListRequestExpand
@@ -373,28 +528,44 @@ class AsyncApplicationsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications"),
-            params=remove_none_from_dict(
-                {
-                    "candidate_id": candidate_id,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "credited_to_id": credited_to_id,
-                    "current_stage_id": current_stage_id,
-                    "cursor": cursor,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "job_id": job_id,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "reject_reason_id": reject_reason_id,
-                    "remote_id": remote_id,
-                    "source": source,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "candidate_id": candidate_id,
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "credited_to_id": credited_to_id,
+                        "current_stage_id": current_stage_id,
+                        "cursor": cursor,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "job_id": job_id,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "reject_reason_id": reject_reason_id,
+                        "remote_id": remote_id,
+                        "source": source,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedApplicationList, _response.json())  # type: ignore
@@ -411,6 +582,7 @@ class AsyncApplicationsClient:
         run_async: typing.Optional[bool] = None,
         model: ApplicationRequest,
         remote_user_id: str,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ApplicationResponse:
         """
         Creates an `Application` object with the given values.
@@ -423,14 +595,65 @@ class AsyncApplicationsClient:
             - model: ApplicationRequest.
 
             - remote_user_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        import datetime
+
+        from merge.client import AsyncMerge
+        from merge.resources.ats import ApplicationRequest
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.applications.create(
+            model=ApplicationRequest(
+                applied_at=datetime.datetime.fromisoformat(
+                    "2021-10-15 00:00:00+00:00",
+                ),
+                rejected_at=datetime.datetime.fromisoformat(
+                    "2021-11-15 00:00:00+00:00",
+                ),
+                source="Campus recruiting event",
+                remote_template_id="92830948203",
+            ),
+            remote_user_id="string",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ApplicationResponse, _response.json())  # type: ignore
@@ -446,6 +669,7 @@ class AsyncApplicationsClient:
         *,
         expand: typing.Optional[ApplicationsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Application:
         """
         Returns an `Application` object with the given `id`.
@@ -456,6 +680,8 @@ class AsyncApplicationsClient:
             - expand: typing.Optional[ApplicationsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.ats import ApplicationsRetrieveRequestExpand
@@ -465,16 +691,37 @@ class AsyncApplicationsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.applications.retrieve(
-            id="id",
+            id="string",
             expand=ApplicationsRetrieveRequestExpand.CANDIDATE,
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/applications/{id}"),
-            params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Application, _response.json())  # type: ignore
@@ -492,6 +739,7 @@ class AsyncApplicationsClient:
         run_async: typing.Optional[bool] = None,
         job_interview_stage: typing.Optional[str] = OMIT,
         remote_user_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ApplicationResponse:
         """
         Updates the `current_stage` field of an `Application` object
@@ -506,6 +754,8 @@ class AsyncApplicationsClient:
             - job_interview_stage: typing.Optional[str]. The interview stage to move the application to.
 
             - remote_user_id: typing.Optional[str].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -514,7 +764,7 @@ class AsyncApplicationsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.applications.change_stage_create(
-            id="id",
+            id="string",
         )
         """
         _request: typing.Dict[str, typing.Any] = {}
@@ -527,10 +777,36 @@ class AsyncApplicationsClient:
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/applications/{id}/change-stage"
             ),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ApplicationResponse, _response.json())  # type: ignore
@@ -540,12 +816,19 @@ class AsyncApplicationsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def meta_post_retrieve(self, *, application_remote_template_id: typing.Optional[str] = None) -> MetaResponse:
+    async def meta_post_retrieve(
+        self,
+        *,
+        application_remote_template_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> MetaResponse:
         """
         Returns metadata for `Application` POSTs.
 
         Parameters:
             - application_remote_template_id: typing.Optional[str]. The template ID associated with the nested application in the request.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -558,9 +841,29 @@ class AsyncApplicationsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications/meta/post"),
-            params=remove_none_from_dict({"application_remote_template_id": application_remote_template_id}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "application_remote_template_id": application_remote_template_id,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore

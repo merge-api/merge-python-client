@@ -5,13 +5,12 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import typing_extensions
-
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.attachment import Attachment
 from ...types.attachment_request import AttachmentRequest
 from ...types.meta_response import MetaResponse
@@ -37,7 +36,7 @@ class AttachmentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing_extensions.Literal["ticket"]] = None,
+        expand: typing.Optional[typing.Literal["ticket"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
@@ -46,6 +45,7 @@ class AttachmentsClient:
         remote_created_after: typing.Optional[dt.datetime] = None,
         remote_id: typing.Optional[str] = None,
         ticket_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedAttachmentList:
         """
         Returns a list of `Attachment` objects.
@@ -57,7 +57,7 @@ class AttachmentsClient:
 
             - cursor: typing.Optional[str]. The pagination cursor value.
 
-            - expand: typing.Optional[typing_extensions.Literal["ticket"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+            - expand: typing.Optional[typing.Literal["ticket"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
@@ -74,6 +74,8 @@ class AttachmentsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - ticket_id: typing.Optional[str]. If provided, will only return comments for this ticket.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -88,26 +90,42 @@ class AttachmentsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/attachments"),
-            params=remove_none_from_dict(
-                {
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "remote_created_after": serialize_datetime(remote_created_after)
-                    if remote_created_after is not None
-                    else None,
-                    "remote_id": remote_id,
-                    "ticket_id": ticket_id,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "remote_created_after": serialize_datetime(remote_created_after)
+                        if remote_created_after is not None
+                        else None,
+                        "remote_id": remote_id,
+                        "ticket_id": ticket_id,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedAttachmentList, _response.json())  # type: ignore
@@ -123,6 +141,7 @@ class AttachmentsClient:
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
         model: AttachmentRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TicketingAttachmentResponse:
         """
         Creates an `Attachment` object with the given values.
@@ -133,6 +152,8 @@ class AttachmentsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: AttachmentRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.ticketing import AttachmentRequest
@@ -153,10 +174,36 @@ class AttachmentsClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/attachments"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TicketingAttachmentResponse, _response.json())  # type: ignore
@@ -170,8 +217,9 @@ class AttachmentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing_extensions.Literal["ticket"]] = None,
+        expand: typing.Optional[typing.Literal["ticket"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Attachment:
         """
         Returns an `Attachment` object with the given `id`.
@@ -179,9 +227,11 @@ class AttachmentsClient:
         Parameters:
             - id: str.
 
-            - expand: typing.Optional[typing_extensions.Literal["ticket"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+            - expand: typing.Optional[typing.Literal["ticket"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -190,16 +240,37 @@ class AttachmentsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.attachments.retrieve(
-            id="id",
+            id="string",
             expand="ticket",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/attachments/{id}"),
-            params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Attachment, _response.json())  # type: ignore
@@ -209,7 +280,13 @@ class AttachmentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def download_retrieve(self, id: str, *, mime_type: typing.Optional[str] = None) -> typing.Iterator[bytes]:
+    def download_retrieve(
+        self,
+        id: str,
+        *,
+        mime_type: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Iterator[bytes]:
         """
         Returns an `Attachment` object with the given `id`.
 
@@ -217,15 +294,37 @@ class AttachmentsClient:
             - id: str.
 
             - mime_type: typing.Optional[str]. If provided, specifies the export format of the file to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         """
         with self._client_wrapper.httpx_client.stream(
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/attachments/{id}/download"
             ),
-            params=remove_none_from_dict({"mime_type": mime_type}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "mime_type": mime_type,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         ) as _response:
             if 200 <= _response.status_code < 300:
                 for _chunk in _response.iter_bytes():
@@ -238,10 +337,12 @@ class AttachmentsClient:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def meta_post_retrieve(self) -> MetaResponse:
+    def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `TicketingAttachment` POSTs.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -254,8 +355,20 @@ class AttachmentsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/attachments/meta/post"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
@@ -276,7 +389,7 @@ class AsyncAttachmentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing_extensions.Literal["ticket"]] = None,
+        expand: typing.Optional[typing.Literal["ticket"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
@@ -285,6 +398,7 @@ class AsyncAttachmentsClient:
         remote_created_after: typing.Optional[dt.datetime] = None,
         remote_id: typing.Optional[str] = None,
         ticket_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedAttachmentList:
         """
         Returns a list of `Attachment` objects.
@@ -296,7 +410,7 @@ class AsyncAttachmentsClient:
 
             - cursor: typing.Optional[str]. The pagination cursor value.
 
-            - expand: typing.Optional[typing_extensions.Literal["ticket"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+            - expand: typing.Optional[typing.Literal["ticket"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
@@ -313,6 +427,8 @@ class AsyncAttachmentsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - ticket_id: typing.Optional[str]. If provided, will only return comments for this ticket.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -327,26 +443,42 @@ class AsyncAttachmentsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/attachments"),
-            params=remove_none_from_dict(
-                {
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "remote_created_after": serialize_datetime(remote_created_after)
-                    if remote_created_after is not None
-                    else None,
-                    "remote_id": remote_id,
-                    "ticket_id": ticket_id,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "remote_created_after": serialize_datetime(remote_created_after)
+                        if remote_created_after is not None
+                        else None,
+                        "remote_id": remote_id,
+                        "ticket_id": ticket_id,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedAttachmentList, _response.json())  # type: ignore
@@ -362,6 +494,7 @@ class AsyncAttachmentsClient:
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
         model: AttachmentRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TicketingAttachmentResponse:
         """
         Creates an `Attachment` object with the given values.
@@ -372,6 +505,8 @@ class AsyncAttachmentsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: AttachmentRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.ticketing import AttachmentRequest
@@ -392,10 +527,36 @@ class AsyncAttachmentsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/attachments"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TicketingAttachmentResponse, _response.json())  # type: ignore
@@ -409,8 +570,9 @@ class AsyncAttachmentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing_extensions.Literal["ticket"]] = None,
+        expand: typing.Optional[typing.Literal["ticket"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Attachment:
         """
         Returns an `Attachment` object with the given `id`.
@@ -418,9 +580,11 @@ class AsyncAttachmentsClient:
         Parameters:
             - id: str.
 
-            - expand: typing.Optional[typing_extensions.Literal["ticket"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+            - expand: typing.Optional[typing.Literal["ticket"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -429,16 +593,37 @@ class AsyncAttachmentsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.attachments.retrieve(
-            id="id",
+            id="string",
             expand="ticket",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/attachments/{id}"),
-            params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Attachment, _response.json())  # type: ignore
@@ -449,7 +634,11 @@ class AsyncAttachmentsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def download_retrieve(
-        self, id: str, *, mime_type: typing.Optional[str] = None
+        self,
+        id: str,
+        *,
+        mime_type: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.AsyncIterator[bytes]:
         """
         Returns an `Attachment` object with the given `id`.
@@ -458,15 +647,37 @@ class AsyncAttachmentsClient:
             - id: str.
 
             - mime_type: typing.Optional[str]. If provided, specifies the export format of the file to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         """
         async with self._client_wrapper.httpx_client.stream(
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/attachments/{id}/download"
             ),
-            params=remove_none_from_dict({"mime_type": mime_type}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "mime_type": mime_type,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         ) as _response:
             if 200 <= _response.status_code < 300:
                 async for _chunk in _response.aiter_bytes():
@@ -479,10 +690,12 @@ class AsyncAttachmentsClient:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def meta_post_retrieve(self) -> MetaResponse:
+    async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `TicketingAttachment` POSTs.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -495,8 +708,20 @@ class AsyncAttachmentsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/attachments/meta/post"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore

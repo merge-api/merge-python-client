@@ -5,12 +5,12 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import typing_extensions
-
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
+from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.group import Group
 from ...types.paginated_group_list import PaginatedGroupList
 
@@ -35,10 +35,11 @@ class GroupsClient:
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["type"]] = None,
+        remote_fields: typing.Optional[typing.Literal["type"]] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["type"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
         types: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedGroupList:
         """
         Returns a list of `Group` objects.
@@ -60,13 +61,15 @@ class GroupsClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["type"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["type"]]. Deprecated. Use show_enum_origins.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["type"]]. Which fields should be returned in non-normalized form.
 
             - types: typing.Optional[str]. If provided, will only return groups of these types. Multiple values can be separated by commas.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -82,24 +85,40 @@ class GroupsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/groups"),
-            params=remove_none_from_dict(
-                {
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "remote_fields": remote_fields,
-                    "remote_id": remote_id,
-                    "show_enum_origins": show_enum_origins,
-                    "types": types,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "show_enum_origins": show_enum_origins,
+                        "types": types,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedGroupList, _response.json())  # type: ignore
@@ -114,8 +133,9 @@ class GroupsClient:
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["type"]] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["type"]] = None,
+        remote_fields: typing.Optional[typing.Literal["type"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Group:
         """
         Returns a `Group` object with the given `id`.
@@ -125,9 +145,11 @@ class GroupsClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["type"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["type"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["type"]]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -136,7 +158,7 @@ class GroupsClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.groups.retrieve(
-            id="id",
+            id="string",
             remote_fields="type",
             show_enum_origins="type",
         )
@@ -144,15 +166,31 @@ class GroupsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/groups/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "include_remote_data": include_remote_data,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "include_remote_data": include_remote_data,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Group, _response.json())  # type: ignore
@@ -178,10 +216,11 @@ class AsyncGroupsClient:
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["type"]] = None,
+        remote_fields: typing.Optional[typing.Literal["type"]] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["type"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
         types: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedGroupList:
         """
         Returns a list of `Group` objects.
@@ -203,13 +242,15 @@ class AsyncGroupsClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["type"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["type"]]. Deprecated. Use show_enum_origins.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["type"]]. Which fields should be returned in non-normalized form.
 
             - types: typing.Optional[str]. If provided, will only return groups of these types. Multiple values can be separated by commas.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -225,24 +266,40 @@ class AsyncGroupsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/groups"),
-            params=remove_none_from_dict(
-                {
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "remote_fields": remote_fields,
-                    "remote_id": remote_id,
-                    "show_enum_origins": show_enum_origins,
-                    "types": types,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "show_enum_origins": show_enum_origins,
+                        "types": types,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedGroupList, _response.json())  # type: ignore
@@ -257,8 +314,9 @@ class AsyncGroupsClient:
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["type"]] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["type"]] = None,
+        remote_fields: typing.Optional[typing.Literal["type"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Group:
         """
         Returns a `Group` object with the given `id`.
@@ -268,9 +326,11 @@ class AsyncGroupsClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["type"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["type"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["type"]]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -279,7 +339,7 @@ class AsyncGroupsClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.groups.retrieve(
-            id="id",
+            id="string",
             remote_fields="type",
             show_enum_origins="type",
         )
@@ -287,15 +347,31 @@ class AsyncGroupsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/groups/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "include_remote_data": include_remote_data,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "include_remote_data": include_remote_data,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Group, _response.json())  # type: ignore

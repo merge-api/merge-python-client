@@ -2,6 +2,11 @@
 
 import typing
 
+from .country_enum import CountryEnum
 from .location import Location
+from .location_country import LocationCountry
+from .location_location_type import LocationLocationType
+from .location_type_enum import LocationTypeEnum
+from .remote_data import RemoteData
 
 EmployeeWorkLocation = typing.Union[str, Location]

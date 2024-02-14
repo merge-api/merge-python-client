@@ -57,7 +57,7 @@ class Candidate(pydantic.BaseModel):
     tags: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(
         description="Array of `Tag` names as strings."
     )
-    applications: typing.Optional[typing.List[typing.Optional[CandidateApplicationsItem]]] = pydantic.Field(
+    applications: typing.Optional[typing.List[typing.Optional["CandidateApplicationsItem"]]] = pydantic.Field(
         description="Array of `Application` object IDs."
     )
     attachments: typing.Optional[typing.List[typing.Optional[CandidateAttachmentsItem]]] = pydantic.Field(
@@ -85,6 +85,8 @@ class Candidate(pydantic.BaseModel):
         json_encoders = {dt.datetime: serialize_datetime}
 
 
+from .application import Application  # noqa: E402
+from .application_candidate import ApplicationCandidate  # noqa: E402
 from .candidate_applications_item import CandidateApplicationsItem  # noqa: E402
 
-Candidate.update_forward_refs()
+Candidate.update_forward_refs(CandidateApplicationsItem=CandidateApplicationsItem)

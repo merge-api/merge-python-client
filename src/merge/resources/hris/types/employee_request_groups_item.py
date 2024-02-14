@@ -3,5 +3,8 @@
 import typing
 
 from .group import Group
+from .group_type import GroupType
+from .group_type_enum import GroupTypeEnum
+from .remote_data import RemoteData
 
 EmployeeRequestGroupsItem = typing.Union[str, Group]

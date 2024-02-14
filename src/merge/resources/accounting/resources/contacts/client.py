@@ -5,13 +5,12 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import typing_extensions
-
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.contact import Contact
 from ...types.contact_request import ContactRequest
 from ...types.contact_response import ContactResponse
@@ -48,9 +47,10 @@ class ContactsClient:
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["status"]] = None,
+        remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedContactList:
         """
         Returns a list of `Contact` objects.
@@ -80,11 +80,13 @@ class ContactsClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["status"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["status"]]. Deprecated. Use show_enum_origins.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["status"]]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.accounting import ContactsListRequestExpand
@@ -102,27 +104,43 @@ class ContactsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/contacts"),
-            params=remove_none_from_dict(
-                {
-                    "company_id": company_id,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "is_customer": is_customer,
-                    "is_supplier": is_supplier,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "remote_fields": remote_fields,
-                    "remote_id": remote_id,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "company_id": company_id,
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "is_customer": is_customer,
+                        "is_supplier": is_supplier,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedContactList, _response.json())  # type: ignore
@@ -138,6 +156,7 @@ class ContactsClient:
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
         model: ContactRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ContactResponse:
         """
         Creates a `Contact` object with the given values.
@@ -148,12 +167,11 @@ class ContactsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: ContactRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import (
-            AccountingPhoneNumberRequest,
-            ContactRequest,
-        )
+        from merge.resources.accounting import ContactRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -167,22 +185,42 @@ class ContactsClient:
                 tax_number="12-3456789",
                 currency="USD",
                 company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
-                phone_numbers=[
-                    AccountingPhoneNumberRequest(
-                        number="+3198675309",
-                        type="Mobile",
-                    )
-                ],
             ),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/contacts"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ContactResponse, _response.json())  # type: ignore
@@ -198,8 +236,9 @@ class ContactsClient:
         *,
         expand: typing.Optional[ContactsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["status"]] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["status"]] = None,
+        remote_fields: typing.Optional[typing.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Contact:
         """
         Returns a `Contact` object with the given `id`.
@@ -211,9 +250,11 @@ class ContactsClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["status"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["status"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["status"]]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.accounting import ContactsRetrieveRequestExpand
@@ -223,7 +264,7 @@ class ContactsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.contacts.retrieve(
-            id="id",
+            id="string",
             expand=ContactsRetrieveRequestExpand.ADDRESSES,
             remote_fields="status",
             show_enum_origins="status",
@@ -232,16 +273,32 @@ class ContactsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/contacts/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "expand": expand,
-                    "include_remote_data": include_remote_data,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Contact, _response.json())  # type: ignore
@@ -251,10 +308,12 @@ class ContactsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def meta_post_retrieve(self) -> MetaResponse:
+    def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `Contact` POSTs.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -267,8 +326,20 @@ class ContactsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/contacts/meta/post"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
@@ -298,9 +369,10 @@ class AsyncContactsClient:
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["status"]] = None,
+        remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedContactList:
         """
         Returns a list of `Contact` objects.
@@ -330,11 +402,13 @@ class AsyncContactsClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["status"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["status"]]. Deprecated. Use show_enum_origins.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["status"]]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.accounting import ContactsListRequestExpand
@@ -352,27 +426,43 @@ class AsyncContactsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/contacts"),
-            params=remove_none_from_dict(
-                {
-                    "company_id": company_id,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "is_customer": is_customer,
-                    "is_supplier": is_supplier,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "remote_fields": remote_fields,
-                    "remote_id": remote_id,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "company_id": company_id,
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "is_customer": is_customer,
+                        "is_supplier": is_supplier,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedContactList, _response.json())  # type: ignore
@@ -388,6 +478,7 @@ class AsyncContactsClient:
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
         model: ContactRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ContactResponse:
         """
         Creates a `Contact` object with the given values.
@@ -398,12 +489,11 @@ class AsyncContactsClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: ContactRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import (
-            AccountingPhoneNumberRequest,
-            ContactRequest,
-        )
+        from merge.resources.accounting import ContactRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -417,22 +507,42 @@ class AsyncContactsClient:
                 tax_number="12-3456789",
                 currency="USD",
                 company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
-                phone_numbers=[
-                    AccountingPhoneNumberRequest(
-                        number="+3198675309",
-                        type="Mobile",
-                    )
-                ],
             ),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/contacts"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ContactResponse, _response.json())  # type: ignore
@@ -448,8 +558,9 @@ class AsyncContactsClient:
         *,
         expand: typing.Optional[ContactsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["status"]] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["status"]] = None,
+        remote_fields: typing.Optional[typing.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Contact:
         """
         Returns a `Contact` object with the given `id`.
@@ -461,9 +572,11 @@ class AsyncContactsClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["status"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["status"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["status"]]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.accounting import ContactsRetrieveRequestExpand
@@ -473,7 +586,7 @@ class AsyncContactsClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.contacts.retrieve(
-            id="id",
+            id="string",
             expand=ContactsRetrieveRequestExpand.ADDRESSES,
             remote_fields="status",
             show_enum_origins="status",
@@ -482,16 +595,32 @@ class AsyncContactsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/contacts/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "expand": expand,
-                    "include_remote_data": include_remote_data,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Contact, _response.json())  # type: ignore
@@ -501,10 +630,12 @@ class AsyncContactsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def meta_post_retrieve(self) -> MetaResponse:
+    async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `Contact` POSTs.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -517,8 +648,20 @@ class AsyncContactsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/contacts/meta/post"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore

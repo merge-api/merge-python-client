@@ -3,5 +3,6 @@
 import typing
 
 from .reject_reason import RejectReason
+from .remote_data import RemoteData
 
 ApplicationRequestRejectReason = typing.Union[str, RejectReason]
