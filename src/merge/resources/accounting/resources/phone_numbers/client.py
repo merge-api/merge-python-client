@@ -6,7 +6,9 @@ from json.decoder import JSONDecodeError
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.accounting_phone_number import AccountingPhoneNumber
 
 try:
@@ -19,7 +21,13 @@ class PhoneNumbersClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def retrieve(self, id: str, *, include_remote_data: typing.Optional[bool] = None) -> AccountingPhoneNumber:
+    def retrieve(
+        self,
+        id: str,
+        *,
+        include_remote_data: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AccountingPhoneNumber:
         """
         Returns an `AccountingPhoneNumber` object with the given `id`.
 
@@ -27,6 +35,8 @@ class PhoneNumbersClient:
             - id: str.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -35,15 +45,35 @@ class PhoneNumbersClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.phone_numbers.retrieve(
-            id="id",
+            id="string",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/phone-numbers/{id}"),
-            params=remove_none_from_dict({"include_remote_data": include_remote_data}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "include_remote_data": include_remote_data,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(AccountingPhoneNumber, _response.json())  # type: ignore
@@ -58,7 +88,13 @@ class AsyncPhoneNumbersClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def retrieve(self, id: str, *, include_remote_data: typing.Optional[bool] = None) -> AccountingPhoneNumber:
+    async def retrieve(
+        self,
+        id: str,
+        *,
+        include_remote_data: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AccountingPhoneNumber:
         """
         Returns an `AccountingPhoneNumber` object with the given `id`.
 
@@ -66,6 +102,8 @@ class AsyncPhoneNumbersClient:
             - id: str.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -74,15 +112,35 @@ class AsyncPhoneNumbersClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.phone_numbers.retrieve(
-            id="id",
+            id="string",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/phone-numbers/{id}"),
-            params=remove_none_from_dict({"include_remote_data": include_remote_data}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "include_remote_data": include_remote_data,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(AccountingPhoneNumber, _response.json())  # type: ignore

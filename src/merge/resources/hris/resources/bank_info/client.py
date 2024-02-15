@@ -5,12 +5,12 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import typing_extensions
-
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
+from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.bank_info import BankInfo
 from ...types.paginated_bank_info_list import PaginatedBankInfoList
 from .types.bank_info_list_request_account_type import BankInfoListRequestAccountType
@@ -35,16 +35,17 @@ class BankInfoClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[typing_extensions.Literal["employee"]] = None,
+        expand: typing.Optional[typing.Literal["employee"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         order_by: typing.Optional[BankInfoListRequestOrderBy] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["account_type"]] = None,
+        remote_fields: typing.Optional[typing.Literal["account_type"]] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["account_type"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["account_type"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedBankInfoList:
         """
         Returns a list of `BankInfo` objects.
@@ -64,7 +65,7 @@ class BankInfoClient:
 
             - employee_id: typing.Optional[str]. If provided, will only return bank accounts for this employee.
 
-            - expand: typing.Optional[typing_extensions.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+            - expand: typing.Optional[typing.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
@@ -78,11 +79,13 @@ class BankInfoClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["account_type"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["account_type"]]. Deprecated. Use show_enum_origins.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["account_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["account_type"]]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.hris import (
@@ -105,28 +108,44 @@ class BankInfoClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/bank-info"),
-            params=remove_none_from_dict(
-                {
-                    "account_type": account_type,
-                    "bank_name": bank_name,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "employee_id": employee_id,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "order_by": order_by,
-                    "page_size": page_size,
-                    "remote_fields": remote_fields,
-                    "remote_id": remote_id,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "account_type": account_type,
+                        "bank_name": bank_name,
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "employee_id": employee_id,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "order_by": order_by,
+                        "page_size": page_size,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedBankInfoList, _response.json())  # type: ignore
@@ -140,10 +159,11 @@ class BankInfoClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing_extensions.Literal["employee"]] = None,
+        expand: typing.Optional[typing.Literal["employee"]] = None,
         include_remote_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["account_type"]] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["account_type"]] = None,
+        remote_fields: typing.Optional[typing.Literal["account_type"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["account_type"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> BankInfo:
         """
         Returns a `BankInfo` object with the given `id`.
@@ -151,13 +171,15 @@ class BankInfoClient:
         Parameters:
             - id: str.
 
-            - expand: typing.Optional[typing_extensions.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+            - expand: typing.Optional[typing.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["account_type"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["account_type"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["account_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["account_type"]]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -166,7 +188,7 @@ class BankInfoClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.bank_info.retrieve(
-            id="id",
+            id="string",
             expand="employee",
             remote_fields="account_type",
             show_enum_origins="account_type",
@@ -175,16 +197,32 @@ class BankInfoClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/bank-info/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "expand": expand,
-                    "include_remote_data": include_remote_data,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(BankInfo, _response.json())  # type: ignore
@@ -208,16 +246,17 @@ class AsyncBankInfoClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[typing_extensions.Literal["employee"]] = None,
+        expand: typing.Optional[typing.Literal["employee"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         order_by: typing.Optional[BankInfoListRequestOrderBy] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["account_type"]] = None,
+        remote_fields: typing.Optional[typing.Literal["account_type"]] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["account_type"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["account_type"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedBankInfoList:
         """
         Returns a list of `BankInfo` objects.
@@ -237,7 +276,7 @@ class AsyncBankInfoClient:
 
             - employee_id: typing.Optional[str]. If provided, will only return bank accounts for this employee.
 
-            - expand: typing.Optional[typing_extensions.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+            - expand: typing.Optional[typing.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
@@ -251,11 +290,13 @@ class AsyncBankInfoClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["account_type"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["account_type"]]. Deprecated. Use show_enum_origins.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["account_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["account_type"]]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.hris import (
@@ -278,28 +319,44 @@ class AsyncBankInfoClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/bank-info"),
-            params=remove_none_from_dict(
-                {
-                    "account_type": account_type,
-                    "bank_name": bank_name,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "employee_id": employee_id,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "order_by": order_by,
-                    "page_size": page_size,
-                    "remote_fields": remote_fields,
-                    "remote_id": remote_id,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "account_type": account_type,
+                        "bank_name": bank_name,
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "employee_id": employee_id,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "order_by": order_by,
+                        "page_size": page_size,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedBankInfoList, _response.json())  # type: ignore
@@ -313,10 +370,11 @@ class AsyncBankInfoClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing_extensions.Literal["employee"]] = None,
+        expand: typing.Optional[typing.Literal["employee"]] = None,
         include_remote_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["account_type"]] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["account_type"]] = None,
+        remote_fields: typing.Optional[typing.Literal["account_type"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["account_type"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> BankInfo:
         """
         Returns a `BankInfo` object with the given `id`.
@@ -324,13 +382,15 @@ class AsyncBankInfoClient:
         Parameters:
             - id: str.
 
-            - expand: typing.Optional[typing_extensions.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+            - expand: typing.Optional[typing.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["account_type"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["account_type"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["account_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["account_type"]]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -339,7 +399,7 @@ class AsyncBankInfoClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.bank_info.retrieve(
-            id="id",
+            id="string",
             expand="employee",
             remote_fields="account_type",
             show_enum_origins="account_type",
@@ -348,16 +408,32 @@ class AsyncBankInfoClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/bank-info/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "expand": expand,
-                    "include_remote_data": include_remote_data,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(BankInfo, _response.json())  # type: ignore

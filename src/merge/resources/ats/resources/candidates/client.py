@@ -10,6 +10,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.candidate import Candidate
 from ...types.candidate_request import CandidateRequest
 from ...types.candidate_response import CandidateResponse
@@ -50,6 +51,7 @@ class CandidatesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         tags: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedCandidateList:
         """
         Returns a list of `Candidate` objects.
@@ -82,6 +84,8 @@ class CandidatesClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - tags: typing.Optional[str]. If provided, will only return candidates with these tags; multiple tags can be separated by commas.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.ats import CandidatesListRequestExpand
@@ -97,26 +101,42 @@ class CandidatesClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/candidates"),
-            params=remove_none_from_dict(
-                {
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "email_addresses": email_addresses,
-                    "expand": expand,
-                    "first_name": first_name,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "last_name": last_name,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "remote_id": remote_id,
-                    "tags": tags,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "email_addresses": email_addresses,
+                        "expand": expand,
+                        "first_name": first_name,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "last_name": last_name,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "remote_id": remote_id,
+                        "tags": tags,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedCandidateList, _response.json())  # type: ignore
@@ -133,6 +153,7 @@ class CandidatesClient:
         run_async: typing.Optional[bool] = None,
         model: CandidateRequest,
         remote_user_id: str,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> CandidateResponse:
         """
         Creates a `Candidate` object with the given values.
@@ -145,14 +166,67 @@ class CandidatesClient:
             - model: CandidateRequest.
 
             - remote_user_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        import datetime
+
+        from merge.client import Merge
+        from merge.resources.ats import CandidateRequest
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.candidates.create(
+            model=CandidateRequest(
+                first_name="Gil",
+                last_name="Feig",
+                company="Columbia Dining App.",
+                title="Software Engineer",
+                last_interaction_at=datetime.datetime.fromisoformat(
+                    "2021-10-17 00:00:00+00:00",
+                ),
+                is_private=True,
+                can_email=True,
+                remote_template_id="92830948203",
+            ),
+            remote_user_id="string",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/candidates"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(CandidateResponse, _response.json())  # type: ignore
@@ -168,6 +242,7 @@ class CandidatesClient:
         *,
         expand: typing.Optional[CandidatesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Candidate:
         """
         Returns a `Candidate` object with the given `id`.
@@ -178,6 +253,8 @@ class CandidatesClient:
             - expand: typing.Optional[CandidatesRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.ats import CandidatesRetrieveRequestExpand
@@ -187,16 +264,37 @@ class CandidatesClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.candidates.retrieve(
-            id="id",
+            id="string",
             expand=CandidatesRetrieveRequestExpand.APPLICATIONS,
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/{id}"),
-            params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Candidate, _response.json())  # type: ignore
@@ -214,6 +312,7 @@ class CandidatesClient:
         run_async: typing.Optional[bool] = None,
         model: PatchedCandidateRequest,
         remote_user_id: str,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> CandidateResponse:
         """
         Updates a `Candidate` object with the given `id`.
@@ -228,14 +327,68 @@ class CandidatesClient:
             - model: PatchedCandidateRequest.
 
             - remote_user_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        import datetime
+
+        from merge.client import Merge
+        from merge.resources.ats import PatchedCandidateRequest
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ats.candidates.partial_update(
+            id="string",
+            model=PatchedCandidateRequest(
+                first_name="Gil",
+                last_name="Feig",
+                company="Columbia Dining App.",
+                title="Software Engineer",
+                last_interaction_at=datetime.datetime.fromisoformat(
+                    "2021-10-17 00:00:00+00:00",
+                ),
+                is_private=True,
+                can_email=True,
+                remote_template_id="92830948203",
+            ),
+            remote_user_id="string",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/{id}"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(CandidateResponse, _response.json())  # type: ignore
@@ -245,7 +398,14 @@ class CandidatesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def ignore_create(self, model_id: str, *, reason: ReasonEnum, message: typing.Optional[str] = OMIT) -> None:
+    def ignore_create(
+        self,
+        model_id: str,
+        *,
+        reason: ReasonEnum,
+        message: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
         """
         Ignores a specific row based on the `model_id` in the url. These records will have their properties set to null, and will not be updated in future syncs. The "reason" and "message" fields in the request body will be stored for audit purposes.
 
@@ -255,6 +415,8 @@ class CandidatesClient:
             - reason: ReasonEnum.
 
             - message: typing.Optional[str].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.ats import ReasonEnum
@@ -264,20 +426,37 @@ class CandidatesClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.candidates.ignore_create(
-            model_id="model-id",
+            model_id="string",
             reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
             message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
         )
         """
-        _request: typing.Dict[str, typing.Any] = {"reason": reason}
+        _request: typing.Dict[str, typing.Any] = {"reason": reason.value}
         if message is not OMIT:
             _request["message"] = message
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/ignore/{model_id}"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return
@@ -287,12 +466,14 @@ class CandidatesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def meta_patch_retrieve(self, id: str) -> MetaResponse:
+    def meta_patch_retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `Candidate` PATCHs.
 
         Parameters:
             - id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -301,14 +482,26 @@ class CandidatesClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.candidates.meta_patch_retrieve(
-            id="id",
+            id="string",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/meta/patch/{id}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
@@ -318,10 +511,12 @@ class CandidatesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def meta_post_retrieve(self) -> MetaResponse:
+    def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `Candidate` POSTs.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -334,8 +529,20 @@ class CandidatesClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/candidates/meta/post"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
@@ -367,6 +574,7 @@ class AsyncCandidatesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         tags: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedCandidateList:
         """
         Returns a list of `Candidate` objects.
@@ -399,6 +607,8 @@ class AsyncCandidatesClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - tags: typing.Optional[str]. If provided, will only return candidates with these tags; multiple tags can be separated by commas.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.ats import CandidatesListRequestExpand
@@ -414,26 +624,42 @@ class AsyncCandidatesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/candidates"),
-            params=remove_none_from_dict(
-                {
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "email_addresses": email_addresses,
-                    "expand": expand,
-                    "first_name": first_name,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "last_name": last_name,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "remote_id": remote_id,
-                    "tags": tags,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "email_addresses": email_addresses,
+                        "expand": expand,
+                        "first_name": first_name,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "last_name": last_name,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "remote_id": remote_id,
+                        "tags": tags,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedCandidateList, _response.json())  # type: ignore
@@ -450,6 +676,7 @@ class AsyncCandidatesClient:
         run_async: typing.Optional[bool] = None,
         model: CandidateRequest,
         remote_user_id: str,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> CandidateResponse:
         """
         Creates a `Candidate` object with the given values.
@@ -462,14 +689,67 @@ class AsyncCandidatesClient:
             - model: CandidateRequest.
 
             - remote_user_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        import datetime
+
+        from merge.client import AsyncMerge
+        from merge.resources.ats import CandidateRequest
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.candidates.create(
+            model=CandidateRequest(
+                first_name="Gil",
+                last_name="Feig",
+                company="Columbia Dining App.",
+                title="Software Engineer",
+                last_interaction_at=datetime.datetime.fromisoformat(
+                    "2021-10-17 00:00:00+00:00",
+                ),
+                is_private=True,
+                can_email=True,
+                remote_template_id="92830948203",
+            ),
+            remote_user_id="string",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/candidates"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(CandidateResponse, _response.json())  # type: ignore
@@ -485,6 +765,7 @@ class AsyncCandidatesClient:
         *,
         expand: typing.Optional[CandidatesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Candidate:
         """
         Returns a `Candidate` object with the given `id`.
@@ -495,6 +776,8 @@ class AsyncCandidatesClient:
             - expand: typing.Optional[CandidatesRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.ats import CandidatesRetrieveRequestExpand
@@ -504,16 +787,37 @@ class AsyncCandidatesClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.candidates.retrieve(
-            id="id",
+            id="string",
             expand=CandidatesRetrieveRequestExpand.APPLICATIONS,
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/{id}"),
-            params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Candidate, _response.json())  # type: ignore
@@ -531,6 +835,7 @@ class AsyncCandidatesClient:
         run_async: typing.Optional[bool] = None,
         model: PatchedCandidateRequest,
         remote_user_id: str,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> CandidateResponse:
         """
         Updates a `Candidate` object with the given `id`.
@@ -545,14 +850,68 @@ class AsyncCandidatesClient:
             - model: PatchedCandidateRequest.
 
             - remote_user_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        import datetime
+
+        from merge.client import AsyncMerge
+        from merge.resources.ats import PatchedCandidateRequest
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.ats.candidates.partial_update(
+            id="string",
+            model=PatchedCandidateRequest(
+                first_name="Gil",
+                last_name="Feig",
+                company="Columbia Dining App.",
+                title="Software Engineer",
+                last_interaction_at=datetime.datetime.fromisoformat(
+                    "2021-10-17 00:00:00+00:00",
+                ),
+                is_private=True,
+                can_email=True,
+                remote_template_id="92830948203",
+            ),
+            remote_user_id="string",
+        )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/{id}"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model, "remote_user_id": remote_user_id})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model, "remote_user_id": remote_user_id}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(CandidateResponse, _response.json())  # type: ignore
@@ -562,7 +921,14 @@ class AsyncCandidatesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def ignore_create(self, model_id: str, *, reason: ReasonEnum, message: typing.Optional[str] = OMIT) -> None:
+    async def ignore_create(
+        self,
+        model_id: str,
+        *,
+        reason: ReasonEnum,
+        message: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
         """
         Ignores a specific row based on the `model_id` in the url. These records will have their properties set to null, and will not be updated in future syncs. The "reason" and "message" fields in the request body will be stored for audit purposes.
 
@@ -572,6 +938,8 @@ class AsyncCandidatesClient:
             - reason: ReasonEnum.
 
             - message: typing.Optional[str].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.ats import ReasonEnum
@@ -581,20 +949,37 @@ class AsyncCandidatesClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.candidates.ignore_create(
-            model_id="model-id",
+            model_id="string",
             reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
             message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
         )
         """
-        _request: typing.Dict[str, typing.Any] = {"reason": reason}
+        _request: typing.Dict[str, typing.Any] = {"reason": reason.value}
         if message is not OMIT:
             _request["message"] = message
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/ignore/{model_id}"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return
@@ -604,12 +989,16 @@ class AsyncCandidatesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def meta_patch_retrieve(self, id: str) -> MetaResponse:
+    async def meta_patch_retrieve(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> MetaResponse:
         """
         Returns metadata for `Candidate` PATCHs.
 
         Parameters:
             - id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -618,14 +1007,26 @@ class AsyncCandidatesClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.candidates.meta_patch_retrieve(
-            id="id",
+            id="string",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/meta/patch/{id}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
@@ -635,10 +1036,12 @@ class AsyncCandidatesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def meta_post_retrieve(self) -> MetaResponse:
+    async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `Candidate` POSTs.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -651,8 +1054,20 @@ class AsyncCandidatesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/candidates/meta/post"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore

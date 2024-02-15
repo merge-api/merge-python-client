@@ -5,13 +5,12 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import typing_extensions
-
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.meta_response import MetaResponse
 from ...types.opportunity import Opportunity
 from ...types.opportunity_request import OpportunityRequest
@@ -51,11 +50,12 @@ class OpportunitiesClient:
         modified_before: typing.Optional[dt.datetime] = None,
         owner_id: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["status"]] = None,
+        remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         stage_id: typing.Optional[str] = None,
         status: typing.Optional[OpportunitiesListRequestStatus] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedOpportunityList:
         """
         Returns a list of `Opportunity` objects.
@@ -85,11 +85,11 @@ class OpportunitiesClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["status"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["status"]]. Deprecated. Use show_enum_origins.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["status"]]. Which fields should be returned in non-normalized form.
 
             - stage_id: typing.Optional[str]. If provided, will only return opportunities with this stage.
 
@@ -97,7 +97,9 @@ class OpportunitiesClient:
 
                                                                        - `OPEN` - OPEN
                                                                        - `WON` - WON
-                                                                       - `LOST` - LOST---
+                                                                       - `LOST` - LOST
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
         from merge.client import Merge
         from merge.resources.crm import (
             OpportunitiesListRequestExpand,
@@ -118,29 +120,45 @@ class OpportunitiesClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"),
-            params=remove_none_from_dict(
-                {
-                    "account_id": account_id,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "include_remote_fields": include_remote_fields,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "owner_id": owner_id,
-                    "page_size": page_size,
-                    "remote_fields": remote_fields,
-                    "remote_id": remote_id,
-                    "show_enum_origins": show_enum_origins,
-                    "stage_id": stage_id,
-                    "status": status,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "account_id": account_id,
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "include_remote_fields": include_remote_fields,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "owner_id": owner_id,
+                        "page_size": page_size,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "show_enum_origins": show_enum_origins,
+                        "stage_id": stage_id,
+                        "status": status,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedOpportunityList, _response.json())  # type: ignore
@@ -156,6 +174,7 @@ class OpportunitiesClient:
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
         model: OpportunityRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> OpportunityResponse:
         """
         Creates an `Opportunity` object with the given values.
@@ -166,6 +185,8 @@ class OpportunitiesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: OpportunityRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         import datetime
 
@@ -180,7 +201,7 @@ class OpportunitiesClient:
             model=OpportunityRequest(
                 name="Needs Integrations",
                 description="Needs a Unified API for Integrations!",
-                amount=100000,
+                amount=1,
                 last_activity_at=datetime.datetime.fromisoformat(
                     "2022-02-10 00:00:00+00:00",
                 ),
@@ -193,10 +214,36 @@ class OpportunitiesClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(OpportunityResponse, _response.json())  # type: ignore
@@ -213,8 +260,9 @@ class OpportunitiesClient:
         expand: typing.Optional[OpportunitiesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["status"]] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["status"]] = None,
+        remote_fields: typing.Optional[typing.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Opportunity:
         """
         Returns an `Opportunity` object with the given `id`.
@@ -228,9 +276,11 @@ class OpportunitiesClient:
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["status"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["status"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["status"]]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.crm import OpportunitiesRetrieveRequestExpand
@@ -240,7 +290,7 @@ class OpportunitiesClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.opportunities.retrieve(
-            id="id",
+            id="string",
             expand=OpportunitiesRetrieveRequestExpand.ACCOUNT,
             remote_fields="status",
             show_enum_origins="status",
@@ -249,17 +299,33 @@ class OpportunitiesClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "expand": expand,
-                    "include_remote_data": include_remote_data,
-                    "include_remote_fields": include_remote_fields,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        "include_remote_fields": include_remote_fields,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Opportunity, _response.json())  # type: ignore
@@ -276,6 +342,7 @@ class OpportunitiesClient:
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
         model: PatchedOpportunityRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> OpportunityResponse:
         """
         Updates an `Opportunity` object with the given `id`.
@@ -288,6 +355,8 @@ class OpportunitiesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: PatchedOpportunityRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         import datetime
 
@@ -299,11 +368,11 @@ class OpportunitiesClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.opportunities.partial_update(
-            id="id",
+            id="string",
             model=PatchedOpportunityRequest(
                 name="Needs Integrations",
                 description="Needs a Unified API for Integrations!",
-                amount=100000,
+                amount=1,
                 owner="0358cbc6-2040-430a-848e-aafacbadf3aa",
                 account="0958cbc6-6040-430a-848e-aafacbadf4ae",
                 stage="1968cbc6-6040-430a-848e-aafacbadf4ad",
@@ -319,10 +388,36 @@ class OpportunitiesClient:
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/{id}"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(OpportunityResponse, _response.json())  # type: ignore
@@ -332,12 +427,14 @@ class OpportunitiesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def meta_patch_retrieve(self, id: str) -> MetaResponse:
+    def meta_patch_retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `Opportunity` PATCHs.
 
         Parameters:
             - id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -346,7 +443,7 @@ class OpportunitiesClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.opportunities.meta_patch_retrieve(
-            id="id",
+            id="string",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -354,8 +451,20 @@ class OpportunitiesClient:
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/meta/patch/{id}"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
@@ -365,10 +474,12 @@ class OpportunitiesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def meta_post_retrieve(self) -> MetaResponse:
+    def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `Opportunity` POSTs.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -381,8 +492,20 @@ class OpportunitiesClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities/meta/post"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
@@ -400,6 +523,7 @@ class OpportunitiesClient:
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedRemoteFieldClassList:
         """
         Returns a list of `RemoteFieldClass` objects.
@@ -414,6 +538,8 @@ class OpportunitiesClient:
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -428,17 +554,33 @@ class OpportunitiesClient:
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities/remote-field-classes"
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "include_remote_fields": include_remote_fields,
-                    "page_size": page_size,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "include_remote_fields": include_remote_fields,
+                        "page_size": page_size,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
@@ -468,11 +610,12 @@ class AsyncOpportunitiesClient:
         modified_before: typing.Optional[dt.datetime] = None,
         owner_id: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["status"]] = None,
+        remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         stage_id: typing.Optional[str] = None,
         status: typing.Optional[OpportunitiesListRequestStatus] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedOpportunityList:
         """
         Returns a list of `Opportunity` objects.
@@ -502,11 +645,11 @@ class AsyncOpportunitiesClient:
 
             - page_size: typing.Optional[int]. Number of results to return per page.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["status"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["status"]]. Deprecated. Use show_enum_origins.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["status"]]. Which fields should be returned in non-normalized form.
 
             - stage_id: typing.Optional[str]. If provided, will only return opportunities with this stage.
 
@@ -514,7 +657,9 @@ class AsyncOpportunitiesClient:
 
                                                                        - `OPEN` - OPEN
                                                                        - `WON` - WON
-                                                                       - `LOST` - LOST---
+                                                                       - `LOST` - LOST
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
         from merge.client import AsyncMerge
         from merge.resources.crm import (
             OpportunitiesListRequestExpand,
@@ -535,29 +680,45 @@ class AsyncOpportunitiesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"),
-            params=remove_none_from_dict(
-                {
-                    "account_id": account_id,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "include_remote_fields": include_remote_fields,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "owner_id": owner_id,
-                    "page_size": page_size,
-                    "remote_fields": remote_fields,
-                    "remote_id": remote_id,
-                    "show_enum_origins": show_enum_origins,
-                    "stage_id": stage_id,
-                    "status": status,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "account_id": account_id,
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "include_remote_fields": include_remote_fields,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "owner_id": owner_id,
+                        "page_size": page_size,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "show_enum_origins": show_enum_origins,
+                        "stage_id": stage_id,
+                        "status": status,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedOpportunityList, _response.json())  # type: ignore
@@ -573,6 +734,7 @@ class AsyncOpportunitiesClient:
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
         model: OpportunityRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> OpportunityResponse:
         """
         Creates an `Opportunity` object with the given values.
@@ -583,6 +745,8 @@ class AsyncOpportunitiesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: OpportunityRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         import datetime
 
@@ -597,7 +761,7 @@ class AsyncOpportunitiesClient:
             model=OpportunityRequest(
                 name="Needs Integrations",
                 description="Needs a Unified API for Integrations!",
-                amount=100000,
+                amount=1,
                 last_activity_at=datetime.datetime.fromisoformat(
                     "2022-02-10 00:00:00+00:00",
                 ),
@@ -610,10 +774,36 @@ class AsyncOpportunitiesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(OpportunityResponse, _response.json())  # type: ignore
@@ -630,8 +820,9 @@ class AsyncOpportunitiesClient:
         expand: typing.Optional[OpportunitiesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["status"]] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["status"]] = None,
+        remote_fields: typing.Optional[typing.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Opportunity:
         """
         Returns an `Opportunity` object with the given `id`.
@@ -645,9 +836,11 @@ class AsyncOpportunitiesClient:
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["status"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["status"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["status"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["status"]]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.crm import OpportunitiesRetrieveRequestExpand
@@ -657,7 +850,7 @@ class AsyncOpportunitiesClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.opportunities.retrieve(
-            id="id",
+            id="string",
             expand=OpportunitiesRetrieveRequestExpand.ACCOUNT,
             remote_fields="status",
             show_enum_origins="status",
@@ -666,17 +859,33 @@ class AsyncOpportunitiesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "expand": expand,
-                    "include_remote_data": include_remote_data,
-                    "include_remote_fields": include_remote_fields,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        "include_remote_fields": include_remote_fields,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Opportunity, _response.json())  # type: ignore
@@ -693,6 +902,7 @@ class AsyncOpportunitiesClient:
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
         model: PatchedOpportunityRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> OpportunityResponse:
         """
         Updates an `Opportunity` object with the given `id`.
@@ -705,6 +915,8 @@ class AsyncOpportunitiesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: PatchedOpportunityRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         import datetime
 
@@ -716,11 +928,11 @@ class AsyncOpportunitiesClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.opportunities.partial_update(
-            id="id",
+            id="string",
             model=PatchedOpportunityRequest(
                 name="Needs Integrations",
                 description="Needs a Unified API for Integrations!",
-                amount=100000,
+                amount=1,
                 owner="0358cbc6-2040-430a-848e-aafacbadf3aa",
                 account="0958cbc6-6040-430a-848e-aafacbadf4ae",
                 stage="1968cbc6-6040-430a-848e-aafacbadf4ad",
@@ -736,10 +948,36 @@ class AsyncOpportunitiesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/{id}"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(OpportunityResponse, _response.json())  # type: ignore
@@ -749,12 +987,16 @@ class AsyncOpportunitiesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def meta_patch_retrieve(self, id: str) -> MetaResponse:
+    async def meta_patch_retrieve(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> MetaResponse:
         """
         Returns metadata for `Opportunity` PATCHs.
 
         Parameters:
             - id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -763,7 +1005,7 @@ class AsyncOpportunitiesClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.opportunities.meta_patch_retrieve(
-            id="id",
+            id="string",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -771,8 +1013,20 @@ class AsyncOpportunitiesClient:
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/meta/patch/{id}"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
@@ -782,10 +1036,12 @@ class AsyncOpportunitiesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def meta_post_retrieve(self) -> MetaResponse:
+    async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `Opportunity` POSTs.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -798,8 +1054,20 @@ class AsyncOpportunitiesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities/meta/post"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
@@ -817,6 +1085,7 @@ class AsyncOpportunitiesClient:
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedRemoteFieldClassList:
         """
         Returns a list of `RemoteFieldClass` objects.
@@ -831,6 +1100,8 @@ class AsyncOpportunitiesClient:
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -845,17 +1116,33 @@ class AsyncOpportunitiesClient:
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities/remote-field-classes"
             ),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "include_remote_fields": include_remote_fields,
-                    "page_size": page_size,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "include_remote_fields": include_remote_fields,
+                        "page_size": page_size,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore

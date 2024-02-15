@@ -8,7 +8,9 @@ from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
+from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.employment import Employment
 from ...types.paginated_employment_list import PaginatedEmploymentList
 from .types.employments_list_request_expand import EmploymentsListRequestExpand
@@ -46,6 +48,7 @@ class EmploymentsClient:
         remote_fields: typing.Optional[EmploymentsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[EmploymentsListRequestShowEnumOrigins] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedEmploymentList:
         """
         Returns a list of `Employment` objects.
@@ -78,6 +81,8 @@ class EmploymentsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[EmploymentsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.hris import (
@@ -101,26 +106,42 @@ class EmploymentsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employments"),
-            params=remove_none_from_dict(
-                {
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "employee_id": employee_id,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "order_by": order_by,
-                    "page_size": page_size,
-                    "remote_fields": remote_fields,
-                    "remote_id": remote_id,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "employee_id": employee_id,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "order_by": order_by,
+                        "page_size": page_size,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedEmploymentList, _response.json())  # type: ignore
@@ -138,6 +159,7 @@ class EmploymentsClient:
         include_remote_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EmploymentsRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[EmploymentsRetrieveRequestShowEnumOrigins] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Employment:
         """
         Returns an `Employment` object with the given `id`.
@@ -152,6 +174,8 @@ class EmploymentsClient:
             - remote_fields: typing.Optional[EmploymentsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[EmploymentsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.hris import (
@@ -165,7 +189,7 @@ class EmploymentsClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.employments.retrieve(
-            id="id",
+            id="string",
             expand=EmploymentsRetrieveRequestExpand.EMPLOYEE,
             remote_fields=EmploymentsRetrieveRequestRemoteFields.EMPLOYMENT_TYPE,
             show_enum_origins=EmploymentsRetrieveRequestShowEnumOrigins.EMPLOYMENT_TYPE,
@@ -174,16 +198,32 @@ class EmploymentsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employments/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "expand": expand,
-                    "include_remote_data": include_remote_data,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Employment, _response.json())  # type: ignore
@@ -215,6 +255,7 @@ class AsyncEmploymentsClient:
         remote_fields: typing.Optional[EmploymentsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[EmploymentsListRequestShowEnumOrigins] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedEmploymentList:
         """
         Returns a list of `Employment` objects.
@@ -247,6 +288,8 @@ class AsyncEmploymentsClient:
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
             - show_enum_origins: typing.Optional[EmploymentsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.hris import (
@@ -270,26 +313,42 @@ class AsyncEmploymentsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employments"),
-            params=remove_none_from_dict(
-                {
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "employee_id": employee_id,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "order_by": order_by,
-                    "page_size": page_size,
-                    "remote_fields": remote_fields,
-                    "remote_id": remote_id,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "employee_id": employee_id,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "order_by": order_by,
+                        "page_size": page_size,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedEmploymentList, _response.json())  # type: ignore
@@ -307,6 +366,7 @@ class AsyncEmploymentsClient:
         include_remote_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EmploymentsRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[EmploymentsRetrieveRequestShowEnumOrigins] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Employment:
         """
         Returns an `Employment` object with the given `id`.
@@ -321,6 +381,8 @@ class AsyncEmploymentsClient:
             - remote_fields: typing.Optional[EmploymentsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[EmploymentsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.hris import (
@@ -334,7 +396,7 @@ class AsyncEmploymentsClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.employments.retrieve(
-            id="id",
+            id="string",
             expand=EmploymentsRetrieveRequestExpand.EMPLOYEE,
             remote_fields=EmploymentsRetrieveRequestRemoteFields.EMPLOYMENT_TYPE,
             show_enum_origins=EmploymentsRetrieveRequestShowEnumOrigins.EMPLOYMENT_TYPE,
@@ -343,16 +405,32 @@ class AsyncEmploymentsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employments/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "expand": expand,
-                    "include_remote_data": include_remote_data,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Employment, _response.json())  # type: ignore

@@ -10,6 +10,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.ignore_common_model_request import IgnoreCommonModelRequest
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.paginated_user_list import PaginatedUserList
@@ -41,6 +42,7 @@ class UsersClient:
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedUserList:
         """
         Returns a list of `User` objects.
@@ -65,6 +67,8 @@ class UsersClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -77,22 +81,38 @@ class UsersClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/users"),
-            params=remove_none_from_dict(
-                {
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "include_remote_fields": include_remote_fields,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "remote_id": remote_id,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "include_remote_fields": include_remote_fields,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "remote_id": remote_id,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedUserList, _response.json())  # type: ignore
@@ -108,6 +128,7 @@ class UsersClient:
         *,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
         Returns a `User` object with the given `id`.
@@ -118,6 +139,8 @@ class UsersClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -126,17 +149,36 @@ class UsersClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.users.retrieve(
-            id="id",
+            id="string",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/users/{id}"),
-            params=remove_none_from_dict(
-                {"include_remote_data": include_remote_data, "include_remote_fields": include_remote_fields}
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "include_remote_data": include_remote_data,
+                        "include_remote_fields": include_remote_fields,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(User, _response.json())  # type: ignore
@@ -146,7 +188,13 @@ class UsersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def ignore_create(self, model_id: str, *, request: IgnoreCommonModelRequest) -> None:
+    def ignore_create(
+        self,
+        model_id: str,
+        *,
+        request: IgnoreCommonModelRequest,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
         """
         Ignores a specific row based on the `model_id` in the url. These records will have their properties set to null, and will not be updated in future syncs. The "reason" and "message" fields in the request body will be stored for audit purposes.
 
@@ -154,6 +202,8 @@ class UsersClient:
             - model_id: str.
 
             - request: IgnoreCommonModelRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.crm import IgnoreCommonModelRequest, ReasonEnum
@@ -163,7 +213,7 @@ class UsersClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.users.ignore_create(
-            model_id="model-id",
+            model_id="string",
             request=IgnoreCommonModelRequest(
                 reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
                 message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
@@ -173,9 +223,26 @@ class UsersClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/users/ignore/{model_id}"),
-            json=jsonable_encoder(request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return
@@ -193,6 +260,7 @@ class UsersClient:
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedRemoteFieldClassList:
         """
         Returns a list of `RemoteFieldClass` objects.
@@ -207,6 +275,8 @@ class UsersClient:
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -219,17 +289,33 @@ class UsersClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/users/remote-field-classes"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "include_remote_fields": include_remote_fields,
-                    "page_size": page_size,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "include_remote_fields": include_remote_fields,
+                        "page_size": page_size,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
@@ -257,6 +343,7 @@ class AsyncUsersClient:
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedUserList:
         """
         Returns a list of `User` objects.
@@ -281,6 +368,8 @@ class AsyncUsersClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -293,22 +382,38 @@ class AsyncUsersClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/users"),
-            params=remove_none_from_dict(
-                {
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "include_remote_fields": include_remote_fields,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "remote_id": remote_id,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "include_remote_fields": include_remote_fields,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "remote_id": remote_id,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedUserList, _response.json())  # type: ignore
@@ -324,6 +429,7 @@ class AsyncUsersClient:
         *,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
         Returns a `User` object with the given `id`.
@@ -334,6 +440,8 @@ class AsyncUsersClient:
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -342,17 +450,36 @@ class AsyncUsersClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.users.retrieve(
-            id="id",
+            id="string",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/users/{id}"),
-            params=remove_none_from_dict(
-                {"include_remote_data": include_remote_data, "include_remote_fields": include_remote_fields}
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "include_remote_data": include_remote_data,
+                        "include_remote_fields": include_remote_fields,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(User, _response.json())  # type: ignore
@@ -362,7 +489,13 @@ class AsyncUsersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def ignore_create(self, model_id: str, *, request: IgnoreCommonModelRequest) -> None:
+    async def ignore_create(
+        self,
+        model_id: str,
+        *,
+        request: IgnoreCommonModelRequest,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
         """
         Ignores a specific row based on the `model_id` in the url. These records will have their properties set to null, and will not be updated in future syncs. The "reason" and "message" fields in the request body will be stored for audit purposes.
 
@@ -370,6 +503,8 @@ class AsyncUsersClient:
             - model_id: str.
 
             - request: IgnoreCommonModelRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.crm import IgnoreCommonModelRequest, ReasonEnum
@@ -379,7 +514,7 @@ class AsyncUsersClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.users.ignore_create(
-            model_id="model-id",
+            model_id="string",
             request=IgnoreCommonModelRequest(
                 reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
                 message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
@@ -389,9 +524,26 @@ class AsyncUsersClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/users/ignore/{model_id}"),
-            json=jsonable_encoder(request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return
@@ -409,6 +561,7 @@ class AsyncUsersClient:
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedRemoteFieldClassList:
         """
         Returns a list of `RemoteFieldClass` objects.
@@ -423,6 +576,8 @@ class AsyncUsersClient:
             - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
             - page_size: typing.Optional[int]. Number of results to return per page.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -435,17 +590,33 @@ class AsyncUsersClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/users/remote-field-classes"),
-            params=remove_none_from_dict(
-                {
-                    "cursor": cursor,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "include_remote_fields": include_remote_fields,
-                    "page_size": page_size,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "cursor": cursor,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "include_remote_fields": include_remote_fields,
+                        "page_size": page_size,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
