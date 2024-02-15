@@ -10,6 +10,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.employee import Employee
 from ...types.employee_request import EmployeeRequest
 from ...types.employee_response import EmployeeResponse
@@ -72,6 +73,7 @@ class EmployeesClient:
         terminated_before: typing.Optional[dt.datetime] = None,
         work_email: typing.Optional[str] = None,
         work_location_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedEmployeeList:
         """
         Returns a list of `Employee` objects.
@@ -143,6 +145,8 @@ class EmployeesClient:
             - work_email: typing.Optional[str]. If provided, will only return Employees with this work email
 
             - work_location_id: typing.Optional[str]. If provided, will only return employees for this location.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.hris import (
@@ -166,46 +170,64 @@ class EmployeesClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employees"),
-            params=remove_none_from_dict(
-                {
-                    "company_id": company_id,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "display_full_name": display_full_name,
-                    "employment_status": employment_status,
-                    "employment_type": employment_type,
-                    "expand": expand,
-                    "first_name": first_name,
-                    "groups": groups,
-                    "home_location_id": home_location_id,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "include_sensitive_fields": include_sensitive_fields,
-                    "job_title": job_title,
-                    "last_name": last_name,
-                    "manager_id": manager_id,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "pay_group_id": pay_group_id,
-                    "personal_email": personal_email,
-                    "remote_fields": remote_fields,
-                    "remote_id": remote_id,
-                    "show_enum_origins": show_enum_origins,
-                    "started_after": serialize_datetime(started_after) if started_after is not None else None,
-                    "started_before": serialize_datetime(started_before) if started_before is not None else None,
-                    "team_id": team_id,
-                    "terminated_after": serialize_datetime(terminated_after) if terminated_after is not None else None,
-                    "terminated_before": serialize_datetime(terminated_before)
-                    if terminated_before is not None
-                    else None,
-                    "work_email": work_email,
-                    "work_location_id": work_location_id,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "company_id": company_id,
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "display_full_name": display_full_name,
+                        "employment_status": employment_status,
+                        "employment_type": employment_type,
+                        "expand": expand,
+                        "first_name": first_name,
+                        "groups": groups,
+                        "home_location_id": home_location_id,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "include_sensitive_fields": include_sensitive_fields,
+                        "job_title": job_title,
+                        "last_name": last_name,
+                        "manager_id": manager_id,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "pay_group_id": pay_group_id,
+                        "personal_email": personal_email,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "show_enum_origins": show_enum_origins,
+                        "started_after": serialize_datetime(started_after) if started_after is not None else None,
+                        "started_before": serialize_datetime(started_before) if started_before is not None else None,
+                        "team_id": team_id,
+                        "terminated_after": serialize_datetime(terminated_after)
+                        if terminated_after is not None
+                        else None,
+                        "terminated_before": serialize_datetime(terminated_before)
+                        if terminated_before is not None
+                        else None,
+                        "work_email": work_email,
+                        "work_location_id": work_location_id,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedEmployeeList, _response.json())  # type: ignore
@@ -221,6 +243,7 @@ class EmployeesClient:
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
         model: EmployeeRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> EmployeeResponse:
         """
         Creates an `Employee` object with the given values.
@@ -231,6 +254,8 @@ class EmployeesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: EmployeeRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         import datetime
 
@@ -272,10 +297,36 @@ class EmployeesClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employees"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(EmployeeResponse, _response.json())  # type: ignore
@@ -294,6 +345,7 @@ class EmployeesClient:
         include_sensitive_fields: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EmployeesRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[EmployeesRetrieveRequestShowEnumOrigins] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Employee:
         """
         Returns an `Employee` object with the given `id`.
@@ -310,6 +362,8 @@ class EmployeesClient:
             - remote_fields: typing.Optional[EmployeesRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[EmployeesRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.hris import (
@@ -323,7 +377,7 @@ class EmployeesClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.employees.retrieve(
-            id="id",
+            id="string",
             expand=EmployeesRetrieveRequestExpand.COMPANY,
             remote_fields=EmployeesRetrieveRequestRemoteFields.EMPLOYMENT_STATUS,
             show_enum_origins=EmployeesRetrieveRequestShowEnumOrigins.EMPLOYMENT_STATUS,
@@ -332,17 +386,33 @@ class EmployeesClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employees/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "expand": expand,
-                    "include_remote_data": include_remote_data,
-                    "include_sensitive_fields": include_sensitive_fields,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        "include_sensitive_fields": include_sensitive_fields,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Employee, _response.json())  # type: ignore
@@ -353,7 +423,12 @@ class EmployeesClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def ignore_create(
-        self, model_id: str, *, reason: IgnoreCommonModelRequestReason, message: typing.Optional[str] = OMIT
+        self,
+        model_id: str,
+        *,
+        reason: IgnoreCommonModelRequestReason,
+        message: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
         Ignores a specific row based on the `model_id` in the url. These records will have their properties set to null, and will not be updated in future syncs. The "reason" and "message" fields in the request body will be stored for audit purposes.
@@ -364,6 +439,19 @@ class EmployeesClient:
             - reason: IgnoreCommonModelRequestReason.
 
             - message: typing.Optional[str].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.hris.employees.ignore_create(
+            model_id="string",
+            message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
+        )
         """
         _request: typing.Dict[str, typing.Any] = {"reason": reason}
         if message is not OMIT:
@@ -371,9 +459,26 @@ class EmployeesClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employees/ignore/{model_id}"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return
@@ -383,10 +488,12 @@ class EmployeesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def meta_post_retrieve(self) -> MetaResponse:
+    def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `Employee` POSTs.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -399,8 +506,20 @@ class EmployeesClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employees/meta/post"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
@@ -450,6 +569,7 @@ class AsyncEmployeesClient:
         terminated_before: typing.Optional[dt.datetime] = None,
         work_email: typing.Optional[str] = None,
         work_location_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedEmployeeList:
         """
         Returns a list of `Employee` objects.
@@ -521,6 +641,8 @@ class AsyncEmployeesClient:
             - work_email: typing.Optional[str]. If provided, will only return Employees with this work email
 
             - work_location_id: typing.Optional[str]. If provided, will only return employees for this location.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.hris import (
@@ -544,46 +666,64 @@ class AsyncEmployeesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employees"),
-            params=remove_none_from_dict(
-                {
-                    "company_id": company_id,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "display_full_name": display_full_name,
-                    "employment_status": employment_status,
-                    "employment_type": employment_type,
-                    "expand": expand,
-                    "first_name": first_name,
-                    "groups": groups,
-                    "home_location_id": home_location_id,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "include_sensitive_fields": include_sensitive_fields,
-                    "job_title": job_title,
-                    "last_name": last_name,
-                    "manager_id": manager_id,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "pay_group_id": pay_group_id,
-                    "personal_email": personal_email,
-                    "remote_fields": remote_fields,
-                    "remote_id": remote_id,
-                    "show_enum_origins": show_enum_origins,
-                    "started_after": serialize_datetime(started_after) if started_after is not None else None,
-                    "started_before": serialize_datetime(started_before) if started_before is not None else None,
-                    "team_id": team_id,
-                    "terminated_after": serialize_datetime(terminated_after) if terminated_after is not None else None,
-                    "terminated_before": serialize_datetime(terminated_before)
-                    if terminated_before is not None
-                    else None,
-                    "work_email": work_email,
-                    "work_location_id": work_location_id,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "company_id": company_id,
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "display_full_name": display_full_name,
+                        "employment_status": employment_status,
+                        "employment_type": employment_type,
+                        "expand": expand,
+                        "first_name": first_name,
+                        "groups": groups,
+                        "home_location_id": home_location_id,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "include_sensitive_fields": include_sensitive_fields,
+                        "job_title": job_title,
+                        "last_name": last_name,
+                        "manager_id": manager_id,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "pay_group_id": pay_group_id,
+                        "personal_email": personal_email,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "show_enum_origins": show_enum_origins,
+                        "started_after": serialize_datetime(started_after) if started_after is not None else None,
+                        "started_before": serialize_datetime(started_before) if started_before is not None else None,
+                        "team_id": team_id,
+                        "terminated_after": serialize_datetime(terminated_after)
+                        if terminated_after is not None
+                        else None,
+                        "terminated_before": serialize_datetime(terminated_before)
+                        if terminated_before is not None
+                        else None,
+                        "work_email": work_email,
+                        "work_location_id": work_location_id,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedEmployeeList, _response.json())  # type: ignore
@@ -599,6 +739,7 @@ class AsyncEmployeesClient:
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
         model: EmployeeRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> EmployeeResponse:
         """
         Creates an `Employee` object with the given values.
@@ -609,6 +750,8 @@ class AsyncEmployeesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: EmployeeRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         import datetime
 
@@ -650,10 +793,36 @@ class AsyncEmployeesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employees"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(EmployeeResponse, _response.json())  # type: ignore
@@ -672,6 +841,7 @@ class AsyncEmployeesClient:
         include_sensitive_fields: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EmployeesRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[EmployeesRetrieveRequestShowEnumOrigins] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Employee:
         """
         Returns an `Employee` object with the given `id`.
@@ -688,6 +858,8 @@ class AsyncEmployeesClient:
             - remote_fields: typing.Optional[EmployeesRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[EmployeesRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.hris import (
@@ -701,7 +873,7 @@ class AsyncEmployeesClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.employees.retrieve(
-            id="id",
+            id="string",
             expand=EmployeesRetrieveRequestExpand.COMPANY,
             remote_fields=EmployeesRetrieveRequestRemoteFields.EMPLOYMENT_STATUS,
             show_enum_origins=EmployeesRetrieveRequestShowEnumOrigins.EMPLOYMENT_STATUS,
@@ -710,17 +882,33 @@ class AsyncEmployeesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employees/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "expand": expand,
-                    "include_remote_data": include_remote_data,
-                    "include_sensitive_fields": include_sensitive_fields,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        "include_sensitive_fields": include_sensitive_fields,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(Employee, _response.json())  # type: ignore
@@ -731,7 +919,12 @@ class AsyncEmployeesClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def ignore_create(
-        self, model_id: str, *, reason: IgnoreCommonModelRequestReason, message: typing.Optional[str] = OMIT
+        self,
+        model_id: str,
+        *,
+        reason: IgnoreCommonModelRequestReason,
+        message: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
         Ignores a specific row based on the `model_id` in the url. These records will have their properties set to null, and will not be updated in future syncs. The "reason" and "message" fields in the request body will be stored for audit purposes.
@@ -742,6 +935,19 @@ class AsyncEmployeesClient:
             - reason: IgnoreCommonModelRequestReason.
 
             - message: typing.Optional[str].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.hris.employees.ignore_create(
+            model_id="string",
+            message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
+        )
         """
         _request: typing.Dict[str, typing.Any] = {"reason": reason}
         if message is not OMIT:
@@ -749,9 +955,26 @@ class AsyncEmployeesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employees/ignore/{model_id}"),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return
@@ -761,10 +984,12 @@ class AsyncEmployeesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def meta_post_retrieve(self) -> MetaResponse:
+    async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `Employee` POSTs.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -777,8 +1002,20 @@ class AsyncEmployeesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employees/meta/post"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore

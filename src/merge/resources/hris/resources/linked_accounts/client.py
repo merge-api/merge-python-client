@@ -6,7 +6,9 @@ from json.decoder import JSONDecodeError
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
 from .types.linked_accounts_list_request_category import LinkedAccountsListRequestCategory
 
@@ -36,6 +38,7 @@ class LinkedAccountsClient:
         is_test_account: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         status: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedAccountDetailsAndActionsList:
         """
         List linked accounts for your organization.
@@ -73,6 +76,8 @@ class LinkedAccountsClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - status: typing.Optional[str]. Filter by status. Options: `COMPLETE`, `INCOMPLETE`, `RELINK_NEEDED`
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.hris import LinkedAccountsListRequestCategory
@@ -88,25 +93,41 @@ class LinkedAccountsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/linked-accounts"),
-            params=remove_none_from_dict(
-                {
-                    "category": category,
-                    "cursor": cursor,
-                    "end_user_email_address": end_user_email_address,
-                    "end_user_organization_name": end_user_organization_name,
-                    "end_user_origin_id": end_user_origin_id,
-                    "end_user_origin_ids": end_user_origin_ids,
-                    "id": id,
-                    "ids": ids,
-                    "include_duplicates": include_duplicates,
-                    "integration_name": integration_name,
-                    "is_test_account": is_test_account,
-                    "page_size": page_size,
-                    "status": status,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "category": category,
+                        "cursor": cursor,
+                        "end_user_email_address": end_user_email_address,
+                        "end_user_organization_name": end_user_organization_name,
+                        "end_user_origin_id": end_user_origin_id,
+                        "end_user_origin_ids": end_user_origin_ids,
+                        "id": id,
+                        "ids": ids,
+                        "include_duplicates": include_duplicates,
+                        "integration_name": integration_name,
+                        "is_test_account": is_test_account,
+                        "page_size": page_size,
+                        "status": status,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedAccountDetailsAndActionsList, _response.json())  # type: ignore
@@ -137,6 +158,7 @@ class AsyncLinkedAccountsClient:
         is_test_account: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         status: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedAccountDetailsAndActionsList:
         """
         List linked accounts for your organization.
@@ -174,6 +196,8 @@ class AsyncLinkedAccountsClient:
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - status: typing.Optional[str]. Filter by status. Options: `COMPLETE`, `INCOMPLETE`, `RELINK_NEEDED`
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.hris import LinkedAccountsListRequestCategory
@@ -189,25 +213,41 @@ class AsyncLinkedAccountsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/linked-accounts"),
-            params=remove_none_from_dict(
-                {
-                    "category": category,
-                    "cursor": cursor,
-                    "end_user_email_address": end_user_email_address,
-                    "end_user_organization_name": end_user_organization_name,
-                    "end_user_origin_id": end_user_origin_id,
-                    "end_user_origin_ids": end_user_origin_ids,
-                    "id": id,
-                    "ids": ids,
-                    "include_duplicates": include_duplicates,
-                    "integration_name": integration_name,
-                    "is_test_account": is_test_account,
-                    "page_size": page_size,
-                    "status": status,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "category": category,
+                        "cursor": cursor,
+                        "end_user_email_address": end_user_email_address,
+                        "end_user_organization_name": end_user_organization_name,
+                        "end_user_origin_id": end_user_origin_id,
+                        "end_user_origin_ids": end_user_origin_ids,
+                        "id": id,
+                        "ids": ids,
+                        "include_duplicates": include_duplicates,
+                        "integration_name": integration_name,
+                        "is_test_account": is_test_account,
+                        "page_size": page_size,
+                        "status": status,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedAccountDetailsAndActionsList, _response.json())  # type: ignore

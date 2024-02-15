@@ -10,6 +10,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.meta_response import MetaResponse
 from ...types.paginated_time_off_list import PaginatedTimeOffList
 from ...types.time_off import TimeOff
@@ -56,6 +57,7 @@ class TimeOffClient:
         request_type: typing.Optional[TimeOffListRequestRequestType] = None,
         show_enum_origins: typing.Optional[TimeOffListRequestShowEnumOrigins] = None,
         status: typing.Optional[TimeOffListRequestStatus] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedTimeOffList:
         """
         Returns a list of `TimeOff` objects.
@@ -103,7 +105,9 @@ class TimeOffClient:
                                                                  - `APPROVED` - APPROVED
                                                                  - `DECLINED` - DECLINED
                                                                  - `CANCELLED` - CANCELLED
-                                                                 - `DELETED` - DELETED---
+                                                                 - `DELETED` - DELETED
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
         from merge.client import Merge
         from merge.resources.hris import (
             TimeOffListRequestExpand,
@@ -128,28 +132,44 @@ class TimeOffClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off"),
-            params=remove_none_from_dict(
-                {
-                    "approver_id": approver_id,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "employee_id": employee_id,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "remote_fields": remote_fields,
-                    "remote_id": remote_id,
-                    "request_type": request_type,
-                    "show_enum_origins": show_enum_origins,
-                    "status": status,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "approver_id": approver_id,
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "employee_id": employee_id,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "request_type": request_type,
+                        "show_enum_origins": show_enum_origins,
+                        "status": status,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedTimeOffList, _response.json())  # type: ignore
@@ -165,6 +185,7 @@ class TimeOffClient:
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
         model: TimeOffRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TimeOffResponse:
         """
         Creates a `TimeOff` object with the given values.
@@ -175,6 +196,8 @@ class TimeOffClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: TimeOffRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         import datetime
 
@@ -201,10 +224,36 @@ class TimeOffClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TimeOffResponse, _response.json())  # type: ignore
@@ -222,6 +271,7 @@ class TimeOffClient:
         include_remote_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[TimeOffRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[TimeOffRetrieveRequestShowEnumOrigins] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TimeOff:
         """
         Returns a `TimeOff` object with the given `id`.
@@ -236,6 +286,8 @@ class TimeOffClient:
             - remote_fields: typing.Optional[TimeOffRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[TimeOffRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.hris import (
@@ -249,7 +301,7 @@ class TimeOffClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.time_off.retrieve(
-            id="id",
+            id="string",
             expand=TimeOffRetrieveRequestExpand.APPROVER,
             remote_fields=TimeOffRetrieveRequestRemoteFields.REQUEST_TYPE,
             show_enum_origins=TimeOffRetrieveRequestShowEnumOrigins.REQUEST_TYPE,
@@ -258,16 +310,32 @@ class TimeOffClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/time-off/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "expand": expand,
-                    "include_remote_data": include_remote_data,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TimeOff, _response.json())  # type: ignore
@@ -277,10 +345,12 @@ class TimeOffClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def meta_post_retrieve(self) -> MetaResponse:
+    def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `TimeOff` POSTs.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -293,8 +363,20 @@ class TimeOffClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off/meta/post"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
@@ -328,6 +410,7 @@ class AsyncTimeOffClient:
         request_type: typing.Optional[TimeOffListRequestRequestType] = None,
         show_enum_origins: typing.Optional[TimeOffListRequestShowEnumOrigins] = None,
         status: typing.Optional[TimeOffListRequestStatus] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedTimeOffList:
         """
         Returns a list of `TimeOff` objects.
@@ -375,7 +458,9 @@ class AsyncTimeOffClient:
                                                                  - `APPROVED` - APPROVED
                                                                  - `DECLINED` - DECLINED
                                                                  - `CANCELLED` - CANCELLED
-                                                                 - `DELETED` - DELETED---
+                                                                 - `DELETED` - DELETED
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
         from merge.client import AsyncMerge
         from merge.resources.hris import (
             TimeOffListRequestExpand,
@@ -400,28 +485,44 @@ class AsyncTimeOffClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off"),
-            params=remove_none_from_dict(
-                {
-                    "approver_id": approver_id,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "employee_id": employee_id,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "remote_fields": remote_fields,
-                    "remote_id": remote_id,
-                    "request_type": request_type,
-                    "show_enum_origins": show_enum_origins,
-                    "status": status,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "approver_id": approver_id,
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "employee_id": employee_id,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "request_type": request_type,
+                        "show_enum_origins": show_enum_origins,
+                        "status": status,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedTimeOffList, _response.json())  # type: ignore
@@ -437,6 +538,7 @@ class AsyncTimeOffClient:
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
         model: TimeOffRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TimeOffResponse:
         """
         Creates a `TimeOff` object with the given values.
@@ -447,6 +549,8 @@ class AsyncTimeOffClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: TimeOffRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         import datetime
 
@@ -473,10 +577,36 @@ class AsyncTimeOffClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TimeOffResponse, _response.json())  # type: ignore
@@ -494,6 +624,7 @@ class AsyncTimeOffClient:
         include_remote_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[TimeOffRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[TimeOffRetrieveRequestShowEnumOrigins] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TimeOff:
         """
         Returns a `TimeOff` object with the given `id`.
@@ -508,6 +639,8 @@ class AsyncTimeOffClient:
             - remote_fields: typing.Optional[TimeOffRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
             - show_enum_origins: typing.Optional[TimeOffRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.hris import (
@@ -521,7 +654,7 @@ class AsyncTimeOffClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.time_off.retrieve(
-            id="id",
+            id="string",
             expand=TimeOffRetrieveRequestExpand.APPROVER,
             remote_fields=TimeOffRetrieveRequestRemoteFields.REQUEST_TYPE,
             show_enum_origins=TimeOffRetrieveRequestShowEnumOrigins.REQUEST_TYPE,
@@ -530,16 +663,32 @@ class AsyncTimeOffClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/time-off/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "expand": expand,
-                    "include_remote_data": include_remote_data,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TimeOff, _response.json())  # type: ignore
@@ -549,10 +698,12 @@ class AsyncTimeOffClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def meta_post_retrieve(self) -> MetaResponse:
+    async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `TimeOff` POSTs.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -565,8 +716,20 @@ class AsyncTimeOffClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off/meta/post"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore

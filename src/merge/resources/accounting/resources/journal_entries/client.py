@@ -10,6 +10,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.journal_entry import JournalEntry
 from ...types.journal_entry_request import JournalEntryRequest
 from ...types.journal_entry_response import JournalEntryResponse
@@ -47,6 +48,7 @@ class JournalEntriesClient:
         remote_id: typing.Optional[str] = None,
         transaction_date_after: typing.Optional[dt.datetime] = None,
         transaction_date_before: typing.Optional[dt.datetime] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedJournalEntryList:
         """
         Returns a list of `JournalEntry` objects.
@@ -77,6 +79,8 @@ class JournalEntriesClient:
             - transaction_date_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.accounting import JournalEntriesListRequestExpand
@@ -92,29 +96,45 @@ class JournalEntriesClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries"),
-            params=remove_none_from_dict(
-                {
-                    "company_id": company_id,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "remote_id": remote_id,
-                    "transaction_date_after": serialize_datetime(transaction_date_after)
-                    if transaction_date_after is not None
-                    else None,
-                    "transaction_date_before": serialize_datetime(transaction_date_before)
-                    if transaction_date_before is not None
-                    else None,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "company_id": company_id,
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "remote_id": remote_id,
+                        "transaction_date_after": serialize_datetime(transaction_date_after)
+                        if transaction_date_after is not None
+                        else None,
+                        "transaction_date_before": serialize_datetime(transaction_date_before)
+                        if transaction_date_before is not None
+                        else None,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedJournalEntryList, _response.json())  # type: ignore
@@ -130,6 +150,7 @@ class JournalEntriesClient:
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
         model: JournalEntryRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> JournalEntryResponse:
         """
         Creates a `JournalEntry` object with the given values.
@@ -140,36 +161,53 @@ class JournalEntriesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: JournalEntryRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import JournalEntryRequest, JournalLineRequest
+        from merge.resources.accounting import JournalEntryRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.journal_entries.create(
-            model=JournalEntryRequest(
-                lines=[
-                    JournalLineRequest(
-                        remote_id="121222",
-                        net_amount=25.54,
-                        company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
-                        contact="d2d5ea3c-b032-11ec-b909-0242ac120002",
-                        description="Cash payment for lunch",
-                        exchange_rate="2.9",
-                    )
-                ],
-            ),
+            model=JournalEntryRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(JournalEntryResponse, _response.json())  # type: ignore
@@ -185,6 +223,7 @@ class JournalEntriesClient:
         *,
         expand: typing.Optional[JournalEntriesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> JournalEntry:
         """
         Returns a `JournalEntry` object with the given `id`.
@@ -195,6 +234,8 @@ class JournalEntriesClient:
             - expand: typing.Optional[JournalEntriesRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.accounting import JournalEntriesRetrieveRequestExpand
@@ -204,16 +245,37 @@ class JournalEntriesClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.journal_entries.retrieve(
-            id="id",
+            id="string",
             expand=JournalEntriesRetrieveRequestExpand.ACCOUNTING_PERIOD,
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/journal-entries/{id}"),
-            params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(JournalEntry, _response.json())  # type: ignore
@@ -223,10 +285,12 @@ class JournalEntriesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def meta_post_retrieve(self) -> MetaResponse:
+    def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `JournalEntry` POSTs.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -241,8 +305,20 @@ class JournalEntriesClient:
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries/meta/post"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
@@ -273,6 +349,7 @@ class AsyncJournalEntriesClient:
         remote_id: typing.Optional[str] = None,
         transaction_date_after: typing.Optional[dt.datetime] = None,
         transaction_date_before: typing.Optional[dt.datetime] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedJournalEntryList:
         """
         Returns a list of `JournalEntry` objects.
@@ -303,6 +380,8 @@ class AsyncJournalEntriesClient:
             - transaction_date_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
 
             - transaction_date_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.accounting import JournalEntriesListRequestExpand
@@ -318,29 +397,45 @@ class AsyncJournalEntriesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries"),
-            params=remove_none_from_dict(
-                {
-                    "company_id": company_id,
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "remote_id": remote_id,
-                    "transaction_date_after": serialize_datetime(transaction_date_after)
-                    if transaction_date_after is not None
-                    else None,
-                    "transaction_date_before": serialize_datetime(transaction_date_before)
-                    if transaction_date_before is not None
-                    else None,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "company_id": company_id,
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "remote_id": remote_id,
+                        "transaction_date_after": serialize_datetime(transaction_date_after)
+                        if transaction_date_after is not None
+                        else None,
+                        "transaction_date_before": serialize_datetime(transaction_date_before)
+                        if transaction_date_before is not None
+                        else None,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedJournalEntryList, _response.json())  # type: ignore
@@ -356,6 +451,7 @@ class AsyncJournalEntriesClient:
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
         model: JournalEntryRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> JournalEntryResponse:
         """
         Creates a `JournalEntry` object with the given values.
@@ -366,36 +462,53 @@ class AsyncJournalEntriesClient:
             - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
 
             - model: JournalEntryRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import JournalEntryRequest, JournalLineRequest
+        from merge.resources.accounting import JournalEntryRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.accounting.journal_entries.create(
-            model=JournalEntryRequest(
-                lines=[
-                    JournalLineRequest(
-                        remote_id="121222",
-                        net_amount=25.54,
-                        company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
-                        contact="d2d5ea3c-b032-11ec-b909-0242ac120002",
-                        description="Cash payment for lunch",
-                        exchange_rate="2.9",
-                    )
-                ],
-            ),
+            model=JournalEntryRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries"),
-            params=remove_none_from_dict({"is_debug_mode": is_debug_mode, "run_async": run_async}),
-            json=jsonable_encoder({"model": model}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(JournalEntryResponse, _response.json())  # type: ignore
@@ -411,6 +524,7 @@ class AsyncJournalEntriesClient:
         *,
         expand: typing.Optional[JournalEntriesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> JournalEntry:
         """
         Returns a `JournalEntry` object with the given `id`.
@@ -421,6 +535,8 @@ class AsyncJournalEntriesClient:
             - expand: typing.Optional[JournalEntriesRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.accounting import JournalEntriesRetrieveRequestExpand
@@ -430,16 +546,37 @@ class AsyncJournalEntriesClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.journal_entries.retrieve(
-            id="id",
+            id="string",
             expand=JournalEntriesRetrieveRequestExpand.ACCOUNTING_PERIOD,
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/journal-entries/{id}"),
-            params=remove_none_from_dict({"expand": expand, "include_remote_data": include_remote_data}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(JournalEntry, _response.json())  # type: ignore
@@ -449,10 +586,12 @@ class AsyncJournalEntriesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def meta_post_retrieve(self) -> MetaResponse:
+    async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `JournalEntry` POSTs.
 
+        Parameters:
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -467,8 +606,20 @@ class AsyncJournalEntriesClient:
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries/meta/post"
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore

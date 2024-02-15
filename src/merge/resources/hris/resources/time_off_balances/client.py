@@ -5,12 +5,12 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import typing_extensions
-
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
+from .....core.jsonable_encoder import jsonable_encoder
 from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.request_options import RequestOptions
 from ...types.paginated_time_off_balance_list import PaginatedTimeOffBalanceList
 from ...types.time_off_balance import TimeOffBalance
 from .types.time_off_balances_list_request_policy_type import TimeOffBalancesListRequestPolicyType
@@ -32,16 +32,17 @@ class TimeOffBalancesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[typing_extensions.Literal["employee"]] = None,
+        expand: typing.Optional[typing.Literal["employee"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
         policy_type: typing.Optional[TimeOffBalancesListRequestPolicyType] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["policy_type"]] = None,
+        remote_fields: typing.Optional[typing.Literal["policy_type"]] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["policy_type"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["policy_type"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedTimeOffBalanceList:
         """
         Returns a list of `TimeOffBalance` objects.
@@ -55,7 +56,7 @@ class TimeOffBalancesClient:
 
             - employee_id: typing.Optional[str]. If provided, will only return time off balances for this employee.
 
-            - expand: typing.Optional[typing_extensions.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+            - expand: typing.Optional[typing.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
@@ -75,11 +76,13 @@ class TimeOffBalancesClient:
                                                                                   - `JURY_DUTY` - JURY_DUTY
                                                                                   - `VOLUNTEER` - VOLUNTEER
                                                                                   - `BEREAVEMENT` - BEREAVEMENT
-            - remote_fields: typing.Optional[typing_extensions.Literal["policy_type"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["policy_type"]]. Deprecated. Use show_enum_origins.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["policy_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["policy_type"]]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
         from merge.resources.hris import TimeOffBalancesListRequestPolicyType
@@ -98,26 +101,42 @@ class TimeOffBalancesClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off-balances"),
-            params=remove_none_from_dict(
-                {
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "employee_id": employee_id,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "policy_type": policy_type,
-                    "remote_fields": remote_fields,
-                    "remote_id": remote_id,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "employee_id": employee_id,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "policy_type": policy_type,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedTimeOffBalanceList, _response.json())  # type: ignore
@@ -131,10 +150,11 @@ class TimeOffBalancesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing_extensions.Literal["employee"]] = None,
+        expand: typing.Optional[typing.Literal["employee"]] = None,
         include_remote_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["policy_type"]] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["policy_type"]] = None,
+        remote_fields: typing.Optional[typing.Literal["policy_type"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["policy_type"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TimeOffBalance:
         """
         Returns a `TimeOffBalance` object with the given `id`.
@@ -142,13 +162,15 @@ class TimeOffBalancesClient:
         Parameters:
             - id: str.
 
-            - expand: typing.Optional[typing_extensions.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+            - expand: typing.Optional[typing.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["policy_type"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["policy_type"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["policy_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["policy_type"]]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
 
@@ -157,7 +179,7 @@ class TimeOffBalancesClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.time_off_balances.retrieve(
-            id="id",
+            id="string",
             expand="employee",
             remote_fields="policy_type",
             show_enum_origins="policy_type",
@@ -166,16 +188,32 @@ class TimeOffBalancesClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/time-off-balances/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "expand": expand,
-                    "include_remote_data": include_remote_data,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TimeOffBalance, _response.json())  # type: ignore
@@ -197,16 +235,17 @@ class AsyncTimeOffBalancesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[typing_extensions.Literal["employee"]] = None,
+        expand: typing.Optional[typing.Literal["employee"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
         policy_type: typing.Optional[TimeOffBalancesListRequestPolicyType] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["policy_type"]] = None,
+        remote_fields: typing.Optional[typing.Literal["policy_type"]] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["policy_type"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["policy_type"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedTimeOffBalanceList:
         """
         Returns a list of `TimeOffBalance` objects.
@@ -220,7 +259,7 @@ class AsyncTimeOffBalancesClient:
 
             - employee_id: typing.Optional[str]. If provided, will only return time off balances for this employee.
 
-            - expand: typing.Optional[typing_extensions.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+            - expand: typing.Optional[typing.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
@@ -240,11 +279,13 @@ class AsyncTimeOffBalancesClient:
                                                                                   - `JURY_DUTY` - JURY_DUTY
                                                                                   - `VOLUNTEER` - VOLUNTEER
                                                                                   - `BEREAVEMENT` - BEREAVEMENT
-            - remote_fields: typing.Optional[typing_extensions.Literal["policy_type"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["policy_type"]]. Deprecated. Use show_enum_origins.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["policy_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["policy_type"]]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
         from merge.resources.hris import TimeOffBalancesListRequestPolicyType
@@ -263,26 +304,42 @@ class AsyncTimeOffBalancesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off-balances"),
-            params=remove_none_from_dict(
-                {
-                    "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                    "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                    "cursor": cursor,
-                    "employee_id": employee_id,
-                    "expand": expand,
-                    "include_deleted_data": include_deleted_data,
-                    "include_remote_data": include_remote_data,
-                    "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                    "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                    "page_size": page_size,
-                    "policy_type": policy_type,
-                    "remote_fields": remote_fields,
-                    "remote_id": remote_id,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                        "cursor": cursor,
+                        "employee_id": employee_id,
+                        "expand": expand,
+                        "include_deleted_data": include_deleted_data,
+                        "include_remote_data": include_remote_data,
+                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "page_size": page_size,
+                        "policy_type": policy_type,
+                        "remote_fields": remote_fields,
+                        "remote_id": remote_id,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(PaginatedTimeOffBalanceList, _response.json())  # type: ignore
@@ -296,10 +353,11 @@ class AsyncTimeOffBalancesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing_extensions.Literal["employee"]] = None,
+        expand: typing.Optional[typing.Literal["employee"]] = None,
         include_remote_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing_extensions.Literal["policy_type"]] = None,
-        show_enum_origins: typing.Optional[typing_extensions.Literal["policy_type"]] = None,
+        remote_fields: typing.Optional[typing.Literal["policy_type"]] = None,
+        show_enum_origins: typing.Optional[typing.Literal["policy_type"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TimeOffBalance:
         """
         Returns a `TimeOffBalance` object with the given `id`.
@@ -307,13 +365,15 @@ class AsyncTimeOffBalancesClient:
         Parameters:
             - id: str.
 
-            - expand: typing.Optional[typing_extensions.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+            - expand: typing.Optional[typing.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - remote_fields: typing.Optional[typing_extensions.Literal["policy_type"]]. Deprecated. Use show_enum_origins.
+            - remote_fields: typing.Optional[typing.Literal["policy_type"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing_extensions.Literal["policy_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["policy_type"]]. Which fields should be returned in non-normalized form.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
 
@@ -322,7 +382,7 @@ class AsyncTimeOffBalancesClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.time_off_balances.retrieve(
-            id="id",
+            id="string",
             expand="employee",
             remote_fields="policy_type",
             show_enum_origins="policy_type",
@@ -331,16 +391,32 @@ class AsyncTimeOffBalancesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/time-off-balances/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "expand": expand,
-                    "include_remote_data": include_remote_data,
-                    "remote_fields": remote_fields,
-                    "show_enum_origins": show_enum_origins,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "expand": expand,
+                        "include_remote_data": include_remote_data,
+                        "remote_fields": remote_fields,
+                        "show_enum_origins": show_enum_origins,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TimeOffBalance, _response.json())  # type: ignore
