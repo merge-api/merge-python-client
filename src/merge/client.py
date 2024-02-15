@@ -32,8 +32,8 @@ class Merge:
             httpx_client=httpx.Client(timeout=timeout) if httpx_client is None else httpx_client,
         )
         self.ats = AtsClient(client_wrapper=self._client_wrapper)
-        self.crm = CrmClient(client_wrapper=self._client_wrapper)
         self.filestorage = FilestorageClient(client_wrapper=self._client_wrapper)
+        self.crm = CrmClient(client_wrapper=self._client_wrapper)
         self.hris = HrisClient(client_wrapper=self._client_wrapper)
         self.ticketing = TicketingClient(client_wrapper=self._client_wrapper)
         self.accounting = AccountingClient(client_wrapper=self._client_wrapper)
@@ -57,8 +57,8 @@ class AsyncMerge:
             httpx_client=httpx.AsyncClient(timeout=timeout) if httpx_client is None else httpx_client,
         )
         self.ats = AsyncAtsClient(client_wrapper=self._client_wrapper)
-        self.crm = AsyncCrmClient(client_wrapper=self._client_wrapper)
         self.filestorage = AsyncFilestorageClient(client_wrapper=self._client_wrapper)
+        self.crm = AsyncCrmClient(client_wrapper=self._client_wrapper)
         self.hris = AsyncHrisClient(client_wrapper=self._client_wrapper)
         self.ticketing = AsyncTicketingClient(client_wrapper=self._client_wrapper)
         self.accounting = AsyncAccountingClient(client_wrapper=self._client_wrapper)
