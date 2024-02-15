@@ -23,13 +23,10 @@ jobs:
       - name: Set up python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.7
+          python-version: 3.8
       - name: Bootstrap poetry
         run: |
-          curl --location --show-error --silent --output poetry.py https://install.python-poetry.org \
-          && echo '66db5477a597b6176202ef77792076057ce50d2c5a2d2d2978c63e1f144d7b95' poetry.py | sha256sum -c \
-          && python poetry.py -y --version 1.5.1 \
-          && rm poetry.py
+          curl -sSL https://install.python-poetry.org | python - -y --version 1.5.1
       - name: Install dependencies
         run: poetry install
       - name: Compile
@@ -42,13 +39,10 @@ jobs:
       - name: Set up python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.7
+          python-version: 3.8
       - name: Bootstrap poetry
         run: |
-          curl --location --show-error --silent --output poetry.py https://install.python-poetry.org \
-          && echo '66db5477a597b6176202ef77792076057ce50d2c5a2d2d2978c63e1f144d7b95' poetry.py | sha256sum -c \
-          && python poetry.py -y --version 1.5.1 \
-          && rm poetry.py
+          curl -sSL https://install.python-poetry.org | python - -y --version 1.5.1
       - name: Install dependencies
         run: poetry install
       - name: Test
@@ -70,13 +64,10 @@ jobs:
       - name: Set up python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.7
+          python-version: 3.8
       - name: Bootstrap poetry
         run: |
-          curl --location --show-error --silent --output poetry.py https://install.python-poetry.org \
-          && echo '66db5477a597b6176202ef77792076057ce50d2c5a2d2d2978c63e1f144d7b95' poetry.py | sha256sum -c \
-          && python poetry.py -y --version 1.5.1 \
-          && rm poetry.py
+          curl -sSL https://install.python-poetry.org | python - -y --version 1.5.1
       - name: Install dependencies
         run: poetry install
       - name: Publish to pypi
