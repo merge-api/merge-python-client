@@ -31,6 +31,7 @@ from .address_request_country import AddressRequestCountry
 from .address_request_type import AddressRequestType
 from .address_type import AddressType
 from .address_type_enum import AddressTypeEnum
+from .advanced_metadata import AdvancedMetadata
 from .async_passthrough_reciept import AsyncPassthroughReciept
 from .audit_log_event import AuditLogEvent
 from .audit_log_event_event_type import AuditLogEventEventType
@@ -46,6 +47,7 @@ from .categories_enum import CategoriesEnum
 from .category_enum import CategoryEnum
 from .category_type_enum import CategoryTypeEnum
 from .classification_enum import ClassificationEnum
+from .common_model_scope_api import CommonModelScopeApi
 from .common_model_scopes_body_request import CommonModelScopesBodyRequest
 from .company_info import CompanyInfo
 from .company_info_currency import CompanyInfoCurrency
@@ -110,9 +112,23 @@ from .expense_request_currency import ExpenseRequestCurrency
 from .expense_request_tracking_categories_item import ExpenseRequestTrackingCategoriesItem
 from .expense_response import ExpenseResponse
 from .expense_tracking_categories_item import ExpenseTrackingCategoriesItem
+from .external_target_field_api import ExternalTargetFieldApi
+from .external_target_field_api_response import ExternalTargetFieldApiResponse
+from .field_mapping_api_instance import FieldMappingApiInstance
+from .field_mapping_api_instance_remote_field import FieldMappingApiInstanceRemoteField
+from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
+    FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo,
+)
+from .field_mapping_api_instance_response import FieldMappingApiInstanceResponse
+from .field_mapping_api_instance_target_field import FieldMappingApiInstanceTargetField
+from .field_mapping_instance_response import FieldMappingInstanceResponse
+from .field_permission_deserializer import FieldPermissionDeserializer
+from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
 from .income_statement import IncomeStatement
 from .income_statement_company import IncomeStatementCompany
 from .income_statement_currency import IncomeStatementCurrency
+from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
+from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
 from .invoice import Invoice
 from .invoice_accounting_period import InvoiceAccountingPeriod
 from .invoice_applied_payments_item import InvoiceAppliedPaymentsItem
@@ -190,6 +206,8 @@ from .linked_account_status import LinkedAccountStatus
 from .meta_response import MetaResponse
 from .method_enum import MethodEnum
 from .model_operation import ModelOperation
+from .model_permission_deserializer import ModelPermissionDeserializer
+from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
 from .multipart_form_field_request import MultipartFormFieldRequest
 from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
 from .operator_schema import OperatorSchema
@@ -261,6 +279,9 @@ from .purchase_order_status_enum import PurchaseOrderStatusEnum
 from .purchase_order_tracking_categories_item import PurchaseOrderTrackingCategoriesItem
 from .purchase_order_vendor import PurchaseOrderVendor
 from .remote_data import RemoteData
+from .remote_endpoint_info import RemoteEndpointInfo
+from .remote_field_api import RemoteFieldApi
+from .remote_field_api_response import RemoteFieldApiResponse
 from .remote_key import RemoteKey
 from .remote_response import RemoteResponse
 from .report_item import ReportItem
@@ -330,6 +351,7 @@ __all__ = [
     "AddressRequestType",
     "AddressType",
     "AddressTypeEnum",
+    "AdvancedMetadata",
     "AsyncPassthroughReciept",
     "AuditLogEvent",
     "AuditLogEventEventType",
@@ -345,6 +367,7 @@ __all__ = [
     "CategoryEnum",
     "CategoryTypeEnum",
     "ClassificationEnum",
+    "CommonModelScopeApi",
     "CommonModelScopesBodyRequest",
     "CompanyInfo",
     "CompanyInfoCurrency",
@@ -409,9 +432,21 @@ __all__ = [
     "ExpenseRequestTrackingCategoriesItem",
     "ExpenseResponse",
     "ExpenseTrackingCategoriesItem",
+    "ExternalTargetFieldApi",
+    "ExternalTargetFieldApiResponse",
+    "FieldMappingApiInstance",
+    "FieldMappingApiInstanceRemoteField",
+    "FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo",
+    "FieldMappingApiInstanceResponse",
+    "FieldMappingApiInstanceTargetField",
+    "FieldMappingInstanceResponse",
+    "FieldPermissionDeserializer",
+    "FieldPermissionDeserializerRequest",
     "IncomeStatement",
     "IncomeStatementCompany",
     "IncomeStatementCurrency",
+    "IndividualCommonModelScopeDeserializer",
+    "IndividualCommonModelScopeDeserializerRequest",
     "Invoice",
     "InvoiceAccountingPeriod",
     "InvoiceAppliedPaymentsItem",
@@ -489,6 +524,8 @@ __all__ = [
     "MetaResponse",
     "MethodEnum",
     "ModelOperation",
+    "ModelPermissionDeserializer",
+    "ModelPermissionDeserializerRequest",
     "MultipartFormFieldRequest",
     "MultipartFormFieldRequestEncoding",
     "OperatorSchema",
@@ -560,6 +597,9 @@ __all__ = [
     "PurchaseOrderTrackingCategoriesItem",
     "PurchaseOrderVendor",
     "RemoteData",
+    "RemoteEndpointInfo",
+    "RemoteFieldApi",
+    "RemoteFieldApiResponse",
     "RemoteKey",
     "RemoteResponse",
     "ReportItem",

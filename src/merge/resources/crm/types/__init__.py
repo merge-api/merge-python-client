@@ -18,6 +18,7 @@ from .address_request import AddressRequest
 from .address_request_address_type import AddressRequestAddressType
 from .address_request_country import AddressRequestCountry
 from .address_type_enum import AddressTypeEnum
+from .advanced_metadata import AdvancedMetadata
 from .association import Association
 from .association_association_type import AssociationAssociationType
 from .association_sub_type import AssociationSubType
@@ -32,6 +33,7 @@ from .available_actions import AvailableActions
 from .cardinality_enum import CardinalityEnum
 from .categories_enum import CategoriesEnum
 from .category_enum import CategoryEnum
+from .common_model_scope_api import CommonModelScopeApi
 from .common_model_scopes_body_request import CommonModelScopesBodyRequest
 from .condition_schema import ConditionSchema
 from .condition_schema_condition_type import ConditionSchemaConditionType
@@ -75,9 +77,23 @@ from .engagement_type import EngagementType
 from .engagement_type_activity_type import EngagementTypeActivityType
 from .error_validation_problem import ErrorValidationProblem
 from .event_type_enum import EventTypeEnum
+from .external_target_field_api import ExternalTargetFieldApi
+from .external_target_field_api_response import ExternalTargetFieldApiResponse
 from .field_format_enum import FieldFormatEnum
+from .field_mapping_api_instance import FieldMappingApiInstance
+from .field_mapping_api_instance_remote_field import FieldMappingApiInstanceRemoteField
+from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
+    FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo,
+)
+from .field_mapping_api_instance_response import FieldMappingApiInstanceResponse
+from .field_mapping_api_instance_target_field import FieldMappingApiInstanceTargetField
+from .field_mapping_instance_response import FieldMappingInstanceResponse
+from .field_permission_deserializer import FieldPermissionDeserializer
+from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
 from .field_type_enum import FieldTypeEnum
 from .ignore_common_model_request import IgnoreCommonModelRequest
+from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
+from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
 from .issue import Issue
 from .issue_status import IssueStatus
 from .issue_status_enum import IssueStatusEnum
@@ -102,6 +118,8 @@ from .linked_account_status import LinkedAccountStatus
 from .meta_response import MetaResponse
 from .method_enum import MethodEnum
 from .model_operation import ModelOperation
+from .model_permission_deserializer import ModelPermissionDeserializer
+from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
 from .multipart_form_field_request import MultipartFormFieldRequest
 from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
 from .note import Note
@@ -163,7 +181,10 @@ from .phone_number import PhoneNumber
 from .phone_number_request import PhoneNumberRequest
 from .reason_enum import ReasonEnum
 from .remote_data import RemoteData
+from .remote_endpoint_info import RemoteEndpointInfo
 from .remote_field import RemoteField
+from .remote_field_api import RemoteFieldApi
+from .remote_field_api_response import RemoteFieldApiResponse
 from .remote_field_class import RemoteFieldClass
 from .remote_field_class_field_choices_item import RemoteFieldClassFieldChoicesItem
 from .remote_field_class_field_format import RemoteFieldClassFieldFormat
@@ -223,6 +244,7 @@ __all__ = [
     "AddressRequestAddressType",
     "AddressRequestCountry",
     "AddressTypeEnum",
+    "AdvancedMetadata",
     "Association",
     "AssociationAssociationType",
     "AssociationSubType",
@@ -237,6 +259,7 @@ __all__ = [
     "CardinalityEnum",
     "CategoriesEnum",
     "CategoryEnum",
+    "CommonModelScopeApi",
     "CommonModelScopesBodyRequest",
     "ConditionSchema",
     "ConditionSchemaConditionType",
@@ -280,9 +303,21 @@ __all__ = [
     "EngagementTypeActivityType",
     "ErrorValidationProblem",
     "EventTypeEnum",
+    "ExternalTargetFieldApi",
+    "ExternalTargetFieldApiResponse",
     "FieldFormatEnum",
+    "FieldMappingApiInstance",
+    "FieldMappingApiInstanceRemoteField",
+    "FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo",
+    "FieldMappingApiInstanceResponse",
+    "FieldMappingApiInstanceTargetField",
+    "FieldMappingInstanceResponse",
+    "FieldPermissionDeserializer",
+    "FieldPermissionDeserializerRequest",
     "FieldTypeEnum",
     "IgnoreCommonModelRequest",
+    "IndividualCommonModelScopeDeserializer",
+    "IndividualCommonModelScopeDeserializerRequest",
     "Issue",
     "IssueStatus",
     "IssueStatusEnum",
@@ -307,6 +342,8 @@ __all__ = [
     "MetaResponse",
     "MethodEnum",
     "ModelOperation",
+    "ModelPermissionDeserializer",
+    "ModelPermissionDeserializerRequest",
     "MultipartFormFieldRequest",
     "MultipartFormFieldRequestEncoding",
     "Note",
@@ -368,7 +405,10 @@ __all__ = [
     "PhoneNumberRequest",
     "ReasonEnum",
     "RemoteData",
+    "RemoteEndpointInfo",
     "RemoteField",
+    "RemoteFieldApi",
+    "RemoteFieldApiResponse",
     "RemoteFieldClass",
     "RemoteFieldClassFieldChoicesItem",
     "RemoteFieldClassFieldFormat",

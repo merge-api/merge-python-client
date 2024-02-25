@@ -16,6 +16,7 @@ from .resources.candidates.client import AsyncCandidatesClient, CandidatesClient
 from .resources.delete_account.client import AsyncDeleteAccountClient, DeleteAccountClient
 from .resources.departments.client import AsyncDepartmentsClient, DepartmentsClient
 from .resources.eeocs.client import AsyncEeocsClient, EeocsClient
+from .resources.field_mapping.client import AsyncFieldMappingClient, FieldMappingClient
 from .resources.force_resync.client import AsyncForceResyncClient, ForceResyncClient
 from .resources.generate_key.client import AsyncGenerateKeyClient, GenerateKeyClient
 from .resources.interviews.client import AsyncInterviewsClient, InterviewsClient
@@ -32,6 +33,7 @@ from .resources.passthrough.client import (
 from .resources.passthrough.client import PassthroughClient
 from .resources.regenerate_key.client import AsyncRegenerateKeyClient, RegenerateKeyClient
 from .resources.reject_reasons.client import AsyncRejectReasonsClient, RejectReasonsClient
+from .resources.scopes.client import AsyncScopesClient, ScopesClient
 from .resources.scorecards.client import AsyncScorecardsClient, ScorecardsClient
 from .resources.selective_sync.client import AsyncSelectiveSyncClient, SelectiveSyncClient
 from .resources.sync_status.client import AsyncSyncStatusClient, SyncStatusClient
@@ -54,9 +56,11 @@ class AtsClient:
         self.audit_trail = AuditTrailClient(client_wrapper=self._client_wrapper)
         self.available_actions = AvailableActionsClient(client_wrapper=self._client_wrapper)
         self.candidates = CandidatesClient(client_wrapper=self._client_wrapper)
+        self.scopes = ScopesClient(client_wrapper=self._client_wrapper)
         self.delete_account = DeleteAccountClient(client_wrapper=self._client_wrapper)
         self.departments = DepartmentsClient(client_wrapper=self._client_wrapper)
         self.eeocs = EeocsClient(client_wrapper=self._client_wrapper)
+        self.field_mapping = FieldMappingClient(client_wrapper=self._client_wrapper)
         self.generate_key = GenerateKeyClient(client_wrapper=self._client_wrapper)
         self.interviews = InterviewsClient(client_wrapper=self._client_wrapper)
         self.issues = IssuesClient(client_wrapper=self._client_wrapper)
@@ -90,9 +94,11 @@ class AsyncAtsClient:
         self.audit_trail = AsyncAuditTrailClient(client_wrapper=self._client_wrapper)
         self.available_actions = AsyncAvailableActionsClient(client_wrapper=self._client_wrapper)
         self.candidates = AsyncCandidatesClient(client_wrapper=self._client_wrapper)
+        self.scopes = AsyncScopesClient(client_wrapper=self._client_wrapper)
         self.delete_account = AsyncDeleteAccountClient(client_wrapper=self._client_wrapper)
         self.departments = AsyncDepartmentsClient(client_wrapper=self._client_wrapper)
         self.eeocs = AsyncEeocsClient(client_wrapper=self._client_wrapper)
+        self.field_mapping = AsyncFieldMappingClient(client_wrapper=self._client_wrapper)
         self.generate_key = AsyncGenerateKeyClient(client_wrapper=self._client_wrapper)
         self.interviews = AsyncInterviewsClient(client_wrapper=self._client_wrapper)
         self.issues = AsyncIssuesClient(client_wrapper=self._client_wrapper)

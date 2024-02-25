@@ -12,6 +12,7 @@ from . import (
     comments,
     contacts,
     delete_account,
+    field_mapping,
     force_resync,
     generate_key,
     issues,
@@ -21,6 +22,7 @@ from . import (
     projects,
     regenerate_key,
     roles,
+    scopes,
     selective_sync,
     sync_status,
     tags,
@@ -29,7 +31,7 @@ from . import (
     users,
     webhook_receivers,
 )
-from .collections import CollectionsListRequestCollectionType, CollectionsUsersListRequestExpand
+from .collections import CollectionsUsersListRequestExpand
 from .comments import CommentsListRequestExpand, CommentsRetrieveRequestExpand
 from .issues import IssuesListRequestStatus
 from .linked_accounts import LinkedAccountsListRequestCategory
@@ -48,7 +50,6 @@ from .tickets import (
 from .users import UsersListRequestExpand, UsersRetrieveRequestExpand
 
 __all__ = [
-    "CollectionsListRequestCollectionType",
     "CollectionsUsersListRequestExpand",
     "CommentsListRequestExpand",
     "CommentsRetrieveRequestExpand",
@@ -77,6 +78,7 @@ __all__ = [
     "comments",
     "contacts",
     "delete_account",
+    "field_mapping",
     "force_resync",
     "generate_key",
     "issues",
@@ -86,6 +88,7 @@ __all__ = [
     "projects",
     "regenerate_key",
     "roles",
+    "scopes",
     "selective_sync",
     "sync_status",
     "tags",

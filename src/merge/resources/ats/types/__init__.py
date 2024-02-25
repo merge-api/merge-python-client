@@ -17,6 +17,7 @@ from .activity_response import ActivityResponse
 from .activity_type_enum import ActivityTypeEnum
 from .activity_user import ActivityUser
 from .activity_visibility import ActivityVisibility
+from .advanced_metadata import AdvancedMetadata
 from .application import Application
 from .application_candidate import ApplicationCandidate
 from .application_credited_to import ApplicationCreditedTo
@@ -50,6 +51,7 @@ from .candidate_request_attachments_item import CandidateRequestAttachmentsItem
 from .candidate_response import CandidateResponse
 from .categories_enum import CategoriesEnum
 from .category_enum import CategoryEnum
+from .common_model_scope_api import CommonModelScopeApi
 from .common_model_scopes_body_request import CommonModelScopesBodyRequest
 from .condition_schema import ConditionSchema
 from .condition_schema_condition_type import ConditionSchemaConditionType
@@ -74,7 +76,21 @@ from .enabled_actions_enum import EnabledActionsEnum
 from .encoding_enum import EncodingEnum
 from .error_validation_problem import ErrorValidationProblem
 from .event_type_enum import EventTypeEnum
+from .external_target_field_api import ExternalTargetFieldApi
+from .external_target_field_api_response import ExternalTargetFieldApiResponse
+from .field_mapping_api_instance import FieldMappingApiInstance
+from .field_mapping_api_instance_remote_field import FieldMappingApiInstanceRemoteField
+from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
+    FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo,
+)
+from .field_mapping_api_instance_response import FieldMappingApiInstanceResponse
+from .field_mapping_api_instance_target_field import FieldMappingApiInstanceTargetField
+from .field_mapping_instance_response import FieldMappingInstanceResponse
+from .field_permission_deserializer import FieldPermissionDeserializer
+from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
 from .gender_enum import GenderEnum
+from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
+from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
 from .issue import Issue
 from .issue_status import IssueStatus
 from .issue_status_enum import IssueStatusEnum
@@ -96,6 +112,8 @@ from .linked_account_status import LinkedAccountStatus
 from .meta_response import MetaResponse
 from .method_enum import MethodEnum
 from .model_operation import ModelOperation
+from .model_permission_deserializer import ModelPermissionDeserializer
+from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
 from .multipart_form_field_request import MultipartFormFieldRequest
 from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
 from .offer import Offer
@@ -137,6 +155,9 @@ from .race_enum import RaceEnum
 from .reason_enum import ReasonEnum
 from .reject_reason import RejectReason
 from .remote_data import RemoteData
+from .remote_endpoint_info import RemoteEndpointInfo
+from .remote_field_api import RemoteFieldApi
+from .remote_field_api_response import RemoteFieldApiResponse
 from .remote_key import RemoteKey
 from .remote_response import RemoteResponse
 from .remote_response_response_type import RemoteResponseResponseType
@@ -202,6 +223,7 @@ __all__ = [
     "ActivityTypeEnum",
     "ActivityUser",
     "ActivityVisibility",
+    "AdvancedMetadata",
     "Application",
     "ApplicationCandidate",
     "ApplicationCreditedTo",
@@ -235,6 +257,7 @@ __all__ = [
     "CandidateResponse",
     "CategoriesEnum",
     "CategoryEnum",
+    "CommonModelScopeApi",
     "CommonModelScopesBodyRequest",
     "ConditionSchema",
     "ConditionSchemaConditionType",
@@ -259,7 +282,19 @@ __all__ = [
     "EncodingEnum",
     "ErrorValidationProblem",
     "EventTypeEnum",
+    "ExternalTargetFieldApi",
+    "ExternalTargetFieldApiResponse",
+    "FieldMappingApiInstance",
+    "FieldMappingApiInstanceRemoteField",
+    "FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo",
+    "FieldMappingApiInstanceResponse",
+    "FieldMappingApiInstanceTargetField",
+    "FieldMappingInstanceResponse",
+    "FieldPermissionDeserializer",
+    "FieldPermissionDeserializerRequest",
     "GenderEnum",
+    "IndividualCommonModelScopeDeserializer",
+    "IndividualCommonModelScopeDeserializerRequest",
     "Issue",
     "IssueStatus",
     "IssueStatusEnum",
@@ -281,6 +316,8 @@ __all__ = [
     "MetaResponse",
     "MethodEnum",
     "ModelOperation",
+    "ModelPermissionDeserializer",
+    "ModelPermissionDeserializerRequest",
     "MultipartFormFieldRequest",
     "MultipartFormFieldRequestEncoding",
     "Offer",
@@ -322,6 +359,9 @@ __all__ = [
     "ReasonEnum",
     "RejectReason",
     "RemoteData",
+    "RemoteEndpointInfo",
+    "RemoteFieldApi",
+    "RemoteFieldApiResponse",
     "RemoteKey",
     "RemoteResponse",
     "RemoteResponseResponseType",

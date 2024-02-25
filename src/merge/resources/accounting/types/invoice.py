@@ -39,7 +39,7 @@ class Invoice(pydantic.BaseModel):
     id: typing.Optional[str]
     type: typing.Optional[InvoiceType] = pydantic.Field(
         description=(
-            "Whether the invoice is an accounts receivable or accounts payable. If `type` is `accounts_payable`, the invoice is a bill. If `type` is `accounts_receivable`, it is an invoice.\n"
+            "Whether the invoice is an accounts receivable or accounts payable. If `type` is `ACCOUNTS_PAYABLE`, the invoice is a bill. If `type` is `ACCOUNTS_RECEIVABLE`, it is an invoice.\n"
             "\n"
             "- `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE\n"
             "- `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE\n"

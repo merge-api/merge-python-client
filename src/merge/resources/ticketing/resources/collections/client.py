@@ -14,7 +14,6 @@ from .....core.request_options import RequestOptions
 from ...types.collection import Collection
 from ...types.paginated_collection_list import PaginatedCollectionList
 from ...types.paginated_user_list import PaginatedUserList
-from .types.collections_list_request_collection_type import CollectionsListRequestCollectionType
 from .types.collections_users_list_request_expand import CollectionsUsersListRequestExpand
 
 try:
@@ -30,7 +29,7 @@ class CollectionsClient:
     def list(
         self,
         *,
-        collection_type: typing.Optional[CollectionsListRequestCollectionType] = None,
+        collection_type: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
@@ -50,10 +49,8 @@ class CollectionsClient:
         Returns a list of `Collection` objects.
 
         Parameters:
-            - collection_type: typing.Optional[CollectionsListRequestCollectionType]. If provided, will only return collections of the given type.
+            - collection_type: typing.Optional[str]. If provided, will only return collections of the given type.
 
-                                                                                      - `LIST` - LIST
-                                                                                      - `PROJECT` - PROJECT
             - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
 
             - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
@@ -83,14 +80,12 @@ class CollectionsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ticketing import CollectionsListRequestCollectionType
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ticketing.collections.list(
-            collection_type=CollectionsListRequestCollectionType.LIST,
             expand="parent_collection",
             remote_fields="collection_type",
             show_enum_origins="collection_type",
@@ -311,7 +306,7 @@ class AsyncCollectionsClient:
     async def list(
         self,
         *,
-        collection_type: typing.Optional[CollectionsListRequestCollectionType] = None,
+        collection_type: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
@@ -331,10 +326,8 @@ class AsyncCollectionsClient:
         Returns a list of `Collection` objects.
 
         Parameters:
-            - collection_type: typing.Optional[CollectionsListRequestCollectionType]. If provided, will only return collections of the given type.
+            - collection_type: typing.Optional[str]. If provided, will only return collections of the given type.
 
-                                                                                      - `LIST` - LIST
-                                                                                      - `PROJECT` - PROJECT
             - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
 
             - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
@@ -364,14 +357,12 @@ class AsyncCollectionsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ticketing import CollectionsListRequestCollectionType
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.collections.list(
-            collection_type=CollectionsListRequestCollectionType.LIST,
             expand="parent_collection",
             remote_fields="collection_type",
             show_enum_origins="collection_type",

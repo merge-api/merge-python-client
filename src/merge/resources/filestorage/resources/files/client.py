@@ -173,7 +173,7 @@ class FilesClient:
                 file_url="https://drive.com/1234",
                 file_thumbnail_url="https://drive.com/1234/thumbnail.png",
                 size=1,
-                mime_type=".docx",
+                mime_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                 description="This file is OP",
             ),
         )
@@ -530,7 +530,7 @@ class AsyncFilesClient:
                 file_url="https://drive.com/1234",
                 file_thumbnail_url="https://drive.com/1234/thumbnail.png",
                 size=1,
-                mime_type=".docx",
+                mime_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                 description="This file is OP",
             ),
         )

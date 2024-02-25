@@ -27,14 +27,14 @@ class AccountIntegration(pydantic.BaseModel):
         description="The color of this integration used for buttons and text throughout the app and landing pages. <b>Choose a darker, saturated color.</b>"
     )
     slug: typing.Optional[str]
-    is_in_beta: typing.Optional[bool] = pydantic.Field(
-        description="If checked, this integration will not appear in the linking flow, and will appear elsewhere with a Beta tag."
-    )
     api_endpoints_to_documentation_urls: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(
         description="Mapping of API endpoints to documentation urls for support. Example: {'GET': [['/common-model-scopes', 'https://docs.merge.dev/accounting/common-model-scopes/#common_model_scopes_retrieve'],['/common-model-actions', 'https://docs.merge.dev/accounting/common-model-actions/#common_model_actions_retrieve']], 'POST': []}"
     )
     webhook_setup_guide_url: typing.Optional[str] = pydantic.Field(
         description="Setup guide URL for third party webhook creation. Exposed in Merge Docs."
+    )
+    category_beta_status: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(
+        description="Category or categories this integration is in beta status for."
     )
 
     def json(self, **kwargs: typing.Any) -> str:

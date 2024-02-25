@@ -18,6 +18,7 @@ from .resources.employee_payroll_runs.client import AsyncEmployeePayrollRunsClie
 from .resources.employees.client import AsyncEmployeesClient, EmployeesClient
 from .resources.employer_benefits.client import AsyncEmployerBenefitsClient, EmployerBenefitsClient
 from .resources.employments.client import AsyncEmploymentsClient, EmploymentsClient
+from .resources.field_mapping.client import AsyncFieldMappingClient, FieldMappingClient
 from .resources.force_resync.client import AsyncForceResyncClient, ForceResyncClient
 from .resources.generate_key.client import AsyncGenerateKeyClient, GenerateKeyClient
 from .resources.groups.client import AsyncGroupsClient, GroupsClient
@@ -32,6 +33,7 @@ from .resources.passthrough.client import PassthroughClient
 from .resources.pay_groups.client import AsyncPayGroupsClient, PayGroupsClient
 from .resources.payroll_runs.client import AsyncPayrollRunsClient, PayrollRunsClient
 from .resources.regenerate_key.client import AsyncRegenerateKeyClient, RegenerateKeyClient
+from .resources.scopes.client import AsyncScopesClient, ScopesClient
 from .resources.selective_sync.client import AsyncSelectiveSyncClient, SelectiveSyncClient
 from .resources.sync_status.client import AsyncSyncStatusClient, SyncStatusClient
 from .resources.teams.client import AsyncTeamsClient, TeamsClient
@@ -54,12 +56,14 @@ class HrisClient:
         self.bank_info = BankInfoClient(client_wrapper=self._client_wrapper)
         self.benefits = BenefitsClient(client_wrapper=self._client_wrapper)
         self.companies = CompaniesClient(client_wrapper=self._client_wrapper)
+        self.scopes = ScopesClient(client_wrapper=self._client_wrapper)
         self.delete_account = DeleteAccountClient(client_wrapper=self._client_wrapper)
         self.dependents = DependentsClient(client_wrapper=self._client_wrapper)
         self.employee_payroll_runs = EmployeePayrollRunsClient(client_wrapper=self._client_wrapper)
         self.employees = EmployeesClient(client_wrapper=self._client_wrapper)
         self.employer_benefits = EmployerBenefitsClient(client_wrapper=self._client_wrapper)
         self.employments = EmploymentsClient(client_wrapper=self._client_wrapper)
+        self.field_mapping = FieldMappingClient(client_wrapper=self._client_wrapper)
         self.generate_key = GenerateKeyClient(client_wrapper=self._client_wrapper)
         self.groups = GroupsClient(client_wrapper=self._client_wrapper)
         self.issues = IssuesClient(client_wrapper=self._client_wrapper)
@@ -91,12 +95,14 @@ class AsyncHrisClient:
         self.bank_info = AsyncBankInfoClient(client_wrapper=self._client_wrapper)
         self.benefits = AsyncBenefitsClient(client_wrapper=self._client_wrapper)
         self.companies = AsyncCompaniesClient(client_wrapper=self._client_wrapper)
+        self.scopes = AsyncScopesClient(client_wrapper=self._client_wrapper)
         self.delete_account = AsyncDeleteAccountClient(client_wrapper=self._client_wrapper)
         self.dependents = AsyncDependentsClient(client_wrapper=self._client_wrapper)
         self.employee_payroll_runs = AsyncEmployeePayrollRunsClient(client_wrapper=self._client_wrapper)
         self.employees = AsyncEmployeesClient(client_wrapper=self._client_wrapper)
         self.employer_benefits = AsyncEmployerBenefitsClient(client_wrapper=self._client_wrapper)
         self.employments = AsyncEmploymentsClient(client_wrapper=self._client_wrapper)
+        self.field_mapping = AsyncFieldMappingClient(client_wrapper=self._client_wrapper)
         self.generate_key = AsyncGenerateKeyClient(client_wrapper=self._client_wrapper)
         self.groups = AsyncGroupsClient(client_wrapper=self._client_wrapper)
         self.issues = AsyncIssuesClient(client_wrapper=self._client_wrapper)

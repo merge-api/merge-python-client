@@ -25,7 +25,7 @@ class ForceResyncClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[SyncStatus]:
         """
-        Force re-sync of all models. This is available for all organizations via the dashboard. Force re-sync is also available programmatically via API for monthly, quarterly, and highest sync frequency customers on the Core, Professional, or Enterprise plans. Doing so will consume a sync credit for the relevant linked account.
+        Force re-sync of all models. This is available for all organizations via the dashboard. Force re-sync is also available programmatically via API for monthly, quarterly, and highest sync frequency customers on the Launch, Professional, or Enterprise plans. Doing so will consume a sync credit for the relevant linked account.
 
         Parameters:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
@@ -76,7 +76,7 @@ class AsyncForceResyncClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[SyncStatus]:
         """
-        Force re-sync of all models. This is available for all organizations via the dashboard. Force re-sync is also available programmatically via API for monthly, quarterly, and highest sync frequency customers on the Core, Professional, or Enterprise plans. Doing so will consume a sync credit for the relevant linked account.
+        Force re-sync of all models. This is available for all organizations via the dashboard. Force re-sync is also available programmatically via API for monthly, quarterly, and highest sync frequency customers on the Launch, Professional, or Enterprise plans. Doing so will consume a sync credit for the relevant linked account.
 
         Parameters:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.

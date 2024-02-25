@@ -11,6 +11,7 @@ from .resources.audit_trail.client import AsyncAuditTrailClient, AuditTrailClien
 from .resources.available_actions.client import AsyncAvailableActionsClient, AvailableActionsClient
 from .resources.delete_account.client import AsyncDeleteAccountClient, DeleteAccountClient
 from .resources.drives.client import AsyncDrivesClient, DrivesClient
+from .resources.field_mapping.client import AsyncFieldMappingClient, FieldMappingClient
 from .resources.files.client import AsyncFilesClient, FilesClient
 from .resources.folders.client import AsyncFoldersClient, FoldersClient
 from .resources.force_resync.client import AsyncForceResyncClient, ForceResyncClient
@@ -24,6 +25,7 @@ from .resources.passthrough.client import (
 )
 from .resources.passthrough.client import PassthroughClient
 from .resources.regenerate_key.client import AsyncRegenerateKeyClient, RegenerateKeyClient
+from .resources.scopes.client import AsyncScopesClient, ScopesClient
 from .resources.selective_sync.client import AsyncSelectiveSyncClient, SelectiveSyncClient
 from .resources.sync_status.client import AsyncSyncStatusClient, SyncStatusClient
 from .resources.users.client import AsyncUsersClient, UsersClient
@@ -40,8 +42,10 @@ class FilestorageClient:
         )
         self.audit_trail = AuditTrailClient(client_wrapper=self._client_wrapper)
         self.available_actions = AvailableActionsClient(client_wrapper=self._client_wrapper)
+        self.scopes = ScopesClient(client_wrapper=self._client_wrapper)
         self.delete_account = DeleteAccountClient(client_wrapper=self._client_wrapper)
         self.drives = DrivesClient(client_wrapper=self._client_wrapper)
+        self.field_mapping = FieldMappingClient(client_wrapper=self._client_wrapper)
         self.files = FilesClient(client_wrapper=self._client_wrapper)
         self.folders = FoldersClient(client_wrapper=self._client_wrapper)
         self.generate_key = GenerateKeyClient(client_wrapper=self._client_wrapper)
@@ -66,8 +70,10 @@ class AsyncFilestorageClient:
         self.async_passthrough = AsyncAsyncPassthroughClient(client_wrapper=self._client_wrapper)
         self.audit_trail = AsyncAuditTrailClient(client_wrapper=self._client_wrapper)
         self.available_actions = AsyncAvailableActionsClient(client_wrapper=self._client_wrapper)
+        self.scopes = AsyncScopesClient(client_wrapper=self._client_wrapper)
         self.delete_account = AsyncDeleteAccountClient(client_wrapper=self._client_wrapper)
         self.drives = AsyncDrivesClient(client_wrapper=self._client_wrapper)
+        self.field_mapping = AsyncFieldMappingClient(client_wrapper=self._client_wrapper)
         self.files = AsyncFilesClient(client_wrapper=self._client_wrapper)
         self.folders = AsyncFoldersClient(client_wrapper=self._client_wrapper)
         self.generate_key = AsyncGenerateKeyClient(client_wrapper=self._client_wrapper)

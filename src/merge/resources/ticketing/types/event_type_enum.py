@@ -19,6 +19,7 @@ class EventTypeEnum(str, enum.Enum):
     - `DELETED_LINKED_ACCOUNT` - DELETED_LINKED_ACCOUNT
     - `CREATED_DESTINATION` - CREATED_DESTINATION
     - `DELETED_DESTINATION` - DELETED_DESTINATION
+    - `CHANGED_DESTINATION` - CHANGED_DESTINATION
     - `CHANGED_SCOPES` - CHANGED_SCOPES
     - `CHANGED_PERSONAL_INFORMATION` - CHANGED_PERSONAL_INFORMATION
     - `CHANGED_ORGANIZATION_SETTINGS` - CHANGED_ORGANIZATION_SETTINGS
@@ -51,6 +52,7 @@ class EventTypeEnum(str, enum.Enum):
     DELETED_LINKED_ACCOUNT = "DELETED_LINKED_ACCOUNT"
     CREATED_DESTINATION = "CREATED_DESTINATION"
     DELETED_DESTINATION = "DELETED_DESTINATION"
+    CHANGED_DESTINATION = "CHANGED_DESTINATION"
     CHANGED_SCOPES = "CHANGED_SCOPES"
     CHANGED_PERSONAL_INFORMATION = "CHANGED_PERSONAL_INFORMATION"
     CHANGED_ORGANIZATION_SETTINGS = "CHANGED_ORGANIZATION_SETTINGS"
@@ -84,6 +86,7 @@ class EventTypeEnum(str, enum.Enum):
         deleted_linked_account: typing.Callable[[], T_Result],
         created_destination: typing.Callable[[], T_Result],
         deleted_destination: typing.Callable[[], T_Result],
+        changed_destination: typing.Callable[[], T_Result],
         changed_scopes: typing.Callable[[], T_Result],
         changed_personal_information: typing.Callable[[], T_Result],
         changed_organization_settings: typing.Callable[[], T_Result],
@@ -126,6 +129,8 @@ class EventTypeEnum(str, enum.Enum):
             return created_destination()
         if self is EventTypeEnum.DELETED_DESTINATION:
             return deleted_destination()
+        if self is EventTypeEnum.CHANGED_DESTINATION:
+            return changed_destination()
         if self is EventTypeEnum.CHANGED_SCOPES:
             return changed_scopes()
         if self is EventTypeEnum.CHANGED_PERSONAL_INFORMATION:
