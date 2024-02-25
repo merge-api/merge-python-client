@@ -7,6 +7,7 @@ from .account_details_and_actions_status_enum import AccountDetailsAndActionsSta
 from .account_integration import AccountIntegration
 from .account_token import AccountToken
 from .account_type_enum import AccountTypeEnum
+from .advanced_metadata import AdvancedMetadata
 from .async_passthrough_reciept import AsyncPassthroughReciept
 from .audit_log_event import AuditLogEvent
 from .audit_log_event_event_type import AuditLogEventEventType
@@ -20,6 +21,7 @@ from .benefit_employee import BenefitEmployee
 from .benefit_plan_type_enum import BenefitPlanTypeEnum
 from .categories_enum import CategoriesEnum
 from .category_enum import CategoryEnum
+from .common_model_scope_api import CommonModelScopeApi
 from .common_model_scopes_body_request import CommonModelScopesBodyRequest
 from .company import Company
 from .condition_schema import ConditionSchema
@@ -83,11 +85,25 @@ from .encoding_enum import EncodingEnum
 from .error_validation_problem import ErrorValidationProblem
 from .ethnicity_enum import EthnicityEnum
 from .event_type_enum import EventTypeEnum
+from .external_target_field_api import ExternalTargetFieldApi
+from .external_target_field_api_response import ExternalTargetFieldApiResponse
+from .field_mapping_api_instance import FieldMappingApiInstance
+from .field_mapping_api_instance_remote_field import FieldMappingApiInstanceRemoteField
+from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
+    FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo,
+)
+from .field_mapping_api_instance_response import FieldMappingApiInstanceResponse
+from .field_mapping_api_instance_target_field import FieldMappingApiInstanceTargetField
+from .field_mapping_instance_response import FieldMappingInstanceResponse
+from .field_permission_deserializer import FieldPermissionDeserializer
+from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
 from .flsa_status_enum import FlsaStatusEnum
 from .gender_enum import GenderEnum
 from .group import Group
 from .group_type import GroupType
 from .group_type_enum import GroupTypeEnum
+from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
+from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
 from .issue import Issue
 from .issue_status import IssueStatus
 from .issue_status_enum import IssueStatusEnum
@@ -105,6 +121,8 @@ from .marital_status_enum import MaritalStatusEnum
 from .meta_response import MetaResponse
 from .method_enum import MethodEnum
 from .model_operation import ModelOperation
+from .model_permission_deserializer import ModelPermissionDeserializer
+from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
 from .multipart_form_field_request import MultipartFormFieldRequest
 from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
 from .operator_schema import OperatorSchema
@@ -140,6 +158,9 @@ from .policy_type_enum import PolicyTypeEnum
 from .reason_enum import ReasonEnum
 from .relationship_enum import RelationshipEnum
 from .remote_data import RemoteData
+from .remote_endpoint_info import RemoteEndpointInfo
+from .remote_field_api import RemoteFieldApi
+from .remote_field_api_response import RemoteFieldApiResponse
 from .remote_key import RemoteKey
 from .remote_response import RemoteResponse
 from .remote_response_response_type import RemoteResponseResponseType
@@ -188,6 +209,7 @@ __all__ = [
     "AccountIntegration",
     "AccountToken",
     "AccountTypeEnum",
+    "AdvancedMetadata",
     "AsyncPassthroughReciept",
     "AuditLogEvent",
     "AuditLogEventEventType",
@@ -201,6 +223,7 @@ __all__ = [
     "BenefitPlanTypeEnum",
     "CategoriesEnum",
     "CategoryEnum",
+    "CommonModelScopeApi",
     "CommonModelScopesBodyRequest",
     "Company",
     "ConditionSchema",
@@ -264,11 +287,23 @@ __all__ = [
     "ErrorValidationProblem",
     "EthnicityEnum",
     "EventTypeEnum",
+    "ExternalTargetFieldApi",
+    "ExternalTargetFieldApiResponse",
+    "FieldMappingApiInstance",
+    "FieldMappingApiInstanceRemoteField",
+    "FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo",
+    "FieldMappingApiInstanceResponse",
+    "FieldMappingApiInstanceTargetField",
+    "FieldMappingInstanceResponse",
+    "FieldPermissionDeserializer",
+    "FieldPermissionDeserializerRequest",
     "FlsaStatusEnum",
     "GenderEnum",
     "Group",
     "GroupType",
     "GroupTypeEnum",
+    "IndividualCommonModelScopeDeserializer",
+    "IndividualCommonModelScopeDeserializerRequest",
     "Issue",
     "IssueStatus",
     "IssueStatusEnum",
@@ -286,6 +321,8 @@ __all__ = [
     "MetaResponse",
     "MethodEnum",
     "ModelOperation",
+    "ModelPermissionDeserializer",
+    "ModelPermissionDeserializerRequest",
     "MultipartFormFieldRequest",
     "MultipartFormFieldRequestEncoding",
     "OperatorSchema",
@@ -321,6 +358,9 @@ __all__ = [
     "ReasonEnum",
     "RelationshipEnum",
     "RemoteData",
+    "RemoteEndpointInfo",
+    "RemoteFieldApi",
+    "RemoteFieldApiResponse",
     "RemoteKey",
     "RemoteResponse",
     "RemoteResponseResponseType",

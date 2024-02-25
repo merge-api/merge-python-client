@@ -46,6 +46,8 @@ class TimeOffClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
+        ended_after: typing.Optional[dt.datetime] = None,
+        ended_before: typing.Optional[dt.datetime] = None,
         expand: typing.Optional[TimeOffListRequestExpand] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
@@ -56,6 +58,8 @@ class TimeOffClient:
         remote_id: typing.Optional[str] = None,
         request_type: typing.Optional[TimeOffListRequestRequestType] = None,
         show_enum_origins: typing.Optional[TimeOffListRequestShowEnumOrigins] = None,
+        started_after: typing.Optional[dt.datetime] = None,
+        started_before: typing.Optional[dt.datetime] = None,
         status: typing.Optional[TimeOffListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedTimeOffList:
@@ -72,6 +76,10 @@ class TimeOffClient:
             - cursor: typing.Optional[str]. The pagination cursor value.
 
             - employee_id: typing.Optional[str]. If provided, will only return time off for this employee.
+
+            - ended_after: typing.Optional[dt.datetime]. If provided, will only return employees that ended after this datetime.
+
+            - ended_before: typing.Optional[dt.datetime]. If provided, will only return time-offs that ended before this datetime.
 
             - expand: typing.Optional[TimeOffListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
@@ -98,6 +106,10 @@ class TimeOffClient:
                                                                             - `VOLUNTEER` - VOLUNTEER
                                                                             - `BEREAVEMENT` - BEREAVEMENT
             - show_enum_origins: typing.Optional[TimeOffListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+
+            - started_after: typing.Optional[dt.datetime]. If provided, will only return time-offs that started after this datetime.
+
+            - started_before: typing.Optional[dt.datetime]. If provided, will only return time-offs that started before this datetime.
 
             - status: typing.Optional[TimeOffListRequestStatus]. If provided, will only return TimeOff with this status. Options: ('REQUESTED', 'APPROVED', 'DECLINED', 'CANCELLED', 'DELETED')
 
@@ -140,6 +152,8 @@ class TimeOffClient:
                         "created_before": serialize_datetime(created_before) if created_before is not None else None,
                         "cursor": cursor,
                         "employee_id": employee_id,
+                        "ended_after": serialize_datetime(ended_after) if ended_after is not None else None,
+                        "ended_before": serialize_datetime(ended_before) if ended_before is not None else None,
                         "expand": expand,
                         "include_deleted_data": include_deleted_data,
                         "include_remote_data": include_remote_data,
@@ -150,6 +164,8 @@ class TimeOffClient:
                         "remote_id": remote_id,
                         "request_type": request_type,
                         "show_enum_origins": show_enum_origins,
+                        "started_after": serialize_datetime(started_after) if started_after is not None else None,
+                        "started_before": serialize_datetime(started_before) if started_before is not None else None,
                         "status": status,
                         **(
                             request_options.get("additional_query_parameters", {})
@@ -399,6 +415,8 @@ class AsyncTimeOffClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
+        ended_after: typing.Optional[dt.datetime] = None,
+        ended_before: typing.Optional[dt.datetime] = None,
         expand: typing.Optional[TimeOffListRequestExpand] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
@@ -409,6 +427,8 @@ class AsyncTimeOffClient:
         remote_id: typing.Optional[str] = None,
         request_type: typing.Optional[TimeOffListRequestRequestType] = None,
         show_enum_origins: typing.Optional[TimeOffListRequestShowEnumOrigins] = None,
+        started_after: typing.Optional[dt.datetime] = None,
+        started_before: typing.Optional[dt.datetime] = None,
         status: typing.Optional[TimeOffListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedTimeOffList:
@@ -425,6 +445,10 @@ class AsyncTimeOffClient:
             - cursor: typing.Optional[str]. The pagination cursor value.
 
             - employee_id: typing.Optional[str]. If provided, will only return time off for this employee.
+
+            - ended_after: typing.Optional[dt.datetime]. If provided, will only return employees that ended after this datetime.
+
+            - ended_before: typing.Optional[dt.datetime]. If provided, will only return time-offs that ended before this datetime.
 
             - expand: typing.Optional[TimeOffListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
@@ -451,6 +475,10 @@ class AsyncTimeOffClient:
                                                                             - `VOLUNTEER` - VOLUNTEER
                                                                             - `BEREAVEMENT` - BEREAVEMENT
             - show_enum_origins: typing.Optional[TimeOffListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+
+            - started_after: typing.Optional[dt.datetime]. If provided, will only return time-offs that started after this datetime.
+
+            - started_before: typing.Optional[dt.datetime]. If provided, will only return time-offs that started before this datetime.
 
             - status: typing.Optional[TimeOffListRequestStatus]. If provided, will only return TimeOff with this status. Options: ('REQUESTED', 'APPROVED', 'DECLINED', 'CANCELLED', 'DELETED')
 
@@ -493,6 +521,8 @@ class AsyncTimeOffClient:
                         "created_before": serialize_datetime(created_before) if created_before is not None else None,
                         "cursor": cursor,
                         "employee_id": employee_id,
+                        "ended_after": serialize_datetime(ended_after) if ended_after is not None else None,
+                        "ended_before": serialize_datetime(ended_before) if ended_before is not None else None,
                         "expand": expand,
                         "include_deleted_data": include_deleted_data,
                         "include_remote_data": include_remote_data,
@@ -503,6 +533,8 @@ class AsyncTimeOffClient:
                         "remote_id": remote_id,
                         "request_type": request_type,
                         "show_enum_origins": show_enum_origins,
+                        "started_after": serialize_datetime(started_after) if started_after is not None else None,
+                        "started_before": serialize_datetime(started_before) if started_before is not None else None,
                         "status": status,
                         **(
                             request_options.get("additional_query_parameters", {})

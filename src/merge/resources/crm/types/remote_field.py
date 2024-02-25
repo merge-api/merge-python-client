@@ -14,7 +14,7 @@ except ImportError:
 
 class RemoteField(pydantic.BaseModel):
     remote_field_class: RemoteFieldRemoteFieldClass
-    value: typing.Optional[typing.Any]
+    value: typing.Optional[typing.Dict[str, typing.Any]]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

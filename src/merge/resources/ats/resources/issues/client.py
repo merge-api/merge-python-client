@@ -59,7 +59,7 @@ class IssuesClient:
 
             - first_incident_time_before: typing.Optional[dt.datetime]. If provided, will only return issues whose first incident time was before this datetime.
 
-            - include_muted: typing.Optional[str]. If True, will include muted issues
+            - include_muted: typing.Optional[str]. If true, will include muted issues
 
             - integration_name: typing.Optional[str].
 
@@ -227,7 +227,7 @@ class AsyncIssuesClient:
 
             - first_incident_time_before: typing.Optional[dt.datetime]. If provided, will only return issues whose first incident time was before this datetime.
 
-            - include_muted: typing.Optional[str]. If True, will include muted issues
+            - include_muted: typing.Optional[str]. If true, will include muted issues
 
             - integration_name: typing.Optional[str].
 

@@ -20,6 +20,7 @@ from .resources.contacts.client import AsyncContactsClient, ContactsClient
 from .resources.credit_notes.client import AsyncCreditNotesClient, CreditNotesClient
 from .resources.delete_account.client import AsyncDeleteAccountClient, DeleteAccountClient
 from .resources.expenses.client import AsyncExpensesClient, ExpensesClient
+from .resources.field_mapping.client import AsyncFieldMappingClient, FieldMappingClient
 from .resources.force_resync.client import AsyncForceResyncClient, ForceResyncClient
 from .resources.generate_key.client import AsyncGenerateKeyClient, GenerateKeyClient
 from .resources.income_statements.client import AsyncIncomeStatementsClient, IncomeStatementsClient
@@ -37,6 +38,7 @@ from .resources.payments.client import AsyncPaymentsClient, PaymentsClient
 from .resources.phone_numbers.client import AsyncPhoneNumbersClient, PhoneNumbersClient
 from .resources.purchase_orders.client import AsyncPurchaseOrdersClient, PurchaseOrdersClient
 from .resources.regenerate_key.client import AsyncRegenerateKeyClient, RegenerateKeyClient
+from .resources.scopes.client import AsyncScopesClient, ScopesClient
 from .resources.selective_sync.client import AsyncSelectiveSyncClient, SelectiveSyncClient
 from .resources.sync_status.client import AsyncSyncStatusClient, SyncStatusClient
 from .resources.tax_rates.client import AsyncTaxRatesClient, TaxRatesClient
@@ -65,8 +67,10 @@ class AccountingClient:
         self.company_info = CompanyInfoClient(client_wrapper=self._client_wrapper)
         self.contacts = ContactsClient(client_wrapper=self._client_wrapper)
         self.credit_notes = CreditNotesClient(client_wrapper=self._client_wrapper)
+        self.scopes = ScopesClient(client_wrapper=self._client_wrapper)
         self.delete_account = DeleteAccountClient(client_wrapper=self._client_wrapper)
         self.expenses = ExpensesClient(client_wrapper=self._client_wrapper)
+        self.field_mapping = FieldMappingClient(client_wrapper=self._client_wrapper)
         self.generate_key = GenerateKeyClient(client_wrapper=self._client_wrapper)
         self.income_statements = IncomeStatementsClient(client_wrapper=self._client_wrapper)
         self.invoices = InvoicesClient(client_wrapper=self._client_wrapper)
@@ -107,8 +111,10 @@ class AsyncAccountingClient:
         self.company_info = AsyncCompanyInfoClient(client_wrapper=self._client_wrapper)
         self.contacts = AsyncContactsClient(client_wrapper=self._client_wrapper)
         self.credit_notes = AsyncCreditNotesClient(client_wrapper=self._client_wrapper)
+        self.scopes = AsyncScopesClient(client_wrapper=self._client_wrapper)
         self.delete_account = AsyncDeleteAccountClient(client_wrapper=self._client_wrapper)
         self.expenses = AsyncExpensesClient(client_wrapper=self._client_wrapper)
+        self.field_mapping = AsyncFieldMappingClient(client_wrapper=self._client_wrapper)
         self.generate_key = AsyncGenerateKeyClient(client_wrapper=self._client_wrapper)
         self.income_statements = AsyncIncomeStatementsClient(client_wrapper=self._client_wrapper)
         self.invoices = AsyncInvoicesClient(client_wrapper=self._client_wrapper)

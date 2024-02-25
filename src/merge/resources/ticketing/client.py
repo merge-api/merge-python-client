@@ -15,6 +15,7 @@ from .resources.collections.client import AsyncCollectionsClient, CollectionsCli
 from .resources.comments.client import AsyncCommentsClient, CommentsClient
 from .resources.contacts.client import AsyncContactsClient, ContactsClient
 from .resources.delete_account.client import AsyncDeleteAccountClient, DeleteAccountClient
+from .resources.field_mapping.client import AsyncFieldMappingClient, FieldMappingClient
 from .resources.force_resync.client import AsyncForceResyncClient, ForceResyncClient
 from .resources.generate_key.client import AsyncGenerateKeyClient, GenerateKeyClient
 from .resources.issues.client import AsyncIssuesClient, IssuesClient
@@ -27,6 +28,7 @@ from .resources.passthrough.client import PassthroughClient
 from .resources.projects.client import AsyncProjectsClient, ProjectsClient
 from .resources.regenerate_key.client import AsyncRegenerateKeyClient, RegenerateKeyClient
 from .resources.roles.client import AsyncRolesClient, RolesClient
+from .resources.scopes.client import AsyncScopesClient, ScopesClient
 from .resources.selective_sync.client import AsyncSelectiveSyncClient, SelectiveSyncClient
 from .resources.sync_status.client import AsyncSyncStatusClient, SyncStatusClient
 from .resources.tags.client import AsyncTagsClient, TagsClient
@@ -51,7 +53,9 @@ class TicketingClient:
         self.collections = CollectionsClient(client_wrapper=self._client_wrapper)
         self.comments = CommentsClient(client_wrapper=self._client_wrapper)
         self.contacts = ContactsClient(client_wrapper=self._client_wrapper)
+        self.scopes = ScopesClient(client_wrapper=self._client_wrapper)
         self.delete_account = DeleteAccountClient(client_wrapper=self._client_wrapper)
+        self.field_mapping = FieldMappingClient(client_wrapper=self._client_wrapper)
         self.generate_key = GenerateKeyClient(client_wrapper=self._client_wrapper)
         self.issues = IssuesClient(client_wrapper=self._client_wrapper)
         self.link_token = LinkTokenClient(client_wrapper=self._client_wrapper)
@@ -83,7 +87,9 @@ class AsyncTicketingClient:
         self.collections = AsyncCollectionsClient(client_wrapper=self._client_wrapper)
         self.comments = AsyncCommentsClient(client_wrapper=self._client_wrapper)
         self.contacts = AsyncContactsClient(client_wrapper=self._client_wrapper)
+        self.scopes = AsyncScopesClient(client_wrapper=self._client_wrapper)
         self.delete_account = AsyncDeleteAccountClient(client_wrapper=self._client_wrapper)
+        self.field_mapping = AsyncFieldMappingClient(client_wrapper=self._client_wrapper)
         self.generate_key = AsyncGenerateKeyClient(client_wrapper=self._client_wrapper)
         self.issues = AsyncIssuesClient(client_wrapper=self._client_wrapper)
         self.link_token = AsyncLinkTokenClient(client_wrapper=self._client_wrapper)

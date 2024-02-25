@@ -180,8 +180,8 @@ class ActivitiesClient:
         client.ats.activities.create(
             model=ActivityRequest(
                 subject="Gil Feig's interview",
-                body="Candidate loves integrations!!.",
-                candidate="03455bc6-6040-430a-848e-aafacbfdf4fg",
+                body="Candidate loves integrations!",
+                candidate="550e8400-e29b-41d4-a716-446655440000",
             ),
             remote_user_id="string",
         )
@@ -501,8 +501,8 @@ class AsyncActivitiesClient:
         await client.ats.activities.create(
             model=ActivityRequest(
                 subject="Gil Feig's interview",
-                body="Candidate loves integrations!!.",
-                candidate="03455bc6-6040-430a-848e-aafacbfdf4fg",
+                body="Candidate loves integrations!",
+                candidate="550e8400-e29b-41d4-a716-446655440000",
             ),
             remote_user_id="string",
         )

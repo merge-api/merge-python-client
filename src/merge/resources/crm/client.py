@@ -18,6 +18,7 @@ from .resources.custom_objects.client import AsyncCustomObjectsClient, CustomObj
 from .resources.delete_account.client import AsyncDeleteAccountClient, DeleteAccountClient
 from .resources.engagement_types.client import AsyncEngagementTypesClient, EngagementTypesClient
 from .resources.engagements.client import AsyncEngagementsClient, EngagementsClient
+from .resources.field_mapping.client import AsyncFieldMappingClient, FieldMappingClient
 from .resources.force_resync.client import AsyncForceResyncClient, ForceResyncClient
 from .resources.generate_key.client import AsyncGenerateKeyClient, GenerateKeyClient
 from .resources.issues.client import AsyncIssuesClient, IssuesClient
@@ -31,6 +32,7 @@ from .resources.passthrough.client import (
 )
 from .resources.passthrough.client import PassthroughClient
 from .resources.regenerate_key.client import AsyncRegenerateKeyClient, RegenerateKeyClient
+from .resources.scopes.client import AsyncScopesClient, ScopesClient
 from .resources.selective_sync.client import AsyncSelectiveSyncClient, SelectiveSyncClient
 from .resources.stages.client import AsyncStagesClient, StagesClient
 from .resources.sync_status.client import AsyncSyncStatusClient, SyncStatusClient
@@ -55,9 +57,11 @@ class CrmClient:
         self.association_types = AssociationTypesClient(client_wrapper=self._client_wrapper)
         self.custom_objects = CustomObjectsClient(client_wrapper=self._client_wrapper)
         self.associations = AssociationsClient(client_wrapper=self._client_wrapper)
+        self.scopes = ScopesClient(client_wrapper=self._client_wrapper)
         self.delete_account = DeleteAccountClient(client_wrapper=self._client_wrapper)
         self.engagement_types = EngagementTypesClient(client_wrapper=self._client_wrapper)
         self.engagements = EngagementsClient(client_wrapper=self._client_wrapper)
+        self.field_mapping = FieldMappingClient(client_wrapper=self._client_wrapper)
         self.generate_key = GenerateKeyClient(client_wrapper=self._client_wrapper)
         self.issues = IssuesClient(client_wrapper=self._client_wrapper)
         self.leads = LeadsClient(client_wrapper=self._client_wrapper)
@@ -90,9 +94,11 @@ class AsyncCrmClient:
         self.association_types = AsyncAssociationTypesClient(client_wrapper=self._client_wrapper)
         self.custom_objects = AsyncCustomObjectsClient(client_wrapper=self._client_wrapper)
         self.associations = AsyncAssociationsClient(client_wrapper=self._client_wrapper)
+        self.scopes = AsyncScopesClient(client_wrapper=self._client_wrapper)
         self.delete_account = AsyncDeleteAccountClient(client_wrapper=self._client_wrapper)
         self.engagement_types = AsyncEngagementTypesClient(client_wrapper=self._client_wrapper)
         self.engagements = AsyncEngagementsClient(client_wrapper=self._client_wrapper)
+        self.field_mapping = AsyncFieldMappingClient(client_wrapper=self._client_wrapper)
         self.generate_key = AsyncGenerateKeyClient(client_wrapper=self._client_wrapper)
         self.issues = AsyncIssuesClient(client_wrapper=self._client_wrapper)
         self.leads = AsyncLeadsClient(client_wrapper=self._client_wrapper)

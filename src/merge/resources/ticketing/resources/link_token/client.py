@@ -11,6 +11,7 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from .....core.request_options import RequestOptions
 from ...types.categories_enum import CategoriesEnum
 from ...types.common_model_scopes_body_request import CommonModelScopesBodyRequest
+from ...types.individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
 from ...types.link_token import LinkToken
 
 try:
@@ -37,6 +38,9 @@ class LinkTokenClient:
         link_expiry_mins: typing.Optional[int] = OMIT,
         should_create_magic_link_url: typing.Optional[bool] = OMIT,
         common_models: typing.Optional[typing.List[CommonModelScopesBodyRequest]] = OMIT,
+        category_common_model_scopes: typing.Optional[
+            typing.Dict[str, typing.Optional[typing.List[IndividualCommonModelScopeDeserializerRequest]]]
+        ] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
         """
@@ -59,6 +63,8 @@ class LinkTokenClient:
 
             - common_models: typing.Optional[typing.List[CommonModelScopesBodyRequest]]. An array of objects to specify the models and fields that will be disabled for a given Linked Account. Each object uses model_id, enabled_actions, and disabled_fields to specify the model, method, and fields that are scoped for a given Linked Account.
 
+            - category_common_model_scopes: typing.Optional[typing.Dict[str, typing.Optional[typing.List[IndividualCommonModelScopeDeserializerRequest]]]]. When creating a Link Token, you can set permissions for Common Models that will apply to the account that is going to be linked. Any model or field not specified in link token payload will default to existing settings.
+
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
@@ -68,10 +74,11 @@ class LinkTokenClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.link_token.create(
-            end_user_email_address="string",
-            end_user_organization_name="string",
-            end_user_origin_id="string",
+            end_user_email_address="example@gmail.com",
+            end_user_organization_name="Test Organization",
+            end_user_origin_id="12345",
             categories=[],
+            integration="bamboohr",
         )
         """
         _request: typing.Dict[str, typing.Any] = {
@@ -88,6 +95,8 @@ class LinkTokenClient:
             _request["should_create_magic_link_url"] = should_create_magic_link_url
         if common_models is not OMIT:
             _request["common_models"] = common_models
+        if category_common_model_scopes is not OMIT:
+            _request["category_common_model_scopes"] = category_common_model_scopes
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/link-token"),
@@ -136,6 +145,9 @@ class AsyncLinkTokenClient:
         link_expiry_mins: typing.Optional[int] = OMIT,
         should_create_magic_link_url: typing.Optional[bool] = OMIT,
         common_models: typing.Optional[typing.List[CommonModelScopesBodyRequest]] = OMIT,
+        category_common_model_scopes: typing.Optional[
+            typing.Dict[str, typing.Optional[typing.List[IndividualCommonModelScopeDeserializerRequest]]]
+        ] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
         """
@@ -158,6 +170,8 @@ class AsyncLinkTokenClient:
 
             - common_models: typing.Optional[typing.List[CommonModelScopesBodyRequest]]. An array of objects to specify the models and fields that will be disabled for a given Linked Account. Each object uses model_id, enabled_actions, and disabled_fields to specify the model, method, and fields that are scoped for a given Linked Account.
 
+            - category_common_model_scopes: typing.Optional[typing.Dict[str, typing.Optional[typing.List[IndividualCommonModelScopeDeserializerRequest]]]]. When creating a Link Token, you can set permissions for Common Models that will apply to the account that is going to be linked. Any model or field not specified in link token payload will default to existing settings.
+
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
@@ -167,10 +181,11 @@ class AsyncLinkTokenClient:
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.link_token.create(
-            end_user_email_address="string",
-            end_user_organization_name="string",
-            end_user_origin_id="string",
+            end_user_email_address="example@gmail.com",
+            end_user_organization_name="Test Organization",
+            end_user_origin_id="12345",
             categories=[],
+            integration="bamboohr",
         )
         """
         _request: typing.Dict[str, typing.Any] = {
@@ -187,6 +202,8 @@ class AsyncLinkTokenClient:
             _request["should_create_magic_link_url"] = should_create_magic_link_url
         if common_models is not OMIT:
             _request["common_models"] = common_models
+        if category_common_model_scopes is not OMIT:
+            _request["category_common_model_scopes"] = category_common_model_scopes
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/link-token"),

@@ -8,6 +8,7 @@ from .account_details_and_actions_integration import AccountDetailsAndActionsInt
 from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
 from .account_integration import AccountIntegration
 from .account_token import AccountToken
+from .advanced_metadata import AdvancedMetadata
 from .async_passthrough_reciept import AsyncPassthroughReciept
 from .attachment import Attachment
 from .attachment_request import AttachmentRequest
@@ -33,6 +34,7 @@ from .comment_request_user import CommentRequestUser
 from .comment_response import CommentResponse
 from .comment_ticket import CommentTicket
 from .comment_user import CommentUser
+from .common_model_scope_api import CommonModelScopeApi
 from .common_model_scopes_body_request import CommonModelScopesBodyRequest
 from .condition_schema import ConditionSchema
 from .condition_schema_condition_type import ConditionSchemaConditionType
@@ -46,8 +48,22 @@ from .enabled_actions_enum import EnabledActionsEnum
 from .encoding_enum import EncodingEnum
 from .error_validation_problem import ErrorValidationProblem
 from .event_type_enum import EventTypeEnum
+from .external_target_field_api import ExternalTargetFieldApi
+from .external_target_field_api_response import ExternalTargetFieldApiResponse
 from .field_format_enum import FieldFormatEnum
+from .field_mapping_api_instance import FieldMappingApiInstance
+from .field_mapping_api_instance_remote_field import FieldMappingApiInstanceRemoteField
+from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
+    FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo,
+)
+from .field_mapping_api_instance_response import FieldMappingApiInstanceResponse
+from .field_mapping_api_instance_target_field import FieldMappingApiInstanceTargetField
+from .field_mapping_instance_response import FieldMappingInstanceResponse
+from .field_permission_deserializer import FieldPermissionDeserializer
+from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
 from .field_type_enum import FieldTypeEnum
+from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
+from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
 from .issue import Issue
 from .issue_status import IssueStatus
 from .issue_status_enum import IssueStatusEnum
@@ -63,6 +79,8 @@ from .linked_account_status import LinkedAccountStatus
 from .meta_response import MetaResponse
 from .method_enum import MethodEnum
 from .model_operation import ModelOperation
+from .model_permission_deserializer import ModelPermissionDeserializer
+from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
 from .multipart_form_field_request import MultipartFormFieldRequest
 from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
 from .operator_schema import OperatorSchema
@@ -89,7 +107,10 @@ from .patched_ticket_request_status import PatchedTicketRequestStatus
 from .priority_enum import PriorityEnum
 from .project import Project
 from .remote_data import RemoteData
+from .remote_endpoint_info import RemoteEndpointInfo
 from .remote_field import RemoteField
+from .remote_field_api import RemoteFieldApi
+from .remote_field_api_response import RemoteFieldApiResponse
 from .remote_field_class import RemoteFieldClass
 from .remote_field_class_field_choices_item import RemoteFieldClassFieldChoicesItem
 from .remote_field_class_field_format import RemoteFieldClassFieldFormat
@@ -151,6 +172,7 @@ __all__ = [
     "AccountDetailsAndActionsStatusEnum",
     "AccountIntegration",
     "AccountToken",
+    "AdvancedMetadata",
     "AsyncPassthroughReciept",
     "Attachment",
     "AttachmentRequest",
@@ -176,6 +198,7 @@ __all__ = [
     "CommentResponse",
     "CommentTicket",
     "CommentUser",
+    "CommonModelScopeApi",
     "CommonModelScopesBodyRequest",
     "ConditionSchema",
     "ConditionSchemaConditionType",
@@ -189,8 +212,20 @@ __all__ = [
     "EncodingEnum",
     "ErrorValidationProblem",
     "EventTypeEnum",
+    "ExternalTargetFieldApi",
+    "ExternalTargetFieldApiResponse",
     "FieldFormatEnum",
+    "FieldMappingApiInstance",
+    "FieldMappingApiInstanceRemoteField",
+    "FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo",
+    "FieldMappingApiInstanceResponse",
+    "FieldMappingApiInstanceTargetField",
+    "FieldMappingInstanceResponse",
+    "FieldPermissionDeserializer",
+    "FieldPermissionDeserializerRequest",
     "FieldTypeEnum",
+    "IndividualCommonModelScopeDeserializer",
+    "IndividualCommonModelScopeDeserializerRequest",
     "Issue",
     "IssueStatus",
     "IssueStatusEnum",
@@ -206,6 +241,8 @@ __all__ = [
     "MetaResponse",
     "MethodEnum",
     "ModelOperation",
+    "ModelPermissionDeserializer",
+    "ModelPermissionDeserializerRequest",
     "MultipartFormFieldRequest",
     "MultipartFormFieldRequestEncoding",
     "OperatorSchema",
@@ -232,7 +269,10 @@ __all__ = [
     "PriorityEnum",
     "Project",
     "RemoteData",
+    "RemoteEndpointInfo",
     "RemoteField",
+    "RemoteFieldApi",
+    "RemoteFieldApiResponse",
     "RemoteFieldClass",
     "RemoteFieldClassFieldChoicesItem",
     "RemoteFieldClassFieldFormat",

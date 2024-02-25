@@ -19,7 +19,7 @@ class Group(pydantic.BaseModel):
 
     ### Description
 
-    The `Group` object is used to represent any subset of employees, such as `PayGroup` or `Team`. Employees can be in multiple Groups.
+    The `Group` object is used to represent any subset of employees across, for example, `DEPARTMENT` or `TEAM`. Employees can be in multiple Groups.
 
     ### Usage Example
 

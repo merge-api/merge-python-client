@@ -6,6 +6,7 @@ from .account_details_and_actions_integration import AccountDetailsAndActionsInt
 from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
 from .account_integration import AccountIntegration
 from .account_token import AccountToken
+from .advanced_metadata import AdvancedMetadata
 from .async_passthrough_reciept import AsyncPassthroughReciept
 from .audit_log_event import AuditLogEvent
 from .audit_log_event_event_type import AuditLogEventEventType
@@ -13,6 +14,7 @@ from .audit_log_event_role import AuditLogEventRole
 from .available_actions import AvailableActions
 from .categories_enum import CategoriesEnum
 from .category_enum import CategoryEnum
+from .common_model_scope_api import CommonModelScopeApi
 from .common_model_scopes_body_request import CommonModelScopesBodyRequest
 from .condition_schema import ConditionSchema
 from .condition_schema_condition_type import ConditionSchemaConditionType
@@ -25,6 +27,18 @@ from .enabled_actions_enum import EnabledActionsEnum
 from .encoding_enum import EncodingEnum
 from .error_validation_problem import ErrorValidationProblem
 from .event_type_enum import EventTypeEnum
+from .external_target_field_api import ExternalTargetFieldApi
+from .external_target_field_api_response import ExternalTargetFieldApiResponse
+from .field_mapping_api_instance import FieldMappingApiInstance
+from .field_mapping_api_instance_remote_field import FieldMappingApiInstanceRemoteField
+from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
+    FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo,
+)
+from .field_mapping_api_instance_response import FieldMappingApiInstanceResponse
+from .field_mapping_api_instance_target_field import FieldMappingApiInstanceTargetField
+from .field_mapping_instance_response import FieldMappingInstanceResponse
+from .field_permission_deserializer import FieldPermissionDeserializer
+from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
 from .file import File
 from .file_drive import FileDrive
 from .file_folder import FileFolder
@@ -48,6 +62,8 @@ from .folder_request_parent_folder import FolderRequestParentFolder
 from .folder_request_permissions import FolderRequestPermissions
 from .folder_request_permissions_item import FolderRequestPermissionsItem
 from .group import Group
+from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
+from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
 from .issue import Issue
 from .issue_status import IssueStatus
 from .issue_status_enum import IssueStatusEnum
@@ -60,6 +76,8 @@ from .linked_account_status import LinkedAccountStatus
 from .meta_response import MetaResponse
 from .method_enum import MethodEnum
 from .model_operation import ModelOperation
+from .model_permission_deserializer import ModelPermissionDeserializer
+from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
 from .multipart_form_field_request import MultipartFormFieldRequest
 from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
 from .operator_schema import OperatorSchema
@@ -83,6 +101,9 @@ from .permission_request_user import PermissionRequestUser
 from .permission_roles_item import PermissionRolesItem
 from .permission_type import PermissionType
 from .permission_user import PermissionUser
+from .remote_endpoint_info import RemoteEndpointInfo
+from .remote_field_api import RemoteFieldApi
+from .remote_field_api_response import RemoteFieldApiResponse
 from .remote_key import RemoteKey
 from .remote_response import RemoteResponse
 from .request_format_enum import RequestFormatEnum
@@ -105,6 +126,7 @@ __all__ = [
     "AccountDetailsAndActionsStatusEnum",
     "AccountIntegration",
     "AccountToken",
+    "AdvancedMetadata",
     "AsyncPassthroughReciept",
     "AuditLogEvent",
     "AuditLogEventEventType",
@@ -112,6 +134,7 @@ __all__ = [
     "AvailableActions",
     "CategoriesEnum",
     "CategoryEnum",
+    "CommonModelScopeApi",
     "CommonModelScopesBodyRequest",
     "ConditionSchema",
     "ConditionSchemaConditionType",
@@ -124,6 +147,16 @@ __all__ = [
     "EncodingEnum",
     "ErrorValidationProblem",
     "EventTypeEnum",
+    "ExternalTargetFieldApi",
+    "ExternalTargetFieldApiResponse",
+    "FieldMappingApiInstance",
+    "FieldMappingApiInstanceRemoteField",
+    "FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo",
+    "FieldMappingApiInstanceResponse",
+    "FieldMappingApiInstanceTargetField",
+    "FieldMappingInstanceResponse",
+    "FieldPermissionDeserializer",
+    "FieldPermissionDeserializerRequest",
     "File",
     "FileDrive",
     "FileFolder",
@@ -147,6 +180,8 @@ __all__ = [
     "FolderRequestPermissions",
     "FolderRequestPermissionsItem",
     "Group",
+    "IndividualCommonModelScopeDeserializer",
+    "IndividualCommonModelScopeDeserializerRequest",
     "Issue",
     "IssueStatus",
     "IssueStatusEnum",
@@ -159,6 +194,8 @@ __all__ = [
     "MetaResponse",
     "MethodEnum",
     "ModelOperation",
+    "ModelPermissionDeserializer",
+    "ModelPermissionDeserializerRequest",
     "MultipartFormFieldRequest",
     "MultipartFormFieldRequestEncoding",
     "OperatorSchema",
@@ -182,6 +219,9 @@ __all__ = [
     "PermissionRolesItem",
     "PermissionType",
     "PermissionUser",
+    "RemoteEndpointInfo",
+    "RemoteFieldApi",
+    "RemoteFieldApiResponse",
     "RemoteKey",
     "RemoteResponse",
     "RequestFormatEnum",
