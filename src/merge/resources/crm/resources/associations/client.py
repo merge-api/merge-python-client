@@ -81,16 +81,15 @@ class AssociationsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.associations.custom_object_classes_custom_objects_associations_list(
-            custom_object_class_id="string",
-            object_id="string",
-            expand="association_type",
+            custom_object_class_id="custom_object_class_id",
+            object_id="object_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{object_id}/associations",
+                f"crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{object_id}/associations",
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -173,18 +172,18 @@ class AssociationsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.associations.custom_object_classes_custom_objects_associations_update(
-            association_type_id="string",
-            source_class_id="string",
-            source_object_id="string",
-            target_class_id="string",
-            target_object_id="string",
+            association_type_id="association_type_id",
+            source_class_id="source_class_id",
+            source_object_id="source_object_id",
+            target_class_id="target_class_id",
+            target_object_id="target_object_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PUT",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{source_class_id}/custom-objects/{source_object_id}/associations/{target_class_id}/{target_object_id}/{association_type_id}",
+                f"crm/v1/custom-object-classes/{source_class_id}/custom-objects/{source_object_id}/associations/{target_class_id}/{target_object_id}/{association_type_id}",
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -284,16 +283,15 @@ class AsyncAssociationsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.associations.custom_object_classes_custom_objects_associations_list(
-            custom_object_class_id="string",
-            object_id="string",
-            expand="association_type",
+            custom_object_class_id="custom_object_class_id",
+            object_id="object_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{object_id}/associations",
+                f"crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{object_id}/associations",
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -376,18 +374,18 @@ class AsyncAssociationsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.associations.custom_object_classes_custom_objects_associations_update(
-            association_type_id="string",
-            source_class_id="string",
-            source_object_id="string",
-            target_class_id="string",
-            target_object_id="string",
+            association_type_id="association_type_id",
+            source_class_id="source_class_id",
+            source_object_id="source_object_id",
+            target_class_id="target_class_id",
+            target_object_id="target_object_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PUT",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{source_class_id}/custom-objects/{source_object_id}/associations/{target_class_id}/{target_object_id}/{association_type_id}",
+                f"crm/v1/custom-object-classes/{source_class_id}/custom-objects/{source_object_id}/associations/{target_class_id}/{target_object_id}/{association_type_id}",
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(

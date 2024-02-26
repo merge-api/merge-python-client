@@ -85,15 +85,11 @@ class CollectionsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.collections.list(
-            expand="parent_collection",
-            remote_fields="collection_type",
-            show_enum_origins="collection_type",
-        )
+        client.ticketing.collections.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/collections"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/collections"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -172,15 +168,12 @@ class CollectionsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.collections.retrieve(
-            id="string",
-            expand="parent_collection",
-            remote_fields="collection_type",
-            show_enum_origins="collection_type",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/collections/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/collections/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -246,21 +239,19 @@ class CollectionsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ticketing import CollectionsUsersListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ticketing.collections.users_list(
-            parent_id="string",
-            expand=CollectionsUsersListRequestExpand.ROLES,
+            parent_id="parent_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/collections/{parent_id}/users"
+                f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/collections/{parent_id}/users"
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -362,15 +353,11 @@ class AsyncCollectionsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.collections.list(
-            expand="parent_collection",
-            remote_fields="collection_type",
-            show_enum_origins="collection_type",
-        )
+        await client.ticketing.collections.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/collections"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/collections"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -449,15 +436,12 @@ class AsyncCollectionsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.collections.retrieve(
-            id="string",
-            expand="parent_collection",
-            remote_fields="collection_type",
-            show_enum_origins="collection_type",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/collections/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/collections/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -523,21 +507,19 @@ class AsyncCollectionsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ticketing import CollectionsUsersListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.collections.users_list(
-            parent_id="string",
-            expand=CollectionsUsersListRequestExpand.ROLES,
+            parent_id="parent_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/collections/{parent_id}/users"
+                f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/collections/{parent_id}/users"
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(

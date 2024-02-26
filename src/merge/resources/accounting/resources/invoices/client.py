@@ -98,25 +98,16 @@ class InvoicesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import (
-            InvoicesListRequestExpand,
-            InvoicesListRequestType,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.invoices.list(
-            expand=InvoicesListRequestExpand.ACCOUNTING_PERIOD,
-            remote_fields="type",
-            show_enum_origins="type",
-            type=InvoicesListRequestType.ACCOUNTS_PAYABLE,
-        )
+        client.accounting.invoices.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/invoices"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/invoices"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -202,7 +193,7 @@ class InvoicesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/invoices"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/invoices"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -269,22 +260,18 @@ class InvoicesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import InvoicesRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.invoices.retrieve(
-            id="string",
-            expand=InvoicesRetrieveRequestExpand.ACCOUNTING_PERIOD,
-            remote_fields="type",
-            show_enum_origins="type",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/invoices/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/invoices/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -337,7 +324,7 @@ class InvoicesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/invoices/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/invoices/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -431,25 +418,16 @@ class AsyncInvoicesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import (
-            InvoicesListRequestExpand,
-            InvoicesListRequestType,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.invoices.list(
-            expand=InvoicesListRequestExpand.ACCOUNTING_PERIOD,
-            remote_fields="type",
-            show_enum_origins="type",
-            type=InvoicesListRequestType.ACCOUNTS_PAYABLE,
-        )
+        await client.accounting.invoices.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/invoices"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/invoices"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -535,7 +513,7 @@ class AsyncInvoicesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/invoices"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/invoices"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -602,22 +580,18 @@ class AsyncInvoicesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import InvoicesRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.accounting.invoices.retrieve(
-            id="string",
-            expand=InvoicesRetrieveRequestExpand.ACCOUNTING_PERIOD,
-            remote_fields="type",
-            show_enum_origins="type",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/invoices/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/invoices/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -670,7 +644,7 @@ class AsyncInvoicesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/invoices/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/invoices/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

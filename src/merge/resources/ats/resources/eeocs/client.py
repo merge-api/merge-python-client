@@ -79,24 +79,16 @@ class EeocsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ats import (
-            EeocsListRequestRemoteFields,
-            EeocsListRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.eeocs.list(
-            expand="candidate",
-            remote_fields=EeocsListRequestRemoteFields.DISABILITY_STATUS,
-            show_enum_origins=EeocsListRequestShowEnumOrigins.DISABILITY_STATUS,
-        )
+        client.ats.eeocs.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/eeocs"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/eeocs"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -168,25 +160,18 @@ class EeocsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ats import (
-            EeocsRetrieveRequestRemoteFields,
-            EeocsRetrieveRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ats.eeocs.retrieve(
-            id="string",
-            expand="candidate",
-            remote_fields=EeocsRetrieveRequestRemoteFields.DISABILITY_STATUS,
-            show_enum_origins=EeocsRetrieveRequestShowEnumOrigins.DISABILITY_STATUS,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/eeocs/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/eeocs/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -278,24 +263,16 @@ class AsyncEeocsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ats import (
-            EeocsListRequestRemoteFields,
-            EeocsListRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.eeocs.list(
-            expand="candidate",
-            remote_fields=EeocsListRequestRemoteFields.DISABILITY_STATUS,
-            show_enum_origins=EeocsListRequestShowEnumOrigins.DISABILITY_STATUS,
-        )
+        await client.ats.eeocs.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/eeocs"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/eeocs"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -367,25 +344,18 @@ class AsyncEeocsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ats import (
-            EeocsRetrieveRequestRemoteFields,
-            EeocsRetrieveRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.ats.eeocs.retrieve(
-            id="string",
-            expand="candidate",
-            remote_fields=EeocsRetrieveRequestRemoteFields.DISABILITY_STATUS,
-            show_enum_origins=EeocsRetrieveRequestShowEnumOrigins.DISABILITY_STATUS,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/eeocs/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/eeocs/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

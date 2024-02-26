@@ -60,7 +60,7 @@ class AuditTrailClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/audit-trail"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/audit-trail"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -142,7 +142,7 @@ class AsyncAuditTrailClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/audit-trail"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/audit-trail"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

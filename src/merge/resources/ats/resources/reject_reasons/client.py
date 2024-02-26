@@ -72,7 +72,7 @@ class RejectReasonsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/reject-reasons"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/reject-reasons"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -137,12 +137,12 @@ class RejectReasonsClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.reject_reasons.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/reject-reasons/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/reject-reasons/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -228,7 +228,7 @@ class AsyncRejectReasonsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/reject-reasons"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/reject-reasons"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -293,12 +293,12 @@ class AsyncRejectReasonsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.reject_reasons.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/reject-reasons/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/reject-reasons/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

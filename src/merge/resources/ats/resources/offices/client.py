@@ -72,7 +72,7 @@ class OfficesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/offices"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/offices"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -137,12 +137,12 @@ class OfficesClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.offices.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/offices/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/offices/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -228,7 +228,7 @@ class AsyncOfficesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/offices"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/offices"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -293,12 +293,12 @@ class AsyncOfficesClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.offices.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/offices/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/offices/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

@@ -68,6 +68,7 @@ class LinkTokenClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
+        from merge.resources.accounting import CategoriesEnum
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -77,8 +78,7 @@ class LinkTokenClient:
             end_user_email_address="example@gmail.com",
             end_user_organization_name="Test Organization",
             end_user_origin_id="12345",
-            categories=[],
-            integration="bamboohr",
+            categories=[CategoriesEnum.HRIS],
         )
         """
         _request: typing.Dict[str, typing.Any] = {
@@ -99,7 +99,7 @@ class LinkTokenClient:
             _request["category_common_model_scopes"] = category_common_model_scopes
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/link-token"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/link-token"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -175,6 +175,7 @@ class AsyncLinkTokenClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
+        from merge.resources.accounting import CategoriesEnum
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -184,8 +185,7 @@ class AsyncLinkTokenClient:
             end_user_email_address="example@gmail.com",
             end_user_organization_name="Test Organization",
             end_user_origin_id="12345",
-            categories=[],
-            integration="bamboohr",
+            categories=[CategoriesEnum.HRIS],
         )
         """
         _request: typing.Dict[str, typing.Any] = {
@@ -206,7 +206,7 @@ class AsyncLinkTokenClient:
             _request["category_common_model_scopes"] = category_common_model_scopes
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/link-token"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/link-token"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

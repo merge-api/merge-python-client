@@ -75,21 +75,16 @@ class LocationsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.hris import LocationsListRequestLocationType
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.locations.list(
-            location_type=LocationsListRequestLocationType.HOME,
-            remote_fields="location_type",
-            show_enum_origins="location_type",
-        )
+        client.hris.locations.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/locations"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/locations"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -163,14 +158,12 @@ class LocationsClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.locations.retrieve(
-            id="string",
-            remote_fields="location_type",
-            show_enum_origins="location_type",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/locations/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/locations/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -260,21 +253,16 @@ class AsyncLocationsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.hris import LocationsListRequestLocationType
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.locations.list(
-            location_type=LocationsListRequestLocationType.HOME,
-            remote_fields="location_type",
-            show_enum_origins="location_type",
-        )
+        await client.hris.locations.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/locations"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/locations"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -348,14 +336,12 @@ class AsyncLocationsClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.locations.retrieve(
-            id="string",
-            remote_fields="location_type",
-            show_enum_origins="location_type",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/locations/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/locations/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

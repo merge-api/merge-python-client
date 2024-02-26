@@ -155,29 +155,16 @@ class TicketsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ticketing import (
-            TicketsListRequestExpand,
-            TicketsListRequestPriority,
-            TicketsListRequestRemoteFields,
-            TicketsListRequestShowEnumOrigins,
-            TicketsListRequestStatus,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.tickets.list(
-            expand=TicketsListRequestExpand.ACCOUNT,
-            priority=TicketsListRequestPriority.HIGH,
-            remote_fields=TicketsListRequestRemoteFields.PRIORITY,
-            show_enum_origins=TicketsListRequestShowEnumOrigins.PRIORITY,
-            status=TicketsListRequestStatus.CLOSED,
-        )
+        client.ticketing.tickets.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/tickets"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -270,8 +257,6 @@ class TicketsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.ticketing import TicketRequest
 
@@ -280,23 +265,12 @@ class TicketsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.tickets.create(
-            model=TicketRequest(
-                name="Please add more integrations",
-                due_date=datetime.datetime.fromisoformat(
-                    "2022-10-11 00:00:00+00:00",
-                ),
-                description="Can you please add more integrations? It'll make syncing data much easier!",
-                ticket_type="incident",
-                completed_at=datetime.datetime.fromisoformat(
-                    "2021-12-09 00:00:00+00:00",
-                ),
-                ticket_url="https://thirdpartysoftware.com/project/3/issue/1",
-            ),
+            model=TicketRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/tickets"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -366,26 +340,18 @@ class TicketsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ticketing import (
-            TicketsRetrieveRequestExpand,
-            TicketsRetrieveRequestRemoteFields,
-            TicketsRetrieveRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ticketing.tickets.retrieve(
-            id="string",
-            expand=TicketsRetrieveRequestExpand.ACCOUNT,
-            remote_fields=TicketsRetrieveRequestRemoteFields.PRIORITY,
-            show_enum_origins=TicketsRetrieveRequestShowEnumOrigins.PRIORITY,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/tickets/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -445,8 +411,6 @@ class TicketsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.ticketing import PatchedTicketRequest
 
@@ -455,27 +419,13 @@ class TicketsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.tickets.partial_update(
-            id="string",
-            model=PatchedTicketRequest(
-                name="Please add more integrations",
-                due_date=datetime.datetime.fromisoformat(
-                    "2022-10-11 00:00:00+00:00",
-                ),
-                description="Can you please add more integrations? It'll make syncing data much easier!",
-                ticket_type="incident",
-                account="0958cbc6-6040-430a-848e-aafacbadf4ae",
-                contact="65c345ba-6870-4974-87ba-dd31509c367a",
-                parent_ticket="75b33d04-30d2-4f3e-be45-27838bc94342",
-                completed_at=datetime.datetime.fromisoformat(
-                    "2021-12-09 00:00:00+00:00",
-                ),
-                ticket_url="https://thirdpartysoftware.com/project/3/issue/1",
-            ),
+            id="id",
+            model=PatchedTicketRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/tickets/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -545,21 +495,19 @@ class TicketsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ticketing import TicketsCollaboratorsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ticketing.tickets.collaborators_list(
-            parent_id="string",
-            expand=TicketsCollaboratorsListRequestExpand.ROLES,
+            parent_id="parent_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/{parent_id}/collaborators"
+                f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/tickets/{parent_id}/collaborators"
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -613,14 +561,12 @@ class TicketsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.tickets.meta_patch_retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/meta/patch/{id}"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/tickets/meta/patch/{id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -661,7 +607,7 @@ class TicketsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/tickets/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -719,7 +665,7 @@ class TicketsClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets/remote-field-classes"
+                f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/tickets/remote-field-classes"
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -874,29 +820,16 @@ class AsyncTicketsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ticketing import (
-            TicketsListRequestExpand,
-            TicketsListRequestPriority,
-            TicketsListRequestRemoteFields,
-            TicketsListRequestShowEnumOrigins,
-            TicketsListRequestStatus,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.tickets.list(
-            expand=TicketsListRequestExpand.ACCOUNT,
-            priority=TicketsListRequestPriority.HIGH,
-            remote_fields=TicketsListRequestRemoteFields.PRIORITY,
-            show_enum_origins=TicketsListRequestShowEnumOrigins.PRIORITY,
-            status=TicketsListRequestStatus.CLOSED,
-        )
+        await client.ticketing.tickets.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/tickets"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -989,8 +922,6 @@ class AsyncTicketsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.ticketing import TicketRequest
 
@@ -999,23 +930,12 @@ class AsyncTicketsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.tickets.create(
-            model=TicketRequest(
-                name="Please add more integrations",
-                due_date=datetime.datetime.fromisoformat(
-                    "2022-10-11 00:00:00+00:00",
-                ),
-                description="Can you please add more integrations? It'll make syncing data much easier!",
-                ticket_type="incident",
-                completed_at=datetime.datetime.fromisoformat(
-                    "2021-12-09 00:00:00+00:00",
-                ),
-                ticket_url="https://thirdpartysoftware.com/project/3/issue/1",
-            ),
+            model=TicketRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/tickets"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -1085,26 +1005,18 @@ class AsyncTicketsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ticketing import (
-            TicketsRetrieveRequestExpand,
-            TicketsRetrieveRequestRemoteFields,
-            TicketsRetrieveRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.tickets.retrieve(
-            id="string",
-            expand=TicketsRetrieveRequestExpand.ACCOUNT,
-            remote_fields=TicketsRetrieveRequestRemoteFields.PRIORITY,
-            show_enum_origins=TicketsRetrieveRequestShowEnumOrigins.PRIORITY,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/tickets/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -1164,8 +1076,6 @@ class AsyncTicketsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.ticketing import PatchedTicketRequest
 
@@ -1174,27 +1084,13 @@ class AsyncTicketsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.tickets.partial_update(
-            id="string",
-            model=PatchedTicketRequest(
-                name="Please add more integrations",
-                due_date=datetime.datetime.fromisoformat(
-                    "2022-10-11 00:00:00+00:00",
-                ),
-                description="Can you please add more integrations? It'll make syncing data much easier!",
-                ticket_type="incident",
-                account="0958cbc6-6040-430a-848e-aafacbadf4ae",
-                contact="65c345ba-6870-4974-87ba-dd31509c367a",
-                parent_ticket="75b33d04-30d2-4f3e-be45-27838bc94342",
-                completed_at=datetime.datetime.fromisoformat(
-                    "2021-12-09 00:00:00+00:00",
-                ),
-                ticket_url="https://thirdpartysoftware.com/project/3/issue/1",
-            ),
+            id="id",
+            model=PatchedTicketRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/tickets/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -1264,21 +1160,19 @@ class AsyncTicketsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ticketing import TicketsCollaboratorsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.tickets.collaborators_list(
-            parent_id="string",
-            expand=TicketsCollaboratorsListRequestExpand.ROLES,
+            parent_id="parent_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/{parent_id}/collaborators"
+                f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/tickets/{parent_id}/collaborators"
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -1334,14 +1228,12 @@ class AsyncTicketsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.tickets.meta_patch_retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tickets/meta/patch/{id}"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/tickets/meta/patch/{id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -1382,7 +1274,7 @@ class AsyncTicketsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/tickets/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -1440,7 +1332,7 @@ class AsyncTicketsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tickets/remote-field-classes"
+                f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/tickets/remote-field-classes"
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(

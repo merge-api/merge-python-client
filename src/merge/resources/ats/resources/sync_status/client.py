@@ -48,7 +48,7 @@ class SyncStatusClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/sync-status"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/sync-status"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -114,7 +114,7 @@ class AsyncSyncStatusClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/sync-status"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/sync-status"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

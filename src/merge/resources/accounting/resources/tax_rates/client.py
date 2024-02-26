@@ -74,13 +74,11 @@ class TaxRatesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.tax_rates.list(
-            expand="company",
-        )
+        client.accounting.tax_rates.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/tax-rates"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/tax-rates"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -150,13 +148,12 @@ class TaxRatesClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.tax_rates.retrieve(
-            id="string",
-            expand="company",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/tax-rates/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/tax-rates/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -245,13 +242,11 @@ class AsyncTaxRatesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.tax_rates.list(
-            expand="company",
-        )
+        await client.accounting.tax_rates.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/tax-rates"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/tax-rates"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -321,13 +316,12 @@ class AsyncTaxRatesClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.tax_rates.retrieve(
-            id="string",
-            expand="company",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/tax-rates/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/tax-rates/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

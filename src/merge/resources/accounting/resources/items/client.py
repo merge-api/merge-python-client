@@ -77,21 +77,16 @@ class ItemsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import ItemsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.items.list(
-            expand=ItemsListRequestExpand.COMPANY,
-            remote_fields="status",
-            show_enum_origins="status",
-        )
+        client.accounting.items.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/items"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/items"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -163,22 +158,18 @@ class ItemsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import ItemsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.items.retrieve(
-            id="string",
-            expand=ItemsRetrieveRequestExpand.COMPANY,
-            remote_fields="status",
-            show_enum_origins="status",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/items/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/items/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -270,21 +261,16 @@ class AsyncItemsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import ItemsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.items.list(
-            expand=ItemsListRequestExpand.COMPANY,
-            remote_fields="status",
-            show_enum_origins="status",
-        )
+        await client.accounting.items.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/items"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/items"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -356,22 +342,18 @@ class AsyncItemsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import ItemsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.accounting.items.retrieve(
-            id="string",
-            expand=ItemsRetrieveRequestExpand.COMPANY,
-            remote_fields="status",
-            show_enum_origins="status",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/items/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/items/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

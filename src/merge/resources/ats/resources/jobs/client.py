@@ -91,22 +91,16 @@ class JobsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ats import JobsListRequestExpand, JobsListRequestStatus
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.jobs.list(
-            expand=JobsListRequestExpand.DEPARTMENTS,
-            remote_fields="status",
-            show_enum_origins="status",
-            status=JobsListRequestStatus.ARCHIVED,
-        )
+        client.ats.jobs.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/jobs"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/jobs"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -180,22 +174,18 @@ class JobsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ats import JobsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ats.jobs.retrieve(
-            id="string",
-            expand=JobsRetrieveRequestExpand.DEPARTMENTS,
-            remote_fields="status",
-            show_enum_origins="status",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/jobs/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/jobs/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -261,21 +251,19 @@ class JobsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ats import JobsScreeningQuestionsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ats.jobs.screening_questions_list(
-            job_id="string",
-            expand=JobsScreeningQuestionsListRequestExpand.JOB,
+            job_id="job_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/jobs/{job_id}/screening-questions"
+                f"{self._client_wrapper.get_base_url()}/", f"ats/v1/jobs/{job_id}/screening-questions"
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -380,22 +368,16 @@ class AsyncJobsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ats import JobsListRequestExpand, JobsListRequestStatus
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.jobs.list(
-            expand=JobsListRequestExpand.DEPARTMENTS,
-            remote_fields="status",
-            show_enum_origins="status",
-            status=JobsListRequestStatus.ARCHIVED,
-        )
+        await client.ats.jobs.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/jobs"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/jobs"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -469,22 +451,18 @@ class AsyncJobsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ats import JobsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.ats.jobs.retrieve(
-            id="string",
-            expand=JobsRetrieveRequestExpand.DEPARTMENTS,
-            remote_fields="status",
-            show_enum_origins="status",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/jobs/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/jobs/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -550,21 +528,19 @@ class AsyncJobsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ats import JobsScreeningQuestionsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.ats.jobs.screening_questions_list(
-            job_id="string",
-            expand=JobsScreeningQuestionsListRequestExpand.JOB,
+            job_id="job_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/jobs/{job_id}/screening-questions"
+                f"{self._client_wrapper.get_base_url()}/", f"ats/v1/jobs/{job_id}/screening-questions"
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(

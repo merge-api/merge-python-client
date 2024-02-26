@@ -44,7 +44,7 @@ class ScopesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/default-scopes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/default-scopes"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -87,7 +87,7 @@ class ScopesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/linked-account-scopes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/linked-account-scopes"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -126,18 +126,25 @@ class ScopesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
+        from merge.resources.filestorage import (
+            IndividualCommonModelScopeDeserializerRequest,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.filestorage.scopes.linked_account_scopes_create(
-            common_models=[],
+            common_models=[
+                IndividualCommonModelScopeDeserializerRequest(
+                    model_name="model_name",
+                )
+            ],
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/linked-account-scopes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/linked-account-scopes"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -191,7 +198,7 @@ class AsyncScopesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/default-scopes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/default-scopes"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -234,7 +241,7 @@ class AsyncScopesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/linked-account-scopes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/linked-account-scopes"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -273,18 +280,25 @@ class AsyncScopesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
+        from merge.resources.filestorage import (
+            IndividualCommonModelScopeDeserializerRequest,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.filestorage.scopes.linked_account_scopes_create(
-            common_models=[],
+            common_models=[
+                IndividualCommonModelScopeDeserializerRequest(
+                    model_name="model_name",
+                )
+            ],
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/linked-account-scopes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/linked-account-scopes"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
