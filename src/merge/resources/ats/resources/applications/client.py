@@ -92,19 +92,16 @@ class ApplicationsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ats import ApplicationsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.applications.list(
-            expand=ApplicationsListRequestExpand.CANDIDATE,
-        )
+        client.ats.applications.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/applications"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -175,8 +172,6 @@ class ApplicationsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.ats import ApplicationRequest
 
@@ -185,22 +180,13 @@ class ApplicationsClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.applications.create(
-            model=ApplicationRequest(
-                applied_at=datetime.datetime.fromisoformat(
-                    "2021-10-15 00:00:00+00:00",
-                ),
-                rejected_at=datetime.datetime.fromisoformat(
-                    "2021-11-15 00:00:00+00:00",
-                ),
-                source="Campus recruiting event",
-                remote_template_id="92830948203",
-            ),
-            remote_user_id="string",
+            model=ApplicationRequest(),
+            remote_user_id="remote_user_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/applications"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -261,20 +247,18 @@ class ApplicationsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ats import ApplicationsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ats.applications.retrieve(
-            id="string",
-            expand=ApplicationsRetrieveRequestExpand.CANDIDATE,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/applications/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/applications/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -341,7 +325,7 @@ class ApplicationsClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.applications.change_stage_create(
-            id="string",
+            id="id",
         )
         """
         _request: typing.Dict[str, typing.Any] = {}
@@ -351,9 +335,7 @@ class ApplicationsClient:
             _request["remote_user_id"] = remote_user_id
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/applications/{id}/change-stage"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/applications/{id}/change-stage"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -417,7 +399,7 @@ class ApplicationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/applications/meta/post"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -515,19 +497,16 @@ class AsyncApplicationsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ats import ApplicationsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.applications.list(
-            expand=ApplicationsListRequestExpand.CANDIDATE,
-        )
+        await client.ats.applications.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/applications"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -598,8 +577,6 @@ class AsyncApplicationsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.ats import ApplicationRequest
 
@@ -608,22 +585,13 @@ class AsyncApplicationsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.applications.create(
-            model=ApplicationRequest(
-                applied_at=datetime.datetime.fromisoformat(
-                    "2021-10-15 00:00:00+00:00",
-                ),
-                rejected_at=datetime.datetime.fromisoformat(
-                    "2021-11-15 00:00:00+00:00",
-                ),
-                source="Campus recruiting event",
-                remote_template_id="92830948203",
-            ),
-            remote_user_id="string",
+            model=ApplicationRequest(),
+            remote_user_id="remote_user_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/applications"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -684,20 +652,18 @@ class AsyncApplicationsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ats import ApplicationsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.ats.applications.retrieve(
-            id="string",
-            expand=ApplicationsRetrieveRequestExpand.CANDIDATE,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/applications/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/applications/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -764,7 +730,7 @@ class AsyncApplicationsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.applications.change_stage_create(
-            id="string",
+            id="id",
         )
         """
         _request: typing.Dict[str, typing.Any] = {}
@@ -774,9 +740,7 @@ class AsyncApplicationsClient:
             _request["remote_user_id"] = remote_user_id
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/applications/{id}/change-stage"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/applications/{id}/change-stage"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -840,7 +804,7 @@ class AsyncApplicationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/applications/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/applications/meta/post"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

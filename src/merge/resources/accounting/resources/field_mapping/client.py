@@ -46,7 +46,7 @@ class FieldMappingClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/field-mappings"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/field-mappings"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -116,7 +116,7 @@ class FieldMappingClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/field-mappings"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/field-mappings"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -182,13 +182,13 @@ class FieldMappingClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.field_mapping.field_mappings_destroy(
-            field_mapping_id="string",
+            field_mapping_id="field_mapping_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "DELETE",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/field-mappings/{field_mapping_id}"
+                f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/field-mappings/{field_mapping_id}"
             ),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
@@ -243,7 +243,7 @@ class FieldMappingClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.field_mapping.field_mappings_partial_update(
-            field_mapping_id="string",
+            field_mapping_id="field_mapping_id",
             remote_method="GET",
             remote_url_path="/example-url-path",
         )
@@ -258,7 +258,7 @@ class FieldMappingClient:
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/field-mappings/{field_mapping_id}"
+                f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/field-mappings/{field_mapping_id}"
             ),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
@@ -316,7 +316,7 @@ class FieldMappingClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/remote-fields"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/remote-fields"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -369,7 +369,7 @@ class FieldMappingClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/target-fields"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/target-fields"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -417,7 +417,7 @@ class AsyncFieldMappingClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/field-mappings"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/field-mappings"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -487,7 +487,7 @@ class AsyncFieldMappingClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/field-mappings"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/field-mappings"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -553,13 +553,13 @@ class AsyncFieldMappingClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.field_mapping.field_mappings_destroy(
-            field_mapping_id="string",
+            field_mapping_id="field_mapping_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "DELETE",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/field-mappings/{field_mapping_id}"
+                f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/field-mappings/{field_mapping_id}"
             ),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
@@ -614,7 +614,7 @@ class AsyncFieldMappingClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.field_mapping.field_mappings_partial_update(
-            field_mapping_id="string",
+            field_mapping_id="field_mapping_id",
             remote_method="GET",
             remote_url_path="/example-url-path",
         )
@@ -629,7 +629,7 @@ class AsyncFieldMappingClient:
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/field-mappings/{field_mapping_id}"
+                f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/field-mappings/{field_mapping_id}"
             ),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
@@ -687,7 +687,7 @@ class AsyncFieldMappingClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/remote-fields"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/remote-fields"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -740,7 +740,7 @@ class AsyncFieldMappingClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/target-fields"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/target-fields"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

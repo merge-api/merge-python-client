@@ -45,12 +45,12 @@ class PhoneNumbersClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.phone_numbers.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/phone-numbers/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/phone-numbers/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -112,12 +112,12 @@ class AsyncPhoneNumbersClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.phone_numbers.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/phone-numbers/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/phone-numbers/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

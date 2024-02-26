@@ -77,14 +77,11 @@ class GroupsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.groups.list(
-            remote_fields="type",
-            show_enum_origins="type",
-        )
+        client.hris.groups.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/groups"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/groups"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -158,14 +155,12 @@ class GroupsClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.groups.retrieve(
-            id="string",
-            remote_fields="type",
-            show_enum_origins="type",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/groups/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/groups/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -258,14 +253,11 @@ class AsyncGroupsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.groups.list(
-            remote_fields="type",
-            show_enum_origins="type",
-        )
+        await client.hris.groups.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/groups"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/groups"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -339,14 +331,12 @@ class AsyncGroupsClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.groups.retrieve(
-            id="string",
-            remote_fields="type",
-            show_enum_origins="type",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/groups/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/groups/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

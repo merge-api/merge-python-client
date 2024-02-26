@@ -90,19 +90,16 @@ class NotesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.crm import NotesListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.notes.list(
-            expand=NotesListRequestExpand.ACCOUNT,
-        )
+        client.crm.notes.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/notes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/notes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -177,14 +174,12 @@ class NotesClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.notes.create(
-            model=NoteRequest(
-                content="Merge is hiring!",
-            ),
+            model=NoteRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/notes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/notes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -248,20 +243,18 @@ class NotesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.crm import NotesRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.crm.notes.retrieve(
-            id="string",
-            expand=NotesRetrieveRequestExpand.ACCOUNT,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/notes/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/notes/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -313,7 +306,7 @@ class NotesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/notes/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/notes/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -373,7 +366,7 @@ class NotesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/notes/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/notes/remote-field-classes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -472,19 +465,16 @@ class AsyncNotesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.crm import NotesListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.notes.list(
-            expand=NotesListRequestExpand.ACCOUNT,
-        )
+        await client.crm.notes.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/notes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/notes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -559,14 +549,12 @@ class AsyncNotesClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.notes.create(
-            model=NoteRequest(
-                content="Merge is hiring!",
-            ),
+            model=NoteRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/notes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/notes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -630,20 +618,18 @@ class AsyncNotesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.crm import NotesRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.crm.notes.retrieve(
-            id="string",
-            expand=NotesRetrieveRequestExpand.ACCOUNT,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/notes/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/notes/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -695,7 +681,7 @@ class AsyncNotesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/notes/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/notes/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -755,7 +741,7 @@ class AsyncNotesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/notes/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/notes/remote-field-classes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

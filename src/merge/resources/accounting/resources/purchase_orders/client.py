@@ -89,21 +89,16 @@ class PurchaseOrdersClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import PurchaseOrdersListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.purchase_orders.list(
-            expand=PurchaseOrdersListRequestExpand.ACCOUNTING_PERIOD,
-            remote_fields="status",
-            show_enum_origins="status",
-        )
+        client.accounting.purchase_orders.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/purchase-orders"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/purchase-orders"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -187,7 +182,7 @@ class PurchaseOrdersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/purchase-orders"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/purchase-orders"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -254,22 +249,18 @@ class PurchaseOrdersClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import PurchaseOrdersRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.purchase_orders.retrieve(
-            id="string",
-            expand=PurchaseOrdersRetrieveRequestExpand.ACCOUNTING_PERIOD,
-            remote_fields="status",
-            show_enum_origins="status",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/purchase-orders/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/purchase-orders/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -322,9 +313,7 @@ class PurchaseOrdersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/purchase-orders/meta/post"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/purchase-orders/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -410,21 +399,16 @@ class AsyncPurchaseOrdersClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import PurchaseOrdersListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.purchase_orders.list(
-            expand=PurchaseOrdersListRequestExpand.ACCOUNTING_PERIOD,
-            remote_fields="status",
-            show_enum_origins="status",
-        )
+        await client.accounting.purchase_orders.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/purchase-orders"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/purchase-orders"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -508,7 +492,7 @@ class AsyncPurchaseOrdersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/purchase-orders"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/purchase-orders"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -575,22 +559,18 @@ class AsyncPurchaseOrdersClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import PurchaseOrdersRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.accounting.purchase_orders.retrieve(
-            id="string",
-            expand=PurchaseOrdersRetrieveRequestExpand.ACCOUNTING_PERIOD,
-            remote_fields="status",
-            show_enum_origins="status",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/purchase-orders/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/purchase-orders/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -643,9 +623,7 @@ class AsyncPurchaseOrdersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/purchase-orders/meta/post"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/purchase-orders/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

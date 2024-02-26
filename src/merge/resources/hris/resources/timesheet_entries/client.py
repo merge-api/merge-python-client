@@ -88,19 +88,16 @@ class TimesheetEntriesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.hris import TimesheetEntriesListRequestOrderBy
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.timesheet_entries.list(
-            order_by=TimesheetEntriesListRequestOrderBy.START_TIME,
-        )
+        client.hris.timesheet_entries.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/timesheet-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/timesheet-entries"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -167,8 +164,6 @@ class TimesheetEntriesClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.hris import TimesheetEntryRequest
 
@@ -177,21 +172,12 @@ class TimesheetEntriesClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.timesheet_entries.create(
-            model=TimesheetEntryRequest(
-                employee="d2f972d0-2526-434b-9409-4c3b468e08f0",
-                hours_worked=10.0,
-                start_time=datetime.datetime.fromisoformat(
-                    "2020-11-10 00:00:00+00:00",
-                ),
-                end_time=datetime.datetime.fromisoformat(
-                    "2020-11-10 00:10:00+00:00",
-                ),
-            ),
+            model=TimesheetEntryRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/timesheet-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/timesheet-entries"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -255,12 +241,12 @@ class TimesheetEntriesClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.timesheet_entries.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/timesheet-entries/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/timesheet-entries/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -310,7 +296,7 @@ class TimesheetEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/timesheet-entries/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/timesheet-entries/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -396,19 +382,16 @@ class AsyncTimesheetEntriesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.hris import TimesheetEntriesListRequestOrderBy
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.timesheet_entries.list(
-            order_by=TimesheetEntriesListRequestOrderBy.START_TIME,
-        )
+        await client.hris.timesheet_entries.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/timesheet-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/timesheet-entries"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -475,8 +458,6 @@ class AsyncTimesheetEntriesClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.hris import TimesheetEntryRequest
 
@@ -485,21 +466,12 @@ class AsyncTimesheetEntriesClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.timesheet_entries.create(
-            model=TimesheetEntryRequest(
-                employee="d2f972d0-2526-434b-9409-4c3b468e08f0",
-                hours_worked=10.0,
-                start_time=datetime.datetime.fromisoformat(
-                    "2020-11-10 00:00:00+00:00",
-                ),
-                end_time=datetime.datetime.fromisoformat(
-                    "2020-11-10 00:10:00+00:00",
-                ),
-            ),
+            model=TimesheetEntryRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/timesheet-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/timesheet-entries"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -563,12 +535,12 @@ class AsyncTimesheetEntriesClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.timesheet_entries.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/timesheet-entries/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/timesheet-entries/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -618,7 +590,7 @@ class AsyncTimesheetEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/timesheet-entries/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/timesheet-entries/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

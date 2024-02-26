@@ -76,7 +76,7 @@ class StagesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/stages"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/stages"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -145,12 +145,12 @@ class StagesClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.stages.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/stages/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/stages/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -220,7 +220,7 @@ class StagesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/stages/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/stages/remote-field-classes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -313,7 +313,7 @@ class AsyncStagesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/stages"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/stages"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -382,12 +382,12 @@ class AsyncStagesClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.stages.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/stages/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/stages/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -457,7 +457,7 @@ class AsyncStagesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/stages/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/stages/remote-field-classes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

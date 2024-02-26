@@ -149,27 +149,16 @@ class EmployeesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.hris import (
-            EmployeesListRequestEmploymentStatus,
-            EmployeesListRequestExpand,
-            EmployeesListRequestRemoteFields,
-            EmployeesListRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.employees.list(
-            employment_status=EmployeesListRequestEmploymentStatus.ACTIVE,
-            expand=EmployeesListRequestExpand.COMPANY,
-            remote_fields=EmployeesListRequestRemoteFields.EMPLOYMENT_STATUS,
-            show_enum_origins=EmployeesListRequestShowEnumOrigins.EMPLOYMENT_STATUS,
-        )
+        client.hris.employees.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employees"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/employees"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -257,8 +246,6 @@ class EmployeesClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.hris import EmployeeRequest
 
@@ -267,36 +254,12 @@ class EmployeesClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.employees.create(
-            model=EmployeeRequest(
-                employee_number="2",
-                first_name="Greg",
-                last_name="Hirsch",
-                preferred_name="Greg the egg",
-                display_full_name="Cousin Greg Hirsch",
-                username="cousingreg",
-                work_email="greg@merge.dev",
-                personal_email="greg@gmail.com",
-                mobile_phone_number="+1234567890",
-                ssn="1234567890",
-                date_of_birth=datetime.datetime.fromisoformat(
-                    "1990-11-10 00:00:00+00:00",
-                ),
-                hire_date=datetime.datetime.fromisoformat(
-                    "2020-10-10 00:00:00+00:00",
-                ),
-                start_date=datetime.datetime.fromisoformat(
-                    "2020-10-11 00:00:00+00:00",
-                ),
-                termination_date=datetime.datetime.fromisoformat(
-                    "2021-10-12 00:00:00+00:00",
-                ),
-                avatar="http://alturl.com/h2h8m",
-            ),
+            model=EmployeeRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employees"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/employees"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -366,26 +329,18 @@ class EmployeesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.hris import (
-            EmployeesRetrieveRequestExpand,
-            EmployeesRetrieveRequestRemoteFields,
-            EmployeesRetrieveRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.hris.employees.retrieve(
-            id="string",
-            expand=EmployeesRetrieveRequestExpand.COMPANY,
-            remote_fields=EmployeesRetrieveRequestRemoteFields.EMPLOYMENT_STATUS,
-            show_enum_origins=EmployeesRetrieveRequestShowEnumOrigins.EMPLOYMENT_STATUS,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employees/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/employees/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -449,7 +404,7 @@ class EmployeesClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.employees.ignore_create(
-            model_id="string",
+            model_id="model_id",
             message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
         )
         """
@@ -458,7 +413,7 @@ class EmployeesClient:
             _request["message"] = message
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employees/ignore/{model_id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/employees/ignore/{model_id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -505,7 +460,7 @@ class EmployeesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employees/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/employees/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -645,27 +600,16 @@ class AsyncEmployeesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.hris import (
-            EmployeesListRequestEmploymentStatus,
-            EmployeesListRequestExpand,
-            EmployeesListRequestRemoteFields,
-            EmployeesListRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.employees.list(
-            employment_status=EmployeesListRequestEmploymentStatus.ACTIVE,
-            expand=EmployeesListRequestExpand.COMPANY,
-            remote_fields=EmployeesListRequestRemoteFields.EMPLOYMENT_STATUS,
-            show_enum_origins=EmployeesListRequestShowEnumOrigins.EMPLOYMENT_STATUS,
-        )
+        await client.hris.employees.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employees"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/employees"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -753,8 +697,6 @@ class AsyncEmployeesClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.hris import EmployeeRequest
 
@@ -763,36 +705,12 @@ class AsyncEmployeesClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.employees.create(
-            model=EmployeeRequest(
-                employee_number="2",
-                first_name="Greg",
-                last_name="Hirsch",
-                preferred_name="Greg the egg",
-                display_full_name="Cousin Greg Hirsch",
-                username="cousingreg",
-                work_email="greg@merge.dev",
-                personal_email="greg@gmail.com",
-                mobile_phone_number="+1234567890",
-                ssn="1234567890",
-                date_of_birth=datetime.datetime.fromisoformat(
-                    "1990-11-10 00:00:00+00:00",
-                ),
-                hire_date=datetime.datetime.fromisoformat(
-                    "2020-10-10 00:00:00+00:00",
-                ),
-                start_date=datetime.datetime.fromisoformat(
-                    "2020-10-11 00:00:00+00:00",
-                ),
-                termination_date=datetime.datetime.fromisoformat(
-                    "2021-10-12 00:00:00+00:00",
-                ),
-                avatar="http://alturl.com/h2h8m",
-            ),
+            model=EmployeeRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employees"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/employees"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -862,26 +780,18 @@ class AsyncEmployeesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.hris import (
-            EmployeesRetrieveRequestExpand,
-            EmployeesRetrieveRequestRemoteFields,
-            EmployeesRetrieveRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.hris.employees.retrieve(
-            id="string",
-            expand=EmployeesRetrieveRequestExpand.COMPANY,
-            remote_fields=EmployeesRetrieveRequestRemoteFields.EMPLOYMENT_STATUS,
-            show_enum_origins=EmployeesRetrieveRequestShowEnumOrigins.EMPLOYMENT_STATUS,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employees/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/employees/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -945,7 +855,7 @@ class AsyncEmployeesClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.employees.ignore_create(
-            model_id="string",
+            model_id="model_id",
             message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
         )
         """
@@ -954,7 +864,7 @@ class AsyncEmployeesClient:
             _request["message"] = message
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employees/ignore/{model_id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/employees/ignore/{model_id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -1001,7 +911,7 @@ class AsyncEmployeesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employees/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/employees/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

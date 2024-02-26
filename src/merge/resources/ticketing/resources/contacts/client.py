@@ -71,13 +71,11 @@ class ContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.contacts.list(
-            expand="account",
-        )
+        client.ticketing.contacts.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/contacts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/contacts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -146,13 +144,12 @@ class ContactsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.contacts.retrieve(
-            id="string",
-            expand="account",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/contacts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/contacts/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -238,13 +235,11 @@ class AsyncContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.contacts.list(
-            expand="account",
-        )
+        await client.ticketing.contacts.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/contacts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/contacts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -313,13 +308,12 @@ class AsyncContactsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.contacts.retrieve(
-            id="string",
-            expand="account",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/contacts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/contacts/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

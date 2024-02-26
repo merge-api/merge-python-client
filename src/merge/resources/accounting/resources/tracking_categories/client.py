@@ -80,15 +80,11 @@ class TrackingCategoriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.tracking_categories.list(
-            expand="company",
-            remote_fields="status",
-            show_enum_origins="status",
-        )
+        client.accounting.tracking_categories.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/tracking-categories"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/tracking-categories"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -166,17 +162,12 @@ class TrackingCategoriesClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.tracking_categories.retrieve(
-            id="string",
-            expand="company",
-            remote_fields="status",
-            show_enum_origins="status",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/tracking-categories/{id}"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/tracking-categories/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -273,15 +264,11 @@ class AsyncTrackingCategoriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.tracking_categories.list(
-            expand="company",
-            remote_fields="status",
-            show_enum_origins="status",
-        )
+        await client.accounting.tracking_categories.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/tracking-categories"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/tracking-categories"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -359,17 +346,12 @@ class AsyncTrackingCategoriesClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.tracking_categories.retrieve(
-            id="string",
-            expand="company",
-            remote_fields="status",
-            show_enum_origins="status",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/tracking-categories/{id}"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/tracking-categories/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

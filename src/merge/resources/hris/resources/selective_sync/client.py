@@ -45,9 +45,7 @@ class SelectiveSyncClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/selective-sync/configurations"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/selective-sync/configurations"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -86,20 +84,23 @@ class SelectiveSyncClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
+        from merge.resources.hris import LinkedAccountSelectiveSyncConfigurationRequest
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.hris.selective_sync.configurations_update(
-            sync_configurations=[],
+            sync_configurations=[
+                LinkedAccountSelectiveSyncConfigurationRequest(
+                    linked_account_conditions=[],
+                )
+            ],
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PUT",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/selective-sync/configurations"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/selective-sync/configurations"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -159,7 +160,7 @@ class SelectiveSyncClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/selective-sync/meta"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/selective-sync/meta"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -218,9 +219,7 @@ class AsyncSelectiveSyncClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/selective-sync/configurations"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/selective-sync/configurations"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -259,20 +258,23 @@ class AsyncSelectiveSyncClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
+        from merge.resources.hris import LinkedAccountSelectiveSyncConfigurationRequest
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.hris.selective_sync.configurations_update(
-            sync_configurations=[],
+            sync_configurations=[
+                LinkedAccountSelectiveSyncConfigurationRequest(
+                    linked_account_conditions=[],
+                )
+            ],
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PUT",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/selective-sync/configurations"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/selective-sync/configurations"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -332,7 +334,7 @@ class AsyncSelectiveSyncClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/selective-sync/meta"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/selective-sync/meta"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

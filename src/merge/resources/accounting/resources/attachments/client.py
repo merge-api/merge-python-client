@@ -81,7 +81,7 @@ class AttachmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/attachments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -151,16 +151,12 @@ class AttachmentsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.attachments.create(
-            model=AccountingAttachmentRequest(
-                file_name="invoice.png",
-                file_url="https://merge-brand.s3.amazonaws.com/20210315/rect-logo-270x80%402x.png",
-                company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
-            ),
+            model=AccountingAttachmentRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/attachments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -224,12 +220,12 @@ class AttachmentsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.attachments.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/attachments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/attachments/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -279,7 +275,7 @@ class AttachmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/attachments/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/attachments/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -359,7 +355,7 @@ class AsyncAttachmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/attachments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -429,16 +425,12 @@ class AsyncAttachmentsClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.attachments.create(
-            model=AccountingAttachmentRequest(
-                file_name="invoice.png",
-                file_url="https://merge-brand.s3.amazonaws.com/20210315/rect-logo-270x80%402x.png",
-                company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
-            ),
+            model=AccountingAttachmentRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/attachments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -502,12 +494,12 @@ class AsyncAttachmentsClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.attachments.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/attachments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/attachments/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -557,7 +549,7 @@ class AsyncAttachmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/attachments/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/attachments/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

@@ -71,13 +71,11 @@ class CustomObjectClassesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.custom_object_classes.list(
-            expand="fields",
-        )
+        client.crm.custom_object_classes.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/custom-object-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/custom-object-classes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -146,13 +144,12 @@ class CustomObjectClassesClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.custom_object_classes.retrieve(
-            id="string",
-            expand="fields",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/custom-object-classes/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/custom-object-classes/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -238,13 +235,11 @@ class AsyncCustomObjectClassesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.custom_object_classes.list(
-            expand="fields",
-        )
+        await client.crm.custom_object_classes.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/custom-object-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/custom-object-classes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -313,13 +308,12 @@ class AsyncCustomObjectClassesClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.custom_object_classes.retrieve(
-            id="string",
-            expand="fields",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/custom-object-classes/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/custom-object-classes/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

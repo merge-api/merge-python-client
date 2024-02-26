@@ -74,13 +74,11 @@ class CashFlowStatementsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.cash_flow_statements.list(
-            expand="company",
-        )
+        client.accounting.cash_flow_statements.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/cash-flow-statements"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/cash-flow-statements"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -150,15 +148,12 @@ class CashFlowStatementsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.cash_flow_statements.retrieve(
-            id="string",
-            expand="company",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/cash-flow-statements/{id}"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/cash-flow-statements/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -247,13 +242,11 @@ class AsyncCashFlowStatementsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.cash_flow_statements.list(
-            expand="company",
-        )
+        await client.accounting.cash_flow_statements.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/cash-flow-statements"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/cash-flow-statements"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -323,15 +316,12 @@ class AsyncCashFlowStatementsClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.cash_flow_statements.retrieve(
-            id="string",
-            expand="company",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/cash-flow-statements/{id}"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/cash-flow-statements/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

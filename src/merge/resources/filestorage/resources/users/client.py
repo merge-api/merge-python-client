@@ -75,7 +75,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/users"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/users"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -141,12 +141,12 @@ class UsersClient:
             api_key="YOUR_API_KEY",
         )
         client.filestorage.users.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/users/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"filestorage/v1/users/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -235,7 +235,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/users"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/users"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -301,12 +301,12 @@ class AsyncUsersClient:
             api_key="YOUR_API_KEY",
         )
         await client.filestorage.users.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/users/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"filestorage/v1/users/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

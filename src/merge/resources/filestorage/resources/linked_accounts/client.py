@@ -80,19 +80,16 @@ class LinkedAccountsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.filestorage import LinkedAccountsListRequestCategory
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.linked_accounts.list(
-            category=LinkedAccountsListRequestCategory.ACCOUNTING,
-        )
+        client.filestorage.linked_accounts.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/linked-accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/linked-accounts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -200,19 +197,16 @@ class AsyncLinkedAccountsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.filestorage import LinkedAccountsListRequestCategory
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.linked_accounts.list(
-            category=LinkedAccountsListRequestCategory.ACCOUNTING,
-        )
+        await client.filestorage.linked_accounts.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/linked-accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/linked-accounts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

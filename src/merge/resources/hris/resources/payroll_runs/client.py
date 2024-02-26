@@ -94,25 +94,16 @@ class PayrollRunsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.hris import (
-            PayrollRunsListRequestRemoteFields,
-            PayrollRunsListRequestRunType,
-            PayrollRunsListRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.payroll_runs.list(
-            remote_fields=PayrollRunsListRequestRemoteFields.RUN_STATE,
-            run_type=PayrollRunsListRequestRunType.CORRECTION,
-            show_enum_origins=PayrollRunsListRequestShowEnumOrigins.RUN_STATE,
-        )
+        client.hris.payroll_runs.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/payroll-runs"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/payroll-runs"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -184,24 +175,18 @@ class PayrollRunsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.hris import (
-            PayrollRunsRetrieveRequestRemoteFields,
-            PayrollRunsRetrieveRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.hris.payroll_runs.retrieve(
-            id="string",
-            remote_fields=PayrollRunsRetrieveRequestRemoteFields.RUN_STATE,
-            show_enum_origins=PayrollRunsRetrieveRequestShowEnumOrigins.RUN_STATE,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/payroll-runs/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/payroll-runs/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -306,25 +291,16 @@ class AsyncPayrollRunsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.hris import (
-            PayrollRunsListRequestRemoteFields,
-            PayrollRunsListRequestRunType,
-            PayrollRunsListRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.payroll_runs.list(
-            remote_fields=PayrollRunsListRequestRemoteFields.RUN_STATE,
-            run_type=PayrollRunsListRequestRunType.CORRECTION,
-            show_enum_origins=PayrollRunsListRequestShowEnumOrigins.RUN_STATE,
-        )
+        await client.hris.payroll_runs.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/payroll-runs"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/payroll-runs"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -396,24 +372,18 @@ class AsyncPayrollRunsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.hris import (
-            PayrollRunsRetrieveRequestRemoteFields,
-            PayrollRunsRetrieveRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.hris.payroll_runs.retrieve(
-            id="string",
-            remote_fields=PayrollRunsRetrieveRequestRemoteFields.RUN_STATE,
-            show_enum_origins=PayrollRunsRetrieveRequestShowEnumOrigins.RUN_STATE,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/payroll-runs/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/payroll-runs/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

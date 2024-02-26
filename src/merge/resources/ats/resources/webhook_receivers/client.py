@@ -41,7 +41,7 @@ class WebhookReceiversClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/webhook-receivers"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/webhook-receivers"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -92,7 +92,7 @@ class WebhookReceiversClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.webhook_receivers.create(
-            event="string",
+            event="event",
             is_active=True,
         )
         """
@@ -101,7 +101,7 @@ class WebhookReceiversClient:
             _request["key"] = key
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/webhook-receivers"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/webhook-receivers"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -153,7 +153,7 @@ class AsyncWebhookReceiversClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/webhook-receivers"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/webhook-receivers"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -204,7 +204,7 @@ class AsyncWebhookReceiversClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.webhook_receivers.create(
-            event="string",
+            event="event",
             is_active=True,
         )
         """
@@ -213,7 +213,7 @@ class AsyncWebhookReceiversClient:
             _request["key"] = key
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/webhook-receivers"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/webhook-receivers"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

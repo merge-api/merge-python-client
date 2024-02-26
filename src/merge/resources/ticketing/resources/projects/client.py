@@ -74,7 +74,7 @@ class ProjectsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/projects"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/projects"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -139,12 +139,12 @@ class ProjectsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.projects.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/projects/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/projects/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -207,22 +207,18 @@ class ProjectsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ticketing import ProjectsUsersListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ticketing.projects.users_list(
-            parent_id="string",
-            expand=ProjectsUsersListRequestExpand.ROLES,
+            parent_id="parent_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/projects/{parent_id}/users"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/projects/{parent_id}/users"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -312,7 +308,7 @@ class AsyncProjectsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/projects"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/projects"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -377,12 +373,12 @@ class AsyncProjectsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.projects.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/projects/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/projects/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -445,22 +441,18 @@ class AsyncProjectsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ticketing import ProjectsUsersListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.projects.users_list(
-            parent_id="string",
-            expand=ProjectsUsersListRequestExpand.ROLES,
+            parent_id="parent_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/projects/{parent_id}/users"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/projects/{parent_id}/users"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

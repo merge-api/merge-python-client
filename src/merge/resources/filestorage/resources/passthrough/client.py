@@ -37,11 +37,7 @@ class PassthroughClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.filestorage import (
-            DataPassthroughRequest,
-            MethodEnum,
-            RequestFormatEnum,
-        )
+        from merge.resources.filestorage import DataPassthroughRequest, MethodEnum
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -51,14 +47,12 @@ class PassthroughClient:
             request=DataPassthroughRequest(
                 method=MethodEnum.GET,
                 path="/scooters",
-                data='{"company": "Lime", "model": "Gen 2.5"}',
-                request_format=RequestFormatEnum.JSON,
             ),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/passthrough"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/passthrough"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -105,11 +99,7 @@ class AsyncPassthroughClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.filestorage import (
-            DataPassthroughRequest,
-            MethodEnum,
-            RequestFormatEnum,
-        )
+        from merge.resources.filestorage import DataPassthroughRequest, MethodEnum
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -119,14 +109,12 @@ class AsyncPassthroughClient:
             request=DataPassthroughRequest(
                 method=MethodEnum.GET,
                 path="/scooters",
-                data='{"company": "Lime", "model": "Gen 2.5"}',
-                request_format=RequestFormatEnum.JSON,
             ),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/passthrough"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/passthrough"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

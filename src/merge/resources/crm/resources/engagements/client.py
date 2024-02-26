@@ -85,19 +85,16 @@ class EngagementsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.crm import EngagementsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.engagements.list(
-            expand=EngagementsListRequestExpand.ACCOUNT,
-        )
+        client.crm.engagements.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/engagements"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -162,8 +159,6 @@ class EngagementsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.crm import EngagementRequest
 
@@ -172,21 +167,12 @@ class EngagementsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.engagements.create(
-            model=EngagementRequest(
-                content="Call for negotiation",
-                subject="Call from customer",
-                start_time=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-                end_time=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:05:00+00:00",
-                ),
-            ),
+            model=EngagementRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/engagements"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -250,20 +236,18 @@ class EngagementsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.crm import EngagementsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.crm.engagements.retrieve(
-            id="string",
-            expand=EngagementsRetrieveRequestExpand.ACCOUNT,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/engagements/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/engagements/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -321,8 +305,6 @@ class EngagementsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.crm import PatchedEngagementRequest
 
@@ -331,25 +313,13 @@ class EngagementsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.engagements.partial_update(
-            id="string",
-            model=PatchedEngagementRequest(
-                owner="0358cbc6-2040-430a-848e-aafacbadf3aa",
-                content="Call for negotiation",
-                subject="Call from customer",
-                engagement_type="0358cbc6-2040-430a-848e-aafacbadf3aa",
-                start_time=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-                end_time=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:05:00+00:00",
-                ),
-                account="025fjlc6-6000-430a-848e-aafacbadf4fe",
-            ),
+            id="id",
+            model=PatchedEngagementRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/engagements/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/engagements/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -405,12 +375,12 @@ class EngagementsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.engagements.meta_patch_retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/engagements/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/engagements/meta/patch/{id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -451,7 +421,7 @@ class EngagementsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/engagements/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -511,9 +481,7 @@ class EngagementsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements/remote-field-classes"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/engagements/remote-field-classes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -606,19 +574,16 @@ class AsyncEngagementsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.crm import EngagementsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.engagements.list(
-            expand=EngagementsListRequestExpand.ACCOUNT,
-        )
+        await client.crm.engagements.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/engagements"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -683,8 +648,6 @@ class AsyncEngagementsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.crm import EngagementRequest
 
@@ -693,21 +656,12 @@ class AsyncEngagementsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.engagements.create(
-            model=EngagementRequest(
-                content="Call for negotiation",
-                subject="Call from customer",
-                start_time=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-                end_time=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:05:00+00:00",
-                ),
-            ),
+            model=EngagementRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/engagements"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -771,20 +725,18 @@ class AsyncEngagementsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.crm import EngagementsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.crm.engagements.retrieve(
-            id="string",
-            expand=EngagementsRetrieveRequestExpand.ACCOUNT,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/engagements/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/engagements/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -842,8 +794,6 @@ class AsyncEngagementsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.crm import PatchedEngagementRequest
 
@@ -852,25 +802,13 @@ class AsyncEngagementsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.engagements.partial_update(
-            id="string",
-            model=PatchedEngagementRequest(
-                owner="0358cbc6-2040-430a-848e-aafacbadf3aa",
-                content="Call for negotiation",
-                subject="Call from customer",
-                engagement_type="0358cbc6-2040-430a-848e-aafacbadf3aa",
-                start_time=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-                end_time=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:05:00+00:00",
-                ),
-                account="025fjlc6-6000-430a-848e-aafacbadf4fe",
-            ),
+            id="id",
+            model=PatchedEngagementRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/engagements/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/engagements/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -928,12 +866,12 @@ class AsyncEngagementsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.engagements.meta_patch_retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/engagements/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/engagements/meta/patch/{id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -974,7 +912,7 @@ class AsyncEngagementsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/engagements/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -1034,9 +972,7 @@ class AsyncEngagementsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagements/remote-field-classes"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/engagements/remote-field-classes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

@@ -77,14 +77,11 @@ class UsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.users.list(
-            remote_fields="access_role",
-            show_enum_origins="access_role",
-        )
+        client.ats.users.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/users"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/users"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -158,14 +155,12 @@ class UsersClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.users.retrieve(
-            id="string",
-            remote_fields="access_role",
-            show_enum_origins="access_role",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/users/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/users/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -258,14 +253,11 @@ class AsyncUsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.users.list(
-            remote_fields="access_role",
-            show_enum_origins="access_role",
-        )
+        await client.ats.users.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/users"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/users"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -339,14 +331,12 @@ class AsyncUsersClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.users.retrieve(
-            id="string",
-            remote_fields="access_role",
-            show_enum_origins="access_role",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/users/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/users/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

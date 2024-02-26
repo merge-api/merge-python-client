@@ -55,7 +55,7 @@ class AccountingPeriodsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/accounting-periods"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/accounting-periods"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -115,14 +115,12 @@ class AccountingPeriodsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.accounting_periods.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/accounting-periods/{id}"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/accounting-periods/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -193,7 +191,7 @@ class AsyncAccountingPeriodsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/accounting-periods"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/accounting-periods"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -253,14 +251,12 @@ class AsyncAccountingPeriodsClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.accounting_periods.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/accounting-periods/{id}"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/accounting-periods/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

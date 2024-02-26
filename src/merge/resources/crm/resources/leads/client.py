@@ -93,19 +93,16 @@ class LeadsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.crm import LeadsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.leads.list(
-            expand=LeadsListRequestExpand.CONVERTED_ACCOUNT,
-        )
+        client.crm.leads.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/leads"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/leads"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -173,8 +170,6 @@ class LeadsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.crm import LeadRequest
 
@@ -183,21 +178,12 @@ class LeadsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.leads.create(
-            model=LeadRequest(
-                lead_source="API Blogger",
-                title="Co-Founder",
-                company="Merge API",
-                first_name="Gil",
-                last_name="Feig",
-                converted_date=datetime.datetime.fromisoformat(
-                    "2022-03-10 00:00:00+00:00",
-                ),
-            ),
+            model=LeadRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/leads"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/leads"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -261,20 +247,18 @@ class LeadsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.crm import LeadsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.crm.leads.retrieve(
-            id="string",
-            expand=LeadsRetrieveRequestExpand.CONVERTED_ACCOUNT,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/leads/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/leads/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -326,7 +310,7 @@ class LeadsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/leads/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/leads/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -386,7 +370,7 @@ class LeadsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/leads/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/leads/remote-field-classes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -488,19 +472,16 @@ class AsyncLeadsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.crm import LeadsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.leads.list(
-            expand=LeadsListRequestExpand.CONVERTED_ACCOUNT,
-        )
+        await client.crm.leads.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/leads"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/leads"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -568,8 +549,6 @@ class AsyncLeadsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.crm import LeadRequest
 
@@ -578,21 +557,12 @@ class AsyncLeadsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.leads.create(
-            model=LeadRequest(
-                lead_source="API Blogger",
-                title="Co-Founder",
-                company="Merge API",
-                first_name="Gil",
-                last_name="Feig",
-                converted_date=datetime.datetime.fromisoformat(
-                    "2022-03-10 00:00:00+00:00",
-                ),
-            ),
+            model=LeadRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/leads"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/leads"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -656,20 +626,18 @@ class AsyncLeadsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.crm import LeadsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.crm.leads.retrieve(
-            id="string",
-            expand=LeadsRetrieveRequestExpand.CONVERTED_ACCOUNT,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/leads/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/leads/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -721,7 +689,7 @@ class AsyncLeadsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/leads/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/leads/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -781,7 +749,7 @@ class AsyncLeadsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/leads/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/leads/remote-field-classes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

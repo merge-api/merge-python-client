@@ -79,19 +79,16 @@ class TasksClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.crm import TasksListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.tasks.list(
-            expand=TasksListRequestExpand.ACCOUNT,
-        )
+        client.crm.tasks.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/tasks"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/tasks"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -154,8 +151,6 @@ class TasksClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.crm import TaskRequest
 
@@ -164,21 +159,12 @@ class TasksClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.tasks.create(
-            model=TaskRequest(
-                subject="Contact about Integration Strategy",
-                content="Follow up to see whether they need integrations",
-                completed_date=datetime.datetime.fromisoformat(
-                    "2022-02-11 00:00:00+00:00",
-                ),
-                due_date=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-            ),
+            model=TaskRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/tasks"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/tasks"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -242,20 +228,18 @@ class TasksClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.crm import TasksRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.crm.tasks.retrieve(
-            id="string",
-            expand=TasksRetrieveRequestExpand.ACCOUNT,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/tasks/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/tasks/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -313,8 +297,6 @@ class TasksClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.crm import PatchedTaskRequest
 
@@ -323,25 +305,13 @@ class TasksClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.tasks.partial_update(
-            id="string",
-            model=PatchedTaskRequest(
-                subject="Contact about Integration Strategy",
-                content="Follow up to see whether they need integrations",
-                owner="0358cbc6-2040-430a-848e-aafacbadf3aa",
-                account="3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                opportunity="550e8400-e29b-41d4-a716-446655440000",
-                completed_date=datetime.datetime.fromisoformat(
-                    "2022-02-11 00:00:00+00:00",
-                ),
-                due_date=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-            ),
+            id="id",
+            model=PatchedTaskRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/tasks/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/tasks/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -397,12 +367,12 @@ class TasksClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.tasks.meta_patch_retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/tasks/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/tasks/meta/patch/{id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -443,7 +413,7 @@ class TasksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/tasks/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/tasks/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -503,7 +473,7 @@ class TasksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/tasks/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/tasks/remote-field-classes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -590,19 +560,16 @@ class AsyncTasksClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.crm import TasksListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.tasks.list(
-            expand=TasksListRequestExpand.ACCOUNT,
-        )
+        await client.crm.tasks.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/tasks"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/tasks"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -665,8 +632,6 @@ class AsyncTasksClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.crm import TaskRequest
 
@@ -675,21 +640,12 @@ class AsyncTasksClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.tasks.create(
-            model=TaskRequest(
-                subject="Contact about Integration Strategy",
-                content="Follow up to see whether they need integrations",
-                completed_date=datetime.datetime.fromisoformat(
-                    "2022-02-11 00:00:00+00:00",
-                ),
-                due_date=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-            ),
+            model=TaskRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/tasks"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/tasks"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -753,20 +709,18 @@ class AsyncTasksClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.crm import TasksRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.crm.tasks.retrieve(
-            id="string",
-            expand=TasksRetrieveRequestExpand.ACCOUNT,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/tasks/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/tasks/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -824,8 +778,6 @@ class AsyncTasksClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.crm import PatchedTaskRequest
 
@@ -834,25 +786,13 @@ class AsyncTasksClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.tasks.partial_update(
-            id="string",
-            model=PatchedTaskRequest(
-                subject="Contact about Integration Strategy",
-                content="Follow up to see whether they need integrations",
-                owner="0358cbc6-2040-430a-848e-aafacbadf3aa",
-                account="3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                opportunity="550e8400-e29b-41d4-a716-446655440000",
-                completed_date=datetime.datetime.fromisoformat(
-                    "2022-02-11 00:00:00+00:00",
-                ),
-                due_date=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-            ),
+            id="id",
+            model=PatchedTaskRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/tasks/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/tasks/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -910,12 +850,12 @@ class AsyncTasksClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.tasks.meta_patch_retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/tasks/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/tasks/meta/patch/{id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -956,7 +896,7 @@ class AsyncTasksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/tasks/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/tasks/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -1016,7 +956,7 @@ class AsyncTasksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/tasks/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/tasks/remote-field-classes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

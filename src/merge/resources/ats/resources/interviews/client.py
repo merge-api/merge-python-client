@@ -92,21 +92,16 @@ class InterviewsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ats import InterviewsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.interviews.list(
-            expand=InterviewsListRequestExpand.APPLICATION,
-            remote_fields="status",
-            show_enum_origins="status",
-        )
+        client.ats.interviews.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/interviews"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/interviews"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -177,8 +172,6 @@ class InterviewsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.ats import ScheduledInterviewRequest
 
@@ -187,21 +180,13 @@ class InterviewsClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.interviews.create(
-            model=ScheduledInterviewRequest(
-                location="Embarcadero Center 2",
-                start_at=datetime.datetime.fromisoformat(
-                    "2021-10-15 00:00:00+00:00",
-                ),
-                end_at=datetime.datetime.fromisoformat(
-                    "2021-10-15 02:00:00+00:00",
-                ),
-            ),
-            remote_user_id="string",
+            model=ScheduledInterviewRequest(),
+            remote_user_id="remote_user_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/interviews"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/interviews"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -268,22 +253,18 @@ class InterviewsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ats import InterviewsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ats.interviews.retrieve(
-            id="string",
-            expand=InterviewsRetrieveRequestExpand.APPLICATION,
-            remote_fields="status",
-            show_enum_origins="status",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/interviews/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/interviews/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -336,7 +317,7 @@ class InterviewsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/interviews/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/interviews/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -425,21 +406,16 @@ class AsyncInterviewsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ats import InterviewsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.interviews.list(
-            expand=InterviewsListRequestExpand.APPLICATION,
-            remote_fields="status",
-            show_enum_origins="status",
-        )
+        await client.ats.interviews.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/interviews"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/interviews"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -510,8 +486,6 @@ class AsyncInterviewsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.ats import ScheduledInterviewRequest
 
@@ -520,21 +494,13 @@ class AsyncInterviewsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.interviews.create(
-            model=ScheduledInterviewRequest(
-                location="Embarcadero Center 2",
-                start_at=datetime.datetime.fromisoformat(
-                    "2021-10-15 00:00:00+00:00",
-                ),
-                end_at=datetime.datetime.fromisoformat(
-                    "2021-10-15 02:00:00+00:00",
-                ),
-            ),
-            remote_user_id="string",
+            model=ScheduledInterviewRequest(),
+            remote_user_id="remote_user_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/interviews"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/interviews"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -601,22 +567,18 @@ class AsyncInterviewsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ats import InterviewsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.ats.interviews.retrieve(
-            id="string",
-            expand=InterviewsRetrieveRequestExpand.APPLICATION,
-            remote_fields="status",
-            show_enum_origins="status",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/interviews/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/interviews/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -669,7 +631,7 @@ class AsyncInterviewsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/interviews/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/interviews/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

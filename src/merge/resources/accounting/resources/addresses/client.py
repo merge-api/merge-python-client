@@ -51,14 +51,12 @@ class AddressesClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.addresses.retrieve(
-            id="string",
-            remote_fields="type",
-            show_enum_origins="type",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/addresses/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/addresses/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -128,14 +126,12 @@ class AsyncAddressesClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.addresses.retrieve(
-            id="string",
-            remote_fields="type",
-            show_enum_origins="type",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/addresses/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/addresses/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

@@ -74,13 +74,11 @@ class BalanceSheetsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.balance_sheets.list(
-            expand="company",
-        )
+        client.accounting.balance_sheets.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/balance-sheets"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/balance-sheets"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -150,13 +148,12 @@ class BalanceSheetsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.balance_sheets.retrieve(
-            id="string",
-            expand="company",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/balance-sheets/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/balance-sheets/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -245,13 +242,11 @@ class AsyncBalanceSheetsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.balance_sheets.list(
-            expand="company",
-        )
+        await client.accounting.balance_sheets.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/balance-sheets"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/balance-sheets"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -321,13 +316,12 @@ class AsyncBalanceSheetsClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.balance_sheets.retrieve(
-            id="string",
-            expand="company",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/balance-sheets/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/balance-sheets/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

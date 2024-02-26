@@ -88,13 +88,11 @@ class AccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.accounts.list(
-            expand="owner",
-        )
+        client.crm.accounts.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/accounts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -159,8 +157,6 @@ class AccountsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.crm import AccountRequest
 
@@ -169,21 +165,12 @@ class AccountsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.accounts.create(
-            model=AccountRequest(
-                name="Merge API",
-                description="One API for all integrations",
-                industry="API's",
-                website="https://merge.dev/",
-                number_of_employees=1,
-                last_activity_at=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-            ),
+            model=AccountRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/accounts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -253,13 +240,12 @@ class AccountsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.accounts.retrieve(
-            id="string",
-            expand="owner",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/accounts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/accounts/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -317,8 +303,6 @@ class AccountsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.crm import PatchedAccountRequest
 
@@ -327,23 +311,13 @@ class AccountsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.accounts.partial_update(
-            id="string",
-            model=PatchedAccountRequest(
-                owner="0258cbc6-6020-430a-848e-aafacbadf4ae",
-                name="Merge API",
-                description="One API for all integrations",
-                industry="API's",
-                website="https://merge.dev/",
-                number_of_employees=1,
-                last_activity_at=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-            ),
+            id="id",
+            model=PatchedAccountRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/accounts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/accounts/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -399,12 +373,12 @@ class AccountsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.accounts.meta_patch_retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/accounts/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/accounts/meta/patch/{id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -445,7 +419,7 @@ class AccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/accounts/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/accounts/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -505,7 +479,7 @@ class AccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/accounts/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/accounts/remote-field-classes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -603,13 +577,11 @@ class AsyncAccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.accounts.list(
-            expand="owner",
-        )
+        await client.crm.accounts.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/accounts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -674,8 +646,6 @@ class AsyncAccountsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.crm import AccountRequest
 
@@ -684,21 +654,12 @@ class AsyncAccountsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.accounts.create(
-            model=AccountRequest(
-                name="Merge API",
-                description="One API for all integrations",
-                industry="API's",
-                website="https://merge.dev/",
-                number_of_employees=1,
-                last_activity_at=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-            ),
+            model=AccountRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/accounts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -768,13 +729,12 @@ class AsyncAccountsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.accounts.retrieve(
-            id="string",
-            expand="owner",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/accounts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/accounts/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -832,8 +792,6 @@ class AsyncAccountsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.crm import PatchedAccountRequest
 
@@ -842,23 +800,13 @@ class AsyncAccountsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.accounts.partial_update(
-            id="string",
-            model=PatchedAccountRequest(
-                owner="0258cbc6-6020-430a-848e-aafacbadf4ae",
-                name="Merge API",
-                description="One API for all integrations",
-                industry="API's",
-                website="https://merge.dev/",
-                number_of_employees=1,
-                last_activity_at=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-            ),
+            id="id",
+            model=PatchedAccountRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/accounts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/accounts/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -916,12 +864,12 @@ class AsyncAccountsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.accounts.meta_patch_retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/accounts/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/accounts/meta/patch/{id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -962,7 +910,7 @@ class AsyncAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/accounts/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/accounts/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -1022,7 +970,7 @@ class AsyncAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/accounts/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/accounts/remote-field-classes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

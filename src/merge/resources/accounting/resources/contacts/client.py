@@ -89,21 +89,16 @@ class ContactsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import ContactsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.contacts.list(
-            expand=ContactsListRequestExpand.ADDRESSES,
-            remote_fields="status",
-            show_enum_origins="status",
-        )
+        client.accounting.contacts.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/contacts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/contacts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -178,19 +173,12 @@ class ContactsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.contacts.create(
-            model=ContactRequest(
-                name="Gil Feig's Pickleball Team",
-                is_customer=True,
-                email_address="pickleball@merge.dev",
-                tax_number="12-3456789",
-                currency="USD",
-                company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
-            ),
+            model=ContactRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/contacts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/contacts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -257,22 +245,18 @@ class ContactsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import ContactsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.contacts.retrieve(
-            id="string",
-            expand=ContactsRetrieveRequestExpand.ADDRESSES,
-            remote_fields="status",
-            show_enum_origins="status",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/contacts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/contacts/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -325,7 +309,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/contacts/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/contacts/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -411,21 +395,16 @@ class AsyncContactsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import ContactsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.contacts.list(
-            expand=ContactsListRequestExpand.ADDRESSES,
-            remote_fields="status",
-            show_enum_origins="status",
-        )
+        await client.accounting.contacts.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/contacts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/contacts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -500,19 +479,12 @@ class AsyncContactsClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.contacts.create(
-            model=ContactRequest(
-                name="Gil Feig's Pickleball Team",
-                is_customer=True,
-                email_address="pickleball@merge.dev",
-                tax_number="12-3456789",
-                currency="USD",
-                company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
-            ),
+            model=ContactRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/contacts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/contacts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -579,22 +551,18 @@ class AsyncContactsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import ContactsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.accounting.contacts.retrieve(
-            id="string",
-            expand=ContactsRetrieveRequestExpand.ADDRESSES,
-            remote_fields="status",
-            show_enum_origins="status",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/contacts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/contacts/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -647,7 +615,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/contacts/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/contacts/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

@@ -121,29 +121,16 @@ class TimeOffClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.hris import (
-            TimeOffListRequestExpand,
-            TimeOffListRequestRemoteFields,
-            TimeOffListRequestRequestType,
-            TimeOffListRequestShowEnumOrigins,
-            TimeOffListRequestStatus,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.time_off.list(
-            expand=TimeOffListRequestExpand.APPROVER,
-            remote_fields=TimeOffListRequestRemoteFields.REQUEST_TYPE,
-            request_type=TimeOffListRequestRequestType.BEREAVEMENT,
-            show_enum_origins=TimeOffListRequestShowEnumOrigins.REQUEST_TYPE,
-            status=TimeOffListRequestStatus.APPROVED,
-        )
+        client.hris.time_off.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/time-off"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -215,8 +202,6 @@ class TimeOffClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.hris import TimeOffRequest
 
@@ -225,21 +210,12 @@ class TimeOffClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.time_off.create(
-            model=TimeOffRequest(
-                employee_note="Moving into the new apartment Kendall Roy gave me!",
-                amount=3.0,
-                start_time=datetime.datetime.fromisoformat(
-                    "2020-11-10 00:00:00+00:00",
-                ),
-                end_time=datetime.datetime.fromisoformat(
-                    "2020-11-17 00:00:00+00:00",
-                ),
-            ),
+            model=TimeOffRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/time-off"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -306,26 +282,18 @@ class TimeOffClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.hris import (
-            TimeOffRetrieveRequestExpand,
-            TimeOffRetrieveRequestRemoteFields,
-            TimeOffRetrieveRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.hris.time_off.retrieve(
-            id="string",
-            expand=TimeOffRetrieveRequestExpand.APPROVER,
-            remote_fields=TimeOffRetrieveRequestRemoteFields.REQUEST_TYPE,
-            show_enum_origins=TimeOffRetrieveRequestShowEnumOrigins.REQUEST_TYPE,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/time-off/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/time-off/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -378,7 +346,7 @@ class TimeOffClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/time-off/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -490,29 +458,16 @@ class AsyncTimeOffClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.hris import (
-            TimeOffListRequestExpand,
-            TimeOffListRequestRemoteFields,
-            TimeOffListRequestRequestType,
-            TimeOffListRequestShowEnumOrigins,
-            TimeOffListRequestStatus,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.time_off.list(
-            expand=TimeOffListRequestExpand.APPROVER,
-            remote_fields=TimeOffListRequestRemoteFields.REQUEST_TYPE,
-            request_type=TimeOffListRequestRequestType.BEREAVEMENT,
-            show_enum_origins=TimeOffListRequestShowEnumOrigins.REQUEST_TYPE,
-            status=TimeOffListRequestStatus.APPROVED,
-        )
+        await client.hris.time_off.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/time-off"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -584,8 +539,6 @@ class AsyncTimeOffClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.hris import TimeOffRequest
 
@@ -594,21 +547,12 @@ class AsyncTimeOffClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.time_off.create(
-            model=TimeOffRequest(
-                employee_note="Moving into the new apartment Kendall Roy gave me!",
-                amount=3.0,
-                start_time=datetime.datetime.fromisoformat(
-                    "2020-11-10 00:00:00+00:00",
-                ),
-                end_time=datetime.datetime.fromisoformat(
-                    "2020-11-17 00:00:00+00:00",
-                ),
-            ),
+            model=TimeOffRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/time-off"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -675,26 +619,18 @@ class AsyncTimeOffClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.hris import (
-            TimeOffRetrieveRequestExpand,
-            TimeOffRetrieveRequestRemoteFields,
-            TimeOffRetrieveRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.hris.time_off.retrieve(
-            id="string",
-            expand=TimeOffRetrieveRequestExpand.APPROVER,
-            remote_fields=TimeOffRetrieveRequestRemoteFields.REQUEST_TYPE,
-            show_enum_origins=TimeOffRetrieveRequestShowEnumOrigins.REQUEST_TYPE,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/time-off/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/time-off/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -747,7 +683,7 @@ class AsyncTimeOffClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/time-off/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

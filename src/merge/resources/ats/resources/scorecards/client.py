@@ -83,21 +83,16 @@ class ScorecardsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ats import ScorecardsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.scorecards.list(
-            expand=ScorecardsListRequestExpand.APPLICATION,
-            remote_fields="overall_recommendation",
-            show_enum_origins="overall_recommendation",
-        )
+        client.ats.scorecards.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/scorecards"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/scorecards"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -171,22 +166,18 @@ class ScorecardsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ats import ScorecardsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ats.scorecards.retrieve(
-            id="string",
-            expand=ScorecardsRetrieveRequestExpand.APPLICATION,
-            remote_fields="overall_recommendation",
-            show_enum_origins="overall_recommendation",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/scorecards/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/scorecards/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -284,21 +275,16 @@ class AsyncScorecardsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ats import ScorecardsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.scorecards.list(
-            expand=ScorecardsListRequestExpand.APPLICATION,
-            remote_fields="overall_recommendation",
-            show_enum_origins="overall_recommendation",
-        )
+        await client.ats.scorecards.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/scorecards"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/scorecards"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -372,22 +358,18 @@ class AsyncScorecardsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ats import ScorecardsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.ats.scorecards.retrieve(
-            id="string",
-            expand=ScorecardsRetrieveRequestExpand.APPLICATION,
-            remote_fields="overall_recommendation",
-            show_enum_origins="overall_recommendation",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/scorecards/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/scorecards/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

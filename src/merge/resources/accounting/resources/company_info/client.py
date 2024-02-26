@@ -68,19 +68,16 @@ class CompanyInfoClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import CompanyInfoListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.company_info.list(
-            expand=CompanyInfoListRequestExpand.ADDRESSES,
-        )
+        client.accounting.company_info.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/company-info"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/company-info"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -143,20 +140,18 @@ class CompanyInfoClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import CompanyInfoRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.company_info.retrieve(
-            id="string",
-            expand=CompanyInfoRetrieveRequestExpand.ADDRESSES,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/company-info/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/company-info/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -237,19 +232,16 @@ class AsyncCompanyInfoClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import CompanyInfoListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.company_info.list(
-            expand=CompanyInfoListRequestExpand.ADDRESSES,
-        )
+        await client.accounting.company_info.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/company-info"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/company-info"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -312,20 +304,18 @@ class AsyncCompanyInfoClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import CompanyInfoRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.accounting.company_info.retrieve(
-            id="string",
-            expand=CompanyInfoRetrieveRequestExpand.ADDRESSES,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/company-info/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/company-info/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

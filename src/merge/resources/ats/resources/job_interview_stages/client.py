@@ -74,13 +74,11 @@ class JobInterviewStagesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.job_interview_stages.list(
-            expand="job",
-        )
+        client.ats.job_interview_stages.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/job-interview-stages"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/job-interview-stages"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -150,13 +148,12 @@ class JobInterviewStagesClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.job_interview_stages.retrieve(
-            id="string",
-            expand="job",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/job-interview-stages/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/job-interview-stages/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -245,13 +242,11 @@ class AsyncJobInterviewStagesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.job_interview_stages.list(
-            expand="job",
-        )
+        await client.ats.job_interview_stages.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/job-interview-stages"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/job-interview-stages"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -321,13 +316,12 @@ class AsyncJobInterviewStagesClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.job_interview_stages.retrieve(
-            id="string",
-            expand="job",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/job-interview-stages/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/job-interview-stages/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

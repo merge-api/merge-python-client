@@ -86,19 +86,16 @@ class EmployeePayrollRunsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.hris import EmployeePayrollRunsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.employee_payroll_runs.list(
-            expand=EmployeePayrollRunsListRequestExpand.EMPLOYEE,
-        )
+        client.hris.employee_payroll_runs.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employee-payroll-runs"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/employee-payroll-runs"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -167,20 +164,18 @@ class EmployeePayrollRunsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.hris import EmployeePayrollRunsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.hris.employee_payroll_runs.retrieve(
-            id="string",
-            expand=EmployeePayrollRunsRetrieveRequestExpand.EMPLOYEE,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employee-payroll-runs/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/employee-payroll-runs/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -279,19 +274,16 @@ class AsyncEmployeePayrollRunsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.hris import EmployeePayrollRunsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.employee_payroll_runs.list(
-            expand=EmployeePayrollRunsListRequestExpand.EMPLOYEE,
-        )
+        await client.hris.employee_payroll_runs.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employee-payroll-runs"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/employee-payroll-runs"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -360,20 +352,18 @@ class AsyncEmployeePayrollRunsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.hris import EmployeePayrollRunsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.hris.employee_payroll_runs.retrieve(
-            id="string",
-            expand=EmployeePayrollRunsRetrieveRequestExpand.EMPLOYEE,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employee-payroll-runs/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/employee-payroll-runs/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
