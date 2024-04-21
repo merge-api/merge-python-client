@@ -26,6 +26,10 @@ class Address(pydantic.BaseModel):
     TODO
     """
 
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     street_1: typing.Optional[str] = pydantic.Field(description="Line 1 of the address's street.")
     street_2: typing.Optional[str] = pydantic.Field(description="Line 2 of the address's street.")
     city: typing.Optional[str] = pydantic.Field(description="The address's city.")
@@ -288,10 +292,6 @@ class Address(pydantic.BaseModel):
     )
     address_type: typing.Optional[AddressAddressType] = pydantic.Field(
         description=("The address type.\n" "\n" "- `BILLING` - BILLING\n" "- `SHIPPING` - SHIPPING\n")
-    )
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
 
     def json(self, **kwargs: typing.Any) -> str:

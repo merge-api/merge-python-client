@@ -13,6 +13,7 @@ from .....core.remove_none_from_dict import remove_none_from_dict
 from .....core.request_options import RequestOptions
 from ...types.meta_response import MetaResponse
 from ...types.paginated_payment_list import PaginatedPaymentList
+from ...types.patched_payment_request import PatchedPaymentRequest
 from ...types.payment import Payment
 from ...types.payment_request import PaymentRequest
 from ...types.payment_response import PaymentResponse
@@ -89,19 +90,16 @@ class PaymentsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import PaymentsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.payments.list(
-            expand=PaymentsListRequestExpand.ACCOUNT,
-        )
+        client.accounting.payments.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/payments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/payments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -172,8 +170,6 @@ class PaymentsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.accounting import PaymentRequest
 
@@ -182,18 +178,12 @@ class PaymentsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.payments.create(
-            model=PaymentRequest(
-                transaction_date=datetime.datetime.fromisoformat(
-                    "2020-03-31 00:00:00+00:00",
-                ),
-                exchange_rate="2.9",
-                total_amount=50.0,
-            ),
+            model=PaymentRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/payments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/payments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -254,20 +244,18 @@ class PaymentsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import PaymentsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.payments.retrieve(
-            id="string",
-            expand=PaymentsRetrieveRequestExpand.ACCOUNT,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/payments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/payments/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -301,6 +289,128 @@ class PaymentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def partial_update(
+        self,
+        id: str,
+        *,
+        is_debug_mode: typing.Optional[bool] = None,
+        run_async: typing.Optional[bool] = None,
+        model: PatchedPaymentRequest,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaymentResponse:
+        """
+        Updates a `Payment` object with the given `id`.
+
+        Parameters:
+            - id: str.
+
+            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+
+            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+
+            - model: PatchedPaymentRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from merge.client import Merge
+        from merge.resources.accounting import PatchedPaymentRequest
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.payments.partial_update(
+            id="id",
+            model=PatchedPaymentRequest(),
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "PATCH",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/payments/{id}"),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(PaymentResponse, _response.json())  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def meta_patch_retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
+        """
+        Returns metadata for `Payment` PATCHs.
+
+        Parameters:
+            - id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.payments.meta_patch_retrieve(
+            id="id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/payments/meta/patch/{id}"),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `Payment` POSTs.
@@ -318,7 +428,7 @@ class PaymentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/payments/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/payments/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -404,19 +514,16 @@ class AsyncPaymentsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import PaymentsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.payments.list(
-            expand=PaymentsListRequestExpand.ACCOUNT,
-        )
+        await client.accounting.payments.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/payments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/payments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -487,8 +594,6 @@ class AsyncPaymentsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.accounting import PaymentRequest
 
@@ -497,18 +602,12 @@ class AsyncPaymentsClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.payments.create(
-            model=PaymentRequest(
-                transaction_date=datetime.datetime.fromisoformat(
-                    "2020-03-31 00:00:00+00:00",
-                ),
-                exchange_rate="2.9",
-                total_amount=50.0,
-            ),
+            model=PaymentRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/payments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/payments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -569,20 +668,18 @@ class AsyncPaymentsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import PaymentsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.accounting.payments.retrieve(
-            id="string",
-            expand=PaymentsRetrieveRequestExpand.ACCOUNT,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/payments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/payments/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -616,6 +713,130 @@ class AsyncPaymentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    async def partial_update(
+        self,
+        id: str,
+        *,
+        is_debug_mode: typing.Optional[bool] = None,
+        run_async: typing.Optional[bool] = None,
+        model: PatchedPaymentRequest,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaymentResponse:
+        """
+        Updates a `Payment` object with the given `id`.
+
+        Parameters:
+            - id: str.
+
+            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+
+            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+
+            - model: PatchedPaymentRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from merge.client import AsyncMerge
+        from merge.resources.accounting import PatchedPaymentRequest
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.payments.partial_update(
+            id="id",
+            model=PatchedPaymentRequest(),
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "PATCH",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/payments/{id}"),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "is_debug_mode": is_debug_mode,
+                        "run_async": run_async,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder({"model": model})
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder({"model": model}),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(PaymentResponse, _response.json())  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def meta_patch_retrieve(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> MetaResponse:
+        """
+        Returns metadata for `Payment` PATCHs.
+
+        Parameters:
+            - id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.accounting.payments.meta_patch_retrieve(
+            id="id",
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/payments/meta/patch/{id}"),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `Payment` POSTs.
@@ -633,7 +854,7 @@ class AsyncPaymentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/payments/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/payments/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

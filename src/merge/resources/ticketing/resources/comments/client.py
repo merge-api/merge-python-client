@@ -80,19 +80,16 @@ class CommentsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ticketing import CommentsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.comments.list(
-            expand=CommentsListRequestExpand.CONTACT,
-        )
+        client.ticketing.comments.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/comments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/comments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -166,15 +163,12 @@ class CommentsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.comments.create(
-            model=CommentRequest(
-                body="When will these integrations be done? You all should use Merge.",
-                html_body="When will these integrations be done? You all should use <b>Merge<b>.",
-            ),
+            model=CommentRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/comments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/comments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -235,20 +229,18 @@ class CommentsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ticketing import CommentsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ticketing.comments.retrieve(
-            id="string",
-            expand=CommentsRetrieveRequestExpand.CONTACT,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/comments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/comments/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -299,7 +291,7 @@ class CommentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/comments/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/comments/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -376,19 +368,16 @@ class AsyncCommentsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ticketing import CommentsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.comments.list(
-            expand=CommentsListRequestExpand.CONTACT,
-        )
+        await client.ticketing.comments.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/comments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/comments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -462,15 +451,12 @@ class AsyncCommentsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.comments.create(
-            model=CommentRequest(
-                body="When will these integrations be done? You all should use Merge.",
-                html_body="When will these integrations be done? You all should use <b>Merge<b>.",
-            ),
+            model=CommentRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/comments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/comments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -531,20 +517,18 @@ class AsyncCommentsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ticketing import CommentsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.comments.retrieve(
-            id="string",
-            expand=CommentsRetrieveRequestExpand.CONTACT,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/comments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/comments/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -595,7 +579,7 @@ class AsyncCommentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/comments/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/comments/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

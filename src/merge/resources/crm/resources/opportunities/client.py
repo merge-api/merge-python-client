@@ -89,7 +89,7 @@ class OpportunitiesClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing.Literal["status"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["status"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - stage_id: typing.Optional[str]. If provided, will only return opportunities with this stage.
 
@@ -101,25 +101,16 @@ class OpportunitiesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.crm import (
-            OpportunitiesListRequestExpand,
-            OpportunitiesListRequestStatus,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.opportunities.list(
-            expand=OpportunitiesListRequestExpand.ACCOUNT,
-            remote_fields="status",
-            show_enum_origins="status",
-            status=OpportunitiesListRequestStatus.LOST,
-        )
+        client.crm.opportunities.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/opportunities"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -188,8 +179,6 @@ class OpportunitiesClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.crm import OpportunityRequest
 
@@ -198,22 +187,12 @@ class OpportunitiesClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.opportunities.create(
-            model=OpportunityRequest(
-                name="Needs Integrations",
-                description="Needs a Unified API for Integrations!",
-                amount=1,
-                last_activity_at=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-                close_date=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-            ),
+            model=OpportunityRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/opportunities"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -278,27 +257,23 @@ class OpportunitiesClient:
 
             - remote_fields: typing.Optional[typing.Literal["status"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["status"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["status"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.crm import OpportunitiesRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.crm.opportunities.retrieve(
-            id="string",
-            expand=OpportunitiesRetrieveRequestExpand.ACCOUNT,
-            remote_fields="status",
-            show_enum_origins="status",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/opportunities/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -358,8 +333,6 @@ class OpportunitiesClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.crm import PatchedOpportunityRequest
 
@@ -368,26 +341,13 @@ class OpportunitiesClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.opportunities.partial_update(
-            id="string",
-            model=PatchedOpportunityRequest(
-                name="Needs Integrations",
-                description="Needs a Unified API for Integrations!",
-                amount=1,
-                owner="0358cbc6-2040-430a-848e-aafacbadf3aa",
-                account="0958cbc6-6040-430a-848e-aafacbadf4ae",
-                stage="1968cbc6-6040-430a-848e-aafacbadf4ad",
-                last_activity_at=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-                close_date=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-            ),
+            id="id",
+            model=PatchedOpportunityRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/opportunities/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -443,14 +403,12 @@ class OpportunitiesClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.opportunities.meta_patch_retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/meta/patch/{id}"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/opportunities/meta/patch/{id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -491,7 +449,7 @@ class OpportunitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/opportunities/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -552,7 +510,7 @@ class OpportunitiesClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities/remote-field-classes"
+                f"{self._client_wrapper.get_base_url()}/", "crm/v1/opportunities/remote-field-classes"
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -649,7 +607,7 @@ class AsyncOpportunitiesClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing.Literal["status"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["status"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - stage_id: typing.Optional[str]. If provided, will only return opportunities with this stage.
 
@@ -661,25 +619,16 @@ class AsyncOpportunitiesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.crm import (
-            OpportunitiesListRequestExpand,
-            OpportunitiesListRequestStatus,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.opportunities.list(
-            expand=OpportunitiesListRequestExpand.ACCOUNT,
-            remote_fields="status",
-            show_enum_origins="status",
-            status=OpportunitiesListRequestStatus.LOST,
-        )
+        await client.crm.opportunities.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/opportunities"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -748,8 +697,6 @@ class AsyncOpportunitiesClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.crm import OpportunityRequest
 
@@ -758,22 +705,12 @@ class AsyncOpportunitiesClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.opportunities.create(
-            model=OpportunityRequest(
-                name="Needs Integrations",
-                description="Needs a Unified API for Integrations!",
-                amount=1,
-                last_activity_at=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-                close_date=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-            ),
+            model=OpportunityRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/opportunities"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -838,27 +775,23 @@ class AsyncOpportunitiesClient:
 
             - remote_fields: typing.Optional[typing.Literal["status"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["status"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["status"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.crm import OpportunitiesRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.crm.opportunities.retrieve(
-            id="string",
-            expand=OpportunitiesRetrieveRequestExpand.ACCOUNT,
-            remote_fields="status",
-            show_enum_origins="status",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/opportunities/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -918,8 +851,6 @@ class AsyncOpportunitiesClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.crm import PatchedOpportunityRequest
 
@@ -928,26 +859,13 @@ class AsyncOpportunitiesClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.opportunities.partial_update(
-            id="string",
-            model=PatchedOpportunityRequest(
-                name="Needs Integrations",
-                description="Needs a Unified API for Integrations!",
-                amount=1,
-                owner="0358cbc6-2040-430a-848e-aafacbadf3aa",
-                account="0958cbc6-6040-430a-848e-aafacbadf4ae",
-                stage="1968cbc6-6040-430a-848e-aafacbadf4ad",
-                last_activity_at=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-                close_date=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-            ),
+            id="id",
+            model=PatchedOpportunityRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/opportunities/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -1005,14 +923,12 @@ class AsyncOpportunitiesClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.opportunities.meta_patch_retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/opportunities/meta/patch/{id}"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/opportunities/meta/patch/{id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -1053,7 +969,7 @@ class AsyncOpportunitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/opportunities/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -1114,7 +1030,7 @@ class AsyncOpportunitiesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/opportunities/remote-field-classes"
+                f"{self._client_wrapper.get_base_url()}/", "crm/v1/opportunities/remote-field-classes"
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(

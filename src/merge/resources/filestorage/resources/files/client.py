@@ -43,6 +43,7 @@ class FilesClient:
         folder_id: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
+        mime_type: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         name: typing.Optional[str] = None,
@@ -70,6 +71,8 @@ class FilesClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
+            - mime_type: typing.Optional[str]. If provided, will only return files with these mime_types. Multiple values can be separated by commas.
+
             - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
 
             - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
@@ -83,19 +86,16 @@ class FilesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.filestorage import FilesListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.files.list(
-            expand=FilesListRequestExpand.DRIVE,
-        )
+        client.filestorage.files.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/files"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/files"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -107,6 +107,7 @@ class FilesClient:
                         "folder_id": folder_id,
                         "include_deleted_data": include_deleted_data,
                         "include_remote_data": include_remote_data,
+                        "mime_type": mime_type,
                         "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                         "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                         "name": name,
@@ -168,19 +169,12 @@ class FilesClient:
             api_key="YOUR_API_KEY",
         )
         client.filestorage.files.create(
-            model=FileRequest(
-                name="omg_common_model_scope.docx",
-                file_url="https://drive.com/1234",
-                file_thumbnail_url="https://drive.com/1234/thumbnail.png",
-                size=1,
-                mime_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                description="This file is OP",
-            ),
+            model=FileRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/files"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/files"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -241,20 +235,18 @@ class FilesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.filestorage import FilesRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.filestorage.files.retrieve(
-            id="string",
-            expand=FilesRetrieveRequestExpand.DRIVE,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/files/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"filestorage/v1/files/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -307,7 +299,7 @@ class FilesClient:
         """
         with self._client_wrapper.httpx_client.stream(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/files/{id}/download"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"filestorage/v1/files/{id}/download"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -360,7 +352,7 @@ class FilesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/files/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/files/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -400,6 +392,7 @@ class AsyncFilesClient:
         folder_id: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
+        mime_type: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         name: typing.Optional[str] = None,
@@ -427,6 +420,8 @@ class AsyncFilesClient:
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
+            - mime_type: typing.Optional[str]. If provided, will only return files with these mime_types. Multiple values can be separated by commas.
+
             - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
 
             - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
@@ -440,19 +435,16 @@ class AsyncFilesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.filestorage import FilesListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.files.list(
-            expand=FilesListRequestExpand.DRIVE,
-        )
+        await client.filestorage.files.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/files"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/files"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -464,6 +456,7 @@ class AsyncFilesClient:
                         "folder_id": folder_id,
                         "include_deleted_data": include_deleted_data,
                         "include_remote_data": include_remote_data,
+                        "mime_type": mime_type,
                         "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                         "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                         "name": name,
@@ -525,19 +518,12 @@ class AsyncFilesClient:
             api_key="YOUR_API_KEY",
         )
         await client.filestorage.files.create(
-            model=FileRequest(
-                name="omg_common_model_scope.docx",
-                file_url="https://drive.com/1234",
-                file_thumbnail_url="https://drive.com/1234/thumbnail.png",
-                size=1,
-                mime_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                description="This file is OP",
-            ),
+            model=FileRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/files"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/files"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -598,20 +584,18 @@ class AsyncFilesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.filestorage import FilesRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.filestorage.files.retrieve(
-            id="string",
-            expand=FilesRetrieveRequestExpand.DRIVE,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/files/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"filestorage/v1/files/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -664,7 +648,7 @@ class AsyncFilesClient:
         """
         async with self._client_wrapper.httpx_client.stream(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/files/{id}/download"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"filestorage/v1/files/{id}/download"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -717,7 +701,7 @@ class AsyncFilesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/files/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/files/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

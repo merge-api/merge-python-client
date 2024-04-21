@@ -30,6 +30,7 @@ class FieldMappingApiInstanceResponse(pydantic.BaseModel):
     pay_group: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="PayGroup")
     group: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Group")
     dependent: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Dependent")
+    timesheet_entry: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="TimesheetEntry")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

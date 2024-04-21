@@ -34,6 +34,9 @@ class AccountDetailsAndActions(pydantic.BaseModel):
     end_user_origin_id: typing.Optional[str]
     end_user_organization_name: str
     end_user_email_address: str
+    subdomain: typing.Optional[str] = pydantic.Field(
+        description="The tenant or domain the customer has provided access to."
+    )
     webhook_listener_url: str
     is_duplicate: typing.Optional[bool] = pydantic.Field(
         description="Whether a Production Linked Account's credentials match another existing Production Linked Account. This field is `null` for Test Linked Accounts, incomplete Production Linked Accounts, and ignored duplicate Production Linked Account sets."

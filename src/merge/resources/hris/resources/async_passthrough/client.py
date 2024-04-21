@@ -38,11 +38,7 @@ class AsyncPassthroughClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.hris import (
-            DataPassthroughRequest,
-            MethodEnum,
-            RequestFormatEnum,
-        )
+        from merge.resources.hris import DataPassthroughRequest, MethodEnum
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -52,14 +48,12 @@ class AsyncPassthroughClient:
             request=DataPassthroughRequest(
                 method=MethodEnum.GET,
                 path="/scooters",
-                data='{"company": "Lime", "model": "Gen 2.5"}',
-                request_format=RequestFormatEnum.JSON,
             ),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/async-passthrough"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/async-passthrough"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -107,14 +101,13 @@ class AsyncPassthroughClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.async_passthrough.retrieve(
-            async_passthrough_receipt_id="string",
+            async_passthrough_receipt_id="async_passthrough_receipt_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/",
-                f"api/hris/v1/async-passthrough/{async_passthrough_receipt_id}",
+                f"{self._client_wrapper.get_base_url()}/", f"hris/v1/async-passthrough/{async_passthrough_receipt_id}"
             ),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
@@ -156,11 +149,7 @@ class AsyncAsyncPassthroughClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.hris import (
-            DataPassthroughRequest,
-            MethodEnum,
-            RequestFormatEnum,
-        )
+        from merge.resources.hris import DataPassthroughRequest, MethodEnum
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -170,14 +159,12 @@ class AsyncAsyncPassthroughClient:
             request=DataPassthroughRequest(
                 method=MethodEnum.GET,
                 path="/scooters",
-                data='{"company": "Lime", "model": "Gen 2.5"}',
-                request_format=RequestFormatEnum.JSON,
             ),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/async-passthrough"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/async-passthrough"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -225,14 +212,13 @@ class AsyncAsyncPassthroughClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.async_passthrough.retrieve(
-            async_passthrough_receipt_id="string",
+            async_passthrough_receipt_id="async_passthrough_receipt_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/",
-                f"api/hris/v1/async-passthrough/{async_passthrough_receipt_id}",
+                f"{self._client_wrapper.get_base_url()}/", f"hris/v1/async-passthrough/{async_passthrough_receipt_id}"
             ),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None

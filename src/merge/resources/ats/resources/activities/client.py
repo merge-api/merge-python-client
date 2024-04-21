@@ -78,31 +78,23 @@ class ActivitiesClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[ActivitiesListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[ActivitiesListRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - user_id: typing.Optional[str]. If provided, will only return activities done by this user.
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ats import (
-            ActivitiesListRequestRemoteFields,
-            ActivitiesListRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.activities.list(
-            expand="user",
-            remote_fields=ActivitiesListRequestRemoteFields.ACTIVITY_TYPE,
-            show_enum_origins=ActivitiesListRequestShowEnumOrigins.ACTIVITY_TYPE,
-        )
+        client.ats.activities.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/activities"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/activities"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -178,17 +170,13 @@ class ActivitiesClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.activities.create(
-            model=ActivityRequest(
-                subject="Gil Feig's interview",
-                body="Candidate loves integrations!",
-                candidate="550e8400-e29b-41d4-a716-446655440000",
-            ),
-            remote_user_id="string",
+            model=ActivityRequest(),
+            remote_user_id="remote_user_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/activities"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/activities"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -250,30 +238,23 @@ class ActivitiesClient:
 
             - remote_fields: typing.Optional[ActivitiesRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[ActivitiesRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[ActivitiesRetrieveRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ats import (
-            ActivitiesRetrieveRequestRemoteFields,
-            ActivitiesRetrieveRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ats.activities.retrieve(
-            id="string",
-            expand="user",
-            remote_fields=ActivitiesRetrieveRequestRemoteFields.ACTIVITY_TYPE,
-            show_enum_origins=ActivitiesRetrieveRequestShowEnumOrigins.ACTIVITY_TYPE,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/activities/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/activities/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -326,7 +307,7 @@ class ActivitiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/activities/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/activities/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -399,31 +380,23 @@ class AsyncActivitiesClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[ActivitiesListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[ActivitiesListRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - user_id: typing.Optional[str]. If provided, will only return activities done by this user.
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ats import (
-            ActivitiesListRequestRemoteFields,
-            ActivitiesListRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.activities.list(
-            expand="user",
-            remote_fields=ActivitiesListRequestRemoteFields.ACTIVITY_TYPE,
-            show_enum_origins=ActivitiesListRequestShowEnumOrigins.ACTIVITY_TYPE,
-        )
+        await client.ats.activities.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/activities"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/activities"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -499,17 +472,13 @@ class AsyncActivitiesClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.activities.create(
-            model=ActivityRequest(
-                subject="Gil Feig's interview",
-                body="Candidate loves integrations!",
-                candidate="550e8400-e29b-41d4-a716-446655440000",
-            ),
-            remote_user_id="string",
+            model=ActivityRequest(),
+            remote_user_id="remote_user_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/activities"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/activities"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -571,30 +540,23 @@ class AsyncActivitiesClient:
 
             - remote_fields: typing.Optional[ActivitiesRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[ActivitiesRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[ActivitiesRetrieveRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ats import (
-            ActivitiesRetrieveRequestRemoteFields,
-            ActivitiesRetrieveRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.ats.activities.retrieve(
-            id="string",
-            expand="user",
-            remote_fields=ActivitiesRetrieveRequestRemoteFields.ACTIVITY_TYPE,
-            show_enum_origins=ActivitiesRetrieveRequestShowEnumOrigins.ACTIVITY_TYPE,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/activities/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/activities/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -647,7 +609,7 @@ class AsyncActivitiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/activities/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/activities/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

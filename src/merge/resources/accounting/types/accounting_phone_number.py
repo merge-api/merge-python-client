@@ -24,12 +24,12 @@ class AccountingPhoneNumber(pydantic.BaseModel):
     Fetch from the `GET CompanyInfo` endpoint and view the company's phone numbers.
     """
 
-    number: typing.Optional[str] = pydantic.Field(description="The phone number.")
-    type: typing.Optional[str] = pydantic.Field(description="The phone number's type.")
     created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
+    number: typing.Optional[str] = pydantic.Field(description="The phone number.")
+    type: typing.Optional[str] = pydantic.Field(description="The phone number's type.")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

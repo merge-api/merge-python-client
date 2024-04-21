@@ -30,6 +30,10 @@ class Comment(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     user: typing.Optional[CommentUser] = pydantic.Field(
         description="The author of the Comment, if the author is a User."
     )
@@ -44,10 +48,6 @@ class Comment(pydantic.BaseModel):
         description="When the third party's comment was created."
     )
     remote_was_deleted: typing.Optional[bool]
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
-    )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 

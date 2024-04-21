@@ -77,19 +77,16 @@ class TransactionsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import TransactionsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.transactions.list(
-            expand=TransactionsListRequestExpand.ACCOUNT,
-        )
+        client.accounting.transactions.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/transactions"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/transactions"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -159,20 +156,18 @@ class TransactionsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import TransactionsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.transactions.retrieve(
-            id="string",
-            expand=TransactionsRetrieveRequestExpand.ACCOUNT,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/transactions/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/transactions/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -262,19 +257,16 @@ class AsyncTransactionsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import TransactionsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.transactions.list(
-            expand=TransactionsListRequestExpand.ACCOUNT,
-        )
+        await client.accounting.transactions.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/transactions"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/transactions"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -344,20 +336,18 @@ class AsyncTransactionsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import TransactionsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.accounting.transactions.retrieve(
-            id="string",
-            expand=TransactionsRetrieveRequestExpand.ACCOUNT,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/transactions/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/transactions/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

@@ -37,13 +37,13 @@ class AccountTokenClient:
             api_key="YOUR_API_KEY",
         )
         client.filestorage.account_token.retrieve(
-            public_token="string",
+            public_token="public_token",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/account-token/{public_token}"
+                f"{self._client_wrapper.get_base_url()}/", f"filestorage/v1/account-token/{public_token}"
             ),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
@@ -91,13 +91,13 @@ class AsyncAccountTokenClient:
             api_key="YOUR_API_KEY",
         )
         await client.filestorage.account_token.retrieve(
-            public_token="string",
+            public_token="public_token",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/account-token/{public_token}"
+                f"{self._client_wrapper.get_base_url()}/", f"filestorage/v1/account-token/{public_token}"
             ),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None

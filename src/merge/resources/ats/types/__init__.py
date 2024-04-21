@@ -23,12 +23,14 @@ from .application_candidate import ApplicationCandidate
 from .application_credited_to import ApplicationCreditedTo
 from .application_current_stage import ApplicationCurrentStage
 from .application_job import ApplicationJob
+from .application_offers_item import ApplicationOffersItem
 from .application_reject_reason import ApplicationRejectReason
 from .application_request import ApplicationRequest
 from .application_request_candidate import ApplicationRequestCandidate
 from .application_request_credited_to import ApplicationRequestCreditedTo
 from .application_request_current_stage import ApplicationRequestCurrentStage
 from .application_request_job import ApplicationRequestJob
+from .application_request_offers_item import ApplicationRequestOffersItem
 from .application_request_reject_reason import ApplicationRequestRejectReason
 from .application_response import ApplicationResponse
 from .async_passthrough_reciept import AsyncPassthroughReciept
@@ -100,9 +102,14 @@ from .job_hiring_managers_item import JobHiringManagersItem
 from .job_interview_stage import JobInterviewStage
 from .job_interview_stage_job import JobInterviewStageJob
 from .job_offices_item import JobOfficesItem
+from .job_posting import JobPosting
+from .job_posting_job import JobPostingJob
+from .job_posting_job_posting_urls_item import JobPostingJobPostingUrlsItem
+from .job_posting_status_enum import JobPostingStatusEnum
 from .job_recruiters_item import JobRecruitersItem
 from .job_status import JobStatus
 from .job_status_enum import JobStatusEnum
+from .job_type_enum import JobTypeEnum
 from .link_token import LinkToken
 from .linked_account_condition import LinkedAccountCondition
 from .linked_account_condition_request import LinkedAccountConditionRequest
@@ -136,6 +143,7 @@ from .paginated_eeoc_list import PaginatedEeocList
 from .paginated_issue_list import PaginatedIssueList
 from .paginated_job_interview_stage_list import PaginatedJobInterviewStageList
 from .paginated_job_list import PaginatedJobList
+from .paginated_job_posting_list import PaginatedJobPostingList
 from .paginated_offer_list import PaginatedOfferList
 from .paginated_office_list import PaginatedOfficeList
 from .paginated_reject_reason_list import PaginatedRejectReasonList
@@ -189,11 +197,11 @@ from .screening_question import ScreeningQuestion
 from .screening_question_job import ScreeningQuestionJob
 from .screening_question_option import ScreeningQuestionOption
 from .screening_question_type import ScreeningQuestionType
+from .screening_question_type_enum import ScreeningQuestionTypeEnum
 from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
 from .sync_status import SyncStatus
 from .sync_status_status_enum import SyncStatusStatusEnum
 from .tag import Tag
-from .type_enum import TypeEnum
 from .url import Url
 from .url_request import UrlRequest
 from .url_request_url_type import UrlRequestUrlType
@@ -229,12 +237,14 @@ __all__ = [
     "ApplicationCreditedTo",
     "ApplicationCurrentStage",
     "ApplicationJob",
+    "ApplicationOffersItem",
     "ApplicationRejectReason",
     "ApplicationRequest",
     "ApplicationRequestCandidate",
     "ApplicationRequestCreditedTo",
     "ApplicationRequestCurrentStage",
     "ApplicationRequestJob",
+    "ApplicationRequestOffersItem",
     "ApplicationRequestRejectReason",
     "ApplicationResponse",
     "AsyncPassthroughReciept",
@@ -304,9 +314,14 @@ __all__ = [
     "JobInterviewStage",
     "JobInterviewStageJob",
     "JobOfficesItem",
+    "JobPosting",
+    "JobPostingJob",
+    "JobPostingJobPostingUrlsItem",
+    "JobPostingStatusEnum",
     "JobRecruitersItem",
     "JobStatus",
     "JobStatusEnum",
+    "JobTypeEnum",
     "LinkToken",
     "LinkedAccountCondition",
     "LinkedAccountConditionRequest",
@@ -340,6 +355,7 @@ __all__ = [
     "PaginatedIssueList",
     "PaginatedJobInterviewStageList",
     "PaginatedJobList",
+    "PaginatedJobPostingList",
     "PaginatedOfferList",
     "PaginatedOfficeList",
     "PaginatedRejectReasonList",
@@ -393,11 +409,11 @@ __all__ = [
     "ScreeningQuestionJob",
     "ScreeningQuestionOption",
     "ScreeningQuestionType",
+    "ScreeningQuestionTypeEnum",
     "SelectiveSyncConfigurationsUsageEnum",
     "SyncStatus",
     "SyncStatusStatusEnum",
     "Tag",
-    "TypeEnum",
     "Url",
     "UrlRequest",
     "UrlRequestUrlType",

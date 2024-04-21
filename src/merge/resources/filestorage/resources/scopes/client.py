@@ -29,7 +29,7 @@ class ScopesClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CommonModelScopeApi:
         """
-        Get the default permissions for Merge Common Models and fields across all Linked Accounts of a given category. [Learn More](https://help.merge.dev/en/articles/8828211-common-model-and-field-scopes).
+        Get the default permissions for Merge Common Models and fields across all Linked Accounts of a given category. [Learn more](https://help.merge.dev/en/articles/8828211-common-model-and-field-scopes).
 
         Parameters:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
@@ -44,7 +44,7 @@ class ScopesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/default-scopes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/default-scopes"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -72,7 +72,7 @@ class ScopesClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CommonModelScopeApi:
         """
-        Get all available permissions for Merge Common Models and fields for a single Linked Account. [Learn More](https://help.merge.dev/en/articles/8828211-common-model-and-field-scopes).
+        Get all available permissions for Merge Common Models and fields for a single Linked Account. [Learn more](https://help.merge.dev/en/articles/8828211-common-model-and-field-scopes).
 
         Parameters:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
@@ -87,7 +87,7 @@ class ScopesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/linked-account-scopes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/linked-account-scopes"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -118,7 +118,7 @@ class ScopesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CommonModelScopeApi:
         """
-        Update permissions for any Common Model or field for a single Linked Account. Any Scopes not set in this POST request will inherit the default Scopes. [Learn More](https://help.merge.dev/en/articles/8828211-common-model-and-field-scopes)
+        Update permissions for any Common Model or field for a single Linked Account. Any Scopes not set in this POST request will inherit the default Scopes. [Learn more](https://help.merge.dev/en/articles/8828211-common-model-and-field-scopes)
 
         Parameters:
             - common_models: typing.List[IndividualCommonModelScopeDeserializerRequest]. The common models you want to update the scopes for
@@ -126,18 +126,25 @@ class ScopesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
+        from merge.resources.filestorage import (
+            IndividualCommonModelScopeDeserializerRequest,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.filestorage.scopes.linked_account_scopes_create(
-            common_models=[],
+            common_models=[
+                IndividualCommonModelScopeDeserializerRequest(
+                    model_name="model_name",
+                )
+            ],
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/linked-account-scopes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/linked-account-scopes"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -176,7 +183,7 @@ class AsyncScopesClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CommonModelScopeApi:
         """
-        Get the default permissions for Merge Common Models and fields across all Linked Accounts of a given category. [Learn More](https://help.merge.dev/en/articles/8828211-common-model-and-field-scopes).
+        Get the default permissions for Merge Common Models and fields across all Linked Accounts of a given category. [Learn more](https://help.merge.dev/en/articles/8828211-common-model-and-field-scopes).
 
         Parameters:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
@@ -191,7 +198,7 @@ class AsyncScopesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/default-scopes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/default-scopes"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -219,7 +226,7 @@ class AsyncScopesClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CommonModelScopeApi:
         """
-        Get all available permissions for Merge Common Models and fields for a single Linked Account. [Learn More](https://help.merge.dev/en/articles/8828211-common-model-and-field-scopes).
+        Get all available permissions for Merge Common Models and fields for a single Linked Account. [Learn more](https://help.merge.dev/en/articles/8828211-common-model-and-field-scopes).
 
         Parameters:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
@@ -234,7 +241,7 @@ class AsyncScopesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/linked-account-scopes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/linked-account-scopes"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -265,7 +272,7 @@ class AsyncScopesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CommonModelScopeApi:
         """
-        Update permissions for any Common Model or field for a single Linked Account. Any Scopes not set in this POST request will inherit the default Scopes. [Learn More](https://help.merge.dev/en/articles/8828211-common-model-and-field-scopes)
+        Update permissions for any Common Model or field for a single Linked Account. Any Scopes not set in this POST request will inherit the default Scopes. [Learn more](https://help.merge.dev/en/articles/8828211-common-model-and-field-scopes)
 
         Parameters:
             - common_models: typing.List[IndividualCommonModelScopeDeserializerRequest]. The common models you want to update the scopes for
@@ -273,18 +280,25 @@ class AsyncScopesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
+        from merge.resources.filestorage import (
+            IndividualCommonModelScopeDeserializerRequest,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.filestorage.scopes.linked_account_scopes_create(
-            common_models=[],
+            common_models=[
+                IndividualCommonModelScopeDeserializerRequest(
+                    model_name="model_name",
+                )
+            ],
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/linked-account-scopes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/linked-account-scopes"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

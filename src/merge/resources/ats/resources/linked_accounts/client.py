@@ -44,7 +44,7 @@ class LinkedAccountsClient:
         List linked accounts for your organization.
 
         Parameters:
-            - category: typing.Optional[LinkedAccountsListRequestCategory]. Options: ('hris', 'ats', 'accounting', 'ticketing', 'crm', 'mktg', 'filestorage')
+            - category: typing.Optional[LinkedAccountsListRequestCategory]. Options: `accounting`, `ats`, `crm`, `filestorage`, `hris`, `mktg`, `ticketing`
 
                                                                             - `hris` - hris
                                                                             - `ats` - ats
@@ -80,19 +80,16 @@ class LinkedAccountsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ats import LinkedAccountsListRequestCategory
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.linked_accounts.list(
-            category=LinkedAccountsListRequestCategory.ACCOUNTING,
-        )
+        client.ats.linked_accounts.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/linked-accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/linked-accounts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -164,7 +161,7 @@ class AsyncLinkedAccountsClient:
         List linked accounts for your organization.
 
         Parameters:
-            - category: typing.Optional[LinkedAccountsListRequestCategory]. Options: ('hris', 'ats', 'accounting', 'ticketing', 'crm', 'mktg', 'filestorage')
+            - category: typing.Optional[LinkedAccountsListRequestCategory]. Options: `accounting`, `ats`, `crm`, `filestorage`, `hris`, `mktg`, `ticketing`
 
                                                                             - `hris` - hris
                                                                             - `ats` - ats
@@ -200,19 +197,16 @@ class AsyncLinkedAccountsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ats import LinkedAccountsListRequestCategory
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.linked_accounts.list(
-            category=LinkedAccountsListRequestCategory.ACCOUNTING,
-        )
+        await client.ats.linked_accounts.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/linked-accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/linked-accounts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

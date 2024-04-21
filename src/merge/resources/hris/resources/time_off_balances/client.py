@@ -80,27 +80,21 @@ class TimeOffBalancesClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing.Literal["policy_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["policy_type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.hris import TimeOffBalancesListRequestPolicyType
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.time_off_balances.list(
-            expand="employee",
-            policy_type=TimeOffBalancesListRequestPolicyType.BEREAVEMENT,
-            remote_fields="policy_type",
-            show_enum_origins="policy_type",
-        )
+        client.hris.time_off_balances.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off-balances"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/time-off-balances"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -168,7 +162,7 @@ class TimeOffBalancesClient:
 
             - remote_fields: typing.Optional[typing.Literal["policy_type"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["policy_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["policy_type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -179,15 +173,12 @@ class TimeOffBalancesClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.time_off_balances.retrieve(
-            id="string",
-            expand="employee",
-            remote_fields="policy_type",
-            show_enum_origins="policy_type",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/time-off-balances/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/time-off-balances/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -283,27 +274,21 @@ class AsyncTimeOffBalancesClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing.Literal["policy_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["policy_type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.hris import TimeOffBalancesListRequestPolicyType
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.time_off_balances.list(
-            expand="employee",
-            policy_type=TimeOffBalancesListRequestPolicyType.BEREAVEMENT,
-            remote_fields="policy_type",
-            show_enum_origins="policy_type",
-        )
+        await client.hris.time_off_balances.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/time-off-balances"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/time-off-balances"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -371,7 +356,7 @@ class AsyncTimeOffBalancesClient:
 
             - remote_fields: typing.Optional[typing.Literal["policy_type"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["policy_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["policy_type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -382,15 +367,12 @@ class AsyncTimeOffBalancesClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.time_off_balances.retrieve(
-            id="string",
-            expand="employee",
-            remote_fields="policy_type",
-            show_enum_origins="policy_type",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/time-off-balances/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/time-off-balances/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

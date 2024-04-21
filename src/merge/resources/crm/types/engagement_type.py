@@ -26,6 +26,12 @@ class EngagementType(pydantic.BaseModel):
     TODO
     """
 
+    id: typing.Optional[str]
+    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     activity_type: typing.Optional[EngagementTypeActivityType] = pydantic.Field(
         description=(
             "The engagement type's activity type.\n"
@@ -36,12 +42,6 @@ class EngagementType(pydantic.BaseModel):
         )
     )
     name: typing.Optional[str] = pydantic.Field(description="The engagement type's name.")
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
-    )
     remote_fields: typing.Optional[typing.List[RemoteField]]
 
     def json(self, **kwargs: typing.Any) -> str:

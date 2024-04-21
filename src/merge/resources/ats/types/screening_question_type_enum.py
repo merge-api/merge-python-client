@@ -6,7 +6,7 @@ import typing
 T_Result = typing.TypeVar("T_Result")
 
 
-class TypeEnum(str, enum.Enum):
+class ScreeningQuestionTypeEnum(str, enum.Enum):
     """
     - `DATE` - DATE
     - `FILE` - FILE
@@ -38,19 +38,19 @@ class TypeEnum(str, enum.Enum):
         numeric: typing.Callable[[], T_Result],
         boolean: typing.Callable[[], T_Result],
     ) -> T_Result:
-        if self is TypeEnum.DATE:
+        if self is ScreeningQuestionTypeEnum.DATE:
             return date()
-        if self is TypeEnum.FILE:
+        if self is ScreeningQuestionTypeEnum.FILE:
             return file()
-        if self is TypeEnum.SINGLE_SELECT:
+        if self is ScreeningQuestionTypeEnum.SINGLE_SELECT:
             return single_select()
-        if self is TypeEnum.MULTI_SELECT:
+        if self is ScreeningQuestionTypeEnum.MULTI_SELECT:
             return multi_select()
-        if self is TypeEnum.SINGLE_LINE_TEXT:
+        if self is ScreeningQuestionTypeEnum.SINGLE_LINE_TEXT:
             return single_line_text()
-        if self is TypeEnum.MULTI_LINE_TEXT:
+        if self is ScreeningQuestionTypeEnum.MULTI_LINE_TEXT:
             return multi_line_text()
-        if self is TypeEnum.NUMERIC:
+        if self is ScreeningQuestionTypeEnum.NUMERIC:
             return numeric()
-        if self is TypeEnum.BOOLEAN:
+        if self is ScreeningQuestionTypeEnum.BOOLEAN:
             return boolean()

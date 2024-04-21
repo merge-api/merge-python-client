@@ -40,7 +40,7 @@ class AddressesClient:
 
             - remote_fields: typing.Optional[typing.Literal["type"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -51,14 +51,12 @@ class AddressesClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.addresses.retrieve(
-            id="string",
-            remote_fields="type",
-            show_enum_origins="type",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/addresses/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/addresses/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -117,7 +115,7 @@ class AsyncAddressesClient:
 
             - remote_fields: typing.Optional[typing.Literal["type"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -128,14 +126,12 @@ class AsyncAddressesClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.addresses.retrieve(
-            id="string",
-            remote_fields="type",
-            show_enum_origins="type",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/addresses/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/addresses/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

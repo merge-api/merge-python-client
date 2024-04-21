@@ -31,6 +31,12 @@ class Contact(pydantic.BaseModel):
     TODO
     """
 
+    id: typing.Optional[str]
+    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     first_name: typing.Optional[str] = pydantic.Field(description="The contact's first name.")
     last_name: typing.Optional[str] = pydantic.Field(description="The contact's last name.")
     account: typing.Optional[ContactAccount] = pydantic.Field(description="The contact's account.")
@@ -45,12 +51,6 @@ class Contact(pydantic.BaseModel):
         description="When the third party's contact was created."
     )
     remote_was_deleted: typing.Optional[bool]
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
-    )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
     remote_fields: typing.Optional[typing.List[RemoteField]]

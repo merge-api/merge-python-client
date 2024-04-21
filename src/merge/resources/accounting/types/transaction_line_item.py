@@ -26,7 +26,12 @@ class TransactionLineItem(pydantic.BaseModel):
     Fetch from the `GET TransactionLineItem` endpoint and view the transaction's line items.
     """
 
+    id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     memo: typing.Optional[str] = pydantic.Field(
         description="An internal note used by the business to clarify purpose of the transaction."
     )
@@ -354,11 +359,6 @@ class TransactionLineItem(pydantic.BaseModel):
     company: typing.Optional[str] = pydantic.Field(description="The company the line belongs to.")
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted in the third party platform."
-    )
-    id: typing.Optional[str]
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
 
     def json(self, **kwargs: typing.Any) -> str:

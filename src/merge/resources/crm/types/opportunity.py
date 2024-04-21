@@ -30,6 +30,12 @@ class Opportunity(pydantic.BaseModel):
     TODO
     """
 
+    id: typing.Optional[str]
+    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     name: typing.Optional[str] = pydantic.Field(description="The opportunity's name.")
     description: typing.Optional[str] = pydantic.Field(description="The opportunity's description.")
     amount: typing.Optional[int] = pydantic.Field(description="The opportunity's amount.")
@@ -47,12 +53,6 @@ class Opportunity(pydantic.BaseModel):
         description="When the third party's opportunity was created."
     )
     remote_was_deleted: typing.Optional[bool]
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
-    )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
     remote_fields: typing.Optional[typing.List[RemoteField]]

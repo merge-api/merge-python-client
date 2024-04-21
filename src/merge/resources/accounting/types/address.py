@@ -26,6 +26,10 @@ class Address(pydantic.BaseModel):
     Fetch from the `GET CompanyInfo` endpoint and view the company's addresses.
     """
 
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     type: typing.Optional[AddressType] = pydantic.Field(
         description=("The address type.\n" "\n" "- `BILLING` - BILLING\n" "- `SHIPPING` - SHIPPING\n")
     )
@@ -290,10 +294,6 @@ class Address(pydantic.BaseModel):
         )
     )
     zip_code: typing.Optional[str] = pydantic.Field(description="The address's zip code.")
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
-    )
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

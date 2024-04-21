@@ -83,19 +83,16 @@ class ExpensesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import ExpensesListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.expenses.list(
-            expand=ExpensesListRequestExpand.ACCOUNT,
-        )
+        client.accounting.expenses.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/expenses"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/expenses"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -172,16 +169,12 @@ class ExpensesClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.expenses.create(
-            model=ExpenseRequest(
-                total_amount=10000.0,
-                exchange_rate="2.9",
-                memo="New employee supplies",
-            ),
+            model=ExpenseRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/expenses"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/expenses"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -242,20 +235,18 @@ class ExpensesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import ExpensesRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.expenses.retrieve(
-            id="string",
-            expand=ExpensesRetrieveRequestExpand.ACCOUNT,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/expenses/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/expenses/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -306,7 +297,7 @@ class ExpensesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/expenses/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/expenses/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -386,19 +377,16 @@ class AsyncExpensesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import ExpensesListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.expenses.list(
-            expand=ExpensesListRequestExpand.ACCOUNT,
-        )
+        await client.accounting.expenses.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/expenses"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/expenses"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -475,16 +463,12 @@ class AsyncExpensesClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.expenses.create(
-            model=ExpenseRequest(
-                total_amount=10000.0,
-                exchange_rate="2.9",
-                memo="New employee supplies",
-            ),
+            model=ExpenseRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/expenses"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/expenses"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -545,20 +529,18 @@ class AsyncExpensesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import ExpensesRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.accounting.expenses.retrieve(
-            id="string",
-            expand=ExpensesRetrieveRequestExpand.ACCOUNT,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/expenses/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/expenses/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -609,7 +591,7 @@ class AsyncExpensesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/expenses/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/expenses/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

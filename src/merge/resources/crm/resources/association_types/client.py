@@ -81,15 +81,14 @@ class AssociationTypesClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.association_types.custom_object_classes_association_types_list(
-            custom_object_class_id="string",
-            expand="target_object_classes",
+            custom_object_class_id="custom_object_class_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types",
+                f"crm/v1/custom-object-classes/{custom_object_class_id}/association-types",
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -158,7 +157,6 @@ class AssociationTypesClient:
         from merge.client import Merge
         from merge.resources.crm import (
             AssociationTypeRequestRequest,
-            CardinalityEnum,
             ObjectClassDescriptionRequest,
             OriginTypeEnum,
         )
@@ -168,15 +166,19 @@ class AssociationTypesClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.association_types.custom_object_classes_association_types_create(
-            custom_object_class_id="string",
+            custom_object_class_id="custom_object_class_id",
             model=AssociationTypeRequestRequest(
                 source_object_class=ObjectClassDescriptionRequest(
-                    id="string",
+                    id="id",
                     origin_type=OriginTypeEnum.CUSTOM_OBJECT,
                 ),
-                target_object_classes=[],
-                remote_key_name="string",
-                cardinality=CardinalityEnum.ONE_TO_ONE,
+                target_object_classes=[
+                    ObjectClassDescriptionRequest(
+                        id="id",
+                        origin_type=OriginTypeEnum.CUSTOM_OBJECT,
+                    )
+                ],
+                remote_key_name="remote_key_name",
             ),
         )
         """
@@ -184,7 +186,7 @@ class AssociationTypesClient:
             "POST",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types",
+                f"crm/v1/custom-object-classes/{custom_object_class_id}/association-types",
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -255,16 +257,15 @@ class AssociationTypesClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.association_types.custom_object_classes_association_types_retrieve(
-            custom_object_class_id="string",
-            id="string",
-            expand="target_object_classes",
+            custom_object_class_id="custom_object_class_id",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types/{id}",
+                f"crm/v1/custom-object-classes/{custom_object_class_id}/association-types/{id}",
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -317,14 +318,14 @@ class AssociationTypesClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.association_types.custom_object_classes_association_types_meta_post_retrieve(
-            custom_object_class_id="string",
+            custom_object_class_id="custom_object_class_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types/meta/post",
+                f"crm/v1/custom-object-classes/{custom_object_class_id}/association-types/meta/post",
             ),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
@@ -405,15 +406,14 @@ class AsyncAssociationTypesClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.association_types.custom_object_classes_association_types_list(
-            custom_object_class_id="string",
-            expand="target_object_classes",
+            custom_object_class_id="custom_object_class_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types",
+                f"crm/v1/custom-object-classes/{custom_object_class_id}/association-types",
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -482,7 +482,6 @@ class AsyncAssociationTypesClient:
         from merge.client import AsyncMerge
         from merge.resources.crm import (
             AssociationTypeRequestRequest,
-            CardinalityEnum,
             ObjectClassDescriptionRequest,
             OriginTypeEnum,
         )
@@ -492,15 +491,19 @@ class AsyncAssociationTypesClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.association_types.custom_object_classes_association_types_create(
-            custom_object_class_id="string",
+            custom_object_class_id="custom_object_class_id",
             model=AssociationTypeRequestRequest(
                 source_object_class=ObjectClassDescriptionRequest(
-                    id="string",
+                    id="id",
                     origin_type=OriginTypeEnum.CUSTOM_OBJECT,
                 ),
-                target_object_classes=[],
-                remote_key_name="string",
-                cardinality=CardinalityEnum.ONE_TO_ONE,
+                target_object_classes=[
+                    ObjectClassDescriptionRequest(
+                        id="id",
+                        origin_type=OriginTypeEnum.CUSTOM_OBJECT,
+                    )
+                ],
+                remote_key_name="remote_key_name",
             ),
         )
         """
@@ -508,7 +511,7 @@ class AsyncAssociationTypesClient:
             "POST",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types",
+                f"crm/v1/custom-object-classes/{custom_object_class_id}/association-types",
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -579,16 +582,15 @@ class AsyncAssociationTypesClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.association_types.custom_object_classes_association_types_retrieve(
-            custom_object_class_id="string",
-            id="string",
-            expand="target_object_classes",
+            custom_object_class_id="custom_object_class_id",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types/{id}",
+                f"crm/v1/custom-object-classes/{custom_object_class_id}/association-types/{id}",
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -641,14 +643,14 @@ class AsyncAssociationTypesClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.association_types.custom_object_classes_association_types_meta_post_retrieve(
-            custom_object_class_id="string",
+            custom_object_class_id="custom_object_class_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/association-types/meta/post",
+                f"crm/v1/custom-object-classes/{custom_object_class_id}/association-types/meta/post",
             ),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None

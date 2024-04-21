@@ -29,7 +29,7 @@ class GenerateKeyClient:
         Create a remote key.
 
         Parameters:
-            - name: str.
+            - name: str. The name of the remote key
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -45,7 +45,7 @@ class GenerateKeyClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/generate-key"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/generate-key"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -85,7 +85,7 @@ class AsyncGenerateKeyClient:
         Create a remote key.
 
         Parameters:
-            - name: str.
+            - name: str. The name of the remote key
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -101,7 +101,7 @@ class AsyncGenerateKeyClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/generate-key"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/generate-key"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

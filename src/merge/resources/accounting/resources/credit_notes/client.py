@@ -78,7 +78,7 @@ class CreditNotesClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[CreditNotesListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[CreditNotesListRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - transaction_date_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
 
@@ -87,25 +87,16 @@ class CreditNotesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import (
-            CreditNotesListRequestExpand,
-            CreditNotesListRequestRemoteFields,
-            CreditNotesListRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.credit_notes.list(
-            expand=CreditNotesListRequestExpand.ACCOUNTING_PERIOD,
-            remote_fields=CreditNotesListRequestRemoteFields.STATUS,
-            show_enum_origins=CreditNotesListRequestShowEnumOrigins.STATUS,
-        )
+        client.accounting.credit_notes.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/credit-notes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/credit-notes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -178,31 +169,23 @@ class CreditNotesClient:
 
             - remote_fields: typing.Optional[CreditNotesRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[CreditNotesRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[CreditNotesRetrieveRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import (
-            CreditNotesRetrieveRequestExpand,
-            CreditNotesRetrieveRequestRemoteFields,
-            CreditNotesRetrieveRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.credit_notes.retrieve(
-            id="string",
-            expand=CreditNotesRetrieveRequestExpand.ACCOUNTING_PERIOD,
-            remote_fields=CreditNotesRetrieveRequestRemoteFields.STATUS,
-            show_enum_origins=CreditNotesRetrieveRequestShowEnumOrigins.STATUS,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/credit-notes/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/credit-notes/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -291,7 +274,7 @@ class AsyncCreditNotesClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[CreditNotesListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[CreditNotesListRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - transaction_date_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
 
@@ -300,25 +283,16 @@ class AsyncCreditNotesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import (
-            CreditNotesListRequestExpand,
-            CreditNotesListRequestRemoteFields,
-            CreditNotesListRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.credit_notes.list(
-            expand=CreditNotesListRequestExpand.ACCOUNTING_PERIOD,
-            remote_fields=CreditNotesListRequestRemoteFields.STATUS,
-            show_enum_origins=CreditNotesListRequestShowEnumOrigins.STATUS,
-        )
+        await client.accounting.credit_notes.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/credit-notes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/credit-notes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -391,31 +365,23 @@ class AsyncCreditNotesClient:
 
             - remote_fields: typing.Optional[CreditNotesRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[CreditNotesRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[CreditNotesRetrieveRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import (
-            CreditNotesRetrieveRequestExpand,
-            CreditNotesRetrieveRequestRemoteFields,
-            CreditNotesRetrieveRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.accounting.credit_notes.retrieve(
-            id="string",
-            expand=CreditNotesRetrieveRequestExpand.ACCOUNTING_PERIOD,
-            remote_fields=CreditNotesRetrieveRequestRemoteFields.STATUS,
-            show_enum_origins=CreditNotesRetrieveRequestShowEnumOrigins.STATUS,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/credit-notes/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/credit-notes/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

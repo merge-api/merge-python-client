@@ -89,19 +89,16 @@ class ContactsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.crm import ContactsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.contacts.list(
-            expand=ContactsListRequestExpand.ACCOUNT,
-        )
+        client.crm.contacts.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/contacts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/contacts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -167,8 +164,6 @@ class ContactsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.crm import ContactRequest
 
@@ -177,18 +172,12 @@ class ContactsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.contacts.create(
-            model=ContactRequest(
-                first_name="Gil",
-                last_name="Feig",
-                last_activity_at=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-            ),
+            model=ContactRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/contacts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/contacts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -252,20 +241,18 @@ class ContactsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.crm import ContactsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.crm.contacts.retrieve(
-            id="string",
-            expand=ContactsRetrieveRequestExpand.ACCOUNT,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/contacts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/contacts/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -323,8 +310,6 @@ class ContactsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.crm import PatchedContactRequest
 
@@ -333,20 +318,13 @@ class ContactsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.contacts.partial_update(
-            id="string",
-            model=PatchedContactRequest(
-                first_name="Gil",
-                last_name="Feig",
-                account="0958cbc6-6040-430a-848e-aafacbadf4ae",
-                last_activity_at=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-            ),
+            id="id",
+            model=PatchedContactRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/contacts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/contacts/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -411,7 +389,7 @@ class ContactsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.contacts.ignore_create(
-            model_id="string",
+            model_id="model_id",
             request=IgnoreCommonModelRequest(
                 reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
                 message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
@@ -420,7 +398,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/contacts/ignore/{model_id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/contacts/ignore/{model_id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -466,12 +444,12 @@ class ContactsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.contacts.meta_patch_retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/contacts/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/contacts/meta/patch/{id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -512,7 +490,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/contacts/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/contacts/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -572,7 +550,7 @@ class ContactsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/contacts/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/contacts/remote-field-classes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -668,19 +646,16 @@ class AsyncContactsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.crm import ContactsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.contacts.list(
-            expand=ContactsListRequestExpand.ACCOUNT,
-        )
+        await client.crm.contacts.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/contacts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/contacts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -746,8 +721,6 @@ class AsyncContactsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.crm import ContactRequest
 
@@ -756,18 +729,12 @@ class AsyncContactsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.contacts.create(
-            model=ContactRequest(
-                first_name="Gil",
-                last_name="Feig",
-                last_activity_at=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-            ),
+            model=ContactRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/contacts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/contacts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -831,20 +798,18 @@ class AsyncContactsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.crm import ContactsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.crm.contacts.retrieve(
-            id="string",
-            expand=ContactsRetrieveRequestExpand.ACCOUNT,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/contacts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/contacts/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -902,8 +867,6 @@ class AsyncContactsClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.crm import PatchedContactRequest
 
@@ -912,20 +875,13 @@ class AsyncContactsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.contacts.partial_update(
-            id="string",
-            model=PatchedContactRequest(
-                first_name="Gil",
-                last_name="Feig",
-                account="0958cbc6-6040-430a-848e-aafacbadf4ae",
-                last_activity_at=datetime.datetime.fromisoformat(
-                    "2022-02-10 00:00:00+00:00",
-                ),
-            ),
+            id="id",
+            model=PatchedContactRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/contacts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/contacts/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -990,7 +946,7 @@ class AsyncContactsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.contacts.ignore_create(
-            model_id="string",
+            model_id="model_id",
             request=IgnoreCommonModelRequest(
                 reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
                 message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
@@ -999,7 +955,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/contacts/ignore/{model_id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/contacts/ignore/{model_id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -1047,12 +1003,12 @@ class AsyncContactsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.contacts.meta_patch_retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/contacts/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/contacts/meta/patch/{id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -1093,7 +1049,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/contacts/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/contacts/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -1153,7 +1109,7 @@ class AsyncContactsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/contacts/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/contacts/remote-field-classes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

@@ -85,7 +85,7 @@ class PayrollRunsClient:
                                                                         - `CORRECTION` - CORRECTION
                                                                         - `TERMINATION` - TERMINATION
                                                                         - `SIGN_ON_BONUS` - SIGN_ON_BONUS
-            - show_enum_origins: typing.Optional[PayrollRunsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[PayrollRunsListRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - started_after: typing.Optional[dt.datetime]. If provided, will only return payroll runs started after this datetime.
 
@@ -94,25 +94,16 @@ class PayrollRunsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.hris import (
-            PayrollRunsListRequestRemoteFields,
-            PayrollRunsListRequestRunType,
-            PayrollRunsListRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.payroll_runs.list(
-            remote_fields=PayrollRunsListRequestRemoteFields.RUN_STATE,
-            run_type=PayrollRunsListRequestRunType.CORRECTION,
-            show_enum_origins=PayrollRunsListRequestShowEnumOrigins.RUN_STATE,
-        )
+        client.hris.payroll_runs.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/payroll-runs"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/payroll-runs"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -179,29 +170,23 @@ class PayrollRunsClient:
 
             - remote_fields: typing.Optional[PayrollRunsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[PayrollRunsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[PayrollRunsRetrieveRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.hris import (
-            PayrollRunsRetrieveRequestRemoteFields,
-            PayrollRunsRetrieveRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.hris.payroll_runs.retrieve(
-            id="string",
-            remote_fields=PayrollRunsRetrieveRequestRemoteFields.RUN_STATE,
-            show_enum_origins=PayrollRunsRetrieveRequestShowEnumOrigins.RUN_STATE,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/payroll-runs/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/payroll-runs/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -297,7 +282,7 @@ class AsyncPayrollRunsClient:
                                                                         - `CORRECTION` - CORRECTION
                                                                         - `TERMINATION` - TERMINATION
                                                                         - `SIGN_ON_BONUS` - SIGN_ON_BONUS
-            - show_enum_origins: typing.Optional[PayrollRunsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[PayrollRunsListRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - started_after: typing.Optional[dt.datetime]. If provided, will only return payroll runs started after this datetime.
 
@@ -306,25 +291,16 @@ class AsyncPayrollRunsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.hris import (
-            PayrollRunsListRequestRemoteFields,
-            PayrollRunsListRequestRunType,
-            PayrollRunsListRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.payroll_runs.list(
-            remote_fields=PayrollRunsListRequestRemoteFields.RUN_STATE,
-            run_type=PayrollRunsListRequestRunType.CORRECTION,
-            show_enum_origins=PayrollRunsListRequestShowEnumOrigins.RUN_STATE,
-        )
+        await client.hris.payroll_runs.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/payroll-runs"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/payroll-runs"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -391,29 +367,23 @@ class AsyncPayrollRunsClient:
 
             - remote_fields: typing.Optional[PayrollRunsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[PayrollRunsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[PayrollRunsRetrieveRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.hris import (
-            PayrollRunsRetrieveRequestRemoteFields,
-            PayrollRunsRetrieveRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.hris.payroll_runs.retrieve(
-            id="string",
-            remote_fields=PayrollRunsRetrieveRequestRemoteFields.RUN_STATE,
-            show_enum_origins=PayrollRunsRetrieveRequestShowEnumOrigins.RUN_STATE,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/payroll-runs/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/payroll-runs/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

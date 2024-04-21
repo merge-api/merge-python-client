@@ -83,19 +83,16 @@ class JournalEntriesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import JournalEntriesListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.journal_entries.list(
-            expand=JournalEntriesListRequestExpand.ACCOUNTING_PERIOD,
-        )
+        client.accounting.journal_entries.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/journal-entries"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -177,7 +174,7 @@ class JournalEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/journal-entries"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -238,20 +235,18 @@ class JournalEntriesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import JournalEntriesRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.journal_entries.retrieve(
-            id="string",
-            expand=JournalEntriesRetrieveRequestExpand.ACCOUNTING_PERIOD,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/journal-entries/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/journal-entries/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -302,9 +297,7 @@ class JournalEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries/meta/post"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/journal-entries/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -384,19 +377,16 @@ class AsyncJournalEntriesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import JournalEntriesListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.journal_entries.list(
-            expand=JournalEntriesListRequestExpand.ACCOUNTING_PERIOD,
-        )
+        await client.accounting.journal_entries.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/journal-entries"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -478,7 +468,7 @@ class AsyncJournalEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/journal-entries"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -539,20 +529,18 @@ class AsyncJournalEntriesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import JournalEntriesRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.accounting.journal_entries.retrieve(
-            id="string",
-            expand=JournalEntriesRetrieveRequestExpand.ACCOUNTING_PERIOD,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/journal-entries/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/journal-entries/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -603,9 +591,7 @@ class AsyncJournalEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/journal-entries/meta/post"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/journal-entries/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

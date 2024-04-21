@@ -88,19 +88,16 @@ class CandidatesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ats import CandidatesListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.candidates.list(
-            expand=CandidatesListRequestExpand.APPLICATIONS,
-        )
+        client.ats.candidates.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/candidates"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/candidates"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -169,8 +166,6 @@ class CandidatesClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.ats import CandidateRequest
 
@@ -179,24 +174,13 @@ class CandidatesClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.candidates.create(
-            model=CandidateRequest(
-                first_name="Gil",
-                last_name="Feig",
-                company="Columbia Dining App.",
-                title="Software Engineer",
-                last_interaction_at=datetime.datetime.fromisoformat(
-                    "2021-10-17 00:00:00+00:00",
-                ),
-                is_private=True,
-                can_email=True,
-                remote_template_id="92830948203",
-            ),
-            remote_user_id="string",
+            model=CandidateRequest(),
+            remote_user_id="remote_user_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/candidates"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/candidates"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -257,20 +241,18 @@ class CandidatesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ats import CandidatesRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ats.candidates.retrieve(
-            id="string",
-            expand=CandidatesRetrieveRequestExpand.APPLICATIONS,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/candidates/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -330,8 +312,6 @@ class CandidatesClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import Merge
         from merge.resources.ats import PatchedCandidateRequest
 
@@ -340,25 +320,14 @@ class CandidatesClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.candidates.partial_update(
-            id="string",
-            model=PatchedCandidateRequest(
-                first_name="Gil",
-                last_name="Feig",
-                company="Columbia Dining App.",
-                title="Software Engineer",
-                last_interaction_at=datetime.datetime.fromisoformat(
-                    "2021-10-17 00:00:00+00:00",
-                ),
-                is_private=True,
-                can_email=True,
-                remote_template_id="92830948203",
-            ),
-            remote_user_id="string",
+            id="id",
+            model=PatchedCandidateRequest(),
+            remote_user_id="remote_user_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/candidates/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -426,7 +395,7 @@ class CandidatesClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.candidates.ignore_create(
-            model_id="string",
+            model_id="model_id",
             reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
             message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
         )
@@ -436,7 +405,7 @@ class CandidatesClient:
             _request["message"] = message
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/ignore/{model_id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/candidates/ignore/{model_id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -482,12 +451,12 @@ class CandidatesClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.candidates.meta_patch_retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/candidates/meta/patch/{id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -528,7 +497,7 @@ class CandidatesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/candidates/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/candidates/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -611,19 +580,16 @@ class AsyncCandidatesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ats import CandidatesListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.candidates.list(
-            expand=CandidatesListRequestExpand.APPLICATIONS,
-        )
+        await client.ats.candidates.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/candidates"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/candidates"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -692,8 +658,6 @@ class AsyncCandidatesClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.ats import CandidateRequest
 
@@ -702,24 +666,13 @@ class AsyncCandidatesClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.candidates.create(
-            model=CandidateRequest(
-                first_name="Gil",
-                last_name="Feig",
-                company="Columbia Dining App.",
-                title="Software Engineer",
-                last_interaction_at=datetime.datetime.fromisoformat(
-                    "2021-10-17 00:00:00+00:00",
-                ),
-                is_private=True,
-                can_email=True,
-                remote_template_id="92830948203",
-            ),
-            remote_user_id="string",
+            model=CandidateRequest(),
+            remote_user_id="remote_user_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/candidates"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/candidates"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -780,20 +733,18 @@ class AsyncCandidatesClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ats import CandidatesRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.ats.candidates.retrieve(
-            id="string",
-            expand=CandidatesRetrieveRequestExpand.APPLICATIONS,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/candidates/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -853,8 +804,6 @@ class AsyncCandidatesClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        import datetime
-
         from merge.client import AsyncMerge
         from merge.resources.ats import PatchedCandidateRequest
 
@@ -863,25 +812,14 @@ class AsyncCandidatesClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.candidates.partial_update(
-            id="string",
-            model=PatchedCandidateRequest(
-                first_name="Gil",
-                last_name="Feig",
-                company="Columbia Dining App.",
-                title="Software Engineer",
-                last_interaction_at=datetime.datetime.fromisoformat(
-                    "2021-10-17 00:00:00+00:00",
-                ),
-                is_private=True,
-                can_email=True,
-                remote_template_id="92830948203",
-            ),
-            remote_user_id="string",
+            id="id",
+            model=PatchedCandidateRequest(),
+            remote_user_id="remote_user_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/candidates/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -949,7 +887,7 @@ class AsyncCandidatesClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.candidates.ignore_create(
-            model_id="string",
+            model_id="model_id",
             reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
             message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
         )
@@ -959,7 +897,7 @@ class AsyncCandidatesClient:
             _request["message"] = message
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/ignore/{model_id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/candidates/ignore/{model_id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -1007,12 +945,12 @@ class AsyncCandidatesClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.candidates.meta_patch_retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/candidates/meta/patch/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/candidates/meta/patch/{id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -1053,7 +991,7 @@ class AsyncCandidatesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/candidates/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/candidates/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
