@@ -23,6 +23,7 @@ class ExternalTargetFieldApiResponse(pydantic.BaseModel):
         alias="ScheduledInterview"
     )
     job: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Job")
+    job_posting: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="JobPosting")
     job_interview_stage: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(
         alias="JobInterviewStage"
     )

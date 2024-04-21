@@ -23,6 +23,7 @@ class FieldMappingApiInstanceResponse(pydantic.BaseModel):
         alias="ScheduledInterview"
     )
     job: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="Job")
+    job_posting: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(alias="JobPosting")
     job_interview_stage: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
         alias="JobInterviewStage"
     )

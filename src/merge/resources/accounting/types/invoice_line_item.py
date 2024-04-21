@@ -29,7 +29,12 @@ class InvoiceLineItem(pydantic.BaseModel):
     Fetch from the `GET Invoice` endpoint and view the invoice's line items.
     """
 
+    id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     description: typing.Optional[str] = pydantic.Field(description="The line item's description.")
     unit_price: typing.Optional[float] = pydantic.Field(description="The line item's unit price.")
     quantity: typing.Optional[float] = pydantic.Field(description="The line item's quantity.")
@@ -354,11 +359,6 @@ class InvoiceLineItem(pydantic.BaseModel):
     company: typing.Optional[str] = pydantic.Field(description="The company the line item belongs to.")
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted in the third party platform."
-    )
-    id: typing.Optional[str]
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
 

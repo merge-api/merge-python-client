@@ -28,6 +28,10 @@ class ScreeningQuestion(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     job: typing.Optional[ScreeningQuestionJob] = pydantic.Field(
         description="The job associated with the screening question."
     )
@@ -49,10 +53,6 @@ class ScreeningQuestion(pydantic.BaseModel):
     )
     required: typing.Optional[bool] = pydantic.Field(description="Whether or not the screening question is required.")
     options: typing.Optional[typing.List[typing.Any]]
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
-    )
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

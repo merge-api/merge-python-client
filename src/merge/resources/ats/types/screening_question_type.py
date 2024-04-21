@@ -2,6 +2,6 @@
 
 import typing
 
-from .type_enum import TypeEnum
+from .screening_question_type_enum import ScreeningQuestionTypeEnum
 
-ScreeningQuestionType = typing.Union[TypeEnum, str]
+ScreeningQuestionType = typing.Union[ScreeningQuestionTypeEnum, str]

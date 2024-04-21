@@ -37,6 +37,10 @@ class Ticket(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     name: typing.Optional[str] = pydantic.Field(description="The ticket's name.")
     assignees: typing.Optional[typing.List[typing.Optional[TicketAssigneesItem]]]
     creator: typing.Optional[TicketCreator] = pydantic.Field(description="The user who created this ticket.")
@@ -55,7 +59,9 @@ class Ticket(pydantic.BaseModel):
         description="The ticket’s description. HTML version of description is mapped if supported by the third-party platform."
     )
     collections: typing.Optional[typing.List[typing.Optional[TicketCollectionsItem]]]
-    ticket_type: typing.Optional[str] = pydantic.Field(description="The ticket's type.")
+    ticket_type: typing.Optional[str] = pydantic.Field(
+        description="The sub category of the ticket within the 3rd party system. Examples include incident, task, subtask or to-do."
+    )
     account: typing.Optional[TicketAccount] = pydantic.Field(description="The account associated with the ticket.")
     contact: typing.Optional[TicketContact] = pydantic.Field(description="The contact associated with the ticket.")
     parent_ticket: typing.Optional[TicketParentTicket] = pydantic.Field(description="The ticket's parent ticket.")
@@ -79,10 +85,6 @@ class Ticket(pydantic.BaseModel):
             "- `NORMAL` - NORMAL\n"
             "- `LOW` - LOW\n"
         )
-    )
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]

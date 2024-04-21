@@ -26,18 +26,18 @@ class AssociationType(pydantic.BaseModel):
     TODO
     """
 
-    source_object_class: typing.Optional[typing.Dict[str, typing.Any]]
-    target_object_classes: typing.Optional[typing.List[AssociationSubType]]
-    remote_key_name: typing.Optional[str]
-    display_name: typing.Optional[str]
-    cardinality: typing.Optional[AssociationTypeCardinality]
-    is_required: typing.Optional[bool]
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
     created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
+    source_object_class: typing.Optional[typing.Dict[str, typing.Any]]
+    target_object_classes: typing.Optional[typing.List[AssociationSubType]]
+    remote_key_name: typing.Optional[str]
+    display_name: typing.Optional[str]
+    cardinality: typing.Optional[AssociationTypeCardinality]
+    is_required: typing.Optional[bool]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

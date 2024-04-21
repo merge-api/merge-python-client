@@ -45,7 +45,9 @@ class PatchedTicketRequest(pydantic.BaseModel):
         description="The ticket’s description. HTML version of description is mapped if supported by the third-party platform."
     )
     collections: typing.Optional[typing.List[typing.Optional[str]]]
-    ticket_type: typing.Optional[str] = pydantic.Field(description="The ticket's type.")
+    ticket_type: typing.Optional[str] = pydantic.Field(
+        description="The sub category of the ticket within the 3rd party system. Examples include incident, task, subtask or to-do."
+    )
     account: typing.Optional[str] = pydantic.Field(description="The account associated with the ticket.")
     contact: typing.Optional[str] = pydantic.Field(description="The contact associated with the ticket.")
     parent_ticket: typing.Optional[str] = pydantic.Field(description="The ticket's parent ticket.")

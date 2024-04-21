@@ -34,6 +34,7 @@ class GroupsClient:
         include_remote_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        names: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         remote_fields: typing.Optional[typing.Literal["type"]] = None,
         remote_id: typing.Optional[str] = None,
@@ -59,13 +60,15 @@ class GroupsClient:
 
             - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
 
+            - names: typing.Optional[str]. If provided, will only return groups with these names. Multiple values can be separated by commas.
+
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_fields: typing.Optional[typing.Literal["type"]]. Deprecated. Use show_enum_origins.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing.Literal["type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - types: typing.Optional[str]. If provided, will only return groups of these types. Multiple values can be separated by commas.
 
@@ -77,14 +80,11 @@ class GroupsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.groups.list(
-            remote_fields="type",
-            show_enum_origins="type",
-        )
+        client.hris.groups.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/groups"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/groups"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -95,6 +95,7 @@ class GroupsClient:
                         "include_remote_data": include_remote_data,
                         "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                         "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "names": names,
                         "page_size": page_size,
                         "remote_fields": remote_fields,
                         "remote_id": remote_id,
@@ -147,7 +148,7 @@ class GroupsClient:
 
             - remote_fields: typing.Optional[typing.Literal["type"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -158,14 +159,12 @@ class GroupsClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.groups.retrieve(
-            id="string",
-            remote_fields="type",
-            show_enum_origins="type",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/groups/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/groups/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -215,6 +214,7 @@ class AsyncGroupsClient:
         include_remote_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        names: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         remote_fields: typing.Optional[typing.Literal["type"]] = None,
         remote_id: typing.Optional[str] = None,
@@ -240,13 +240,15 @@ class AsyncGroupsClient:
 
             - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
 
+            - names: typing.Optional[str]. If provided, will only return groups with these names. Multiple values can be separated by commas.
+
             - page_size: typing.Optional[int]. Number of results to return per page.
 
             - remote_fields: typing.Optional[typing.Literal["type"]]. Deprecated. Use show_enum_origins.
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing.Literal["type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - types: typing.Optional[str]. If provided, will only return groups of these types. Multiple values can be separated by commas.
 
@@ -258,14 +260,11 @@ class AsyncGroupsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.groups.list(
-            remote_fields="type",
-            show_enum_origins="type",
-        )
+        await client.hris.groups.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/groups"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/groups"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -276,6 +275,7 @@ class AsyncGroupsClient:
                         "include_remote_data": include_remote_data,
                         "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                         "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                        "names": names,
                         "page_size": page_size,
                         "remote_fields": remote_fields,
                         "remote_id": remote_id,
@@ -328,7 +328,7 @@ class AsyncGroupsClient:
 
             - remote_fields: typing.Optional[typing.Literal["type"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -339,14 +339,12 @@ class AsyncGroupsClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.groups.retrieve(
-            id="string",
-            remote_fields="type",
-            show_enum_origins="type",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/groups/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/groups/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

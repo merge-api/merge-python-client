@@ -25,6 +25,10 @@ class Url(pydantic.BaseModel):
     Fetch from the `GET Candidate` endpoint and view their website urls.
     """
 
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     value: typing.Optional[str] = pydantic.Field(description="The site's url.")
     url_type: typing.Optional[UrlUrlType] = pydantic.Field(
         description=(
@@ -38,10 +42,6 @@ class Url(pydantic.BaseModel):
             "- `OTHER` - OTHER\n"
             "- `JOB_POSTING` - JOB_POSTING\n"
         )
-    )
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
 
     def json(self, **kwargs: typing.Any) -> str:

@@ -34,6 +34,12 @@ class Expense(pydantic.BaseModel):
     Fetch from the `GET Expense` endpoint and view a company's expense.
     """
 
+    id: typing.Optional[str]
+    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     transaction_date: typing.Optional[dt.datetime] = pydantic.Field(description="When the transaction occurred.")
     remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the expense was created.")
     account: typing.Optional[ExpenseAccount] = pydantic.Field(description="The expense's payment account.")
@@ -363,12 +369,6 @@ class Expense(pydantic.BaseModel):
     )
     accounting_period: typing.Optional[ExpenseAccountingPeriod] = pydantic.Field(
         description="The accounting period that the Expense was generated in."
-    )
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]

@@ -77,19 +77,16 @@ class VendorCreditsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import VendorCreditsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.vendor_credits.list(
-            expand=VendorCreditsListRequestExpand.ACCOUNTING_PERIOD,
-        )
+        client.accounting.vendor_credits.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/vendor-credits"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/vendor-credits"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -159,20 +156,18 @@ class VendorCreditsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import VendorCreditsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.vendor_credits.retrieve(
-            id="string",
-            expand=VendorCreditsRetrieveRequestExpand.ACCOUNTING_PERIOD,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/vendor-credits/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/vendor-credits/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -262,19 +257,16 @@ class AsyncVendorCreditsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import VendorCreditsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.vendor_credits.list(
-            expand=VendorCreditsListRequestExpand.ACCOUNTING_PERIOD,
-        )
+        await client.accounting.vendor_credits.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/vendor-credits"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/vendor-credits"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -344,20 +336,18 @@ class AsyncVendorCreditsClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import VendorCreditsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.accounting.vendor_credits.retrieve(
-            id="string",
-            expand=VendorCreditsRetrieveRequestExpand.ACCOUNTING_PERIOD,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/vendor-credits/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/vendor-credits/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

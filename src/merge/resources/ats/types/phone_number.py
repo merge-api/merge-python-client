@@ -25,6 +25,10 @@ class PhoneNumber(pydantic.BaseModel):
     Fetch from the `GET Candidate` endpoint and view their phone numbers.
     """
 
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     value: typing.Optional[str] = pydantic.Field(description="The phone number.")
     phone_number_type: typing.Optional[PhoneNumberPhoneNumberType] = pydantic.Field(
         description=(
@@ -36,10 +40,6 @@ class PhoneNumber(pydantic.BaseModel):
             "- `SKYPE` - SKYPE\n"
             "- `OTHER` - OTHER\n"
         )
-    )
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
 
     def json(self, **kwargs: typing.Any) -> str:

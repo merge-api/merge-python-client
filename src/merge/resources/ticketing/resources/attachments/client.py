@@ -83,13 +83,11 @@ class AttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.attachments.list(
-            expand="ticket",
-        )
+        client.ticketing.attachments.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/attachments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -163,17 +161,12 @@ class AttachmentsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.attachments.create(
-            model=AttachmentRequest(
-                file_name="Screenshot.png",
-                file_url="http://alturl.com/p749b",
-                content_type="jpeg",
-                uploaded_by="28b54125-287f-494d-965e-3c5b330c9a68",
-            ),
+            model=AttachmentRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/attachments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -240,13 +233,12 @@ class AttachmentsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.attachments.retrieve(
-            id="string",
-            expand="ticket",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/attachments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/attachments/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -299,9 +291,7 @@ class AttachmentsClient:
         """
         with self._client_wrapper.httpx_client.stream(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/attachments/{id}/download"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/attachments/{id}/download"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -354,7 +344,7 @@ class AttachmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/attachments/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/attachments/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -436,13 +426,11 @@ class AsyncAttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.attachments.list(
-            expand="ticket",
-        )
+        await client.ticketing.attachments.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/attachments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -516,17 +504,12 @@ class AsyncAttachmentsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.attachments.create(
-            model=AttachmentRequest(
-                file_name="Screenshot.png",
-                file_url="http://alturl.com/p749b",
-                content_type="jpeg",
-                uploaded_by="28b54125-287f-494d-965e-3c5b330c9a68",
-            ),
+            model=AttachmentRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/attachments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -593,13 +576,12 @@ class AsyncAttachmentsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.attachments.retrieve(
-            id="string",
-            expand="ticket",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/attachments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/attachments/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -652,9 +634,7 @@ class AsyncAttachmentsClient:
         """
         async with self._client_wrapper.httpx_client.stream(
             "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/attachments/{id}/download"
-            ),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/attachments/{id}/download"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -707,7 +687,7 @@ class AsyncAttachmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/attachments/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/attachments/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

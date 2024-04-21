@@ -32,6 +32,10 @@ class TimeOff(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     employee: typing.Optional[TimeOffEmployee] = pydantic.Field(description="The employee requesting time off.")
     approver: typing.Optional[TimeOffApprover] = pydantic.Field(
         description="The Merge ID of the employee with the ability to approve the time off request."
@@ -78,10 +82,6 @@ class TimeOff(pydantic.BaseModel):
         description="The day and time of the end of the time requested off."
     )
     remote_was_deleted: typing.Optional[bool]
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
-    )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 

@@ -16,14 +16,10 @@ class LinkedAccountCondition(pydantic.BaseModel):
         description="The ID indicating which condition schema to use for a specific condition."
     )
     common_model: typing.Optional[str] = pydantic.Field(description="The common model for a specific condition.")
-    native_name: typing.Optional[str] = pydantic.Field(
-        description='User-facing _native condition_ name. e.g. "Skip Manager".'
-    )
+    native_name: typing.Optional[str]
     operator: str = pydantic.Field(description="The operator for a specific condition.")
     value: typing.Optional[typing.Any]
-    field_name: typing.Optional[str] = pydantic.Field(
-        description='The name of the field on the common model that this condition corresponds to, if they conceptually match. e.g. "location_type".'
-    )
+    field_name: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

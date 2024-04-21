@@ -35,6 +35,12 @@ class PurchaseOrder(pydantic.BaseModel):
     Fetch from the `LIST PurchaseOrders` endpoint and view a company's purchase orders.
     """
 
+    id: typing.Optional[str]
+    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     status: typing.Optional[PurchaseOrderStatus] = pydantic.Field(
         description=(
             "The purchase order's status.\n"
@@ -389,12 +395,6 @@ class PurchaseOrder(pydantic.BaseModel):
     )
     accounting_period: typing.Optional[PurchaseOrderAccountingPeriod] = pydantic.Field(
         description="The accounting period that the PurchaseOrder was generated in."
-    )
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]

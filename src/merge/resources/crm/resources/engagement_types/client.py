@@ -76,7 +76,7 @@ class EngagementTypesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagement-types"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/engagement-types"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -145,12 +145,12 @@ class EngagementTypesClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.engagement_types.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/engagement-types/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/engagement-types/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -221,7 +221,7 @@ class EngagementTypesClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagement-types/remote-field-classes"
+                f"{self._client_wrapper.get_base_url()}/", "crm/v1/engagement-types/remote-field-classes"
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -315,7 +315,7 @@ class AsyncEngagementTypesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagement-types"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/engagement-types"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -384,12 +384,12 @@ class AsyncEngagementTypesClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.engagement_types.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/engagement-types/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/engagement-types/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -460,7 +460,7 @@ class AsyncEngagementTypesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/engagement-types/remote-field-classes"
+                f"{self._client_wrapper.get_base_url()}/", "crm/v1/engagement-types/remote-field-classes"
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(

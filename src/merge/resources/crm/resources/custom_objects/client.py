@@ -81,14 +81,14 @@ class CustomObjectsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.custom_objects.custom_object_classes_custom_objects_list(
-            custom_object_class_id="string",
+            custom_object_class_id="custom_object_class_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects",
+                f"crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects",
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -162,9 +162,9 @@ class CustomObjectsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.custom_objects.custom_object_classes_custom_objects_create(
-            custom_object_class_id="string",
+            custom_object_class_id="custom_object_class_id",
             model=CustomObjectRequest(
-                fields={"string": {}},
+                fields={},
             ),
         )
         """
@@ -172,7 +172,7 @@ class CustomObjectsClient:
             "POST",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects",
+                f"crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects",
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -243,15 +243,15 @@ class CustomObjectsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.custom_objects.custom_object_classes_custom_objects_retrieve(
-            custom_object_class_id="string",
-            id="string",
+            custom_object_class_id="custom_object_class_id",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{id}",
+                f"crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{id}",
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -286,59 +286,6 @@ class CustomObjectsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def custom_object_classes_custom_objects_meta_patch_retrieve(
-        self, custom_object_class_id: str, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> MetaResponse:
-        """
-        Returns metadata for `CRMCustomObject` PATCHs.
-
-        Parameters:
-            - custom_object_class_id: str.
-
-            - id: str.
-
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
-        from merge.client import Merge
-
-        client = Merge(
-            account_token="YOUR_ACCOUNT_TOKEN",
-            api_key="YOUR_API_KEY",
-        )
-        client.crm.custom_objects.custom_object_classes_custom_objects_meta_patch_retrieve(
-            custom_object_class_id="string",
-            id="string",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/meta/patch/{id}",
-            ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
-        )
-        if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
-        try:
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
     def custom_object_classes_custom_objects_meta_post_retrieve(
         self, custom_object_class_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> MetaResponse:
@@ -357,14 +304,14 @@ class CustomObjectsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.custom_objects.custom_object_classes_custom_objects_meta_post_retrieve(
-            custom_object_class_id="string",
+            custom_object_class_id="custom_object_class_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/meta/post",
+                f"crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/meta/post",
             ),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
@@ -445,14 +392,14 @@ class AsyncCustomObjectsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.custom_objects.custom_object_classes_custom_objects_list(
-            custom_object_class_id="string",
+            custom_object_class_id="custom_object_class_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects",
+                f"crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects",
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -526,9 +473,9 @@ class AsyncCustomObjectsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.custom_objects.custom_object_classes_custom_objects_create(
-            custom_object_class_id="string",
+            custom_object_class_id="custom_object_class_id",
             model=CustomObjectRequest(
-                fields={"string": {}},
+                fields={},
             ),
         )
         """
@@ -536,7 +483,7 @@ class AsyncCustomObjectsClient:
             "POST",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects",
+                f"crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects",
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -607,15 +554,15 @@ class AsyncCustomObjectsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.custom_objects.custom_object_classes_custom_objects_retrieve(
-            custom_object_class_id="string",
-            id="string",
+            custom_object_class_id="custom_object_class_id",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{id}",
+                f"crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{id}",
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -650,59 +597,6 @@ class AsyncCustomObjectsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def custom_object_classes_custom_objects_meta_patch_retrieve(
-        self, custom_object_class_id: str, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> MetaResponse:
-        """
-        Returns metadata for `CRMCustomObject` PATCHs.
-
-        Parameters:
-            - custom_object_class_id: str.
-
-            - id: str.
-
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
-        from merge.client import AsyncMerge
-
-        client = AsyncMerge(
-            account_token="YOUR_ACCOUNT_TOKEN",
-            api_key="YOUR_API_KEY",
-        )
-        await client.crm.custom_objects.custom_object_classes_custom_objects_meta_patch_retrieve(
-            custom_object_class_id="string",
-            id="string",
-        )
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/meta/patch/{id}",
-            ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
-        )
-        if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
-        try:
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
     async def custom_object_classes_custom_objects_meta_post_retrieve(
         self, custom_object_class_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> MetaResponse:
@@ -721,14 +615,14 @@ class AsyncCustomObjectsClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.custom_objects.custom_object_classes_custom_objects_meta_post_retrieve(
-            custom_object_class_id="string",
+            custom_object_class_id="custom_object_class_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/",
-                f"api/crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/meta/post",
+                f"crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/meta/post",
             ),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None

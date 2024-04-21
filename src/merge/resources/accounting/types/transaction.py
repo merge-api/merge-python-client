@@ -39,6 +39,12 @@ class Transaction(pydantic.BaseModel):
     Fetch from the `GET Transaction` endpoint and view a company's transactions.
     """
 
+    id: typing.Optional[str]
+    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     transaction_type: typing.Optional[str] = pydantic.Field(
         description="The type of transaction, which can by any transaction object not already included in Merge’s common model."
     )
@@ -372,12 +378,6 @@ class Transaction(pydantic.BaseModel):
     )
     accounting_period: typing.Optional[TransactionAccountingPeriod] = pydantic.Field(
         description="The accounting period that the Transaction was generated in."
-    )
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]

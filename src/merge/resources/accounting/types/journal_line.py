@@ -28,7 +28,12 @@ class JournalLine(pydantic.BaseModel):
     Fetch from the `GET JournalEntry` endpoint and view the journal entry's line items.
     """
 
+    id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     account: typing.Optional[JournalLineAccount]
     net_amount: typing.Optional[float] = pydantic.Field(
         description="The value of the line item including taxes and other fees."
@@ -353,11 +358,6 @@ class JournalLine(pydantic.BaseModel):
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The journal line item's exchange rate.")
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted in the third party platform."
-    )
-    id: typing.Optional[str]
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
 
     def json(self, **kwargs: typing.Any) -> str:

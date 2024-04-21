@@ -25,15 +25,15 @@ class AccountingPeriod(pydantic.BaseModel):
     Common models like `Invoice` and `Transaction` will have `AccountingPeriod` objects which will denote when they occurred.
     """
 
-    start_date: typing.Optional[dt.datetime] = pydantic.Field(description="Beginning date of the period")
-    end_date: typing.Optional[dt.datetime] = pydantic.Field(description="End date of the period")
-    status: typing.Optional[AccountingPeriodStatus]
-    name: typing.Optional[str] = pydantic.Field(description="Name of the accounting period.")
     id: typing.Optional[str]
     created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
+    start_date: typing.Optional[dt.datetime] = pydantic.Field(description="Beginning date of the period")
+    end_date: typing.Optional[dt.datetime] = pydantic.Field(description="End date of the period")
+    status: typing.Optional[AccountingPeriodStatus]
+    name: typing.Optional[str] = pydantic.Field(description="Name of the accounting period.")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

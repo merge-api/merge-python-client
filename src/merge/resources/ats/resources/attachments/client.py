@@ -76,7 +76,7 @@ class AttachmentsClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing.Literal["attachment_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["attachment_type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -86,15 +86,11 @@ class AttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.attachments.list(
-            expand="candidate",
-            remote_fields="attachment_type",
-            show_enum_origins="attachment_type",
-        )
+        client.ats.attachments.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/attachments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -170,17 +166,13 @@ class AttachmentsClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.attachments.create(
-            model=AttachmentRequest(
-                file_name="Candidate Resume",
-                file_url="http://alturl.com/p749b",
-                candidate="2872ba14-4084-492b-be96-e5eee6fc33ef",
-            ),
-            remote_user_id="string",
+            model=AttachmentRequest(),
+            remote_user_id="remote_user_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/attachments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -242,7 +234,7 @@ class AttachmentsClient:
 
             - remote_fields: typing.Optional[typing.Literal["attachment_type"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["attachment_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["attachment_type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -253,15 +245,12 @@ class AttachmentsClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.attachments.retrieve(
-            id="string",
-            expand="candidate",
-            remote_fields="attachment_type",
-            show_enum_origins="attachment_type",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/attachments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/attachments/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -314,7 +303,7 @@ class AttachmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/attachments/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/attachments/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -389,7 +378,7 @@ class AsyncAttachmentsClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing.Literal["attachment_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["attachment_type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -399,15 +388,11 @@ class AsyncAttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.attachments.list(
-            expand="candidate",
-            remote_fields="attachment_type",
-            show_enum_origins="attachment_type",
-        )
+        await client.ats.attachments.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/attachments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -483,17 +468,13 @@ class AsyncAttachmentsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.attachments.create(
-            model=AttachmentRequest(
-                file_name="Candidate Resume",
-                file_url="http://alturl.com/p749b",
-                candidate="2872ba14-4084-492b-be96-e5eee6fc33ef",
-            ),
-            remote_user_id="string",
+            model=AttachmentRequest(),
+            remote_user_id="remote_user_id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/attachments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/attachments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -555,7 +536,7 @@ class AsyncAttachmentsClient:
 
             - remote_fields: typing.Optional[typing.Literal["attachment_type"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["attachment_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["attachment_type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -566,15 +547,12 @@ class AsyncAttachmentsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.attachments.retrieve(
-            id="string",
-            expand="candidate",
-            remote_fields="attachment_type",
-            show_enum_origins="attachment_type",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/attachments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/attachments/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -627,7 +605,7 @@ class AsyncAttachmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/attachments/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/attachments/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

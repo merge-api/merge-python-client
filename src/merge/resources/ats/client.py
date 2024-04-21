@@ -22,6 +22,7 @@ from .resources.generate_key.client import AsyncGenerateKeyClient, GenerateKeyCl
 from .resources.interviews.client import AsyncInterviewsClient, InterviewsClient
 from .resources.issues.client import AsyncIssuesClient, IssuesClient
 from .resources.job_interview_stages.client import AsyncJobInterviewStagesClient, JobInterviewStagesClient
+from .resources.job_postings.client import AsyncJobPostingsClient, JobPostingsClient
 from .resources.jobs.client import AsyncJobsClient, JobsClient
 from .resources.link_token.client import AsyncLinkTokenClient, LinkTokenClient
 from .resources.linked_accounts.client import AsyncLinkedAccountsClient, LinkedAccountsClient
@@ -65,6 +66,7 @@ class AtsClient:
         self.interviews = InterviewsClient(client_wrapper=self._client_wrapper)
         self.issues = IssuesClient(client_wrapper=self._client_wrapper)
         self.job_interview_stages = JobInterviewStagesClient(client_wrapper=self._client_wrapper)
+        self.job_postings = JobPostingsClient(client_wrapper=self._client_wrapper)
         self.jobs = JobsClient(client_wrapper=self._client_wrapper)
         self.link_token = LinkTokenClient(client_wrapper=self._client_wrapper)
         self.linked_accounts = LinkedAccountsClient(client_wrapper=self._client_wrapper)
@@ -103,6 +105,7 @@ class AsyncAtsClient:
         self.interviews = AsyncInterviewsClient(client_wrapper=self._client_wrapper)
         self.issues = AsyncIssuesClient(client_wrapper=self._client_wrapper)
         self.job_interview_stages = AsyncJobInterviewStagesClient(client_wrapper=self._client_wrapper)
+        self.job_postings = AsyncJobPostingsClient(client_wrapper=self._client_wrapper)
         self.jobs = AsyncJobsClient(client_wrapper=self._client_wrapper)
         self.link_token = AsyncLinkTokenClient(client_wrapper=self._client_wrapper)
         self.linked_accounts = AsyncLinkedAccountsClient(client_wrapper=self._client_wrapper)

@@ -80,32 +80,21 @@ class EmploymentsClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[EmploymentsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[EmploymentsListRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.hris import (
-            EmploymentsListRequestExpand,
-            EmploymentsListRequestOrderBy,
-            EmploymentsListRequestRemoteFields,
-            EmploymentsListRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.employments.list(
-            expand=EmploymentsListRequestExpand.EMPLOYEE,
-            order_by=EmploymentsListRequestOrderBy.EFFECTIVE_DATE,
-            remote_fields=EmploymentsListRequestRemoteFields.EMPLOYMENT_TYPE,
-            show_enum_origins=EmploymentsListRequestShowEnumOrigins.EMPLOYMENT_TYPE,
-        )
+        client.hris.employments.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/employments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -173,31 +162,23 @@ class EmploymentsClient:
 
             - remote_fields: typing.Optional[EmploymentsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[EmploymentsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[EmploymentsRetrieveRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.hris import (
-            EmploymentsRetrieveRequestExpand,
-            EmploymentsRetrieveRequestRemoteFields,
-            EmploymentsRetrieveRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.hris.employments.retrieve(
-            id="string",
-            expand=EmploymentsRetrieveRequestExpand.EMPLOYEE,
-            remote_fields=EmploymentsRetrieveRequestRemoteFields.EMPLOYMENT_TYPE,
-            show_enum_origins=EmploymentsRetrieveRequestShowEnumOrigins.EMPLOYMENT_TYPE,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/employments/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -287,32 +268,21 @@ class AsyncEmploymentsClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[EmploymentsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[EmploymentsListRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.hris import (
-            EmploymentsListRequestExpand,
-            EmploymentsListRequestOrderBy,
-            EmploymentsListRequestRemoteFields,
-            EmploymentsListRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.employments.list(
-            expand=EmploymentsListRequestExpand.EMPLOYEE,
-            order_by=EmploymentsListRequestOrderBy.EFFECTIVE_DATE,
-            remote_fields=EmploymentsListRequestRemoteFields.EMPLOYMENT_TYPE,
-            show_enum_origins=EmploymentsListRequestShowEnumOrigins.EMPLOYMENT_TYPE,
-        )
+        await client.hris.employments.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/employments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/employments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -380,31 +350,23 @@ class AsyncEmploymentsClient:
 
             - remote_fields: typing.Optional[EmploymentsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[EmploymentsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[EmploymentsRetrieveRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.hris import (
-            EmploymentsRetrieveRequestExpand,
-            EmploymentsRetrieveRequestRemoteFields,
-            EmploymentsRetrieveRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.hris.employments.retrieve(
-            id="string",
-            expand=EmploymentsRetrieveRequestExpand.EMPLOYEE,
-            remote_fields=EmploymentsRetrieveRequestRemoteFields.EMPLOYMENT_TYPE,
-            show_enum_origins=EmploymentsRetrieveRequestShowEnumOrigins.EMPLOYMENT_TYPE,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/employments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/employments/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

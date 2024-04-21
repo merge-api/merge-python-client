@@ -30,7 +30,12 @@ class ExpenseLine(pydantic.BaseModel):
     Fetch from the `GET Expense` endpoint and view the expense's line items.
     """
 
+    id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     item: typing.Optional[ExpenseLineItem] = pydantic.Field(description="The line's item.")
     net_amount: typing.Optional[float] = pydantic.Field(description="The line's net amount.")
     tracking_category: typing.Optional[ExpenseLineTrackingCategory]
@@ -356,11 +361,6 @@ class ExpenseLine(pydantic.BaseModel):
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The expense line item's exchange rate.")
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted in the third party platform."
-    )
-    id: typing.Optional[str]
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
 
     def json(self, **kwargs: typing.Any) -> str:
