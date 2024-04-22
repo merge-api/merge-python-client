@@ -30,6 +30,12 @@ class Note(pydantic.BaseModel):
     TODO
     """
 
+    id: typing.Optional[str]
+    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     owner: typing.Optional[NoteOwner] = pydantic.Field(description="The note's owner.")
     content: typing.Optional[str] = pydantic.Field(description="The note's content.")
     contact: typing.Optional[NoteContact] = pydantic.Field(description="The note's contact.")
@@ -42,12 +48,6 @@ class Note(pydantic.BaseModel):
         description="When the third party's lead was created."
     )
     remote_was_deleted: typing.Optional[bool]
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
-    )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
     remote_fields: typing.Optional[typing.List[RemoteField]]

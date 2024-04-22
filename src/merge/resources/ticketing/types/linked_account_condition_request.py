@@ -12,6 +12,7 @@ except ImportError:
 
 
 class LinkedAccountConditionRequest(pydantic.BaseModel):
+    id: typing.Optional[str] = pydantic.Field(description="The ID indicating which Linked Account Condition this is.")
     condition_schema_id: str = pydantic.Field(
         description="The ID indicating which condition schema to use for a specific condition."
     )

@@ -24,13 +24,13 @@ class ScreeningQuestionOption(pydantic.BaseModel):
     TODO
     """
 
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    label: typing.Optional[str] = pydantic.Field(description="Available response options")
     id: typing.Optional[str]
+    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
     created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
+    label: typing.Optional[str] = pydantic.Field(description="Available response options")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

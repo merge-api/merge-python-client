@@ -28,9 +28,13 @@ class DataPassthroughRequest(pydantic.BaseModel):
     """
 
     method: MethodEnum
-    path: str
-    base_url_override: typing.Optional[str]
-    data: typing.Optional[str]
+    path: str = pydantic.Field(description="The path of the request in the third party's platform.")
+    base_url_override: typing.Optional[str] = pydantic.Field(
+        description="An optional override of the third party's base url for the request."
+    )
+    data: typing.Optional[str] = pydantic.Field(
+        description="The data with the request. You must include a `request_format` parameter matching the data's format"
+    )
     multipart_form_data: typing.Optional[typing.List[MultipartFormFieldRequest]] = pydantic.Field(
         description="Pass an array of `MultipartFormField` objects in here instead of using the `data` param if `request_format` is set to `MULTIPART`."
     )

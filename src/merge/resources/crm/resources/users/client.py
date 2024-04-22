@@ -80,7 +80,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/users"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/users"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -149,12 +149,12 @@ class UsersClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.users.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/users/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/users/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -213,7 +213,7 @@ class UsersClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.users.ignore_create(
-            model_id="string",
+            model_id="model_id",
             request=IgnoreCommonModelRequest(
                 reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
                 message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
@@ -222,7 +222,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/users/ignore/{model_id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/users/ignore/{model_id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -288,7 +288,7 @@ class UsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/users/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/users/remote-field-classes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -381,7 +381,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/users"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/users"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -450,12 +450,12 @@ class AsyncUsersClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.users.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/users/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/users/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -514,7 +514,7 @@ class AsyncUsersClient:
             api_key="YOUR_API_KEY",
         )
         await client.crm.users.ignore_create(
-            model_id="string",
+            model_id="model_id",
             request=IgnoreCommonModelRequest(
                 reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
                 message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
@@ -523,7 +523,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/crm/v1/users/ignore/{model_id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/users/ignore/{model_id}"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -589,7 +589,7 @@ class AsyncUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/crm/v1/users/remote-field-classes"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/users/remote-field-classes"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

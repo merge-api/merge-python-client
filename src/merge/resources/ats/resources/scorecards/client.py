@@ -78,26 +78,21 @@ class ScorecardsClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing.Literal["overall_recommendation"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["overall_recommendation"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ats import ScorecardsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.scorecards.list(
-            expand=ScorecardsListRequestExpand.APPLICATION,
-            remote_fields="overall_recommendation",
-            show_enum_origins="overall_recommendation",
-        )
+        client.ats.scorecards.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/scorecards"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/scorecards"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -166,27 +161,23 @@ class ScorecardsClient:
 
             - remote_fields: typing.Optional[typing.Literal["overall_recommendation"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["overall_recommendation"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["overall_recommendation"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.ats import ScorecardsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ats.scorecards.retrieve(
-            id="string",
-            expand=ScorecardsRetrieveRequestExpand.APPLICATION,
-            remote_fields="overall_recommendation",
-            show_enum_origins="overall_recommendation",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/scorecards/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/scorecards/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -279,26 +270,21 @@ class AsyncScorecardsClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing.Literal["overall_recommendation"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["overall_recommendation"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ats import ScorecardsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.scorecards.list(
-            expand=ScorecardsListRequestExpand.APPLICATION,
-            remote_fields="overall_recommendation",
-            show_enum_origins="overall_recommendation",
-        )
+        await client.ats.scorecards.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/scorecards"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/scorecards"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -367,27 +353,23 @@ class AsyncScorecardsClient:
 
             - remote_fields: typing.Optional[typing.Literal["overall_recommendation"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["overall_recommendation"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["overall_recommendation"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.ats import ScorecardsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.ats.scorecards.retrieve(
-            id="string",
-            expand=ScorecardsRetrieveRequestExpand.APPLICATION,
-            remote_fields="overall_recommendation",
-            show_enum_origins="overall_recommendation",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/scorecards/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/scorecards/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

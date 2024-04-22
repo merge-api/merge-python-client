@@ -72,7 +72,7 @@ class TagsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tags"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/tags"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -137,12 +137,12 @@ class TagsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.tags.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tags/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/tags/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -228,7 +228,7 @@ class AsyncTagsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ticketing/v1/tags"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/tags"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -293,12 +293,12 @@ class AsyncTagsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ticketing.tags.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ticketing/v1/tags/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/tags/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

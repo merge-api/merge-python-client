@@ -14,6 +14,12 @@ except ImportError:
 
 
 class CreditNoteLineItem(pydantic.BaseModel):
+    id: typing.Optional[str]
+    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     item: typing.Optional[CreditNoteLineItemItem]
     name: typing.Optional[str] = pydantic.Field(description="The credit note line item's name.")
     description: typing.Optional[str] = pydantic.Field(description="The description of the item that is owed.")
@@ -32,14 +38,8 @@ class CreditNoteLineItem(pydantic.BaseModel):
     company: typing.Optional[CreditNoteLineItemCompany] = pydantic.Field(
         description="The company the credit note belongs to."
     )
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted in the third party platform."
-    )
-    id: typing.Optional[str]
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
 
     def json(self, **kwargs: typing.Any) -> str:

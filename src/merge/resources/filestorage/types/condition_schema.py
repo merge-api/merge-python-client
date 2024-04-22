@@ -20,12 +20,8 @@ class ConditionSchema(pydantic.BaseModel):
     common_model: typing.Optional[str] = pydantic.Field(
         description="The common model for which a condition schema is defined."
     )
-    native_name: typing.Optional[str] = pydantic.Field(
-        description='User-facing _native condition_ name. e.g. "Skip Manager".'
-    )
-    field_name: typing.Optional[str] = pydantic.Field(
-        description='The name of the field on the common model that this condition corresponds to, if they conceptually match. e.g. "location_type".'
-    )
+    native_name: typing.Optional[str]
+    field_name: typing.Optional[str]
     is_unique: typing.Optional[bool] = pydantic.Field(
         description="Whether this condition can only be applied once. If false, the condition can be AND'd together multiple times."
     )

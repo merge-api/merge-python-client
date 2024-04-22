@@ -39,6 +39,9 @@ class EventTypeEnum(str, enum.Enum):
     - `CHANGED_LINKED_ACCOUNT_FIELD_MAPPING` - CHANGED_LINKED_ACCOUNT_FIELD_MAPPING
     - `DELETED_INTEGRATION_WIDE_FIELD_MAPPING` - DELETED_INTEGRATION_WIDE_FIELD_MAPPING
     - `DELETED_LINKED_ACCOUNT_FIELD_MAPPING` - DELETED_LINKED_ACCOUNT_FIELD_MAPPING
+    - `FORCED_LINKED_ACCOUNT_RESYNC` - FORCED_LINKED_ACCOUNT_RESYNC
+    - `MUTED_ISSUE` - MUTED_ISSUE
+    - `GENERATED_MAGIC_LINK` - GENERATED_MAGIC_LINK
     """
 
     CREATED_REMOTE_PRODUCTION_API_KEY = "CREATED_REMOTE_PRODUCTION_API_KEY"
@@ -72,6 +75,9 @@ class EventTypeEnum(str, enum.Enum):
     CHANGED_LINKED_ACCOUNT_FIELD_MAPPING = "CHANGED_LINKED_ACCOUNT_FIELD_MAPPING"
     DELETED_INTEGRATION_WIDE_FIELD_MAPPING = "DELETED_INTEGRATION_WIDE_FIELD_MAPPING"
     DELETED_LINKED_ACCOUNT_FIELD_MAPPING = "DELETED_LINKED_ACCOUNT_FIELD_MAPPING"
+    FORCED_LINKED_ACCOUNT_RESYNC = "FORCED_LINKED_ACCOUNT_RESYNC"
+    MUTED_ISSUE = "MUTED_ISSUE"
+    GENERATED_MAGIC_LINK = "GENERATED_MAGIC_LINK"
 
     def visit(
         self,
@@ -106,6 +112,9 @@ class EventTypeEnum(str, enum.Enum):
         changed_linked_account_field_mapping: typing.Callable[[], T_Result],
         deleted_integration_wide_field_mapping: typing.Callable[[], T_Result],
         deleted_linked_account_field_mapping: typing.Callable[[], T_Result],
+        forced_linked_account_resync: typing.Callable[[], T_Result],
+        muted_issue: typing.Callable[[], T_Result],
+        generated_magic_link: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is EventTypeEnum.CREATED_REMOTE_PRODUCTION_API_KEY:
             return created_remote_production_api_key()
@@ -169,3 +178,9 @@ class EventTypeEnum(str, enum.Enum):
             return deleted_integration_wide_field_mapping()
         if self is EventTypeEnum.DELETED_LINKED_ACCOUNT_FIELD_MAPPING:
             return deleted_linked_account_field_mapping()
+        if self is EventTypeEnum.FORCED_LINKED_ACCOUNT_RESYNC:
+            return forced_linked_account_resync()
+        if self is EventTypeEnum.MUTED_ISSUE:
+            return muted_issue()
+        if self is EventTypeEnum.GENERATED_MAGIC_LINK:
+            return generated_magic_link()

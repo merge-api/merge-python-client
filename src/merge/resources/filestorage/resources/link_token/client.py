@@ -41,6 +41,7 @@ class LinkTokenClient:
         category_common_model_scopes: typing.Optional[
             typing.Dict[str, typing.Optional[typing.List[IndividualCommonModelScopeDeserializerRequest]]]
         ] = OMIT,
+        language: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
         """
@@ -65,9 +66,12 @@ class LinkTokenClient:
 
             - category_common_model_scopes: typing.Optional[typing.Dict[str, typing.Optional[typing.List[IndividualCommonModelScopeDeserializerRequest]]]]. When creating a Link Token, you can set permissions for Common Models that will apply to the account that is going to be linked. Any model or field not specified in link token payload will default to existing settings.
 
+            - language: typing.Optional[str]. The language code for the language to localize Merge Link to.
+
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
+        from merge.resources.filestorage import CategoriesEnum
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -77,8 +81,7 @@ class LinkTokenClient:
             end_user_email_address="example@gmail.com",
             end_user_organization_name="Test Organization",
             end_user_origin_id="12345",
-            categories=[],
-            integration="bamboohr",
+            categories=[CategoriesEnum.HRIS],
         )
         """
         _request: typing.Dict[str, typing.Any] = {
@@ -97,9 +100,11 @@ class LinkTokenClient:
             _request["common_models"] = common_models
         if category_common_model_scopes is not OMIT:
             _request["category_common_model_scopes"] = category_common_model_scopes
+        if language is not OMIT:
+            _request["language"] = language
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/link-token"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/link-token"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -148,6 +153,7 @@ class AsyncLinkTokenClient:
         category_common_model_scopes: typing.Optional[
             typing.Dict[str, typing.Optional[typing.List[IndividualCommonModelScopeDeserializerRequest]]]
         ] = OMIT,
+        language: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
         """
@@ -172,9 +178,12 @@ class AsyncLinkTokenClient:
 
             - category_common_model_scopes: typing.Optional[typing.Dict[str, typing.Optional[typing.List[IndividualCommonModelScopeDeserializerRequest]]]]. When creating a Link Token, you can set permissions for Common Models that will apply to the account that is going to be linked. Any model or field not specified in link token payload will default to existing settings.
 
+            - language: typing.Optional[str]. The language code for the language to localize Merge Link to.
+
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
+        from merge.resources.filestorage import CategoriesEnum
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -184,8 +193,7 @@ class AsyncLinkTokenClient:
             end_user_email_address="example@gmail.com",
             end_user_organization_name="Test Organization",
             end_user_origin_id="12345",
-            categories=[],
-            integration="bamboohr",
+            categories=[CategoriesEnum.HRIS],
         )
         """
         _request: typing.Dict[str, typing.Any] = {
@@ -204,9 +212,11 @@ class AsyncLinkTokenClient:
             _request["common_models"] = common_models
         if category_common_model_scopes is not OMIT:
             _request["category_common_model_scopes"] = category_common_model_scopes
+        if language is not OMIT:
+            _request["language"] = language
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/link-token"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/link-token"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

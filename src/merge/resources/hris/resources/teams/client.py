@@ -74,13 +74,11 @@ class TeamsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.teams.list(
-            expand="parent_team",
-        )
+        client.hris.teams.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/teams"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/teams"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -150,13 +148,12 @@ class TeamsClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.teams.retrieve(
-            id="string",
-            expand="parent_team",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/teams/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/teams/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -245,13 +242,11 @@ class AsyncTeamsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.teams.list(
-            expand="parent_team",
-        )
+        await client.hris.teams.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/teams"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/teams"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -321,13 +316,12 @@ class AsyncTeamsClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.teams.retrieve(
-            id="string",
-            expand="parent_team",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/teams/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/teams/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

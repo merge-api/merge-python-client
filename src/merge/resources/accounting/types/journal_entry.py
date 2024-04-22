@@ -37,6 +37,12 @@ class JournalEntry(pydantic.BaseModel):
     Fetch from the `GET JournalEntry` endpoint and view a company's journey entry.
     """
 
+    id: typing.Optional[str]
+    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     transaction_date: typing.Optional[dt.datetime] = pydantic.Field(description="The journal entry's transaction date.")
     remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="When the third party's journal entry was created."
@@ -378,12 +384,6 @@ class JournalEntry(pydantic.BaseModel):
     )
     accounting_period: typing.Optional[JournalEntryAccountingPeriod] = pydantic.Field(
         description="The accounting period that the JournalEntry was generated in."
-    )
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]

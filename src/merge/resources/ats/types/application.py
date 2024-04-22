@@ -33,10 +33,15 @@ class Application(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     candidate: typing.Optional[ApplicationCandidate] = pydantic.Field(description="The candidate applying.")
     job: typing.Optional[ApplicationJob] = pydantic.Field(description="The job being applied for.")
     applied_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the application was submitted.")
     rejected_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the application was rejected.")
+    offers: typing.Optional[typing.List[typing.Optional[ApplicationOffersItem]]]
     source: typing.Optional[str] = pydantic.Field(description="The application's source.")
     credited_to: typing.Optional[ApplicationCreditedTo] = pydantic.Field(
         description="The user credited for this application."
@@ -48,10 +53,6 @@ class Application(pydantic.BaseModel):
         description="The application's reason for rejection."
     )
     remote_was_deleted: typing.Optional[bool]
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
-    )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
@@ -70,5 +71,6 @@ class Application(pydantic.BaseModel):
 
 
 from .application_candidate import ApplicationCandidate  # noqa: E402
+from .application_offers_item import ApplicationOffersItem  # noqa: E402
 
 Application.update_forward_refs()

@@ -21,6 +21,7 @@ class RemoteFieldApiResponse(pydantic.BaseModel):
     eeoc: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="EEOC")
     scheduled_interview: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="ScheduledInterview")
     job: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Job")
+    job_posting: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="JobPosting")
     job_interview_stage: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="JobInterviewStage")
     offer: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Offer")
     office: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Office")

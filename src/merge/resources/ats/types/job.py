@@ -9,6 +9,7 @@ from .job_hiring_managers_item import JobHiringManagersItem
 from .job_offices_item import JobOfficesItem
 from .job_recruiters_item import JobRecruitersItem
 from .job_status import JobStatus
+from .job_type_enum import JobTypeEnum
 from .remote_data import RemoteData
 from .url import Url
 
@@ -33,6 +34,10 @@ class Job(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     name: typing.Optional[str] = pydantic.Field(description="The job's name.")
     description: typing.Optional[str] = pydantic.Field(description="The job's description.")
     code: typing.Optional[str] = pydantic.Field(
@@ -48,6 +53,18 @@ class Job(pydantic.BaseModel):
             "- `ARCHIVED` - ARCHIVED\n"
             "- `PENDING` - PENDING\n"
         )
+    )
+    type: typing.Optional[JobTypeEnum] = pydantic.Field(
+        description=(
+            "The job's type.\n"
+            "\n"
+            "- `POSTING` - POSTING\n"
+            "- `REQUISITION` - REQUISITION\n"
+            "- `PROFILE` - PROFILE\n"
+        )
+    )
+    job_postings: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(
+        description="IDs of `JobPosting` objects that serve as job postings for this `Job`."
     )
     job_posting_urls: typing.Optional[typing.List[Url]]
     remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
@@ -71,10 +88,6 @@ class Job(pydantic.BaseModel):
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted in the third party platform."
-    )
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]

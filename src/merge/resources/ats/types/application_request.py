@@ -8,6 +8,7 @@ from .application_request_candidate import ApplicationRequestCandidate
 from .application_request_credited_to import ApplicationRequestCreditedTo
 from .application_request_current_stage import ApplicationRequestCurrentStage
 from .application_request_job import ApplicationRequestJob
+from .application_request_offers_item import ApplicationRequestOffersItem
 from .application_request_reject_reason import ApplicationRequestRejectReason
 
 try:
@@ -33,6 +34,7 @@ class ApplicationRequest(pydantic.BaseModel):
     job: typing.Optional[ApplicationRequestJob] = pydantic.Field(description="The job being applied for.")
     applied_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the application was submitted.")
     rejected_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the application was rejected.")
+    offers: typing.Optional[typing.List[typing.Optional[ApplicationRequestOffersItem]]]
     source: typing.Optional[str] = pydantic.Field(description="The application's source.")
     credited_to: typing.Optional[ApplicationRequestCreditedTo] = pydantic.Field(
         description="The user credited for this application."

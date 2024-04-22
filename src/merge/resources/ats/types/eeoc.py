@@ -32,6 +32,10 @@ class Eeoc(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     candidate: typing.Optional[EeocCandidate] = pydantic.Field(description="The candidate being represented.")
     submitted_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the information was submitted.")
     race: typing.Optional[EeocRace] = pydantic.Field(
@@ -79,10 +83,6 @@ class Eeoc(pydantic.BaseModel):
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted in the third party platform."
-    )
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]

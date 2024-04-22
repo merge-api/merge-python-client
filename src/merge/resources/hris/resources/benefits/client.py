@@ -74,13 +74,11 @@ class BenefitsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.benefits.list(
-            expand="employee",
-        )
+        client.hris.benefits.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/benefits"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/benefits"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -150,13 +148,12 @@ class BenefitsClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.benefits.retrieve(
-            id="string",
-            expand="employee",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/benefits/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/benefits/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -245,13 +242,11 @@ class AsyncBenefitsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.benefits.list(
-            expand="employee",
-        )
+        await client.hris.benefits.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/benefits"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/benefits"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -321,13 +316,12 @@ class AsyncBenefitsClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.benefits.retrieve(
-            id="string",
-            expand="employee",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/benefits/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/benefits/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

@@ -25,14 +25,14 @@ class CustomObject(pydantic.BaseModel):
     TODO
     """
 
-    object_class: typing.Optional[str]
-    fields: typing.Optional[typing.Dict[str, typing.Any]]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
     id: typing.Optional[str]
+    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
     created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="This is the datetime that this object was last updated by Merge"
     )
+    object_class: typing.Optional[str]
+    fields: typing.Optional[typing.Dict[str, typing.Any]]
     remote_fields: typing.Optional[typing.List[RemoteField]]
 
     def json(self, **kwargs: typing.Any) -> str:

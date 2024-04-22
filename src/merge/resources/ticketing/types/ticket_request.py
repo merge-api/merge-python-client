@@ -52,7 +52,9 @@ class TicketRequest(pydantic.BaseModel):
         description="The ticket’s description. HTML version of description is mapped if supported by the third-party platform."
     )
     collections: typing.Optional[typing.List[typing.Optional[TicketRequestCollectionsItem]]]
-    ticket_type: typing.Optional[str] = pydantic.Field(description="The ticket's type.")
+    ticket_type: typing.Optional[str] = pydantic.Field(
+        description="The sub category of the ticket within the 3rd party system. Examples include incident, task, subtask or to-do."
+    )
     account: typing.Optional[TicketRequestAccount] = pydantic.Field(
         description="The account associated with the ticket."
     )

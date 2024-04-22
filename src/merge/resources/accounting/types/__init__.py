@@ -235,6 +235,14 @@ from .paginated_tax_rate_list import PaginatedTaxRateList
 from .paginated_tracking_category_list import PaginatedTrackingCategoryList
 from .paginated_transaction_list import PaginatedTransactionList
 from .paginated_vendor_credit_list import PaginatedVendorCreditList
+from .patched_payment_request import PatchedPaymentRequest
+from .patched_payment_request_account import PatchedPaymentRequestAccount
+from .patched_payment_request_accounting_period import PatchedPaymentRequestAccountingPeriod
+from .patched_payment_request_applied_to_lines_item import PatchedPaymentRequestAppliedToLinesItem
+from .patched_payment_request_company import PatchedPaymentRequestCompany
+from .patched_payment_request_contact import PatchedPaymentRequestContact
+from .patched_payment_request_currency import PatchedPaymentRequestCurrency
+from .patched_payment_request_tracking_categories_item import PatchedPaymentRequestTrackingCategoriesItem
 from .payment import Payment
 from .payment_account import PaymentAccount
 from .payment_accounting_period import PaymentAccountingPeriod
@@ -553,6 +561,14 @@ __all__ = [
     "PaginatedTrackingCategoryList",
     "PaginatedTransactionList",
     "PaginatedVendorCreditList",
+    "PatchedPaymentRequest",
+    "PatchedPaymentRequestAccount",
+    "PatchedPaymentRequestAccountingPeriod",
+    "PatchedPaymentRequestAppliedToLinesItem",
+    "PatchedPaymentRequestCompany",
+    "PatchedPaymentRequestContact",
+    "PatchedPaymentRequestCurrency",
+    "PatchedPaymentRequestTrackingCategoriesItem",
     "Payment",
     "PaymentAccount",
     "PaymentAccountingPeriod",

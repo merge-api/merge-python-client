@@ -80,29 +80,21 @@ class AccountsClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[AccountsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[AccountsListRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import (
-            AccountsListRequestRemoteFields,
-            AccountsListRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.accounts.list(
-            expand="company",
-            remote_fields=AccountsListRequestRemoteFields.CLASSIFICATION,
-            show_enum_origins=AccountsListRequestShowEnumOrigins.CLASSIFICATION,
-        )
+        client.accounting.accounts.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/accounts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -175,19 +167,12 @@ class AccountsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.accounts.create(
-            model=AccountRequest(
-                name="Cash",
-                description="Cash",
-                type="Asset",
-                account_number="X12Y9AB",
-                parent_account="22d92d6c-22f9-11ed-861d-0242ac120002",
-                company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
-            ),
+            model=AccountRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/accounts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -249,30 +234,23 @@ class AccountsClient:
 
             - remote_fields: typing.Optional[AccountsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[AccountsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[AccountsRetrieveRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.accounting import (
-            AccountsRetrieveRequestRemoteFields,
-            AccountsRetrieveRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.accounts.retrieve(
-            id="string",
-            expand="company",
-            remote_fields=AccountsRetrieveRequestRemoteFields.CLASSIFICATION,
-            show_enum_origins=AccountsRetrieveRequestShowEnumOrigins.CLASSIFICATION,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/accounts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/accounts/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -325,7 +303,7 @@ class AccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/accounts/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/accounts/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -400,29 +378,21 @@ class AsyncAccountsClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[AccountsListRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[AccountsListRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import (
-            AccountsListRequestRemoteFields,
-            AccountsListRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.accounts.list(
-            expand="company",
-            remote_fields=AccountsListRequestRemoteFields.CLASSIFICATION,
-            show_enum_origins=AccountsListRequestShowEnumOrigins.CLASSIFICATION,
-        )
+        await client.accounting.accounts.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/accounts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -495,19 +465,12 @@ class AsyncAccountsClient:
             api_key="YOUR_API_KEY",
         )
         await client.accounting.accounts.create(
-            model=AccountRequest(
-                name="Cash",
-                description="Cash",
-                type="Asset",
-                account_number="X12Y9AB",
-                parent_account="22d92d6c-22f9-11ed-861d-0242ac120002",
-                company="595c8f97-2ac4-45b7-b000-41bdf43240b5",
-            ),
+            model=AccountRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/accounts"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/accounts"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -569,30 +532,23 @@ class AsyncAccountsClient:
 
             - remote_fields: typing.Optional[AccountsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[AccountsRetrieveRequestShowEnumOrigins]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[AccountsRetrieveRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.accounting import (
-            AccountsRetrieveRequestRemoteFields,
-            AccountsRetrieveRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.accounting.accounts.retrieve(
-            id="string",
-            expand="company",
-            remote_fields=AccountsRetrieveRequestRemoteFields.CLASSIFICATION,
-            show_enum_origins=AccountsRetrieveRequestShowEnumOrigins.CLASSIFICATION,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/accounting/v1/accounts/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"accounting/v1/accounts/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -645,7 +601,7 @@ class AsyncAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/accounting/v1/accounts/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "accounting/v1/accounts/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

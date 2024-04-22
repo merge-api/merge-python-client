@@ -28,11 +28,15 @@ class Group(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     parent_group: typing.Optional[str] = pydantic.Field(description="The parent group for this group.")
     name: typing.Optional[str] = pydantic.Field(description="The group name.")
     type: typing.Optional[GroupType] = pydantic.Field(
         description=(
-            "The group type\n"
+            "The Group type returned directly from the third-party.\n"
             "\n"
             "- `TEAM` - TEAM\n"
             "- `DEPARTMENT` - DEPARTMENT\n"
@@ -43,10 +47,6 @@ class Group(pydantic.BaseModel):
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted in the third party platform."
-    )
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]

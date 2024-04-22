@@ -28,6 +28,10 @@ class RemoteUser(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     first_name: typing.Optional[str] = pydantic.Field(description="The user's first name.")
     last_name: typing.Optional[str] = pydantic.Field(description="The user's last name.")
     email: typing.Optional[str] = pydantic.Field(description="The user's email.")
@@ -48,10 +52,6 @@ class RemoteUser(pydantic.BaseModel):
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted in the third party platform."
-    )
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]

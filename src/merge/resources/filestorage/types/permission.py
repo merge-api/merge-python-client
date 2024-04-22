@@ -30,6 +30,10 @@ class Permission(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     user: typing.Optional[PermissionUser] = pydantic.Field(description="The user that is granted this permission.")
     group: typing.Optional[PermissionGroup] = pydantic.Field(description="The group that is granted this permission.")
     type: typing.Optional[PermissionType] = pydantic.Field(
@@ -44,10 +48,6 @@ class Permission(pydantic.BaseModel):
     )
     roles: typing.Optional[typing.List[typing.Optional[PermissionRolesItem]]] = pydantic.Field(
         description="The permissions that the user or group has for the File or Folder. It is possible for a user or group to have multiple roles, such as viewing & uploading. Possible values include: `READ`, `WRITE`, `OWNER`. In cases where there is no clear mapping, the original value passed through will be returned."
-    )
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
 
     def json(self, **kwargs: typing.Any) -> str:

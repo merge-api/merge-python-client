@@ -33,6 +33,10 @@ class VendorCredit(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     number: typing.Optional[str] = pydantic.Field(description="The vendor credit's number.")
     transaction_date: typing.Optional[dt.datetime] = pydantic.Field(description="The vendor credit's transaction date.")
     vendor: typing.Optional[VendorCreditVendor] = pydantic.Field(description="The vendor that owes the gift or refund.")
@@ -360,10 +364,6 @@ class VendorCredit(pydantic.BaseModel):
     )
     accounting_period: typing.Optional[VendorCreditAccountingPeriod] = pydantic.Field(
         description="The accounting period that the VendorCredit was generated in."
-    )
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]

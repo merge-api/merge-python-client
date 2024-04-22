@@ -19,6 +19,7 @@ from . import (
     interviews,
     issues,
     job_interview_stages,
+    job_postings,
     jobs,
     link_token,
     linked_accounts,
@@ -51,6 +52,7 @@ from .eeocs import (
 )
 from .interviews import InterviewsListRequestExpand, InterviewsRetrieveRequestExpand
 from .issues import IssuesListRequestStatus
+from .job_postings import JobPostingsListRequestStatus
 from .jobs import (
     JobsListRequestExpand,
     JobsListRequestStatus,
@@ -77,6 +79,7 @@ __all__ = [
     "InterviewsListRequestExpand",
     "InterviewsRetrieveRequestExpand",
     "IssuesListRequestStatus",
+    "JobPostingsListRequestStatus",
     "JobsListRequestExpand",
     "JobsListRequestStatus",
     "JobsRetrieveRequestExpand",
@@ -104,6 +107,7 @@ __all__ = [
     "interviews",
     "issues",
     "job_interview_stages",
+    "job_postings",
     "jobs",
     "link_token",
     "linked_accounts",

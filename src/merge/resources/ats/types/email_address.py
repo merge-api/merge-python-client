@@ -25,15 +25,15 @@ class EmailAddress(pydantic.BaseModel):
     Fetch from the `GET Candidate` endpoint and view their email addresses.
     """
 
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     value: typing.Optional[str] = pydantic.Field(description="The email address.")
     email_address_type: typing.Optional[EmailAddressEmailAddressType] = pydantic.Field(
         description=(
             "The type of email address.\n" "\n" "- `PERSONAL` - PERSONAL\n" "- `WORK` - WORK\n" "- `OTHER` - OTHER\n"
         )
-    )
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
 
     def json(self, **kwargs: typing.Any) -> str:

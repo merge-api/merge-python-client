@@ -26,16 +26,21 @@ class TimesheetEntry(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     employee: typing.Optional[str] = pydantic.Field(description="The employee the timesheet entry is for.")
     hours_worked: typing.Optional[float] = pydantic.Field(description="The number of hours logged by the employee.")
     start_time: typing.Optional[dt.datetime] = pydantic.Field(
         description="The time at which the employee started work."
     )
     end_time: typing.Optional[dt.datetime] = pydantic.Field(description="The time at which the employee ended work.")
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(
+        description="Indicates whether or not this object has been deleted in the third party platform."
     )
+    field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
+    remote_data: typing.Optional[typing.List[typing.Optional[typing.Dict[str, typing.Any]]]]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

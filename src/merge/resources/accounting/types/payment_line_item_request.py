@@ -24,9 +24,9 @@ class PaymentLineItemRequest(pydantic.BaseModel):
     `Payment` will have a field called `applied-to-lines` which will be an array of `PaymentLineItemInternalMappingSerializer` objects that can either be a `Invoice`, `CreditNote`, or `JournalEntry`.
     """
 
+    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
     applied_amount: typing.Optional[str] = pydantic.Field(description="The amount being applied to the transaction.")
     applied_date: typing.Optional[dt.datetime] = pydantic.Field(description="The date the payment portion is applied.")
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
     related_object_id: typing.Optional[str] = pydantic.Field(
         description="The Merge ID of the transaction the payment portion is being applied to."
     )

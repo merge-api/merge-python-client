@@ -32,6 +32,12 @@ class Lead(pydantic.BaseModel):
     TODO
     """
 
+    id: typing.Optional[str]
+    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     owner: typing.Optional[LeadOwner] = pydantic.Field(description="The lead's owner.")
     lead_source: typing.Optional[str] = pydantic.Field(description="The lead's source.")
     title: typing.Optional[str] = pydantic.Field(description="The lead's title.")
@@ -55,12 +61,6 @@ class Lead(pydantic.BaseModel):
         description="The account of the converted lead."
     )
     remote_was_deleted: typing.Optional[bool]
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
-    )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
     remote_fields: typing.Optional[typing.List[RemoteField]]

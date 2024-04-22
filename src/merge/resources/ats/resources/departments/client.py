@@ -72,7 +72,7 @@ class DepartmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/departments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/departments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -137,12 +137,12 @@ class DepartmentsClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.departments.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/departments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/departments/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -228,7 +228,7 @@ class AsyncDepartmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/ats/v1/departments"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/departments"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -293,12 +293,12 @@ class AsyncDepartmentsClient:
             api_key="YOUR_API_KEY",
         )
         await client.ats.departments.retrieve(
-            id="string",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/ats/v1/departments/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ats/v1/departments/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

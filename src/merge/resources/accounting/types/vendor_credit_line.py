@@ -25,7 +25,12 @@ class VendorCreditLine(pydantic.BaseModel):
     Fetch from the `GET VendorCredit` endpoint and view the vendor credit's line items.
     """
 
+    id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     net_amount: typing.Optional[float] = pydantic.Field(description="The full value of the credit.")
     tracking_category: typing.Optional[str] = pydantic.Field(description="The line's associated tracking category.")
     tracking_categories: typing.List[str] = pydantic.Field(description="The line's associated tracking categories.")
@@ -35,11 +40,6 @@ class VendorCreditLine(pydantic.BaseModel):
     exchange_rate: typing.Optional[str] = pydantic.Field(description="The vendor credit line item's exchange rate.")
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted in the third party platform."
-    )
-    id: typing.Optional[str]
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
 
     def json(self, **kwargs: typing.Any) -> str:

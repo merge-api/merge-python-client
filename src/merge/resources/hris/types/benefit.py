@@ -28,6 +28,10 @@ class Benefit(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     employee: typing.Optional[BenefitEmployee] = pydantic.Field(description="The employee on the plan.")
     provider_name: typing.Optional[str] = pydantic.Field(description="The name of the benefit provider.")
     benefit_plan_type: typing.Optional[str] = pydantic.Field(description="The type of benefit plan")
@@ -40,10 +44,6 @@ class Benefit(pydantic.BaseModel):
     )
     employer_benefit: typing.Optional[str] = pydantic.Field(
         description="The employer benefit plan the employee is enrolled in."
-    )
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]

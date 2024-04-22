@@ -83,19 +83,16 @@ class FoldersClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.filestorage import FoldersListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.folders.list(
-            expand=FoldersListRequestExpand.DRIVE,
-        )
+        client.filestorage.folders.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/folders"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/folders"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -168,17 +165,12 @@ class FoldersClient:
             api_key="YOUR_API_KEY",
         )
         client.filestorage.folders.create(
-            model=FolderRequest(
-                name="Platform",
-                folder_url="https://drive.com/1234",
-                size=1,
-                description="This is a wild folder.",
-            ),
+            model=FolderRequest(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/folders"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/folders"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -239,20 +231,18 @@ class FoldersClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.filestorage import FoldersRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.filestorage.folders.retrieve(
-            id="string",
-            expand=FoldersRetrieveRequestExpand.DRIVE,
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/folders/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"filestorage/v1/folders/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -303,7 +293,7 @@ class FoldersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/folders/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/folders/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -383,19 +373,16 @@ class AsyncFoldersClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.filestorage import FoldersListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.folders.list(
-            expand=FoldersListRequestExpand.DRIVE,
-        )
+        await client.filestorage.folders.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/folders"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/folders"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -468,17 +455,12 @@ class AsyncFoldersClient:
             api_key="YOUR_API_KEY",
         )
         await client.filestorage.folders.create(
-            model=FolderRequest(
-                name="Platform",
-                folder_url="https://drive.com/1234",
-                size=1,
-                description="This is a wild folder.",
-            ),
+            model=FolderRequest(),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/folders"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/folders"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -539,20 +521,18 @@ class AsyncFoldersClient:
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.filestorage import FoldersRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         await client.filestorage.folders.retrieve(
-            id="string",
-            expand=FoldersRetrieveRequestExpand.DRIVE,
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/filestorage/v1/folders/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"filestorage/v1/folders/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -603,7 +583,7 @@ class AsyncFoldersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/filestorage/v1/folders/meta/post"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "filestorage/v1/folders/meta/post"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

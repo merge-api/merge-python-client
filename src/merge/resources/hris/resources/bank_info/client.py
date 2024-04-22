@@ -83,31 +83,21 @@ class BankInfoClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing.Literal["account_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["account_type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import Merge
-        from merge.resources.hris import (
-            BankInfoListRequestAccountType,
-            BankInfoListRequestOrderBy,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.bank_info.list(
-            account_type=BankInfoListRequestAccountType.CHECKING,
-            expand="employee",
-            order_by=BankInfoListRequestOrderBy.REMOTE_CREATED_AT,
-            remote_fields="account_type",
-            show_enum_origins="account_type",
-        )
+        client.hris.bank_info.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/bank-info"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/bank-info"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -177,7 +167,7 @@ class BankInfoClient:
 
             - remote_fields: typing.Optional[typing.Literal["account_type"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["account_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["account_type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -188,15 +178,12 @@ class BankInfoClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.bank_info.retrieve(
-            id="string",
-            expand="employee",
-            remote_fields="account_type",
-            show_enum_origins="account_type",
+            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/bank-info/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/bank-info/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -294,31 +281,21 @@ class AsyncBankInfoClient:
 
             - remote_id: typing.Optional[str]. The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing.Literal["account_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["account_type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from merge.client import AsyncMerge
-        from merge.resources.hris import (
-            BankInfoListRequestAccountType,
-            BankInfoListRequestOrderBy,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.bank_info.list(
-            account_type=BankInfoListRequestAccountType.CHECKING,
-            expand="employee",
-            order_by=BankInfoListRequestOrderBy.REMOTE_CREATED_AT,
-            remote_fields="account_type",
-            show_enum_origins="account_type",
-        )
+        await client.hris.bank_info.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "api/hris/v1/bank-info"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/bank-info"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -388,7 +365,7 @@ class AsyncBankInfoClient:
 
             - remote_fields: typing.Optional[typing.Literal["account_type"]]. Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["account_type"]]. Which fields should be returned in non-normalized form.
+            - show_enum_origins: typing.Optional[typing.Literal["account_type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -399,15 +376,12 @@ class AsyncBankInfoClient:
             api_key="YOUR_API_KEY",
         )
         await client.hris.bank_info.retrieve(
-            id="string",
-            expand="employee",
-            remote_fields="account_type",
-            show_enum_origins="account_type",
+            id="id",
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"api/hris/v1/bank-info/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/bank-info/{id}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

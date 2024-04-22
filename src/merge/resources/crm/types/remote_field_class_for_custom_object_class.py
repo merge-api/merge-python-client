@@ -18,6 +18,10 @@ except ImportError:
 
 
 class RemoteFieldClassForCustomObjectClass(pydantic.BaseModel):
+    created_at: typing.Optional[dt.datetime]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="This is the datetime that this object was last updated by Merge"
+    )
     display_name: typing.Optional[str]
     remote_key_name: typing.Optional[str]
     description: typing.Optional[str]
@@ -26,10 +30,6 @@ class RemoteFieldClassForCustomObjectClass(pydantic.BaseModel):
     field_format: typing.Optional[RemoteFieldClassForCustomObjectClassFieldFormat]
     field_choices: typing.Optional[typing.List[RemoteFieldClassForCustomObjectClassFieldChoicesItem]]
     item_schema: typing.Optional[RemoteFieldClassForCustomObjectClassItemSchema]
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
-    )
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
