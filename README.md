@@ -39,7 +39,31 @@ client.hris. # APIs specific to the HRIS Category
 
 ## Usage
 
-## Create Link Token
+### Async Client
+The SDK also exports an async client so that you can make non-blocking
+calls to our API. This client leverages `httpx`'s AsyncClient, and exports all the same functions and functionality of the sync client.
+
+```python
+import asyncio
+from merge.client import AsyncMerge
+
+client = AsyncMerge(
+    api_key="<YOUR_API_KEY>", 
+    account_token="<YOUR_ACCOUNT_TOKEN>")
+
+async def main() -> None:
+    await merge_client.ats.link_token.create(
+        end_user_email_address="john.smith@gmail.com",
+        end_user_organization_name="acme",
+        end_user_origin_id="1234",
+        categories=[CategoriesEnum.ATS],
+        link_expiry_mins=30,
+    )
+
+asyncio.run(main())
+```
+
+### Create Link Token
 
 ```python
 import merge
@@ -61,7 +85,7 @@ link_token_response = merge_client.ats.link_token.create(
 print("Created link token", link_token_response.link_token)
 ```
 
-## Get Employee
+### Get Employee
 
 ```python
 import merge
@@ -75,7 +99,7 @@ employee = merge_client.hris.employees.retrieve(
     id="0958cbc6-6040-430a-848e-aafacbadf4ae")
 ```
 
-## Get Candidate
+### Get Candidate
 
 ```python
 import merge
@@ -89,7 +113,7 @@ candidate = merge_client.ats.candidates.retrieve(
     id="521b18c2-4d01-4297-b451-19858d07c133")
 ```
 
-## Filter Candidate
+### Filter Candidate
 
 ```python
 import merge
@@ -105,7 +129,7 @@ candidates_response = merge_client.ats.candidates.list(
 print(candidates_response.results)
 ```
 
-## Get Contact
+### Get Contact
 
 ```python
 import merge
@@ -119,7 +143,7 @@ contact = merge_client.accounting.contacts.retrieve(
     id="c640b80b-fac9-409f-aa19-1f9221aec445")
 ```
 
-## Create Ticket
+### Create Ticket
 
 ```python
 import merge
