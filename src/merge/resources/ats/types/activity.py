@@ -30,9 +30,11 @@ class Activity(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime]
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="The datetime that this object was created by Merge."
+    )
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
+        description="The datetime that this object was modified by Merge."
     )
     user: typing.Optional[ActivityUser] = pydantic.Field(description="The user that performed the action.")
     remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(

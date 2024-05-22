@@ -42,6 +42,9 @@ class EventTypeEnum(str, enum.Enum):
     - `FORCED_LINKED_ACCOUNT_RESYNC` - FORCED_LINKED_ACCOUNT_RESYNC
     - `MUTED_ISSUE` - MUTED_ISSUE
     - `GENERATED_MAGIC_LINK` - GENERATED_MAGIC_LINK
+    - `ENABLED_MERGE_WEBHOOK` - ENABLED_MERGE_WEBHOOK
+    - `DISABLED_MERGE_WEBHOOK` - DISABLED_MERGE_WEBHOOK
+    - `MERGE_WEBHOOK_TARGET_CHANGED` - MERGE_WEBHOOK_TARGET_CHANGED
     """
 
     CREATED_REMOTE_PRODUCTION_API_KEY = "CREATED_REMOTE_PRODUCTION_API_KEY"
@@ -78,6 +81,9 @@ class EventTypeEnum(str, enum.Enum):
     FORCED_LINKED_ACCOUNT_RESYNC = "FORCED_LINKED_ACCOUNT_RESYNC"
     MUTED_ISSUE = "MUTED_ISSUE"
     GENERATED_MAGIC_LINK = "GENERATED_MAGIC_LINK"
+    ENABLED_MERGE_WEBHOOK = "ENABLED_MERGE_WEBHOOK"
+    DISABLED_MERGE_WEBHOOK = "DISABLED_MERGE_WEBHOOK"
+    MERGE_WEBHOOK_TARGET_CHANGED = "MERGE_WEBHOOK_TARGET_CHANGED"
 
     def visit(
         self,
@@ -115,6 +121,9 @@ class EventTypeEnum(str, enum.Enum):
         forced_linked_account_resync: typing.Callable[[], T_Result],
         muted_issue: typing.Callable[[], T_Result],
         generated_magic_link: typing.Callable[[], T_Result],
+        enabled_merge_webhook: typing.Callable[[], T_Result],
+        disabled_merge_webhook: typing.Callable[[], T_Result],
+        merge_webhook_target_changed: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is EventTypeEnum.CREATED_REMOTE_PRODUCTION_API_KEY:
             return created_remote_production_api_key()
@@ -184,3 +193,9 @@ class EventTypeEnum(str, enum.Enum):
             return muted_issue()
         if self is EventTypeEnum.GENERATED_MAGIC_LINK:
             return generated_magic_link()
+        if self is EventTypeEnum.ENABLED_MERGE_WEBHOOK:
+            return enabled_merge_webhook()
+        if self is EventTypeEnum.DISABLED_MERGE_WEBHOOK:
+            return disabled_merge_webhook()
+        if self is EventTypeEnum.MERGE_WEBHOOK_TARGET_CHANGED:
+            return merge_webhook_target_changed()

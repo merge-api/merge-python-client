@@ -28,11 +28,15 @@ class AssociationType(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="The datetime that this object was created by Merge."
     )
-    source_object_class: typing.Optional[typing.Dict[str, typing.Any]]
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="The datetime that this object was modified by Merge."
+    )
+    source_object_class: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(
+        description="The class of the source object (Custom Object or Common Model) for the association type."
+    )
     target_object_classes: typing.Optional[typing.List[AssociationSubType]]
     remote_key_name: typing.Optional[str]
     display_name: typing.Optional[str]

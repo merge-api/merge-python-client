@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from .address_request import AddressRequest
 from .remote_field_request import RemoteFieldRequest
 
 try:
@@ -31,6 +32,7 @@ class PatchedAccountRequest(pydantic.BaseModel):
     industry: typing.Optional[str] = pydantic.Field(description="The account's industry.")
     website: typing.Optional[str] = pydantic.Field(description="The account's website.")
     number_of_employees: typing.Optional[int] = pydantic.Field(description="The account's number of employees.")
+    addresses: typing.Optional[typing.List[AddressRequest]]
     last_activity_at: typing.Optional[dt.datetime] = pydantic.Field(
         description="The last date (either most recent or furthest in the future) of when an activity occurs in an account."
     )

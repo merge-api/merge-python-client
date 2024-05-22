@@ -25,13 +25,17 @@ class Association(pydantic.BaseModel):
     TODO
     """
 
-    created_at: typing.Optional[dt.datetime]
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="The datetime that this object was created by Merge."
+    )
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
+        description="The datetime that this object was modified by Merge."
     )
     source_object: typing.Optional[typing.Dict[str, typing.Any]]
     target_object: typing.Optional[typing.Dict[str, typing.Any]]
-    association_type: typing.Optional[AssociationAssociationType]
+    association_type: typing.Optional[AssociationAssociationType] = pydantic.Field(
+        description="The association type the association belongs to."
+    )
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

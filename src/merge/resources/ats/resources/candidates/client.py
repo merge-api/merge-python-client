@@ -397,7 +397,6 @@ class CandidatesClient:
         client.ats.candidates.ignore_create(
             model_id="model_id",
             reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
-            message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
         )
         """
         _request: typing.Dict[str, typing.Any] = {"reason": reason.value}
@@ -889,7 +888,6 @@ class AsyncCandidatesClient:
         await client.ats.candidates.ignore_create(
             model_id="model_id",
             reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
-            message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
         )
         """
         _request: typing.Dict[str, typing.Any] = {"reason": reason.value}

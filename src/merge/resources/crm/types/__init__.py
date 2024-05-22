@@ -35,9 +35,6 @@ from .categories_enum import CategoriesEnum
 from .category_enum import CategoryEnum
 from .common_model_scope_api import CommonModelScopeApi
 from .common_model_scopes_body_request import CommonModelScopesBodyRequest
-from .condition_schema import ConditionSchema
-from .condition_schema_condition_type import ConditionSchemaConditionType
-from .condition_type_enum import ConditionTypeEnum
 from .contact import Contact
 from .contact_account import ContactAccount
 from .contact_owner import ContactOwner
@@ -110,10 +107,6 @@ from .lead_request_converted_contact import LeadRequestConvertedContact
 from .lead_request_owner import LeadRequestOwner
 from .lead_response import LeadResponse
 from .link_token import LinkToken
-from .linked_account_condition import LinkedAccountCondition
-from .linked_account_condition_request import LinkedAccountConditionRequest
-from .linked_account_selective_sync_configuration import LinkedAccountSelectiveSyncConfiguration
-from .linked_account_selective_sync_configuration_request import LinkedAccountSelectiveSyncConfigurationRequest
 from .linked_account_status import LinkedAccountStatus
 from .meta_response import MetaResponse
 from .method_enum import MethodEnum
@@ -134,7 +127,6 @@ from .note_request_opportunity import NoteRequestOpportunity
 from .note_request_owner import NoteRequestOwner
 from .note_response import NoteResponse
 from .object_class_description_request import ObjectClassDescriptionRequest
-from .operator_schema import OperatorSchema
 from .opportunity import Opportunity
 from .opportunity_account import OpportunityAccount
 from .opportunity_owner import OpportunityOwner
@@ -153,7 +145,6 @@ from .paginated_account_list import PaginatedAccountList
 from .paginated_association_list import PaginatedAssociationList
 from .paginated_association_type_list import PaginatedAssociationTypeList
 from .paginated_audit_log_event_list import PaginatedAuditLogEventList
-from .paginated_condition_schema_list import PaginatedConditionSchemaList
 from .paginated_contact_list import PaginatedContactList
 from .paginated_custom_object_class_list import PaginatedCustomObjectClassList
 from .paginated_custom_object_list import PaginatedCustomObjectList
@@ -184,6 +175,7 @@ from .remote_data import RemoteData
 from .remote_endpoint_info import RemoteEndpointInfo
 from .remote_field import RemoteField
 from .remote_field_api import RemoteFieldApi
+from .remote_field_api_coverage import RemoteFieldApiCoverage
 from .remote_field_api_response import RemoteFieldApiResponse
 from .remote_field_class import RemoteFieldClass
 from .remote_field_class_field_choices_item import RemoteFieldClassFieldChoicesItem
@@ -261,9 +253,6 @@ __all__ = [
     "CategoryEnum",
     "CommonModelScopeApi",
     "CommonModelScopesBodyRequest",
-    "ConditionSchema",
-    "ConditionSchemaConditionType",
-    "ConditionTypeEnum",
     "Contact",
     "ContactAccount",
     "ContactOwner",
@@ -334,10 +323,6 @@ __all__ = [
     "LeadRequestOwner",
     "LeadResponse",
     "LinkToken",
-    "LinkedAccountCondition",
-    "LinkedAccountConditionRequest",
-    "LinkedAccountSelectiveSyncConfiguration",
-    "LinkedAccountSelectiveSyncConfigurationRequest",
     "LinkedAccountStatus",
     "MetaResponse",
     "MethodEnum",
@@ -358,7 +343,6 @@ __all__ = [
     "NoteRequestOwner",
     "NoteResponse",
     "ObjectClassDescriptionRequest",
-    "OperatorSchema",
     "Opportunity",
     "OpportunityAccount",
     "OpportunityOwner",
@@ -377,7 +361,6 @@ __all__ = [
     "PaginatedAssociationList",
     "PaginatedAssociationTypeList",
     "PaginatedAuditLogEventList",
-    "PaginatedConditionSchemaList",
     "PaginatedContactList",
     "PaginatedCustomObjectClassList",
     "PaginatedCustomObjectList",
@@ -408,6 +391,7 @@ __all__ = [
     "RemoteEndpointInfo",
     "RemoteField",
     "RemoteFieldApi",
+    "RemoteFieldApiCoverage",
     "RemoteFieldApiResponse",
     "RemoteFieldClass",
     "RemoteFieldClassFieldChoicesItem",

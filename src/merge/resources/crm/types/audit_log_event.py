@@ -72,6 +72,9 @@ class AuditLogEvent(pydantic.BaseModel):
             "- `FORCED_LINKED_ACCOUNT_RESYNC` - FORCED_LINKED_ACCOUNT_RESYNC\n"
             "- `MUTED_ISSUE` - MUTED_ISSUE\n"
             "- `GENERATED_MAGIC_LINK` - GENERATED_MAGIC_LINK\n"
+            "- `ENABLED_MERGE_WEBHOOK` - ENABLED_MERGE_WEBHOOK\n"
+            "- `DISABLED_MERGE_WEBHOOK` - DISABLED_MERGE_WEBHOOK\n"
+            "- `MERGE_WEBHOOK_TARGET_CHANGED` - MERGE_WEBHOOK_TARGET_CHANGED\n"
         )
     )
     event_description: str

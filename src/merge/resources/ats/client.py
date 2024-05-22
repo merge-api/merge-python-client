@@ -36,7 +36,6 @@ from .resources.regenerate_key.client import AsyncRegenerateKeyClient, Regenerat
 from .resources.reject_reasons.client import AsyncRejectReasonsClient, RejectReasonsClient
 from .resources.scopes.client import AsyncScopesClient, ScopesClient
 from .resources.scorecards.client import AsyncScorecardsClient, ScorecardsClient
-from .resources.selective_sync.client import AsyncSelectiveSyncClient, SelectiveSyncClient
 from .resources.sync_status.client import AsyncSyncStatusClient, SyncStatusClient
 from .resources.tags.client import AsyncTagsClient, TagsClient
 from .resources.users.client import AsyncUsersClient, UsersClient
@@ -76,7 +75,6 @@ class AtsClient:
         self.regenerate_key = RegenerateKeyClient(client_wrapper=self._client_wrapper)
         self.reject_reasons = RejectReasonsClient(client_wrapper=self._client_wrapper)
         self.scorecards = ScorecardsClient(client_wrapper=self._client_wrapper)
-        self.selective_sync = SelectiveSyncClient(client_wrapper=self._client_wrapper)
         self.sync_status = SyncStatusClient(client_wrapper=self._client_wrapper)
         self.force_resync = ForceResyncClient(client_wrapper=self._client_wrapper)
         self.tags = TagsClient(client_wrapper=self._client_wrapper)
@@ -117,7 +115,6 @@ class AsyncAtsClient:
         self.regenerate_key = AsyncRegenerateKeyClient(client_wrapper=self._client_wrapper)
         self.reject_reasons = AsyncRejectReasonsClient(client_wrapper=self._client_wrapper)
         self.scorecards = AsyncScorecardsClient(client_wrapper=self._client_wrapper)
-        self.selective_sync = AsyncSelectiveSyncClient(client_wrapper=self._client_wrapper)
         self.sync_status = AsyncSyncStatusClient(client_wrapper=self._client_wrapper)
         self.force_resync = AsyncForceResyncClient(client_wrapper=self._client_wrapper)
         self.tags = AsyncTagsClient(client_wrapper=self._client_wrapper)

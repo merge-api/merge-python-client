@@ -26,9 +26,11 @@ class AccountingPeriod(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    created_at: typing.Optional[dt.datetime]
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="The datetime that this object was created by Merge."
+    )
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
+        description="The datetime that this object was modified by Merge."
     )
     start_date: typing.Optional[dt.datetime] = pydantic.Field(description="Beginning date of the period")
     end_date: typing.Optional[dt.datetime] = pydantic.Field(description="End date of the period")

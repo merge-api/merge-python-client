@@ -11,6 +11,7 @@ from .payment_request_company import PaymentRequestCompany
 from .payment_request_contact import PaymentRequestContact
 from .payment_request_currency import PaymentRequestCurrency
 from .payment_request_tracking_categories_item import PaymentRequestTrackingCategoriesItem
+from .payment_request_type import PaymentRequestType
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -354,6 +355,14 @@ class PaymentRequest(pydantic.BaseModel):
     company: typing.Optional[PaymentRequestCompany] = pydantic.Field(description="The company the payment belongs to.")
     total_amount: typing.Optional[float] = pydantic.Field(
         description="The total amount of money being paid to the supplier, or customer, after taxes."
+    )
+    type: typing.Optional[PaymentRequestType] = pydantic.Field(
+        description=(
+            "The type of the invoice.\n"
+            "\n"
+            "- `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE\n"
+            "- `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE\n"
+        )
     )
     tracking_categories: typing.Optional[typing.List[typing.Optional[PaymentRequestTrackingCategoriesItem]]]
     accounting_period: typing.Optional[PaymentRequestAccountingPeriod] = pydantic.Field(

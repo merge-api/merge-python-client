@@ -16,9 +16,11 @@ except ImportError:
 class CreditNoteLineItem(pydantic.BaseModel):
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime]
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="The datetime that this object was created by Merge."
+    )
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
+        description="The datetime that this object was modified by Merge."
     )
     item: typing.Optional[CreditNoteLineItemItem]
     name: typing.Optional[str] = pydantic.Field(description="The credit note line item's name.")
@@ -26,7 +28,6 @@ class CreditNoteLineItem(pydantic.BaseModel):
     quantity: typing.Optional[str] = pydantic.Field(description="The credit note line item's quantity.")
     memo: typing.Optional[str] = pydantic.Field(description="The credit note line item's memo.")
     unit_price: typing.Optional[str] = pydantic.Field(description="The credit note line item's unit price.")
-    tax_rate: typing.Optional[str] = pydantic.Field(description="The credit note line item's tax rate.")
     total_line_amount: typing.Optional[str] = pydantic.Field(description="The credit note line item's total.")
     tracking_category: typing.Optional[str] = pydantic.Field(
         description="The credit note line item's associated tracking category."

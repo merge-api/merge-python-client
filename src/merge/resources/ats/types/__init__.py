@@ -55,9 +55,6 @@ from .categories_enum import CategoriesEnum
 from .category_enum import CategoryEnum
 from .common_model_scope_api import CommonModelScopeApi
 from .common_model_scopes_body_request import CommonModelScopesBodyRequest
-from .condition_schema import ConditionSchema
-from .condition_schema_condition_type import ConditionSchemaConditionType
-from .condition_type_enum import ConditionTypeEnum
 from .data_passthrough_request import DataPassthroughRequest
 from .debug_mode_log import DebugModeLog
 from .debug_model_log_summary import DebugModelLogSummary
@@ -111,10 +108,6 @@ from .job_status import JobStatus
 from .job_status_enum import JobStatusEnum
 from .job_type_enum import JobTypeEnum
 from .link_token import LinkToken
-from .linked_account_condition import LinkedAccountCondition
-from .linked_account_condition_request import LinkedAccountConditionRequest
-from .linked_account_selective_sync_configuration import LinkedAccountSelectiveSyncConfiguration
-from .linked_account_selective_sync_configuration_request import LinkedAccountSelectiveSyncConfigurationRequest
 from .linked_account_status import LinkedAccountStatus
 from .meta_response import MetaResponse
 from .method_enum import MethodEnum
@@ -129,7 +122,6 @@ from .offer_creator import OfferCreator
 from .offer_status import OfferStatus
 from .offer_status_enum import OfferStatusEnum
 from .office import Office
-from .operator_schema import OperatorSchema
 from .overall_recommendation_enum import OverallRecommendationEnum
 from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
 from .paginated_activity_list import PaginatedActivityList
@@ -137,7 +129,6 @@ from .paginated_application_list import PaginatedApplicationList
 from .paginated_attachment_list import PaginatedAttachmentList
 from .paginated_audit_log_event_list import PaginatedAuditLogEventList
 from .paginated_candidate_list import PaginatedCandidateList
-from .paginated_condition_schema_list import PaginatedConditionSchemaList
 from .paginated_department_list import PaginatedDepartmentList
 from .paginated_eeoc_list import PaginatedEeocList
 from .paginated_issue_list import PaginatedIssueList
@@ -165,6 +156,7 @@ from .reject_reason import RejectReason
 from .remote_data import RemoteData
 from .remote_endpoint_info import RemoteEndpointInfo
 from .remote_field_api import RemoteFieldApi
+from .remote_field_api_coverage import RemoteFieldApiCoverage
 from .remote_field_api_response import RemoteFieldApiResponse
 from .remote_key import RemoteKey
 from .remote_response import RemoteResponse
@@ -269,9 +261,6 @@ __all__ = [
     "CategoryEnum",
     "CommonModelScopeApi",
     "CommonModelScopesBodyRequest",
-    "ConditionSchema",
-    "ConditionSchemaConditionType",
-    "ConditionTypeEnum",
     "DataPassthroughRequest",
     "DebugModeLog",
     "DebugModelLogSummary",
@@ -323,10 +312,6 @@ __all__ = [
     "JobStatusEnum",
     "JobTypeEnum",
     "LinkToken",
-    "LinkedAccountCondition",
-    "LinkedAccountConditionRequest",
-    "LinkedAccountSelectiveSyncConfiguration",
-    "LinkedAccountSelectiveSyncConfigurationRequest",
     "LinkedAccountStatus",
     "MetaResponse",
     "MethodEnum",
@@ -341,7 +326,6 @@ __all__ = [
     "OfferStatus",
     "OfferStatusEnum",
     "Office",
-    "OperatorSchema",
     "OverallRecommendationEnum",
     "PaginatedAccountDetailsAndActionsList",
     "PaginatedActivityList",
@@ -349,7 +333,6 @@ __all__ = [
     "PaginatedAttachmentList",
     "PaginatedAuditLogEventList",
     "PaginatedCandidateList",
-    "PaginatedConditionSchemaList",
     "PaginatedDepartmentList",
     "PaginatedEeocList",
     "PaginatedIssueList",
@@ -377,6 +360,7 @@ __all__ = [
     "RemoteData",
     "RemoteEndpointInfo",
     "RemoteFieldApi",
+    "RemoteFieldApiCoverage",
     "RemoteFieldApiResponse",
     "RemoteKey",
     "RemoteResponse",

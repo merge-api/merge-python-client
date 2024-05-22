@@ -11,6 +11,7 @@ from .payment_company import PaymentCompany
 from .payment_contact import PaymentContact
 from .payment_currency import PaymentCurrency
 from .payment_tracking_categories_item import PaymentTrackingCategoriesItem
+from .payment_type import PaymentType
 from .remote_data import RemoteData
 
 try:
@@ -34,9 +35,11 @@ class Payment(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime]
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="The datetime that this object was created by Merge."
+    )
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
+        description="The datetime that this object was modified by Merge."
     )
     transaction_date: typing.Optional[dt.datetime] = pydantic.Field(description="The payment's transaction date.")
     contact: typing.Optional[PaymentContact] = pydantic.Field(
@@ -361,6 +364,14 @@ class Payment(pydantic.BaseModel):
     company: typing.Optional[PaymentCompany] = pydantic.Field(description="The company the payment belongs to.")
     total_amount: typing.Optional[float] = pydantic.Field(
         description="The total amount of money being paid to the supplier, or customer, after taxes."
+    )
+    type: typing.Optional[PaymentType] = pydantic.Field(
+        description=(
+            "The type of the invoice.\n"
+            "\n"
+            "- `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE\n"
+            "- `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE\n"
+        )
     )
     tracking_categories: typing.Optional[typing.List[typing.Optional[PaymentTrackingCategoriesItem]]]
     remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(
