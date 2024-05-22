@@ -32,6 +32,7 @@ class GroupsClient:
         cursor: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
+        is_commonly_used_as_team: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         names: typing.Optional[str] = None,
@@ -55,6 +56,8 @@ class GroupsClient:
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+
+            - is_commonly_used_as_team: typing.Optional[str]. If provided, specifies whether to return only Group objects which refer to a team in the third party platform. Note that this is an opinionated view based on how a team may be represented in the third party platform.
 
             - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
 
@@ -93,6 +96,7 @@ class GroupsClient:
                         "cursor": cursor,
                         "include_deleted_data": include_deleted_data,
                         "include_remote_data": include_remote_data,
+                        "is_commonly_used_as_team": is_commonly_used_as_team,
                         "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                         "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                         "names": names,
@@ -212,6 +216,7 @@ class AsyncGroupsClient:
         cursor: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
+        is_commonly_used_as_team: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         names: typing.Optional[str] = None,
@@ -235,6 +240,8 @@ class AsyncGroupsClient:
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+
+            - is_commonly_used_as_team: typing.Optional[str]. If provided, specifies whether to return only Group objects which refer to a team in the third party platform. Note that this is an opinionated view based on how a team may be represented in the third party platform.
 
             - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
 
@@ -273,6 +280,7 @@ class AsyncGroupsClient:
                         "cursor": cursor,
                         "include_deleted_data": include_deleted_data,
                         "include_remote_data": include_remote_data,
+                        "is_commonly_used_as_team": is_commonly_used_as_team,
                         "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                         "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                         "names": names,

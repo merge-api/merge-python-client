@@ -19,12 +19,12 @@ class TicketAccessEnum(str, enum.Enum):
 
     def visit(
         self,
-        all: typing.Callable[[], T_Result],
+        all_: typing.Callable[[], T_Result],
         assigned_only: typing.Callable[[], T_Result],
         team_only: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is TicketAccessEnum.ALL:
-            return all()
+            return all_()
         if self is TicketAccessEnum.ASSIGNED_ONLY:
             return assigned_only()
         if self is TicketAccessEnum.TEAM_ONLY:

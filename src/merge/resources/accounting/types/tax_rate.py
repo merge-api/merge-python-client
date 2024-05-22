@@ -28,14 +28,22 @@ class TaxRate(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime]
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="The datetime that this object was created by Merge."
+    )
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
+        description="The datetime that this object was modified by Merge."
     )
     description: typing.Optional[str] = pydantic.Field(description="The tax rate's description.")
-    total_tax_rate: typing.Optional[float] = pydantic.Field(description="The tax rate's total tax rate.")
-    effective_tax_rate: typing.Optional[float] = pydantic.Field(description="The tax rate's effective tax rate.")
-    company: typing.Optional[TaxRateCompany] = pydantic.Field(description="The company the tax rate belongs to.")
+    total_tax_rate: typing.Optional[float] = pydantic.Field(
+        description="The tax’s total tax rate - sum of the tax components (not compounded)."
+    )
+    effective_tax_rate: typing.Optional[float] = pydantic.Field(
+        description="The tax rate’s effective tax rate - total amount of tax with compounding."
+    )
+    company: typing.Optional[TaxRateCompany] = pydantic.Field(
+        description="The subsidiary that the tax rate belongs to (in the case of multi-entity systems)."
+    )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted in the third party platform."
     )

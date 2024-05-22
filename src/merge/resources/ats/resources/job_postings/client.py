@@ -31,6 +31,7 @@ class JobPostingsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        expand: typing.Optional[typing.Literal["job"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
@@ -49,6 +50,8 @@ class JobPostingsClient:
             - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
 
             - cursor: typing.Optional[str]. The pagination cursor value.
+
+            - expand: typing.Optional[typing.Literal["job"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
@@ -88,6 +91,7 @@ class JobPostingsClient:
                         "created_after": serialize_datetime(created_after) if created_after is not None else None,
                         "created_before": serialize_datetime(created_before) if created_before is not None else None,
                         "cursor": cursor,
+                        "expand": expand,
                         "include_deleted_data": include_deleted_data,
                         "include_remote_data": include_remote_data,
                         "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
@@ -127,6 +131,7 @@ class JobPostingsClient:
         self,
         id: str,
         *,
+        expand: typing.Optional[typing.Literal["job"]] = None,
         include_remote_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> JobPosting:
@@ -135,6 +140,8 @@ class JobPostingsClient:
 
         Parameters:
             - id: str.
+
+            - expand: typing.Optional[typing.Literal["job"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
@@ -156,6 +163,7 @@ class JobPostingsClient:
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
+                        "expand": expand,
                         "include_remote_data": include_remote_data,
                         **(
                             request_options.get("additional_query_parameters", {})
@@ -196,6 +204,7 @@ class AsyncJobPostingsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        expand: typing.Optional[typing.Literal["job"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
@@ -214,6 +223,8 @@ class AsyncJobPostingsClient:
             - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
 
             - cursor: typing.Optional[str]. The pagination cursor value.
+
+            - expand: typing.Optional[typing.Literal["job"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
 
@@ -253,6 +264,7 @@ class AsyncJobPostingsClient:
                         "created_after": serialize_datetime(created_after) if created_after is not None else None,
                         "created_before": serialize_datetime(created_before) if created_before is not None else None,
                         "cursor": cursor,
+                        "expand": expand,
                         "include_deleted_data": include_deleted_data,
                         "include_remote_data": include_remote_data,
                         "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
@@ -292,6 +304,7 @@ class AsyncJobPostingsClient:
         self,
         id: str,
         *,
+        expand: typing.Optional[typing.Literal["job"]] = None,
         include_remote_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> JobPosting:
@@ -300,6 +313,8 @@ class AsyncJobPostingsClient:
 
         Parameters:
             - id: str.
+
+            - expand: typing.Optional[typing.Literal["job"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
             - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
 
@@ -321,6 +336,7 @@ class AsyncJobPostingsClient:
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
+                        "expand": expand,
                         "include_remote_data": include_remote_data,
                         **(
                             request_options.get("additional_query_parameters", {})

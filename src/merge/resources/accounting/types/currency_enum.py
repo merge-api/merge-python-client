@@ -628,7 +628,7 @@ class CurrencyEnum(str, enum.Enum):
         xua: typing.Callable[[], T_Result],
         afn: typing.Callable[[], T_Result],
         afa: typing.Callable[[], T_Result],
-        all: typing.Callable[[], T_Result],
+        all_: typing.Callable[[], T_Result],
         alk: typing.Callable[[], T_Result],
         dzd: typing.Callable[[], T_Result],
         adp: typing.Callable[[], T_Result],
@@ -939,7 +939,7 @@ class CurrencyEnum(str, enum.Enum):
         if self is CurrencyEnum.AFA:
             return afa()
         if self is CurrencyEnum.ALL:
-            return all()
+            return all_()
         if self is CurrencyEnum.ALK:
             return alk()
         if self is CurrencyEnum.DZD:

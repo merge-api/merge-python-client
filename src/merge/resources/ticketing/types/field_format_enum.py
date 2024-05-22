@@ -29,8 +29,8 @@ class FieldFormatEnum(str, enum.Enum):
         number: typing.Callable[[], T_Result],
         date: typing.Callable[[], T_Result],
         datetime: typing.Callable[[], T_Result],
-        bool: typing.Callable[[], T_Result],
-        list: typing.Callable[[], T_Result],
+        bool_: typing.Callable[[], T_Result],
+        list_: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is FieldFormatEnum.STRING:
             return string()
@@ -41,6 +41,6 @@ class FieldFormatEnum(str, enum.Enum):
         if self is FieldFormatEnum.DATETIME:
             return datetime()
         if self is FieldFormatEnum.BOOL:
-            return bool()
+            return bool_()
         if self is FieldFormatEnum.LIST:
-            return list()
+            return list_()

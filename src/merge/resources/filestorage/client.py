@@ -26,7 +26,6 @@ from .resources.passthrough.client import (
 from .resources.passthrough.client import PassthroughClient
 from .resources.regenerate_key.client import AsyncRegenerateKeyClient, RegenerateKeyClient
 from .resources.scopes.client import AsyncScopesClient, ScopesClient
-from .resources.selective_sync.client import AsyncSelectiveSyncClient, SelectiveSyncClient
 from .resources.sync_status.client import AsyncSyncStatusClient, SyncStatusClient
 from .resources.users.client import AsyncUsersClient, UsersClient
 from .resources.webhook_receivers.client import AsyncWebhookReceiversClient, WebhookReceiversClient
@@ -55,7 +54,6 @@ class FilestorageClient:
         self.linked_accounts = LinkedAccountsClient(client_wrapper=self._client_wrapper)
         self.passthrough = PassthroughClient(client_wrapper=self._client_wrapper)
         self.regenerate_key = RegenerateKeyClient(client_wrapper=self._client_wrapper)
-        self.selective_sync = SelectiveSyncClient(client_wrapper=self._client_wrapper)
         self.sync_status = SyncStatusClient(client_wrapper=self._client_wrapper)
         self.force_resync = ForceResyncClient(client_wrapper=self._client_wrapper)
         self.users = UsersClient(client_wrapper=self._client_wrapper)
@@ -85,7 +83,6 @@ class AsyncFilestorageClient:
             client_wrapper=self._client_wrapper
         )
         self.regenerate_key = AsyncRegenerateKeyClient(client_wrapper=self._client_wrapper)
-        self.selective_sync = AsyncSelectiveSyncClient(client_wrapper=self._client_wrapper)
         self.sync_status = AsyncSyncStatusClient(client_wrapper=self._client_wrapper)
         self.force_resync = AsyncForceResyncClient(client_wrapper=self._client_wrapper)
         self.users = AsyncUsersClient(client_wrapper=self._client_wrapper)

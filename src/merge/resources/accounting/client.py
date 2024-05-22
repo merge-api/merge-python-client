@@ -39,7 +39,6 @@ from .resources.phone_numbers.client import AsyncPhoneNumbersClient, PhoneNumber
 from .resources.purchase_orders.client import AsyncPurchaseOrdersClient, PurchaseOrdersClient
 from .resources.regenerate_key.client import AsyncRegenerateKeyClient, RegenerateKeyClient
 from .resources.scopes.client import AsyncScopesClient, ScopesClient
-from .resources.selective_sync.client import AsyncSelectiveSyncClient, SelectiveSyncClient
 from .resources.sync_status.client import AsyncSyncStatusClient, SyncStatusClient
 from .resources.tax_rates.client import AsyncTaxRatesClient, TaxRatesClient
 from .resources.tracking_categories.client import AsyncTrackingCategoriesClient, TrackingCategoriesClient
@@ -84,7 +83,6 @@ class AccountingClient:
         self.phone_numbers = PhoneNumbersClient(client_wrapper=self._client_wrapper)
         self.purchase_orders = PurchaseOrdersClient(client_wrapper=self._client_wrapper)
         self.regenerate_key = RegenerateKeyClient(client_wrapper=self._client_wrapper)
-        self.selective_sync = SelectiveSyncClient(client_wrapper=self._client_wrapper)
         self.sync_status = SyncStatusClient(client_wrapper=self._client_wrapper)
         self.force_resync = ForceResyncClient(client_wrapper=self._client_wrapper)
         self.tax_rates = TaxRatesClient(client_wrapper=self._client_wrapper)
@@ -130,7 +128,6 @@ class AsyncAccountingClient:
         self.phone_numbers = AsyncPhoneNumbersClient(client_wrapper=self._client_wrapper)
         self.purchase_orders = AsyncPurchaseOrdersClient(client_wrapper=self._client_wrapper)
         self.regenerate_key = AsyncRegenerateKeyClient(client_wrapper=self._client_wrapper)
-        self.selective_sync = AsyncSelectiveSyncClient(client_wrapper=self._client_wrapper)
         self.sync_status = AsyncSyncStatusClient(client_wrapper=self._client_wrapper)
         self.force_resync = AsyncForceResyncClient(client_wrapper=self._client_wrapper)
         self.tax_rates = AsyncTaxRatesClient(client_wrapper=self._client_wrapper)

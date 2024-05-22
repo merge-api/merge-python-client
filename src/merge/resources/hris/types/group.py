@@ -28,9 +28,11 @@ class Group(pydantic.BaseModel):
 
     id: typing.Optional[str]
     remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime]
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(
+        description="The datetime that this object was created by Merge."
+    )
     modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="This is the datetime that this object was last updated by Merge"
+        description="The datetime that this object was modified by Merge."
     )
     parent_group: typing.Optional[str] = pydantic.Field(description="The parent group for this group.")
     name: typing.Optional[str] = pydantic.Field(description="The group name.")
@@ -47,6 +49,9 @@ class Group(pydantic.BaseModel):
     )
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(
         description="Indicates whether or not this object has been deleted in the third party platform."
+    )
+    is_commonly_used_as_team: typing.Optional[bool] = pydantic.Field(
+        description="Indicates whether the Group refers to a team in the third party platform. Note that this is an opinionated view based on how Merge observes most organizations representing teams in each third party platform. If your customer uses a platform different from most, there is a chance this will not be correct."
     )
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]

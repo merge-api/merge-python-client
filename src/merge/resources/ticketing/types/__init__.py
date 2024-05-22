@@ -36,11 +36,10 @@ from .comment_ticket import CommentTicket
 from .comment_user import CommentUser
 from .common_model_scope_api import CommonModelScopeApi
 from .common_model_scopes_body_request import CommonModelScopesBodyRequest
-from .condition_schema import ConditionSchema
-from .condition_schema_condition_type import ConditionSchemaConditionType
-from .condition_type_enum import ConditionTypeEnum
 from .contact import Contact
 from .contact_account import ContactAccount
+from .contact_request import ContactRequest
+from .contact_request_account import ContactRequestAccount
 from .data_passthrough_request import DataPassthroughRequest
 from .debug_mode_log import DebugModeLog
 from .debug_model_log_summary import DebugModelLogSummary
@@ -71,10 +70,6 @@ from .item_format_enum import ItemFormatEnum
 from .item_schema import ItemSchema
 from .item_type_enum import ItemTypeEnum
 from .link_token import LinkToken
-from .linked_account_condition import LinkedAccountCondition
-from .linked_account_condition_request import LinkedAccountConditionRequest
-from .linked_account_selective_sync_configuration import LinkedAccountSelectiveSyncConfiguration
-from .linked_account_selective_sync_configuration_request import LinkedAccountSelectiveSyncConfigurationRequest
 from .linked_account_status import LinkedAccountStatus
 from .meta_response import MetaResponse
 from .method_enum import MethodEnum
@@ -83,14 +78,12 @@ from .model_permission_deserializer import ModelPermissionDeserializer
 from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
 from .multipart_form_field_request import MultipartFormFieldRequest
 from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
-from .operator_schema import OperatorSchema
 from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
 from .paginated_account_list import PaginatedAccountList
 from .paginated_attachment_list import PaginatedAttachmentList
 from .paginated_audit_log_event_list import PaginatedAuditLogEventList
 from .paginated_collection_list import PaginatedCollectionList
 from .paginated_comment_list import PaginatedCommentList
-from .paginated_condition_schema_list import PaginatedConditionSchemaList
 from .paginated_contact_list import PaginatedContactList
 from .paginated_issue_list import PaginatedIssueList
 from .paginated_project_list import PaginatedProjectList
@@ -110,6 +103,7 @@ from .remote_data import RemoteData
 from .remote_endpoint_info import RemoteEndpointInfo
 from .remote_field import RemoteField
 from .remote_field_api import RemoteFieldApi
+from .remote_field_api_coverage import RemoteFieldApiCoverage
 from .remote_field_api_response import RemoteFieldApiResponse
 from .remote_field_class import RemoteFieldClass
 from .remote_field_class_field_choices_item import RemoteFieldClassFieldChoicesItem
@@ -156,6 +150,7 @@ from .ticket_response import TicketResponse
 from .ticket_status import TicketStatus
 from .ticket_status_enum import TicketStatusEnum
 from .ticketing_attachment_response import TicketingAttachmentResponse
+from .ticketing_contact_response import TicketingContactResponse
 from .user import User
 from .user_roles_item import UserRolesItem
 from .user_teams_item import UserTeamsItem
@@ -200,11 +195,10 @@ __all__ = [
     "CommentUser",
     "CommonModelScopeApi",
     "CommonModelScopesBodyRequest",
-    "ConditionSchema",
-    "ConditionSchemaConditionType",
-    "ConditionTypeEnum",
     "Contact",
     "ContactAccount",
+    "ContactRequest",
+    "ContactRequestAccount",
     "DataPassthroughRequest",
     "DebugModeLog",
     "DebugModelLogSummary",
@@ -233,10 +227,6 @@ __all__ = [
     "ItemSchema",
     "ItemTypeEnum",
     "LinkToken",
-    "LinkedAccountCondition",
-    "LinkedAccountConditionRequest",
-    "LinkedAccountSelectiveSyncConfiguration",
-    "LinkedAccountSelectiveSyncConfigurationRequest",
     "LinkedAccountStatus",
     "MetaResponse",
     "MethodEnum",
@@ -245,14 +235,12 @@ __all__ = [
     "ModelPermissionDeserializerRequest",
     "MultipartFormFieldRequest",
     "MultipartFormFieldRequestEncoding",
-    "OperatorSchema",
     "PaginatedAccountDetailsAndActionsList",
     "PaginatedAccountList",
     "PaginatedAttachmentList",
     "PaginatedAuditLogEventList",
     "PaginatedCollectionList",
     "PaginatedCommentList",
-    "PaginatedConditionSchemaList",
     "PaginatedContactList",
     "PaginatedIssueList",
     "PaginatedProjectList",
@@ -272,6 +260,7 @@ __all__ = [
     "RemoteEndpointInfo",
     "RemoteField",
     "RemoteFieldApi",
+    "RemoteFieldApiCoverage",
     "RemoteFieldApiResponse",
     "RemoteFieldClass",
     "RemoteFieldClassFieldChoicesItem",
@@ -318,6 +307,7 @@ __all__ = [
     "TicketStatus",
     "TicketStatusEnum",
     "TicketingAttachmentResponse",
+    "TicketingContactResponse",
     "User",
     "UserRolesItem",
     "UserTeamsItem",

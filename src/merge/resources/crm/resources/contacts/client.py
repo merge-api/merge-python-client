@@ -392,7 +392,6 @@ class ContactsClient:
             model_id="model_id",
             request=IgnoreCommonModelRequest(
                 reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
-                message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
             ),
         )
         """
@@ -949,7 +948,6 @@ class AsyncContactsClient:
             model_id="model_id",
             request=IgnoreCommonModelRequest(
                 reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
-                message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
             ),
         )
         """

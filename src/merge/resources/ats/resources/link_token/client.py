@@ -42,6 +42,7 @@ class LinkTokenClient:
             typing.Dict[str, typing.Optional[typing.List[IndividualCommonModelScopeDeserializerRequest]]]
         ] = OMIT,
         language: typing.Optional[str] = OMIT,
+        integration_specific_config: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
         """
@@ -67,6 +68,8 @@ class LinkTokenClient:
             - category_common_model_scopes: typing.Optional[typing.Dict[str, typing.Optional[typing.List[IndividualCommonModelScopeDeserializerRequest]]]]. When creating a Link Token, you can set permissions for Common Models that will apply to the account that is going to be linked. Any model or field not specified in link token payload will default to existing settings.
 
             - language: typing.Optional[str]. The language code for the language to localize Merge Link to.
+
+            - integration_specific_config: typing.Optional[typing.Dict[str, typing.Any]]. A JSON object containing integration-specific configuration options.
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -102,6 +105,8 @@ class LinkTokenClient:
             _request["category_common_model_scopes"] = category_common_model_scopes
         if language is not OMIT:
             _request["language"] = language
+        if integration_specific_config is not OMIT:
+            _request["integration_specific_config"] = integration_specific_config
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/link-token"),
@@ -154,6 +159,7 @@ class AsyncLinkTokenClient:
             typing.Dict[str, typing.Optional[typing.List[IndividualCommonModelScopeDeserializerRequest]]]
         ] = OMIT,
         language: typing.Optional[str] = OMIT,
+        integration_specific_config: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
         """
@@ -179,6 +185,8 @@ class AsyncLinkTokenClient:
             - category_common_model_scopes: typing.Optional[typing.Dict[str, typing.Optional[typing.List[IndividualCommonModelScopeDeserializerRequest]]]]. When creating a Link Token, you can set permissions for Common Models that will apply to the account that is going to be linked. Any model or field not specified in link token payload will default to existing settings.
 
             - language: typing.Optional[str]. The language code for the language to localize Merge Link to.
+
+            - integration_specific_config: typing.Optional[typing.Dict[str, typing.Any]]. A JSON object containing integration-specific configuration options.
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -214,6 +222,8 @@ class AsyncLinkTokenClient:
             _request["category_common_model_scopes"] = category_common_model_scopes
         if language is not OMIT:
             _request["language"] = language
+        if integration_specific_config is not OMIT:
+            _request["integration_specific_config"] = integration_specific_config
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ats/v1/link-token"),

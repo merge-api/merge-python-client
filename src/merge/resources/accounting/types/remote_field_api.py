@@ -6,6 +6,7 @@ import typing
 from ....core.datetime_utils import serialize_datetime
 from .advanced_metadata import AdvancedMetadata
 from .remote_endpoint_info import RemoteEndpointInfo
+from .remote_field_api_coverage import RemoteFieldApiCoverage
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -19,6 +20,7 @@ class RemoteFieldApi(pydantic.BaseModel):
     remote_endpoint_info: RemoteEndpointInfo
     example_values: typing.List[typing.Any]
     advanced_metadata: typing.Optional[AdvancedMetadata]
+    coverage: typing.Optional[RemoteFieldApiCoverage]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

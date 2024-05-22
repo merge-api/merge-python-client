@@ -33,7 +33,6 @@ from .resources.passthrough.client import (
 from .resources.passthrough.client import PassthroughClient
 from .resources.regenerate_key.client import AsyncRegenerateKeyClient, RegenerateKeyClient
 from .resources.scopes.client import AsyncScopesClient, ScopesClient
-from .resources.selective_sync.client import AsyncSelectiveSyncClient, SelectiveSyncClient
 from .resources.stages.client import AsyncStagesClient, StagesClient
 from .resources.sync_status.client import AsyncSyncStatusClient, SyncStatusClient
 from .resources.tasks.client import AsyncTasksClient, TasksClient
@@ -71,7 +70,6 @@ class CrmClient:
         self.opportunities = OpportunitiesClient(client_wrapper=self._client_wrapper)
         self.passthrough = PassthroughClient(client_wrapper=self._client_wrapper)
         self.regenerate_key = RegenerateKeyClient(client_wrapper=self._client_wrapper)
-        self.selective_sync = SelectiveSyncClient(client_wrapper=self._client_wrapper)
         self.stages = StagesClient(client_wrapper=self._client_wrapper)
         self.sync_status = SyncStatusClient(client_wrapper=self._client_wrapper)
         self.force_resync = ForceResyncClient(client_wrapper=self._client_wrapper)
@@ -110,7 +108,6 @@ class AsyncCrmClient:
             client_wrapper=self._client_wrapper
         )
         self.regenerate_key = AsyncRegenerateKeyClient(client_wrapper=self._client_wrapper)
-        self.selective_sync = AsyncSelectiveSyncClient(client_wrapper=self._client_wrapper)
         self.stages = AsyncStagesClient(client_wrapper=self._client_wrapper)
         self.sync_status = AsyncSyncStatusClient(client_wrapper=self._client_wrapper)
         self.force_resync = AsyncForceResyncClient(client_wrapper=self._client_wrapper)

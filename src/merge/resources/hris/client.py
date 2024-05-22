@@ -34,7 +34,6 @@ from .resources.pay_groups.client import AsyncPayGroupsClient, PayGroupsClient
 from .resources.payroll_runs.client import AsyncPayrollRunsClient, PayrollRunsClient
 from .resources.regenerate_key.client import AsyncRegenerateKeyClient, RegenerateKeyClient
 from .resources.scopes.client import AsyncScopesClient, ScopesClient
-from .resources.selective_sync.client import AsyncSelectiveSyncClient, SelectiveSyncClient
 from .resources.sync_status.client import AsyncSyncStatusClient, SyncStatusClient
 from .resources.teams.client import AsyncTeamsClient, TeamsClient
 from .resources.time_off.client import AsyncTimeOffClient, TimeOffClient
@@ -74,7 +73,6 @@ class HrisClient:
         self.pay_groups = PayGroupsClient(client_wrapper=self._client_wrapper)
         self.payroll_runs = PayrollRunsClient(client_wrapper=self._client_wrapper)
         self.regenerate_key = RegenerateKeyClient(client_wrapper=self._client_wrapper)
-        self.selective_sync = SelectiveSyncClient(client_wrapper=self._client_wrapper)
         self.sync_status = SyncStatusClient(client_wrapper=self._client_wrapper)
         self.force_resync = ForceResyncClient(client_wrapper=self._client_wrapper)
         self.teams = TeamsClient(client_wrapper=self._client_wrapper)
@@ -115,7 +113,6 @@ class AsyncHrisClient:
         self.pay_groups = AsyncPayGroupsClient(client_wrapper=self._client_wrapper)
         self.payroll_runs = AsyncPayrollRunsClient(client_wrapper=self._client_wrapper)
         self.regenerate_key = AsyncRegenerateKeyClient(client_wrapper=self._client_wrapper)
-        self.selective_sync = AsyncSelectiveSyncClient(client_wrapper=self._client_wrapper)
         self.sync_status = AsyncSyncStatusClient(client_wrapper=self._client_wrapper)
         self.force_resync = AsyncForceResyncClient(client_wrapper=self._client_wrapper)
         self.teams = AsyncTeamsClient(client_wrapper=self._client_wrapper)

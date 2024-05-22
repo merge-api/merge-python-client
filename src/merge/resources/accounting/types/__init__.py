@@ -51,9 +51,6 @@ from .common_model_scope_api import CommonModelScopeApi
 from .common_model_scopes_body_request import CommonModelScopesBodyRequest
 from .company_info import CompanyInfo
 from .company_info_currency import CompanyInfoCurrency
-from .condition_schema import ConditionSchema
-from .condition_schema_condition_type import ConditionSchemaConditionType
-from .condition_type_enum import ConditionTypeEnum
 from .contact import Contact
 from .contact_addresses_item import ContactAddressesItem
 from .contact_request import ContactRequest
@@ -198,10 +195,6 @@ from .journal_line_request_tracking_category import JournalLineRequestTrackingCa
 from .journal_line_tracking_categories_item import JournalLineTrackingCategoriesItem
 from .journal_line_tracking_category import JournalLineTrackingCategory
 from .link_token import LinkToken
-from .linked_account_condition import LinkedAccountCondition
-from .linked_account_condition_request import LinkedAccountConditionRequest
-from .linked_account_selective_sync_configuration import LinkedAccountSelectiveSyncConfiguration
-from .linked_account_selective_sync_configuration_request import LinkedAccountSelectiveSyncConfigurationRequest
 from .linked_account_status import LinkedAccountStatus
 from .meta_response import MetaResponse
 from .method_enum import MethodEnum
@@ -210,7 +203,6 @@ from .model_permission_deserializer import ModelPermissionDeserializer
 from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
 from .multipart_form_field_request import MultipartFormFieldRequest
 from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
-from .operator_schema import OperatorSchema
 from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
 from .paginated_account_list import PaginatedAccountList
 from .paginated_accounting_attachment_list import PaginatedAccountingAttachmentList
@@ -219,7 +211,6 @@ from .paginated_audit_log_event_list import PaginatedAuditLogEventList
 from .paginated_balance_sheet_list import PaginatedBalanceSheetList
 from .paginated_cash_flow_statement_list import PaginatedCashFlowStatementList
 from .paginated_company_info_list import PaginatedCompanyInfoList
-from .paginated_condition_schema_list import PaginatedConditionSchemaList
 from .paginated_contact_list import PaginatedContactList
 from .paginated_credit_note_list import PaginatedCreditNoteList
 from .paginated_expense_list import PaginatedExpenseList
@@ -243,6 +234,7 @@ from .patched_payment_request_company import PatchedPaymentRequestCompany
 from .patched_payment_request_contact import PatchedPaymentRequestContact
 from .patched_payment_request_currency import PatchedPaymentRequestCurrency
 from .patched_payment_request_tracking_categories_item import PatchedPaymentRequestTrackingCategoriesItem
+from .patched_payment_request_type import PatchedPaymentRequestType
 from .payment import Payment
 from .payment_account import PaymentAccount
 from .payment_accounting_period import PaymentAccountingPeriod
@@ -260,8 +252,11 @@ from .payment_request_company import PaymentRequestCompany
 from .payment_request_contact import PaymentRequestContact
 from .payment_request_currency import PaymentRequestCurrency
 from .payment_request_tracking_categories_item import PaymentRequestTrackingCategoriesItem
+from .payment_request_type import PaymentRequestType
 from .payment_response import PaymentResponse
 from .payment_tracking_categories_item import PaymentTrackingCategoriesItem
+from .payment_type import PaymentType
+from .payment_type_enum import PaymentTypeEnum
 from .posting_status_enum import PostingStatusEnum
 from .purchase_order import PurchaseOrder
 from .purchase_order_accounting_period import PurchaseOrderAccountingPeriod
@@ -289,6 +284,7 @@ from .purchase_order_vendor import PurchaseOrderVendor
 from .remote_data import RemoteData
 from .remote_endpoint_info import RemoteEndpointInfo
 from .remote_field_api import RemoteFieldApi
+from .remote_field_api_coverage import RemoteFieldApiCoverage
 from .remote_field_api_response import RemoteFieldApiResponse
 from .remote_key import RemoteKey
 from .remote_response import RemoteResponse
@@ -379,9 +375,6 @@ __all__ = [
     "CommonModelScopesBodyRequest",
     "CompanyInfo",
     "CompanyInfoCurrency",
-    "ConditionSchema",
-    "ConditionSchemaConditionType",
-    "ConditionTypeEnum",
     "Contact",
     "ContactAddressesItem",
     "ContactRequest",
@@ -524,10 +517,6 @@ __all__ = [
     "JournalLineTrackingCategoriesItem",
     "JournalLineTrackingCategory",
     "LinkToken",
-    "LinkedAccountCondition",
-    "LinkedAccountConditionRequest",
-    "LinkedAccountSelectiveSyncConfiguration",
-    "LinkedAccountSelectiveSyncConfigurationRequest",
     "LinkedAccountStatus",
     "MetaResponse",
     "MethodEnum",
@@ -536,7 +525,6 @@ __all__ = [
     "ModelPermissionDeserializerRequest",
     "MultipartFormFieldRequest",
     "MultipartFormFieldRequestEncoding",
-    "OperatorSchema",
     "PaginatedAccountDetailsAndActionsList",
     "PaginatedAccountList",
     "PaginatedAccountingAttachmentList",
@@ -545,7 +533,6 @@ __all__ = [
     "PaginatedBalanceSheetList",
     "PaginatedCashFlowStatementList",
     "PaginatedCompanyInfoList",
-    "PaginatedConditionSchemaList",
     "PaginatedContactList",
     "PaginatedCreditNoteList",
     "PaginatedExpenseList",
@@ -569,6 +556,7 @@ __all__ = [
     "PatchedPaymentRequestContact",
     "PatchedPaymentRequestCurrency",
     "PatchedPaymentRequestTrackingCategoriesItem",
+    "PatchedPaymentRequestType",
     "Payment",
     "PaymentAccount",
     "PaymentAccountingPeriod",
@@ -586,8 +574,11 @@ __all__ = [
     "PaymentRequestContact",
     "PaymentRequestCurrency",
     "PaymentRequestTrackingCategoriesItem",
+    "PaymentRequestType",
     "PaymentResponse",
     "PaymentTrackingCategoriesItem",
+    "PaymentType",
+    "PaymentTypeEnum",
     "PostingStatusEnum",
     "PurchaseOrder",
     "PurchaseOrderAccountingPeriod",
@@ -615,6 +606,7 @@ __all__ = [
     "RemoteData",
     "RemoteEndpointInfo",
     "RemoteFieldApi",
+    "RemoteFieldApiCoverage",
     "RemoteFieldApiResponse",
     "RemoteKey",
     "RemoteResponse",

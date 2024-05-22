@@ -405,7 +405,6 @@ class EmployeesClient:
         )
         client.hris.employees.ignore_create(
             model_id="model_id",
-            message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
         )
         """
         _request: typing.Dict[str, typing.Any] = {"reason": reason}
@@ -856,7 +855,6 @@ class AsyncEmployeesClient:
         )
         await client.hris.employees.ignore_create(
             model_id="model_id",
-            message="deletion request by user id 51903790-7dfe-4053-8d63-5a10cc4ffd39",
         )
         """
         _request: typing.Dict[str, typing.Any] = {"reason": reason}

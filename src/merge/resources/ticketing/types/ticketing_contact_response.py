@@ -4,6 +4,10 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from .contact import Contact
+from .debug_mode_log import DebugModeLog
+from .error_validation_problem import ErrorValidationProblem
+from .warning_validation_problem import WarningValidationProblem
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -11,11 +15,11 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class OperatorSchema(pydantic.BaseModel):
-    operator: typing.Optional[str] = pydantic.Field(description="The operator for which an operator schema is defined.")
-    is_unique: typing.Optional[bool] = pydantic.Field(
-        description="Whether the operator can be repeated multiple times."
-    )
+class TicketingContactResponse(pydantic.BaseModel):
+    model: Contact
+    warnings: typing.List[WarningValidationProblem]
+    errors: typing.List[ErrorValidationProblem]
+    logs: typing.Optional[typing.List[DebugModeLog]]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

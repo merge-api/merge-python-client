@@ -15,8 +15,8 @@ class CollectionTypeEnum(str, enum.Enum):
     LIST = "LIST"
     PROJECT = "PROJECT"
 
-    def visit(self, list: typing.Callable[[], T_Result], project: typing.Callable[[], T_Result]) -> T_Result:
+    def visit(self, list_: typing.Callable[[], T_Result], project: typing.Callable[[], T_Result]) -> T_Result:
         if self is CollectionTypeEnum.LIST:
-            return list()
+            return list_()
         if self is CollectionTypeEnum.PROJECT:
             return project()

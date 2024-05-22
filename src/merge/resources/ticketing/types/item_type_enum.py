@@ -29,8 +29,8 @@ class ItemTypeEnum(str, enum.Enum):
         number: typing.Callable[[], T_Result],
         date: typing.Callable[[], T_Result],
         datetime: typing.Callable[[], T_Result],
-        bool: typing.Callable[[], T_Result],
-        list: typing.Callable[[], T_Result],
+        bool_: typing.Callable[[], T_Result],
+        list_: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is ItemTypeEnum.STRING:
             return string()
@@ -41,6 +41,6 @@ class ItemTypeEnum(str, enum.Enum):
         if self is ItemTypeEnum.DATETIME:
             return datetime()
         if self is ItemTypeEnum.BOOL:
-            return bool()
+            return bool_()
         if self is ItemTypeEnum.LIST:
-            return list()
+            return list_()

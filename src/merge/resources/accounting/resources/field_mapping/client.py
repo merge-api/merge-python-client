@@ -244,8 +244,6 @@ class FieldMappingClient:
         )
         client.accounting.field_mapping.field_mappings_partial_update(
             field_mapping_id="field_mapping_id",
-            remote_method="GET",
-            remote_url_path="/example-url-path",
         )
         """
         _request: typing.Dict[str, typing.Any] = {}
@@ -615,8 +613,6 @@ class AsyncFieldMappingClient:
         )
         await client.accounting.field_mapping.field_mappings_partial_update(
             field_mapping_id="field_mapping_id",
-            remote_method="GET",
-            remote_url_path="/example-url-path",
         )
         """
         _request: typing.Dict[str, typing.Any] = {}
