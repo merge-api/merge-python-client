@@ -4,17 +4,13 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .remote_data import RemoteData
 from .role_ticket_access import RoleTicketAccess
 from .role_ticket_actions_item import RoleTicketActionsItem
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class Role(pydantic.BaseModel):
+class Role(pydantic_v1.BaseModel):
     """
     # The Role Object
 
@@ -28,29 +24,45 @@ class Role(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    name: typing.Optional[str] = pydantic.Field(description="The name of the Role.")
-    ticket_actions: typing.Optional[typing.List[typing.Optional[RoleTicketActionsItem]]] = pydantic.Field(
-        description="The set of actions that a User with this Role can perform. Possible enum values include: `VIEW`, `CREATE`, `EDIT`, `DELETE`, `CLOSE`, and `ASSIGN`."
-    )
-    ticket_access: typing.Optional[RoleTicketAccess] = pydantic.Field(
-        description=(
-            "The level of Ticket access that a User with this Role can perform.\n"
-            "\n"
-            "- `ALL` - ALL\n"
-            "- `ASSIGNED_ONLY` - ASSIGNED_ONLY\n"
-            "- `TEAM_ONLY` - TEAM_ONLY\n"
-        )
-    )
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted in the third party platform."
-    )
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The name of the Role.
+    """
+
+    ticket_actions: typing.Optional[typing.List[typing.Optional[RoleTicketActionsItem]]] = pydantic_v1.Field()
+    """
+    The set of actions that a User with this Role can perform. Possible enum values include: `VIEW`, `CREATE`, `EDIT`, `DELETE`, `CLOSE`, and `ASSIGN`.
+    """
+
+    ticket_access: typing.Optional[RoleTicketAccess] = pydantic_v1.Field()
+    """
+    The level of Ticket access that a User with this Role can perform.
+    
+    - `ALL` - ALL
+    - `ASSIGNED_ONLY` - ASSIGNED_ONLY
+    - `TEAM_ONLY` - TEAM_ONLY
+    """
+
+    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Indicates whether or not this object has been deleted in the third party platform.
+    """
+
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
@@ -59,10 +71,15 @@ class Role(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

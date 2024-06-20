@@ -4,15 +4,11 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .remote_field_class_for_custom_object_class import RemoteFieldClassForCustomObjectClass
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class CustomObjectClass(pydantic.BaseModel):
+class CustomObjectClass(pydantic_v1.BaseModel):
     """
     # The Custom Object Class Object
 
@@ -26,28 +22,48 @@ class CustomObjectClass(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
     created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime]
-    name: typing.Optional[str] = pydantic.Field(description="The custom object class's name.")
-    description: typing.Optional[str] = pydantic.Field(description="The custom object class's description.")
-    labels: typing.Optional[typing.Dict[str, typing.Optional[str]]] = pydantic.Field(
-        description="The custom object class's singular and plural labels."
-    )
+    name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The custom object class's name.
+    """
+
+    description: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The custom object class's description.
+    """
+
+    labels: typing.Optional[typing.Dict[str, typing.Optional[str]]] = pydantic_v1.Field()
+    """
+    The custom object class's singular and plural labels.
+    """
+
     fields: typing.Optional[typing.List[RemoteFieldClassForCustomObjectClass]]
-    association_types: typing.Optional[typing.List[typing.Dict[str, typing.Any]]] = pydantic.Field(
-        description="The types of associations with other models that the custom object class can have."
-    )
+    association_types: typing.Optional[typing.List[typing.Dict[str, typing.Any]]] = pydantic_v1.Field()
+    """
+    The types of associations with other models that the custom object class can have.
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

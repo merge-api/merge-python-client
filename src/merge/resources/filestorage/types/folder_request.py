@@ -4,17 +4,13 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .folder_request_drive import FolderRequestDrive
 from .folder_request_parent_folder import FolderRequestParentFolder
 from .folder_request_permissions import FolderRequestPermissions
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class FolderRequest(pydantic.BaseModel):
+class FolderRequest(pydantic_v1.BaseModel):
     """
     # The Folder Object
 
@@ -27,17 +23,41 @@ class FolderRequest(pydantic.BaseModel):
     Fetch from the `GET /api/filestorage/v1/folders` endpoint and view their folders.
     """
 
-    name: typing.Optional[str] = pydantic.Field(description="The folder's name.")
-    folder_url: typing.Optional[str] = pydantic.Field(description="The URL to access the folder.")
-    size: typing.Optional[int] = pydantic.Field(description="The folder's size, in bytes.")
-    description: typing.Optional[str] = pydantic.Field(description="The folder's description.")
-    parent_folder: typing.Optional[FolderRequestParentFolder] = pydantic.Field(
-        description="The folder that the folder belongs to."
-    )
-    drive: typing.Optional[FolderRequestDrive] = pydantic.Field(description="The drive that the folder belongs to.")
-    permissions: typing.Optional[FolderRequestPermissions] = pydantic.Field(
-        description="The Permission object is used to represent a user's or group's access to a File or Folder. Permissions are unexpanded by default. Use the query param `expand=permissions` to see more details under `GET /folders`."
-    )
+    name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The folder's name.
+    """
+
+    folder_url: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The URL to access the folder.
+    """
+
+    size: typing.Optional[int] = pydantic_v1.Field()
+    """
+    The folder's size, in bytes.
+    """
+
+    description: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The folder's description.
+    """
+
+    parent_folder: typing.Optional[FolderRequestParentFolder] = pydantic_v1.Field()
+    """
+    The folder that the folder belongs to.
+    """
+
+    drive: typing.Optional[FolderRequestDrive] = pydantic_v1.Field()
+    """
+    The drive that the folder belongs to.
+    """
+
+    permissions: typing.Optional[FolderRequestPermissions] = pydantic_v1.Field()
+    """
+    The Permission object is used to represent a user's or group's access to a File or Folder. Permissions are unexpanded by default. Use the query param `expand=permissions` to see more details under `GET /folders`.
+    """
+
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -46,10 +66,15 @@ class FolderRequest(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

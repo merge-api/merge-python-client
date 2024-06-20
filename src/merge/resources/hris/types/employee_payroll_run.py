@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .deduction import Deduction
 from .earning import Earning
 from .employee_payroll_run_employee import EmployeePayrollRunEmployee
@@ -11,13 +12,8 @@ from .employee_payroll_run_payroll_run import EmployeePayrollRunPayrollRun
 from .remote_data import RemoteData
 from .tax import Tax
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class EmployeePayrollRun(pydantic.BaseModel):
+class EmployeePayrollRun(pydantic_v1.BaseModel):
     """
     # The EmployeePayrollRun Object
 
@@ -31,34 +27,64 @@ class EmployeePayrollRun(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    employee: typing.Optional[EmployeePayrollRunEmployee] = pydantic.Field(
-        description="The employee whose payroll is being run."
-    )
-    payroll_run: typing.Optional[EmployeePayrollRunPayrollRun] = pydantic.Field(description="The payroll being run.")
-    gross_pay: typing.Optional[float] = pydantic.Field(
-        description="The total earnings throughout a given period for an employee before any deductions are made."
-    )
-    net_pay: typing.Optional[float] = pydantic.Field(
-        description="The take-home pay throughout a given period for an employee after deductions are made."
-    )
-    start_date: typing.Optional[dt.datetime] = pydantic.Field(description="The day and time the payroll run started.")
-    end_date: typing.Optional[dt.datetime] = pydantic.Field(description="The day and time the payroll run ended.")
-    check_date: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The day and time the payroll run was checked."
-    )
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    employee: typing.Optional[EmployeePayrollRunEmployee] = pydantic_v1.Field()
+    """
+    The employee whose payroll is being run.
+    """
+
+    payroll_run: typing.Optional[EmployeePayrollRunPayrollRun] = pydantic_v1.Field()
+    """
+    The payroll being run.
+    """
+
+    gross_pay: typing.Optional[float] = pydantic_v1.Field()
+    """
+    The total earnings throughout a given period for an employee before any deductions are made.
+    """
+
+    net_pay: typing.Optional[float] = pydantic_v1.Field()
+    """
+    The take-home pay throughout a given period for an employee after deductions are made.
+    """
+
+    start_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The day and time the payroll run started.
+    """
+
+    end_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The day and time the payroll run ended.
+    """
+
+    check_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The day and time the payroll run was checked.
+    """
+
     earnings: typing.Optional[typing.List[Earning]]
     deductions: typing.Optional[typing.List[Deduction]]
     taxes: typing.Optional[typing.List[Tax]]
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted in the third party platform."
-    )
+    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Indicates whether or not this object has been deleted in the third party platform.
+    """
+
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
@@ -67,10 +93,15 @@ class EmployeePayrollRun(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

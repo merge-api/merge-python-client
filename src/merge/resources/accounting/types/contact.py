@@ -4,18 +4,14 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .accounting_phone_number import AccountingPhoneNumber
 from .contact_addresses_item import ContactAddressesItem
 from .contact_status import ContactStatus
 from .remote_data import RemoteData
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class Contact(pydantic.BaseModel):
+class Contact(pydantic_v1.BaseModel):
     """
     # The Contact Object
 
@@ -32,35 +28,84 @@ class Contact(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    name: typing.Optional[str] = pydantic.Field(description="The contact's name.")
-    is_supplier: typing.Optional[bool] = pydantic.Field(description="Whether the contact is a supplier.")
-    is_customer: typing.Optional[bool] = pydantic.Field(description="Whether the contact is a customer.")
-    email_address: typing.Optional[str] = pydantic.Field(description="The contact's email address.")
-    tax_number: typing.Optional[str] = pydantic.Field(description="The contact's tax number.")
-    status: typing.Optional[ContactStatus] = pydantic.Field(
-        description=("The contact's status\n" "\n" "- `ACTIVE` - ACTIVE\n" "- `ARCHIVED` - ARCHIVED\n")
-    )
-    currency: typing.Optional[str] = pydantic.Field(description="The currency the contact's transactions are in.")
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="When the third party's contact was updated."
-    )
-    company: typing.Optional[str] = pydantic.Field(description="The company the contact belongs to.")
-    addresses: typing.Optional[typing.List[typing.Optional[ContactAddressesItem]]] = pydantic.Field(
-        description="`Address` object IDs for the given `Contacts` object."
-    )
-    phone_numbers: typing.Optional[typing.List[AccountingPhoneNumber]] = pydantic.Field(
-        description="`AccountingPhoneNumber` object for the given `Contacts` object."
-    )
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted in the third party platform."
-    )
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The contact's name.
+    """
+
+    is_supplier: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Whether the contact is a supplier.
+    """
+
+    is_customer: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Whether the contact is a customer.
+    """
+
+    email_address: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The contact's email address.
+    """
+
+    tax_number: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The contact's tax number.
+    """
+
+    status: typing.Optional[ContactStatus] = pydantic_v1.Field()
+    """
+    The contact's status
+    
+    - `ACTIVE` - ACTIVE
+    - `ARCHIVED` - ARCHIVED
+    """
+
+    currency: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The currency the contact's transactions are in.
+    """
+
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the third party's contact was updated.
+    """
+
+    company: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The company the contact belongs to.
+    """
+
+    addresses: typing.Optional[typing.List[typing.Optional[ContactAddressesItem]]] = pydantic_v1.Field()
+    """
+    `Address` object IDs for the given `Contacts` object.
+    """
+
+    phone_numbers: typing.Optional[typing.List[AccountingPhoneNumber]] = pydantic_v1.Field()
+    """
+    `AccountingPhoneNumber` object for the given `Contacts` object.
+    """
+
+    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Indicates whether or not this object has been deleted in the third party platform.
+    """
+
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
@@ -69,10 +114,15 @@ class Contact(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

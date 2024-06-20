@@ -4,17 +4,13 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .patched_ticket_request_priority import PatchedTicketRequestPriority
 from .patched_ticket_request_status import PatchedTicketRequestStatus
 from .remote_field_request import RemoteFieldRequest
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class PatchedTicketRequest(pydantic.BaseModel):
+class PatchedTicketRequest(pydantic_v1.BaseModel):
     """
     # The Ticket Object
 
@@ -27,43 +23,79 @@ class PatchedTicketRequest(pydantic.BaseModel):
     TODO
     """
 
-    name: typing.Optional[str] = pydantic.Field(description="The ticket's name.")
+    name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The ticket's name.
+    """
+
     assignees: typing.Optional[typing.List[typing.Optional[str]]]
-    creator: typing.Optional[str] = pydantic.Field(description="The user who created this ticket.")
-    due_date: typing.Optional[dt.datetime] = pydantic.Field(description="The ticket's due date.")
-    status: typing.Optional[PatchedTicketRequestStatus] = pydantic.Field(
-        description=(
-            "The current status of the ticket.\n"
-            "\n"
-            "- `OPEN` - OPEN\n"
-            "- `CLOSED` - CLOSED\n"
-            "- `IN_PROGRESS` - IN_PROGRESS\n"
-            "- `ON_HOLD` - ON_HOLD\n"
-        )
-    )
-    description: typing.Optional[str] = pydantic.Field(
-        description="The ticket’s description. HTML version of description is mapped if supported by the third-party platform."
-    )
+    creator: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The user who created this ticket.
+    """
+
+    due_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The ticket's due date.
+    """
+
+    status: typing.Optional[PatchedTicketRequestStatus] = pydantic_v1.Field()
+    """
+    The current status of the ticket.
+    
+    - `OPEN` - OPEN
+    - `CLOSED` - CLOSED
+    - `IN_PROGRESS` - IN_PROGRESS
+    - `ON_HOLD` - ON_HOLD
+    """
+
+    description: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The ticket’s description. HTML version of description is mapped if supported by the third-party platform.
+    """
+
     collections: typing.Optional[typing.List[typing.Optional[str]]]
-    ticket_type: typing.Optional[str] = pydantic.Field(
-        description="The sub category of the ticket within the 3rd party system. Examples include incident, task, subtask or to-do."
-    )
-    account: typing.Optional[str] = pydantic.Field(description="The account associated with the ticket.")
-    contact: typing.Optional[str] = pydantic.Field(description="The contact associated with the ticket.")
-    parent_ticket: typing.Optional[str] = pydantic.Field(description="The ticket's parent ticket.")
+    ticket_type: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The sub category of the ticket within the 3rd party system. Examples include incident, task, subtask or to-do.
+    """
+
+    account: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The account associated with the ticket.
+    """
+
+    contact: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The contact associated with the ticket.
+    """
+
+    parent_ticket: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The ticket's parent ticket.
+    """
+
     tags: typing.Optional[typing.List[typing.Optional[str]]]
-    completed_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the ticket was completed.")
-    ticket_url: typing.Optional[str] = pydantic.Field(description="The 3rd party url of the Ticket.")
-    priority: typing.Optional[PatchedTicketRequestPriority] = pydantic.Field(
-        description=(
-            "The priority or urgency of the Ticket.\n"
-            "\n"
-            "- `URGENT` - URGENT\n"
-            "- `HIGH` - HIGH\n"
-            "- `NORMAL` - NORMAL\n"
-            "- `LOW` - LOW\n"
-        )
-    )
+    completed_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the ticket was completed.
+    """
+
+    ticket_url: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The 3rd party url of the Ticket.
+    """
+
+    priority: typing.Optional[PatchedTicketRequestPriority] = pydantic_v1.Field()
+    """
+    The priority or urgency of the Ticket.
+    
+    - `URGENT` - URGENT
+    - `HIGH` - HIGH
+    - `NORMAL` - NORMAL
+    - `LOW` - LOW
+    """
+
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
@@ -73,10 +105,15 @@ class PatchedTicketRequest(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

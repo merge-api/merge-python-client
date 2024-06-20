@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .invoice_line_item_request import InvoiceLineItemRequest
 from .invoice_request_company import InvoiceRequestCompany
 from .invoice_request_contact import InvoiceRequestContact
@@ -14,13 +15,8 @@ from .invoice_request_status import InvoiceRequestStatus
 from .invoice_request_tracking_categories_item import InvoiceRequestTrackingCategoriesItem
 from .invoice_request_type import InvoiceRequestType
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class InvoiceRequest(pydantic.BaseModel):
+class InvoiceRequest(pydantic_v1.BaseModel):
     """
     # The Invoice Object
 
@@ -33,356 +29,408 @@ class InvoiceRequest(pydantic.BaseModel):
         Fetch from the `LIST Invoices` endpoint and view a company's invoices.
     """
 
-    type: typing.Optional[InvoiceRequestType] = pydantic.Field(
-        description=(
-            "Whether the invoice is an accounts receivable or accounts payable. If `type` is `ACCOUNTS_PAYABLE`, the invoice is a bill. If `type` is `ACCOUNTS_RECEIVABLE`, it is an invoice.\n"
-            "\n"
-            "- `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE\n"
-            "- `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE\n"
-        )
-    )
-    contact: typing.Optional[InvoiceRequestContact] = pydantic.Field(description="The invoice's contact.")
-    number: typing.Optional[str] = pydantic.Field(description="The invoice's number.")
-    issue_date: typing.Optional[dt.datetime] = pydantic.Field(description="The invoice's issue date.")
-    due_date: typing.Optional[dt.datetime] = pydantic.Field(description="The invoice's due date.")
-    paid_on_date: typing.Optional[dt.datetime] = pydantic.Field(description="The invoice's paid date.")
-    memo: typing.Optional[str] = pydantic.Field(description="The invoice's private note.")
-    status: typing.Optional[InvoiceRequestStatus] = pydantic.Field(
-        description=(
-            "The status of the invoice.\n"
-            "\n"
-            "- `PAID` - PAID\n"
-            "- `DRAFT` - DRAFT\n"
-            "- `SUBMITTED` - SUBMITTED\n"
-            "- `PARTIALLY_PAID` - PARTIALLY_PAID\n"
-            "- `OPEN` - OPEN\n"
-            "- `VOID` - VOID\n"
-        )
-    )
-    company: typing.Optional[InvoiceRequestCompany] = pydantic.Field(description="The company the invoice belongs to.")
-    currency: typing.Optional[InvoiceRequestCurrency] = pydantic.Field(
-        description=(
-            "The invoice's currency.\n"
-            "\n"
-            "- `XUA` - ADB Unit of Account\n"
-            "- `AFN` - Afghan Afghani\n"
-            "- `AFA` - Afghan Afghani (1927–2002)\n"
-            "- `ALL` - Albanian Lek\n"
-            "- `ALK` - Albanian Lek (1946–1965)\n"
-            "- `DZD` - Algerian Dinar\n"
-            "- `ADP` - Andorran Peseta\n"
-            "- `AOA` - Angolan Kwanza\n"
-            "- `AOK` - Angolan Kwanza (1977–1991)\n"
-            "- `AON` - Angolan New Kwanza (1990–2000)\n"
-            "- `AOR` - Angolan Readjusted Kwanza (1995–1999)\n"
-            "- `ARA` - Argentine Austral\n"
-            "- `ARS` - Argentine Peso\n"
-            "- `ARM` - Argentine Peso (1881–1970)\n"
-            "- `ARP` - Argentine Peso (1983–1985)\n"
-            "- `ARL` - Argentine Peso Ley (1970–1983)\n"
-            "- `AMD` - Armenian Dram\n"
-            "- `AWG` - Aruban Florin\n"
-            "- `AUD` - Australian Dollar\n"
-            "- `ATS` - Austrian Schilling\n"
-            "- `AZN` - Azerbaijani Manat\n"
-            "- `AZM` - Azerbaijani Manat (1993–2006)\n"
-            "- `BSD` - Bahamian Dollar\n"
-            "- `BHD` - Bahraini Dinar\n"
-            "- `BDT` - Bangladeshi Taka\n"
-            "- `BBD` - Barbadian Dollar\n"
-            "- `BYN` - Belarusian Ruble\n"
-            "- `BYB` - Belarusian Ruble (1994–1999)\n"
-            "- `BYR` - Belarusian Ruble (2000–2016)\n"
-            "- `BEF` - Belgian Franc\n"
-            "- `BEC` - Belgian Franc (convertible)\n"
-            "- `BEL` - Belgian Franc (financial)\n"
-            "- `BZD` - Belize Dollar\n"
-            "- `BMD` - Bermudan Dollar\n"
-            "- `BTN` - Bhutanese Ngultrum\n"
-            "- `BOB` - Bolivian Boliviano\n"
-            "- `BOL` - Bolivian Boliviano (1863–1963)\n"
-            "- `BOV` - Bolivian Mvdol\n"
-            "- `BOP` - Bolivian Peso\n"
-            "- `BAM` - Bosnia-Herzegovina Convertible Mark\n"
-            "- `BAD` - Bosnia-Herzegovina Dinar (1992–1994)\n"
-            "- `BAN` - Bosnia-Herzegovina New Dinar (1994–1997)\n"
-            "- `BWP` - Botswanan Pula\n"
-            "- `BRC` - Brazilian Cruzado (1986–1989)\n"
-            "- `BRZ` - Brazilian Cruzeiro (1942–1967)\n"
-            "- `BRE` - Brazilian Cruzeiro (1990–1993)\n"
-            "- `BRR` - Brazilian Cruzeiro (1993–1994)\n"
-            "- `BRN` - Brazilian New Cruzado (1989–1990)\n"
-            "- `BRB` - Brazilian New Cruzeiro (1967–1986)\n"
-            "- `BRL` - Brazilian Real\n"
-            "- `GBP` - British Pound\n"
-            "- `BND` - Brunei Dollar\n"
-            "- `BGL` - Bulgarian Hard Lev\n"
-            "- `BGN` - Bulgarian Lev\n"
-            "- `BGO` - Bulgarian Lev (1879–1952)\n"
-            "- `BGM` - Bulgarian Socialist Lev\n"
-            "- `BUK` - Burmese Kyat\n"
-            "- `BIF` - Burundian Franc\n"
-            "- `XPF` - CFP Franc\n"
-            "- `KHR` - Cambodian Riel\n"
-            "- `CAD` - Canadian Dollar\n"
-            "- `CVE` - Cape Verdean Escudo\n"
-            "- `KYD` - Cayman Islands Dollar\n"
-            "- `XAF` - Central African CFA Franc\n"
-            "- `CLE` - Chilean Escudo\n"
-            "- `CLP` - Chilean Peso\n"
-            "- `CLF` - Chilean Unit of Account (UF)\n"
-            "- `CNX` - Chinese People’s Bank Dollar\n"
-            "- `CNY` - Chinese Yuan\n"
-            "- `CNH` - Chinese Yuan (offshore)\n"
-            "- `COP` - Colombian Peso\n"
-            "- `COU` - Colombian Real Value Unit\n"
-            "- `KMF` - Comorian Franc\n"
-            "- `CDF` - Congolese Franc\n"
-            "- `CRC` - Costa Rican Colón\n"
-            "- `HRD` - Croatian Dinar\n"
-            "- `HRK` - Croatian Kuna\n"
-            "- `CUC` - Cuban Convertible Peso\n"
-            "- `CUP` - Cuban Peso\n"
-            "- `CYP` - Cypriot Pound\n"
-            "- `CZK` - Czech Koruna\n"
-            "- `CSK` - Czechoslovak Hard Koruna\n"
-            "- `DKK` - Danish Krone\n"
-            "- `DJF` - Djiboutian Franc\n"
-            "- `DOP` - Dominican Peso\n"
-            "- `NLG` - Dutch Guilder\n"
-            "- `XCD` - East Caribbean Dollar\n"
-            "- `DDM` - East German Mark\n"
-            "- `ECS` - Ecuadorian Sucre\n"
-            "- `ECV` - Ecuadorian Unit of Constant Value\n"
-            "- `EGP` - Egyptian Pound\n"
-            "- `GQE` - Equatorial Guinean Ekwele\n"
-            "- `ERN` - Eritrean Nakfa\n"
-            "- `EEK` - Estonian Kroon\n"
-            "- `ETB` - Ethiopian Birr\n"
-            "- `EUR` - Euro\n"
-            "- `XBA` - European Composite Unit\n"
-            "- `XEU` - European Currency Unit\n"
-            "- `XBB` - European Monetary Unit\n"
-            "- `XBC` - European Unit of Account (XBC)\n"
-            "- `XBD` - European Unit of Account (XBD)\n"
-            "- `FKP` - Falkland Islands Pound\n"
-            "- `FJD` - Fijian Dollar\n"
-            "- `FIM` - Finnish Markka\n"
-            "- `FRF` - French Franc\n"
-            "- `XFO` - French Gold Franc\n"
-            "- `XFU` - French UIC-Franc\n"
-            "- `GMD` - Gambian Dalasi\n"
-            "- `GEK` - Georgian Kupon Larit\n"
-            "- `GEL` - Georgian Lari\n"
-            "- `DEM` - German Mark\n"
-            "- `GHS` - Ghanaian Cedi\n"
-            "- `GHC` - Ghanaian Cedi (1979–2007)\n"
-            "- `GIP` - Gibraltar Pound\n"
-            "- `XAU` - Gold\n"
-            "- `GRD` - Greek Drachma\n"
-            "- `GTQ` - Guatemalan Quetzal\n"
-            "- `GWP` - Guinea-Bissau Peso\n"
-            "- `GNF` - Guinean Franc\n"
-            "- `GNS` - Guinean Syli\n"
-            "- `GYD` - Guyanaese Dollar\n"
-            "- `HTG` - Haitian Gourde\n"
-            "- `HNL` - Honduran Lempira\n"
-            "- `HKD` - Hong Kong Dollar\n"
-            "- `HUF` - Hungarian Forint\n"
-            "- `IMP` - IMP\n"
-            "- `ISK` - Icelandic Króna\n"
-            "- `ISJ` - Icelandic Króna (1918–1981)\n"
-            "- `INR` - Indian Rupee\n"
-            "- `IDR` - Indonesian Rupiah\n"
-            "- `IRR` - Iranian Rial\n"
-            "- `IQD` - Iraqi Dinar\n"
-            "- `IEP` - Irish Pound\n"
-            "- `ILS` - Israeli New Shekel\n"
-            "- `ILP` - Israeli Pound\n"
-            "- `ILR` - Israeli Shekel (1980–1985)\n"
-            "- `ITL` - Italian Lira\n"
-            "- `JMD` - Jamaican Dollar\n"
-            "- `JPY` - Japanese Yen\n"
-            "- `JOD` - Jordanian Dinar\n"
-            "- `KZT` - Kazakhstani Tenge\n"
-            "- `KES` - Kenyan Shilling\n"
-            "- `KWD` - Kuwaiti Dinar\n"
-            "- `KGS` - Kyrgystani Som\n"
-            "- `LAK` - Laotian Kip\n"
-            "- `LVL` - Latvian Lats\n"
-            "- `LVR` - Latvian Ruble\n"
-            "- `LBP` - Lebanese Pound\n"
-            "- `LSL` - Lesotho Loti\n"
-            "- `LRD` - Liberian Dollar\n"
-            "- `LYD` - Libyan Dinar\n"
-            "- `LTL` - Lithuanian Litas\n"
-            "- `LTT` - Lithuanian Talonas\n"
-            "- `LUL` - Luxembourg Financial Franc\n"
-            "- `LUC` - Luxembourgian Convertible Franc\n"
-            "- `LUF` - Luxembourgian Franc\n"
-            "- `MOP` - Macanese Pataca\n"
-            "- `MKD` - Macedonian Denar\n"
-            "- `MKN` - Macedonian Denar (1992–1993)\n"
-            "- `MGA` - Malagasy Ariary\n"
-            "- `MGF` - Malagasy Franc\n"
-            "- `MWK` - Malawian Kwacha\n"
-            "- `MYR` - Malaysian Ringgit\n"
-            "- `MVR` - Maldivian Rufiyaa\n"
-            "- `MVP` - Maldivian Rupee (1947–1981)\n"
-            "- `MLF` - Malian Franc\n"
-            "- `MTL` - Maltese Lira\n"
-            "- `MTP` - Maltese Pound\n"
-            "- `MRU` - Mauritanian Ouguiya\n"
-            "- `MRO` - Mauritanian Ouguiya (1973–2017)\n"
-            "- `MUR` - Mauritian Rupee\n"
-            "- `MXV` - Mexican Investment Unit\n"
-            "- `MXN` - Mexican Peso\n"
-            "- `MXP` - Mexican Silver Peso (1861–1992)\n"
-            "- `MDC` - Moldovan Cupon\n"
-            "- `MDL` - Moldovan Leu\n"
-            "- `MCF` - Monegasque Franc\n"
-            "- `MNT` - Mongolian Tugrik\n"
-            "- `MAD` - Moroccan Dirham\n"
-            "- `MAF` - Moroccan Franc\n"
-            "- `MZE` - Mozambican Escudo\n"
-            "- `MZN` - Mozambican Metical\n"
-            "- `MZM` - Mozambican Metical (1980–2006)\n"
-            "- `MMK` - Myanmar Kyat\n"
-            "- `NAD` - Namibian Dollar\n"
-            "- `NPR` - Nepalese Rupee\n"
-            "- `ANG` - Netherlands Antillean Guilder\n"
-            "- `TWD` - New Taiwan Dollar\n"
-            "- `NZD` - New Zealand Dollar\n"
-            "- `NIO` - Nicaraguan Córdoba\n"
-            "- `NIC` - Nicaraguan Córdoba (1988–1991)\n"
-            "- `NGN` - Nigerian Naira\n"
-            "- `KPW` - North Korean Won\n"
-            "- `NOK` - Norwegian Krone\n"
-            "- `OMR` - Omani Rial\n"
-            "- `PKR` - Pakistani Rupee\n"
-            "- `XPD` - Palladium\n"
-            "- `PAB` - Panamanian Balboa\n"
-            "- `PGK` - Papua New Guinean Kina\n"
-            "- `PYG` - Paraguayan Guarani\n"
-            "- `PEI` - Peruvian Inti\n"
-            "- `PEN` - Peruvian Sol\n"
-            "- `PES` - Peruvian Sol (1863–1965)\n"
-            "- `PHP` - Philippine Peso\n"
-            "- `XPT` - Platinum\n"
-            "- `PLN` - Polish Zloty\n"
-            "- `PLZ` - Polish Zloty (1950–1995)\n"
-            "- `PTE` - Portuguese Escudo\n"
-            "- `GWE` - Portuguese Guinea Escudo\n"
-            "- `QAR` - Qatari Rial\n"
-            "- `XRE` - RINET Funds\n"
-            "- `RHD` - Rhodesian Dollar\n"
-            "- `RON` - Romanian Leu\n"
-            "- `ROL` - Romanian Leu (1952–2006)\n"
-            "- `RUB` - Russian Ruble\n"
-            "- `RUR` - Russian Ruble (1991–1998)\n"
-            "- `RWF` - Rwandan Franc\n"
-            "- `SVC` - Salvadoran Colón\n"
-            "- `WST` - Samoan Tala\n"
-            "- `SAR` - Saudi Riyal\n"
-            "- `RSD` - Serbian Dinar\n"
-            "- `CSD` - Serbian Dinar (2002–2006)\n"
-            "- `SCR` - Seychellois Rupee\n"
-            "- `SLL` - Sierra Leonean Leone\n"
-            "- `XAG` - Silver\n"
-            "- `SGD` - Singapore Dollar\n"
-            "- `SKK` - Slovak Koruna\n"
-            "- `SIT` - Slovenian Tolar\n"
-            "- `SBD` - Solomon Islands Dollar\n"
-            "- `SOS` - Somali Shilling\n"
-            "- `ZAR` - South African Rand\n"
-            "- `ZAL` - South African Rand (financial)\n"
-            "- `KRH` - South Korean Hwan (1953–1962)\n"
-            "- `KRW` - South Korean Won\n"
-            "- `KRO` - South Korean Won (1945–1953)\n"
-            "- `SSP` - South Sudanese Pound\n"
-            "- `SUR` - Soviet Rouble\n"
-            "- `ESP` - Spanish Peseta\n"
-            "- `ESA` - Spanish Peseta (A account)\n"
-            "- `ESB` - Spanish Peseta (convertible account)\n"
-            "- `XDR` - Special Drawing Rights\n"
-            "- `LKR` - Sri Lankan Rupee\n"
-            "- `SHP` - St. Helena Pound\n"
-            "- `XSU` - Sucre\n"
-            "- `SDD` - Sudanese Dinar (1992–2007)\n"
-            "- `SDG` - Sudanese Pound\n"
-            "- `SDP` - Sudanese Pound (1957–1998)\n"
-            "- `SRD` - Surinamese Dollar\n"
-            "- `SRG` - Surinamese Guilder\n"
-            "- `SZL` - Swazi Lilangeni\n"
-            "- `SEK` - Swedish Krona\n"
-            "- `CHF` - Swiss Franc\n"
-            "- `SYP` - Syrian Pound\n"
-            "- `STN` - São Tomé & Príncipe Dobra\n"
-            "- `STD` - São Tomé & Príncipe Dobra (1977–2017)\n"
-            "- `TVD` - TVD\n"
-            "- `TJR` - Tajikistani Ruble\n"
-            "- `TJS` - Tajikistani Somoni\n"
-            "- `TZS` - Tanzanian Shilling\n"
-            "- `XTS` - Testing Currency Code\n"
-            "- `THB` - Thai Baht\n"
-            "- `XXX` - The codes assigned for transactions where no currency is involved\n"
-            "- `TPE` - Timorese Escudo\n"
-            "- `TOP` - Tongan Paʻanga\n"
-            "- `TTD` - Trinidad & Tobago Dollar\n"
-            "- `TND` - Tunisian Dinar\n"
-            "- `TRY` - Turkish Lira\n"
-            "- `TRL` - Turkish Lira (1922–2005)\n"
-            "- `TMT` - Turkmenistani Manat\n"
-            "- `TMM` - Turkmenistani Manat (1993–2009)\n"
-            "- `USD` - US Dollar\n"
-            "- `USN` - US Dollar (Next day)\n"
-            "- `USS` - US Dollar (Same day)\n"
-            "- `UGX` - Ugandan Shilling\n"
-            "- `UGS` - Ugandan Shilling (1966–1987)\n"
-            "- `UAH` - Ukrainian Hryvnia\n"
-            "- `UAK` - Ukrainian Karbovanets\n"
-            "- `AED` - United Arab Emirates Dirham\n"
-            "- `UYW` - Uruguayan Nominal Wage Index Unit\n"
-            "- `UYU` - Uruguayan Peso\n"
-            "- `UYP` - Uruguayan Peso (1975–1993)\n"
-            "- `UYI` - Uruguayan Peso (Indexed Units)\n"
-            "- `UZS` - Uzbekistani Som\n"
-            "- `VUV` - Vanuatu Vatu\n"
-            "- `VES` - Venezuelan Bolívar\n"
-            "- `VEB` - Venezuelan Bolívar (1871–2008)\n"
-            "- `VEF` - Venezuelan Bolívar (2008–2018)\n"
-            "- `VND` - Vietnamese Dong\n"
-            "- `VNN` - Vietnamese Dong (1978–1985)\n"
-            "- `CHE` - WIR Euro\n"
-            "- `CHW` - WIR Franc\n"
-            "- `XOF` - West African CFA Franc\n"
-            "- `YDD` - Yemeni Dinar\n"
-            "- `YER` - Yemeni Rial\n"
-            "- `YUN` - Yugoslavian Convertible Dinar (1990–1992)\n"
-            "- `YUD` - Yugoslavian Hard Dinar (1966–1990)\n"
-            "- `YUM` - Yugoslavian New Dinar (1994–2002)\n"
-            "- `YUR` - Yugoslavian Reformed Dinar (1992–1993)\n"
-            "- `ZWN` - ZWN\n"
-            "- `ZRN` - Zairean New Zaire (1993–1998)\n"
-            "- `ZRZ` - Zairean Zaire (1971–1993)\n"
-            "- `ZMW` - Zambian Kwacha\n"
-            "- `ZMK` - Zambian Kwacha (1968–2012)\n"
-            "- `ZWD` - Zimbabwean Dollar (1980–2008)\n"
-            "- `ZWR` - Zimbabwean Dollar (2008)\n"
-            "- `ZWL` - Zimbabwean Dollar (2009)\n"
-        )
-    )
-    exchange_rate: typing.Optional[str] = pydantic.Field(description="The invoice's exchange rate.")
-    total_discount: typing.Optional[float] = pydantic.Field(
-        description="The total discounts applied to the total cost."
-    )
-    sub_total: typing.Optional[float] = pydantic.Field(description="The total amount being paid before taxes.")
-    total_tax_amount: typing.Optional[float] = pydantic.Field(description="The total amount being paid in taxes.")
-    total_amount: typing.Optional[float] = pydantic.Field(description="The invoice's total amount.")
-    balance: typing.Optional[float] = pydantic.Field(description="The invoice's remaining balance.")
-    payments: typing.Optional[typing.List[typing.Optional[InvoiceRequestPaymentsItem]]] = pydantic.Field(
-        description="Array of `Payment` object IDs."
-    )
+    type: typing.Optional[InvoiceRequestType] = pydantic_v1.Field()
+    """
+    Whether the invoice is an accounts receivable or accounts payable. If `type` is `ACCOUNTS_PAYABLE`, the invoice is a bill. If `type` is `ACCOUNTS_RECEIVABLE`, it is an invoice.
+    
+    - `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
+    - `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE
+    """
+
+    contact: typing.Optional[InvoiceRequestContact] = pydantic_v1.Field()
+    """
+    The invoice's contact.
+    """
+
+    number: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The invoice's number.
+    """
+
+    issue_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The invoice's issue date.
+    """
+
+    due_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The invoice's due date.
+    """
+
+    paid_on_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The invoice's paid date.
+    """
+
+    memo: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The invoice's private note.
+    """
+
+    status: typing.Optional[InvoiceRequestStatus] = pydantic_v1.Field()
+    """
+    The status of the invoice.
+    
+    - `PAID` - PAID
+    - `DRAFT` - DRAFT
+    - `SUBMITTED` - SUBMITTED
+    - `PARTIALLY_PAID` - PARTIALLY_PAID
+    - `OPEN` - OPEN
+    - `VOID` - VOID
+    """
+
+    company: typing.Optional[InvoiceRequestCompany] = pydantic_v1.Field()
+    """
+    The company the invoice belongs to.
+    """
+
+    currency: typing.Optional[InvoiceRequestCurrency] = pydantic_v1.Field()
+    """
+    The invoice's currency.
+    
+    - `XUA` - ADB Unit of Account
+    - `AFN` - Afghan Afghani
+    - `AFA` - Afghan Afghani (1927–2002)
+    - `ALL` - Albanian Lek
+    - `ALK` - Albanian Lek (1946–1965)
+    - `DZD` - Algerian Dinar
+    - `ADP` - Andorran Peseta
+    - `AOA` - Angolan Kwanza
+    - `AOK` - Angolan Kwanza (1977–1991)
+    - `AON` - Angolan New Kwanza (1990–2000)
+    - `AOR` - Angolan Readjusted Kwanza (1995–1999)
+    - `ARA` - Argentine Austral
+    - `ARS` - Argentine Peso
+    - `ARM` - Argentine Peso (1881–1970)
+    - `ARP` - Argentine Peso (1983–1985)
+    - `ARL` - Argentine Peso Ley (1970–1983)
+    - `AMD` - Armenian Dram
+    - `AWG` - Aruban Florin
+    - `AUD` - Australian Dollar
+    - `ATS` - Austrian Schilling
+    - `AZN` - Azerbaijani Manat
+    - `AZM` - Azerbaijani Manat (1993–2006)
+    - `BSD` - Bahamian Dollar
+    - `BHD` - Bahraini Dinar
+    - `BDT` - Bangladeshi Taka
+    - `BBD` - Barbadian Dollar
+    - `BYN` - Belarusian Ruble
+    - `BYB` - Belarusian Ruble (1994–1999)
+    - `BYR` - Belarusian Ruble (2000–2016)
+    - `BEF` - Belgian Franc
+    - `BEC` - Belgian Franc (convertible)
+    - `BEL` - Belgian Franc (financial)
+    - `BZD` - Belize Dollar
+    - `BMD` - Bermudan Dollar
+    - `BTN` - Bhutanese Ngultrum
+    - `BOB` - Bolivian Boliviano
+    - `BOL` - Bolivian Boliviano (1863–1963)
+    - `BOV` - Bolivian Mvdol
+    - `BOP` - Bolivian Peso
+    - `BAM` - Bosnia-Herzegovina Convertible Mark
+    - `BAD` - Bosnia-Herzegovina Dinar (1992–1994)
+    - `BAN` - Bosnia-Herzegovina New Dinar (1994–1997)
+    - `BWP` - Botswanan Pula
+    - `BRC` - Brazilian Cruzado (1986–1989)
+    - `BRZ` - Brazilian Cruzeiro (1942–1967)
+    - `BRE` - Brazilian Cruzeiro (1990–1993)
+    - `BRR` - Brazilian Cruzeiro (1993–1994)
+    - `BRN` - Brazilian New Cruzado (1989–1990)
+    - `BRB` - Brazilian New Cruzeiro (1967–1986)
+    - `BRL` - Brazilian Real
+    - `GBP` - British Pound
+    - `BND` - Brunei Dollar
+    - `BGL` - Bulgarian Hard Lev
+    - `BGN` - Bulgarian Lev
+    - `BGO` - Bulgarian Lev (1879–1952)
+    - `BGM` - Bulgarian Socialist Lev
+    - `BUK` - Burmese Kyat
+    - `BIF` - Burundian Franc
+    - `XPF` - CFP Franc
+    - `KHR` - Cambodian Riel
+    - `CAD` - Canadian Dollar
+    - `CVE` - Cape Verdean Escudo
+    - `KYD` - Cayman Islands Dollar
+    - `XAF` - Central African CFA Franc
+    - `CLE` - Chilean Escudo
+    - `CLP` - Chilean Peso
+    - `CLF` - Chilean Unit of Account (UF)
+    - `CNX` - Chinese People’s Bank Dollar
+    - `CNY` - Chinese Yuan
+    - `CNH` - Chinese Yuan (offshore)
+    - `COP` - Colombian Peso
+    - `COU` - Colombian Real Value Unit
+    - `KMF` - Comorian Franc
+    - `CDF` - Congolese Franc
+    - `CRC` - Costa Rican Colón
+    - `HRD` - Croatian Dinar
+    - `HRK` - Croatian Kuna
+    - `CUC` - Cuban Convertible Peso
+    - `CUP` - Cuban Peso
+    - `CYP` - Cypriot Pound
+    - `CZK` - Czech Koruna
+    - `CSK` - Czechoslovak Hard Koruna
+    - `DKK` - Danish Krone
+    - `DJF` - Djiboutian Franc
+    - `DOP` - Dominican Peso
+    - `NLG` - Dutch Guilder
+    - `XCD` - East Caribbean Dollar
+    - `DDM` - East German Mark
+    - `ECS` - Ecuadorian Sucre
+    - `ECV` - Ecuadorian Unit of Constant Value
+    - `EGP` - Egyptian Pound
+    - `GQE` - Equatorial Guinean Ekwele
+    - `ERN` - Eritrean Nakfa
+    - `EEK` - Estonian Kroon
+    - `ETB` - Ethiopian Birr
+    - `EUR` - Euro
+    - `XBA` - European Composite Unit
+    - `XEU` - European Currency Unit
+    - `XBB` - European Monetary Unit
+    - `XBC` - European Unit of Account (XBC)
+    - `XBD` - European Unit of Account (XBD)
+    - `FKP` - Falkland Islands Pound
+    - `FJD` - Fijian Dollar
+    - `FIM` - Finnish Markka
+    - `FRF` - French Franc
+    - `XFO` - French Gold Franc
+    - `XFU` - French UIC-Franc
+    - `GMD` - Gambian Dalasi
+    - `GEK` - Georgian Kupon Larit
+    - `GEL` - Georgian Lari
+    - `DEM` - German Mark
+    - `GHS` - Ghanaian Cedi
+    - `GHC` - Ghanaian Cedi (1979–2007)
+    - `GIP` - Gibraltar Pound
+    - `XAU` - Gold
+    - `GRD` - Greek Drachma
+    - `GTQ` - Guatemalan Quetzal
+    - `GWP` - Guinea-Bissau Peso
+    - `GNF` - Guinean Franc
+    - `GNS` - Guinean Syli
+    - `GYD` - Guyanaese Dollar
+    - `HTG` - Haitian Gourde
+    - `HNL` - Honduran Lempira
+    - `HKD` - Hong Kong Dollar
+    - `HUF` - Hungarian Forint
+    - `IMP` - IMP
+    - `ISK` - Icelandic Króna
+    - `ISJ` - Icelandic Króna (1918–1981)
+    - `INR` - Indian Rupee
+    - `IDR` - Indonesian Rupiah
+    - `IRR` - Iranian Rial
+    - `IQD` - Iraqi Dinar
+    - `IEP` - Irish Pound
+    - `ILS` - Israeli New Shekel
+    - `ILP` - Israeli Pound
+    - `ILR` - Israeli Shekel (1980–1985)
+    - `ITL` - Italian Lira
+    - `JMD` - Jamaican Dollar
+    - `JPY` - Japanese Yen
+    - `JOD` - Jordanian Dinar
+    - `KZT` - Kazakhstani Tenge
+    - `KES` - Kenyan Shilling
+    - `KWD` - Kuwaiti Dinar
+    - `KGS` - Kyrgystani Som
+    - `LAK` - Laotian Kip
+    - `LVL` - Latvian Lats
+    - `LVR` - Latvian Ruble
+    - `LBP` - Lebanese Pound
+    - `LSL` - Lesotho Loti
+    - `LRD` - Liberian Dollar
+    - `LYD` - Libyan Dinar
+    - `LTL` - Lithuanian Litas
+    - `LTT` - Lithuanian Talonas
+    - `LUL` - Luxembourg Financial Franc
+    - `LUC` - Luxembourgian Convertible Franc
+    - `LUF` - Luxembourgian Franc
+    - `MOP` - Macanese Pataca
+    - `MKD` - Macedonian Denar
+    - `MKN` - Macedonian Denar (1992–1993)
+    - `MGA` - Malagasy Ariary
+    - `MGF` - Malagasy Franc
+    - `MWK` - Malawian Kwacha
+    - `MYR` - Malaysian Ringgit
+    - `MVR` - Maldivian Rufiyaa
+    - `MVP` - Maldivian Rupee (1947–1981)
+    - `MLF` - Malian Franc
+    - `MTL` - Maltese Lira
+    - `MTP` - Maltese Pound
+    - `MRU` - Mauritanian Ouguiya
+    - `MRO` - Mauritanian Ouguiya (1973–2017)
+    - `MUR` - Mauritian Rupee
+    - `MXV` - Mexican Investment Unit
+    - `MXN` - Mexican Peso
+    - `MXP` - Mexican Silver Peso (1861–1992)
+    - `MDC` - Moldovan Cupon
+    - `MDL` - Moldovan Leu
+    - `MCF` - Monegasque Franc
+    - `MNT` - Mongolian Tugrik
+    - `MAD` - Moroccan Dirham
+    - `MAF` - Moroccan Franc
+    - `MZE` - Mozambican Escudo
+    - `MZN` - Mozambican Metical
+    - `MZM` - Mozambican Metical (1980–2006)
+    - `MMK` - Myanmar Kyat
+    - `NAD` - Namibian Dollar
+    - `NPR` - Nepalese Rupee
+    - `ANG` - Netherlands Antillean Guilder
+    - `TWD` - New Taiwan Dollar
+    - `NZD` - New Zealand Dollar
+    - `NIO` - Nicaraguan Córdoba
+    - `NIC` - Nicaraguan Córdoba (1988–1991)
+    - `NGN` - Nigerian Naira
+    - `KPW` - North Korean Won
+    - `NOK` - Norwegian Krone
+    - `OMR` - Omani Rial
+    - `PKR` - Pakistani Rupee
+    - `XPD` - Palladium
+    - `PAB` - Panamanian Balboa
+    - `PGK` - Papua New Guinean Kina
+    - `PYG` - Paraguayan Guarani
+    - `PEI` - Peruvian Inti
+    - `PEN` - Peruvian Sol
+    - `PES` - Peruvian Sol (1863–1965)
+    - `PHP` - Philippine Peso
+    - `XPT` - Platinum
+    - `PLN` - Polish Zloty
+    - `PLZ` - Polish Zloty (1950–1995)
+    - `PTE` - Portuguese Escudo
+    - `GWE` - Portuguese Guinea Escudo
+    - `QAR` - Qatari Rial
+    - `XRE` - RINET Funds
+    - `RHD` - Rhodesian Dollar
+    - `RON` - Romanian Leu
+    - `ROL` - Romanian Leu (1952–2006)
+    - `RUB` - Russian Ruble
+    - `RUR` - Russian Ruble (1991–1998)
+    - `RWF` - Rwandan Franc
+    - `SVC` - Salvadoran Colón
+    - `WST` - Samoan Tala
+    - `SAR` - Saudi Riyal
+    - `RSD` - Serbian Dinar
+    - `CSD` - Serbian Dinar (2002–2006)
+    - `SCR` - Seychellois Rupee
+    - `SLL` - Sierra Leonean Leone
+    - `XAG` - Silver
+    - `SGD` - Singapore Dollar
+    - `SKK` - Slovak Koruna
+    - `SIT` - Slovenian Tolar
+    - `SBD` - Solomon Islands Dollar
+    - `SOS` - Somali Shilling
+    - `ZAR` - South African Rand
+    - `ZAL` - South African Rand (financial)
+    - `KRH` - South Korean Hwan (1953–1962)
+    - `KRW` - South Korean Won
+    - `KRO` - South Korean Won (1945–1953)
+    - `SSP` - South Sudanese Pound
+    - `SUR` - Soviet Rouble
+    - `ESP` - Spanish Peseta
+    - `ESA` - Spanish Peseta (A account)
+    - `ESB` - Spanish Peseta (convertible account)
+    - `XDR` - Special Drawing Rights
+    - `LKR` - Sri Lankan Rupee
+    - `SHP` - St. Helena Pound
+    - `XSU` - Sucre
+    - `SDD` - Sudanese Dinar (1992–2007)
+    - `SDG` - Sudanese Pound
+    - `SDP` - Sudanese Pound (1957–1998)
+    - `SRD` - Surinamese Dollar
+    - `SRG` - Surinamese Guilder
+    - `SZL` - Swazi Lilangeni
+    - `SEK` - Swedish Krona
+    - `CHF` - Swiss Franc
+    - `SYP` - Syrian Pound
+    - `STN` - São Tomé & Príncipe Dobra
+    - `STD` - São Tomé & Príncipe Dobra (1977–2017)
+    - `TVD` - TVD
+    - `TJR` - Tajikistani Ruble
+    - `TJS` - Tajikistani Somoni
+    - `TZS` - Tanzanian Shilling
+    - `XTS` - Testing Currency Code
+    - `THB` - Thai Baht
+    - `XXX` - The codes assigned for transactions where no currency is involved
+    - `TPE` - Timorese Escudo
+    - `TOP` - Tongan Paʻanga
+    - `TTD` - Trinidad & Tobago Dollar
+    - `TND` - Tunisian Dinar
+    - `TRY` - Turkish Lira
+    - `TRL` - Turkish Lira (1922–2005)
+    - `TMT` - Turkmenistani Manat
+    - `TMM` - Turkmenistani Manat (1993–2009)
+    - `USD` - US Dollar
+    - `USN` - US Dollar (Next day)
+    - `USS` - US Dollar (Same day)
+    - `UGX` - Ugandan Shilling
+    - `UGS` - Ugandan Shilling (1966–1987)
+    - `UAH` - Ukrainian Hryvnia
+    - `UAK` - Ukrainian Karbovanets
+    - `AED` - United Arab Emirates Dirham
+    - `UYW` - Uruguayan Nominal Wage Index Unit
+    - `UYU` - Uruguayan Peso
+    - `UYP` - Uruguayan Peso (1975–1993)
+    - `UYI` - Uruguayan Peso (Indexed Units)
+    - `UZS` - Uzbekistani Som
+    - `VUV` - Vanuatu Vatu
+    - `VES` - Venezuelan Bolívar
+    - `VEB` - Venezuelan Bolívar (1871–2008)
+    - `VEF` - Venezuelan Bolívar (2008–2018)
+    - `VND` - Vietnamese Dong
+    - `VNN` - Vietnamese Dong (1978–1985)
+    - `CHE` - WIR Euro
+    - `CHW` - WIR Franc
+    - `XOF` - West African CFA Franc
+    - `YDD` - Yemeni Dinar
+    - `YER` - Yemeni Rial
+    - `YUN` - Yugoslavian Convertible Dinar (1990–1992)
+    - `YUD` - Yugoslavian Hard Dinar (1966–1990)
+    - `YUM` - Yugoslavian New Dinar (1994–2002)
+    - `YUR` - Yugoslavian Reformed Dinar (1992–1993)
+    - `ZWN` - ZWN
+    - `ZRN` - Zairean New Zaire (1993–1998)
+    - `ZRZ` - Zairean Zaire (1971–1993)
+    - `ZMW` - Zambian Kwacha
+    - `ZMK` - Zambian Kwacha (1968–2012)
+    - `ZWD` - Zimbabwean Dollar (1980–2008)
+    - `ZWR` - Zimbabwean Dollar (2008)
+    - `ZWL` - Zimbabwean Dollar (2009)
+    """
+
+    exchange_rate: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The invoice's exchange rate.
+    """
+
+    total_discount: typing.Optional[float] = pydantic_v1.Field()
+    """
+    The total discounts applied to the total cost.
+    """
+
+    sub_total: typing.Optional[float] = pydantic_v1.Field()
+    """
+    The total amount being paid before taxes.
+    """
+
+    total_tax_amount: typing.Optional[float] = pydantic_v1.Field()
+    """
+    The total amount being paid in taxes.
+    """
+
+    total_amount: typing.Optional[float] = pydantic_v1.Field()
+    """
+    The invoice's total amount.
+    """
+
+    balance: typing.Optional[float] = pydantic_v1.Field()
+    """
+    The invoice's remaining balance.
+    """
+
+    payments: typing.Optional[typing.List[typing.Optional[InvoiceRequestPaymentsItem]]] = pydantic_v1.Field()
+    """
+    Array of `Payment` object IDs.
+    """
+
     tracking_categories: typing.Optional[typing.List[typing.Optional[InvoiceRequestTrackingCategoriesItem]]]
     line_items: typing.Optional[typing.List[InvoiceLineItemRequest]]
     purchase_orders: typing.Optional[typing.List[typing.Optional[InvoiceRequestPurchaseOrdersItem]]]
@@ -394,10 +442,15 @@ class InvoiceRequest(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

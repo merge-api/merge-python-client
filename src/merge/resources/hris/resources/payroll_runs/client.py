@@ -2,14 +2,13 @@
 
 import datetime as dt
 import typing
-import urllib.parse
 from json.decoder import JSONDecodeError
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.pydantic_utilities import pydantic_v1
 from .....core.request_options import RequestOptions
 from ...types.paginated_payroll_run_list import PaginatedPayrollRunList
 from ...types.payroll_run import PayrollRun
@@ -18,11 +17,6 @@ from .types.payroll_runs_list_request_run_type import PayrollRunsListRequestRunT
 from .types.payroll_runs_list_request_show_enum_origins import PayrollRunsListRequestShowEnumOrigins
 from .types.payroll_runs_retrieve_request_remote_fields import PayrollRunsRetrieveRequestRemoteFields
 from .types.payroll_runs_retrieve_request_show_enum_origins import PayrollRunsRetrieveRequestShowEnumOrigins
-
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
 
 class PayrollRunsClient:
@@ -53,46 +47,72 @@ class PayrollRunsClient:
         """
         Returns a list of `PayrollRun` objects.
 
-        Parameters:
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        Parameters
+        ----------
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - ended_after: typing.Optional[dt.datetime]. If provided, will only return payroll runs ended after this datetime.
+        ended_after : typing.Optional[dt.datetime]
+            If provided, will only return payroll runs ended after this datetime.
 
-            - ended_before: typing.Optional[dt.datetime]. If provided, will only return payroll runs ended before this datetime.
+        ended_before : typing.Optional[dt.datetime]
+            If provided, will only return payroll runs ended before this datetime.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - remote_fields: typing.Optional[PayrollRunsListRequestRemoteFields]. Deprecated. Use show_enum_origins.
+        remote_fields : typing.Optional[PayrollRunsListRequestRemoteFields]
+            Deprecated. Use show_enum_origins.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - run_type: typing.Optional[PayrollRunsListRequestRunType]. If provided, will only return PayrollRun's with this status. Options: ('REGULAR', 'OFF_CYCLE', 'CORRECTION', 'TERMINATION', 'SIGN_ON_BONUS')
+        run_type : typing.Optional[PayrollRunsListRequestRunType]
+            If provided, will only return PayrollRun's with this status. Options: ('REGULAR', 'OFF_CYCLE', 'CORRECTION', 'TERMINATION', 'SIGN_ON_BONUS')
 
-                                                                        - `REGULAR` - REGULAR
-                                                                        - `OFF_CYCLE` - OFF_CYCLE
-                                                                        - `CORRECTION` - CORRECTION
-                                                                        - `TERMINATION` - TERMINATION
-                                                                        - `SIGN_ON_BONUS` - SIGN_ON_BONUS
-            - show_enum_origins: typing.Optional[PayrollRunsListRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+            - `REGULAR` - REGULAR
+            - `OFF_CYCLE` - OFF_CYCLE
+            - `CORRECTION` - CORRECTION
+            - `TERMINATION` - TERMINATION
+            - `SIGN_ON_BONUS` - SIGN_ON_BONUS
 
-            - started_after: typing.Optional[dt.datetime]. If provided, will only return payroll runs started after this datetime.
+        show_enum_origins : typing.Optional[PayrollRunsListRequestShowEnumOrigins]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-            - started_before: typing.Optional[dt.datetime]. If provided, will only return payroll runs started before this datetime.
+        started_after : typing.Optional[dt.datetime]
+            If provided, will only return payroll runs started after this datetime.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        started_before : typing.Optional[dt.datetime]
+            If provided, will only return payroll runs started before this datetime.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedPayrollRunList
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -102,49 +122,30 @@ class PayrollRunsClient:
         client.hris.payroll_runs.list()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/payroll-runs"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "ended_after": serialize_datetime(ended_after) if ended_after is not None else None,
-                        "ended_before": serialize_datetime(ended_before) if ended_before is not None else None,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "page_size": page_size,
-                        "remote_fields": remote_fields,
-                        "remote_id": remote_id,
-                        "run_type": run_type,
-                        "show_enum_origins": show_enum_origins,
-                        "started_after": serialize_datetime(started_after) if started_after is not None else None,
-                        "started_before": serialize_datetime(started_before) if started_before is not None else None,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "hris/v1/payroll-runs",
+            method="GET",
+            params={
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "ended_after": serialize_datetime(ended_after) if ended_after is not None else None,
+                "ended_before": serialize_datetime(ended_before) if ended_before is not None else None,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "page_size": page_size,
+                "remote_fields": remote_fields,
+                "remote_id": remote_id,
+                "run_type": run_type,
+                "show_enum_origins": show_enum_origins,
+                "started_after": serialize_datetime(started_after) if started_after is not None else None,
+                "started_before": serialize_datetime(started_before) if started_before is not None else None,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedPayrollRunList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedPayrollRunList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -163,17 +164,29 @@ class PayrollRunsClient:
         """
         Returns a `PayrollRun` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - remote_fields: typing.Optional[PayrollRunsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
+        remote_fields : typing.Optional[PayrollRunsRetrieveRequestRemoteFields]
+            Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[PayrollRunsRetrieveRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+        show_enum_origins : typing.Optional[PayrollRunsRetrieveRequestShowEnumOrigins]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayrollRun
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -185,36 +198,17 @@ class PayrollRunsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/payroll-runs/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "include_remote_data": include_remote_data,
-                        "remote_fields": remote_fields,
-                        "show_enum_origins": show_enum_origins,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"hris/v1/payroll-runs/{jsonable_encoder(id)}",
+            method="GET",
+            params={
+                "include_remote_data": include_remote_data,
+                "remote_fields": remote_fields,
+                "show_enum_origins": show_enum_origins,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PayrollRun, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PayrollRun, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -250,46 +244,72 @@ class AsyncPayrollRunsClient:
         """
         Returns a list of `PayrollRun` objects.
 
-        Parameters:
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        Parameters
+        ----------
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - ended_after: typing.Optional[dt.datetime]. If provided, will only return payroll runs ended after this datetime.
+        ended_after : typing.Optional[dt.datetime]
+            If provided, will only return payroll runs ended after this datetime.
 
-            - ended_before: typing.Optional[dt.datetime]. If provided, will only return payroll runs ended before this datetime.
+        ended_before : typing.Optional[dt.datetime]
+            If provided, will only return payroll runs ended before this datetime.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - remote_fields: typing.Optional[PayrollRunsListRequestRemoteFields]. Deprecated. Use show_enum_origins.
+        remote_fields : typing.Optional[PayrollRunsListRequestRemoteFields]
+            Deprecated. Use show_enum_origins.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - run_type: typing.Optional[PayrollRunsListRequestRunType]. If provided, will only return PayrollRun's with this status. Options: ('REGULAR', 'OFF_CYCLE', 'CORRECTION', 'TERMINATION', 'SIGN_ON_BONUS')
+        run_type : typing.Optional[PayrollRunsListRequestRunType]
+            If provided, will only return PayrollRun's with this status. Options: ('REGULAR', 'OFF_CYCLE', 'CORRECTION', 'TERMINATION', 'SIGN_ON_BONUS')
 
-                                                                        - `REGULAR` - REGULAR
-                                                                        - `OFF_CYCLE` - OFF_CYCLE
-                                                                        - `CORRECTION` - CORRECTION
-                                                                        - `TERMINATION` - TERMINATION
-                                                                        - `SIGN_ON_BONUS` - SIGN_ON_BONUS
-            - show_enum_origins: typing.Optional[PayrollRunsListRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+            - `REGULAR` - REGULAR
+            - `OFF_CYCLE` - OFF_CYCLE
+            - `CORRECTION` - CORRECTION
+            - `TERMINATION` - TERMINATION
+            - `SIGN_ON_BONUS` - SIGN_ON_BONUS
 
-            - started_after: typing.Optional[dt.datetime]. If provided, will only return payroll runs started after this datetime.
+        show_enum_origins : typing.Optional[PayrollRunsListRequestShowEnumOrigins]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-            - started_before: typing.Optional[dt.datetime]. If provided, will only return payroll runs started before this datetime.
+        started_after : typing.Optional[dt.datetime]
+            If provided, will only return payroll runs started after this datetime.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        started_before : typing.Optional[dt.datetime]
+            If provided, will only return payroll runs started before this datetime.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedPayrollRunList
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -299,49 +319,30 @@ class AsyncPayrollRunsClient:
         await client.hris.payroll_runs.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/payroll-runs"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "ended_after": serialize_datetime(ended_after) if ended_after is not None else None,
-                        "ended_before": serialize_datetime(ended_before) if ended_before is not None else None,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "page_size": page_size,
-                        "remote_fields": remote_fields,
-                        "remote_id": remote_id,
-                        "run_type": run_type,
-                        "show_enum_origins": show_enum_origins,
-                        "started_after": serialize_datetime(started_after) if started_after is not None else None,
-                        "started_before": serialize_datetime(started_before) if started_before is not None else None,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "hris/v1/payroll-runs",
+            method="GET",
+            params={
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "ended_after": serialize_datetime(ended_after) if ended_after is not None else None,
+                "ended_before": serialize_datetime(ended_before) if ended_before is not None else None,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "page_size": page_size,
+                "remote_fields": remote_fields,
+                "remote_id": remote_id,
+                "run_type": run_type,
+                "show_enum_origins": show_enum_origins,
+                "started_after": serialize_datetime(started_after) if started_after is not None else None,
+                "started_before": serialize_datetime(started_before) if started_before is not None else None,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedPayrollRunList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedPayrollRunList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -360,17 +361,29 @@ class AsyncPayrollRunsClient:
         """
         Returns a `PayrollRun` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - remote_fields: typing.Optional[PayrollRunsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
+        remote_fields : typing.Optional[PayrollRunsRetrieveRequestRemoteFields]
+            Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[PayrollRunsRetrieveRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+        show_enum_origins : typing.Optional[PayrollRunsRetrieveRequestShowEnumOrigins]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PayrollRun
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -382,36 +395,17 @@ class AsyncPayrollRunsClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/payroll-runs/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "include_remote_data": include_remote_data,
-                        "remote_fields": remote_fields,
-                        "show_enum_origins": show_enum_origins,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"hris/v1/payroll-runs/{jsonable_encoder(id)}",
+            method="GET",
+            params={
+                "include_remote_data": include_remote_data,
+                "remote_fields": remote_fields,
+                "show_enum_origins": show_enum_origins,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PayrollRun, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PayrollRun, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:

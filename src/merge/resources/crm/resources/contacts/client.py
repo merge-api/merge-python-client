@@ -2,14 +2,13 @@
 
 import datetime as dt
 import typing
-import urllib.parse
 from json.decoder import JSONDecodeError
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.pydantic_utilities import pydantic_v1
 from .....core.request_options import RequestOptions
 from ...types.contact import Contact
 from ...types.contact_request import ContactRequest
@@ -21,11 +20,6 @@ from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClass
 from ...types.patched_contact_request import PatchedContactRequest
 from .types.contacts_list_request_expand import ContactsListRequestExpand
 from .types.contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
-
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -57,37 +51,60 @@ class ContactsClient:
         """
         Returns a list of `Contact` objects.
 
-        Parameters:
-            - account_id: typing.Optional[str]. If provided, will only return contacts with this account.
+        Parameters
+        ----------
+        account_id : typing.Optional[str]
+            If provided, will only return contacts with this account.
 
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - email_addresses: typing.Optional[str]. If provided, will only return contacts matching the email addresses; multiple email_addresses can be separated by commas.
+        email_addresses : typing.Optional[str]
+            If provided, will only return contacts matching the email addresses; multiple email_addresses can be separated by commas.
 
-            - expand: typing.Optional[ContactsListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[ContactsListRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - phone_numbers: typing.Optional[str]. If provided, will only return contacts matching the phone numbers; multiple phone numbers can be separated by commas.
+        phone_numbers : typing.Optional[str]
+            If provided, will only return contacts matching the phone numbers; multiple phone numbers can be separated by commas.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedContactList
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -97,47 +114,28 @@ class ContactsClient:
         client.crm.contacts.list()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/contacts"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "account_id": account_id,
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "email_addresses": email_addresses,
-                        "expand": expand,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "page_size": page_size,
-                        "phone_numbers": phone_numbers,
-                        "remote_id": remote_id,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/contacts",
+            method="GET",
+            params={
+                "account_id": account_id,
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "email_addresses": email_addresses,
+                "expand": expand,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "page_size": page_size,
+                "phone_numbers": phone_numbers,
+                "remote_id": remote_id,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedContactList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedContactList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -147,23 +145,34 @@ class ContactsClient:
     def create(
         self,
         *,
+        model: ContactRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: ContactRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CrmContactResponse:
         """
         Creates a `Contact` object with the given values.
 
-        Parameters:
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        Parameters
+        ----------
+        model : ContactRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: ContactRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CrmContactResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
         from merge.resources.crm import ContactRequest
 
@@ -176,41 +185,15 @@ class ContactsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/contacts"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/contacts",
+            method="POST",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(CrmContactResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(CrmContactResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -229,17 +212,29 @@ class ContactsClient:
         """
         Returns a `Contact` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - expand: typing.Optional[ContactsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[ContactsRetrieveRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Contact
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -251,36 +246,17 @@ class ContactsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/contacts/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "expand": expand,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/contacts/{jsonable_encoder(id)}",
+            method="GET",
+            params={
+                "expand": expand,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(Contact, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(Contact, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -291,25 +267,36 @@ class ContactsClient:
         self,
         id: str,
         *,
+        model: PatchedContactRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: PatchedContactRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CrmContactResponse:
         """
         Updates a `Contact` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        model : PatchedContactRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: PatchedContactRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CrmContactResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
         from merge.resources.crm import PatchedContactRequest
 
@@ -323,41 +310,15 @@ class ContactsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/contacts/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/contacts/{jsonable_encoder(id)}",
+            method="PATCH",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(CrmContactResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(CrmContactResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -374,13 +335,21 @@ class ContactsClient:
         """
         Ignores a specific row based on the `model_id` in the url. These records will have their properties set to null, and will not be updated in future syncs. The "reason" and "message" fields in the request body will be stored for audit purposes.
 
-        Parameters:
-            - model_id: str.
+        Parameters
+        ----------
+        model_id : str
 
-            - request: IgnoreCommonModelRequest.
+        request : IgnoreCommonModelRequest
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
         from merge.client import Merge
         from merge.resources.crm import IgnoreCommonModelRequest, ReasonEnum
 
@@ -396,28 +365,11 @@ class ContactsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/contacts/ignore/{model_id}"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            json=jsonable_encoder(request)
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder(request),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/contacts/ignore/{jsonable_encoder(model_id)}",
+            method="POST",
+            json=request,
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
             return
@@ -431,11 +383,20 @@ class ContactsClient:
         """
         Returns metadata for `CRMContact` PATCHs.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -447,25 +408,10 @@ class ContactsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/contacts/meta/patch/{id}"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/contacts/meta/patch/{jsonable_encoder(id)}", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -476,9 +422,18 @@ class ContactsClient:
         """
         Returns metadata for `CRMContact` POSTs.
 
-        Parameters:
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -488,25 +443,10 @@ class ContactsClient:
         client.crm.contacts.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/contacts/meta/post"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/contacts/meta/post", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -526,19 +466,33 @@ class ContactsClient:
         """
         Returns a list of `RemoteFieldClass` objects.
 
-        Parameters:
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        Parameters
+        ----------
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedRemoteFieldClassList
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -548,38 +502,19 @@ class ContactsClient:
         client.crm.contacts.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/contacts/remote-field-classes"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "cursor": cursor,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "page_size": page_size,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/contacts/remote-field-classes",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "page_size": page_size,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -613,37 +548,60 @@ class AsyncContactsClient:
         """
         Returns a list of `Contact` objects.
 
-        Parameters:
-            - account_id: typing.Optional[str]. If provided, will only return contacts with this account.
+        Parameters
+        ----------
+        account_id : typing.Optional[str]
+            If provided, will only return contacts with this account.
 
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - email_addresses: typing.Optional[str]. If provided, will only return contacts matching the email addresses; multiple email_addresses can be separated by commas.
+        email_addresses : typing.Optional[str]
+            If provided, will only return contacts matching the email addresses; multiple email_addresses can be separated by commas.
 
-            - expand: typing.Optional[ContactsListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[ContactsListRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - phone_numbers: typing.Optional[str]. If provided, will only return contacts matching the phone numbers; multiple phone numbers can be separated by commas.
+        phone_numbers : typing.Optional[str]
+            If provided, will only return contacts matching the phone numbers; multiple phone numbers can be separated by commas.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedContactList
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -653,47 +611,28 @@ class AsyncContactsClient:
         await client.crm.contacts.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/contacts"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "account_id": account_id,
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "email_addresses": email_addresses,
-                        "expand": expand,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "page_size": page_size,
-                        "phone_numbers": phone_numbers,
-                        "remote_id": remote_id,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/contacts",
+            method="GET",
+            params={
+                "account_id": account_id,
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "email_addresses": email_addresses,
+                "expand": expand,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "page_size": page_size,
+                "phone_numbers": phone_numbers,
+                "remote_id": remote_id,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedContactList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedContactList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -703,23 +642,34 @@ class AsyncContactsClient:
     async def create(
         self,
         *,
+        model: ContactRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: ContactRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CrmContactResponse:
         """
         Creates a `Contact` object with the given values.
 
-        Parameters:
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        Parameters
+        ----------
+        model : ContactRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: ContactRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CrmContactResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
         from merge.resources.crm import ContactRequest
 
@@ -732,41 +682,15 @@ class AsyncContactsClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/contacts"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/contacts",
+            method="POST",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(CrmContactResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(CrmContactResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -785,17 +709,29 @@ class AsyncContactsClient:
         """
         Returns a `Contact` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - expand: typing.Optional[ContactsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[ContactsRetrieveRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Contact
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -807,36 +743,17 @@ class AsyncContactsClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/contacts/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "expand": expand,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/contacts/{jsonable_encoder(id)}",
+            method="GET",
+            params={
+                "expand": expand,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(Contact, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(Contact, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -847,25 +764,36 @@ class AsyncContactsClient:
         self,
         id: str,
         *,
+        model: PatchedContactRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: PatchedContactRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CrmContactResponse:
         """
         Updates a `Contact` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        model : PatchedContactRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: PatchedContactRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CrmContactResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
         from merge.resources.crm import PatchedContactRequest
 
@@ -879,41 +807,15 @@ class AsyncContactsClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/contacts/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/contacts/{jsonable_encoder(id)}",
+            method="PATCH",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(CrmContactResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(CrmContactResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -930,13 +832,21 @@ class AsyncContactsClient:
         """
         Ignores a specific row based on the `model_id` in the url. These records will have their properties set to null, and will not be updated in future syncs. The "reason" and "message" fields in the request body will be stored for audit purposes.
 
-        Parameters:
-            - model_id: str.
+        Parameters
+        ----------
+        model_id : str
 
-            - request: IgnoreCommonModelRequest.
+        request : IgnoreCommonModelRequest
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
         from merge.client import AsyncMerge
         from merge.resources.crm import IgnoreCommonModelRequest, ReasonEnum
 
@@ -952,28 +862,11 @@ class AsyncContactsClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/contacts/ignore/{model_id}"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            json=jsonable_encoder(request)
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder(request),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/contacts/ignore/{jsonable_encoder(model_id)}",
+            method="POST",
+            json=request,
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
             return
@@ -989,11 +882,20 @@ class AsyncContactsClient:
         """
         Returns metadata for `CRMContact` PATCHs.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -1005,25 +907,10 @@ class AsyncContactsClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/contacts/meta/patch/{id}"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/contacts/meta/patch/{jsonable_encoder(id)}", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -1034,9 +921,18 @@ class AsyncContactsClient:
         """
         Returns metadata for `CRMContact` POSTs.
 
-        Parameters:
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -1046,25 +942,10 @@ class AsyncContactsClient:
         await client.crm.contacts.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/contacts/meta/post"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/contacts/meta/post", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -1084,19 +965,33 @@ class AsyncContactsClient:
         """
         Returns a list of `RemoteFieldClass` objects.
 
-        Parameters:
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        Parameters
+        ----------
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedRemoteFieldClassList
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -1106,38 +1001,19 @@ class AsyncContactsClient:
         await client.crm.contacts.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/contacts/remote-field-classes"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "cursor": cursor,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "page_size": page_size,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/contacts/remote-field-classes",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "page_size": page_size,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:

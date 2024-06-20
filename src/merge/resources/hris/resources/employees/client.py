@@ -2,14 +2,13 @@
 
 import datetime as dt
 import typing
-import urllib.parse
 from json.decoder import JSONDecodeError
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.pydantic_utilities import pydantic_v1
 from .....core.request_options import RequestOptions
 from ...types.employee import Employee
 from ...types.employee_request import EmployeeRequest
@@ -24,11 +23,6 @@ from .types.employees_retrieve_request_expand import EmployeesRetrieveRequestExp
 from .types.employees_retrieve_request_remote_fields import EmployeesRetrieveRequestRemoteFields
 from .types.employees_retrieve_request_show_enum_origins import EmployeesRetrieveRequestShowEnumOrigins
 from .types.ignore_common_model_request_reason import IgnoreCommonModelRequestReason
-
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -78,76 +72,118 @@ class EmployeesClient:
         """
         Returns a list of `Employee` objects.
 
-        Parameters:
-            - company_id: typing.Optional[str]. If provided, will only return employees for this company.
+        Parameters
+        ----------
+        company_id : typing.Optional[str]
+            If provided, will only return employees for this company.
 
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - display_full_name: typing.Optional[str]. If provided, will only return employees with this display name.
+        display_full_name : typing.Optional[str]
+            If provided, will only return employees with this display name.
 
-            - employment_status: typing.Optional[EmployeesListRequestEmploymentStatus]. If provided, will only return employees with this employment status.
+        employment_status : typing.Optional[EmployeesListRequestEmploymentStatus]
+            If provided, will only return employees with this employment status.
 
-                                                                                        - `ACTIVE` - ACTIVE
-                                                                                        - `PENDING` - PENDING
-                                                                                        - `INACTIVE` - INACTIVE
-            - employment_type: typing.Optional[str]. If provided, will only return employees that have an employment of the specified employment_type.
+            - `ACTIVE` - ACTIVE
+            - `PENDING` - PENDING
+            - `INACTIVE` - INACTIVE
 
-            - expand: typing.Optional[EmployeesListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        employment_type : typing.Optional[str]
+            If provided, will only return employees that have an employment of the specified employment_type.
 
-            - first_name: typing.Optional[str]. If provided, will only return employees with this first name.
+        expand : typing.Optional[EmployeesListRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - groups: typing.Optional[str]. If provided, will only return employees matching the group ids; multiple groups can be separated by commas.
+        first_name : typing.Optional[str]
+            If provided, will only return employees with this first name.
 
-            - home_location_id: typing.Optional[str]. If provided, will only return employees for this home location.
+        groups : typing.Optional[str]
+            If provided, will only return employees matching the group ids; multiple groups can be separated by commas.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        home_location_id : typing.Optional[str]
+            If provided, will only return employees for this home location.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_sensitive_fields: typing.Optional[bool]. Whether to include sensitive fields (such as social security numbers) in the response.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - job_title: typing.Optional[str]. If provided, will only return employees that have an employment of the specified job_title.
+        include_sensitive_fields : typing.Optional[bool]
+            Whether to include sensitive fields (such as social security numbers) in the response.
 
-            - last_name: typing.Optional[str]. If provided, will only return employees with this last name.
+        job_title : typing.Optional[str]
+            If provided, will only return employees that have an employment of the specified job_title.
 
-            - manager_id: typing.Optional[str]. If provided, will only return employees for this manager.
+        last_name : typing.Optional[str]
+            If provided, will only return employees with this last name.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        manager_id : typing.Optional[str]
+            If provided, will only return employees for this manager.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - pay_group_id: typing.Optional[str]. If provided, will only return employees for this pay group
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - personal_email: typing.Optional[str]. If provided, will only return Employees with this personal email
+        pay_group_id : typing.Optional[str]
+            If provided, will only return employees for this pay group
 
-            - remote_fields: typing.Optional[EmployeesListRequestRemoteFields]. Deprecated. Use show_enum_origins.
+        personal_email : typing.Optional[str]
+            If provided, will only return Employees with this personal email
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_fields : typing.Optional[EmployeesListRequestRemoteFields]
+            Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[EmployeesListRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - started_after: typing.Optional[dt.datetime]. If provided, will only return employees that started after this datetime.
+        show_enum_origins : typing.Optional[EmployeesListRequestShowEnumOrigins]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-            - started_before: typing.Optional[dt.datetime]. If provided, will only return employees that started before this datetime.
+        started_after : typing.Optional[dt.datetime]
+            If provided, will only return employees that started after this datetime.
 
-            - team_id: typing.Optional[str]. If provided, will only return employees for this team.
+        started_before : typing.Optional[dt.datetime]
+            If provided, will only return employees that started before this datetime.
 
-            - terminated_after: typing.Optional[dt.datetime]. If provided, will only return employees that were terminated after this datetime.
+        team_id : typing.Optional[str]
+            If provided, will only return employees for this team.
 
-            - terminated_before: typing.Optional[dt.datetime]. If provided, will only return employees that were terminated before this datetime.
+        terminated_after : typing.Optional[dt.datetime]
+            If provided, will only return employees that were terminated after this datetime.
 
-            - work_email: typing.Optional[str]. If provided, will only return Employees with this work email
+        terminated_before : typing.Optional[dt.datetime]
+            If provided, will only return employees that were terminated before this datetime.
 
-            - work_location_id: typing.Optional[str]. If provided, will only return employees for this location.
+        work_email : typing.Optional[str]
+            If provided, will only return Employees with this work email
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        work_location_id : typing.Optional[str]
+            If provided, will only return employees for this location.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedEmployeeList
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -157,69 +193,46 @@ class EmployeesClient:
         client.hris.employees.list()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/employees"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "company_id": company_id,
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "display_full_name": display_full_name,
-                        "employment_status": employment_status,
-                        "employment_type": employment_type,
-                        "expand": expand,
-                        "first_name": first_name,
-                        "groups": groups,
-                        "home_location_id": home_location_id,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "include_sensitive_fields": include_sensitive_fields,
-                        "job_title": job_title,
-                        "last_name": last_name,
-                        "manager_id": manager_id,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "page_size": page_size,
-                        "pay_group_id": pay_group_id,
-                        "personal_email": personal_email,
-                        "remote_fields": remote_fields,
-                        "remote_id": remote_id,
-                        "show_enum_origins": show_enum_origins,
-                        "started_after": serialize_datetime(started_after) if started_after is not None else None,
-                        "started_before": serialize_datetime(started_before) if started_before is not None else None,
-                        "team_id": team_id,
-                        "terminated_after": serialize_datetime(terminated_after)
-                        if terminated_after is not None
-                        else None,
-                        "terminated_before": serialize_datetime(terminated_before)
-                        if terminated_before is not None
-                        else None,
-                        "work_email": work_email,
-                        "work_location_id": work_location_id,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "hris/v1/employees",
+            method="GET",
+            params={
+                "company_id": company_id,
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "display_full_name": display_full_name,
+                "employment_status": employment_status,
+                "employment_type": employment_type,
+                "expand": expand,
+                "first_name": first_name,
+                "groups": groups,
+                "home_location_id": home_location_id,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_sensitive_fields": include_sensitive_fields,
+                "job_title": job_title,
+                "last_name": last_name,
+                "manager_id": manager_id,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "page_size": page_size,
+                "pay_group_id": pay_group_id,
+                "personal_email": personal_email,
+                "remote_fields": remote_fields,
+                "remote_id": remote_id,
+                "show_enum_origins": show_enum_origins,
+                "started_after": serialize_datetime(started_after) if started_after is not None else None,
+                "started_before": serialize_datetime(started_before) if started_before is not None else None,
+                "team_id": team_id,
+                "terminated_after": serialize_datetime(terminated_after) if terminated_after is not None else None,
+                "terminated_before": serialize_datetime(terminated_before) if terminated_before is not None else None,
+                "work_email": work_email,
+                "work_location_id": work_location_id,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedEmployeeList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedEmployeeList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -229,23 +242,34 @@ class EmployeesClient:
     def create(
         self,
         *,
+        model: EmployeeRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: EmployeeRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EmployeeResponse:
         """
         Creates an `Employee` object with the given values.
 
-        Parameters:
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        Parameters
+        ----------
+        model : EmployeeRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: EmployeeRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        EmployeeResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
         from merge.resources.hris import EmployeeRequest
 
@@ -258,41 +282,15 @@ class EmployeesClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/employees"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "hris/v1/employees",
+            method="POST",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(EmployeeResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(EmployeeResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -313,21 +311,35 @@ class EmployeesClient:
         """
         Returns an `Employee` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - expand: typing.Optional[EmployeesRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[EmployeesRetrieveRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_sensitive_fields: typing.Optional[bool]. Whether to include sensitive fields (such as social security numbers) in the response.
+        include_sensitive_fields : typing.Optional[bool]
+            Whether to include sensitive fields (such as social security numbers) in the response.
 
-            - remote_fields: typing.Optional[EmployeesRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
+        remote_fields : typing.Optional[EmployeesRetrieveRequestRemoteFields]
+            Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[EmployeesRetrieveRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+        show_enum_origins : typing.Optional[EmployeesRetrieveRequestShowEnumOrigins]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Employee
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -339,38 +351,19 @@ class EmployeesClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/employees/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "expand": expand,
-                        "include_remote_data": include_remote_data,
-                        "include_sensitive_fields": include_sensitive_fields,
-                        "remote_fields": remote_fields,
-                        "show_enum_origins": show_enum_origins,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"hris/v1/employees/{jsonable_encoder(id)}",
+            method="GET",
+            params={
+                "expand": expand,
+                "include_remote_data": include_remote_data,
+                "include_sensitive_fields": include_sensitive_fields,
+                "remote_fields": remote_fields,
+                "show_enum_origins": show_enum_origins,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(Employee, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(Employee, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -388,16 +381,25 @@ class EmployeesClient:
         """
         Ignores a specific row based on the `model_id` in the url. These records will have their properties set to null, and will not be updated in future syncs. The "reason" and "message" fields in the request body will be stored for audit purposes.
 
-        Parameters:
-            - model_id: str.
+        Parameters
+        ----------
+        model_id : str
 
-            - reason: IgnoreCommonModelRequestReason.
+        reason : IgnoreCommonModelRequestReason
 
-            - message: typing.Optional[str].
+        message : typing.Optional[str]
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
         from merge.client import Merge
+        from merge.resources.hris import ReasonEnum
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -405,34 +407,15 @@ class EmployeesClient:
         )
         client.hris.employees.ignore_create(
             model_id="model_id",
+            reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
         )
         """
-        _request: typing.Dict[str, typing.Any] = {"reason": reason}
-        if message is not OMIT:
-            _request["message"] = message
         _response = self._client_wrapper.httpx_client.request(
-            "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/employees/ignore/{model_id}"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            json=jsonable_encoder(_request)
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder(_request),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"hris/v1/employees/ignore/{jsonable_encoder(model_id)}",
+            method="POST",
+            json={"reason": reason, "message": message},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
             return
@@ -446,9 +429,18 @@ class EmployeesClient:
         """
         Returns metadata for `Employee` POSTs.
 
-        Parameters:
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -458,25 +450,10 @@ class EmployeesClient:
         client.hris.employees.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/employees/meta/post"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "hris/v1/employees/meta/post", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -528,76 +505,118 @@ class AsyncEmployeesClient:
         """
         Returns a list of `Employee` objects.
 
-        Parameters:
-            - company_id: typing.Optional[str]. If provided, will only return employees for this company.
+        Parameters
+        ----------
+        company_id : typing.Optional[str]
+            If provided, will only return employees for this company.
 
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - display_full_name: typing.Optional[str]. If provided, will only return employees with this display name.
+        display_full_name : typing.Optional[str]
+            If provided, will only return employees with this display name.
 
-            - employment_status: typing.Optional[EmployeesListRequestEmploymentStatus]. If provided, will only return employees with this employment status.
+        employment_status : typing.Optional[EmployeesListRequestEmploymentStatus]
+            If provided, will only return employees with this employment status.
 
-                                                                                        - `ACTIVE` - ACTIVE
-                                                                                        - `PENDING` - PENDING
-                                                                                        - `INACTIVE` - INACTIVE
-            - employment_type: typing.Optional[str]. If provided, will only return employees that have an employment of the specified employment_type.
+            - `ACTIVE` - ACTIVE
+            - `PENDING` - PENDING
+            - `INACTIVE` - INACTIVE
 
-            - expand: typing.Optional[EmployeesListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        employment_type : typing.Optional[str]
+            If provided, will only return employees that have an employment of the specified employment_type.
 
-            - first_name: typing.Optional[str]. If provided, will only return employees with this first name.
+        expand : typing.Optional[EmployeesListRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - groups: typing.Optional[str]. If provided, will only return employees matching the group ids; multiple groups can be separated by commas.
+        first_name : typing.Optional[str]
+            If provided, will only return employees with this first name.
 
-            - home_location_id: typing.Optional[str]. If provided, will only return employees for this home location.
+        groups : typing.Optional[str]
+            If provided, will only return employees matching the group ids; multiple groups can be separated by commas.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        home_location_id : typing.Optional[str]
+            If provided, will only return employees for this home location.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_sensitive_fields: typing.Optional[bool]. Whether to include sensitive fields (such as social security numbers) in the response.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - job_title: typing.Optional[str]. If provided, will only return employees that have an employment of the specified job_title.
+        include_sensitive_fields : typing.Optional[bool]
+            Whether to include sensitive fields (such as social security numbers) in the response.
 
-            - last_name: typing.Optional[str]. If provided, will only return employees with this last name.
+        job_title : typing.Optional[str]
+            If provided, will only return employees that have an employment of the specified job_title.
 
-            - manager_id: typing.Optional[str]. If provided, will only return employees for this manager.
+        last_name : typing.Optional[str]
+            If provided, will only return employees with this last name.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        manager_id : typing.Optional[str]
+            If provided, will only return employees for this manager.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - pay_group_id: typing.Optional[str]. If provided, will only return employees for this pay group
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - personal_email: typing.Optional[str]. If provided, will only return Employees with this personal email
+        pay_group_id : typing.Optional[str]
+            If provided, will only return employees for this pay group
 
-            - remote_fields: typing.Optional[EmployeesListRequestRemoteFields]. Deprecated. Use show_enum_origins.
+        personal_email : typing.Optional[str]
+            If provided, will only return Employees with this personal email
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_fields : typing.Optional[EmployeesListRequestRemoteFields]
+            Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[EmployeesListRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - started_after: typing.Optional[dt.datetime]. If provided, will only return employees that started after this datetime.
+        show_enum_origins : typing.Optional[EmployeesListRequestShowEnumOrigins]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-            - started_before: typing.Optional[dt.datetime]. If provided, will only return employees that started before this datetime.
+        started_after : typing.Optional[dt.datetime]
+            If provided, will only return employees that started after this datetime.
 
-            - team_id: typing.Optional[str]. If provided, will only return employees for this team.
+        started_before : typing.Optional[dt.datetime]
+            If provided, will only return employees that started before this datetime.
 
-            - terminated_after: typing.Optional[dt.datetime]. If provided, will only return employees that were terminated after this datetime.
+        team_id : typing.Optional[str]
+            If provided, will only return employees for this team.
 
-            - terminated_before: typing.Optional[dt.datetime]. If provided, will only return employees that were terminated before this datetime.
+        terminated_after : typing.Optional[dt.datetime]
+            If provided, will only return employees that were terminated after this datetime.
 
-            - work_email: typing.Optional[str]. If provided, will only return Employees with this work email
+        terminated_before : typing.Optional[dt.datetime]
+            If provided, will only return employees that were terminated before this datetime.
 
-            - work_location_id: typing.Optional[str]. If provided, will only return employees for this location.
+        work_email : typing.Optional[str]
+            If provided, will only return Employees with this work email
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        work_location_id : typing.Optional[str]
+            If provided, will only return employees for this location.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedEmployeeList
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -607,69 +626,46 @@ class AsyncEmployeesClient:
         await client.hris.employees.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/employees"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "company_id": company_id,
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "display_full_name": display_full_name,
-                        "employment_status": employment_status,
-                        "employment_type": employment_type,
-                        "expand": expand,
-                        "first_name": first_name,
-                        "groups": groups,
-                        "home_location_id": home_location_id,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "include_sensitive_fields": include_sensitive_fields,
-                        "job_title": job_title,
-                        "last_name": last_name,
-                        "manager_id": manager_id,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "page_size": page_size,
-                        "pay_group_id": pay_group_id,
-                        "personal_email": personal_email,
-                        "remote_fields": remote_fields,
-                        "remote_id": remote_id,
-                        "show_enum_origins": show_enum_origins,
-                        "started_after": serialize_datetime(started_after) if started_after is not None else None,
-                        "started_before": serialize_datetime(started_before) if started_before is not None else None,
-                        "team_id": team_id,
-                        "terminated_after": serialize_datetime(terminated_after)
-                        if terminated_after is not None
-                        else None,
-                        "terminated_before": serialize_datetime(terminated_before)
-                        if terminated_before is not None
-                        else None,
-                        "work_email": work_email,
-                        "work_location_id": work_location_id,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "hris/v1/employees",
+            method="GET",
+            params={
+                "company_id": company_id,
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "display_full_name": display_full_name,
+                "employment_status": employment_status,
+                "employment_type": employment_type,
+                "expand": expand,
+                "first_name": first_name,
+                "groups": groups,
+                "home_location_id": home_location_id,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_sensitive_fields": include_sensitive_fields,
+                "job_title": job_title,
+                "last_name": last_name,
+                "manager_id": manager_id,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "page_size": page_size,
+                "pay_group_id": pay_group_id,
+                "personal_email": personal_email,
+                "remote_fields": remote_fields,
+                "remote_id": remote_id,
+                "show_enum_origins": show_enum_origins,
+                "started_after": serialize_datetime(started_after) if started_after is not None else None,
+                "started_before": serialize_datetime(started_before) if started_before is not None else None,
+                "team_id": team_id,
+                "terminated_after": serialize_datetime(terminated_after) if terminated_after is not None else None,
+                "terminated_before": serialize_datetime(terminated_before) if terminated_before is not None else None,
+                "work_email": work_email,
+                "work_location_id": work_location_id,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedEmployeeList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedEmployeeList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -679,23 +675,34 @@ class AsyncEmployeesClient:
     async def create(
         self,
         *,
+        model: EmployeeRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: EmployeeRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EmployeeResponse:
         """
         Creates an `Employee` object with the given values.
 
-        Parameters:
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        Parameters
+        ----------
+        model : EmployeeRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: EmployeeRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        EmployeeResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
         from merge.resources.hris import EmployeeRequest
 
@@ -708,41 +715,15 @@ class AsyncEmployeesClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/employees"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "hris/v1/employees",
+            method="POST",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(EmployeeResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(EmployeeResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -763,21 +744,35 @@ class AsyncEmployeesClient:
         """
         Returns an `Employee` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - expand: typing.Optional[EmployeesRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[EmployeesRetrieveRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_sensitive_fields: typing.Optional[bool]. Whether to include sensitive fields (such as social security numbers) in the response.
+        include_sensitive_fields : typing.Optional[bool]
+            Whether to include sensitive fields (such as social security numbers) in the response.
 
-            - remote_fields: typing.Optional[EmployeesRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
+        remote_fields : typing.Optional[EmployeesRetrieveRequestRemoteFields]
+            Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[EmployeesRetrieveRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+        show_enum_origins : typing.Optional[EmployeesRetrieveRequestShowEnumOrigins]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Employee
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -789,38 +784,19 @@ class AsyncEmployeesClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/employees/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "expand": expand,
-                        "include_remote_data": include_remote_data,
-                        "include_sensitive_fields": include_sensitive_fields,
-                        "remote_fields": remote_fields,
-                        "show_enum_origins": show_enum_origins,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"hris/v1/employees/{jsonable_encoder(id)}",
+            method="GET",
+            params={
+                "expand": expand,
+                "include_remote_data": include_remote_data,
+                "include_sensitive_fields": include_sensitive_fields,
+                "remote_fields": remote_fields,
+                "show_enum_origins": show_enum_origins,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(Employee, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(Employee, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -838,16 +814,25 @@ class AsyncEmployeesClient:
         """
         Ignores a specific row based on the `model_id` in the url. These records will have their properties set to null, and will not be updated in future syncs. The "reason" and "message" fields in the request body will be stored for audit purposes.
 
-        Parameters:
-            - model_id: str.
+        Parameters
+        ----------
+        model_id : str
 
-            - reason: IgnoreCommonModelRequestReason.
+        reason : IgnoreCommonModelRequestReason
 
-            - message: typing.Optional[str].
+        message : typing.Optional[str]
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
         from merge.client import AsyncMerge
+        from merge.resources.hris import ReasonEnum
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -855,34 +840,15 @@ class AsyncEmployeesClient:
         )
         await client.hris.employees.ignore_create(
             model_id="model_id",
+            reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
         )
         """
-        _request: typing.Dict[str, typing.Any] = {"reason": reason}
-        if message is not OMIT:
-            _request["message"] = message
         _response = await self._client_wrapper.httpx_client.request(
-            "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/employees/ignore/{model_id}"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            json=jsonable_encoder(_request)
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder(_request),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"hris/v1/employees/ignore/{jsonable_encoder(model_id)}",
+            method="POST",
+            json={"reason": reason, "message": message},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
             return
@@ -896,9 +862,18 @@ class AsyncEmployeesClient:
         """
         Returns metadata for `Employee` POSTs.
 
-        Parameters:
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -908,25 +883,10 @@ class AsyncEmployeesClient:
         await client.hris.employees.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/employees/meta/post"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "hris/v1/employees/meta/post", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:

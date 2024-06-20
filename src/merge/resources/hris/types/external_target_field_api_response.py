@@ -4,44 +4,46 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .external_target_field_api import ExternalTargetFieldApi
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class ExternalTargetFieldApiResponse(pydantic.BaseModel):
-    benefit: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Benefit")
-    employer_benefit: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="EmployerBenefit")
-    company: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Company")
-    employee_payroll_run: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(
+class ExternalTargetFieldApiResponse(pydantic_v1.BaseModel):
+    benefit: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic_v1.Field(alias="Benefit")
+    employer_benefit: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic_v1.Field(alias="EmployerBenefit")
+    company: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic_v1.Field(alias="Company")
+    employee_payroll_run: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic_v1.Field(
         alias="EmployeePayrollRun"
     )
-    employee: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Employee")
-    employment: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Employment")
-    location: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Location")
-    payroll_run: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="PayrollRun")
-    team: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Team")
-    time_off: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="TimeOff")
-    time_off_balance: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="TimeOffBalance")
-    bank_info: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="BankInfo")
-    pay_group: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="PayGroup")
-    group: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Group")
-    dependent: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Dependent")
-    timesheet_entry: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="TimesheetEntry")
+    employee: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic_v1.Field(alias="Employee")
+    employment: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic_v1.Field(alias="Employment")
+    location: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic_v1.Field(alias="Location")
+    payroll_run: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic_v1.Field(alias="PayrollRun")
+    team: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic_v1.Field(alias="Team")
+    time_off: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic_v1.Field(alias="TimeOff")
+    time_off_balance: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic_v1.Field(alias="TimeOffBalance")
+    bank_info: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic_v1.Field(alias="BankInfo")
+    pay_group: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic_v1.Field(alias="PayGroup")
+    group: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic_v1.Field(alias="Group")
+    dependent: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic_v1.Field(alias="Dependent")
+    timesheet_entry: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic_v1.Field(alias="TimesheetEntry")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
         allow_population_by_field_name = True
+        populate_by_name = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

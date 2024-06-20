@@ -4,15 +4,11 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .attachment_request_attachment_type import AttachmentRequestAttachmentType
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class AttachmentRequest(pydantic.BaseModel):
+class AttachmentRequest(pydantic_v1.BaseModel):
     """
     # The Attachment Object
 
@@ -25,19 +21,31 @@ class AttachmentRequest(pydantic.BaseModel):
     Fetch from the `LIST Attachments` endpoint and view attachments accessible by a company.
     """
 
-    file_name: typing.Optional[str] = pydantic.Field(description="The attachment's name.")
-    file_url: typing.Optional[str] = pydantic.Field(description="The attachment's url.")
-    candidate: typing.Optional[str] = pydantic.Field(description="")
-    attachment_type: typing.Optional[AttachmentRequestAttachmentType] = pydantic.Field(
-        description=(
-            "The attachment's type.\n"
-            "\n"
-            "- `RESUME` - RESUME\n"
-            "- `COVER_LETTER` - COVER_LETTER\n"
-            "- `OFFER_LETTER` - OFFER_LETTER\n"
-            "- `OTHER` - OTHER\n"
-        )
-    )
+    file_name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The attachment's name.
+    """
+
+    file_url: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The attachment's url.
+    """
+
+    candidate: typing.Optional[str] = pydantic_v1.Field()
+    """
+    
+    """
+
+    attachment_type: typing.Optional[AttachmentRequestAttachmentType] = pydantic_v1.Field()
+    """
+    The attachment's type.
+    
+    - `RESUME` - RESUME
+    - `COVER_LETTER` - COVER_LETTER
+    - `OFFER_LETTER` - OFFER_LETTER
+    - `OTHER` - OTHER
+    """
+
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -46,10 +54,15 @@ class AttachmentRequest(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

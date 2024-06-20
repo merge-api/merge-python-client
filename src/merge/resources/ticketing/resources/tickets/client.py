@@ -2,14 +2,13 @@
 
 import datetime as dt
 import typing
-import urllib.parse
 from json.decoder import JSONDecodeError
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.pydantic_utilities import pydantic_v1
 from .....core.request_options import RequestOptions
 from ...types.meta_response import MetaResponse
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
@@ -28,11 +27,6 @@ from .types.tickets_list_request_status import TicketsListRequestStatus
 from .types.tickets_retrieve_request_expand import TicketsRetrieveRequestExpand
 from .types.tickets_retrieve_request_remote_fields import TicketsRetrieveRequestRemoteFields
 from .types.tickets_retrieve_request_show_enum_origins import TicketsRetrieveRequestShowEnumOrigins
-
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -80,77 +74,118 @@ class TicketsClient:
         """
         Returns a list of `Ticket` objects.
 
-        Parameters:
-            - account_id: typing.Optional[str]. If provided, will only return tickets for this account.
+        Parameters
+        ----------
+        account_id : typing.Optional[str]
+            If provided, will only return tickets for this account.
 
-            - assignee_ids: typing.Optional[str]. If provided, will only return tickets assigned to the assignee_ids; multiple assignee_ids can be separated by commas.
+        assignee_ids : typing.Optional[str]
+            If provided, will only return tickets assigned to the assignee_ids; multiple assignee_ids can be separated by commas.
 
-            - collection_ids: typing.Optional[str]. If provided, will only return tickets assigned to the collection_ids; multiple collection_ids can be separated by commas.
+        collection_ids : typing.Optional[str]
+            If provided, will only return tickets assigned to the collection_ids; multiple collection_ids can be separated by commas.
 
-            - completed_after: typing.Optional[dt.datetime]. If provided, will only return tickets completed after this datetime.
+        completed_after : typing.Optional[dt.datetime]
+            If provided, will only return tickets completed after this datetime.
 
-            - completed_before: typing.Optional[dt.datetime]. If provided, will only return tickets completed before this datetime.
+        completed_before : typing.Optional[dt.datetime]
+            If provided, will only return tickets completed before this datetime.
 
-            - contact_id: typing.Optional[str]. If provided, will only return tickets for this contact.
+        contact_id : typing.Optional[str]
+            If provided, will only return tickets for this contact.
 
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - due_after: typing.Optional[dt.datetime]. If provided, will only return tickets due after this datetime.
+        due_after : typing.Optional[dt.datetime]
+            If provided, will only return tickets due after this datetime.
 
-            - due_before: typing.Optional[dt.datetime]. If provided, will only return tickets due before this datetime.
+        due_before : typing.Optional[dt.datetime]
+            If provided, will only return tickets due before this datetime.
 
-            - expand: typing.Optional[TicketsListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[TicketsListRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - parent_ticket_id: typing.Optional[str]. If provided, will only return sub tickets of the parent_ticket_id.
+        parent_ticket_id : typing.Optional[str]
+            If provided, will only return sub tickets of the parent_ticket_id.
 
-            - priority: typing.Optional[TicketsListRequestPriority]. If provided, will only return tickets of this priority.
+        priority : typing.Optional[TicketsListRequestPriority]
+            If provided, will only return tickets of this priority.
 
-                                                                     - `URGENT` - URGENT
-                                                                     - `HIGH` - HIGH
-                                                                     - `NORMAL` - NORMAL
-                                                                     - `LOW` - LOW
-            - remote_created_after: typing.Optional[dt.datetime]. If provided, will only return tickets created in the third party platform after this datetime.
+            - `URGENT` - URGENT
+            - `HIGH` - HIGH
+            - `NORMAL` - NORMAL
+            - `LOW` - LOW
 
-            - remote_created_before: typing.Optional[dt.datetime]. If provided, will only return tickets created in the third party platform before this datetime.
+        remote_created_after : typing.Optional[dt.datetime]
+            If provided, will only return tickets created in the third party platform after this datetime.
 
-            - remote_fields: typing.Optional[TicketsListRequestRemoteFields]. Deprecated. Use show_enum_origins.
+        remote_created_before : typing.Optional[dt.datetime]
+            If provided, will only return tickets created in the third party platform before this datetime.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_fields : typing.Optional[TicketsListRequestRemoteFields]
+            Deprecated. Use show_enum_origins.
 
-            - remote_updated_after: typing.Optional[dt.datetime]. If provided, will only return tickets updated in the third party platform after this datetime.
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - remote_updated_before: typing.Optional[dt.datetime]. If provided, will only return tickets updated in the third party platform before this datetime.
+        remote_updated_after : typing.Optional[dt.datetime]
+            If provided, will only return tickets updated in the third party platform after this datetime.
 
-            - show_enum_origins: typing.Optional[TicketsListRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+        remote_updated_before : typing.Optional[dt.datetime]
+            If provided, will only return tickets updated in the third party platform before this datetime.
 
-            - status: typing.Optional[TicketsListRequestStatus]. If provided, will only return tickets of this status.
+        show_enum_origins : typing.Optional[TicketsListRequestShowEnumOrigins]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-                                                                 - `OPEN` - OPEN
-                                                                 - `CLOSED` - CLOSED
-                                                                 - `IN_PROGRESS` - IN_PROGRESS
-                                                                 - `ON_HOLD` - ON_HOLD
-            - tags: typing.Optional[str]. If provided, will only return tickets matching the tags; multiple tags can be separated by commas.
+        status : typing.Optional[TicketsListRequestStatus]
+            If provided, will only return tickets of this status.
 
-            - ticket_type: typing.Optional[str]. If provided, will only return tickets of this type.
+            - `OPEN` - OPEN
+            - `CLOSED` - CLOSED
+            - `IN_PROGRESS` - IN_PROGRESS
+            - `ON_HOLD` - ON_HOLD
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        tags : typing.Optional[str]
+            If provided, will only return tickets matching the tags; multiple tags can be separated by commas.
+
+        ticket_type : typing.Optional[str]
+            If provided, will only return tickets of this type.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedTicketList
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -160,73 +195,52 @@ class TicketsClient:
         client.ticketing.tickets.list()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/tickets"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "account_id": account_id,
-                        "assignee_ids": assignee_ids,
-                        "collection_ids": collection_ids,
-                        "completed_after": serialize_datetime(completed_after) if completed_after is not None else None,
-                        "completed_before": serialize_datetime(completed_before)
-                        if completed_before is not None
-                        else None,
-                        "contact_id": contact_id,
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "due_after": serialize_datetime(due_after) if due_after is not None else None,
-                        "due_before": serialize_datetime(due_before) if due_before is not None else None,
-                        "expand": expand,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "page_size": page_size,
-                        "parent_ticket_id": parent_ticket_id,
-                        "priority": priority,
-                        "remote_created_after": serialize_datetime(remote_created_after)
-                        if remote_created_after is not None
-                        else None,
-                        "remote_created_before": serialize_datetime(remote_created_before)
-                        if remote_created_before is not None
-                        else None,
-                        "remote_fields": remote_fields,
-                        "remote_id": remote_id,
-                        "remote_updated_after": serialize_datetime(remote_updated_after)
-                        if remote_updated_after is not None
-                        else None,
-                        "remote_updated_before": serialize_datetime(remote_updated_before)
-                        if remote_updated_before is not None
-                        else None,
-                        "show_enum_origins": show_enum_origins,
-                        "status": status,
-                        "tags": tags,
-                        "ticket_type": ticket_type,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "ticketing/v1/tickets",
+            method="GET",
+            params={
+                "account_id": account_id,
+                "assignee_ids": assignee_ids,
+                "collection_ids": collection_ids,
+                "completed_after": serialize_datetime(completed_after) if completed_after is not None else None,
+                "completed_before": serialize_datetime(completed_before) if completed_before is not None else None,
+                "contact_id": contact_id,
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "due_after": serialize_datetime(due_after) if due_after is not None else None,
+                "due_before": serialize_datetime(due_before) if due_before is not None else None,
+                "expand": expand,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "page_size": page_size,
+                "parent_ticket_id": parent_ticket_id,
+                "priority": priority,
+                "remote_created_after": serialize_datetime(remote_created_after)
+                if remote_created_after is not None
+                else None,
+                "remote_created_before": serialize_datetime(remote_created_before)
+                if remote_created_before is not None
+                else None,
+                "remote_fields": remote_fields,
+                "remote_id": remote_id,
+                "remote_updated_after": serialize_datetime(remote_updated_after)
+                if remote_updated_after is not None
+                else None,
+                "remote_updated_before": serialize_datetime(remote_updated_before)
+                if remote_updated_before is not None
+                else None,
+                "show_enum_origins": show_enum_origins,
+                "status": status,
+                "tags": tags,
+                "ticket_type": ticket_type,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedTicketList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedTicketList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -236,23 +250,34 @@ class TicketsClient:
     def create(
         self,
         *,
+        model: TicketRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: TicketRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TicketResponse:
         """
         Creates a `Ticket` object with the given values.
 
-        Parameters:
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        Parameters
+        ----------
+        model : TicketRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: TicketRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TicketResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
         from merge.resources.ticketing import TicketRequest
 
@@ -265,41 +290,15 @@ class TicketsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/tickets"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "ticketing/v1/tickets",
+            method="POST",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(TicketResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(TicketResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -320,21 +319,35 @@ class TicketsClient:
         """
         Returns a `Ticket` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - expand: typing.Optional[TicketsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[TicketsRetrieveRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - remote_fields: typing.Optional[TicketsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
+        remote_fields : typing.Optional[TicketsRetrieveRequestRemoteFields]
+            Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[TicketsRetrieveRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+        show_enum_origins : typing.Optional[TicketsRetrieveRequestShowEnumOrigins]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Ticket
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -346,38 +359,19 @@ class TicketsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/tickets/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "expand": expand,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "remote_fields": remote_fields,
-                        "show_enum_origins": show_enum_origins,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"ticketing/v1/tickets/{jsonable_encoder(id)}",
+            method="GET",
+            params={
+                "expand": expand,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "remote_fields": remote_fields,
+                "show_enum_origins": show_enum_origins,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(Ticket, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(Ticket, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -388,25 +382,36 @@ class TicketsClient:
         self,
         id: str,
         *,
+        model: PatchedTicketRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: PatchedTicketRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TicketResponse:
         """
         Updates a `Ticket` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        model : PatchedTicketRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: PatchedTicketRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TicketResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
         from merge.resources.ticketing import PatchedTicketRequest
 
@@ -420,41 +425,15 @@ class TicketsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/tickets/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"ticketing/v1/tickets/{jsonable_encoder(id)}",
+            method="PATCH",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(TicketResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(TicketResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -475,21 +454,35 @@ class TicketsClient:
         """
         Returns a list of `User` objects.
 
-        Parameters:
-            - parent_id: str.
+        Parameters
+        ----------
+        parent_id : str
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - expand: typing.Optional[TicketsCollaboratorsListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[TicketsCollaboratorsListRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedUserList
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -501,40 +494,19 @@ class TicketsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/tickets/{parent_id}/collaborators"
-            ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "cursor": cursor,
-                        "expand": expand,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "page_size": page_size,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"ticketing/v1/tickets/{jsonable_encoder(parent_id)}/collaborators",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "expand": expand,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "page_size": page_size,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedUserList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedUserList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -545,11 +517,20 @@ class TicketsClient:
         """
         Returns metadata for `Ticket` PATCHs.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -561,25 +542,10 @@ class TicketsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/tickets/meta/patch/{id}"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"ticketing/v1/tickets/meta/patch/{jsonable_encoder(id)}", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -590,9 +556,18 @@ class TicketsClient:
         """
         Returns metadata for `Ticket` POSTs.
 
-        Parameters:
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -602,25 +577,10 @@ class TicketsClient:
         client.ticketing.tickets.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/tickets/meta/post"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "ticketing/v1/tickets/meta/post", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -639,17 +599,30 @@ class TicketsClient:
         """
         Returns a list of `RemoteFieldClass` objects.
 
-        Parameters:
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        Parameters
+        ----------
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedRemoteFieldClassList
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -659,39 +632,18 @@ class TicketsClient:
         client.ticketing.tickets.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/tickets/remote-field-classes"
-            ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "cursor": cursor,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "page_size": page_size,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "ticketing/v1/tickets/remote-field-classes",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "page_size": page_size,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -741,77 +693,118 @@ class AsyncTicketsClient:
         """
         Returns a list of `Ticket` objects.
 
-        Parameters:
-            - account_id: typing.Optional[str]. If provided, will only return tickets for this account.
+        Parameters
+        ----------
+        account_id : typing.Optional[str]
+            If provided, will only return tickets for this account.
 
-            - assignee_ids: typing.Optional[str]. If provided, will only return tickets assigned to the assignee_ids; multiple assignee_ids can be separated by commas.
+        assignee_ids : typing.Optional[str]
+            If provided, will only return tickets assigned to the assignee_ids; multiple assignee_ids can be separated by commas.
 
-            - collection_ids: typing.Optional[str]. If provided, will only return tickets assigned to the collection_ids; multiple collection_ids can be separated by commas.
+        collection_ids : typing.Optional[str]
+            If provided, will only return tickets assigned to the collection_ids; multiple collection_ids can be separated by commas.
 
-            - completed_after: typing.Optional[dt.datetime]. If provided, will only return tickets completed after this datetime.
+        completed_after : typing.Optional[dt.datetime]
+            If provided, will only return tickets completed after this datetime.
 
-            - completed_before: typing.Optional[dt.datetime]. If provided, will only return tickets completed before this datetime.
+        completed_before : typing.Optional[dt.datetime]
+            If provided, will only return tickets completed before this datetime.
 
-            - contact_id: typing.Optional[str]. If provided, will only return tickets for this contact.
+        contact_id : typing.Optional[str]
+            If provided, will only return tickets for this contact.
 
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - due_after: typing.Optional[dt.datetime]. If provided, will only return tickets due after this datetime.
+        due_after : typing.Optional[dt.datetime]
+            If provided, will only return tickets due after this datetime.
 
-            - due_before: typing.Optional[dt.datetime]. If provided, will only return tickets due before this datetime.
+        due_before : typing.Optional[dt.datetime]
+            If provided, will only return tickets due before this datetime.
 
-            - expand: typing.Optional[TicketsListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[TicketsListRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - parent_ticket_id: typing.Optional[str]. If provided, will only return sub tickets of the parent_ticket_id.
+        parent_ticket_id : typing.Optional[str]
+            If provided, will only return sub tickets of the parent_ticket_id.
 
-            - priority: typing.Optional[TicketsListRequestPriority]. If provided, will only return tickets of this priority.
+        priority : typing.Optional[TicketsListRequestPriority]
+            If provided, will only return tickets of this priority.
 
-                                                                     - `URGENT` - URGENT
-                                                                     - `HIGH` - HIGH
-                                                                     - `NORMAL` - NORMAL
-                                                                     - `LOW` - LOW
-            - remote_created_after: typing.Optional[dt.datetime]. If provided, will only return tickets created in the third party platform after this datetime.
+            - `URGENT` - URGENT
+            - `HIGH` - HIGH
+            - `NORMAL` - NORMAL
+            - `LOW` - LOW
 
-            - remote_created_before: typing.Optional[dt.datetime]. If provided, will only return tickets created in the third party platform before this datetime.
+        remote_created_after : typing.Optional[dt.datetime]
+            If provided, will only return tickets created in the third party platform after this datetime.
 
-            - remote_fields: typing.Optional[TicketsListRequestRemoteFields]. Deprecated. Use show_enum_origins.
+        remote_created_before : typing.Optional[dt.datetime]
+            If provided, will only return tickets created in the third party platform before this datetime.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_fields : typing.Optional[TicketsListRequestRemoteFields]
+            Deprecated. Use show_enum_origins.
 
-            - remote_updated_after: typing.Optional[dt.datetime]. If provided, will only return tickets updated in the third party platform after this datetime.
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - remote_updated_before: typing.Optional[dt.datetime]. If provided, will only return tickets updated in the third party platform before this datetime.
+        remote_updated_after : typing.Optional[dt.datetime]
+            If provided, will only return tickets updated in the third party platform after this datetime.
 
-            - show_enum_origins: typing.Optional[TicketsListRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+        remote_updated_before : typing.Optional[dt.datetime]
+            If provided, will only return tickets updated in the third party platform before this datetime.
 
-            - status: typing.Optional[TicketsListRequestStatus]. If provided, will only return tickets of this status.
+        show_enum_origins : typing.Optional[TicketsListRequestShowEnumOrigins]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-                                                                 - `OPEN` - OPEN
-                                                                 - `CLOSED` - CLOSED
-                                                                 - `IN_PROGRESS` - IN_PROGRESS
-                                                                 - `ON_HOLD` - ON_HOLD
-            - tags: typing.Optional[str]. If provided, will only return tickets matching the tags; multiple tags can be separated by commas.
+        status : typing.Optional[TicketsListRequestStatus]
+            If provided, will only return tickets of this status.
 
-            - ticket_type: typing.Optional[str]. If provided, will only return tickets of this type.
+            - `OPEN` - OPEN
+            - `CLOSED` - CLOSED
+            - `IN_PROGRESS` - IN_PROGRESS
+            - `ON_HOLD` - ON_HOLD
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        tags : typing.Optional[str]
+            If provided, will only return tickets matching the tags; multiple tags can be separated by commas.
+
+        ticket_type : typing.Optional[str]
+            If provided, will only return tickets of this type.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedTicketList
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -821,73 +814,52 @@ class AsyncTicketsClient:
         await client.ticketing.tickets.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/tickets"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "account_id": account_id,
-                        "assignee_ids": assignee_ids,
-                        "collection_ids": collection_ids,
-                        "completed_after": serialize_datetime(completed_after) if completed_after is not None else None,
-                        "completed_before": serialize_datetime(completed_before)
-                        if completed_before is not None
-                        else None,
-                        "contact_id": contact_id,
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "due_after": serialize_datetime(due_after) if due_after is not None else None,
-                        "due_before": serialize_datetime(due_before) if due_before is not None else None,
-                        "expand": expand,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "page_size": page_size,
-                        "parent_ticket_id": parent_ticket_id,
-                        "priority": priority,
-                        "remote_created_after": serialize_datetime(remote_created_after)
-                        if remote_created_after is not None
-                        else None,
-                        "remote_created_before": serialize_datetime(remote_created_before)
-                        if remote_created_before is not None
-                        else None,
-                        "remote_fields": remote_fields,
-                        "remote_id": remote_id,
-                        "remote_updated_after": serialize_datetime(remote_updated_after)
-                        if remote_updated_after is not None
-                        else None,
-                        "remote_updated_before": serialize_datetime(remote_updated_before)
-                        if remote_updated_before is not None
-                        else None,
-                        "show_enum_origins": show_enum_origins,
-                        "status": status,
-                        "tags": tags,
-                        "ticket_type": ticket_type,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "ticketing/v1/tickets",
+            method="GET",
+            params={
+                "account_id": account_id,
+                "assignee_ids": assignee_ids,
+                "collection_ids": collection_ids,
+                "completed_after": serialize_datetime(completed_after) if completed_after is not None else None,
+                "completed_before": serialize_datetime(completed_before) if completed_before is not None else None,
+                "contact_id": contact_id,
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "due_after": serialize_datetime(due_after) if due_after is not None else None,
+                "due_before": serialize_datetime(due_before) if due_before is not None else None,
+                "expand": expand,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "page_size": page_size,
+                "parent_ticket_id": parent_ticket_id,
+                "priority": priority,
+                "remote_created_after": serialize_datetime(remote_created_after)
+                if remote_created_after is not None
+                else None,
+                "remote_created_before": serialize_datetime(remote_created_before)
+                if remote_created_before is not None
+                else None,
+                "remote_fields": remote_fields,
+                "remote_id": remote_id,
+                "remote_updated_after": serialize_datetime(remote_updated_after)
+                if remote_updated_after is not None
+                else None,
+                "remote_updated_before": serialize_datetime(remote_updated_before)
+                if remote_updated_before is not None
+                else None,
+                "show_enum_origins": show_enum_origins,
+                "status": status,
+                "tags": tags,
+                "ticket_type": ticket_type,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedTicketList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedTicketList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -897,23 +869,34 @@ class AsyncTicketsClient:
     async def create(
         self,
         *,
+        model: TicketRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: TicketRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TicketResponse:
         """
         Creates a `Ticket` object with the given values.
 
-        Parameters:
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        Parameters
+        ----------
+        model : TicketRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: TicketRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TicketResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
         from merge.resources.ticketing import TicketRequest
 
@@ -926,41 +909,15 @@ class AsyncTicketsClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/tickets"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "ticketing/v1/tickets",
+            method="POST",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(TicketResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(TicketResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -981,21 +938,35 @@ class AsyncTicketsClient:
         """
         Returns a `Ticket` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - expand: typing.Optional[TicketsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[TicketsRetrieveRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - remote_fields: typing.Optional[TicketsRetrieveRequestRemoteFields]. Deprecated. Use show_enum_origins.
+        remote_fields : typing.Optional[TicketsRetrieveRequestRemoteFields]
+            Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[TicketsRetrieveRequestShowEnumOrigins]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+        show_enum_origins : typing.Optional[TicketsRetrieveRequestShowEnumOrigins]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Ticket
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -1007,38 +978,19 @@ class AsyncTicketsClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/tickets/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "expand": expand,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "remote_fields": remote_fields,
-                        "show_enum_origins": show_enum_origins,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"ticketing/v1/tickets/{jsonable_encoder(id)}",
+            method="GET",
+            params={
+                "expand": expand,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "remote_fields": remote_fields,
+                "show_enum_origins": show_enum_origins,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(Ticket, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(Ticket, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -1049,25 +1001,36 @@ class AsyncTicketsClient:
         self,
         id: str,
         *,
+        model: PatchedTicketRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: PatchedTicketRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TicketResponse:
         """
         Updates a `Ticket` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        model : PatchedTicketRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: PatchedTicketRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TicketResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
         from merge.resources.ticketing import PatchedTicketRequest
 
@@ -1081,41 +1044,15 @@ class AsyncTicketsClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/tickets/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"ticketing/v1/tickets/{jsonable_encoder(id)}",
+            method="PATCH",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(TicketResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(TicketResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -1136,21 +1073,35 @@ class AsyncTicketsClient:
         """
         Returns a list of `User` objects.
 
-        Parameters:
-            - parent_id: str.
+        Parameters
+        ----------
+        parent_id : str
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - expand: typing.Optional[TicketsCollaboratorsListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[TicketsCollaboratorsListRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedUserList
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -1162,40 +1113,19 @@ class AsyncTicketsClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/tickets/{parent_id}/collaborators"
-            ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "cursor": cursor,
-                        "expand": expand,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "page_size": page_size,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"ticketing/v1/tickets/{jsonable_encoder(parent_id)}/collaborators",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "expand": expand,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "page_size": page_size,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedUserList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedUserList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -1208,11 +1138,20 @@ class AsyncTicketsClient:
         """
         Returns metadata for `Ticket` PATCHs.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -1224,25 +1163,10 @@ class AsyncTicketsClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/tickets/meta/patch/{id}"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"ticketing/v1/tickets/meta/patch/{jsonable_encoder(id)}", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -1253,9 +1177,18 @@ class AsyncTicketsClient:
         """
         Returns metadata for `Ticket` POSTs.
 
-        Parameters:
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -1265,25 +1198,10 @@ class AsyncTicketsClient:
         await client.ticketing.tickets.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/tickets/meta/post"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "ticketing/v1/tickets/meta/post", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -1302,17 +1220,30 @@ class AsyncTicketsClient:
         """
         Returns a list of `RemoteFieldClass` objects.
 
-        Parameters:
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        Parameters
+        ----------
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedRemoteFieldClassList
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -1322,39 +1253,18 @@ class AsyncTicketsClient:
         await client.ticketing.tickets.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/tickets/remote-field-classes"
-            ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "cursor": cursor,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "page_size": page_size,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "ticketing/v1/tickets/remote-field-classes",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "page_size": page_size,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:

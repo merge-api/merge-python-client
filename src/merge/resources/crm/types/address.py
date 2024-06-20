@@ -4,16 +4,12 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .address_address_type import AddressAddressType
 from .address_country import AddressCountry
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class Address(pydantic.BaseModel):
+class Address(pydantic_v1.BaseModel):
     """
     # The Address Object
 
@@ -26,285 +22,318 @@ class Address(pydantic.BaseModel):
     TODO
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    street_1: typing.Optional[str] = pydantic.Field(description="Line 1 of the address's street.")
-    street_2: typing.Optional[str] = pydantic.Field(description="Line 2 of the address's street.")
-    city: typing.Optional[str] = pydantic.Field(description="The address's city.")
-    state: typing.Optional[str] = pydantic.Field(description="The address's state.")
-    postal_code: typing.Optional[str] = pydantic.Field(description="The address's postal code.")
-    country: typing.Optional[AddressCountry] = pydantic.Field(
-        description=(
-            "The address's country.\n"
-            "\n"
-            "- `AF` - Afghanistan\n"
-            "- `AX` - Åland Islands\n"
-            "- `AL` - Albania\n"
-            "- `DZ` - Algeria\n"
-            "- `AS` - American Samoa\n"
-            "- `AD` - Andorra\n"
-            "- `AO` - Angola\n"
-            "- `AI` - Anguilla\n"
-            "- `AQ` - Antarctica\n"
-            "- `AG` - Antigua and Barbuda\n"
-            "- `AR` - Argentina\n"
-            "- `AM` - Armenia\n"
-            "- `AW` - Aruba\n"
-            "- `AU` - Australia\n"
-            "- `AT` - Austria\n"
-            "- `AZ` - Azerbaijan\n"
-            "- `BS` - Bahamas\n"
-            "- `BH` - Bahrain\n"
-            "- `BD` - Bangladesh\n"
-            "- `BB` - Barbados\n"
-            "- `BY` - Belarus\n"
-            "- `BE` - Belgium\n"
-            "- `BZ` - Belize\n"
-            "- `BJ` - Benin\n"
-            "- `BM` - Bermuda\n"
-            "- `BT` - Bhutan\n"
-            "- `BO` - Bolivia\n"
-            "- `BQ` - Bonaire, Sint Eustatius and Saba\n"
-            "- `BA` - Bosnia and Herzegovina\n"
-            "- `BW` - Botswana\n"
-            "- `BV` - Bouvet Island\n"
-            "- `BR` - Brazil\n"
-            "- `IO` - British Indian Ocean Territory\n"
-            "- `BN` - Brunei\n"
-            "- `BG` - Bulgaria\n"
-            "- `BF` - Burkina Faso\n"
-            "- `BI` - Burundi\n"
-            "- `CV` - Cabo Verde\n"
-            "- `KH` - Cambodia\n"
-            "- `CM` - Cameroon\n"
-            "- `CA` - Canada\n"
-            "- `KY` - Cayman Islands\n"
-            "- `CF` - Central African Republic\n"
-            "- `TD` - Chad\n"
-            "- `CL` - Chile\n"
-            "- `CN` - China\n"
-            "- `CX` - Christmas Island\n"
-            "- `CC` - Cocos (Keeling) Islands\n"
-            "- `CO` - Colombia\n"
-            "- `KM` - Comoros\n"
-            "- `CG` - Congo\n"
-            "- `CD` - Congo (the Democratic Republic of the)\n"
-            "- `CK` - Cook Islands\n"
-            "- `CR` - Costa Rica\n"
-            "- `CI` - Côte d'Ivoire\n"
-            "- `HR` - Croatia\n"
-            "- `CU` - Cuba\n"
-            "- `CW` - Curaçao\n"
-            "- `CY` - Cyprus\n"
-            "- `CZ` - Czechia\n"
-            "- `DK` - Denmark\n"
-            "- `DJ` - Djibouti\n"
-            "- `DM` - Dominica\n"
-            "- `DO` - Dominican Republic\n"
-            "- `EC` - Ecuador\n"
-            "- `EG` - Egypt\n"
-            "- `SV` - El Salvador\n"
-            "- `GQ` - Equatorial Guinea\n"
-            "- `ER` - Eritrea\n"
-            "- `EE` - Estonia\n"
-            "- `SZ` - Eswatini\n"
-            "- `ET` - Ethiopia\n"
-            "- `FK` - Falkland Islands (Malvinas)\n"
-            "- `FO` - Faroe Islands\n"
-            "- `FJ` - Fiji\n"
-            "- `FI` - Finland\n"
-            "- `FR` - France\n"
-            "- `GF` - French Guiana\n"
-            "- `PF` - French Polynesia\n"
-            "- `TF` - French Southern Territories\n"
-            "- `GA` - Gabon\n"
-            "- `GM` - Gambia\n"
-            "- `GE` - Georgia\n"
-            "- `DE` - Germany\n"
-            "- `GH` - Ghana\n"
-            "- `GI` - Gibraltar\n"
-            "- `GR` - Greece\n"
-            "- `GL` - Greenland\n"
-            "- `GD` - Grenada\n"
-            "- `GP` - Guadeloupe\n"
-            "- `GU` - Guam\n"
-            "- `GT` - Guatemala\n"
-            "- `GG` - Guernsey\n"
-            "- `GN` - Guinea\n"
-            "- `GW` - Guinea-Bissau\n"
-            "- `GY` - Guyana\n"
-            "- `HT` - Haiti\n"
-            "- `HM` - Heard Island and McDonald Islands\n"
-            "- `VA` - Holy See\n"
-            "- `HN` - Honduras\n"
-            "- `HK` - Hong Kong\n"
-            "- `HU` - Hungary\n"
-            "- `IS` - Iceland\n"
-            "- `IN` - India\n"
-            "- `ID` - Indonesia\n"
-            "- `IR` - Iran\n"
-            "- `IQ` - Iraq\n"
-            "- `IE` - Ireland\n"
-            "- `IM` - Isle of Man\n"
-            "- `IL` - Israel\n"
-            "- `IT` - Italy\n"
-            "- `JM` - Jamaica\n"
-            "- `JP` - Japan\n"
-            "- `JE` - Jersey\n"
-            "- `JO` - Jordan\n"
-            "- `KZ` - Kazakhstan\n"
-            "- `KE` - Kenya\n"
-            "- `KI` - Kiribati\n"
-            "- `KW` - Kuwait\n"
-            "- `KG` - Kyrgyzstan\n"
-            "- `LA` - Laos\n"
-            "- `LV` - Latvia\n"
-            "- `LB` - Lebanon\n"
-            "- `LS` - Lesotho\n"
-            "- `LR` - Liberia\n"
-            "- `LY` - Libya\n"
-            "- `LI` - Liechtenstein\n"
-            "- `LT` - Lithuania\n"
-            "- `LU` - Luxembourg\n"
-            "- `MO` - Macao\n"
-            "- `MG` - Madagascar\n"
-            "- `MW` - Malawi\n"
-            "- `MY` - Malaysia\n"
-            "- `MV` - Maldives\n"
-            "- `ML` - Mali\n"
-            "- `MT` - Malta\n"
-            "- `MH` - Marshall Islands\n"
-            "- `MQ` - Martinique\n"
-            "- `MR` - Mauritania\n"
-            "- `MU` - Mauritius\n"
-            "- `YT` - Mayotte\n"
-            "- `MX` - Mexico\n"
-            "- `FM` - Micronesia (Federated States of)\n"
-            "- `MD` - Moldova\n"
-            "- `MC` - Monaco\n"
-            "- `MN` - Mongolia\n"
-            "- `ME` - Montenegro\n"
-            "- `MS` - Montserrat\n"
-            "- `MA` - Morocco\n"
-            "- `MZ` - Mozambique\n"
-            "- `MM` - Myanmar\n"
-            "- `NA` - Namibia\n"
-            "- `NR` - Nauru\n"
-            "- `NP` - Nepal\n"
-            "- `NL` - Netherlands\n"
-            "- `NC` - New Caledonia\n"
-            "- `NZ` - New Zealand\n"
-            "- `NI` - Nicaragua\n"
-            "- `NE` - Niger\n"
-            "- `NG` - Nigeria\n"
-            "- `NU` - Niue\n"
-            "- `NF` - Norfolk Island\n"
-            "- `KP` - North Korea\n"
-            "- `MK` - North Macedonia\n"
-            "- `MP` - Northern Mariana Islands\n"
-            "- `NO` - Norway\n"
-            "- `OM` - Oman\n"
-            "- `PK` - Pakistan\n"
-            "- `PW` - Palau\n"
-            "- `PS` - Palestine, State of\n"
-            "- `PA` - Panama\n"
-            "- `PG` - Papua New Guinea\n"
-            "- `PY` - Paraguay\n"
-            "- `PE` - Peru\n"
-            "- `PH` - Philippines\n"
-            "- `PN` - Pitcairn\n"
-            "- `PL` - Poland\n"
-            "- `PT` - Portugal\n"
-            "- `PR` - Puerto Rico\n"
-            "- `QA` - Qatar\n"
-            "- `RE` - Réunion\n"
-            "- `RO` - Romania\n"
-            "- `RU` - Russia\n"
-            "- `RW` - Rwanda\n"
-            "- `BL` - Saint Barthélemy\n"
-            "- `SH` - Saint Helena, Ascension and Tristan da Cunha\n"
-            "- `KN` - Saint Kitts and Nevis\n"
-            "- `LC` - Saint Lucia\n"
-            "- `MF` - Saint Martin (French part)\n"
-            "- `PM` - Saint Pierre and Miquelon\n"
-            "- `VC` - Saint Vincent and the Grenadines\n"
-            "- `WS` - Samoa\n"
-            "- `SM` - San Marino\n"
-            "- `ST` - Sao Tome and Principe\n"
-            "- `SA` - Saudi Arabia\n"
-            "- `SN` - Senegal\n"
-            "- `RS` - Serbia\n"
-            "- `SC` - Seychelles\n"
-            "- `SL` - Sierra Leone\n"
-            "- `SG` - Singapore\n"
-            "- `SX` - Sint Maarten (Dutch part)\n"
-            "- `SK` - Slovakia\n"
-            "- `SI` - Slovenia\n"
-            "- `SB` - Solomon Islands\n"
-            "- `SO` - Somalia\n"
-            "- `ZA` - South Africa\n"
-            "- `GS` - South Georgia and the South Sandwich Islands\n"
-            "- `KR` - South Korea\n"
-            "- `SS` - South Sudan\n"
-            "- `ES` - Spain\n"
-            "- `LK` - Sri Lanka\n"
-            "- `SD` - Sudan\n"
-            "- `SR` - Suriname\n"
-            "- `SJ` - Svalbard and Jan Mayen\n"
-            "- `SE` - Sweden\n"
-            "- `CH` - Switzerland\n"
-            "- `SY` - Syria\n"
-            "- `TW` - Taiwan\n"
-            "- `TJ` - Tajikistan\n"
-            "- `TZ` - Tanzania\n"
-            "- `TH` - Thailand\n"
-            "- `TL` - Timor-Leste\n"
-            "- `TG` - Togo\n"
-            "- `TK` - Tokelau\n"
-            "- `TO` - Tonga\n"
-            "- `TT` - Trinidad and Tobago\n"
-            "- `TN` - Tunisia\n"
-            "- `TR` - Turkey\n"
-            "- `TM` - Turkmenistan\n"
-            "- `TC` - Turks and Caicos Islands\n"
-            "- `TV` - Tuvalu\n"
-            "- `UG` - Uganda\n"
-            "- `UA` - Ukraine\n"
-            "- `AE` - United Arab Emirates\n"
-            "- `GB` - United Kingdom\n"
-            "- `UM` - United States Minor Outlying Islands\n"
-            "- `US` - United States of America\n"
-            "- `UY` - Uruguay\n"
-            "- `UZ` - Uzbekistan\n"
-            "- `VU` - Vanuatu\n"
-            "- `VE` - Venezuela\n"
-            "- `VN` - Vietnam\n"
-            "- `VG` - Virgin Islands (British)\n"
-            "- `VI` - Virgin Islands (U.S.)\n"
-            "- `WF` - Wallis and Futuna\n"
-            "- `EH` - Western Sahara\n"
-            "- `YE` - Yemen\n"
-            "- `ZM` - Zambia\n"
-            "- `ZW` - Zimbabwe\n"
-        )
-    )
-    address_type: typing.Optional[AddressAddressType] = pydantic.Field(
-        description=("The address type.\n" "\n" "- `BILLING` - BILLING\n" "- `SHIPPING` - SHIPPING\n")
-    )
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    street_1: typing.Optional[str] = pydantic_v1.Field()
+    """
+    Line 1 of the address's street.
+    """
+
+    street_2: typing.Optional[str] = pydantic_v1.Field()
+    """
+    Line 2 of the address's street.
+    """
+
+    city: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The address's city.
+    """
+
+    state: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The address's state.
+    """
+
+    postal_code: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The address's postal code.
+    """
+
+    country: typing.Optional[AddressCountry] = pydantic_v1.Field()
+    """
+    The address's country.
+    
+    - `AF` - Afghanistan
+    - `AX` - Åland Islands
+    - `AL` - Albania
+    - `DZ` - Algeria
+    - `AS` - American Samoa
+    - `AD` - Andorra
+    - `AO` - Angola
+    - `AI` - Anguilla
+    - `AQ` - Antarctica
+    - `AG` - Antigua and Barbuda
+    - `AR` - Argentina
+    - `AM` - Armenia
+    - `AW` - Aruba
+    - `AU` - Australia
+    - `AT` - Austria
+    - `AZ` - Azerbaijan
+    - `BS` - Bahamas
+    - `BH` - Bahrain
+    - `BD` - Bangladesh
+    - `BB` - Barbados
+    - `BY` - Belarus
+    - `BE` - Belgium
+    - `BZ` - Belize
+    - `BJ` - Benin
+    - `BM` - Bermuda
+    - `BT` - Bhutan
+    - `BO` - Bolivia
+    - `BQ` - Bonaire, Sint Eustatius and Saba
+    - `BA` - Bosnia and Herzegovina
+    - `BW` - Botswana
+    - `BV` - Bouvet Island
+    - `BR` - Brazil
+    - `IO` - British Indian Ocean Territory
+    - `BN` - Brunei
+    - `BG` - Bulgaria
+    - `BF` - Burkina Faso
+    - `BI` - Burundi
+    - `CV` - Cabo Verde
+    - `KH` - Cambodia
+    - `CM` - Cameroon
+    - `CA` - Canada
+    - `KY` - Cayman Islands
+    - `CF` - Central African Republic
+    - `TD` - Chad
+    - `CL` - Chile
+    - `CN` - China
+    - `CX` - Christmas Island
+    - `CC` - Cocos (Keeling) Islands
+    - `CO` - Colombia
+    - `KM` - Comoros
+    - `CG` - Congo
+    - `CD` - Congo (the Democratic Republic of the)
+    - `CK` - Cook Islands
+    - `CR` - Costa Rica
+    - `CI` - Côte d'Ivoire
+    - `HR` - Croatia
+    - `CU` - Cuba
+    - `CW` - Curaçao
+    - `CY` - Cyprus
+    - `CZ` - Czechia
+    - `DK` - Denmark
+    - `DJ` - Djibouti
+    - `DM` - Dominica
+    - `DO` - Dominican Republic
+    - `EC` - Ecuador
+    - `EG` - Egypt
+    - `SV` - El Salvador
+    - `GQ` - Equatorial Guinea
+    - `ER` - Eritrea
+    - `EE` - Estonia
+    - `SZ` - Eswatini
+    - `ET` - Ethiopia
+    - `FK` - Falkland Islands (Malvinas)
+    - `FO` - Faroe Islands
+    - `FJ` - Fiji
+    - `FI` - Finland
+    - `FR` - France
+    - `GF` - French Guiana
+    - `PF` - French Polynesia
+    - `TF` - French Southern Territories
+    - `GA` - Gabon
+    - `GM` - Gambia
+    - `GE` - Georgia
+    - `DE` - Germany
+    - `GH` - Ghana
+    - `GI` - Gibraltar
+    - `GR` - Greece
+    - `GL` - Greenland
+    - `GD` - Grenada
+    - `GP` - Guadeloupe
+    - `GU` - Guam
+    - `GT` - Guatemala
+    - `GG` - Guernsey
+    - `GN` - Guinea
+    - `GW` - Guinea-Bissau
+    - `GY` - Guyana
+    - `HT` - Haiti
+    - `HM` - Heard Island and McDonald Islands
+    - `VA` - Holy See
+    - `HN` - Honduras
+    - `HK` - Hong Kong
+    - `HU` - Hungary
+    - `IS` - Iceland
+    - `IN` - India
+    - `ID` - Indonesia
+    - `IR` - Iran
+    - `IQ` - Iraq
+    - `IE` - Ireland
+    - `IM` - Isle of Man
+    - `IL` - Israel
+    - `IT` - Italy
+    - `JM` - Jamaica
+    - `JP` - Japan
+    - `JE` - Jersey
+    - `JO` - Jordan
+    - `KZ` - Kazakhstan
+    - `KE` - Kenya
+    - `KI` - Kiribati
+    - `KW` - Kuwait
+    - `KG` - Kyrgyzstan
+    - `LA` - Laos
+    - `LV` - Latvia
+    - `LB` - Lebanon
+    - `LS` - Lesotho
+    - `LR` - Liberia
+    - `LY` - Libya
+    - `LI` - Liechtenstein
+    - `LT` - Lithuania
+    - `LU` - Luxembourg
+    - `MO` - Macao
+    - `MG` - Madagascar
+    - `MW` - Malawi
+    - `MY` - Malaysia
+    - `MV` - Maldives
+    - `ML` - Mali
+    - `MT` - Malta
+    - `MH` - Marshall Islands
+    - `MQ` - Martinique
+    - `MR` - Mauritania
+    - `MU` - Mauritius
+    - `YT` - Mayotte
+    - `MX` - Mexico
+    - `FM` - Micronesia (Federated States of)
+    - `MD` - Moldova
+    - `MC` - Monaco
+    - `MN` - Mongolia
+    - `ME` - Montenegro
+    - `MS` - Montserrat
+    - `MA` - Morocco
+    - `MZ` - Mozambique
+    - `MM` - Myanmar
+    - `NA` - Namibia
+    - `NR` - Nauru
+    - `NP` - Nepal
+    - `NL` - Netherlands
+    - `NC` - New Caledonia
+    - `NZ` - New Zealand
+    - `NI` - Nicaragua
+    - `NE` - Niger
+    - `NG` - Nigeria
+    - `NU` - Niue
+    - `NF` - Norfolk Island
+    - `KP` - North Korea
+    - `MK` - North Macedonia
+    - `MP` - Northern Mariana Islands
+    - `NO` - Norway
+    - `OM` - Oman
+    - `PK` - Pakistan
+    - `PW` - Palau
+    - `PS` - Palestine, State of
+    - `PA` - Panama
+    - `PG` - Papua New Guinea
+    - `PY` - Paraguay
+    - `PE` - Peru
+    - `PH` - Philippines
+    - `PN` - Pitcairn
+    - `PL` - Poland
+    - `PT` - Portugal
+    - `PR` - Puerto Rico
+    - `QA` - Qatar
+    - `RE` - Réunion
+    - `RO` - Romania
+    - `RU` - Russia
+    - `RW` - Rwanda
+    - `BL` - Saint Barthélemy
+    - `SH` - Saint Helena, Ascension and Tristan da Cunha
+    - `KN` - Saint Kitts and Nevis
+    - `LC` - Saint Lucia
+    - `MF` - Saint Martin (French part)
+    - `PM` - Saint Pierre and Miquelon
+    - `VC` - Saint Vincent and the Grenadines
+    - `WS` - Samoa
+    - `SM` - San Marino
+    - `ST` - Sao Tome and Principe
+    - `SA` - Saudi Arabia
+    - `SN` - Senegal
+    - `RS` - Serbia
+    - `SC` - Seychelles
+    - `SL` - Sierra Leone
+    - `SG` - Singapore
+    - `SX` - Sint Maarten (Dutch part)
+    - `SK` - Slovakia
+    - `SI` - Slovenia
+    - `SB` - Solomon Islands
+    - `SO` - Somalia
+    - `ZA` - South Africa
+    - `GS` - South Georgia and the South Sandwich Islands
+    - `KR` - South Korea
+    - `SS` - South Sudan
+    - `ES` - Spain
+    - `LK` - Sri Lanka
+    - `SD` - Sudan
+    - `SR` - Suriname
+    - `SJ` - Svalbard and Jan Mayen
+    - `SE` - Sweden
+    - `CH` - Switzerland
+    - `SY` - Syria
+    - `TW` - Taiwan
+    - `TJ` - Tajikistan
+    - `TZ` - Tanzania
+    - `TH` - Thailand
+    - `TL` - Timor-Leste
+    - `TG` - Togo
+    - `TK` - Tokelau
+    - `TO` - Tonga
+    - `TT` - Trinidad and Tobago
+    - `TN` - Tunisia
+    - `TR` - Turkey
+    - `TM` - Turkmenistan
+    - `TC` - Turks and Caicos Islands
+    - `TV` - Tuvalu
+    - `UG` - Uganda
+    - `UA` - Ukraine
+    - `AE` - United Arab Emirates
+    - `GB` - United Kingdom
+    - `UM` - United States Minor Outlying Islands
+    - `US` - United States of America
+    - `UY` - Uruguay
+    - `UZ` - Uzbekistan
+    - `VU` - Vanuatu
+    - `VE` - Venezuela
+    - `VN` - Vietnam
+    - `VG` - Virgin Islands (British)
+    - `VI` - Virgin Islands (U.S.)
+    - `WF` - Wallis and Futuna
+    - `EH` - Western Sahara
+    - `YE` - Yemen
+    - `ZM` - Zambia
+    - `ZW` - Zimbabwe
+    """
+
+    address_type: typing.Optional[AddressAddressType] = pydantic_v1.Field()
+    """
+    The address type.
+    
+    - `BILLING` - BILLING
+    - `SHIPPING` - SHIPPING
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

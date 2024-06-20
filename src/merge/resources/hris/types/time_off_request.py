@@ -4,19 +4,15 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .time_off_request_approver import TimeOffRequestApprover
 from .time_off_request_employee import TimeOffRequestEmployee
 from .time_off_request_request_type import TimeOffRequestRequestType
 from .time_off_request_status import TimeOffRequestStatus
 from .time_off_request_units import TimeOffRequestUnits
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class TimeOffRequest(pydantic.BaseModel):
+class TimeOffRequest(pydantic_v1.BaseModel):
     """
     # The TimeOff Object
 
@@ -29,51 +25,67 @@ class TimeOffRequest(pydantic.BaseModel):
     Fetch from the `LIST TimeOffs` endpoint and filter by `ID` to show all time off requests.
     """
 
-    employee: typing.Optional[TimeOffRequestEmployee] = pydantic.Field(description="The employee requesting time off.")
-    approver: typing.Optional[TimeOffRequestApprover] = pydantic.Field(
-        description="The Merge ID of the employee with the ability to approve the time off request."
-    )
-    status: typing.Optional[TimeOffRequestStatus] = pydantic.Field(
-        description=(
-            "The status of this time off request.\n"
-            "\n"
-            "- `REQUESTED` - REQUESTED\n"
-            "- `APPROVED` - APPROVED\n"
-            "- `DECLINED` - DECLINED\n"
-            "- `CANCELLED` - CANCELLED\n"
-            "- `DELETED` - DELETED\n"
-        )
-    )
-    employee_note: typing.Optional[str] = pydantic.Field(description="The employee note for this time off request.")
-    units: typing.Optional[TimeOffRequestUnits] = pydantic.Field(
-        description=(
-            "The measurement that the third-party integration uses to count time requested.\n"
-            "\n"
-            "- `HOURS` - HOURS\n"
-            "- `DAYS` - DAYS\n"
-        )
-    )
-    amount: typing.Optional[float] = pydantic.Field(
-        description="The time off quantity measured by the prescribed “units”."
-    )
-    request_type: typing.Optional[TimeOffRequestRequestType] = pydantic.Field(
-        description=(
-            "The type of time off request.\n"
-            "\n"
-            "- `VACATION` - VACATION\n"
-            "- `SICK` - SICK\n"
-            "- `PERSONAL` - PERSONAL\n"
-            "- `JURY_DUTY` - JURY_DUTY\n"
-            "- `VOLUNTEER` - VOLUNTEER\n"
-            "- `BEREAVEMENT` - BEREAVEMENT\n"
-        )
-    )
-    start_time: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The day and time of the start of the time requested off."
-    )
-    end_time: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The day and time of the end of the time requested off."
-    )
+    employee: typing.Optional[TimeOffRequestEmployee] = pydantic_v1.Field()
+    """
+    The employee requesting time off.
+    """
+
+    approver: typing.Optional[TimeOffRequestApprover] = pydantic_v1.Field()
+    """
+    The Merge ID of the employee with the ability to approve the time off request.
+    """
+
+    status: typing.Optional[TimeOffRequestStatus] = pydantic_v1.Field()
+    """
+    The status of this time off request.
+    
+    - `REQUESTED` - REQUESTED
+    - `APPROVED` - APPROVED
+    - `DECLINED` - DECLINED
+    - `CANCELLED` - CANCELLED
+    - `DELETED` - DELETED
+    """
+
+    employee_note: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The employee note for this time off request.
+    """
+
+    units: typing.Optional[TimeOffRequestUnits] = pydantic_v1.Field()
+    """
+    The measurement that the third-party integration uses to count time requested.
+    
+    - `HOURS` - HOURS
+    - `DAYS` - DAYS
+    """
+
+    amount: typing.Optional[float] = pydantic_v1.Field()
+    """
+    The time off quantity measured by the prescribed “units”.
+    """
+
+    request_type: typing.Optional[TimeOffRequestRequestType] = pydantic_v1.Field()
+    """
+    The type of time off request.
+    
+    - `VACATION` - VACATION
+    - `SICK` - SICK
+    - `PERSONAL` - PERSONAL
+    - `JURY_DUTY` - JURY_DUTY
+    - `VOLUNTEER` - VOLUNTEER
+    - `BEREAVEMENT` - BEREAVEMENT
+    """
+
+    start_time: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The day and time of the start of the time requested off.
+    """
+
+    end_time: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The day and time of the end of the time requested off.
+    """
+
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -82,10 +94,15 @@ class TimeOffRequest(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

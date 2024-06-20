@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .eeoc_candidate import EeocCandidate
 from .eeoc_disability_status import EeocDisabilityStatus
 from .eeoc_gender import EeocGender
@@ -11,13 +12,8 @@ from .eeoc_race import EeocRace
 from .eeoc_veteran_status import EeocVeteranStatus
 from .remote_data import RemoteData
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class Eeoc(pydantic.BaseModel):
+class Eeoc(pydantic_v1.BaseModel):
     """
     # The EEOC Object
 
@@ -31,61 +27,79 @@ class Eeoc(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    candidate: typing.Optional[EeocCandidate] = pydantic.Field(description="The candidate being represented.")
-    submitted_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the information was submitted.")
-    race: typing.Optional[EeocRace] = pydantic.Field(
-        description=(
-            "The candidate's race.\n"
-            "\n"
-            "- `AMERICAN_INDIAN_OR_ALASKAN_NATIVE` - AMERICAN_INDIAN_OR_ALASKAN_NATIVE\n"
-            "- `ASIAN` - ASIAN\n"
-            "- `BLACK_OR_AFRICAN_AMERICAN` - BLACK_OR_AFRICAN_AMERICAN\n"
-            "- `HISPANIC_OR_LATINO` - HISPANIC_OR_LATINO\n"
-            "- `WHITE` - WHITE\n"
-            "- `NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER` - NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER\n"
-            "- `TWO_OR_MORE_RACES` - TWO_OR_MORE_RACES\n"
-            "- `DECLINE_TO_SELF_IDENTIFY` - DECLINE_TO_SELF_IDENTIFY\n"
-        )
-    )
-    gender: typing.Optional[EeocGender] = pydantic.Field(
-        description=(
-            "The candidate's gender.\n"
-            "\n"
-            "- `MALE` - MALE\n"
-            "- `FEMALE` - FEMALE\n"
-            "- `NON-BINARY` - NON-BINARY\n"
-            "- `OTHER` - OTHER\n"
-            "- `DECLINE_TO_SELF_IDENTIFY` - DECLINE_TO_SELF_IDENTIFY\n"
-        )
-    )
-    veteran_status: typing.Optional[EeocVeteranStatus] = pydantic.Field(
-        description=(
-            "The candidate's veteran status.\n"
-            "\n"
-            "- `I_AM_NOT_A_PROTECTED_VETERAN` - I_AM_NOT_A_PROTECTED_VETERAN\n"
-            "- `I_IDENTIFY_AS_ONE_OR_MORE_OF_THE_CLASSIFICATIONS_OF_A_PROTECTED_VETERAN` - I_IDENTIFY_AS_ONE_OR_MORE_OF_THE_CLASSIFICATIONS_OF_A_PROTECTED_VETERAN\n"
-            "- `I_DONT_WISH_TO_ANSWER` - I_DONT_WISH_TO_ANSWER\n"
-        )
-    )
-    disability_status: typing.Optional[EeocDisabilityStatus] = pydantic.Field(
-        description=(
-            "The candidate's disability status.\n"
-            "\n"
-            "- `YES_I_HAVE_A_DISABILITY_OR_PREVIOUSLY_HAD_A_DISABILITY` - YES_I_HAVE_A_DISABILITY_OR_PREVIOUSLY_HAD_A_DISABILITY\n"
-            "- `NO_I_DONT_HAVE_A_DISABILITY` - NO_I_DONT_HAVE_A_DISABILITY\n"
-            "- `I_DONT_WISH_TO_ANSWER` - I_DONT_WISH_TO_ANSWER\n"
-        )
-    )
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted in the third party platform."
-    )
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    candidate: typing.Optional[EeocCandidate] = pydantic_v1.Field()
+    """
+    The candidate being represented.
+    """
+
+    submitted_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the information was submitted.
+    """
+
+    race: typing.Optional[EeocRace] = pydantic_v1.Field()
+    """
+    The candidate's race.
+    
+    - `AMERICAN_INDIAN_OR_ALASKAN_NATIVE` - AMERICAN_INDIAN_OR_ALASKAN_NATIVE
+    - `ASIAN` - ASIAN
+    - `BLACK_OR_AFRICAN_AMERICAN` - BLACK_OR_AFRICAN_AMERICAN
+    - `HISPANIC_OR_LATINO` - HISPANIC_OR_LATINO
+    - `WHITE` - WHITE
+    - `NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER` - NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER
+    - `TWO_OR_MORE_RACES` - TWO_OR_MORE_RACES
+    - `DECLINE_TO_SELF_IDENTIFY` - DECLINE_TO_SELF_IDENTIFY
+    """
+
+    gender: typing.Optional[EeocGender] = pydantic_v1.Field()
+    """
+    The candidate's gender.
+    
+    - `MALE` - MALE
+    - `FEMALE` - FEMALE
+    - `NON-BINARY` - NON-BINARY
+    - `OTHER` - OTHER
+    - `DECLINE_TO_SELF_IDENTIFY` - DECLINE_TO_SELF_IDENTIFY
+    """
+
+    veteran_status: typing.Optional[EeocVeteranStatus] = pydantic_v1.Field()
+    """
+    The candidate's veteran status.
+    
+    - `I_AM_NOT_A_PROTECTED_VETERAN` - I_AM_NOT_A_PROTECTED_VETERAN
+    - `I_IDENTIFY_AS_ONE_OR_MORE_OF_THE_CLASSIFICATIONS_OF_A_PROTECTED_VETERAN` - I_IDENTIFY_AS_ONE_OR_MORE_OF_THE_CLASSIFICATIONS_OF_A_PROTECTED_VETERAN
+    - `I_DONT_WISH_TO_ANSWER` - I_DONT_WISH_TO_ANSWER
+    """
+
+    disability_status: typing.Optional[EeocDisabilityStatus] = pydantic_v1.Field()
+    """
+    The candidate's disability status.
+    
+    - `YES_I_HAVE_A_DISABILITY_OR_PREVIOUSLY_HAD_A_DISABILITY` - YES_I_HAVE_A_DISABILITY_OR_PREVIOUSLY_HAD_A_DISABILITY
+    - `NO_I_DONT_HAVE_A_DISABILITY` - NO_I_DONT_HAVE_A_DISABILITY
+    - `I_DONT_WISH_TO_ANSWER` - I_DONT_WISH_TO_ANSWER
+    """
+
+    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Indicates whether or not this object has been deleted in the third party platform.
+    """
+
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
@@ -94,10 +108,15 @@ class Eeoc(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

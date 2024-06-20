@@ -2,14 +2,13 @@
 
 import datetime as dt
 import typing
-import urllib.parse
 from json.decoder import JSONDecodeError
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.pydantic_utilities import pydantic_v1
 from .....core.request_options import RequestOptions
 from ...types.meta_response import MetaResponse
 from ...types.paginated_timesheet_entry_list import PaginatedTimesheetEntryList
@@ -17,11 +16,6 @@ from ...types.timesheet_entry import TimesheetEntry
 from ...types.timesheet_entry_request import TimesheetEntryRequest
 from ...types.timesheet_entry_response import TimesheetEntryResponse
 from .types.timesheet_entries_list_request_order_by import TimesheetEntriesListRequestOrderBy
-
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -54,39 +48,63 @@ class TimesheetEntriesClient:
         """
         Returns a list of `TimesheetEntry` objects.
 
-        Parameters:
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        Parameters
+        ----------
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - employee_id: typing.Optional[str]. If provided, will only return employee payroll runs for this employee.
+        employee_id : typing.Optional[str]
+            If provided, will only return employee payroll runs for this employee.
 
-            - ended_after: typing.Optional[str]. If provided, will only return employee payroll runs ended after this datetime.
+        ended_after : typing.Optional[str]
+            If provided, will only return employee payroll runs ended after this datetime.
 
-            - ended_before: typing.Optional[str]. If provided, will only return employee payroll runs ended before this datetime.
+        ended_before : typing.Optional[str]
+            If provided, will only return employee payroll runs ended before this datetime.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - order_by: typing.Optional[TimesheetEntriesListRequestOrderBy]. Overrides the default ordering for this endpoint. Possible values include: start_time, -start_time.
+        order_by : typing.Optional[TimesheetEntriesListRequestOrderBy]
+            Overrides the default ordering for this endpoint. Possible values include: start_time, -start_time.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - started_after: typing.Optional[str]. If provided, will only return employee payroll runs started after this datetime.
+        started_after : typing.Optional[str]
+            If provided, will only return employee payroll runs started after this datetime.
 
-            - started_before: typing.Optional[str]. If provided, will only return employee payroll runs started before this datetime.
+        started_before : typing.Optional[str]
+            If provided, will only return employee payroll runs started before this datetime.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedTimesheetEntryList
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -96,48 +114,29 @@ class TimesheetEntriesClient:
         client.hris.timesheet_entries.list()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/timesheet-entries"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "employee_id": employee_id,
-                        "ended_after": ended_after,
-                        "ended_before": ended_before,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "order_by": order_by,
-                        "page_size": page_size,
-                        "remote_id": remote_id,
-                        "started_after": started_after,
-                        "started_before": started_before,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "hris/v1/timesheet-entries",
+            method="GET",
+            params={
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "employee_id": employee_id,
+                "ended_after": ended_after,
+                "ended_before": ended_before,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "order_by": order_by,
+                "page_size": page_size,
+                "remote_id": remote_id,
+                "started_after": started_after,
+                "started_before": started_before,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedTimesheetEntryList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedTimesheetEntryList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -147,23 +146,34 @@ class TimesheetEntriesClient:
     def create(
         self,
         *,
+        model: TimesheetEntryRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: TimesheetEntryRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TimesheetEntryResponse:
         """
         Creates a `TimesheetEntry` object with the given values.
 
-        Parameters:
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        Parameters
+        ----------
+        model : TimesheetEntryRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: TimesheetEntryRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TimesheetEntryResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
         from merge.resources.hris import TimesheetEntryRequest
 
@@ -176,41 +186,15 @@ class TimesheetEntriesClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/timesheet-entries"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "hris/v1/timesheet-entries",
+            method="POST",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(TimesheetEntryResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(TimesheetEntryResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -227,13 +211,23 @@ class TimesheetEntriesClient:
         """
         Returns a `TimesheetEntry` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TimesheetEntry
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -245,34 +239,13 @@ class TimesheetEntriesClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/timesheet-entries/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "include_remote_data": include_remote_data,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"hris/v1/timesheet-entries/{jsonable_encoder(id)}",
+            method="GET",
+            params={"include_remote_data": include_remote_data},
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(TimesheetEntry, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(TimesheetEntry, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -283,9 +256,18 @@ class TimesheetEntriesClient:
         """
         Returns metadata for `TimesheetEntry` POSTs.
 
-        Parameters:
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -295,25 +277,10 @@ class TimesheetEntriesClient:
         client.hris.timesheet_entries.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/timesheet-entries/meta/post"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "hris/v1/timesheet-entries/meta/post", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -348,39 +315,63 @@ class AsyncTimesheetEntriesClient:
         """
         Returns a list of `TimesheetEntry` objects.
 
-        Parameters:
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        Parameters
+        ----------
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - employee_id: typing.Optional[str]. If provided, will only return employee payroll runs for this employee.
+        employee_id : typing.Optional[str]
+            If provided, will only return employee payroll runs for this employee.
 
-            - ended_after: typing.Optional[str]. If provided, will only return employee payroll runs ended after this datetime.
+        ended_after : typing.Optional[str]
+            If provided, will only return employee payroll runs ended after this datetime.
 
-            - ended_before: typing.Optional[str]. If provided, will only return employee payroll runs ended before this datetime.
+        ended_before : typing.Optional[str]
+            If provided, will only return employee payroll runs ended before this datetime.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - order_by: typing.Optional[TimesheetEntriesListRequestOrderBy]. Overrides the default ordering for this endpoint. Possible values include: start_time, -start_time.
+        order_by : typing.Optional[TimesheetEntriesListRequestOrderBy]
+            Overrides the default ordering for this endpoint. Possible values include: start_time, -start_time.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - started_after: typing.Optional[str]. If provided, will only return employee payroll runs started after this datetime.
+        started_after : typing.Optional[str]
+            If provided, will only return employee payroll runs started after this datetime.
 
-            - started_before: typing.Optional[str]. If provided, will only return employee payroll runs started before this datetime.
+        started_before : typing.Optional[str]
+            If provided, will only return employee payroll runs started before this datetime.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedTimesheetEntryList
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -390,48 +381,29 @@ class AsyncTimesheetEntriesClient:
         await client.hris.timesheet_entries.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/timesheet-entries"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "employee_id": employee_id,
-                        "ended_after": ended_after,
-                        "ended_before": ended_before,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "order_by": order_by,
-                        "page_size": page_size,
-                        "remote_id": remote_id,
-                        "started_after": started_after,
-                        "started_before": started_before,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "hris/v1/timesheet-entries",
+            method="GET",
+            params={
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "employee_id": employee_id,
+                "ended_after": ended_after,
+                "ended_before": ended_before,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "order_by": order_by,
+                "page_size": page_size,
+                "remote_id": remote_id,
+                "started_after": started_after,
+                "started_before": started_before,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedTimesheetEntryList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedTimesheetEntryList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -441,23 +413,34 @@ class AsyncTimesheetEntriesClient:
     async def create(
         self,
         *,
+        model: TimesheetEntryRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: TimesheetEntryRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TimesheetEntryResponse:
         """
         Creates a `TimesheetEntry` object with the given values.
 
-        Parameters:
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        Parameters
+        ----------
+        model : TimesheetEntryRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: TimesheetEntryRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TimesheetEntryResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
         from merge.resources.hris import TimesheetEntryRequest
 
@@ -470,41 +453,15 @@ class AsyncTimesheetEntriesClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/timesheet-entries"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "hris/v1/timesheet-entries",
+            method="POST",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(TimesheetEntryResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(TimesheetEntryResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -521,13 +478,23 @@ class AsyncTimesheetEntriesClient:
         """
         Returns a `TimesheetEntry` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TimesheetEntry
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -539,34 +506,13 @@ class AsyncTimesheetEntriesClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/timesheet-entries/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "include_remote_data": include_remote_data,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"hris/v1/timesheet-entries/{jsonable_encoder(id)}",
+            method="GET",
+            params={"include_remote_data": include_remote_data},
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(TimesheetEntry, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(TimesheetEntry, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -577,9 +523,18 @@ class AsyncTimesheetEntriesClient:
         """
         Returns metadata for `TimesheetEntry` POSTs.
 
-        Parameters:
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -589,25 +544,10 @@ class AsyncTimesheetEntriesClient:
         await client.hris.timesheet_entries.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/timesheet-entries/meta/post"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "hris/v1/timesheet-entries/meta/post", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:

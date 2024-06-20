@@ -2,24 +2,18 @@
 
 import datetime as dt
 import typing
-import urllib.parse
 from json.decoder import JSONDecodeError
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.pydantic_utilities import pydantic_v1
 from .....core.request_options import RequestOptions
 from ...types.bank_info import BankInfo
 from ...types.paginated_bank_info_list import PaginatedBankInfoList
 from .types.bank_info_list_request_account_type import BankInfoListRequestAccountType
 from .types.bank_info_list_request_order_by import BankInfoListRequestOrderBy
-
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
 
 class BankInfoClient:
@@ -50,43 +44,69 @@ class BankInfoClient:
         """
         Returns a list of `BankInfo` objects.
 
-        Parameters:
-            - account_type: typing.Optional[BankInfoListRequestAccountType]. If provided, will only return BankInfo's with this account type. Options: ('SAVINGS', 'CHECKING')
+        Parameters
+        ----------
+        account_type : typing.Optional[BankInfoListRequestAccountType]
+            If provided, will only return BankInfo's with this account type. Options: ('SAVINGS', 'CHECKING')
 
-                                                                             - `SAVINGS` - SAVINGS
-                                                                             - `CHECKING` - CHECKING
-            - bank_name: typing.Optional[str]. If provided, will only return BankInfo's with this bank name.
+            - `SAVINGS` - SAVINGS
+            - `CHECKING` - CHECKING
 
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        bank_name : typing.Optional[str]
+            If provided, will only return BankInfo's with this bank name.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - employee_id: typing.Optional[str]. If provided, will only return bank accounts for this employee.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - expand: typing.Optional[typing.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        employee_id : typing.Optional[str]
+            If provided, will only return bank accounts for this employee.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        expand : typing.Optional[typing.Literal["employee"]]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - order_by: typing.Optional[BankInfoListRequestOrderBy]. Overrides the default ordering for this endpoint.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        order_by : typing.Optional[BankInfoListRequestOrderBy]
+            Overrides the default ordering for this endpoint.
 
-            - remote_fields: typing.Optional[typing.Literal["account_type"]]. Deprecated. Use show_enum_origins.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_fields : typing.Optional[typing.Literal["account_type"]]
+            Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["account_type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        show_enum_origins : typing.Optional[typing.Literal["account_type"]]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedBankInfoList
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -96,49 +116,30 @@ class BankInfoClient:
         client.hris.bank_info.list()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/bank-info"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "account_type": account_type,
-                        "bank_name": bank_name,
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "employee_id": employee_id,
-                        "expand": expand,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "order_by": order_by,
-                        "page_size": page_size,
-                        "remote_fields": remote_fields,
-                        "remote_id": remote_id,
-                        "show_enum_origins": show_enum_origins,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "hris/v1/bank-info",
+            method="GET",
+            params={
+                "account_type": account_type,
+                "bank_name": bank_name,
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "employee_id": employee_id,
+                "expand": expand,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "order_by": order_by,
+                "page_size": page_size,
+                "remote_fields": remote_fields,
+                "remote_id": remote_id,
+                "show_enum_origins": show_enum_origins,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedBankInfoList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedBankInfoList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -158,19 +159,32 @@ class BankInfoClient:
         """
         Returns a `BankInfo` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - expand: typing.Optional[typing.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[typing.Literal["employee"]]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - remote_fields: typing.Optional[typing.Literal["account_type"]]. Deprecated. Use show_enum_origins.
+        remote_fields : typing.Optional[typing.Literal["account_type"]]
+            Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["account_type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+        show_enum_origins : typing.Optional[typing.Literal["account_type"]]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BankInfo
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -182,37 +196,18 @@ class BankInfoClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/bank-info/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "expand": expand,
-                        "include_remote_data": include_remote_data,
-                        "remote_fields": remote_fields,
-                        "show_enum_origins": show_enum_origins,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"hris/v1/bank-info/{jsonable_encoder(id)}",
+            method="GET",
+            params={
+                "expand": expand,
+                "include_remote_data": include_remote_data,
+                "remote_fields": remote_fields,
+                "show_enum_origins": show_enum_origins,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(BankInfo, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(BankInfo, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -248,43 +243,69 @@ class AsyncBankInfoClient:
         """
         Returns a list of `BankInfo` objects.
 
-        Parameters:
-            - account_type: typing.Optional[BankInfoListRequestAccountType]. If provided, will only return BankInfo's with this account type. Options: ('SAVINGS', 'CHECKING')
+        Parameters
+        ----------
+        account_type : typing.Optional[BankInfoListRequestAccountType]
+            If provided, will only return BankInfo's with this account type. Options: ('SAVINGS', 'CHECKING')
 
-                                                                             - `SAVINGS` - SAVINGS
-                                                                             - `CHECKING` - CHECKING
-            - bank_name: typing.Optional[str]. If provided, will only return BankInfo's with this bank name.
+            - `SAVINGS` - SAVINGS
+            - `CHECKING` - CHECKING
 
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        bank_name : typing.Optional[str]
+            If provided, will only return BankInfo's with this bank name.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - employee_id: typing.Optional[str]. If provided, will only return bank accounts for this employee.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - expand: typing.Optional[typing.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        employee_id : typing.Optional[str]
+            If provided, will only return bank accounts for this employee.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        expand : typing.Optional[typing.Literal["employee"]]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - order_by: typing.Optional[BankInfoListRequestOrderBy]. Overrides the default ordering for this endpoint.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        order_by : typing.Optional[BankInfoListRequestOrderBy]
+            Overrides the default ordering for this endpoint.
 
-            - remote_fields: typing.Optional[typing.Literal["account_type"]]. Deprecated. Use show_enum_origins.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_fields : typing.Optional[typing.Literal["account_type"]]
+            Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["account_type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        show_enum_origins : typing.Optional[typing.Literal["account_type"]]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedBankInfoList
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -294,49 +315,30 @@ class AsyncBankInfoClient:
         await client.hris.bank_info.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/bank-info"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "account_type": account_type,
-                        "bank_name": bank_name,
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "employee_id": employee_id,
-                        "expand": expand,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "order_by": order_by,
-                        "page_size": page_size,
-                        "remote_fields": remote_fields,
-                        "remote_id": remote_id,
-                        "show_enum_origins": show_enum_origins,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "hris/v1/bank-info",
+            method="GET",
+            params={
+                "account_type": account_type,
+                "bank_name": bank_name,
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "employee_id": employee_id,
+                "expand": expand,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "order_by": order_by,
+                "page_size": page_size,
+                "remote_fields": remote_fields,
+                "remote_id": remote_id,
+                "show_enum_origins": show_enum_origins,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedBankInfoList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedBankInfoList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -356,19 +358,32 @@ class AsyncBankInfoClient:
         """
         Returns a `BankInfo` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - expand: typing.Optional[typing.Literal["employee"]]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[typing.Literal["employee"]]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - remote_fields: typing.Optional[typing.Literal["account_type"]]. Deprecated. Use show_enum_origins.
+        remote_fields : typing.Optional[typing.Literal["account_type"]]
+            Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["account_type"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+        show_enum_origins : typing.Optional[typing.Literal["account_type"]]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BankInfo
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -380,37 +395,18 @@ class AsyncBankInfoClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/bank-info/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "expand": expand,
-                        "include_remote_data": include_remote_data,
-                        "remote_fields": remote_fields,
-                        "show_enum_origins": show_enum_origins,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"hris/v1/bank-info/{jsonable_encoder(id)}",
+            method="GET",
+            params={
+                "expand": expand,
+                "include_remote_data": include_remote_data,
+                "remote_fields": remote_fields,
+                "show_enum_origins": show_enum_origins,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(BankInfo, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(BankInfo, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:

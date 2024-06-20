@@ -4,17 +4,13 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .bank_info_account_type import BankInfoAccountType
 from .bank_info_employee import BankInfoEmployee
 from .remote_data import RemoteData
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class BankInfo(pydantic.BaseModel):
+class BankInfo(pydantic_v1.BaseModel):
     """
     # The BankInfo Object
 
@@ -28,26 +24,59 @@ class BankInfo(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    employee: typing.Optional[BankInfoEmployee] = pydantic.Field(description="The employee with this bank account.")
-    account_number: typing.Optional[str] = pydantic.Field(description="The account number.")
-    routing_number: typing.Optional[str] = pydantic.Field(description="The routing number.")
-    bank_name: typing.Optional[str] = pydantic.Field(description="The bank name.")
-    account_type: typing.Optional[BankInfoAccountType] = pydantic.Field(
-        description=("The bank account type\n" "\n" "- `SAVINGS` - SAVINGS\n" "- `CHECKING` - CHECKING\n")
-    )
-    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="When the matching bank object was created in the third party system."
-    )
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted in the third party platform."
-    )
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    employee: typing.Optional[BankInfoEmployee] = pydantic_v1.Field()
+    """
+    The employee with this bank account.
+    """
+
+    account_number: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The account number.
+    """
+
+    routing_number: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The routing number.
+    """
+
+    bank_name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The bank name.
+    """
+
+    account_type: typing.Optional[BankInfoAccountType] = pydantic_v1.Field()
+    """
+    The bank account type
+    
+    - `SAVINGS` - SAVINGS
+    - `CHECKING` - CHECKING
+    """
+
+    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the matching bank object was created in the third party system.
+    """
+
+    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Indicates whether or not this object has been deleted in the third party platform.
+    """
+
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
@@ -56,10 +85,15 @@ class BankInfo(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

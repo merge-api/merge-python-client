@@ -2,23 +2,17 @@
 
 import datetime as dt
 import typing
-import urllib.parse
 from json.decoder import JSONDecodeError
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.pydantic_utilities import pydantic_v1
 from .....core.request_options import RequestOptions
 from ...types.issue import Issue
 from ...types.paginated_issue_list import PaginatedIssueList
 from .types.issues_list_request_status import IssuesListRequestStatus
-
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
 
 class IssuesClient:
@@ -46,37 +40,57 @@ class IssuesClient:
         """
         Gets issues.
 
-        Parameters:
-            - account_token: typing.Optional[str].
+        Parameters
+        ----------
+        account_token : typing.Optional[str]
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - end_date: typing.Optional[str]. If included, will only include issues whose most recent action occurred before this time
+        end_date : typing.Optional[str]
+            If included, will only include issues whose most recent action occurred before this time
 
-            - end_user_organization_name: typing.Optional[str].
+        end_user_organization_name : typing.Optional[str]
 
-            - first_incident_time_after: typing.Optional[dt.datetime]. If provided, will only return issues whose first incident time was after this datetime.
+        first_incident_time_after : typing.Optional[dt.datetime]
+            If provided, will only return issues whose first incident time was after this datetime.
 
-            - first_incident_time_before: typing.Optional[dt.datetime]. If provided, will only return issues whose first incident time was before this datetime.
+        first_incident_time_before : typing.Optional[dt.datetime]
+            If provided, will only return issues whose first incident time was before this datetime.
 
-            - include_muted: typing.Optional[str]. If true, will include muted issues
+        include_muted : typing.Optional[str]
+            If true, will include muted issues
 
-            - integration_name: typing.Optional[str].
+        integration_name : typing.Optional[str]
 
-            - last_incident_time_after: typing.Optional[dt.datetime]. If provided, will only return issues whose last incident time was after this datetime.
+        last_incident_time_after : typing.Optional[dt.datetime]
+            If provided, will only return issues whose last incident time was after this datetime.
 
-            - last_incident_time_before: typing.Optional[dt.datetime]. If provided, will only return issues whose last incident time was before this datetime.
+        last_incident_time_before : typing.Optional[dt.datetime]
+            If provided, will only return issues whose last incident time was before this datetime.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - start_date: typing.Optional[str]. If included, will only include issues whose most recent action occurred after this time
+        start_date : typing.Optional[str]
+            If included, will only include issues whose most recent action occurred after this time
 
-            - status: typing.Optional[IssuesListRequestStatus]. Status of the issue. Options: ('ONGOING', 'RESOLVED')
+        status : typing.Optional[IssuesListRequestStatus]
+            Status of the issue. Options: ('ONGOING', 'RESOLVED')
 
-                                                                - `ONGOING` - ONGOING
-                                                                - `RESOLVED` - RESOLVED
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+            - `ONGOING` - ONGOING
+            - `RESOLVED` - RESOLVED
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedIssueList
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -86,54 +100,35 @@ class IssuesClient:
         client.hris.issues.list()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/issues"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "account_token": account_token,
-                        "cursor": cursor,
-                        "end_date": end_date,
-                        "end_user_organization_name": end_user_organization_name,
-                        "first_incident_time_after": serialize_datetime(first_incident_time_after)
-                        if first_incident_time_after is not None
-                        else None,
-                        "first_incident_time_before": serialize_datetime(first_incident_time_before)
-                        if first_incident_time_before is not None
-                        else None,
-                        "include_muted": include_muted,
-                        "integration_name": integration_name,
-                        "last_incident_time_after": serialize_datetime(last_incident_time_after)
-                        if last_incident_time_after is not None
-                        else None,
-                        "last_incident_time_before": serialize_datetime(last_incident_time_before)
-                        if last_incident_time_before is not None
-                        else None,
-                        "page_size": page_size,
-                        "start_date": start_date,
-                        "status": status,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "hris/v1/issues",
+            method="GET",
+            params={
+                "account_token": account_token,
+                "cursor": cursor,
+                "end_date": end_date,
+                "end_user_organization_name": end_user_organization_name,
+                "first_incident_time_after": serialize_datetime(first_incident_time_after)
+                if first_incident_time_after is not None
+                else None,
+                "first_incident_time_before": serialize_datetime(first_incident_time_before)
+                if first_incident_time_before is not None
+                else None,
+                "include_muted": include_muted,
+                "integration_name": integration_name,
+                "last_incident_time_after": serialize_datetime(last_incident_time_after)
+                if last_incident_time_after is not None
+                else None,
+                "last_incident_time_before": serialize_datetime(last_incident_time_before)
+                if last_incident_time_before is not None
+                else None,
+                "page_size": page_size,
+                "start_date": start_date,
+                "status": status,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedIssueList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedIssueList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -144,11 +139,20 @@ class IssuesClient:
         """
         Get a specific issue.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Issue
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -160,25 +164,10 @@ class IssuesClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/issues/{id}"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"hris/v1/issues/{jsonable_encoder(id)}", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(Issue, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(Issue, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -211,37 +200,57 @@ class AsyncIssuesClient:
         """
         Gets issues.
 
-        Parameters:
-            - account_token: typing.Optional[str].
+        Parameters
+        ----------
+        account_token : typing.Optional[str]
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - end_date: typing.Optional[str]. If included, will only include issues whose most recent action occurred before this time
+        end_date : typing.Optional[str]
+            If included, will only include issues whose most recent action occurred before this time
 
-            - end_user_organization_name: typing.Optional[str].
+        end_user_organization_name : typing.Optional[str]
 
-            - first_incident_time_after: typing.Optional[dt.datetime]. If provided, will only return issues whose first incident time was after this datetime.
+        first_incident_time_after : typing.Optional[dt.datetime]
+            If provided, will only return issues whose first incident time was after this datetime.
 
-            - first_incident_time_before: typing.Optional[dt.datetime]. If provided, will only return issues whose first incident time was before this datetime.
+        first_incident_time_before : typing.Optional[dt.datetime]
+            If provided, will only return issues whose first incident time was before this datetime.
 
-            - include_muted: typing.Optional[str]. If true, will include muted issues
+        include_muted : typing.Optional[str]
+            If true, will include muted issues
 
-            - integration_name: typing.Optional[str].
+        integration_name : typing.Optional[str]
 
-            - last_incident_time_after: typing.Optional[dt.datetime]. If provided, will only return issues whose last incident time was after this datetime.
+        last_incident_time_after : typing.Optional[dt.datetime]
+            If provided, will only return issues whose last incident time was after this datetime.
 
-            - last_incident_time_before: typing.Optional[dt.datetime]. If provided, will only return issues whose last incident time was before this datetime.
+        last_incident_time_before : typing.Optional[dt.datetime]
+            If provided, will only return issues whose last incident time was before this datetime.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - start_date: typing.Optional[str]. If included, will only include issues whose most recent action occurred after this time
+        start_date : typing.Optional[str]
+            If included, will only include issues whose most recent action occurred after this time
 
-            - status: typing.Optional[IssuesListRequestStatus]. Status of the issue. Options: ('ONGOING', 'RESOLVED')
+        status : typing.Optional[IssuesListRequestStatus]
+            Status of the issue. Options: ('ONGOING', 'RESOLVED')
 
-                                                                - `ONGOING` - ONGOING
-                                                                - `RESOLVED` - RESOLVED
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+            - `ONGOING` - ONGOING
+            - `RESOLVED` - RESOLVED
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedIssueList
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -251,54 +260,35 @@ class AsyncIssuesClient:
         await client.hris.issues.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "hris/v1/issues"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "account_token": account_token,
-                        "cursor": cursor,
-                        "end_date": end_date,
-                        "end_user_organization_name": end_user_organization_name,
-                        "first_incident_time_after": serialize_datetime(first_incident_time_after)
-                        if first_incident_time_after is not None
-                        else None,
-                        "first_incident_time_before": serialize_datetime(first_incident_time_before)
-                        if first_incident_time_before is not None
-                        else None,
-                        "include_muted": include_muted,
-                        "integration_name": integration_name,
-                        "last_incident_time_after": serialize_datetime(last_incident_time_after)
-                        if last_incident_time_after is not None
-                        else None,
-                        "last_incident_time_before": serialize_datetime(last_incident_time_before)
-                        if last_incident_time_before is not None
-                        else None,
-                        "page_size": page_size,
-                        "start_date": start_date,
-                        "status": status,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "hris/v1/issues",
+            method="GET",
+            params={
+                "account_token": account_token,
+                "cursor": cursor,
+                "end_date": end_date,
+                "end_user_organization_name": end_user_organization_name,
+                "first_incident_time_after": serialize_datetime(first_incident_time_after)
+                if first_incident_time_after is not None
+                else None,
+                "first_incident_time_before": serialize_datetime(first_incident_time_before)
+                if first_incident_time_before is not None
+                else None,
+                "include_muted": include_muted,
+                "integration_name": integration_name,
+                "last_incident_time_after": serialize_datetime(last_incident_time_after)
+                if last_incident_time_after is not None
+                else None,
+                "last_incident_time_before": serialize_datetime(last_incident_time_before)
+                if last_incident_time_before is not None
+                else None,
+                "page_size": page_size,
+                "start_date": start_date,
+                "status": status,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedIssueList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedIssueList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -309,11 +299,20 @@ class AsyncIssuesClient:
         """
         Get a specific issue.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Issue
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -325,25 +324,10 @@ class AsyncIssuesClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"hris/v1/issues/{id}"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"hris/v1/issues/{jsonable_encoder(id)}", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(Issue, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(Issue, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:

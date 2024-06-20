@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .address_request import AddressRequest
 from .email_address_request import EmailAddressRequest
 from .lead_request_converted_account import LeadRequestConvertedAccount
@@ -12,13 +13,8 @@ from .lead_request_owner import LeadRequestOwner
 from .phone_number_request import PhoneNumberRequest
 from .remote_field_request import RemoteFieldRequest
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class LeadRequest(pydantic.BaseModel):
+class LeadRequest(pydantic_v1.BaseModel):
     """
     # The Lead Object
 
@@ -31,22 +27,54 @@ class LeadRequest(pydantic.BaseModel):
     TODO
     """
 
-    owner: typing.Optional[LeadRequestOwner] = pydantic.Field(description="The lead's owner.")
-    lead_source: typing.Optional[str] = pydantic.Field(description="The lead's source.")
-    title: typing.Optional[str] = pydantic.Field(description="The lead's title.")
-    company: typing.Optional[str] = pydantic.Field(description="The lead's company.")
-    first_name: typing.Optional[str] = pydantic.Field(description="The lead's first name.")
-    last_name: typing.Optional[str] = pydantic.Field(description="The lead's last name.")
+    owner: typing.Optional[LeadRequestOwner] = pydantic_v1.Field()
+    """
+    The lead's owner.
+    """
+
+    lead_source: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The lead's source.
+    """
+
+    title: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The lead's title.
+    """
+
+    company: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The lead's company.
+    """
+
+    first_name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The lead's first name.
+    """
+
+    last_name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The lead's last name.
+    """
+
     addresses: typing.Optional[typing.List[AddressRequest]]
     email_addresses: typing.Optional[typing.List[EmailAddressRequest]]
     phone_numbers: typing.Optional[typing.List[PhoneNumberRequest]]
-    converted_date: typing.Optional[dt.datetime] = pydantic.Field(description="When the lead was converted.")
-    converted_contact: typing.Optional[LeadRequestConvertedContact] = pydantic.Field(
-        description="The contact of the converted lead."
-    )
-    converted_account: typing.Optional[LeadRequestConvertedAccount] = pydantic.Field(
-        description="The account of the converted lead."
-    )
+    converted_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the lead was converted.
+    """
+
+    converted_contact: typing.Optional[LeadRequestConvertedContact] = pydantic_v1.Field()
+    """
+    The contact of the converted lead.
+    """
+
+    converted_account: typing.Optional[LeadRequestConvertedAccount] = pydantic_v1.Field()
+    """
+    The account of the converted lead.
+    """
+
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
@@ -56,10 +84,15 @@ class LeadRequest(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

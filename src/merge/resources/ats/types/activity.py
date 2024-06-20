@@ -4,18 +4,14 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .activity_activity_type import ActivityActivityType
 from .activity_user import ActivityUser
 from .activity_visibility import ActivityVisibility
 from .remote_data import RemoteData
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class Activity(pydantic.BaseModel):
+class Activity(pydantic_v1.BaseModel):
     """
     # The Activity Object
 
@@ -29,35 +25,69 @@ class Activity(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    user: typing.Optional[ActivityUser] = pydantic.Field(description="The user that performed the action.")
-    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="When the third party's activity was created."
-    )
-    activity_type: typing.Optional[ActivityActivityType] = pydantic.Field(
-        description=("The activity's type.\n" "\n" "- `NOTE` - NOTE\n" "- `EMAIL` - EMAIL\n" "- `OTHER` - OTHER\n")
-    )
-    subject: typing.Optional[str] = pydantic.Field(description="The activity's subject.")
-    body: typing.Optional[str] = pydantic.Field(description="The activity's body.")
-    visibility: typing.Optional[ActivityVisibility] = pydantic.Field(
-        description=(
-            "The activity's visibility.\n"
-            "\n"
-            "- `ADMIN_ONLY` - ADMIN_ONLY\n"
-            "- `PUBLIC` - PUBLIC\n"
-            "- `PRIVATE` - PRIVATE\n"
-        )
-    )
-    candidate: typing.Optional[str] = pydantic.Field(description="The activity’s candidate.")
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted in the third party platform."
-    )
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    user: typing.Optional[ActivityUser] = pydantic_v1.Field()
+    """
+    The user that performed the action.
+    """
+
+    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the third party's activity was created.
+    """
+
+    activity_type: typing.Optional[ActivityActivityType] = pydantic_v1.Field()
+    """
+    The activity's type.
+    
+    - `NOTE` - NOTE
+    - `EMAIL` - EMAIL
+    - `OTHER` - OTHER
+    """
+
+    subject: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The activity's subject.
+    """
+
+    body: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The activity's body.
+    """
+
+    visibility: typing.Optional[ActivityVisibility] = pydantic_v1.Field()
+    """
+    The activity's visibility.
+    
+    - `ADMIN_ONLY` - ADMIN_ONLY
+    - `PUBLIC` - PUBLIC
+    - `PRIVATE` - PRIVATE
+    """
+
+    candidate: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The activity’s candidate.
+    """
+
+    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Indicates whether or not this object has been deleted in the third party platform.
+    """
+
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
@@ -66,10 +96,15 @@ class Activity(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

@@ -4,19 +4,15 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .remote_field_request import RemoteFieldRequest
 from .task_request_account import TaskRequestAccount
 from .task_request_opportunity import TaskRequestOpportunity
 from .task_request_owner import TaskRequestOwner
 from .task_request_status import TaskRequestStatus
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class TaskRequest(pydantic.BaseModel):
+class TaskRequest(pydantic_v1.BaseModel):
     """
     # The Task Object
 
@@ -29,16 +25,49 @@ class TaskRequest(pydantic.BaseModel):
     TODO
     """
 
-    subject: typing.Optional[str] = pydantic.Field(description="The task's subject.")
-    content: typing.Optional[str] = pydantic.Field(description="The task's content.")
-    owner: typing.Optional[TaskRequestOwner] = pydantic.Field(description="The task's owner.")
-    account: typing.Optional[TaskRequestAccount] = pydantic.Field(description="The task's account.")
-    opportunity: typing.Optional[TaskRequestOpportunity] = pydantic.Field(description="The task's opportunity.")
-    completed_date: typing.Optional[dt.datetime] = pydantic.Field(description="When the task is completed.")
-    due_date: typing.Optional[dt.datetime] = pydantic.Field(description="When the task is due.")
-    status: typing.Optional[TaskRequestStatus] = pydantic.Field(
-        description=("The task's status.\n" "\n" "- `OPEN` - OPEN\n" "- `CLOSED` - CLOSED\n")
-    )
+    subject: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The task's subject.
+    """
+
+    content: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The task's content.
+    """
+
+    owner: typing.Optional[TaskRequestOwner] = pydantic_v1.Field()
+    """
+    The task's owner.
+    """
+
+    account: typing.Optional[TaskRequestAccount] = pydantic_v1.Field()
+    """
+    The task's account.
+    """
+
+    opportunity: typing.Optional[TaskRequestOpportunity] = pydantic_v1.Field()
+    """
+    The task's opportunity.
+    """
+
+    completed_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the task is completed.
+    """
+
+    due_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the task is due.
+    """
+
+    status: typing.Optional[TaskRequestStatus] = pydantic_v1.Field()
+    """
+    The task's status.
+    
+    - `OPEN` - OPEN
+    - `CLOSED` - CLOSED
+    """
+
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
@@ -48,10 +77,15 @@ class TaskRequest(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

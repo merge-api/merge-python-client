@@ -4,48 +4,66 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .categories_enum import CategoriesEnum
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
+class AccountIntegration(pydantic_v1.BaseModel):
+    name: str = pydantic_v1.Field()
+    """
+    Company name.
+    """
 
-class AccountIntegration(pydantic.BaseModel):
-    name: str = pydantic.Field(description="Company name.")
-    categories: typing.Optional[typing.List[CategoriesEnum]] = pydantic.Field(
-        description="Category or categories this integration belongs to. Multiple categories should be comma separated, i.e. [ats, hris]."
-    )
-    image: typing.Optional[str] = pydantic.Field(
-        description="Company logo in rectangular shape. <b>Upload an image with a clear background.</b>"
-    )
-    square_image: typing.Optional[str] = pydantic.Field(
-        description="Company logo in square shape. <b>Upload an image with a white background.</b>"
-    )
-    color: typing.Optional[str] = pydantic.Field(
-        description="The color of this integration used for buttons and text throughout the app and landing pages. <b>Choose a darker, saturated color.</b>"
-    )
+    categories: typing.Optional[typing.List[CategoriesEnum]] = pydantic_v1.Field()
+    """
+    Category or categories this integration belongs to. Multiple categories should be comma separated, i.e. [ats, hris].
+    """
+
+    image: typing.Optional[str] = pydantic_v1.Field()
+    """
+    Company logo in rectangular shape. <b>Upload an image with a clear background.</b>
+    """
+
+    square_image: typing.Optional[str] = pydantic_v1.Field()
+    """
+    Company logo in square shape. <b>Upload an image with a white background.</b>
+    """
+
+    color: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The color of this integration used for buttons and text throughout the app and landing pages. <b>Choose a darker, saturated color.</b>
+    """
+
     slug: typing.Optional[str]
-    api_endpoints_to_documentation_urls: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(
-        description="Mapping of API endpoints to documentation urls for support. Example: {'GET': [['/common-model-scopes', 'https://docs.merge.dev/accounting/common-model-scopes/#common_model_scopes_retrieve'],['/common-model-actions', 'https://docs.merge.dev/accounting/common-model-actions/#common_model_actions_retrieve']], 'POST': []}"
-    )
-    webhook_setup_guide_url: typing.Optional[str] = pydantic.Field(
-        description="Setup guide URL for third party webhook creation. Exposed in Merge Docs."
-    )
-    category_beta_status: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(
-        description="Category or categories this integration is in beta status for."
-    )
+    api_endpoints_to_documentation_urls: typing.Optional[typing.Dict[str, typing.Any]] = pydantic_v1.Field()
+    """
+    Mapping of API endpoints to documentation urls for support. Example: {'GET': [['/common-model-scopes', 'https://docs.merge.dev/accounting/common-model-scopes/#common_model_scopes_retrieve'],['/common-model-actions', 'https://docs.merge.dev/accounting/common-model-actions/#common_model_actions_retrieve']], 'POST': []}
+    """
+
+    webhook_setup_guide_url: typing.Optional[str] = pydantic_v1.Field()
+    """
+    Setup guide URL for third party webhook creation. Exposed in Merge Docs.
+    """
+
+    category_beta_status: typing.Optional[typing.Dict[str, typing.Any]] = pydantic_v1.Field()
+    """
+    Category or categories this integration is in beta status for.
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .note_account import NoteAccount
 from .note_contact import NoteContact
 from .note_opportunity import NoteOpportunity
@@ -11,13 +12,8 @@ from .note_owner import NoteOwner
 from .remote_data import RemoteData
 from .remote_field import RemoteField
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class Note(pydantic.BaseModel):
+class Note(pydantic_v1.BaseModel):
     """
     # The Note Object
 
@@ -31,24 +27,56 @@ class Note(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    owner: typing.Optional[NoteOwner] = pydantic.Field(description="The note's owner.")
-    content: typing.Optional[str] = pydantic.Field(description="The note's content.")
-    contact: typing.Optional[NoteContact] = pydantic.Field(description="The note's contact.")
-    account: typing.Optional[NoteAccount] = pydantic.Field(description="The note's account.")
-    opportunity: typing.Optional[NoteOpportunity] = pydantic.Field(description="The note's opportunity.")
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="When the third party's lead was updated."
-    )
-    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="When the third party's lead was created."
-    )
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    owner: typing.Optional[NoteOwner] = pydantic_v1.Field()
+    """
+    The note's owner.
+    """
+
+    content: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The note's content.
+    """
+
+    contact: typing.Optional[NoteContact] = pydantic_v1.Field()
+    """
+    The note's contact.
+    """
+
+    account: typing.Optional[NoteAccount] = pydantic_v1.Field()
+    """
+    The note's account.
+    """
+
+    opportunity: typing.Optional[NoteOpportunity] = pydantic_v1.Field()
+    """
+    The note's opportunity.
+    """
+
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the third party's lead was updated.
+    """
+
+    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the third party's lead was created.
+    """
+
     remote_was_deleted: typing.Optional[bool]
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
@@ -59,10 +87,15 @@ class Note(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

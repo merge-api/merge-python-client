@@ -6,17 +6,13 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .offer_creator import OfferCreator
 from .offer_status import OfferStatus
 from .remote_data import RemoteData
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class Offer(pydantic.BaseModel):
+class Offer(pydantic_v1.BaseModel):
     """
     # The Offer Object
 
@@ -30,41 +26,71 @@ class Offer(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    application: typing.Optional[OfferApplication] = pydantic.Field(
-        description="The application who is receiving the offer."
-    )
-    creator: typing.Optional[OfferCreator] = pydantic.Field(description="The user who created the offer.")
-    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="When the third party's offer was created."
-    )
-    closed_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the offer was closed.")
-    sent_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the offer was sent.")
-    start_date: typing.Optional[dt.datetime] = pydantic.Field(description="The employment start date on the offer.")
-    status: typing.Optional[OfferStatus] = pydantic.Field(
-        description=(
-            "The offer's status.\n"
-            "\n"
-            "- `DRAFT` - DRAFT\n"
-            "- `APPROVAL-SENT` - APPROVAL-SENT\n"
-            "- `APPROVED` - APPROVED\n"
-            "- `SENT` - SENT\n"
-            "- `SENT-MANUALLY` - SENT-MANUALLY\n"
-            "- `OPENED` - OPENED\n"
-            "- `DENIED` - DENIED\n"
-            "- `SIGNED` - SIGNED\n"
-            "- `DEPRECATED` - DEPRECATED\n"
-        )
-    )
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted in the third party platform."
-    )
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    application: typing.Optional[OfferApplication] = pydantic_v1.Field()
+    """
+    The application who is receiving the offer.
+    """
+
+    creator: typing.Optional[OfferCreator] = pydantic_v1.Field()
+    """
+    The user who created the offer.
+    """
+
+    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the third party's offer was created.
+    """
+
+    closed_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the offer was closed.
+    """
+
+    sent_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the offer was sent.
+    """
+
+    start_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The employment start date on the offer.
+    """
+
+    status: typing.Optional[OfferStatus] = pydantic_v1.Field()
+    """
+    The offer's status.
+    
+    - `DRAFT` - DRAFT
+    - `APPROVAL-SENT` - APPROVAL-SENT
+    - `APPROVED` - APPROVED
+    - `SENT` - SENT
+    - `SENT-MANUALLY` - SENT-MANUALLY
+    - `OPENED` - OPENED
+    - `DENIED` - DENIED
+    - `SIGNED` - SIGNED
+    - `DEPRECATED` - DEPRECATED
+    """
+
+    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Indicates whether or not this object has been deleted in the third party platform.
+    """
+
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
@@ -73,12 +99,17 @@ class Offer(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}
 
 

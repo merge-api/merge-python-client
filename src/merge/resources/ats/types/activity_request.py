@@ -4,17 +4,13 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .activity_request_activity_type import ActivityRequestActivityType
 from .activity_request_user import ActivityRequestUser
 from .activity_request_visibility import ActivityRequestVisibility
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class ActivityRequest(pydantic.BaseModel):
+class ActivityRequest(pydantic_v1.BaseModel):
     """
     # The Activity Object
 
@@ -27,22 +23,44 @@ class ActivityRequest(pydantic.BaseModel):
     Fetch from the `LIST Activities` endpoint and filter by `ID` to show all activities.
     """
 
-    user: typing.Optional[ActivityRequestUser] = pydantic.Field(description="The user that performed the action.")
-    activity_type: typing.Optional[ActivityRequestActivityType] = pydantic.Field(
-        description=("The activity's type.\n" "\n" "- `NOTE` - NOTE\n" "- `EMAIL` - EMAIL\n" "- `OTHER` - OTHER\n")
-    )
-    subject: typing.Optional[str] = pydantic.Field(description="The activity's subject.")
-    body: typing.Optional[str] = pydantic.Field(description="The activity's body.")
-    visibility: typing.Optional[ActivityRequestVisibility] = pydantic.Field(
-        description=(
-            "The activity's visibility.\n"
-            "\n"
-            "- `ADMIN_ONLY` - ADMIN_ONLY\n"
-            "- `PUBLIC` - PUBLIC\n"
-            "- `PRIVATE` - PRIVATE\n"
-        )
-    )
-    candidate: typing.Optional[str] = pydantic.Field(description="The activity’s candidate.")
+    user: typing.Optional[ActivityRequestUser] = pydantic_v1.Field()
+    """
+    The user that performed the action.
+    """
+
+    activity_type: typing.Optional[ActivityRequestActivityType] = pydantic_v1.Field()
+    """
+    The activity's type.
+    
+    - `NOTE` - NOTE
+    - `EMAIL` - EMAIL
+    - `OTHER` - OTHER
+    """
+
+    subject: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The activity's subject.
+    """
+
+    body: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The activity's body.
+    """
+
+    visibility: typing.Optional[ActivityRequestVisibility] = pydantic_v1.Field()
+    """
+    The activity's visibility.
+    
+    - `ADMIN_ONLY` - ADMIN_ONLY
+    - `PUBLIC` - PUBLIC
+    - `PRIVATE` - PRIVATE
+    """
+
+    candidate: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The activity’s candidate.
+    """
+
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -51,10 +69,15 @@ class ActivityRequest(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

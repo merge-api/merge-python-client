@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .remote_data import RemoteData
 from .scheduled_interview_application import ScheduledInterviewApplication
 from .scheduled_interview_interviewers_item import ScheduledInterviewInterviewersItem
@@ -11,13 +12,8 @@ from .scheduled_interview_job_interview_stage import ScheduledInterviewJobInterv
 from .scheduled_interview_organizer import ScheduledInterviewOrganizer
 from .scheduled_interview_status import ScheduledInterviewStatus
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class ScheduledInterview(pydantic.BaseModel):
+class ScheduledInterview(pydantic_v1.BaseModel):
     """
     # The ScheduledInterview Object
 
@@ -31,46 +27,82 @@ class ScheduledInterview(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    application: typing.Optional[ScheduledInterviewApplication] = pydantic.Field(
-        description="The application being interviewed."
-    )
-    job_interview_stage: typing.Optional[ScheduledInterviewJobInterviewStage] = pydantic.Field(
-        description="The stage of the interview."
-    )
-    organizer: typing.Optional[ScheduledInterviewOrganizer] = pydantic.Field(
-        description="The user organizing the interview."
-    )
-    interviewers: typing.Optional[typing.List[typing.Optional[ScheduledInterviewInterviewersItem]]] = pydantic.Field(
-        description="Array of `RemoteUser` IDs."
-    )
-    location: typing.Optional[str] = pydantic.Field(description="The interview's location.")
-    start_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the interview was started.")
-    end_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the interview was ended.")
-    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="When the third party's interview was created."
-    )
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="When the third party's interview was updated."
-    )
-    status: typing.Optional[ScheduledInterviewStatus] = pydantic.Field(
-        description=(
-            "The interview's status.\n"
-            "\n"
-            "- `SCHEDULED` - SCHEDULED\n"
-            "- `AWAITING_FEEDBACK` - AWAITING_FEEDBACK\n"
-            "- `COMPLETE` - COMPLETE\n"
-        )
-    )
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted in the third party platform."
-    )
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    application: typing.Optional[ScheduledInterviewApplication] = pydantic_v1.Field()
+    """
+    The application being interviewed.
+    """
+
+    job_interview_stage: typing.Optional[ScheduledInterviewJobInterviewStage] = pydantic_v1.Field()
+    """
+    The stage of the interview.
+    """
+
+    organizer: typing.Optional[ScheduledInterviewOrganizer] = pydantic_v1.Field()
+    """
+    The user organizing the interview.
+    """
+
+    interviewers: typing.Optional[
+        typing.List[typing.Optional[ScheduledInterviewInterviewersItem]]
+    ] = pydantic_v1.Field()
+    """
+    Array of `RemoteUser` IDs.
+    """
+
+    location: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The interview's location.
+    """
+
+    start_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the interview was started.
+    """
+
+    end_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the interview was ended.
+    """
+
+    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the third party's interview was created.
+    """
+
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the third party's interview was updated.
+    """
+
+    status: typing.Optional[ScheduledInterviewStatus] = pydantic_v1.Field()
+    """
+    The interview's status.
+    
+    - `SCHEDULED` - SCHEDULED
+    - `AWAITING_FEEDBACK` - AWAITING_FEEDBACK
+    - `COMPLETE` - COMPLETE
+    """
+
+    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Indicates whether or not this object has been deleted in the third party platform.
+    """
+
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
@@ -79,10 +111,15 @@ class ScheduledInterview(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

@@ -4,15 +4,11 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .vendor_credit_line_account import VendorCreditLineAccount
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class VendorCreditLine(pydantic.BaseModel):
+class VendorCreditLine(pydantic_v1.BaseModel):
     """
     # The VendorCreditLine Object
 
@@ -26,33 +22,75 @@ class VendorCreditLine(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    net_amount: typing.Optional[float] = pydantic.Field(description="The full value of the credit.")
-    tracking_category: typing.Optional[str] = pydantic.Field(description="The line's associated tracking category.")
-    tracking_categories: typing.List[str] = pydantic.Field(description="The line's associated tracking categories.")
-    description: typing.Optional[str] = pydantic.Field(description="The line's description.")
-    account: typing.Optional[VendorCreditLineAccount] = pydantic.Field(description="The line's account.")
-    company: typing.Optional[str] = pydantic.Field(description="The company the line belongs to.")
-    exchange_rate: typing.Optional[str] = pydantic.Field(description="The vendor credit line item's exchange rate.")
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted in the third party platform."
-    )
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    net_amount: typing.Optional[float] = pydantic_v1.Field()
+    """
+    The full value of the credit.
+    """
+
+    tracking_category: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The line's associated tracking category.
+    """
+
+    tracking_categories: typing.List[str] = pydantic_v1.Field()
+    """
+    The line's associated tracking categories.
+    """
+
+    description: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The line's description.
+    """
+
+    account: typing.Optional[VendorCreditLineAccount] = pydantic_v1.Field()
+    """
+    The line's account.
+    """
+
+    company: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The company the line belongs to.
+    """
+
+    exchange_rate: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The vendor credit line item's exchange rate.
+    """
+
+    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Indicates whether or not this object has been deleted in the third party platform.
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}
