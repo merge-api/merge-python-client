@@ -2,7 +2,6 @@
 README.md
 CODEOWNERS
 LICENSE.md
-tests/test_client.py
 
 # We need to configure secrets for integration tests.
 .github/workflows/ci.yml
