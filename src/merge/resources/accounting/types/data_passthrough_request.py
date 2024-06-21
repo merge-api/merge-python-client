@@ -4,17 +4,13 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .method_enum import MethodEnum
 from .multipart_form_field_request import MultipartFormFieldRequest
 from .request_format_enum import RequestFormatEnum
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class DataPassthroughRequest(pydantic.BaseModel):
+class DataPassthroughRequest(pydantic_v1.BaseModel):
     """
     # The DataPassthrough Object
 
@@ -28,33 +24,51 @@ class DataPassthroughRequest(pydantic.BaseModel):
     """
 
     method: MethodEnum
-    path: str = pydantic.Field(description="The path of the request in the third party's platform.")
-    base_url_override: typing.Optional[str] = pydantic.Field(
-        description="An optional override of the third party's base url for the request."
-    )
-    data: typing.Optional[str] = pydantic.Field(
-        description="The data with the request. You must include a `request_format` parameter matching the data's format"
-    )
-    multipart_form_data: typing.Optional[typing.List[MultipartFormFieldRequest]] = pydantic.Field(
-        description="Pass an array of `MultipartFormField` objects in here instead of using the `data` param if `request_format` is set to `MULTIPART`."
-    )
-    headers: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(
-        description="The headers to use for the request (Merge will handle the account's authorization headers). `Content-Type` header is required for passthrough. Choose content type corresponding to expected format of receiving server."
-    )
+    path: str = pydantic_v1.Field()
+    """
+    The path of the request in the third party's platform.
+    """
+
+    base_url_override: typing.Optional[str] = pydantic_v1.Field()
+    """
+    An optional override of the third party's base url for the request.
+    """
+
+    data: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The data with the request. You must include a `request_format` parameter matching the data's format
+    """
+
+    multipart_form_data: typing.Optional[typing.List[MultipartFormFieldRequest]] = pydantic_v1.Field()
+    """
+    Pass an array of `MultipartFormField` objects in here instead of using the `data` param if `request_format` is set to `MULTIPART`.
+    """
+
+    headers: typing.Optional[typing.Dict[str, typing.Any]] = pydantic_v1.Field()
+    """
+    The headers to use for the request (Merge will handle the account's authorization headers). `Content-Type` header is required for passthrough. Choose content type corresponding to expected format of receiving server.
+    """
+
     request_format: typing.Optional[RequestFormatEnum]
-    normalize_response: typing.Optional[bool] = pydantic.Field(
-        description='Optional. If true, the response will always be an object of the form `{"type": T, "value": ...}` where `T` will be one of `string, boolean, number, null, array, object`.'
-    )
+    normalize_response: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Optional. If true, the response will always be an object of the form `{"type": T, "value": ...}` where `T` will be one of `string, boolean, number, null, array, object`.
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

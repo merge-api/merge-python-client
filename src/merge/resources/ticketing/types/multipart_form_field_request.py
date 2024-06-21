@@ -4,15 +4,11 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class MultipartFormFieldRequest(pydantic.BaseModel):
+class MultipartFormFieldRequest(pydantic_v1.BaseModel):
     """
     # The MultipartFormField Object
 
@@ -25,33 +21,49 @@ class MultipartFormFieldRequest(pydantic.BaseModel):
     Create a `MultipartFormField` to define a multipart form entry.
     """
 
-    name: str = pydantic.Field(description="The name of the form field")
-    data: str = pydantic.Field(description="The data for the form field.")
-    encoding: typing.Optional[MultipartFormFieldRequestEncoding] = pydantic.Field(
-        description=(
-            "The encoding of the value of `data`. Defaults to `RAW` if not defined.\n"
-            "\n"
-            "- `RAW` - RAW\n"
-            "- `BASE64` - BASE64\n"
-            "- `GZIP_BASE64` - GZIP_BASE64\n"
-        )
-    )
-    file_name: typing.Optional[str] = pydantic.Field(
-        description="The file name of the form field, if the field is for a file."
-    )
-    content_type: typing.Optional[str] = pydantic.Field(
-        description="The MIME type of the file, if the field is for a file."
-    )
+    name: str = pydantic_v1.Field()
+    """
+    The name of the form field
+    """
+
+    data: str = pydantic_v1.Field()
+    """
+    The data for the form field.
+    """
+
+    encoding: typing.Optional[MultipartFormFieldRequestEncoding] = pydantic_v1.Field()
+    """
+    The encoding of the value of `data`. Defaults to `RAW` if not defined.
+    
+    - `RAW` - RAW
+    - `BASE64` - BASE64
+    - `GZIP_BASE64` - GZIP_BASE64
+    """
+
+    file_name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The file name of the form field, if the field is for a file.
+    """
+
+    content_type: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The MIME type of the file, if the field is for a file.
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .address import Address
 from .email_address import EmailAddress
 from .lead_converted_account import LeadConvertedAccount
@@ -13,13 +14,8 @@ from .phone_number import PhoneNumber
 from .remote_data import RemoteData
 from .remote_field import RemoteField
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class Lead(pydantic.BaseModel):
+class Lead(pydantic_v1.BaseModel):
     """
     # The Lead Object
 
@@ -33,35 +29,79 @@ class Lead(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    owner: typing.Optional[LeadOwner] = pydantic.Field(description="The lead's owner.")
-    lead_source: typing.Optional[str] = pydantic.Field(description="The lead's source.")
-    title: typing.Optional[str] = pydantic.Field(description="The lead's title.")
-    company: typing.Optional[str] = pydantic.Field(description="The lead's company.")
-    first_name: typing.Optional[str] = pydantic.Field(description="The lead's first name.")
-    last_name: typing.Optional[str] = pydantic.Field(description="The lead's last name.")
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    owner: typing.Optional[LeadOwner] = pydantic_v1.Field()
+    """
+    The lead's owner.
+    """
+
+    lead_source: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The lead's source.
+    """
+
+    title: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The lead's title.
+    """
+
+    company: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The lead's company.
+    """
+
+    first_name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The lead's first name.
+    """
+
+    last_name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The lead's last name.
+    """
+
     addresses: typing.Optional[typing.List[Address]]
     email_addresses: typing.Optional[typing.List[EmailAddress]]
     phone_numbers: typing.Optional[typing.List[PhoneNumber]]
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="When the third party's lead was updated."
-    )
-    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="When the third party's lead was created."
-    )
-    converted_date: typing.Optional[dt.datetime] = pydantic.Field(description="When the lead was converted.")
-    converted_contact: typing.Optional[LeadConvertedContact] = pydantic.Field(
-        description="The contact of the converted lead."
-    )
-    converted_account: typing.Optional[LeadConvertedAccount] = pydantic.Field(
-        description="The account of the converted lead."
-    )
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the third party's lead was updated.
+    """
+
+    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the third party's lead was created.
+    """
+
+    converted_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the lead was converted.
+    """
+
+    converted_contact: typing.Optional[LeadConvertedContact] = pydantic_v1.Field()
+    """
+    The contact of the converted lead.
+    """
+
+    converted_account: typing.Optional[LeadConvertedAccount] = pydantic_v1.Field()
+    """
+    The account of the converted lead.
+    """
+
     remote_was_deleted: typing.Optional[bool]
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
@@ -72,10 +112,15 @@ class Lead(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

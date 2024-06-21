@@ -4,19 +4,15 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .remote_data import RemoteData
 from .scorecard_application import ScorecardApplication
 from .scorecard_interview import ScorecardInterview
 from .scorecard_interviewer import ScorecardInterviewer
 from .scorecard_overall_recommendation import ScorecardOverallRecommendation
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class Scorecard(pydantic.BaseModel):
+class Scorecard(pydantic_v1.BaseModel):
     """
     # The Scorecard Object
 
@@ -30,36 +26,62 @@ class Scorecard(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    application: typing.Optional[ScorecardApplication] = pydantic.Field(description="The application being scored.")
-    interview: typing.Optional[ScorecardInterview] = pydantic.Field(description="The interview being scored.")
-    interviewer: typing.Optional[ScorecardInterviewer] = pydantic.Field(
-        description="The interviewer doing the scoring."
-    )
-    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="When the third party's scorecard was created."
-    )
-    submitted_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the scorecard was submitted.")
-    overall_recommendation: typing.Optional[ScorecardOverallRecommendation] = pydantic.Field(
-        description=(
-            "The inteviewer's recommendation.\n"
-            "\n"
-            "- `DEFINITELY_NO` - DEFINITELY_NO\n"
-            "- `NO` - NO\n"
-            "- `YES` - YES\n"
-            "- `STRONG_YES` - STRONG_YES\n"
-            "- `NO_DECISION` - NO_DECISION\n"
-        )
-    )
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted in the third party platform."
-    )
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    application: typing.Optional[ScorecardApplication] = pydantic_v1.Field()
+    """
+    The application being scored.
+    """
+
+    interview: typing.Optional[ScorecardInterview] = pydantic_v1.Field()
+    """
+    The interview being scored.
+    """
+
+    interviewer: typing.Optional[ScorecardInterviewer] = pydantic_v1.Field()
+    """
+    The interviewer doing the scoring.
+    """
+
+    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the third party's scorecard was created.
+    """
+
+    submitted_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the scorecard was submitted.
+    """
+
+    overall_recommendation: typing.Optional[ScorecardOverallRecommendation] = pydantic_v1.Field()
+    """
+    The inteviewer's recommendation.
+    
+    - `DEFINITELY_NO` - DEFINITELY_NO
+    - `NO` - NO
+    - `YES` - YES
+    - `STRONG_YES` - STRONG_YES
+    - `NO_DECISION` - NO_DECISION
+    """
+
+    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Indicates whether or not this object has been deleted in the third party platform.
+    """
+
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
@@ -68,10 +90,15 @@ class Scorecard(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

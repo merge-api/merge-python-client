@@ -4,16 +4,12 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .group_type import GroupType
 from .remote_data import RemoteData
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class Group(pydantic.BaseModel):
+class Group(pydantic_v1.BaseModel):
     """
     # The Group Object
 
@@ -27,32 +23,52 @@ class Group(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    parent_group: typing.Optional[str] = pydantic.Field(description="The parent group for this group.")
-    name: typing.Optional[str] = pydantic.Field(description="The group name.")
-    type: typing.Optional[GroupType] = pydantic.Field(
-        description=(
-            "The Group type returned directly from the third-party.\n"
-            "\n"
-            "- `TEAM` - TEAM\n"
-            "- `DEPARTMENT` - DEPARTMENT\n"
-            "- `COST_CENTER` - COST_CENTER\n"
-            "- `BUSINESS_UNIT` - BUSINESS_UNIT\n"
-            "- `GROUP` - GROUP\n"
-        )
-    )
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted in the third party platform."
-    )
-    is_commonly_used_as_team: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether the Group refers to a team in the third party platform. Note that this is an opinionated view based on how Merge observes most organizations representing teams in each third party platform. If your customer uses a platform different from most, there is a chance this will not be correct."
-    )
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    parent_group: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The parent group for this group.
+    """
+
+    name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The group name.
+    """
+
+    type: typing.Optional[GroupType] = pydantic_v1.Field()
+    """
+    The Group type returned directly from the third-party.
+    
+    - `TEAM` - TEAM
+    - `DEPARTMENT` - DEPARTMENT
+    - `COST_CENTER` - COST_CENTER
+    - `BUSINESS_UNIT` - BUSINESS_UNIT
+    - `GROUP` - GROUP
+    """
+
+    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Indicates whether or not this object has been deleted in the third party platform.
+    """
+
+    is_commonly_used_as_team: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Indicates whether the Group refers to a team in the third party platform. Note that this is an opinionated view based on how Merge observes most organizations representing teams in each third party platform. If your customer uses a platform different from most, there is a chance this will not be correct.
+    """
+
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
@@ -61,10 +77,15 @@ class Group(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

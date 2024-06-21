@@ -2,5 +2,6 @@
 
 from .resources import accounting, ats, crm, filestorage, hris, ticketing
 from .environment import MergeEnvironment
+from .version import __version__
 
-__all__ = ["MergeEnvironment", "accounting", "ats", "crm", "filestorage", "hris", "ticketing"]
+__all__ = ["MergeEnvironment", "__version__", "accounting", "ats", "crm", "filestorage", "hris", "ticketing"]

@@ -4,17 +4,13 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .account_details_and_actions_integration import AccountDetailsAndActionsIntegration
 from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
 from .category_enum import CategoryEnum
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class AccountDetailsAndActions(pydantic.BaseModel):
+class AccountDetailsAndActions(pydantic_v1.BaseModel):
     """
     # The LinkedAccount Object
 
@@ -34,13 +30,17 @@ class AccountDetailsAndActions(pydantic.BaseModel):
     end_user_origin_id: typing.Optional[str]
     end_user_organization_name: str
     end_user_email_address: str
-    subdomain: typing.Optional[str] = pydantic.Field(
-        description="The tenant or domain the customer has provided access to."
-    )
+    subdomain: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The tenant or domain the customer has provided access to.
+    """
+
     webhook_listener_url: str
-    is_duplicate: typing.Optional[bool] = pydantic.Field(
-        description="Whether a Production Linked Account's credentials match another existing Production Linked Account. This field is `null` for Test Linked Accounts, incomplete Production Linked Accounts, and ignored duplicate Production Linked Account sets."
-    )
+    is_duplicate: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Whether a Production Linked Account's credentials match another existing Production Linked Account. This field is `null` for Test Linked Accounts, incomplete Production Linked Accounts, and ignored duplicate Production Linked Account sets.
+    """
+
     integration: typing.Optional[AccountDetailsAndActionsIntegration]
     account_type: str
 
@@ -49,10 +49,15 @@ class AccountDetailsAndActions(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

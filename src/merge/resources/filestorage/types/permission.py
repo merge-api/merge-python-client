@@ -4,18 +4,14 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .permission_group import PermissionGroup
 from .permission_roles_item import PermissionRolesItem
 from .permission_type import PermissionType
 from .permission_user import PermissionUser
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class Permission(pydantic.BaseModel):
+class Permission(pydantic_v1.BaseModel):
     """
     # The Permission Object
 
@@ -29,38 +25,60 @@ class Permission(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    user: typing.Optional[PermissionUser] = pydantic.Field(description="The user that is granted this permission.")
-    group: typing.Optional[PermissionGroup] = pydantic.Field(description="The group that is granted this permission.")
-    type: typing.Optional[PermissionType] = pydantic.Field(
-        description=(
-            "Denotes what type of people have access to the file.\n"
-            "\n"
-            "- `USER` - USER\n"
-            "- `GROUP` - GROUP\n"
-            "- `COMPANY` - COMPANY\n"
-            "- `ANYONE` - ANYONE\n"
-        )
-    )
-    roles: typing.Optional[typing.List[typing.Optional[PermissionRolesItem]]] = pydantic.Field(
-        description="The permissions that the user or group has for the File or Folder. It is possible for a user or group to have multiple roles, such as viewing & uploading. Possible values include: `READ`, `WRITE`, `OWNER`. In cases where there is no clear mapping, the original value passed through will be returned."
-    )
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    user: typing.Optional[PermissionUser] = pydantic_v1.Field()
+    """
+    The user that is granted this permission.
+    """
+
+    group: typing.Optional[PermissionGroup] = pydantic_v1.Field()
+    """
+    The group that is granted this permission.
+    """
+
+    type: typing.Optional[PermissionType] = pydantic_v1.Field()
+    """
+    Denotes what type of people have access to the file.
+    
+    - `USER` - USER
+    - `GROUP` - GROUP
+    - `COMPANY` - COMPANY
+    - `ANYONE` - ANYONE
+    """
+
+    roles: typing.Optional[typing.List[typing.Optional[PermissionRolesItem]]] = pydantic_v1.Field()
+    """
+    The permissions that the user or group has for the File or Folder. It is possible for a user or group to have multiple roles, such as viewing & uploading. Possible values include: `READ`, `WRITE`, `OWNER`. In cases where there is no clear mapping, the original value passed through will be returned.
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

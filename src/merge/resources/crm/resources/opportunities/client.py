@@ -2,14 +2,13 @@
 
 import datetime as dt
 import typing
-import urllib.parse
 from json.decoder import JSONDecodeError
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.pydantic_utilities import pydantic_v1
 from .....core.request_options import RequestOptions
 from ...types.meta_response import MetaResponse
 from ...types.opportunity import Opportunity
@@ -21,11 +20,6 @@ from ...types.patched_opportunity_request import PatchedOpportunityRequest
 from .types.opportunities_list_request_expand import OpportunitiesListRequestExpand
 from .types.opportunities_list_request_status import OpportunitiesListRequestStatus
 from .types.opportunities_retrieve_request_expand import OpportunitiesRetrieveRequestExpand
-
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -60,46 +54,73 @@ class OpportunitiesClient:
         """
         Returns a list of `Opportunity` objects.
 
-        Parameters:
-            - account_id: typing.Optional[str]. If provided, will only return opportunities with this account.
+        Parameters
+        ----------
+        account_id : typing.Optional[str]
+            If provided, will only return opportunities with this account.
 
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - expand: typing.Optional[OpportunitiesListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[OpportunitiesListRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - owner_id: typing.Optional[str]. If provided, will only return opportunities with this owner.
+        owner_id : typing.Optional[str]
+            If provided, will only return opportunities with this owner.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - remote_fields: typing.Optional[typing.Literal["status"]]. Deprecated. Use show_enum_origins.
+        remote_fields : typing.Optional[typing.Literal["status"]]
+            Deprecated. Use show_enum_origins.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing.Literal["status"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+        show_enum_origins : typing.Optional[typing.Literal["status"]]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-            - stage_id: typing.Optional[str]. If provided, will only return opportunities with this stage.
+        stage_id : typing.Optional[str]
+            If provided, will only return opportunities with this stage.
 
-            - status: typing.Optional[OpportunitiesListRequestStatus]. If provided, will only return opportunities with this status. Options: ('OPEN', 'WON', 'LOST')
+        status : typing.Optional[OpportunitiesListRequestStatus]
+            If provided, will only return opportunities with this status. Options: ('OPEN', 'WON', 'LOST')
 
-                                                                       - `OPEN` - OPEN
-                                                                       - `WON` - WON
-                                                                       - `LOST` - LOST
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+            - `OPEN` - OPEN
+            - `WON` - WON
+            - `LOST` - LOST
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedOpportunityList
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -109,50 +130,31 @@ class OpportunitiesClient:
         client.crm.opportunities.list()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/opportunities"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "account_id": account_id,
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "expand": expand,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "owner_id": owner_id,
-                        "page_size": page_size,
-                        "remote_fields": remote_fields,
-                        "remote_id": remote_id,
-                        "show_enum_origins": show_enum_origins,
-                        "stage_id": stage_id,
-                        "status": status,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/opportunities",
+            method="GET",
+            params={
+                "account_id": account_id,
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "expand": expand,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "owner_id": owner_id,
+                "page_size": page_size,
+                "remote_fields": remote_fields,
+                "remote_id": remote_id,
+                "show_enum_origins": show_enum_origins,
+                "stage_id": stage_id,
+                "status": status,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedOpportunityList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedOpportunityList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -162,23 +164,34 @@ class OpportunitiesClient:
     def create(
         self,
         *,
+        model: OpportunityRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: OpportunityRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> OpportunityResponse:
         """
         Creates an `Opportunity` object with the given values.
 
-        Parameters:
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        Parameters
+        ----------
+        model : OpportunityRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: OpportunityRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        OpportunityResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
         from merge.resources.crm import OpportunityRequest
 
@@ -191,41 +204,15 @@ class OpportunitiesClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/opportunities"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/opportunities",
+            method="POST",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(OpportunityResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(OpportunityResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -246,21 +233,35 @@ class OpportunitiesClient:
         """
         Returns an `Opportunity` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - expand: typing.Optional[OpportunitiesRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[OpportunitiesRetrieveRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - remote_fields: typing.Optional[typing.Literal["status"]]. Deprecated. Use show_enum_origins.
+        remote_fields : typing.Optional[typing.Literal["status"]]
+            Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["status"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+        show_enum_origins : typing.Optional[typing.Literal["status"]]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Opportunity
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -272,38 +273,19 @@ class OpportunitiesClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/opportunities/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "expand": expand,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "remote_fields": remote_fields,
-                        "show_enum_origins": show_enum_origins,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/opportunities/{jsonable_encoder(id)}",
+            method="GET",
+            params={
+                "expand": expand,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "remote_fields": remote_fields,
+                "show_enum_origins": show_enum_origins,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(Opportunity, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(Opportunity, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -314,25 +296,36 @@ class OpportunitiesClient:
         self,
         id: str,
         *,
+        model: PatchedOpportunityRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: PatchedOpportunityRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> OpportunityResponse:
         """
         Updates an `Opportunity` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        model : PatchedOpportunityRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: PatchedOpportunityRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        OpportunityResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
         from merge.resources.crm import PatchedOpportunityRequest
 
@@ -346,41 +339,15 @@ class OpportunitiesClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/opportunities/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/opportunities/{jsonable_encoder(id)}",
+            method="PATCH",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(OpportunityResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(OpportunityResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -391,11 +358,20 @@ class OpportunitiesClient:
         """
         Returns metadata for `Opportunity` PATCHs.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -407,25 +383,10 @@ class OpportunitiesClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/opportunities/meta/patch/{id}"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/opportunities/meta/patch/{jsonable_encoder(id)}", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -436,9 +397,18 @@ class OpportunitiesClient:
         """
         Returns metadata for `Opportunity` POSTs.
 
-        Parameters:
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -448,25 +418,10 @@ class OpportunitiesClient:
         client.crm.opportunities.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/opportunities/meta/post"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/opportunities/meta/post", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -486,19 +441,33 @@ class OpportunitiesClient:
         """
         Returns a list of `RemoteFieldClass` objects.
 
-        Parameters:
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        Parameters
+        ----------
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedRemoteFieldClassList
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -508,40 +477,19 @@ class OpportunitiesClient:
         client.crm.opportunities.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "crm/v1/opportunities/remote-field-classes"
-            ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "cursor": cursor,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "page_size": page_size,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/opportunities/remote-field-classes",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "page_size": page_size,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -578,46 +526,73 @@ class AsyncOpportunitiesClient:
         """
         Returns a list of `Opportunity` objects.
 
-        Parameters:
-            - account_id: typing.Optional[str]. If provided, will only return opportunities with this account.
+        Parameters
+        ----------
+        account_id : typing.Optional[str]
+            If provided, will only return opportunities with this account.
 
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - expand: typing.Optional[OpportunitiesListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[OpportunitiesListRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - owner_id: typing.Optional[str]. If provided, will only return opportunities with this owner.
+        owner_id : typing.Optional[str]
+            If provided, will only return opportunities with this owner.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - remote_fields: typing.Optional[typing.Literal["status"]]. Deprecated. Use show_enum_origins.
+        remote_fields : typing.Optional[typing.Literal["status"]]
+            Deprecated. Use show_enum_origins.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - show_enum_origins: typing.Optional[typing.Literal["status"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+        show_enum_origins : typing.Optional[typing.Literal["status"]]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-            - stage_id: typing.Optional[str]. If provided, will only return opportunities with this stage.
+        stage_id : typing.Optional[str]
+            If provided, will only return opportunities with this stage.
 
-            - status: typing.Optional[OpportunitiesListRequestStatus]. If provided, will only return opportunities with this status. Options: ('OPEN', 'WON', 'LOST')
+        status : typing.Optional[OpportunitiesListRequestStatus]
+            If provided, will only return opportunities with this status. Options: ('OPEN', 'WON', 'LOST')
 
-                                                                       - `OPEN` - OPEN
-                                                                       - `WON` - WON
-                                                                       - `LOST` - LOST
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+            - `OPEN` - OPEN
+            - `WON` - WON
+            - `LOST` - LOST
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedOpportunityList
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -627,50 +602,31 @@ class AsyncOpportunitiesClient:
         await client.crm.opportunities.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/opportunities"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "account_id": account_id,
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "expand": expand,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "owner_id": owner_id,
-                        "page_size": page_size,
-                        "remote_fields": remote_fields,
-                        "remote_id": remote_id,
-                        "show_enum_origins": show_enum_origins,
-                        "stage_id": stage_id,
-                        "status": status,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/opportunities",
+            method="GET",
+            params={
+                "account_id": account_id,
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "expand": expand,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "owner_id": owner_id,
+                "page_size": page_size,
+                "remote_fields": remote_fields,
+                "remote_id": remote_id,
+                "show_enum_origins": show_enum_origins,
+                "stage_id": stage_id,
+                "status": status,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedOpportunityList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedOpportunityList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -680,23 +636,34 @@ class AsyncOpportunitiesClient:
     async def create(
         self,
         *,
+        model: OpportunityRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: OpportunityRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> OpportunityResponse:
         """
         Creates an `Opportunity` object with the given values.
 
-        Parameters:
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        Parameters
+        ----------
+        model : OpportunityRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: OpportunityRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        OpportunityResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
         from merge.resources.crm import OpportunityRequest
 
@@ -709,41 +676,15 @@ class AsyncOpportunitiesClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/opportunities"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/opportunities",
+            method="POST",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(OpportunityResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(OpportunityResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -764,21 +705,35 @@ class AsyncOpportunitiesClient:
         """
         Returns an `Opportunity` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - expand: typing.Optional[OpportunitiesRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[OpportunitiesRetrieveRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - remote_fields: typing.Optional[typing.Literal["status"]]. Deprecated. Use show_enum_origins.
+        remote_fields : typing.Optional[typing.Literal["status"]]
+            Deprecated. Use show_enum_origins.
 
-            - show_enum_origins: typing.Optional[typing.Literal["status"]]. A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+        show_enum_origins : typing.Optional[typing.Literal["status"]]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Opportunity
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -790,38 +745,19 @@ class AsyncOpportunitiesClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/opportunities/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "expand": expand,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "remote_fields": remote_fields,
-                        "show_enum_origins": show_enum_origins,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/opportunities/{jsonable_encoder(id)}",
+            method="GET",
+            params={
+                "expand": expand,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "remote_fields": remote_fields,
+                "show_enum_origins": show_enum_origins,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(Opportunity, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(Opportunity, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -832,25 +768,36 @@ class AsyncOpportunitiesClient:
         self,
         id: str,
         *,
+        model: PatchedOpportunityRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: PatchedOpportunityRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> OpportunityResponse:
         """
         Updates an `Opportunity` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        model : PatchedOpportunityRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: PatchedOpportunityRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        OpportunityResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
         from merge.resources.crm import PatchedOpportunityRequest
 
@@ -864,41 +811,15 @@ class AsyncOpportunitiesClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "PATCH",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/opportunities/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/opportunities/{jsonable_encoder(id)}",
+            method="PATCH",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(OpportunityResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(OpportunityResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -911,11 +832,20 @@ class AsyncOpportunitiesClient:
         """
         Returns metadata for `Opportunity` PATCHs.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -927,25 +857,10 @@ class AsyncOpportunitiesClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/opportunities/meta/patch/{id}"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/opportunities/meta/patch/{jsonable_encoder(id)}", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -956,9 +871,18 @@ class AsyncOpportunitiesClient:
         """
         Returns metadata for `Opportunity` POSTs.
 
-        Parameters:
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -968,25 +892,10 @@ class AsyncOpportunitiesClient:
         await client.crm.opportunities.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/opportunities/meta/post"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/opportunities/meta/post", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -1006,19 +915,33 @@ class AsyncOpportunitiesClient:
         """
         Returns a list of `RemoteFieldClass` objects.
 
-        Parameters:
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        Parameters
+        ----------
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedRemoteFieldClassList
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -1028,40 +951,19 @@ class AsyncOpportunitiesClient:
         await client.crm.opportunities.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", "crm/v1/opportunities/remote-field-classes"
-            ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "cursor": cursor,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "page_size": page_size,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/opportunities/remote-field-classes",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "page_size": page_size,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:

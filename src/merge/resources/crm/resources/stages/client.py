@@ -2,23 +2,17 @@
 
 import datetime as dt
 import typing
-import urllib.parse
 from json.decoder import JSONDecodeError
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.pydantic_utilities import pydantic_v1
 from .....core.request_options import RequestOptions
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.paginated_stage_list import PaginatedStageList
 from ...types.stage import Stage
-
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
 
 class StagesClient:
@@ -43,29 +37,48 @@ class StagesClient:
         """
         Returns a list of `Stage` objects.
 
-        Parameters:
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        Parameters
+        ----------
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedStageList
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -75,43 +88,24 @@ class StagesClient:
         client.crm.stages.list()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/stages"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "page_size": page_size,
-                        "remote_id": remote_id,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/stages",
+            method="GET",
+            params={
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "page_size": page_size,
+                "remote_id": remote_id,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedStageList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedStageList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -129,15 +123,26 @@ class StagesClient:
         """
         Returns a `Stage` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Stage
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -149,35 +154,13 @@ class StagesClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/stages/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/stages/{jsonable_encoder(id)}",
+            method="GET",
+            params={"include_remote_data": include_remote_data, "include_remote_fields": include_remote_fields},
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(Stage, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(Stage, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -197,19 +180,33 @@ class StagesClient:
         """
         Returns a list of `RemoteFieldClass` objects.
 
-        Parameters:
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        Parameters
+        ----------
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedRemoteFieldClassList
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -219,38 +216,19 @@ class StagesClient:
         client.crm.stages.remote_field_classes_list()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/stages/remote-field-classes"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "cursor": cursor,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "page_size": page_size,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/stages/remote-field-classes",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "page_size": page_size,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -280,29 +258,48 @@ class AsyncStagesClient:
         """
         Returns a list of `Stage` objects.
 
-        Parameters:
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        Parameters
+        ----------
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedStageList
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -312,43 +309,24 @@ class AsyncStagesClient:
         await client.crm.stages.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/stages"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "page_size": page_size,
-                        "remote_id": remote_id,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/stages",
+            method="GET",
+            params={
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "page_size": page_size,
+                "remote_id": remote_id,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedStageList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedStageList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -366,15 +344,26 @@ class AsyncStagesClient:
         """
         Returns a `Stage` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Stage
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -386,35 +375,13 @@ class AsyncStagesClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"crm/v1/stages/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/stages/{jsonable_encoder(id)}",
+            method="GET",
+            params={"include_remote_data": include_remote_data, "include_remote_fields": include_remote_fields},
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(Stage, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(Stage, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -434,19 +401,33 @@ class AsyncStagesClient:
         """
         Returns a list of `RemoteFieldClass` objects.
 
-        Parameters:
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        Parameters
+        ----------
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedRemoteFieldClassList
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -456,38 +437,19 @@ class AsyncStagesClient:
         await client.crm.stages.remote_field_classes_list()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "crm/v1/stages/remote-field-classes"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "cursor": cursor,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "page_size": page_size,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "crm/v1/stages/remote-field-classes",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "page_size": page_size,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:

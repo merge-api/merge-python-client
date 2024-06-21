@@ -4,15 +4,11 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .email_address_email_address_type import EmailAddressEmailAddressType
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class EmailAddress(pydantic.BaseModel):
+class EmailAddress(pydantic_v1.BaseModel):
     """
     # The EmailAddress Object
 
@@ -25,28 +21,44 @@ class EmailAddress(pydantic.BaseModel):
     Fetch from the `GET Candidate` endpoint and view their email addresses.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    value: typing.Optional[str] = pydantic.Field(description="The email address.")
-    email_address_type: typing.Optional[EmailAddressEmailAddressType] = pydantic.Field(
-        description=(
-            "The type of email address.\n" "\n" "- `PERSONAL` - PERSONAL\n" "- `WORK` - WORK\n" "- `OTHER` - OTHER\n"
-        )
-    )
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    value: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The email address.
+    """
+
+    email_address_type: typing.Optional[EmailAddressEmailAddressType] = pydantic_v1.Field()
+    """
+    The type of email address.
+    
+    - `PERSONAL` - PERSONAL
+    - `WORK` - WORK
+    - `OTHER` - OTHER
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

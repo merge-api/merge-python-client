@@ -6,15 +6,11 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .remote_data import RemoteData
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class Attachment(pydantic.BaseModel):
+class Attachment(pydantic_v1.BaseModel):
     """
     # The Attachment Object
 
@@ -28,25 +24,51 @@ class Attachment(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    file_name: typing.Optional[str] = pydantic.Field(
-        description="The attachment's name. It is required to include the file extension in the attachment's name."
-    )
-    ticket: typing.Optional[AttachmentTicket] = pydantic.Field(description="The ticket associated with the attachment.")
-    file_url: typing.Optional[str] = pydantic.Field(
-        description="The attachment's url. It is required to include the file extension in the file's URL."
-    )
-    content_type: typing.Optional[str] = pydantic.Field(description="The attachment's file format.")
-    uploaded_by: typing.Optional[str] = pydantic.Field(description="The user who uploaded the attachment.")
-    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="When the third party's attachment was created."
-    )
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    file_name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The attachment's name. It is required to include the file extension in the attachment's name.
+    """
+
+    ticket: typing.Optional[AttachmentTicket] = pydantic_v1.Field()
+    """
+    The ticket associated with the attachment.
+    """
+
+    file_url: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The attachment's url. It is required to include the file extension in the file's URL.
+    """
+
+    content_type: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The attachment's file format.
+    """
+
+    uploaded_by: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The user who uploaded the attachment.
+    """
+
+    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the third party's attachment was created.
+    """
+
     remote_was_deleted: typing.Optional[bool]
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
@@ -56,12 +78,17 @@ class Attachment(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}
 
 

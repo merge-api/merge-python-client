@@ -4,16 +4,12 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .screening_question_job import ScreeningQuestionJob
 from .screening_question_type import ScreeningQuestionType
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class ScreeningQuestion(pydantic.BaseModel):
+class ScreeningQuestion(pydantic_v1.BaseModel):
     """
     # The ScreeningQuestion Object
 
@@ -27,33 +23,55 @@ class ScreeningQuestion(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    job: typing.Optional[ScreeningQuestionJob] = pydantic.Field(
-        description="The job associated with the screening question."
-    )
-    description: typing.Optional[str] = pydantic.Field(description="The description of the screening question")
-    title: typing.Optional[str] = pydantic.Field(description="The title of the screening question")
-    type: typing.Optional[ScreeningQuestionType] = pydantic.Field(
-        description=(
-            "The data type for the screening question.\n"
-            "\n"
-            "- `DATE` - DATE\n"
-            "- `FILE` - FILE\n"
-            "- `SINGLE_SELECT` - SINGLE_SELECT\n"
-            "- `MULTI_SELECT` - MULTI_SELECT\n"
-            "- `SINGLE_LINE_TEXT` - SINGLE_LINE_TEXT\n"
-            "- `MULTI_LINE_TEXT` - MULTI_LINE_TEXT\n"
-            "- `NUMERIC` - NUMERIC\n"
-            "- `BOOLEAN` - BOOLEAN\n"
-        )
-    )
-    required: typing.Optional[bool] = pydantic.Field(description="Whether or not the screening question is required.")
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    job: typing.Optional[ScreeningQuestionJob] = pydantic_v1.Field()
+    """
+    The job associated with the screening question.
+    """
+
+    description: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The description of the screening question
+    """
+
+    title: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The title of the screening question
+    """
+
+    type: typing.Optional[ScreeningQuestionType] = pydantic_v1.Field()
+    """
+    The data type for the screening question.
+    
+    - `DATE` - DATE
+    - `FILE` - FILE
+    - `SINGLE_SELECT` - SINGLE_SELECT
+    - `MULTI_SELECT` - MULTI_SELECT
+    - `SINGLE_LINE_TEXT` - SINGLE_LINE_TEXT
+    - `MULTI_LINE_TEXT` - MULTI_LINE_TEXT
+    - `NUMERIC` - NUMERIC
+    - `BOOLEAN` - BOOLEAN
+    """
+
+    required: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Whether or not the screening question is required.
+    """
+
     options: typing.Optional[typing.List[typing.Any]]
 
     def json(self, **kwargs: typing.Any) -> str:
@@ -61,10 +79,15 @@ class ScreeningQuestion(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

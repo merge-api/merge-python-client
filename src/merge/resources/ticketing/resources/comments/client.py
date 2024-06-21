@@ -2,14 +2,13 @@
 
 import datetime as dt
 import typing
-import urllib.parse
 from json.decoder import JSONDecodeError
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.pydantic_utilities import pydantic_v1
 from .....core.request_options import RequestOptions
 from ...types.comment import Comment
 from ...types.comment_request import CommentRequest
@@ -18,11 +17,6 @@ from ...types.meta_response import MetaResponse
 from ...types.paginated_comment_list import PaginatedCommentList
 from .types.comments_list_request_expand import CommentsListRequestExpand
 from .types.comments_retrieve_request_expand import CommentsRetrieveRequestExpand
-
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -52,33 +46,54 @@ class CommentsClient:
         """
         Returns a list of `Comment` objects.
 
-        Parameters:
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        Parameters
+        ----------
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - expand: typing.Optional[CommentsListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[CommentsListRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - remote_created_after: typing.Optional[dt.datetime]. If provided, will only return Comments created in the third party platform after this datetime.
+        remote_created_after : typing.Optional[dt.datetime]
+            If provided, will only return Comments created in the third party platform after this datetime.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - ticket_id: typing.Optional[str]. If provided, will only return comments for this ticket.
+        ticket_id : typing.Optional[str]
+            If provided, will only return comments for this ticket.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedCommentList
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -88,47 +103,28 @@ class CommentsClient:
         client.ticketing.comments.list()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/comments"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "expand": expand,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "page_size": page_size,
-                        "remote_created_after": serialize_datetime(remote_created_after)
-                        if remote_created_after is not None
-                        else None,
-                        "remote_id": remote_id,
-                        "ticket_id": ticket_id,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "ticketing/v1/comments",
+            method="GET",
+            params={
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "expand": expand,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "page_size": page_size,
+                "remote_created_after": serialize_datetime(remote_created_after)
+                if remote_created_after is not None
+                else None,
+                "remote_id": remote_id,
+                "ticket_id": ticket_id,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedCommentList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedCommentList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -138,23 +134,34 @@ class CommentsClient:
     def create(
         self,
         *,
+        model: CommentRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: CommentRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CommentResponse:
         """
         Creates a `Comment` object with the given values.
 
-        Parameters:
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        Parameters
+        ----------
+        model : CommentRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: CommentRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CommentResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
         from merge.resources.ticketing import CommentRequest
 
@@ -167,41 +174,15 @@ class CommentsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/comments"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "ticketing/v1/comments",
+            method="POST",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(CommentResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(CommentResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -219,15 +200,26 @@ class CommentsClient:
         """
         Returns a `Comment` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - expand: typing.Optional[CommentsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[CommentsRetrieveRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Comment
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -239,35 +231,13 @@ class CommentsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/comments/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "expand": expand,
-                        "include_remote_data": include_remote_data,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"ticketing/v1/comments/{jsonable_encoder(id)}",
+            method="GET",
+            params={"expand": expand, "include_remote_data": include_remote_data},
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(Comment, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(Comment, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -278,9 +248,18 @@ class CommentsClient:
         """
         Returns metadata for `Comment` POSTs.
 
-        Parameters:
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -290,25 +269,10 @@ class CommentsClient:
         client.ticketing.comments.meta_post_retrieve()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/comments/meta/post"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "ticketing/v1/comments/meta/post", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -340,33 +304,54 @@ class AsyncCommentsClient:
         """
         Returns a list of `Comment` objects.
 
-        Parameters:
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        Parameters
+        ----------
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - expand: typing.Optional[CommentsListRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[CommentsListRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - remote_created_after: typing.Optional[dt.datetime]. If provided, will only return Comments created in the third party platform after this datetime.
+        remote_created_after : typing.Optional[dt.datetime]
+            If provided, will only return Comments created in the third party platform after this datetime.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - ticket_id: typing.Optional[str]. If provided, will only return comments for this ticket.
+        ticket_id : typing.Optional[str]
+            If provided, will only return comments for this ticket.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedCommentList
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -376,47 +361,28 @@ class AsyncCommentsClient:
         await client.ticketing.comments.list()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/comments"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "expand": expand,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "page_size": page_size,
-                        "remote_created_after": serialize_datetime(remote_created_after)
-                        if remote_created_after is not None
-                        else None,
-                        "remote_id": remote_id,
-                        "ticket_id": ticket_id,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "ticketing/v1/comments",
+            method="GET",
+            params={
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "expand": expand,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "page_size": page_size,
+                "remote_created_after": serialize_datetime(remote_created_after)
+                if remote_created_after is not None
+                else None,
+                "remote_id": remote_id,
+                "ticket_id": ticket_id,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedCommentList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedCommentList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -426,23 +392,34 @@ class AsyncCommentsClient:
     async def create(
         self,
         *,
+        model: CommentRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: CommentRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CommentResponse:
         """
         Creates a `Comment` object with the given values.
 
-        Parameters:
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        Parameters
+        ----------
+        model : CommentRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: CommentRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CommentResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
         from merge.resources.ticketing import CommentRequest
 
@@ -455,41 +432,15 @@ class AsyncCommentsClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "POST",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/comments"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "ticketing/v1/comments",
+            method="POST",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(CommentResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(CommentResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -507,15 +458,26 @@ class AsyncCommentsClient:
         """
         Returns a `Comment` object with the given `id`.
 
-        Parameters:
-            - id: str.
+        Parameters
+        ----------
+        id : str
 
-            - expand: typing.Optional[CommentsRetrieveRequestExpand]. Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+        expand : typing.Optional[CommentsRetrieveRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Comment
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -527,35 +489,13 @@ class AsyncCommentsClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"ticketing/v1/comments/{id}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "expand": expand,
-                        "include_remote_data": include_remote_data,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"ticketing/v1/comments/{jsonable_encoder(id)}",
+            method="GET",
+            params={"expand": expand, "include_remote_data": include_remote_data},
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(Comment, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(Comment, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -566,9 +506,18 @@ class AsyncCommentsClient:
         """
         Returns metadata for `Comment` POSTs.
 
-        Parameters:
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -578,25 +527,10 @@ class AsyncCommentsClient:
         await client.ticketing.comments.meta_post_retrieve()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "ticketing/v1/comments/meta/post"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            "ticketing/v1/comments/meta/post", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:

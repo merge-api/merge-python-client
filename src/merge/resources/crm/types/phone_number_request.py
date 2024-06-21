@@ -4,14 +4,10 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 
 
-class PhoneNumberRequest(pydantic.BaseModel):
+class PhoneNumberRequest(pydantic_v1.BaseModel):
     """
     # The PhoneNumber Object
 
@@ -24,8 +20,16 @@ class PhoneNumberRequest(pydantic.BaseModel):
     Fetch from the `GET Contact` endpoint and view their phone numbers.
     """
 
-    phone_number: typing.Optional[str] = pydantic.Field(description="The phone number.")
-    phone_number_type: typing.Optional[str] = pydantic.Field(description="The phone number's type.")
+    phone_number: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The phone number.
+    """
+
+    phone_number_type: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The phone number's type.
+    """
+
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -34,10 +38,15 @@ class PhoneNumberRequest(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

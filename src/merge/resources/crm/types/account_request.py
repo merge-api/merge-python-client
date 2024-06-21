@@ -4,17 +4,13 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .account_request_owner import AccountRequestOwner
 from .address_request import AddressRequest
 from .remote_field_request import RemoteFieldRequest
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class AccountRequest(pydantic.BaseModel):
+class AccountRequest(pydantic_v1.BaseModel):
     """
     # The Account Object
 
@@ -27,16 +23,42 @@ class AccountRequest(pydantic.BaseModel):
     TODO
     """
 
-    owner: typing.Optional[AccountRequestOwner] = pydantic.Field(description="The account's owner.")
-    name: typing.Optional[str] = pydantic.Field(description="The account's name.")
-    description: typing.Optional[str] = pydantic.Field(description="The account's description.")
-    industry: typing.Optional[str] = pydantic.Field(description="The account's industry.")
-    website: typing.Optional[str] = pydantic.Field(description="The account's website.")
-    number_of_employees: typing.Optional[int] = pydantic.Field(description="The account's number of employees.")
+    owner: typing.Optional[AccountRequestOwner] = pydantic_v1.Field()
+    """
+    The account's owner.
+    """
+
+    name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The account's name.
+    """
+
+    description: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The account's description.
+    """
+
+    industry: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The account's industry.
+    """
+
+    website: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The account's website.
+    """
+
+    number_of_employees: typing.Optional[int] = pydantic_v1.Field()
+    """
+    The account's number of employees.
+    """
+
     addresses: typing.Optional[typing.List[AddressRequest]]
-    last_activity_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The last date (either most recent or furthest in the future) of when an activity occurs in an account."
-    )
+    last_activity_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The last date (either most recent or furthest in the future) of when an activity occurs in an account.
+    """
+
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
@@ -46,10 +68,15 @@ class AccountRequest(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

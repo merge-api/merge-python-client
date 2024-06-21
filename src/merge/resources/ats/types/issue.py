@@ -4,24 +4,20 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .issue_status import IssueStatus
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class Issue(pydantic.BaseModel):
+class Issue(pydantic_v1.BaseModel):
     id: typing.Optional[str]
-    status: typing.Optional[IssueStatus] = pydantic.Field(
-        description=(
-            "Status of the issue. Options: ('ONGOING', 'RESOLVED')\n"
-            "\n"
-            "- `ONGOING` - ONGOING\n"
-            "- `RESOLVED` - RESOLVED\n"
-        )
-    )
+    status: typing.Optional[IssueStatus] = pydantic_v1.Field()
+    """
+    Status of the issue. Options: ('ONGOING', 'RESOLVED')
+    
+    - `ONGOING` - ONGOING
+    - `RESOLVED` - RESOLVED
+    """
+
     error_description: str
     end_user: typing.Optional[typing.Dict[str, typing.Any]]
     first_incident_time: typing.Optional[dt.datetime]
@@ -34,10 +30,15 @@ class Issue(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

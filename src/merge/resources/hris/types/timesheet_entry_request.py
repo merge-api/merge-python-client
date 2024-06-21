@@ -4,14 +4,10 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 
 
-class TimesheetEntryRequest(pydantic.BaseModel):
+class TimesheetEntryRequest(pydantic_v1.BaseModel):
     """
     # The Timesheet Entry Object
 
@@ -24,12 +20,26 @@ class TimesheetEntryRequest(pydantic.BaseModel):
     GET and POST Timesheet Entries
     """
 
-    employee: typing.Optional[str] = pydantic.Field(description="The employee the timesheet entry is for.")
-    hours_worked: typing.Optional[float] = pydantic.Field(description="The number of hours logged by the employee.")
-    start_time: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The time at which the employee started work."
-    )
-    end_time: typing.Optional[dt.datetime] = pydantic.Field(description="The time at which the employee ended work.")
+    employee: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The employee the timesheet entry is for.
+    """
+
+    hours_worked: typing.Optional[float] = pydantic_v1.Field()
+    """
+    The number of hours logged by the employee.
+    """
+
+    start_time: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The time at which the employee started work.
+    """
+
+    end_time: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The time at which the employee ended work.
+    """
+
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -38,10 +48,15 @@ class TimesheetEntryRequest(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

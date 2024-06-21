@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .employee_request_company import EmployeeRequestCompany
 from .employee_request_employment_status import EmployeeRequestEmploymentStatus
 from .employee_request_employments_item import EmployeeRequestEmploymentsItem
@@ -17,13 +18,8 @@ from .employee_request_pay_group import EmployeeRequestPayGroup
 from .employee_request_team import EmployeeRequestTeam
 from .employee_request_work_location import EmployeeRequestWorkLocation
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class EmployeeRequest(pydantic.BaseModel):
+class EmployeeRequest(pydantic_v1.BaseModel):
     """
     # The Employee Object
 
@@ -36,92 +32,162 @@ class EmployeeRequest(pydantic.BaseModel):
     Fetch from the `LIST Employee` endpoint and filter by `ID` to show all employees.
     """
 
-    employee_number: typing.Optional[str] = pydantic.Field(
-        description="The employee's number that appears in the third-party integration's UI."
-    )
-    company: typing.Optional[EmployeeRequestCompany] = pydantic.Field(description="The ID of the employee's company.")
-    first_name: typing.Optional[str] = pydantic.Field(description="The employee's first name.")
-    last_name: typing.Optional[str] = pydantic.Field(description="The employee's last name.")
-    preferred_name: typing.Optional[str] = pydantic.Field(description="The employee's preferred first name.")
-    display_full_name: typing.Optional[str] = pydantic.Field(
-        description="The employee's full name, to use for display purposes. If a preferred first name is available, the full name will include the preferred first name."
-    )
-    username: typing.Optional[str] = pydantic.Field(
-        description="The employee's username that appears in the remote UI."
-    )
+    employee_number: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The employee's number that appears in the third-party integration's UI.
+    """
+
+    company: typing.Optional[EmployeeRequestCompany] = pydantic_v1.Field()
+    """
+    The ID of the employee's company.
+    """
+
+    first_name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The employee's first name.
+    """
+
+    last_name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The employee's last name.
+    """
+
+    preferred_name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The employee's preferred first name.
+    """
+
+    display_full_name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The employee's full name, to use for display purposes. If a preferred first name is available, the full name will include the preferred first name.
+    """
+
+    username: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The employee's username that appears in the remote UI.
+    """
+
     groups: typing.Optional[typing.List[typing.Optional[EmployeeRequestGroupsItem]]]
-    work_email: typing.Optional[str] = pydantic.Field(description="The employee's work email.")
-    personal_email: typing.Optional[str] = pydantic.Field(description="The employee's personal email.")
-    mobile_phone_number: typing.Optional[str] = pydantic.Field(description="The employee's mobile phone number.")
-    employments: typing.Optional[typing.List[typing.Optional[EmployeeRequestEmploymentsItem]]] = pydantic.Field(
-        description="Array of `Employment` IDs for this Employee."
-    )
-    home_location: typing.Optional[EmployeeRequestHomeLocation] = pydantic.Field(
-        description="The employee's home address."
-    )
-    work_location: typing.Optional[EmployeeRequestWorkLocation] = pydantic.Field(
-        description="The employee's work address."
-    )
-    manager: typing.Optional[EmployeeRequestManager] = pydantic.Field(
-        description="The employee ID of the employee's manager."
-    )
-    team: typing.Optional[EmployeeRequestTeam] = pydantic.Field(description="The employee's team.")
-    pay_group: typing.Optional[EmployeeRequestPayGroup] = pydantic.Field(description="The employee's pay group")
-    ssn: typing.Optional[str] = pydantic.Field(description="The employee's social security number.")
-    gender: typing.Optional[EmployeeRequestGender] = pydantic.Field(
-        description=(
-            "The employee's gender.\n"
-            "\n"
-            "- `MALE` - MALE\n"
-            "- `FEMALE` - FEMALE\n"
-            "- `NON-BINARY` - NON-BINARY\n"
-            "- `OTHER` - OTHER\n"
-            "- `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE\n"
-        )
-    )
-    ethnicity: typing.Optional[EmployeeRequestEthnicity] = pydantic.Field(
-        description=(
-            "The employee's ethnicity.\n"
-            "\n"
-            "- `AMERICAN_INDIAN_OR_ALASKA_NATIVE` - AMERICAN_INDIAN_OR_ALASKA_NATIVE\n"
-            "- `ASIAN_OR_INDIAN_SUBCONTINENT` - ASIAN_OR_INDIAN_SUBCONTINENT\n"
-            "- `BLACK_OR_AFRICAN_AMERICAN` - BLACK_OR_AFRICAN_AMERICAN\n"
-            "- `HISPANIC_OR_LATINO` - HISPANIC_OR_LATINO\n"
-            "- `NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER` - NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER\n"
-            "- `TWO_OR_MORE_RACES` - TWO_OR_MORE_RACES\n"
-            "- `WHITE` - WHITE\n"
-            "- `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE\n"
-        )
-    )
-    marital_status: typing.Optional[EmployeeRequestMaritalStatus] = pydantic.Field(
-        description=(
-            "The employee's filing status as related to marital status.\n"
-            "\n"
-            "- `SINGLE` - SINGLE\n"
-            "- `MARRIED_FILING_JOINTLY` - MARRIED_FILING_JOINTLY\n"
-            "- `MARRIED_FILING_SEPARATELY` - MARRIED_FILING_SEPARATELY\n"
-            "- `HEAD_OF_HOUSEHOLD` - HEAD_OF_HOUSEHOLD\n"
-            "- `QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD` - QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD\n"
-        )
-    )
-    date_of_birth: typing.Optional[dt.datetime] = pydantic.Field(description="The employee's date of birth.")
-    hire_date: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The date that the employee was hired, usually the day that an offer letter is signed. If an employee has multiple hire dates from previous employments, this represents the most recent hire date. Note: If you're looking for the employee's start date, refer to the start_date field."
-    )
-    start_date: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The date that the employee started working. If an employee was rehired, the most recent start date will be returned."
-    )
-    employment_status: typing.Optional[EmployeeRequestEmploymentStatus] = pydantic.Field(
-        description=(
-            "The employment status of the employee.\n"
-            "\n"
-            "- `ACTIVE` - ACTIVE\n"
-            "- `PENDING` - PENDING\n"
-            "- `INACTIVE` - INACTIVE\n"
-        )
-    )
-    termination_date: typing.Optional[dt.datetime] = pydantic.Field(description="The employee's termination date.")
-    avatar: typing.Optional[str] = pydantic.Field(description="The URL of the employee's avatar image.")
+    work_email: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The employee's work email.
+    """
+
+    personal_email: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The employee's personal email.
+    """
+
+    mobile_phone_number: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The employee's mobile phone number.
+    """
+
+    employments: typing.Optional[typing.List[typing.Optional[EmployeeRequestEmploymentsItem]]] = pydantic_v1.Field()
+    """
+    Array of `Employment` IDs for this Employee.
+    """
+
+    home_location: typing.Optional[EmployeeRequestHomeLocation] = pydantic_v1.Field()
+    """
+    The employee's home address.
+    """
+
+    work_location: typing.Optional[EmployeeRequestWorkLocation] = pydantic_v1.Field()
+    """
+    The employee's work address.
+    """
+
+    manager: typing.Optional[EmployeeRequestManager] = pydantic_v1.Field()
+    """
+    The employee ID of the employee's manager.
+    """
+
+    team: typing.Optional[EmployeeRequestTeam] = pydantic_v1.Field()
+    """
+    The employee's team.
+    """
+
+    pay_group: typing.Optional[EmployeeRequestPayGroup] = pydantic_v1.Field()
+    """
+    The employee's pay group
+    """
+
+    ssn: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The employee's social security number.
+    """
+
+    gender: typing.Optional[EmployeeRequestGender] = pydantic_v1.Field()
+    """
+    The employee's gender.
+    
+    - `MALE` - MALE
+    - `FEMALE` - FEMALE
+    - `NON-BINARY` - NON-BINARY
+    - `OTHER` - OTHER
+    - `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE
+    """
+
+    ethnicity: typing.Optional[EmployeeRequestEthnicity] = pydantic_v1.Field()
+    """
+    The employee's ethnicity.
+    
+    - `AMERICAN_INDIAN_OR_ALASKA_NATIVE` - AMERICAN_INDIAN_OR_ALASKA_NATIVE
+    - `ASIAN_OR_INDIAN_SUBCONTINENT` - ASIAN_OR_INDIAN_SUBCONTINENT
+    - `BLACK_OR_AFRICAN_AMERICAN` - BLACK_OR_AFRICAN_AMERICAN
+    - `HISPANIC_OR_LATINO` - HISPANIC_OR_LATINO
+    - `NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER` - NATIVE_HAWAIIAN_OR_OTHER_PACIFIC_ISLANDER
+    - `TWO_OR_MORE_RACES` - TWO_OR_MORE_RACES
+    - `WHITE` - WHITE
+    - `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE
+    """
+
+    marital_status: typing.Optional[EmployeeRequestMaritalStatus] = pydantic_v1.Field()
+    """
+    The employee's filing status as related to marital status.
+    
+    - `SINGLE` - SINGLE
+    - `MARRIED_FILING_JOINTLY` - MARRIED_FILING_JOINTLY
+    - `MARRIED_FILING_SEPARATELY` - MARRIED_FILING_SEPARATELY
+    - `HEAD_OF_HOUSEHOLD` - HEAD_OF_HOUSEHOLD
+    - `QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD` - QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD
+    """
+
+    date_of_birth: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The employee's date of birth.
+    """
+
+    hire_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The date that the employee was hired, usually the day that an offer letter is signed. If an employee has multiple hire dates from previous employments, this represents the most recent hire date. Note: If you're looking for the employee's start date, refer to the start_date field.
+    """
+
+    start_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The date that the employee started working. If an employee was rehired, the most recent start date will be returned.
+    """
+
+    employment_status: typing.Optional[EmployeeRequestEmploymentStatus] = pydantic_v1.Field()
+    """
+    The employment status of the employee.
+    
+    - `ACTIVE` - ACTIVE
+    - `PENDING` - PENDING
+    - `INACTIVE` - INACTIVE
+    """
+
+    termination_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The employee's termination date.
+    """
+
+    avatar: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The URL of the employee's avatar image.
+    """
+
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -130,10 +196,15 @@ class EmployeeRequest(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

@@ -6,19 +6,15 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .application_credited_to import ApplicationCreditedTo
 from .application_current_stage import ApplicationCurrentStage
 from .application_job import ApplicationJob
 from .application_reject_reason import ApplicationRejectReason
 from .remote_data import RemoteData
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class Application(pydantic.BaseModel):
+class Application(pydantic_v1.BaseModel):
     """
     # The Application Object
 
@@ -32,28 +28,62 @@ class Application(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    candidate: typing.Optional[ApplicationCandidate] = pydantic.Field(description="The candidate applying.")
-    job: typing.Optional[ApplicationJob] = pydantic.Field(description="The job being applied for.")
-    applied_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the application was submitted.")
-    rejected_at: typing.Optional[dt.datetime] = pydantic.Field(description="When the application was rejected.")
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    candidate: typing.Optional[ApplicationCandidate] = pydantic_v1.Field()
+    """
+    The candidate applying.
+    """
+
+    job: typing.Optional[ApplicationJob] = pydantic_v1.Field()
+    """
+    The job being applied for.
+    """
+
+    applied_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the application was submitted.
+    """
+
+    rejected_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    When the application was rejected.
+    """
+
     offers: typing.Optional[typing.List[typing.Optional[ApplicationOffersItem]]]
-    source: typing.Optional[str] = pydantic.Field(description="The application's source.")
-    credited_to: typing.Optional[ApplicationCreditedTo] = pydantic.Field(
-        description="The user credited for this application."
-    )
-    current_stage: typing.Optional[ApplicationCurrentStage] = pydantic.Field(
-        description="The application's current stage."
-    )
-    reject_reason: typing.Optional[ApplicationRejectReason] = pydantic.Field(
-        description="The application's reason for rejection."
-    )
+    source: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The application's source.
+    """
+
+    credited_to: typing.Optional[ApplicationCreditedTo] = pydantic_v1.Field()
+    """
+    The user credited for this application.
+    """
+
+    current_stage: typing.Optional[ApplicationCurrentStage] = pydantic_v1.Field()
+    """
+    The application's current stage.
+    """
+
+    reject_reason: typing.Optional[ApplicationRejectReason] = pydantic_v1.Field()
+    """
+    The application's reason for rejection.
+    """
+
     remote_was_deleted: typing.Optional[bool]
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
@@ -63,12 +93,17 @@ class Application(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}
 
 

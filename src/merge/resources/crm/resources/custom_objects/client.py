@@ -2,25 +2,19 @@
 
 import datetime as dt
 import typing
-import urllib.parse
 from json.decoder import JSONDecodeError
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.remove_none_from_dict import remove_none_from_dict
+from .....core.pydantic_utilities import pydantic_v1
 from .....core.request_options import RequestOptions
 from ...types.crm_custom_object_response import CrmCustomObjectResponse
 from ...types.custom_object import CustomObject
 from ...types.custom_object_request import CustomObjectRequest
 from ...types.meta_response import MetaResponse
 from ...types.paginated_custom_object_list import PaginatedCustomObjectList
-
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -49,31 +43,50 @@ class CustomObjectsClient:
         """
         Returns a list of `CustomObject` objects.
 
-        Parameters:
-            - custom_object_class_id: str.
+        Parameters
+        ----------
+        custom_object_class_id : str
 
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedCustomObjectList
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -85,46 +98,24 @@ class CustomObjectsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/",
-                f"crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects",
-            ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "page_size": page_size,
-                        "remote_id": remote_id,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects",
+            method="GET",
+            params={
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "page_size": page_size,
+                "remote_id": remote_id,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedCustomObjectList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedCustomObjectList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -135,25 +126,36 @@ class CustomObjectsClient:
         self,
         custom_object_class_id: str,
         *,
+        model: CustomObjectRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: CustomObjectRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CrmCustomObjectResponse:
         """
         Creates a `CustomObject` object with the given values.
 
-        Parameters:
-            - custom_object_class_id: str.
+        Parameters
+        ----------
+        custom_object_class_id : str
 
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        model : CustomObjectRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: CustomObjectRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CrmCustomObjectResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
         from merge.resources.crm import CustomObjectRequest
 
@@ -164,49 +166,20 @@ class CustomObjectsClient:
         client.crm.custom_objects.custom_object_classes_custom_objects_create(
             custom_object_class_id="custom_object_class_id",
             model=CustomObjectRequest(
-                fields={},
+                fields={"test_field": "hello"},
             ),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "POST",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/",
-                f"crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects",
-            ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects",
+            method="POST",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(CrmCustomObjectResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(CrmCustomObjectResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -225,17 +198,28 @@ class CustomObjectsClient:
         """
         Returns a `CustomObject` object with the given `id`.
 
-        Parameters:
-            - custom_object_class_id: str.
+        Parameters
+        ----------
+        custom_object_class_id : str
 
-            - id: str.
+        id : str
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CustomObject
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -248,38 +232,13 @@ class CustomObjectsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/",
-                f"crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{id}",
-            ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects/{jsonable_encoder(id)}",
+            method="GET",
+            params={"include_remote_data": include_remote_data, "include_remote_fields": include_remote_fields},
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(CustomObject, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(CustomObject, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -292,11 +251,20 @@ class CustomObjectsClient:
         """
         Returns metadata for `CRMCustomObject` POSTs.
 
-        Parameters:
-            - custom_object_class_id: str.
+        Parameters
+        ----------
+        custom_object_class_id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import Merge
 
         client = Merge(
@@ -308,28 +276,12 @@ class CustomObjectsClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/",
-                f"crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/meta/post",
-            ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects/meta/post",
+            method="GET",
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -360,31 +312,50 @@ class AsyncCustomObjectsClient:
         """
         Returns a list of `CustomObject` objects.
 
-        Parameters:
-            - custom_object_class_id: str.
+        Parameters
+        ----------
+        custom_object_class_id : str
 
-            - created_after: typing.Optional[dt.datetime]. If provided, will only return objects created after this datetime.
+        created_after : typing.Optional[dt.datetime]
+            If provided, will only return objects created after this datetime.
 
-            - created_before: typing.Optional[dt.datetime]. If provided, will only return objects created before this datetime.
+        created_before : typing.Optional[dt.datetime]
+            If provided, will only return objects created before this datetime.
 
-            - cursor: typing.Optional[str]. The pagination cursor value.
+        cursor : typing.Optional[str]
+            The pagination cursor value.
 
-            - include_deleted_data: typing.Optional[bool]. Whether to include data that was marked as deleted by third party webhooks.
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - modified_after: typing.Optional[dt.datetime]. If provided, only objects synced by Merge after this date time will be returned.
+        modified_after : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge after this date time will be returned.
 
-            - modified_before: typing.Optional[dt.datetime]. If provided, only objects synced by Merge before this date time will be returned.
+        modified_before : typing.Optional[dt.datetime]
+            If provided, only objects synced by Merge before this date time will be returned.
 
-            - page_size: typing.Optional[int]. Number of results to return per page.
+        page_size : typing.Optional[int]
+            Number of results to return per page.
 
-            - remote_id: typing.Optional[str]. The API provider's ID for the given object.
+        remote_id : typing.Optional[str]
+            The API provider's ID for the given object.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedCustomObjectList
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -396,46 +367,24 @@ class AsyncCustomObjectsClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/",
-                f"crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects",
-            ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                        "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                        "cursor": cursor,
-                        "include_deleted_data": include_deleted_data,
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                        "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                        "page_size": page_size,
-                        "remote_id": remote_id,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects",
+            method="GET",
+            params={
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "cursor": cursor,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
+                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "page_size": page_size,
+                "remote_id": remote_id,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(PaginatedCustomObjectList, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(PaginatedCustomObjectList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -446,25 +395,36 @@ class AsyncCustomObjectsClient:
         self,
         custom_object_class_id: str,
         *,
+        model: CustomObjectRequest,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
-        model: CustomObjectRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CrmCustomObjectResponse:
         """
         Creates a `CustomObject` object with the given values.
 
-        Parameters:
-            - custom_object_class_id: str.
+        Parameters
+        ----------
+        custom_object_class_id : str
 
-            - is_debug_mode: typing.Optional[bool]. Whether to include debug fields (such as log file links) in the response.
+        model : CustomObjectRequest
 
-            - run_async: typing.Optional[bool]. Whether or not third-party updates should be run asynchronously.
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
 
-            - model: CustomObjectRequest.
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CrmCustomObjectResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
         from merge.resources.crm import CustomObjectRequest
 
@@ -475,49 +435,20 @@ class AsyncCustomObjectsClient:
         await client.crm.custom_objects.custom_object_classes_custom_objects_create(
             custom_object_class_id="custom_object_class_id",
             model=CustomObjectRequest(
-                fields={},
+                fields={"test_field": "hello"},
             ),
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "POST",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/",
-                f"crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects",
-            ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "is_debug_mode": is_debug_mode,
-                        "run_async": run_async,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            json=jsonable_encoder({"model": model})
-            if request_options is None or request_options.get("additional_body_parameters") is None
-            else {
-                **jsonable_encoder({"model": model}),
-                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
-            },
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects",
+            method="POST",
+            params={"is_debug_mode": is_debug_mode, "run_async": run_async},
+            json={"model": model},
+            request_options=request_options,
+            omit=OMIT,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(CrmCustomObjectResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(CrmCustomObjectResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -536,17 +467,28 @@ class AsyncCustomObjectsClient:
         """
         Returns a `CustomObject` object with the given `id`.
 
-        Parameters:
-            - custom_object_class_id: str.
+        Parameters
+        ----------
+        custom_object_class_id : str
 
-            - id: str.
+        id : str
 
-            - include_remote_data: typing.Optional[bool]. Whether to include the original data Merge fetched from the third-party to produce these models.
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
 
-            - include_remote_fields: typing.Optional[bool]. Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CustomObject
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -559,38 +501,13 @@ class AsyncCustomObjectsClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/",
-                f"crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{id}",
-            ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "include_remote_data": include_remote_data,
-                        "include_remote_fields": include_remote_fields,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects/{jsonable_encoder(id)}",
+            method="GET",
+            params={"include_remote_data": include_remote_data, "include_remote_fields": include_remote_fields},
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(CustomObject, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(CustomObject, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -603,11 +520,20 @@ class AsyncCustomObjectsClient:
         """
         Returns metadata for `CRMCustomObject` POSTs.
 
-        Parameters:
-            - custom_object_class_id: str.
+        Parameters
+        ----------
+        custom_object_class_id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
@@ -619,28 +545,12 @@ class AsyncCustomObjectsClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
-            urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/",
-                f"crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/meta/post",
-            ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else 60,
+            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects/meta/post",
+            method="GET",
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:

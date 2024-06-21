@@ -4,42 +4,44 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .remote_field_api import RemoteFieldApi
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class RemoteFieldApiResponse(pydantic.BaseModel):
-    activity: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Activity")
-    application: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Application")
-    attachment: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Attachment")
-    candidate: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Candidate")
-    department: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Department")
-    eeoc: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="EEOC")
-    scheduled_interview: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="ScheduledInterview")
-    job: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Job")
-    job_posting: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="JobPosting")
-    job_interview_stage: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="JobInterviewStage")
-    offer: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Offer")
-    office: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Office")
-    reject_reason: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="RejectReason")
-    scorecard: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Scorecard")
-    tag: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Tag")
-    remote_user: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="RemoteUser")
+class RemoteFieldApiResponse(pydantic_v1.BaseModel):
+    activity: typing.Optional[typing.List[RemoteFieldApi]] = pydantic_v1.Field(alias="Activity")
+    application: typing.Optional[typing.List[RemoteFieldApi]] = pydantic_v1.Field(alias="Application")
+    attachment: typing.Optional[typing.List[RemoteFieldApi]] = pydantic_v1.Field(alias="Attachment")
+    candidate: typing.Optional[typing.List[RemoteFieldApi]] = pydantic_v1.Field(alias="Candidate")
+    department: typing.Optional[typing.List[RemoteFieldApi]] = pydantic_v1.Field(alias="Department")
+    eeoc: typing.Optional[typing.List[RemoteFieldApi]] = pydantic_v1.Field(alias="EEOC")
+    scheduled_interview: typing.Optional[typing.List[RemoteFieldApi]] = pydantic_v1.Field(alias="ScheduledInterview")
+    job: typing.Optional[typing.List[RemoteFieldApi]] = pydantic_v1.Field(alias="Job")
+    job_posting: typing.Optional[typing.List[RemoteFieldApi]] = pydantic_v1.Field(alias="JobPosting")
+    job_interview_stage: typing.Optional[typing.List[RemoteFieldApi]] = pydantic_v1.Field(alias="JobInterviewStage")
+    offer: typing.Optional[typing.List[RemoteFieldApi]] = pydantic_v1.Field(alias="Offer")
+    office: typing.Optional[typing.List[RemoteFieldApi]] = pydantic_v1.Field(alias="Office")
+    reject_reason: typing.Optional[typing.List[RemoteFieldApi]] = pydantic_v1.Field(alias="RejectReason")
+    scorecard: typing.Optional[typing.List[RemoteFieldApi]] = pydantic_v1.Field(alias="Scorecard")
+    tag: typing.Optional[typing.List[RemoteFieldApi]] = pydantic_v1.Field(alias="Tag")
+    remote_user: typing.Optional[typing.List[RemoteFieldApi]] = pydantic_v1.Field(alias="RemoteUser")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
         allow_population_by_field_name = True
+        populate_by_name = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

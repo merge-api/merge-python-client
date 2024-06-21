@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .remote_field_class_for_custom_object_class_field_choices_item import (
     RemoteFieldClassForCustomObjectClassFieldChoicesItem,
 )
@@ -11,19 +12,18 @@ from .remote_field_class_for_custom_object_class_field_format import RemoteField
 from .remote_field_class_for_custom_object_class_field_type import RemoteFieldClassForCustomObjectClassFieldType
 from .remote_field_class_for_custom_object_class_item_schema import RemoteFieldClassForCustomObjectClassItemSchema
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
+class RemoteFieldClassForCustomObjectClass(pydantic_v1.BaseModel):
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
 
-class RemoteFieldClassForCustomObjectClass(pydantic.BaseModel):
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
     display_name: typing.Optional[str]
     remote_key_name: typing.Optional[str]
     description: typing.Optional[str]
@@ -38,10 +38,15 @@ class RemoteFieldClassForCustomObjectClass(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

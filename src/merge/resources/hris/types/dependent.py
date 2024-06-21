@@ -4,17 +4,13 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .dependent_gender import DependentGender
 from .dependent_relationship import DependentRelationship
 from .remote_data import RemoteData
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class Dependent(pydantic.BaseModel):
+class Dependent(pydantic_v1.BaseModel):
     """
     # The Dependent Object
 
@@ -28,45 +24,91 @@ class Dependent(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    first_name: typing.Optional[str] = pydantic.Field(description="The dependents's first name.")
-    middle_name: typing.Optional[str] = pydantic.Field(description="The dependents's middle name.")
-    last_name: typing.Optional[str] = pydantic.Field(description="The dependents's last name.")
-    relationship: typing.Optional[DependentRelationship] = pydantic.Field(
-        description=(
-            "The dependent's relationship to the employee.\n"
-            "\n"
-            "- `CHILD` - CHILD\n"
-            "- `SPOUSE` - SPOUSE\n"
-            "- `DOMESTIC_PARTNER` - DOMESTIC_PARTNER\n"
-        )
-    )
-    employee: typing.Optional[str] = pydantic.Field(description="The employee this person is a dependent of.")
-    date_of_birth: typing.Optional[dt.datetime] = pydantic.Field(description="The dependent's date of birth.")
-    gender: typing.Optional[DependentGender] = pydantic.Field(
-        description=(
-            "The dependent's gender.\n"
-            "\n"
-            "- `MALE` - MALE\n"
-            "- `FEMALE` - FEMALE\n"
-            "- `NON-BINARY` - NON-BINARY\n"
-            "- `OTHER` - OTHER\n"
-            "- `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE\n"
-        )
-    )
-    phone_number: typing.Optional[str] = pydantic.Field(description="The dependent's phone number.")
-    home_location: typing.Optional[str] = pydantic.Field(description="The dependents's home address.")
-    is_student: typing.Optional[bool] = pydantic.Field(description="Whether or not the dependent is a student")
-    ssn: typing.Optional[str] = pydantic.Field(description="The dependents's social security number.")
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted in the third party platform."
-    )
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    first_name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The dependents's first name.
+    """
+
+    middle_name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The dependents's middle name.
+    """
+
+    last_name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The dependents's last name.
+    """
+
+    relationship: typing.Optional[DependentRelationship] = pydantic_v1.Field()
+    """
+    The dependent's relationship to the employee.
+    
+    - `CHILD` - CHILD
+    - `SPOUSE` - SPOUSE
+    - `DOMESTIC_PARTNER` - DOMESTIC_PARTNER
+    """
+
+    employee: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The employee this person is a dependent of.
+    """
+
+    date_of_birth: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The dependent's date of birth.
+    """
+
+    gender: typing.Optional[DependentGender] = pydantic_v1.Field()
+    """
+    The dependent's gender.
+    
+    - `MALE` - MALE
+    - `FEMALE` - FEMALE
+    - `NON-BINARY` - NON-BINARY
+    - `OTHER` - OTHER
+    - `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE
+    """
+
+    phone_number: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The dependent's phone number.
+    """
+
+    home_location: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The dependents's home address.
+    """
+
+    is_student: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Whether or not the dependent is a student
+    """
+
+    ssn: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The dependents's social security number.
+    """
+
+    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Indicates whether or not this object has been deleted in the third party platform.
+    """
+
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
@@ -75,10 +117,15 @@ class Dependent(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}

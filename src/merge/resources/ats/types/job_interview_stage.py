@@ -4,16 +4,12 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .job_interview_stage_job import JobInterviewStageJob
 from .remote_data import RemoteData
 
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
 
-
-class JobInterviewStage(pydantic.BaseModel):
+class JobInterviewStage(pydantic_v1.BaseModel):
     """
     # The JobInterviewStage Object
 
@@ -27,25 +23,41 @@ class JobInterviewStage(pydantic.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field(description="The third-party API ID of the matching object.")
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was created by Merge."
-    )
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field(
-        description="The datetime that this object was modified by Merge."
-    )
-    name: typing.Optional[str] = pydantic.Field(
-        description="Standard stage names are offered by ATS systems but can be modified by users."
-    )
-    job: typing.Optional[JobInterviewStageJob] = pydantic.Field(
-        description="This field is populated only if the stage is specific to a particular job. If the stage is generic, this field will not be populated."
-    )
-    stage_order: typing.Optional[int] = pydantic.Field(
-        description="The stage’s order, with the lowest values ordered first. If the third-party does not return details on the order of stages, this field will not be populated."
-    )
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field(
-        description="Indicates whether or not this object has been deleted in the third party platform."
-    )
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    """
+    The third-party API ID of the matching object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was created by Merge.
+    """
+
+    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    """
+    The datetime that this object was modified by Merge.
+    """
+
+    name: typing.Optional[str] = pydantic_v1.Field()
+    """
+    Standard stage names are offered by ATS systems but can be modified by users.
+    """
+
+    job: typing.Optional[JobInterviewStageJob] = pydantic_v1.Field()
+    """
+    This field is populated only if the stage is specific to a particular job. If the stage is generic, this field will not be populated.
+    """
+
+    stage_order: typing.Optional[int] = pydantic_v1.Field()
+    """
+    The stage’s order, with the lowest values ordered first. If the third-party does not return details on the order of stages, this field will not be populated.
+    """
+
+    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    """
+    Indicates whether or not this object has been deleted in the third party platform.
+    """
+
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
@@ -54,10 +66,15 @@ class JobInterviewStage(pydantic.BaseModel):
         return super().json(**kwargs_with_defaults)
 
     def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().dict(**kwargs_with_defaults)
+        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
+        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
+
+        return deep_union_pydantic_dicts(
+            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
+        )
 
     class Config:
         frozen = True
         smart_union = True
+        extra = pydantic_v1.Extra.forbid
         json_encoders = {dt.datetime: serialize_datetime}
