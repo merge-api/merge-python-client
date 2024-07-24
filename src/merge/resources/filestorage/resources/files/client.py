@@ -8,7 +8,7 @@ from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.pydantic_utilities import pydantic_v1
+from .....core.pydantic_utilities import parse_obj_as
 from .....core.request_options import RequestOptions
 from ...types.file import File
 from ...types.file_request import FileRequest
@@ -131,9 +131,9 @@ class FilesClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(PaginatedFileList, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(PaginatedFileList, parse_obj_as(type_=PaginatedFileList, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -189,9 +189,9 @@ class FilesClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(FileStorageFileResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(FileStorageFileResponse, parse_obj_as(type_=FileStorageFileResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -244,9 +244,9 @@ class FilesClient:
             params={"expand": expand, "include_remote_data": include_remote_data},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(File, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(File, parse_obj_as(type_=File, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -296,12 +296,12 @@ class FilesClient:
             params={"mime_type": mime_type},
             request_options=request_options,
         ) as _response:
-            if 200 <= _response.status_code < 300:
-                for _chunk in _response.iter_bytes():
-                    yield _chunk
-                return
-            _response.read()
             try:
+                if 200 <= _response.status_code < 300:
+                    for _chunk in _response.iter_bytes():
+                        yield _chunk
+                    return
+                _response.read()
                 _response_json = _response.json()
             except JSONDecodeError:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -334,9 +334,9 @@ class FilesClient:
         _response = self._client_wrapper.httpx_client.request(
             "filestorage/v1/files/meta/post", method="GET", request_options=request_options
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(MetaResponse, parse_obj_as(type_=MetaResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -423,13 +423,21 @@ class AsyncFilesClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.files.list()
+
+
+        async def main() -> None:
+            await client.filestorage.files.list()
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "filestorage/v1/files",
@@ -452,9 +460,9 @@ class AsyncFilesClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(PaginatedFileList, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(PaginatedFileList, parse_obj_as(type_=PaginatedFileList, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -491,6 +499,8 @@ class AsyncFilesClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
         from merge.resources.filestorage import FileRequest
 
@@ -498,9 +508,15 @@ class AsyncFilesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.files.create(
-            model=FileRequest(),
-        )
+
+
+        async def main() -> None:
+            await client.filestorage.files.create(
+                model=FileRequest(),
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "filestorage/v1/files",
@@ -510,9 +526,9 @@ class AsyncFilesClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(FileStorageFileResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(FileStorageFileResponse, parse_obj_as(type_=FileStorageFileResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -549,15 +565,23 @@ class AsyncFilesClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.files.retrieve(
-            id="id",
-        )
+
+
+        async def main() -> None:
+            await client.filestorage.files.retrieve(
+                id="id",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"filestorage/v1/files/{jsonable_encoder(id)}",
@@ -565,9 +589,9 @@ class AsyncFilesClient:
             params={"expand": expand, "include_remote_data": include_remote_data},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(File, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(File, parse_obj_as(type_=File, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -600,16 +624,24 @@ class AsyncFilesClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.files.download_retrieve(
-            id="string",
-            mime_type="string",
-        )
+
+
+        async def main() -> None:
+            await client.filestorage.files.download_retrieve(
+                id="string",
+                mime_type="string",
+            )
+
+
+        asyncio.run(main())
         """
         async with self._client_wrapper.httpx_client.stream(
             f"filestorage/v1/files/{jsonable_encoder(id)}/download",
@@ -617,12 +649,12 @@ class AsyncFilesClient:
             params={"mime_type": mime_type},
             request_options=request_options,
         ) as _response:
-            if 200 <= _response.status_code < 300:
-                async for _chunk in _response.aiter_bytes():
-                    yield _chunk
-                return
-            await _response.aread()
             try:
+                if 200 <= _response.status_code < 300:
+                    async for _chunk in _response.aiter_bytes():
+                        yield _chunk
+                    return
+                await _response.aread()
                 _response_json = _response.json()
             except JSONDecodeError:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -644,20 +676,28 @@ class AsyncFilesClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.files.meta_post_retrieve()
+
+
+        async def main() -> None:
+            await client.filestorage.files.meta_post_retrieve()
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "filestorage/v1/files/meta/post", method="GET", request_options=request_options
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(MetaResponse, parse_obj_as(type_=MetaResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

@@ -5,7 +5,7 @@ from json.decoder import JSONDecodeError
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from .....core.pydantic_utilities import pydantic_v1
+from .....core.pydantic_utilities import parse_obj_as
 from .....core.request_options import RequestOptions
 from ...types.remote_key import RemoteKey
 
@@ -49,9 +49,9 @@ class RegenerateKeyClient:
         _response = self._client_wrapper.httpx_client.request(
             "hris/v1/regenerate-key", method="POST", json={"name": name}, request_options=request_options, omit=OMIT
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(RemoteKey, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(RemoteKey, parse_obj_as(type_=RemoteKey, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -81,22 +81,30 @@ class AsyncRegenerateKeyClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.regenerate_key.create(
-            name="Remote Deployment Key 1",
-        )
+
+
+        async def main() -> None:
+            await client.hris.regenerate_key.create(
+                name="Remote Deployment Key 1",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "hris/v1/regenerate-key", method="POST", json={"name": name}, request_options=request_options, omit=OMIT
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(RemoteKey, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(RemoteKey, parse_obj_as(type_=RemoteKey, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

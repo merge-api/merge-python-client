@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .remote_data import RemoteData
 from .remote_field import RemoteField
 from .task_account import TaskAccount
@@ -13,7 +14,7 @@ from .task_owner import TaskOwner
 from .task_status import TaskStatus
 
 
-class Task(pydantic_v1.BaseModel):
+class Task(UniversalBaseModel):
     """
     # The Task Object
 
@@ -27,57 +28,57 @@ class Task(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    subject: typing.Optional[str] = pydantic_v1.Field()
+    subject: typing.Optional[str] = pydantic.Field()
     """
     The task's subject.
     """
 
-    content: typing.Optional[str] = pydantic_v1.Field()
+    content: typing.Optional[str] = pydantic.Field()
     """
     The task's content.
     """
 
-    owner: typing.Optional[TaskOwner] = pydantic_v1.Field()
+    owner: typing.Optional[TaskOwner] = pydantic.Field()
     """
     The task's owner.
     """
 
-    account: typing.Optional[TaskAccount] = pydantic_v1.Field()
+    account: typing.Optional[TaskAccount] = pydantic.Field()
     """
     The task's account.
     """
 
-    opportunity: typing.Optional[TaskOpportunity] = pydantic_v1.Field()
+    opportunity: typing.Optional[TaskOpportunity] = pydantic.Field()
     """
     The task's opportunity.
     """
 
-    completed_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    completed_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the task is completed.
     """
 
-    due_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    due_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the task is due.
     """
 
-    status: typing.Optional[TaskStatus] = pydantic_v1.Field()
+    status: typing.Optional[TaskStatus] = pydantic.Field()
     """
     The task's status.
     
@@ -85,7 +86,7 @@ class Task(pydantic_v1.BaseModel):
     - `CLOSED` - CLOSED
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
     """
     Indicates whether or not this object has been deleted in the third party platform.
     """
@@ -94,20 +95,11 @@ class Task(pydantic_v1.BaseModel):
     remote_data: typing.Optional[typing.List[RemoteData]]
     remote_fields: typing.Optional[typing.List[RemoteField]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

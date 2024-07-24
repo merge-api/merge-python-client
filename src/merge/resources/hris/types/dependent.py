@@ -3,14 +3,15 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .dependent_gender import DependentGender
 from .dependent_relationship import DependentRelationship
 from .remote_data import RemoteData
 
 
-class Dependent(pydantic_v1.BaseModel):
+class Dependent(UniversalBaseModel):
     """
     # The Dependent Object
 
@@ -24,37 +25,37 @@ class Dependent(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    first_name: typing.Optional[str] = pydantic_v1.Field()
+    first_name: typing.Optional[str] = pydantic.Field()
     """
     The dependents's first name.
     """
 
-    middle_name: typing.Optional[str] = pydantic_v1.Field()
+    middle_name: typing.Optional[str] = pydantic.Field()
     """
     The dependents's middle name.
     """
 
-    last_name: typing.Optional[str] = pydantic_v1.Field()
+    last_name: typing.Optional[str] = pydantic.Field()
     """
     The dependents's last name.
     """
 
-    relationship: typing.Optional[DependentRelationship] = pydantic_v1.Field()
+    relationship: typing.Optional[DependentRelationship] = pydantic.Field()
     """
     The dependent's relationship to the employee.
     
@@ -63,17 +64,17 @@ class Dependent(pydantic_v1.BaseModel):
     - `DOMESTIC_PARTNER` - DOMESTIC_PARTNER
     """
 
-    employee: typing.Optional[str] = pydantic_v1.Field()
+    employee: typing.Optional[str] = pydantic.Field()
     """
     The employee this person is a dependent of.
     """
 
-    date_of_birth: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    date_of_birth: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The dependent's date of birth.
     """
 
-    gender: typing.Optional[DependentGender] = pydantic_v1.Field()
+    gender: typing.Optional[DependentGender] = pydantic.Field()
     """
     The dependent's gender.
     
@@ -84,27 +85,27 @@ class Dependent(pydantic_v1.BaseModel):
     - `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE
     """
 
-    phone_number: typing.Optional[str] = pydantic_v1.Field()
+    phone_number: typing.Optional[str] = pydantic.Field()
     """
     The dependent's phone number.
     """
 
-    home_location: typing.Optional[str] = pydantic_v1.Field()
+    home_location: typing.Optional[str] = pydantic.Field()
     """
     The dependents's home address.
     """
 
-    is_student: typing.Optional[bool] = pydantic_v1.Field()
+    is_student: typing.Optional[bool] = pydantic.Field()
     """
     Whether or not the dependent is a student
     """
 
-    ssn: typing.Optional[str] = pydantic_v1.Field()
+    ssn: typing.Optional[str] = pydantic.Field()
     """
     The dependents's social security number.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
     """
     Indicates whether or not this object has been deleted in the third party platform.
     """
@@ -112,20 +113,11 @@ class Dependent(pydantic_v1.BaseModel):
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

@@ -8,7 +8,7 @@ from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.pydantic_utilities import pydantic_v1
+from .....core.pydantic_utilities import parse_obj_as
 from .....core.request_options import RequestOptions
 from ...types.association import Association
 from ...types.paginated_association_list import PaginatedAssociationList
@@ -117,9 +117,9 @@ class AssociationsClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(PaginatedAssociationList, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(PaginatedAssociationList, parse_obj_as(type_=PaginatedAssociationList, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -188,9 +188,9 @@ class AssociationsClient:
             params={"is_debug_mode": is_debug_mode, "run_async": run_async},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(Association, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(Association, parse_obj_as(type_=Association, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -271,16 +271,24 @@ class AsyncAssociationsClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.associations.custom_object_classes_custom_objects_associations_list(
-            custom_object_class_id="custom_object_class_id",
-            object_id="object_id",
-        )
+
+
+        async def main() -> None:
+            await client.crm.associations.custom_object_classes_custom_objects_associations_list(
+                custom_object_class_id="custom_object_class_id",
+                object_id="object_id",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects/{jsonable_encoder(object_id)}/associations",
@@ -300,9 +308,9 @@ class AsyncAssociationsClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(PaginatedAssociationList, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(PaginatedAssociationList, parse_obj_as(type_=PaginatedAssociationList, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -351,19 +359,27 @@ class AsyncAssociationsClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.associations.custom_object_classes_custom_objects_associations_update(
-            association_type_id="association_type_id",
-            source_class_id="source_class_id",
-            source_object_id="source_object_id",
-            target_class_id="target_class_id",
-            target_object_id="target_object_id",
-        )
+
+
+        async def main() -> None:
+            await client.crm.associations.custom_object_classes_custom_objects_associations_update(
+                association_type_id="association_type_id",
+                source_class_id="source_class_id",
+                source_object_id="source_object_id",
+                target_class_id="target_class_id",
+                target_object_id="target_object_id",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"crm/v1/custom-object-classes/{jsonable_encoder(source_class_id)}/custom-objects/{jsonable_encoder(source_object_id)}/associations/{jsonable_encoder(target_class_id)}/{jsonable_encoder(target_object_id)}/{jsonable_encoder(association_type_id)}",
@@ -371,9 +387,9 @@ class AsyncAssociationsClient:
             params={"is_debug_mode": is_debug_mode, "run_async": run_async},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(Association, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(Association, parse_obj_as(type_=Association, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

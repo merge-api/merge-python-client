@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .purchase_order_line_item_request import PurchaseOrderLineItemRequest
 from .purchase_order_request_company import PurchaseOrderRequestCompany
 from .purchase_order_request_currency import PurchaseOrderRequestCurrency
@@ -14,7 +15,7 @@ from .purchase_order_request_tracking_categories_item import PurchaseOrderReques
 from .purchase_order_request_vendor import PurchaseOrderRequestVendor
 
 
-class PurchaseOrderRequest(pydantic_v1.BaseModel):
+class PurchaseOrderRequest(UniversalBaseModel):
     """
     # The PurchaseOrder Object
 
@@ -27,7 +28,7 @@ class PurchaseOrderRequest(pydantic_v1.BaseModel):
     Fetch from the `LIST PurchaseOrders` endpoint and view a company's purchase orders.
     """
 
-    status: typing.Optional[PurchaseOrderRequestStatus] = pydantic_v1.Field()
+    status: typing.Optional[PurchaseOrderRequestStatus] = pydantic.Field()
     """
     The purchase order's status.
     
@@ -38,47 +39,47 @@ class PurchaseOrderRequest(pydantic_v1.BaseModel):
     - `DELETED` - DELETED
     """
 
-    issue_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    issue_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The purchase order's issue date.
     """
 
-    delivery_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    delivery_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The purchase order's delivery date.
     """
 
-    delivery_address: typing.Optional[PurchaseOrderRequestDeliveryAddress] = pydantic_v1.Field()
+    delivery_address: typing.Optional[PurchaseOrderRequestDeliveryAddress] = pydantic.Field()
     """
     The purchase order's delivery address.
     """
 
-    customer: typing.Optional[str] = pydantic_v1.Field()
+    customer: typing.Optional[str] = pydantic.Field()
     """
     The contact making the purchase order.
     """
 
-    vendor: typing.Optional[PurchaseOrderRequestVendor] = pydantic_v1.Field()
+    vendor: typing.Optional[PurchaseOrderRequestVendor] = pydantic.Field()
     """
     The party fulfilling the purchase order.
     """
 
-    memo: typing.Optional[str] = pydantic_v1.Field()
+    memo: typing.Optional[str] = pydantic.Field()
     """
     A memo attached to the purchase order.
     """
 
-    company: typing.Optional[PurchaseOrderRequestCompany] = pydantic_v1.Field()
+    company: typing.Optional[PurchaseOrderRequestCompany] = pydantic.Field()
     """
     The company the purchase order belongs to.
     """
 
-    total_amount: typing.Optional[float] = pydantic_v1.Field()
+    total_amount: typing.Optional[float] = pydantic.Field()
     """
     The purchase order's total amount.
     """
 
-    currency: typing.Optional[PurchaseOrderRequestCurrency] = pydantic_v1.Field()
+    currency: typing.Optional[PurchaseOrderRequestCurrency] = pydantic.Field()
     """
     The purchase order's currency.
     
@@ -390,7 +391,7 @@ class PurchaseOrderRequest(pydantic_v1.BaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic_v1.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field()
     """
     The purchase order's exchange rate.
     """
@@ -400,20 +401,11 @@ class PurchaseOrderRequest(pydantic_v1.BaseModel):
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

@@ -8,7 +8,7 @@ from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.pydantic_utilities import pydantic_v1
+from .....core.pydantic_utilities import parse_obj_as
 from .....core.request_options import RequestOptions
 from ...types.contact import Contact
 from ...types.contact_request import ContactRequest
@@ -136,9 +136,9 @@ class ContactsClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(PaginatedContactList, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(PaginatedContactList, parse_obj_as(type_=PaginatedContactList, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -194,9 +194,9 @@ class ContactsClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(ContactResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(ContactResponse, parse_obj_as(type_=ContactResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -262,9 +262,9 @@ class ContactsClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(Contact, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(Contact, parse_obj_as(type_=Contact, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -297,9 +297,9 @@ class ContactsClient:
         _response = self._client_wrapper.httpx_client.request(
             "accounting/v1/contacts/meta/post", method="GET", request_options=request_options
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(MetaResponse, parse_obj_as(type_=MetaResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -390,13 +390,21 @@ class AsyncContactsClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.contacts.list()
+
+
+        async def main() -> None:
+            await client.accounting.contacts.list()
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "accounting/v1/contacts",
@@ -420,9 +428,9 @@ class AsyncContactsClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(PaginatedContactList, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(PaginatedContactList, parse_obj_as(type_=PaginatedContactList, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -459,6 +467,8 @@ class AsyncContactsClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
         from merge.resources.accounting import ContactRequest
 
@@ -466,9 +476,15 @@ class AsyncContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.contacts.create(
-            model=ContactRequest(),
-        )
+
+
+        async def main() -> None:
+            await client.accounting.contacts.create(
+                model=ContactRequest(),
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "accounting/v1/contacts",
@@ -478,9 +494,9 @@ class AsyncContactsClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(ContactResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(ContactResponse, parse_obj_as(type_=ContactResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -525,15 +541,23 @@ class AsyncContactsClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.contacts.retrieve(
-            id="id",
-        )
+
+
+        async def main() -> None:
+            await client.accounting.contacts.retrieve(
+                id="id",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"accounting/v1/contacts/{jsonable_encoder(id)}",
@@ -546,9 +570,9 @@ class AsyncContactsClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(Contact, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(Contact, parse_obj_as(type_=Contact, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -570,20 +594,28 @@ class AsyncContactsClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.accounting.contacts.meta_post_retrieve()
+
+
+        async def main() -> None:
+            await client.accounting.contacts.meta_post_retrieve()
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "accounting/v1/contacts/meta/post", method="GET", request_options=request_options
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(MetaResponse, parse_obj_as(type_=MetaResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

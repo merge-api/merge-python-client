@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .journal_entry_accounting_period import JournalEntryAccountingPeriod
 from .journal_entry_applied_payments_item import JournalEntryAppliedPaymentsItem
 from .journal_entry_company import JournalEntryCompany
@@ -16,7 +17,7 @@ from .journal_line import JournalLine
 from .remote_data import RemoteData
 
 
-class JournalEntry(pydantic_v1.BaseModel):
+class JournalEntry(UniversalBaseModel):
     """
     # The JournalEntry Object
 
@@ -34,54 +35,52 @@ class JournalEntry(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    transaction_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    transaction_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The journal entry's transaction date.
     """
 
-    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's journal entry was created.
     """
 
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's journal entry was updated.
     """
 
-    payments: typing.Optional[typing.List[typing.Optional[JournalEntryPaymentsItem]]] = pydantic_v1.Field()
+    payments: typing.Optional[typing.List[typing.Optional[JournalEntryPaymentsItem]]] = pydantic.Field()
     """
     Array of `Payment` object IDs.
     """
 
-    applied_payments: typing.Optional[
-        typing.List[typing.Optional[JournalEntryAppliedPaymentsItem]]
-    ] = pydantic_v1.Field()
+    applied_payments: typing.Optional[typing.List[typing.Optional[JournalEntryAppliedPaymentsItem]]] = pydantic.Field()
     """
     A list of the Payment Applied to Lines common models related to a given Invoice, Credit Note, or Journal Entry.
     """
 
-    memo: typing.Optional[str] = pydantic_v1.Field()
+    memo: typing.Optional[str] = pydantic.Field()
     """
     The journal entry's private note.
     """
 
-    currency: typing.Optional[JournalEntryCurrency] = pydantic_v1.Field()
+    currency: typing.Optional[JournalEntryCurrency] = pydantic.Field()
     """
     The journal's currency.
     
@@ -393,25 +392,25 @@ class JournalEntry(pydantic_v1.BaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic_v1.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field()
     """
     The journal entry's exchange rate.
     """
 
-    company: typing.Optional[JournalEntryCompany] = pydantic_v1.Field()
+    company: typing.Optional[JournalEntryCompany] = pydantic.Field()
     """
     The company the journal entry belongs to.
     """
 
     lines: typing.Optional[typing.List[JournalLine]]
-    journal_number: typing.Optional[str] = pydantic_v1.Field()
+    journal_number: typing.Optional[str] = pydantic.Field()
     """
     Reference number for identifying journal entries.
     """
 
     tracking_categories: typing.Optional[typing.List[typing.Optional[JournalEntryTrackingCategoriesItem]]]
     remote_was_deleted: typing.Optional[bool]
-    posting_status: typing.Optional[JournalEntryPostingStatus] = pydantic_v1.Field()
+    posting_status: typing.Optional[JournalEntryPostingStatus] = pydantic.Field()
     """
     The journal's posting status.
     
@@ -419,7 +418,7 @@ class JournalEntry(pydantic_v1.BaseModel):
     - `POSTED` - POSTED
     """
 
-    accounting_period: typing.Optional[JournalEntryAccountingPeriod] = pydantic_v1.Field()
+    accounting_period: typing.Optional[JournalEntryAccountingPeriod] = pydantic.Field()
     """
     The accounting period that the JournalEntry was generated in.
     """
@@ -427,20 +426,11 @@ class JournalEntry(pydantic_v1.BaseModel):
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

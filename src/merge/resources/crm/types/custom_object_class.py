@@ -3,12 +3,13 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .remote_field_class_for_custom_object_class import RemoteFieldClassForCustomObjectClass
 
 
-class CustomObjectClass(pydantic_v1.BaseModel):
+class CustomObjectClass(UniversalBaseModel):
     """
     # The Custom Object Class Object
 
@@ -22,48 +23,39 @@ class CustomObjectClass(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
     created_at: typing.Optional[dt.datetime]
     modified_at: typing.Optional[dt.datetime]
-    name: typing.Optional[str] = pydantic_v1.Field()
+    name: typing.Optional[str] = pydantic.Field()
     """
     The custom object class's name.
     """
 
-    description: typing.Optional[str] = pydantic_v1.Field()
+    description: typing.Optional[str] = pydantic.Field()
     """
     The custom object class's description.
     """
 
-    labels: typing.Optional[typing.Dict[str, typing.Optional[str]]] = pydantic_v1.Field()
+    labels: typing.Optional[typing.Dict[str, typing.Optional[str]]] = pydantic.Field()
     """
     The custom object class's singular and plural labels.
     """
 
     fields: typing.Optional[typing.List[RemoteFieldClassForCustomObjectClass]]
-    association_types: typing.Optional[typing.List[typing.Dict[str, typing.Any]]] = pydantic_v1.Field()
+    association_types: typing.Optional[typing.List[typing.Dict[str, typing.Any]]] = pydantic.Field()
     """
     The types of associations with other models that the custom object class can have.
     """
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

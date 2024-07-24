@@ -8,7 +8,7 @@ from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.pydantic_utilities import pydantic_v1
+from .....core.pydantic_utilities import parse_obj_as
 from .....core.request_options import RequestOptions
 from ...types.association_type import AssociationType
 from ...types.association_type_request_request import AssociationTypeRequestRequest
@@ -114,9 +114,9 @@ class AssociationTypesClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(PaginatedAssociationTypeList, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(PaginatedAssociationTypeList, parse_obj_as(type_=PaginatedAssociationTypeList, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -192,9 +192,9 @@ class AssociationTypesClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(CrmAssociationTypeResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(CrmAssociationTypeResponse, parse_obj_as(type_=CrmAssociationTypeResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -251,9 +251,9 @@ class AssociationTypesClient:
             params={"expand": expand, "include_remote_data": include_remote_data},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(AssociationType, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(AssociationType, parse_obj_as(type_=AssociationType, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -294,9 +294,9 @@ class AssociationTypesClient:
             method="GET",
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(MetaResponse, parse_obj_as(type_=MetaResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -370,15 +370,23 @@ class AsyncAssociationTypesClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.association_types.custom_object_classes_association_types_list(
-            custom_object_class_id="custom_object_class_id",
-        )
+
+
+        async def main() -> None:
+            await client.crm.association_types.custom_object_classes_association_types_list(
+                custom_object_class_id="custom_object_class_id",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/association-types",
@@ -397,9 +405,9 @@ class AsyncAssociationTypesClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(PaginatedAssociationTypeList, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(PaginatedAssociationTypeList, parse_obj_as(type_=PaginatedAssociationTypeList, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -439,6 +447,8 @@ class AsyncAssociationTypesClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
         from merge.resources.crm import (
             AssociationTypeRequestRequest,
@@ -450,22 +460,28 @@ class AsyncAssociationTypesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.association_types.custom_object_classes_association_types_create(
-            custom_object_class_id="custom_object_class_id",
-            model=AssociationTypeRequestRequest(
-                source_object_class=ObjectClassDescriptionRequest(
-                    id="id",
-                    origin_type=OriginTypeEnum.CUSTOM_OBJECT,
-                ),
-                target_object_classes=[
-                    ObjectClassDescriptionRequest(
+
+
+        async def main() -> None:
+            await client.crm.association_types.custom_object_classes_association_types_create(
+                custom_object_class_id="custom_object_class_id",
+                model=AssociationTypeRequestRequest(
+                    source_object_class=ObjectClassDescriptionRequest(
                         id="id",
                         origin_type=OriginTypeEnum.CUSTOM_OBJECT,
-                    )
-                ],
-                remote_key_name="remote_key_name",
-            ),
-        )
+                    ),
+                    target_object_classes=[
+                        ObjectClassDescriptionRequest(
+                            id="id",
+                            origin_type=OriginTypeEnum.CUSTOM_OBJECT,
+                        )
+                    ],
+                    remote_key_name="remote_key_name",
+                ),
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/association-types",
@@ -475,9 +491,9 @@ class AsyncAssociationTypesClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(CrmAssociationTypeResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(CrmAssociationTypeResponse, parse_obj_as(type_=CrmAssociationTypeResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -517,16 +533,24 @@ class AsyncAssociationTypesClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.association_types.custom_object_classes_association_types_retrieve(
-            custom_object_class_id="custom_object_class_id",
-            id="id",
-        )
+
+
+        async def main() -> None:
+            await client.crm.association_types.custom_object_classes_association_types_retrieve(
+                custom_object_class_id="custom_object_class_id",
+                id="id",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/association-types/{jsonable_encoder(id)}",
@@ -534,9 +558,9 @@ class AsyncAssociationTypesClient:
             params={"expand": expand, "include_remote_data": include_remote_data},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(AssociationType, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(AssociationType, parse_obj_as(type_=AssociationType, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -562,24 +586,32 @@ class AsyncAssociationTypesClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.association_types.custom_object_classes_association_types_meta_post_retrieve(
-            custom_object_class_id="custom_object_class_id",
-        )
+
+
+        async def main() -> None:
+            await client.crm.association_types.custom_object_classes_association_types_meta_post_retrieve(
+                custom_object_class_id="custom_object_class_id",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/association-types/meta/post",
             method="GET",
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(MetaResponse, parse_obj_as(type_=MetaResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

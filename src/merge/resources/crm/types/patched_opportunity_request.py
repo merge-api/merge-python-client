@@ -3,13 +3,14 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .patched_opportunity_request_status import PatchedOpportunityRequestStatus
 from .remote_field_request import RemoteFieldRequest
 
 
-class PatchedOpportunityRequest(pydantic_v1.BaseModel):
+class PatchedOpportunityRequest(UniversalBaseModel):
     """
     # The Opportunity Object
 
@@ -22,37 +23,37 @@ class PatchedOpportunityRequest(pydantic_v1.BaseModel):
     TODO
     """
 
-    name: typing.Optional[str] = pydantic_v1.Field()
+    name: typing.Optional[str] = pydantic.Field()
     """
     The opportunity's name.
     """
 
-    description: typing.Optional[str] = pydantic_v1.Field()
+    description: typing.Optional[str] = pydantic.Field()
     """
     The opportunity's description.
     """
 
-    amount: typing.Optional[int] = pydantic_v1.Field()
+    amount: typing.Optional[int] = pydantic.Field()
     """
     The opportunity's amount.
     """
 
-    owner: typing.Optional[str] = pydantic_v1.Field()
+    owner: typing.Optional[str] = pydantic.Field()
     """
     The opportunity's owner.
     """
 
-    account: typing.Optional[str] = pydantic_v1.Field()
+    account: typing.Optional[str] = pydantic.Field()
     """
     The account of the opportunity.
     """
 
-    stage: typing.Optional[str] = pydantic_v1.Field()
+    stage: typing.Optional[str] = pydantic.Field()
     """
     The stage of the opportunity.
     """
 
-    status: typing.Optional[PatchedOpportunityRequestStatus] = pydantic_v1.Field()
+    status: typing.Optional[PatchedOpportunityRequestStatus] = pydantic.Field()
     """
     The opportunity's status.
     
@@ -61,12 +62,12 @@ class PatchedOpportunityRequest(pydantic_v1.BaseModel):
     - `LOST` - LOST
     """
 
-    last_activity_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    last_activity_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the opportunity's last activity occurred.
     """
 
-    close_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    close_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the opportunity was closed.
     """
@@ -75,20 +76,11 @@ class PatchedOpportunityRequest(pydantic_v1.BaseModel):
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

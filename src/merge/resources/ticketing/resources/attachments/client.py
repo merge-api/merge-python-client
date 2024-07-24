@@ -8,7 +8,7 @@ from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.pydantic_utilities import pydantic_v1
+from .....core.pydantic_utilities import parse_obj_as
 from .....core.request_options import RequestOptions
 from ...types.attachment import Attachment
 from ...types.attachment_request import AttachmentRequest
@@ -121,9 +121,9 @@ class AttachmentsClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(PaginatedAttachmentList, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(PaginatedAttachmentList, parse_obj_as(type_=PaginatedAttachmentList, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -179,9 +179,9 @@ class AttachmentsClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(TicketingAttachmentResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(TicketingAttachmentResponse, parse_obj_as(type_=TicketingAttachmentResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -234,9 +234,9 @@ class AttachmentsClient:
             params={"expand": expand, "include_remote_data": include_remote_data},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(Attachment, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(Attachment, parse_obj_as(type_=Attachment, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -286,12 +286,12 @@ class AttachmentsClient:
             params={"mime_type": mime_type},
             request_options=request_options,
         ) as _response:
-            if 200 <= _response.status_code < 300:
-                for _chunk in _response.iter_bytes():
-                    yield _chunk
-                return
-            _response.read()
             try:
+                if 200 <= _response.status_code < 300:
+                    for _chunk in _response.iter_bytes():
+                        yield _chunk
+                    return
+                _response.read()
                 _response_json = _response.json()
             except JSONDecodeError:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -324,9 +324,9 @@ class AttachmentsClient:
         _response = self._client_wrapper.httpx_client.request(
             "ticketing/v1/attachments/meta/post", method="GET", request_options=request_options
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(MetaResponse, parse_obj_as(type_=MetaResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -405,13 +405,21 @@ class AsyncAttachmentsClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.attachments.list()
+
+
+        async def main() -> None:
+            await client.ticketing.attachments.list()
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "ticketing/v1/attachments",
@@ -434,9 +442,9 @@ class AsyncAttachmentsClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(PaginatedAttachmentList, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(PaginatedAttachmentList, parse_obj_as(type_=PaginatedAttachmentList, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -473,6 +481,8 @@ class AsyncAttachmentsClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
         from merge.resources.ticketing import AttachmentRequest
 
@@ -480,9 +490,15 @@ class AsyncAttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.attachments.create(
-            model=AttachmentRequest(),
-        )
+
+
+        async def main() -> None:
+            await client.ticketing.attachments.create(
+                model=AttachmentRequest(),
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "ticketing/v1/attachments",
@@ -492,9 +508,9 @@ class AsyncAttachmentsClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(TicketingAttachmentResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(TicketingAttachmentResponse, parse_obj_as(type_=TicketingAttachmentResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -531,15 +547,23 @@ class AsyncAttachmentsClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.attachments.retrieve(
-            id="id",
-        )
+
+
+        async def main() -> None:
+            await client.ticketing.attachments.retrieve(
+                id="id",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ticketing/v1/attachments/{jsonable_encoder(id)}",
@@ -547,9 +571,9 @@ class AsyncAttachmentsClient:
             params={"expand": expand, "include_remote_data": include_remote_data},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(Attachment, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(Attachment, parse_obj_as(type_=Attachment, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -582,16 +606,24 @@ class AsyncAttachmentsClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.attachments.download_retrieve(
-            id="string",
-            mime_type="string",
-        )
+
+
+        async def main() -> None:
+            await client.ticketing.attachments.download_retrieve(
+                id="string",
+                mime_type="string",
+            )
+
+
+        asyncio.run(main())
         """
         async with self._client_wrapper.httpx_client.stream(
             f"ticketing/v1/attachments/{jsonable_encoder(id)}/download",
@@ -599,12 +631,12 @@ class AsyncAttachmentsClient:
             params={"mime_type": mime_type},
             request_options=request_options,
         ) as _response:
-            if 200 <= _response.status_code < 300:
-                async for _chunk in _response.aiter_bytes():
-                    yield _chunk
-                return
-            await _response.aread()
             try:
+                if 200 <= _response.status_code < 300:
+                    async for _chunk in _response.aiter_bytes():
+                        yield _chunk
+                    return
+                await _response.aread()
                 _response_json = _response.json()
             except JSONDecodeError:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -626,20 +658,28 @@ class AsyncAttachmentsClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ticketing.attachments.meta_post_retrieve()
+
+
+        async def main() -> None:
+            await client.ticketing.attachments.meta_post_retrieve()
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "ticketing/v1/attachments/meta/post", method="GET", request_options=request_options
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(MetaResponse, parse_obj_as(type_=MetaResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

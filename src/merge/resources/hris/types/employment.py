@@ -5,8 +5,9 @@ from __future__ import annotations
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel, update_forward_refs
 from .employment_employment_type import EmploymentEmploymentType
 from .employment_flsa_status import EmploymentFlsaStatus
 from .employment_pay_currency import EmploymentPayCurrency
@@ -16,7 +17,7 @@ from .employment_pay_period import EmploymentPayPeriod
 from .remote_data import RemoteData
 
 
-class Employment(pydantic_v1.BaseModel):
+class Employment(UniversalBaseModel):
     """
     # The Employment Object
 
@@ -32,37 +33,37 @@ class Employment(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    employee: typing.Optional[EmploymentEmployee] = pydantic_v1.Field()
+    employee: typing.Optional[EmploymentEmployee] = pydantic.Field()
     """
     The employee holding this position.
     """
 
-    job_title: typing.Optional[str] = pydantic_v1.Field()
+    job_title: typing.Optional[str] = pydantic.Field()
     """
     The position's title.
     """
 
-    pay_rate: typing.Optional[float] = pydantic_v1.Field()
+    pay_rate: typing.Optional[float] = pydantic.Field()
     """
     The position's pay rate in dollars.
     """
 
-    pay_period: typing.Optional[EmploymentPayPeriod] = pydantic_v1.Field()
+    pay_period: typing.Optional[EmploymentPayPeriod] = pydantic.Field()
     """
     The time period this pay rate encompasses.
     
@@ -77,7 +78,7 @@ class Employment(pydantic_v1.BaseModel):
     - `YEAR` - YEAR
     """
 
-    pay_frequency: typing.Optional[EmploymentPayFrequency] = pydantic_v1.Field()
+    pay_frequency: typing.Optional[EmploymentPayFrequency] = pydantic.Field()
     """
     The position's pay frequency.
     
@@ -92,7 +93,7 @@ class Employment(pydantic_v1.BaseModel):
     - `SEMIMONTHLY` - SEMIMONTHLY
     """
 
-    pay_currency: typing.Optional[EmploymentPayCurrency] = pydantic_v1.Field()
+    pay_currency: typing.Optional[EmploymentPayCurrency] = pydantic.Field()
     """
     The position's currency code.
     
@@ -404,12 +405,12 @@ class Employment(pydantic_v1.BaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    pay_group: typing.Optional[EmploymentPayGroup] = pydantic_v1.Field()
+    pay_group: typing.Optional[EmploymentPayGroup] = pydantic.Field()
     """
     The employment's pay group
     """
 
-    flsa_status: typing.Optional[EmploymentFlsaStatus] = pydantic_v1.Field()
+    flsa_status: typing.Optional[EmploymentFlsaStatus] = pydantic.Field()
     """
     The position's FLSA status.
     
@@ -419,12 +420,12 @@ class Employment(pydantic_v1.BaseModel):
     - `OWNER` - OWNER
     """
 
-    effective_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    effective_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The position's effective date.
     """
 
-    employment_type: typing.Optional[EmploymentEmploymentType] = pydantic_v1.Field()
+    employment_type: typing.Optional[EmploymentEmploymentType] = pydantic.Field()
     """
     The position's type of employment.
     
@@ -435,7 +436,7 @@ class Employment(pydantic_v1.BaseModel):
     - `FREELANCE` - FREELANCE
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
     """
     Indicates whether or not this object has been deleted in the third party platform.
     """
@@ -443,25 +444,16 @@ class Employment(pydantic_v1.BaseModel):
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow
 
 
 from .employment_employee import EmploymentEmployee  # noqa: E402
 
-Employment.update_forward_refs()
+update_forward_refs(Employment)

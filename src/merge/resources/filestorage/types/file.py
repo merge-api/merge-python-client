@@ -3,14 +3,15 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .file_drive import FileDrive
 from .file_folder import FileFolder
 from .file_permissions import FilePermissions
 
 
-class File(pydantic_v1.BaseModel):
+class File(UniversalBaseModel):
     """
     # The File Object
 
@@ -24,77 +25,77 @@ class File(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    name: typing.Optional[str] = pydantic_v1.Field()
+    name: typing.Optional[str] = pydantic.Field()
     """
     The file's name.
     """
 
-    file_url: typing.Optional[str] = pydantic_v1.Field()
+    file_url: typing.Optional[str] = pydantic.Field()
     """
     The URL to access the file.
     """
 
-    file_thumbnail_url: typing.Optional[str] = pydantic_v1.Field()
+    file_thumbnail_url: typing.Optional[str] = pydantic.Field()
     """
     The URL that produces a thumbnail preview of the file. Typically an image.
     """
 
-    size: typing.Optional[int] = pydantic_v1.Field()
+    size: typing.Optional[int] = pydantic.Field()
     """
     The file's size, in bytes.
     """
 
-    mime_type: typing.Optional[str] = pydantic_v1.Field()
+    mime_type: typing.Optional[str] = pydantic.Field()
     """
     The file's mime type.
     """
 
-    description: typing.Optional[str] = pydantic_v1.Field()
+    description: typing.Optional[str] = pydantic.Field()
     """
     The file's description.
     """
 
-    folder: typing.Optional[FileFolder] = pydantic_v1.Field()
+    folder: typing.Optional[FileFolder] = pydantic.Field()
     """
     The folder that the file belongs to.
     """
 
-    permissions: typing.Optional[FilePermissions] = pydantic_v1.Field()
+    permissions: typing.Optional[FilePermissions] = pydantic.Field()
     """
     The Permission object is used to represent a user's or group's access to a File or Folder. Permissions are unexpanded by default. Use the query param `expand=permissions` to see more details under `GET /files`.
     """
 
-    drive: typing.Optional[FileDrive] = pydantic_v1.Field()
+    drive: typing.Optional[FileDrive] = pydantic.Field()
     """
     The drive that the file belongs to.
     """
 
-    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's file was created.
     """
 
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's file was updated.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
     """
     Indicates whether or not this object has been deleted in the third party platform.
     """
@@ -102,20 +103,11 @@ class File(pydantic_v1.BaseModel):
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[typing.Optional[typing.Dict[str, typing.Any]]]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

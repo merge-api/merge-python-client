@@ -5,14 +5,15 @@ from __future__ import annotations
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel, update_forward_refs
 from .offer_creator import OfferCreator
 from .offer_status import OfferStatus
 from .remote_data import RemoteData
 
 
-class Offer(pydantic_v1.BaseModel):
+class Offer(UniversalBaseModel):
     """
     # The Offer Object
 
@@ -26,52 +27,52 @@ class Offer(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    application: typing.Optional[OfferApplication] = pydantic_v1.Field()
+    application: typing.Optional[OfferApplication] = pydantic.Field()
     """
     The application who is receiving the offer.
     """
 
-    creator: typing.Optional[OfferCreator] = pydantic_v1.Field()
+    creator: typing.Optional[OfferCreator] = pydantic.Field()
     """
     The user who created the offer.
     """
 
-    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's offer was created.
     """
 
-    closed_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    closed_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the offer was closed.
     """
 
-    sent_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    sent_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the offer was sent.
     """
 
-    start_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    start_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The employment start date on the offer.
     """
 
-    status: typing.Optional[OfferStatus] = pydantic_v1.Field()
+    status: typing.Optional[OfferStatus] = pydantic.Field()
     """
     The offer's status.
     
@@ -86,7 +87,7 @@ class Offer(pydantic_v1.BaseModel):
     - `DEPRECATED` - DEPRECATED
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
     """
     Indicates whether or not this object has been deleted in the third party platform.
     """
@@ -94,25 +95,16 @@ class Offer(pydantic_v1.BaseModel):
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow
 
 
 from .offer_application import OfferApplication  # noqa: E402
 
-Offer.update_forward_refs()
+update_forward_refs(Offer)

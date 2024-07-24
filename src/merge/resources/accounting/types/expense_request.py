@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .expense_line_request import ExpenseLineRequest
 from .expense_request_account import ExpenseRequestAccount
 from .expense_request_accounting_period import ExpenseRequestAccountingPeriod
@@ -14,7 +15,7 @@ from .expense_request_currency import ExpenseRequestCurrency
 from .expense_request_tracking_categories_item import ExpenseRequestTrackingCategoriesItem
 
 
-class ExpenseRequest(pydantic_v1.BaseModel):
+class ExpenseRequest(UniversalBaseModel):
     """
     # The Expense Object
 
@@ -29,37 +30,37 @@ class ExpenseRequest(pydantic_v1.BaseModel):
     Fetch from the `GET Expense` endpoint and view a company's expense.
     """
 
-    transaction_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    transaction_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the transaction occurred.
     """
 
-    account: typing.Optional[ExpenseRequestAccount] = pydantic_v1.Field()
+    account: typing.Optional[ExpenseRequestAccount] = pydantic.Field()
     """
     The expense's payment account.
     """
 
-    contact: typing.Optional[ExpenseRequestContact] = pydantic_v1.Field()
+    contact: typing.Optional[ExpenseRequestContact] = pydantic.Field()
     """
     The expense's contact.
     """
 
-    total_amount: typing.Optional[float] = pydantic_v1.Field()
+    total_amount: typing.Optional[float] = pydantic.Field()
     """
     The expense's total amount.
     """
 
-    sub_total: typing.Optional[float] = pydantic_v1.Field()
+    sub_total: typing.Optional[float] = pydantic.Field()
     """
     The expense's total amount before tax.
     """
 
-    total_tax_amount: typing.Optional[float] = pydantic_v1.Field()
+    total_tax_amount: typing.Optional[float] = pydantic.Field()
     """
     The expense's total tax amount.
     """
 
-    currency: typing.Optional[ExpenseRequestCurrency] = pydantic_v1.Field()
+    currency: typing.Optional[ExpenseRequestCurrency] = pydantic.Field()
     """
     The expense's currency.
     
@@ -371,24 +372,24 @@ class ExpenseRequest(pydantic_v1.BaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic_v1.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field()
     """
     The expense's exchange rate.
     """
 
-    company: typing.Optional[ExpenseRequestCompany] = pydantic_v1.Field()
+    company: typing.Optional[ExpenseRequestCompany] = pydantic.Field()
     """
     The company the expense belongs to.
     """
 
-    memo: typing.Optional[str] = pydantic_v1.Field()
+    memo: typing.Optional[str] = pydantic.Field()
     """
     The expense's private note.
     """
 
     lines: typing.Optional[typing.List[ExpenseLineRequest]]
     tracking_categories: typing.Optional[typing.List[typing.Optional[ExpenseRequestTrackingCategoriesItem]]]
-    accounting_period: typing.Optional[ExpenseRequestAccountingPeriod] = pydantic_v1.Field()
+    accounting_period: typing.Optional[ExpenseRequestAccountingPeriod] = pydantic.Field()
     """
     The accounting period that the Expense was generated in.
     """
@@ -396,20 +397,11 @@ class ExpenseRequest(pydantic_v1.BaseModel):
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

@@ -3,15 +3,16 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .comment_contact import CommentContact
 from .comment_ticket import CommentTicket
 from .comment_user import CommentUser
 from .remote_data import RemoteData
 
 
-class Comment(pydantic_v1.BaseModel):
+class Comment(UniversalBaseModel):
     """
     # The Comment Object
 
@@ -25,52 +26,52 @@ class Comment(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    user: typing.Optional[CommentUser] = pydantic_v1.Field()
+    user: typing.Optional[CommentUser] = pydantic.Field()
     """
     The author of the Comment, if the author is a User.
     """
 
-    contact: typing.Optional[CommentContact] = pydantic_v1.Field()
+    contact: typing.Optional[CommentContact] = pydantic.Field()
     """
     The author of the Comment, if the author is a Contact.
     """
 
-    body: typing.Optional[str] = pydantic_v1.Field()
+    body: typing.Optional[str] = pydantic.Field()
     """
     The comment's text body.
     """
 
-    html_body: typing.Optional[str] = pydantic_v1.Field()
+    html_body: typing.Optional[str] = pydantic.Field()
     """
     The comment's text body formatted as html.
     """
 
-    ticket: typing.Optional[CommentTicket] = pydantic_v1.Field()
+    ticket: typing.Optional[CommentTicket] = pydantic.Field()
     """
     The ticket associated with the comment.
     """
 
-    is_private: typing.Optional[bool] = pydantic_v1.Field()
+    is_private: typing.Optional[bool] = pydantic.Field()
     """
     Whether or not the comment is internal.
     """
 
-    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's comment was created.
     """
@@ -79,20 +80,11 @@ class Comment(pydantic_v1.BaseModel):
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

@@ -3,13 +3,14 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .benefit_employee import BenefitEmployee
 from .remote_data import RemoteData
 
 
-class Benefit(pydantic_v1.BaseModel):
+class Benefit(UniversalBaseModel):
     """
     # The Benefit Object
 
@@ -23,62 +24,62 @@ class Benefit(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    employee: typing.Optional[BenefitEmployee] = pydantic_v1.Field()
+    employee: typing.Optional[BenefitEmployee] = pydantic.Field()
     """
     The employee on the plan.
     """
 
-    provider_name: typing.Optional[str] = pydantic_v1.Field()
+    provider_name: typing.Optional[str] = pydantic.Field()
     """
     The name of the benefit provider.
     """
 
-    benefit_plan_type: typing.Optional[str] = pydantic_v1.Field()
+    benefit_plan_type: typing.Optional[str] = pydantic.Field()
     """
     The type of benefit plan
     """
 
-    employee_contribution: typing.Optional[float] = pydantic_v1.Field()
+    employee_contribution: typing.Optional[float] = pydantic.Field()
     """
     The employee's contribution.
     """
 
-    company_contribution: typing.Optional[float] = pydantic_v1.Field()
+    company_contribution: typing.Optional[float] = pydantic.Field()
     """
     The company's contribution.
     """
 
-    start_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    start_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The day and time the benefit started.
     """
 
-    end_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    end_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The day and time the benefit ended.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
     """
     Indicates whether or not this object has been deleted in the third party platform.
     """
 
-    employer_benefit: typing.Optional[str] = pydantic_v1.Field()
+    employer_benefit: typing.Optional[str] = pydantic.Field()
     """
     The employer benefit plan the employee is enrolled in.
     """
@@ -86,20 +87,11 @@ class Benefit(pydantic_v1.BaseModel):
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

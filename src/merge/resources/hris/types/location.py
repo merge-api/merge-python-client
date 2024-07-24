@@ -3,14 +3,15 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .location_country import LocationCountry
 from .location_location_type import LocationLocationType
 from .remote_data import RemoteData
 
 
-class Location(pydantic_v1.BaseModel):
+class Location(UniversalBaseModel):
     """
     # The Location Object
 
@@ -24,57 +25,57 @@ class Location(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    name: typing.Optional[str] = pydantic_v1.Field()
+    name: typing.Optional[str] = pydantic.Field()
     """
     The location's name.
     """
 
-    phone_number: typing.Optional[str] = pydantic_v1.Field()
+    phone_number: typing.Optional[str] = pydantic.Field()
     """
     The location's phone number.
     """
 
-    street_1: typing.Optional[str] = pydantic_v1.Field()
+    street_1: typing.Optional[str] = pydantic.Field()
     """
     Line 1 of the location's street address.
     """
 
-    street_2: typing.Optional[str] = pydantic_v1.Field()
+    street_2: typing.Optional[str] = pydantic.Field()
     """
     Line 2 of the location's street address.
     """
 
-    city: typing.Optional[str] = pydantic_v1.Field()
+    city: typing.Optional[str] = pydantic.Field()
     """
     The location's city.
     """
 
-    state: typing.Optional[str] = pydantic_v1.Field()
+    state: typing.Optional[str] = pydantic.Field()
     """
     The location's state. Represents a region if outside of the US.
     """
 
-    zip_code: typing.Optional[str] = pydantic_v1.Field()
+    zip_code: typing.Optional[str] = pydantic.Field()
     """
     The location's zip code or postal code.
     """
 
-    country: typing.Optional[LocationCountry] = pydantic_v1.Field()
+    country: typing.Optional[LocationCountry] = pydantic.Field()
     """
     The location's country.
     
@@ -329,7 +330,7 @@ class Location(pydantic_v1.BaseModel):
     - `ZW` - Zimbabwe
     """
 
-    location_type: typing.Optional[LocationLocationType] = pydantic_v1.Field()
+    location_type: typing.Optional[LocationLocationType] = pydantic.Field()
     """
     The location's type. Can be either WORK or HOME
     
@@ -337,7 +338,7 @@ class Location(pydantic_v1.BaseModel):
     - `WORK` - WORK
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
     """
     Indicates whether or not this object has been deleted in the third party platform.
     """
@@ -345,20 +346,11 @@ class Location(pydantic_v1.BaseModel):
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

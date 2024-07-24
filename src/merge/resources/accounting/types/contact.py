@@ -3,15 +3,16 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .accounting_phone_number import AccountingPhoneNumber
 from .contact_addresses_item import ContactAddressesItem
 from .contact_status import ContactStatus
 from .remote_data import RemoteData
 
 
-class Contact(pydantic_v1.BaseModel):
+class Contact(UniversalBaseModel):
     """
     # The Contact Object
 
@@ -28,47 +29,47 @@ class Contact(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    name: typing.Optional[str] = pydantic_v1.Field()
+    name: typing.Optional[str] = pydantic.Field()
     """
     The contact's name.
     """
 
-    is_supplier: typing.Optional[bool] = pydantic_v1.Field()
+    is_supplier: typing.Optional[bool] = pydantic.Field()
     """
     Whether the contact is a supplier.
     """
 
-    is_customer: typing.Optional[bool] = pydantic_v1.Field()
+    is_customer: typing.Optional[bool] = pydantic.Field()
     """
     Whether the contact is a customer.
     """
 
-    email_address: typing.Optional[str] = pydantic_v1.Field()
+    email_address: typing.Optional[str] = pydantic.Field()
     """
     The contact's email address.
     """
 
-    tax_number: typing.Optional[str] = pydantic_v1.Field()
+    tax_number: typing.Optional[str] = pydantic.Field()
     """
     The contact's tax number.
     """
 
-    status: typing.Optional[ContactStatus] = pydantic_v1.Field()
+    status: typing.Optional[ContactStatus] = pydantic.Field()
     """
     The contact's status
     
@@ -76,32 +77,32 @@ class Contact(pydantic_v1.BaseModel):
     - `ARCHIVED` - ARCHIVED
     """
 
-    currency: typing.Optional[str] = pydantic_v1.Field()
+    currency: typing.Optional[str] = pydantic.Field()
     """
     The currency the contact's transactions are in.
     """
 
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's contact was updated.
     """
 
-    company: typing.Optional[str] = pydantic_v1.Field()
+    company: typing.Optional[str] = pydantic.Field()
     """
     The company the contact belongs to.
     """
 
-    addresses: typing.Optional[typing.List[typing.Optional[ContactAddressesItem]]] = pydantic_v1.Field()
+    addresses: typing.Optional[typing.List[typing.Optional[ContactAddressesItem]]] = pydantic.Field()
     """
     `Address` object IDs for the given `Contacts` object.
     """
 
-    phone_numbers: typing.Optional[typing.List[AccountingPhoneNumber]] = pydantic_v1.Field()
+    phone_numbers: typing.Optional[typing.List[AccountingPhoneNumber]] = pydantic.Field()
     """
     `AccountingPhoneNumber` object for the given `Contacts` object.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
     """
     Indicates whether or not this object has been deleted in the third party platform.
     """
@@ -109,20 +110,11 @@ class Contact(pydantic_v1.BaseModel):
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

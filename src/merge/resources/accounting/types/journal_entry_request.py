@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .journal_entry_request_company import JournalEntryRequestCompany
 from .journal_entry_request_currency import JournalEntryRequestCurrency
 from .journal_entry_request_payments_item import JournalEntryRequestPaymentsItem
@@ -13,7 +14,7 @@ from .journal_entry_request_tracking_categories_item import JournalEntryRequestT
 from .journal_line_request import JournalLineRequest
 
 
-class JournalEntryRequest(pydantic_v1.BaseModel):
+class JournalEntryRequest(UniversalBaseModel):
     """
     # The JournalEntry Object
 
@@ -26,22 +27,22 @@ class JournalEntryRequest(pydantic_v1.BaseModel):
     Fetch from the `GET JournalEntry` endpoint and view a company's journey entry.
     """
 
-    transaction_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    transaction_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The journal entry's transaction date.
     """
 
-    payments: typing.Optional[typing.List[typing.Optional[JournalEntryRequestPaymentsItem]]] = pydantic_v1.Field()
+    payments: typing.Optional[typing.List[typing.Optional[JournalEntryRequestPaymentsItem]]] = pydantic.Field()
     """
     Array of `Payment` object IDs.
     """
 
-    memo: typing.Optional[str] = pydantic_v1.Field()
+    memo: typing.Optional[str] = pydantic.Field()
     """
     The journal entry's private note.
     """
 
-    currency: typing.Optional[JournalEntryRequestCurrency] = pydantic_v1.Field()
+    currency: typing.Optional[JournalEntryRequestCurrency] = pydantic.Field()
     """
     The journal's currency.
     
@@ -353,24 +354,24 @@ class JournalEntryRequest(pydantic_v1.BaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic_v1.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field()
     """
     The journal entry's exchange rate.
     """
 
-    company: typing.Optional[JournalEntryRequestCompany] = pydantic_v1.Field()
+    company: typing.Optional[JournalEntryRequestCompany] = pydantic.Field()
     """
     The company the journal entry belongs to.
     """
 
     tracking_categories: typing.Optional[typing.List[typing.Optional[JournalEntryRequestTrackingCategoriesItem]]]
     lines: typing.Optional[typing.List[JournalLineRequest]]
-    journal_number: typing.Optional[str] = pydantic_v1.Field()
+    journal_number: typing.Optional[str] = pydantic.Field()
     """
     Reference number for identifying journal entries.
     """
 
-    posting_status: typing.Optional[JournalEntryRequestPostingStatus] = pydantic_v1.Field()
+    posting_status: typing.Optional[JournalEntryRequestPostingStatus] = pydantic.Field()
     """
     The journal's posting status.
     
@@ -381,20 +382,11 @@ class JournalEntryRequest(pydantic_v1.BaseModel):
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

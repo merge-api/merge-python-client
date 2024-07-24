@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.pydantic_utilities import pydantic_v1
+from .....core.pydantic_utilities import parse_obj_as
 from .....core.request_options import RequestOptions
 from ...types.async_passthrough_reciept import AsyncPassthroughReciept
 from ...types.data_passthrough_request import DataPassthroughRequest
@@ -57,9 +57,9 @@ class AsyncPassthroughClient:
         _response = self._client_wrapper.httpx_client.request(
             "filestorage/v1/async-passthrough", method="POST", json=request, request_options=request_options, omit=OMIT
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(AsyncPassthroughReciept, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(AsyncPassthroughReciept, parse_obj_as(type_=AsyncPassthroughReciept, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -100,9 +100,9 @@ class AsyncPassthroughClient:
             method="GET",
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(RemoteResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(RemoteResponse, parse_obj_as(type_=RemoteResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -133,6 +133,8 @@ class AsyncAsyncPassthroughClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
         from merge.resources.filestorage import DataPassthroughRequest, MethodEnum
 
@@ -140,19 +142,25 @@ class AsyncAsyncPassthroughClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.async_passthrough.create(
-            request=DataPassthroughRequest(
-                method=MethodEnum.GET,
-                path="/scooters",
-            ),
-        )
+
+
+        async def main() -> None:
+            await client.filestorage.async_passthrough.create(
+                request=DataPassthroughRequest(
+                    method=MethodEnum.GET,
+                    path="/scooters",
+                ),
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "filestorage/v1/async-passthrough", method="POST", json=request, request_options=request_options, omit=OMIT
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(AsyncPassthroughReciept, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(AsyncPassthroughReciept, parse_obj_as(type_=AsyncPassthroughReciept, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -178,24 +186,32 @@ class AsyncAsyncPassthroughClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.async_passthrough.retrieve(
-            async_passthrough_receipt_id="async_passthrough_receipt_id",
-        )
+
+
+        async def main() -> None:
+            await client.filestorage.async_passthrough.retrieve(
+                async_passthrough_receipt_id="async_passthrough_receipt_id",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"filestorage/v1/async-passthrough/{jsonable_encoder(async_passthrough_receipt_id)}",
             method="GET",
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(RemoteResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(RemoteResponse, parse_obj_as(type_=RemoteResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

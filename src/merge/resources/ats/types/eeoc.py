@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .eeoc_candidate import EeocCandidate
 from .eeoc_disability_status import EeocDisabilityStatus
 from .eeoc_gender import EeocGender
@@ -13,7 +14,7 @@ from .eeoc_veteran_status import EeocVeteranStatus
 from .remote_data import RemoteData
 
 
-class Eeoc(pydantic_v1.BaseModel):
+class Eeoc(UniversalBaseModel):
     """
     # The EEOC Object
 
@@ -27,32 +28,32 @@ class Eeoc(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    candidate: typing.Optional[EeocCandidate] = pydantic_v1.Field()
+    candidate: typing.Optional[EeocCandidate] = pydantic.Field()
     """
     The candidate being represented.
     """
 
-    submitted_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    submitted_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the information was submitted.
     """
 
-    race: typing.Optional[EeocRace] = pydantic_v1.Field()
+    race: typing.Optional[EeocRace] = pydantic.Field()
     """
     The candidate's race.
     
@@ -66,7 +67,7 @@ class Eeoc(pydantic_v1.BaseModel):
     - `DECLINE_TO_SELF_IDENTIFY` - DECLINE_TO_SELF_IDENTIFY
     """
 
-    gender: typing.Optional[EeocGender] = pydantic_v1.Field()
+    gender: typing.Optional[EeocGender] = pydantic.Field()
     """
     The candidate's gender.
     
@@ -77,7 +78,7 @@ class Eeoc(pydantic_v1.BaseModel):
     - `DECLINE_TO_SELF_IDENTIFY` - DECLINE_TO_SELF_IDENTIFY
     """
 
-    veteran_status: typing.Optional[EeocVeteranStatus] = pydantic_v1.Field()
+    veteran_status: typing.Optional[EeocVeteranStatus] = pydantic.Field()
     """
     The candidate's veteran status.
     
@@ -86,7 +87,7 @@ class Eeoc(pydantic_v1.BaseModel):
     - `I_DONT_WISH_TO_ANSWER` - I_DONT_WISH_TO_ANSWER
     """
 
-    disability_status: typing.Optional[EeocDisabilityStatus] = pydantic_v1.Field()
+    disability_status: typing.Optional[EeocDisabilityStatus] = pydantic.Field()
     """
     The candidate's disability status.
     
@@ -95,7 +96,7 @@ class Eeoc(pydantic_v1.BaseModel):
     - `I_DONT_WISH_TO_ANSWER` - I_DONT_WISH_TO_ANSWER
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
     """
     Indicates whether or not this object has been deleted in the third party platform.
     """
@@ -103,20 +104,11 @@ class Eeoc(pydantic_v1.BaseModel):
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

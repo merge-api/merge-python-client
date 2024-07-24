@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .expense_account import ExpenseAccount
 from .expense_accounting_period import ExpenseAccountingPeriod
 from .expense_company import ExpenseCompany
@@ -15,7 +16,7 @@ from .expense_tracking_categories_item import ExpenseTrackingCategoriesItem
 from .remote_data import RemoteData
 
 
-class Expense(pydantic_v1.BaseModel):
+class Expense(UniversalBaseModel):
     """
     # The Expense Object
 
@@ -31,57 +32,57 @@ class Expense(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    transaction_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    transaction_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the transaction occurred.
     """
 
-    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the expense was created.
     """
 
-    account: typing.Optional[ExpenseAccount] = pydantic_v1.Field()
+    account: typing.Optional[ExpenseAccount] = pydantic.Field()
     """
     The expense's payment account.
     """
 
-    contact: typing.Optional[ExpenseContact] = pydantic_v1.Field()
+    contact: typing.Optional[ExpenseContact] = pydantic.Field()
     """
     The expense's contact.
     """
 
-    total_amount: typing.Optional[float] = pydantic_v1.Field()
+    total_amount: typing.Optional[float] = pydantic.Field()
     """
     The expense's total amount.
     """
 
-    sub_total: typing.Optional[float] = pydantic_v1.Field()
+    sub_total: typing.Optional[float] = pydantic.Field()
     """
     The expense's total amount before tax.
     """
 
-    total_tax_amount: typing.Optional[float] = pydantic_v1.Field()
+    total_tax_amount: typing.Optional[float] = pydantic.Field()
     """
     The expense's total tax amount.
     """
 
-    currency: typing.Optional[ExpenseCurrency] = pydantic_v1.Field()
+    currency: typing.Optional[ExpenseCurrency] = pydantic.Field()
     """
     The expense's currency.
     
@@ -393,29 +394,29 @@ class Expense(pydantic_v1.BaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic_v1.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field()
     """
     The expense's exchange rate.
     """
 
-    company: typing.Optional[ExpenseCompany] = pydantic_v1.Field()
+    company: typing.Optional[ExpenseCompany] = pydantic.Field()
     """
     The company the expense belongs to.
     """
 
-    memo: typing.Optional[str] = pydantic_v1.Field()
+    memo: typing.Optional[str] = pydantic.Field()
     """
     The expense's private note.
     """
 
     lines: typing.Optional[typing.List[ExpenseLine]]
     tracking_categories: typing.Optional[typing.List[typing.Optional[ExpenseTrackingCategoriesItem]]]
-    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
     """
     Indicates whether or not this object has been deleted in the third party platform.
     """
 
-    accounting_period: typing.Optional[ExpenseAccountingPeriod] = pydantic_v1.Field()
+    accounting_period: typing.Optional[ExpenseAccountingPeriod] = pydantic.Field()
     """
     The accounting period that the Expense was generated in.
     """
@@ -423,20 +424,11 @@ class Expense(pydantic_v1.BaseModel):
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

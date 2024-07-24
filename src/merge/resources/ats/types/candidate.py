@@ -5,8 +5,9 @@ from __future__ import annotations
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel, update_forward_refs
 from .candidate_attachments_item import CandidateAttachmentsItem
 from .email_address import EmailAddress
 from .phone_number import PhoneNumber
@@ -14,7 +15,7 @@ from .remote_data import RemoteData
 from .url import Url
 
 
-class Candidate(pydantic_v1.BaseModel):
+class Candidate(UniversalBaseModel):
     """
     # The Candidate Object
 
@@ -28,67 +29,67 @@ class Candidate(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    first_name: typing.Optional[str] = pydantic_v1.Field()
+    first_name: typing.Optional[str] = pydantic.Field()
     """
     The candidate's first name.
     """
 
-    last_name: typing.Optional[str] = pydantic_v1.Field()
+    last_name: typing.Optional[str] = pydantic.Field()
     """
     The candidate's last name.
     """
 
-    company: typing.Optional[str] = pydantic_v1.Field()
+    company: typing.Optional[str] = pydantic.Field()
     """
     The candidate's current company.
     """
 
-    title: typing.Optional[str] = pydantic_v1.Field()
+    title: typing.Optional[str] = pydantic.Field()
     """
     The candidate's current title.
     """
 
-    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's candidate was created.
     """
 
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's candidate was updated.
     """
 
-    last_interaction_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    last_interaction_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the most recent interaction with the candidate occurred.
     """
 
-    is_private: typing.Optional[bool] = pydantic_v1.Field()
+    is_private: typing.Optional[bool] = pydantic.Field()
     """
     Whether or not the candidate is private.
     """
 
-    can_email: typing.Optional[bool] = pydantic_v1.Field()
+    can_email: typing.Optional[bool] = pydantic.Field()
     """
     Whether or not the candidate can be emailed.
     """
 
-    locations: typing.Optional[typing.List[typing.Optional[str]]] = pydantic_v1.Field()
+    locations: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field()
     """
     The candidate's locations.
     """
@@ -96,17 +97,17 @@ class Candidate(pydantic_v1.BaseModel):
     phone_numbers: typing.Optional[typing.List[PhoneNumber]]
     email_addresses: typing.Optional[typing.List[EmailAddress]]
     urls: typing.Optional[typing.List[Url]]
-    tags: typing.Optional[typing.List[typing.Optional[str]]] = pydantic_v1.Field()
+    tags: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field()
     """
     Array of `Tag` names as strings.
     """
 
-    applications: typing.Optional[typing.List[typing.Optional[CandidateApplicationsItem]]] = pydantic_v1.Field()
+    applications: typing.Optional[typing.List[typing.Optional[CandidateApplicationsItem]]] = pydantic.Field()
     """
     Array of `Application` object IDs.
     """
 
-    attachments: typing.Optional[typing.List[typing.Optional[CandidateAttachmentsItem]]] = pydantic_v1.Field()
+    attachments: typing.Optional[typing.List[typing.Optional[CandidateAttachmentsItem]]] = pydantic.Field()
     """
     Array of `Attachment` object IDs.
     """
@@ -115,25 +116,16 @@ class Candidate(pydantic_v1.BaseModel):
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow
 
 
 from .candidate_applications_item import CandidateApplicationsItem  # noqa: E402
 
-Candidate.update_forward_refs()
+update_forward_refs(Candidate)

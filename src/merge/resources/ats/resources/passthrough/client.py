@@ -5,7 +5,7 @@ from json.decoder import JSONDecodeError
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from .....core.pydantic_utilities import pydantic_v1
+from .....core.pydantic_utilities import parse_obj_as
 from .....core.request_options import RequestOptions
 from ...types.data_passthrough_request import DataPassthroughRequest
 from ...types.remote_response import RemoteResponse
@@ -55,9 +55,9 @@ class PassthroughClient:
         _response = self._client_wrapper.httpx_client.request(
             "ats/v1/passthrough", method="POST", json=request, request_options=request_options, omit=OMIT
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(RemoteResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(RemoteResponse, parse_obj_as(type_=RemoteResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -88,6 +88,8 @@ class AsyncPassthroughClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
         from merge.resources.ats import DataPassthroughRequest, MethodEnum
 
@@ -95,19 +97,25 @@ class AsyncPassthroughClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.passthrough.create(
-            request=DataPassthroughRequest(
-                method=MethodEnum.GET,
-                path="/scooters",
-            ),
-        )
+
+
+        async def main() -> None:
+            await client.ats.passthrough.create(
+                request=DataPassthroughRequest(
+                    method=MethodEnum.GET,
+                    path="/scooters",
+                ),
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "ats/v1/passthrough", method="POST", json=request, request_options=request_options, omit=OMIT
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(RemoteResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(RemoteResponse, parse_obj_as(type_=RemoteResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .purchase_order_accounting_period import PurchaseOrderAccountingPeriod
 from .purchase_order_company import PurchaseOrderCompany
 from .purchase_order_currency import PurchaseOrderCurrency
@@ -16,7 +17,7 @@ from .purchase_order_vendor import PurchaseOrderVendor
 from .remote_data import RemoteData
 
 
-class PurchaseOrder(pydantic_v1.BaseModel):
+class PurchaseOrder(UniversalBaseModel):
     """
     # The PurchaseOrder Object
 
@@ -32,22 +33,22 @@ class PurchaseOrder(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    status: typing.Optional[PurchaseOrderStatus] = pydantic_v1.Field()
+    status: typing.Optional[PurchaseOrderStatus] = pydantic.Field()
     """
     The purchase order's status.
     
@@ -58,52 +59,52 @@ class PurchaseOrder(pydantic_v1.BaseModel):
     - `DELETED` - DELETED
     """
 
-    issue_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    issue_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The purchase order's issue date.
     """
 
-    purchase_order_number: typing.Optional[str] = pydantic_v1.Field()
+    purchase_order_number: typing.Optional[str] = pydantic.Field()
     """
     The human-readable number of the purchase order.
     """
 
-    delivery_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    delivery_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The purchase order's delivery date.
     """
 
-    delivery_address: typing.Optional[PurchaseOrderDeliveryAddress] = pydantic_v1.Field()
+    delivery_address: typing.Optional[PurchaseOrderDeliveryAddress] = pydantic.Field()
     """
     The purchase order's delivery address.
     """
 
-    customer: typing.Optional[str] = pydantic_v1.Field()
+    customer: typing.Optional[str] = pydantic.Field()
     """
     The contact making the purchase order.
     """
 
-    vendor: typing.Optional[PurchaseOrderVendor] = pydantic_v1.Field()
+    vendor: typing.Optional[PurchaseOrderVendor] = pydantic.Field()
     """
     The party fulfilling the purchase order.
     """
 
-    memo: typing.Optional[str] = pydantic_v1.Field()
+    memo: typing.Optional[str] = pydantic.Field()
     """
     A memo attached to the purchase order.
     """
 
-    company: typing.Optional[PurchaseOrderCompany] = pydantic_v1.Field()
+    company: typing.Optional[PurchaseOrderCompany] = pydantic.Field()
     """
     The company the purchase order belongs to.
     """
 
-    total_amount: typing.Optional[float] = pydantic_v1.Field()
+    total_amount: typing.Optional[float] = pydantic.Field()
     """
     The purchase order's total amount.
     """
 
-    currency: typing.Optional[PurchaseOrderCurrency] = pydantic_v1.Field()
+    currency: typing.Optional[PurchaseOrderCurrency] = pydantic.Field()
     """
     The purchase order's currency.
     
@@ -415,29 +416,29 @@ class PurchaseOrder(pydantic_v1.BaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic_v1.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field()
     """
     The purchase order's exchange rate.
     """
 
     line_items: typing.Optional[typing.List[PurchaseOrderLineItem]]
     tracking_categories: typing.Optional[typing.List[typing.Optional[PurchaseOrderTrackingCategoriesItem]]]
-    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's purchase order note was created.
     """
 
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's purchase order note was updated.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
     """
     Indicates whether or not this object has been deleted in the third party platform.
     """
 
-    accounting_period: typing.Optional[PurchaseOrderAccountingPeriod] = pydantic_v1.Field()
+    accounting_period: typing.Optional[PurchaseOrderAccountingPeriod] = pydantic.Field()
     """
     The accounting period that the PurchaseOrder was generated in.
     """
@@ -445,20 +446,11 @@ class PurchaseOrder(pydantic_v1.BaseModel):
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

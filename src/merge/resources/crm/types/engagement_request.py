@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .engagement_request_account import EngagementRequestAccount
 from .engagement_request_contacts_item import EngagementRequestContactsItem
 from .engagement_request_direction import EngagementRequestDirection
@@ -13,7 +14,7 @@ from .engagement_request_owner import EngagementRequestOwner
 from .remote_field_request import RemoteFieldRequest
 
 
-class EngagementRequest(pydantic_v1.BaseModel):
+class EngagementRequest(UniversalBaseModel):
     """
     # The Engagement Object
 
@@ -26,22 +27,22 @@ class EngagementRequest(pydantic_v1.BaseModel):
     TODO
     """
 
-    owner: typing.Optional[EngagementRequestOwner] = pydantic_v1.Field()
+    owner: typing.Optional[EngagementRequestOwner] = pydantic.Field()
     """
     The engagement's owner.
     """
 
-    content: typing.Optional[str] = pydantic_v1.Field()
+    content: typing.Optional[str] = pydantic.Field()
     """
     The engagement's content.
     """
 
-    subject: typing.Optional[str] = pydantic_v1.Field()
+    subject: typing.Optional[str] = pydantic.Field()
     """
     The engagement's subject.
     """
 
-    direction: typing.Optional[EngagementRequestDirection] = pydantic_v1.Field()
+    direction: typing.Optional[EngagementRequestDirection] = pydantic.Field()
     """
     The engagement's direction.
     
@@ -49,22 +50,22 @@ class EngagementRequest(pydantic_v1.BaseModel):
     - `OUTBOUND` - OUTBOUND
     """
 
-    engagement_type: typing.Optional[EngagementRequestEngagementType] = pydantic_v1.Field()
+    engagement_type: typing.Optional[EngagementRequestEngagementType] = pydantic.Field()
     """
     The engagement type of the engagement.
     """
 
-    start_time: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    start_time: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The time at which the engagement started.
     """
 
-    end_time: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    end_time: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The time at which the engagement ended.
     """
 
-    account: typing.Optional[EngagementRequestAccount] = pydantic_v1.Field()
+    account: typing.Optional[EngagementRequestAccount] = pydantic.Field()
     """
     The account of the engagement.
     """
@@ -74,20 +75,11 @@ class EngagementRequest(pydantic_v1.BaseModel):
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

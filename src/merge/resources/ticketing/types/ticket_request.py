@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .remote_field_request import RemoteFieldRequest
 from .ticket_request_account import TicketRequestAccount
 from .ticket_request_assignees_item import TicketRequestAssigneesItem
@@ -17,7 +18,7 @@ from .ticket_request_priority import TicketRequestPriority
 from .ticket_request_status import TicketRequestStatus
 
 
-class TicketRequest(pydantic_v1.BaseModel):
+class TicketRequest(UniversalBaseModel):
     """
     # The Ticket Object
 
@@ -30,23 +31,23 @@ class TicketRequest(pydantic_v1.BaseModel):
     TODO
     """
 
-    name: typing.Optional[str] = pydantic_v1.Field()
+    name: typing.Optional[str] = pydantic.Field()
     """
     The ticket's name.
     """
 
     assignees: typing.Optional[typing.List[typing.Optional[TicketRequestAssigneesItem]]]
-    creator: typing.Optional[TicketRequestCreator] = pydantic_v1.Field()
+    creator: typing.Optional[TicketRequestCreator] = pydantic.Field()
     """
     The user who created this ticket.
     """
 
-    due_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    due_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The ticket's due date.
     """
 
-    status: typing.Optional[TicketRequestStatus] = pydantic_v1.Field()
+    status: typing.Optional[TicketRequestStatus] = pydantic.Field()
     """
     The current status of the ticket.
     
@@ -56,45 +57,45 @@ class TicketRequest(pydantic_v1.BaseModel):
     - `ON_HOLD` - ON_HOLD
     """
 
-    description: typing.Optional[str] = pydantic_v1.Field()
+    description: typing.Optional[str] = pydantic.Field()
     """
     The ticket’s description. HTML version of description is mapped if supported by the third-party platform.
     """
 
     collections: typing.Optional[typing.List[typing.Optional[TicketRequestCollectionsItem]]]
-    ticket_type: typing.Optional[str] = pydantic_v1.Field()
+    ticket_type: typing.Optional[str] = pydantic.Field()
     """
     The sub category of the ticket within the 3rd party system. Examples include incident, task, subtask or to-do.
     """
 
-    account: typing.Optional[TicketRequestAccount] = pydantic_v1.Field()
+    account: typing.Optional[TicketRequestAccount] = pydantic.Field()
     """
     The account associated with the ticket.
     """
 
-    contact: typing.Optional[TicketRequestContact] = pydantic_v1.Field()
+    contact: typing.Optional[TicketRequestContact] = pydantic.Field()
     """
     The contact associated with the ticket.
     """
 
-    parent_ticket: typing.Optional[TicketRequestParentTicket] = pydantic_v1.Field()
+    parent_ticket: typing.Optional[TicketRequestParentTicket] = pydantic.Field()
     """
     The ticket's parent ticket.
     """
 
     attachments: typing.Optional[typing.List[typing.Optional[TicketRequestAttachmentsItem]]]
     tags: typing.Optional[typing.List[typing.Optional[str]]]
-    completed_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    completed_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the ticket was completed.
     """
 
-    ticket_url: typing.Optional[str] = pydantic_v1.Field()
+    ticket_url: typing.Optional[str] = pydantic.Field()
     """
     The 3rd party url of the Ticket.
     """
 
-    priority: typing.Optional[TicketRequestPriority] = pydantic_v1.Field()
+    priority: typing.Optional[TicketRequestPriority] = pydantic.Field()
     """
     The priority or urgency of the Ticket.
     
@@ -108,20 +109,11 @@ class TicketRequest(pydantic_v1.BaseModel):
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

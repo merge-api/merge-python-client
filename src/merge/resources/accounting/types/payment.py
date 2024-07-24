@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .payment_account import PaymentAccount
 from .payment_accounting_period import PaymentAccountingPeriod
 from .payment_applied_to_lines_item import PaymentAppliedToLinesItem
@@ -16,7 +17,7 @@ from .payment_type import PaymentType
 from .remote_data import RemoteData
 
 
-class Payment(pydantic_v1.BaseModel):
+class Payment(UniversalBaseModel):
     """
     # The Payment Object
 
@@ -30,37 +31,37 @@ class Payment(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    transaction_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    transaction_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The payment's transaction date.
     """
 
-    contact: typing.Optional[PaymentContact] = pydantic_v1.Field()
+    contact: typing.Optional[PaymentContact] = pydantic.Field()
     """
     The supplier, or customer involved in the payment.
     """
 
-    account: typing.Optional[PaymentAccount] = pydantic_v1.Field()
+    account: typing.Optional[PaymentAccount] = pydantic.Field()
     """
     The supplier’s or customer’s account in which the payment is made.
     """
 
-    currency: typing.Optional[PaymentCurrency] = pydantic_v1.Field()
+    currency: typing.Optional[PaymentCurrency] = pydantic.Field()
     """
     The payment's currency.
     
@@ -372,22 +373,22 @@ class Payment(pydantic_v1.BaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic_v1.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field()
     """
     The payment's exchange rate.
     """
 
-    company: typing.Optional[PaymentCompany] = pydantic_v1.Field()
+    company: typing.Optional[PaymentCompany] = pydantic.Field()
     """
     The company the payment belongs to.
     """
 
-    total_amount: typing.Optional[float] = pydantic_v1.Field()
+    total_amount: typing.Optional[float] = pydantic.Field()
     """
     The total amount of money being paid to the supplier, or customer, after taxes.
     """
 
-    type: typing.Optional[PaymentType] = pydantic_v1.Field()
+    type: typing.Optional[PaymentType] = pydantic.Field()
     """
     The type of the invoice.
     
@@ -396,22 +397,22 @@ class Payment(pydantic_v1.BaseModel):
     """
 
     tracking_categories: typing.Optional[typing.List[typing.Optional[PaymentTrackingCategoriesItem]]]
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's payment entry was updated.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
     """
     Indicates whether or not this object has been deleted in the third party platform.
     """
 
-    accounting_period: typing.Optional[PaymentAccountingPeriod] = pydantic_v1.Field()
+    accounting_period: typing.Optional[PaymentAccountingPeriod] = pydantic.Field()
     """
     The accounting period that the Payment was generated in.
     """
 
-    applied_to_lines: typing.Optional[typing.List[PaymentAppliedToLinesItem]] = pydantic_v1.Field()
+    applied_to_lines: typing.Optional[typing.List[PaymentAppliedToLinesItem]] = pydantic.Field()
     """
     A list of “Payment Applied to Lines” objects.
     """
@@ -419,20 +420,11 @@ class Payment(pydantic_v1.BaseModel):
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

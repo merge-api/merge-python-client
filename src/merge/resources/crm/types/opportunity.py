@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .opportunity_account import OpportunityAccount
 from .opportunity_owner import OpportunityOwner
 from .opportunity_stage import OpportunityStage
@@ -13,7 +14,7 @@ from .remote_data import RemoteData
 from .remote_field import RemoteField
 
 
-class Opportunity(pydantic_v1.BaseModel):
+class Opportunity(UniversalBaseModel):
     """
     # The Opportunity Object
 
@@ -27,52 +28,52 @@ class Opportunity(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    name: typing.Optional[str] = pydantic_v1.Field()
+    name: typing.Optional[str] = pydantic.Field()
     """
     The opportunity's name.
     """
 
-    description: typing.Optional[str] = pydantic_v1.Field()
+    description: typing.Optional[str] = pydantic.Field()
     """
     The opportunity's description.
     """
 
-    amount: typing.Optional[int] = pydantic_v1.Field()
+    amount: typing.Optional[int] = pydantic.Field()
     """
     The opportunity's amount.
     """
 
-    owner: typing.Optional[OpportunityOwner] = pydantic_v1.Field()
+    owner: typing.Optional[OpportunityOwner] = pydantic.Field()
     """
     The opportunity's owner.
     """
 
-    account: typing.Optional[OpportunityAccount] = pydantic_v1.Field()
+    account: typing.Optional[OpportunityAccount] = pydantic.Field()
     """
     The account of the opportunity.
     """
 
-    stage: typing.Optional[OpportunityStage] = pydantic_v1.Field()
+    stage: typing.Optional[OpportunityStage] = pydantic.Field()
     """
     The stage of the opportunity.
     """
 
-    status: typing.Optional[OpportunityStatus] = pydantic_v1.Field()
+    status: typing.Optional[OpportunityStatus] = pydantic.Field()
     """
     The opportunity's status.
     
@@ -81,17 +82,17 @@ class Opportunity(pydantic_v1.BaseModel):
     - `LOST` - LOST
     """
 
-    last_activity_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    last_activity_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the opportunity's last activity occurred.
     """
 
-    close_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    close_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the opportunity was closed.
     """
 
-    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's opportunity was created.
     """
@@ -101,20 +102,11 @@ class Opportunity(pydantic_v1.BaseModel):
     remote_data: typing.Optional[typing.List[RemoteData]]
     remote_fields: typing.Optional[typing.List[RemoteField]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

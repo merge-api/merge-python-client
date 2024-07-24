@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .invoice_line_item_account import InvoiceLineItemAccount
 from .invoice_line_item_currency import InvoiceLineItemCurrency
 from .invoice_line_item_item import InvoiceLineItemItem
@@ -12,7 +13,7 @@ from .invoice_line_item_tracking_categories_item import InvoiceLineItemTrackingC
 from .invoice_line_item_tracking_category import InvoiceLineItemTrackingCategory
 
 
-class InvoiceLineItem(pydantic_v1.BaseModel):
+class InvoiceLineItem(UniversalBaseModel):
     """
     # The InvoiceLineItem Object
 
@@ -26,42 +27,42 @@ class InvoiceLineItem(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    description: typing.Optional[str] = pydantic_v1.Field()
+    description: typing.Optional[str] = pydantic.Field()
     """
     The line item's description.
     """
 
-    unit_price: typing.Optional[float] = pydantic_v1.Field()
+    unit_price: typing.Optional[float] = pydantic.Field()
     """
     The line item's unit price.
     """
 
-    quantity: typing.Optional[float] = pydantic_v1.Field()
+    quantity: typing.Optional[float] = pydantic.Field()
     """
     The line item's quantity.
     """
 
-    total_amount: typing.Optional[float] = pydantic_v1.Field()
+    total_amount: typing.Optional[float] = pydantic.Field()
     """
     The line item's total amount.
     """
 
-    currency: typing.Optional[InvoiceLineItemCurrency] = pydantic_v1.Field()
+    currency: typing.Optional[InvoiceLineItemCurrency] = pydantic.Field()
     """
     The line item's currency.
     
@@ -373,7 +374,7 @@ class InvoiceLineItem(pydantic_v1.BaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic_v1.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field()
     """
     The line item's exchange rate.
     """
@@ -382,32 +383,23 @@ class InvoiceLineItem(pydantic_v1.BaseModel):
     account: typing.Optional[InvoiceLineItemAccount]
     tracking_category: typing.Optional[InvoiceLineItemTrackingCategory]
     tracking_categories: typing.Optional[typing.List[typing.Optional[InvoiceLineItemTrackingCategoriesItem]]]
-    company: typing.Optional[str] = pydantic_v1.Field()
+    company: typing.Optional[str] = pydantic.Field()
     """
     The company the line item belongs to.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
     """
     Indicates whether or not this object has been deleted in the third party platform.
     """
 
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

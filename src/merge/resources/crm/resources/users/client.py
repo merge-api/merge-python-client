@@ -8,7 +8,7 @@ from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.pydantic_utilities import pydantic_v1
+from .....core.pydantic_utilities import parse_obj_as
 from .....core.request_options import RequestOptions
 from ...types.ignore_common_model_request import IgnoreCommonModelRequest
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
@@ -108,9 +108,9 @@ class UsersClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(PaginatedUserList, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(PaginatedUserList, parse_obj_as(type_=PaginatedUserList, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -163,9 +163,9 @@ class UsersClient:
             params={"include_remote_data": include_remote_data, "include_remote_fields": include_remote_fields},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(User, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(User, parse_obj_as(type_=User, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -217,9 +217,9 @@ class UsersClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return
         try:
+            if 200 <= _response.status_code < 300:
+                return
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -285,9 +285,9 @@ class UsersClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(PaginatedRemoteFieldClassList, parse_obj_as(type_=PaginatedRemoteFieldClassList, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -358,13 +358,21 @@ class AsyncUsersClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.users.list()
+
+
+        async def main() -> None:
+            await client.crm.users.list()
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "crm/v1/users",
@@ -383,9 +391,9 @@ class AsyncUsersClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(PaginatedUserList, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(PaginatedUserList, parse_obj_as(type_=PaginatedUserList, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -422,15 +430,23 @@ class AsyncUsersClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.users.retrieve(
-            id="id",
-        )
+
+
+        async def main() -> None:
+            await client.crm.users.retrieve(
+                id="id",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"crm/v1/users/{jsonable_encoder(id)}",
@@ -438,9 +454,9 @@ class AsyncUsersClient:
             params={"include_remote_data": include_remote_data, "include_remote_fields": include_remote_fields},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(User, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(User, parse_obj_as(type_=User, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -471,6 +487,8 @@ class AsyncUsersClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
         from merge.resources.crm import IgnoreCommonModelRequest, ReasonEnum
 
@@ -478,12 +496,18 @@ class AsyncUsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.users.ignore_create(
-            model_id="model_id",
-            request=IgnoreCommonModelRequest(
-                reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
-            ),
-        )
+
+
+        async def main() -> None:
+            await client.crm.users.ignore_create(
+                model_id="model_id",
+                request=IgnoreCommonModelRequest(
+                    reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
+                ),
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"crm/v1/users/ignore/{jsonable_encoder(model_id)}",
@@ -492,9 +516,9 @@ class AsyncUsersClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return
         try:
+            if 200 <= _response.status_code < 300:
+                return
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -540,13 +564,21 @@ class AsyncUsersClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.users.remote_field_classes_list()
+
+
+        async def main() -> None:
+            await client.crm.users.remote_field_classes_list()
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "crm/v1/users/remote-field-classes",
@@ -560,9 +592,9 @@ class AsyncUsersClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(PaginatedRemoteFieldClassList, parse_obj_as(type_=PaginatedRemoteFieldClassList, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

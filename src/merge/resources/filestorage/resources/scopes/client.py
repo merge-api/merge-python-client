@@ -5,7 +5,7 @@ from json.decoder import JSONDecodeError
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from .....core.pydantic_utilities import pydantic_v1
+from .....core.pydantic_utilities import parse_obj_as
 from .....core.request_options import RequestOptions
 from ...types.common_model_scope_api import CommonModelScopeApi
 from ...types.individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
@@ -47,9 +47,9 @@ class ScopesClient:
         _response = self._client_wrapper.httpx_client.request(
             "filestorage/v1/default-scopes", method="GET", request_options=request_options
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(CommonModelScopeApi, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(CommonModelScopeApi, parse_obj_as(type_=CommonModelScopeApi, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -84,9 +84,9 @@ class ScopesClient:
         _response = self._client_wrapper.httpx_client.request(
             "filestorage/v1/linked-account-scopes", method="GET", request_options=request_options
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(CommonModelScopeApi, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(CommonModelScopeApi, parse_obj_as(type_=CommonModelScopeApi, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -157,9 +157,9 @@ class ScopesClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(CommonModelScopeApi, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(CommonModelScopeApi, parse_obj_as(type_=CommonModelScopeApi, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -188,20 +188,28 @@ class AsyncScopesClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.scopes.default_scopes_retrieve()
+
+
+        async def main() -> None:
+            await client.filestorage.scopes.default_scopes_retrieve()
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "filestorage/v1/default-scopes", method="GET", request_options=request_options
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(CommonModelScopeApi, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(CommonModelScopeApi, parse_obj_as(type_=CommonModelScopeApi, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -225,20 +233,28 @@ class AsyncScopesClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.scopes.linked_account_scopes_retrieve()
+
+
+        async def main() -> None:
+            await client.filestorage.scopes.linked_account_scopes_retrieve()
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "filestorage/v1/linked-account-scopes", method="GET", request_options=request_options
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(CommonModelScopeApi, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(CommonModelScopeApi, parse_obj_as(type_=CommonModelScopeApi, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -268,6 +284,8 @@ class AsyncScopesClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
         from merge.resources.filestorage import (
             IndividualCommonModelScopeDeserializerRequest,
@@ -278,29 +296,35 @@ class AsyncScopesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.filestorage.scopes.linked_account_scopes_create(
-            common_models=[
-                IndividualCommonModelScopeDeserializerRequest(
-                    model_name="Employee",
-                    model_permissions={
-                        "READ": ModelPermissionDeserializerRequest(
-                            is_enabled=True,
-                        ),
-                        "WRITE": ModelPermissionDeserializerRequest(
-                            is_enabled=False,
-                        ),
-                    },
-                ),
-                IndividualCommonModelScopeDeserializerRequest(
-                    model_name="Benefit",
-                    model_permissions={
-                        "WRITE": ModelPermissionDeserializerRequest(
-                            is_enabled=False,
-                        )
-                    },
-                ),
-            ],
-        )
+
+
+        async def main() -> None:
+            await client.filestorage.scopes.linked_account_scopes_create(
+                common_models=[
+                    IndividualCommonModelScopeDeserializerRequest(
+                        model_name="Employee",
+                        model_permissions={
+                            "READ": ModelPermissionDeserializerRequest(
+                                is_enabled=True,
+                            ),
+                            "WRITE": ModelPermissionDeserializerRequest(
+                                is_enabled=False,
+                            ),
+                        },
+                    ),
+                    IndividualCommonModelScopeDeserializerRequest(
+                        model_name="Benefit",
+                        model_permissions={
+                            "WRITE": ModelPermissionDeserializerRequest(
+                                is_enabled=False,
+                            )
+                        },
+                    ),
+                ],
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "filestorage/v1/linked-account-scopes",
@@ -309,9 +333,9 @@ class AsyncScopesClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(CommonModelScopeApi, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(CommonModelScopeApi, parse_obj_as(type_=CommonModelScopeApi, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

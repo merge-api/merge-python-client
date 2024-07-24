@@ -8,7 +8,7 @@ from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.pydantic_utilities import pydantic_v1
+from .....core.pydantic_utilities import parse_obj_as
 from .....core.request_options import RequestOptions
 from ...types.crm_custom_object_response import CrmCustomObjectResponse
 from ...types.custom_object import CustomObject
@@ -114,9 +114,9 @@ class CustomObjectsClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(PaginatedCustomObjectList, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(PaginatedCustomObjectList, parse_obj_as(type_=PaginatedCustomObjectList, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -178,9 +178,9 @@ class CustomObjectsClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(CrmCustomObjectResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(CrmCustomObjectResponse, parse_obj_as(type_=CrmCustomObjectResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -237,9 +237,9 @@ class CustomObjectsClient:
             params={"include_remote_data": include_remote_data, "include_remote_fields": include_remote_fields},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(CustomObject, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(CustomObject, parse_obj_as(type_=CustomObject, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -280,9 +280,9 @@ class CustomObjectsClient:
             method="GET",
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(MetaResponse, parse_obj_as(type_=MetaResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -356,15 +356,23 @@ class AsyncCustomObjectsClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.custom_objects.custom_object_classes_custom_objects_list(
-            custom_object_class_id="custom_object_class_id",
-        )
+
+
+        async def main() -> None:
+            await client.crm.custom_objects.custom_object_classes_custom_objects_list(
+                custom_object_class_id="custom_object_class_id",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects",
@@ -383,9 +391,9 @@ class AsyncCustomObjectsClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(PaginatedCustomObjectList, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(PaginatedCustomObjectList, parse_obj_as(type_=PaginatedCustomObjectList, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -425,6 +433,8 @@ class AsyncCustomObjectsClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
         from merge.resources.crm import CustomObjectRequest
 
@@ -432,12 +442,18 @@ class AsyncCustomObjectsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.custom_objects.custom_object_classes_custom_objects_create(
-            custom_object_class_id="custom_object_class_id",
-            model=CustomObjectRequest(
-                fields={"test_field": "hello"},
-            ),
-        )
+
+
+        async def main() -> None:
+            await client.crm.custom_objects.custom_object_classes_custom_objects_create(
+                custom_object_class_id="custom_object_class_id",
+                model=CustomObjectRequest(
+                    fields={"test_field": "hello"},
+                ),
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects",
@@ -447,9 +463,9 @@ class AsyncCustomObjectsClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(CrmCustomObjectResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(CrmCustomObjectResponse, parse_obj_as(type_=CrmCustomObjectResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -489,16 +505,24 @@ class AsyncCustomObjectsClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.custom_objects.custom_object_classes_custom_objects_retrieve(
-            custom_object_class_id="custom_object_class_id",
-            id="id",
-        )
+
+
+        async def main() -> None:
+            await client.crm.custom_objects.custom_object_classes_custom_objects_retrieve(
+                custom_object_class_id="custom_object_class_id",
+                id="id",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects/{jsonable_encoder(id)}",
@@ -506,9 +530,9 @@ class AsyncCustomObjectsClient:
             params={"include_remote_data": include_remote_data, "include_remote_fields": include_remote_fields},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(CustomObject, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(CustomObject, parse_obj_as(type_=CustomObject, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -534,24 +558,32 @@ class AsyncCustomObjectsClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.crm.custom_objects.custom_object_classes_custom_objects_meta_post_retrieve(
-            custom_object_class_id="custom_object_class_id",
-        )
+
+
+        async def main() -> None:
+            await client.crm.custom_objects.custom_object_classes_custom_objects_meta_post_retrieve(
+                custom_object_class_id="custom_object_class_id",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects/meta/post",
             method="GET",
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(MetaResponse, parse_obj_as(type_=MetaResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

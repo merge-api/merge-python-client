@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .address import Address
 from .contact_account import ContactAccount
 from .contact_owner import ContactOwner
@@ -14,7 +15,7 @@ from .remote_data import RemoteData
 from .remote_field import RemoteField
 
 
-class Contact(pydantic_v1.BaseModel):
+class Contact(UniversalBaseModel):
     """
     # The Contact Object
 
@@ -28,37 +29,37 @@ class Contact(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    first_name: typing.Optional[str] = pydantic_v1.Field()
+    first_name: typing.Optional[str] = pydantic.Field()
     """
     The contact's first name.
     """
 
-    last_name: typing.Optional[str] = pydantic_v1.Field()
+    last_name: typing.Optional[str] = pydantic.Field()
     """
     The contact's last name.
     """
 
-    account: typing.Optional[ContactAccount] = pydantic_v1.Field()
+    account: typing.Optional[ContactAccount] = pydantic.Field()
     """
     The contact's account.
     """
 
-    owner: typing.Optional[ContactOwner] = pydantic_v1.Field()
+    owner: typing.Optional[ContactOwner] = pydantic.Field()
     """
     The contact's owner.
     """
@@ -66,12 +67,12 @@ class Contact(pydantic_v1.BaseModel):
     addresses: typing.Optional[typing.List[Address]]
     email_addresses: typing.Optional[typing.List[EmailAddress]]
     phone_numbers: typing.Optional[typing.List[PhoneNumber]]
-    last_activity_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    last_activity_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the contact's last activity occurred.
     """
 
-    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's contact was created.
     """
@@ -81,20 +82,11 @@ class Contact(pydantic_v1.BaseModel):
     remote_data: typing.Optional[typing.List[RemoteData]]
     remote_fields: typing.Optional[typing.List[RemoteField]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

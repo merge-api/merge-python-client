@@ -6,7 +6,7 @@ from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.pydantic_utilities import pydantic_v1
+from .....core.pydantic_utilities import parse_obj_as
 from .....core.request_options import RequestOptions
 from ...types.external_target_field_api_response import ExternalTargetFieldApiResponse
 from ...types.field_mapping_api_instance_response import FieldMappingApiInstanceResponse
@@ -50,9 +50,9 @@ class FieldMappingClient:
         _response = self._client_wrapper.httpx_client.request(
             "hris/v1/field-mappings", method="GET", request_options=request_options
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(FieldMappingApiInstanceResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(FieldMappingApiInstanceResponse, parse_obj_as(type_=FieldMappingApiInstanceResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -131,9 +131,9 @@ class FieldMappingClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(FieldMappingInstanceResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(FieldMappingInstanceResponse, parse_obj_as(type_=FieldMappingInstanceResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -174,9 +174,9 @@ class FieldMappingClient:
             method="DELETE",
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(FieldMappingInstanceResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(FieldMappingInstanceResponse, parse_obj_as(type_=FieldMappingInstanceResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -238,9 +238,9 @@ class FieldMappingClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(FieldMappingInstanceResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(FieldMappingInstanceResponse, parse_obj_as(type_=FieldMappingInstanceResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -288,9 +288,9 @@ class FieldMappingClient:
             params={"common_models": common_models, "include_example_values": include_example_values},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(RemoteFieldApiResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(RemoteFieldApiResponse, parse_obj_as(type_=RemoteFieldApiResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -325,9 +325,9 @@ class FieldMappingClient:
         _response = self._client_wrapper.httpx_client.request(
             "hris/v1/target-fields", method="GET", request_options=request_options
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(ExternalTargetFieldApiResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(ExternalTargetFieldApiResponse, parse_obj_as(type_=ExternalTargetFieldApiResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -356,20 +356,28 @@ class AsyncFieldMappingClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.field_mapping.field_mappings_retrieve()
+
+
+        async def main() -> None:
+            await client.hris.field_mapping.field_mappings_retrieve()
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "hris/v1/field-mappings", method="GET", request_options=request_options
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(FieldMappingApiInstanceResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(FieldMappingApiInstanceResponse, parse_obj_as(type_=FieldMappingApiInstanceResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -419,20 +427,28 @@ class AsyncFieldMappingClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.field_mapping.field_mappings_create(
-            target_field_name="example_target_field_name",
-            target_field_description="this is a example description of the target field",
-            remote_field_traversal_path=["example_remote_field"],
-            remote_method="GET",
-            remote_url_path="/example-url-path",
-            common_model_name="ExampleCommonModel",
-        )
+
+
+        async def main() -> None:
+            await client.hris.field_mapping.field_mappings_create(
+                target_field_name="example_target_field_name",
+                target_field_description="this is a example description of the target field",
+                remote_field_traversal_path=["example_remote_field"],
+                remote_method="GET",
+                remote_url_path="/example-url-path",
+                common_model_name="ExampleCommonModel",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "hris/v1/field-mappings",
@@ -448,9 +464,9 @@ class AsyncFieldMappingClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(FieldMappingInstanceResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(FieldMappingInstanceResponse, parse_obj_as(type_=FieldMappingInstanceResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -476,24 +492,32 @@ class AsyncFieldMappingClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.field_mapping.field_mappings_destroy(
-            field_mapping_id="field_mapping_id",
-        )
+
+
+        async def main() -> None:
+            await client.hris.field_mapping.field_mappings_destroy(
+                field_mapping_id="field_mapping_id",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"hris/v1/field-mappings/{jsonable_encoder(field_mapping_id)}",
             method="DELETE",
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(FieldMappingInstanceResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(FieldMappingInstanceResponse, parse_obj_as(type_=FieldMappingInstanceResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -534,15 +558,23 @@ class AsyncFieldMappingClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.field_mapping.field_mappings_partial_update(
-            field_mapping_id="field_mapping_id",
-        )
+
+
+        async def main() -> None:
+            await client.hris.field_mapping.field_mappings_partial_update(
+                field_mapping_id="field_mapping_id",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"hris/v1/field-mappings/{jsonable_encoder(field_mapping_id)}",
@@ -555,9 +587,9 @@ class AsyncFieldMappingClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(FieldMappingInstanceResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(FieldMappingInstanceResponse, parse_obj_as(type_=FieldMappingInstanceResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -591,13 +623,21 @@ class AsyncFieldMappingClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.field_mapping.remote_fields_retrieve()
+
+
+        async def main() -> None:
+            await client.hris.field_mapping.remote_fields_retrieve()
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "hris/v1/remote-fields",
@@ -605,9 +645,9 @@ class AsyncFieldMappingClient:
             params={"common_models": common_models, "include_example_values": include_example_values},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(RemoteFieldApiResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(RemoteFieldApiResponse, parse_obj_as(type_=RemoteFieldApiResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -631,20 +671,28 @@ class AsyncFieldMappingClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.hris.field_mapping.target_fields_retrieve()
+
+
+        async def main() -> None:
+            await client.hris.field_mapping.target_fields_retrieve()
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "hris/v1/target-fields", method="GET", request_options=request_options
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(ExternalTargetFieldApiResponse, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(ExternalTargetFieldApiResponse, parse_obj_as(type_=ExternalTargetFieldApiResponse, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

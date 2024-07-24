@@ -3,15 +3,16 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_classification import AccountClassification
 from .account_currency import AccountCurrency
 from .account_status import AccountStatus
 from .remote_data import RemoteData
 
 
-class Account(pydantic_v1.BaseModel):
+class Account(UniversalBaseModel):
     """
     # The Account Object
 
@@ -33,32 +34,32 @@ class Account(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    name: typing.Optional[str] = pydantic_v1.Field()
+    name: typing.Optional[str] = pydantic.Field()
     """
     The account's name.
     """
 
-    description: typing.Optional[str] = pydantic_v1.Field()
+    description: typing.Optional[str] = pydantic.Field()
     """
     The account's description.
     """
 
-    classification: typing.Optional[AccountClassification] = pydantic_v1.Field()
+    classification: typing.Optional[AccountClassification] = pydantic.Field()
     """
     The account's broadest grouping.
     
@@ -69,12 +70,12 @@ class Account(pydantic_v1.BaseModel):
     - `REVENUE` - REVENUE
     """
 
-    type: typing.Optional[str] = pydantic_v1.Field()
+    type: typing.Optional[str] = pydantic.Field()
     """
     The account's type is a narrower and more specific grouping within the account's classification.
     """
 
-    status: typing.Optional[AccountStatus] = pydantic_v1.Field()
+    status: typing.Optional[AccountStatus] = pydantic.Field()
     """
     The account's status.
     
@@ -83,12 +84,12 @@ class Account(pydantic_v1.BaseModel):
     - `INACTIVE` - INACTIVE
     """
 
-    current_balance: typing.Optional[float] = pydantic_v1.Field()
+    current_balance: typing.Optional[float] = pydantic.Field()
     """
     The account's current balance.
     """
 
-    currency: typing.Optional[AccountCurrency] = pydantic_v1.Field()
+    currency: typing.Optional[AccountCurrency] = pydantic.Field()
     """
     The account's currency.
     
@@ -400,22 +401,22 @@ class Account(pydantic_v1.BaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    account_number: typing.Optional[str] = pydantic_v1.Field()
+    account_number: typing.Optional[str] = pydantic.Field()
     """
     The account's number.
     """
 
-    parent_account: typing.Optional[str] = pydantic_v1.Field()
+    parent_account: typing.Optional[str] = pydantic.Field()
     """
     ID of the parent account.
     """
 
-    company: typing.Optional[str] = pydantic_v1.Field()
+    company: typing.Optional[str] = pydantic.Field()
     """
     The company the account belongs to.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
     """
     Indicates whether or not this object has been deleted in the third party platform.
     """
@@ -423,20 +424,11 @@ class Account(pydantic_v1.BaseModel):
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

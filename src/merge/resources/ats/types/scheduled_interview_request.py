@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .scheduled_interview_request_application import ScheduledInterviewRequestApplication
 from .scheduled_interview_request_interviewers_item import ScheduledInterviewRequestInterviewersItem
 from .scheduled_interview_request_job_interview_stage import ScheduledInterviewRequestJobInterviewStage
@@ -12,7 +13,7 @@ from .scheduled_interview_request_organizer import ScheduledInterviewRequestOrga
 from .scheduled_interview_request_status import ScheduledInterviewRequestStatus
 
 
-class ScheduledInterviewRequest(pydantic_v1.BaseModel):
+class ScheduledInterviewRequest(UniversalBaseModel):
     """
     # The ScheduledInterview Object
 
@@ -25,44 +26,44 @@ class ScheduledInterviewRequest(pydantic_v1.BaseModel):
     Fetch from the `LIST ScheduledInterviews` endpoint and filter by `interviewers` to show all office locations.
     """
 
-    application: typing.Optional[ScheduledInterviewRequestApplication] = pydantic_v1.Field()
+    application: typing.Optional[ScheduledInterviewRequestApplication] = pydantic.Field()
     """
     The application being interviewed.
     """
 
-    job_interview_stage: typing.Optional[ScheduledInterviewRequestJobInterviewStage] = pydantic_v1.Field()
+    job_interview_stage: typing.Optional[ScheduledInterviewRequestJobInterviewStage] = pydantic.Field()
     """
     The stage of the interview.
     """
 
-    organizer: typing.Optional[ScheduledInterviewRequestOrganizer] = pydantic_v1.Field()
+    organizer: typing.Optional[ScheduledInterviewRequestOrganizer] = pydantic.Field()
     """
     The user organizing the interview.
     """
 
     interviewers: typing.Optional[
         typing.List[typing.Optional[ScheduledInterviewRequestInterviewersItem]]
-    ] = pydantic_v1.Field()
+    ] = pydantic.Field()
     """
     Array of `RemoteUser` IDs.
     """
 
-    location: typing.Optional[str] = pydantic_v1.Field()
+    location: typing.Optional[str] = pydantic.Field()
     """
     The interview's location.
     """
 
-    start_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    start_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the interview was started.
     """
 
-    end_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    end_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the interview was ended.
     """
 
-    status: typing.Optional[ScheduledInterviewRequestStatus] = pydantic_v1.Field()
+    status: typing.Optional[ScheduledInterviewRequestStatus] = pydantic.Field()
     """
     The interview's status.
     
@@ -74,20 +75,11 @@ class ScheduledInterviewRequest(pydantic_v1.BaseModel):
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

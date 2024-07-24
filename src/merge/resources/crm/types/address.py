@@ -3,13 +3,14 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .address_address_type import AddressAddressType
 from .address_country import AddressCountry
 
 
-class Address(pydantic_v1.BaseModel):
+class Address(UniversalBaseModel):
     """
     # The Address Object
 
@@ -22,42 +23,42 @@ class Address(pydantic_v1.BaseModel):
     TODO
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    street_1: typing.Optional[str] = pydantic_v1.Field()
+    street_1: typing.Optional[str] = pydantic.Field()
     """
     Line 1 of the address's street.
     """
 
-    street_2: typing.Optional[str] = pydantic_v1.Field()
+    street_2: typing.Optional[str] = pydantic.Field()
     """
     Line 2 of the address's street.
     """
 
-    city: typing.Optional[str] = pydantic_v1.Field()
+    city: typing.Optional[str] = pydantic.Field()
     """
     The address's city.
     """
 
-    state: typing.Optional[str] = pydantic_v1.Field()
+    state: typing.Optional[str] = pydantic.Field()
     """
     The address's state.
     """
 
-    postal_code: typing.Optional[str] = pydantic_v1.Field()
+    postal_code: typing.Optional[str] = pydantic.Field()
     """
     The address's postal code.
     """
 
-    country: typing.Optional[AddressCountry] = pydantic_v1.Field()
+    country: typing.Optional[AddressCountry] = pydantic.Field()
     """
     The address's country.
     
@@ -312,7 +313,7 @@ class Address(pydantic_v1.BaseModel):
     - `ZW` - Zimbabwe
     """
 
-    address_type: typing.Optional[AddressAddressType] = pydantic_v1.Field()
+    address_type: typing.Optional[AddressAddressType] = pydantic.Field()
     """
     The address type.
     
@@ -320,20 +321,11 @@ class Address(pydantic_v1.BaseModel):
     - `SHIPPING` - SHIPPING
     """
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

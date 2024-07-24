@@ -5,8 +5,9 @@ from __future__ import annotations
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel, update_forward_refs
 from .remote_data import RemoteData
 from .remote_field import RemoteField
 from .ticket_account import TicketAccount
@@ -18,7 +19,7 @@ from .ticket_priority import TicketPriority
 from .ticket_status import TicketStatus
 
 
-class Ticket(pydantic_v1.BaseModel):
+class Ticket(UniversalBaseModel):
     """
     # The Ticket Object
 
@@ -32,38 +33,38 @@ class Ticket(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    name: typing.Optional[str] = pydantic_v1.Field()
+    name: typing.Optional[str] = pydantic.Field()
     """
     The ticket's name.
     """
 
     assignees: typing.Optional[typing.List[typing.Optional[TicketAssigneesItem]]]
-    creator: typing.Optional[TicketCreator] = pydantic_v1.Field()
+    creator: typing.Optional[TicketCreator] = pydantic.Field()
     """
     The user who created this ticket.
     """
 
-    due_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    due_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The ticket's due date.
     """
 
-    status: typing.Optional[TicketStatus] = pydantic_v1.Field()
+    status: typing.Optional[TicketStatus] = pydantic.Field()
     """
     The current status of the ticket.
     
@@ -73,56 +74,56 @@ class Ticket(pydantic_v1.BaseModel):
     - `ON_HOLD` - ON_HOLD
     """
 
-    description: typing.Optional[str] = pydantic_v1.Field()
+    description: typing.Optional[str] = pydantic.Field()
     """
     The ticket’s description. HTML version of description is mapped if supported by the third-party platform.
     """
 
     collections: typing.Optional[typing.List[typing.Optional[TicketCollectionsItem]]]
-    ticket_type: typing.Optional[str] = pydantic_v1.Field()
+    ticket_type: typing.Optional[str] = pydantic.Field()
     """
     The sub category of the ticket within the 3rd party system. Examples include incident, task, subtask or to-do.
     """
 
-    account: typing.Optional[TicketAccount] = pydantic_v1.Field()
+    account: typing.Optional[TicketAccount] = pydantic.Field()
     """
     The account associated with the ticket.
     """
 
-    contact: typing.Optional[TicketContact] = pydantic_v1.Field()
+    contact: typing.Optional[TicketContact] = pydantic.Field()
     """
     The contact associated with the ticket.
     """
 
-    parent_ticket: typing.Optional[TicketParentTicket] = pydantic_v1.Field()
+    parent_ticket: typing.Optional[TicketParentTicket] = pydantic.Field()
     """
     The ticket's parent ticket.
     """
 
     attachments: typing.Optional[typing.List[typing.Optional[TicketAttachmentsItem]]]
     tags: typing.Optional[typing.List[typing.Optional[str]]]
-    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's ticket was created.
     """
 
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's ticket was updated.
     """
 
-    completed_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    completed_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the ticket was completed.
     """
 
     remote_was_deleted: typing.Optional[bool]
-    ticket_url: typing.Optional[str] = pydantic_v1.Field()
+    ticket_url: typing.Optional[str] = pydantic.Field()
     """
     The 3rd party url of the Ticket.
     """
 
-    priority: typing.Optional[TicketPriority] = pydantic_v1.Field()
+    priority: typing.Optional[TicketPriority] = pydantic.Field()
     """
     The priority or urgency of the Ticket.
     
@@ -136,26 +137,17 @@ class Ticket(pydantic_v1.BaseModel):
     remote_data: typing.Optional[typing.List[RemoteData]]
     remote_fields: typing.Optional[typing.List[RemoteField]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow
 
 
 from .ticket_attachments_item import TicketAttachmentsItem  # noqa: E402
 from .ticket_parent_ticket import TicketParentTicket  # noqa: E402
 
-Ticket.update_forward_refs()
+update_forward_refs(Ticket)

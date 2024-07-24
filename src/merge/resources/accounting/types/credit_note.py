@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .credit_note_accounting_period import CreditNoteAccountingPeriod
 from .credit_note_applied_payments_item import CreditNoteAppliedPaymentsItem
 from .credit_note_company import CreditNoteCompany
@@ -17,7 +18,7 @@ from .credit_note_tracking_categories_item import CreditNoteTrackingCategoriesIt
 from .remote_data import RemoteData
 
 
-class CreditNote(pydantic_v1.BaseModel):
+class CreditNote(UniversalBaseModel):
     """
     # The CreditNote Object
 
@@ -31,27 +32,27 @@ class CreditNote(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    transaction_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    transaction_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The credit note's transaction date.
     """
 
-    status: typing.Optional[CreditNoteStatus] = pydantic_v1.Field()
+    status: typing.Optional[CreditNoteStatus] = pydantic.Field()
     """
     The credit note's status.
     
@@ -60,39 +61,39 @@ class CreditNote(pydantic_v1.BaseModel):
     - `PAID` - PAID
     """
 
-    number: typing.Optional[str] = pydantic_v1.Field()
+    number: typing.Optional[str] = pydantic.Field()
     """
     The credit note's number.
     """
 
-    contact: typing.Optional[CreditNoteContact] = pydantic_v1.Field()
+    contact: typing.Optional[CreditNoteContact] = pydantic.Field()
     """
     The credit note's contact.
     """
 
-    company: typing.Optional[CreditNoteCompany] = pydantic_v1.Field()
+    company: typing.Optional[CreditNoteCompany] = pydantic.Field()
     """
     The company the credit note belongs to.
     """
 
-    exchange_rate: typing.Optional[str] = pydantic_v1.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field()
     """
     The credit note's exchange rate.
     """
 
-    total_amount: typing.Optional[float] = pydantic_v1.Field()
+    total_amount: typing.Optional[float] = pydantic.Field()
     """
     The credit note's total amount.
     """
 
-    remaining_credit: typing.Optional[float] = pydantic_v1.Field()
+    remaining_credit: typing.Optional[float] = pydantic.Field()
     """
     The amount of value remaining in the credit note that the customer can use.
     """
 
     line_items: typing.Optional[typing.List[CreditNoteLineItem]]
     tracking_categories: typing.Optional[typing.List[typing.Optional[CreditNoteTrackingCategoriesItem]]]
-    currency: typing.Optional[CreditNoteCurrency] = pydantic_v1.Field()
+    currency: typing.Optional[CreditNoteCurrency] = pydantic.Field()
     """
     The credit note's currency.
     
@@ -404,32 +405,32 @@ class CreditNote(pydantic_v1.BaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's credit note was created.
     """
 
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's credit note was updated.
     """
 
-    payments: typing.Optional[typing.List[typing.Optional[CreditNotePaymentsItem]]] = pydantic_v1.Field()
+    payments: typing.Optional[typing.List[typing.Optional[CreditNotePaymentsItem]]] = pydantic.Field()
     """
     Array of `Payment` object IDs
     """
 
-    applied_payments: typing.Optional[typing.List[typing.Optional[CreditNoteAppliedPaymentsItem]]] = pydantic_v1.Field()
+    applied_payments: typing.Optional[typing.List[typing.Optional[CreditNoteAppliedPaymentsItem]]] = pydantic.Field()
     """
     A list of the Payment Applied to Lines common models related to a given Invoice, Credit Note, or Journal Entry.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
     """
     Indicates whether or not this object has been deleted in the third party platform.
     """
 
-    accounting_period: typing.Optional[CreditNoteAccountingPeriod] = pydantic_v1.Field()
+    accounting_period: typing.Optional[CreditNoteAccountingPeriod] = pydantic.Field()
     """
     The accounting period that the CreditNote was generated in.
     """
@@ -437,20 +438,11 @@ class CreditNote(pydantic_v1.BaseModel):
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

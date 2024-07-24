@@ -5,7 +5,7 @@ from json.decoder import JSONDecodeError
 
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from .....core.pydantic_utilities import pydantic_v1
+from .....core.pydantic_utilities import parse_obj_as
 from .....core.request_options import RequestOptions
 from ...types.categories_enum import CategoriesEnum
 from ...types.common_model_scopes_body_request import CommonModelScopesBodyRequest
@@ -119,9 +119,9 @@ class LinkTokenClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(LinkToken, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(LinkToken, parse_obj_as(type_=LinkToken, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -198,6 +198,8 @@ class AsyncLinkTokenClient:
 
         Examples
         --------
+        import asyncio
+
         from merge.client import AsyncMerge
         from merge.resources.ats import CategoriesEnum
 
@@ -205,12 +207,18 @@ class AsyncLinkTokenClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        await client.ats.link_token.create(
-            end_user_email_address="example@gmail.com",
-            end_user_organization_name="Test Organization",
-            end_user_origin_id="12345",
-            categories=[CategoriesEnum.HRIS, CategoriesEnum.ATS],
-        )
+
+
+        async def main() -> None:
+            await client.ats.link_token.create(
+                end_user_email_address="example@gmail.com",
+                end_user_organization_name="Test Organization",
+                end_user_origin_id="12345",
+                categories=[CategoriesEnum.HRIS, CategoriesEnum.ATS],
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "ats/v1/link-token",
@@ -231,9 +239,9 @@ class AsyncLinkTokenClient:
             request_options=request_options,
             omit=OMIT,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(LinkToken, _response.json())  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(LinkToken, parse_obj_as(type_=LinkToken, object_=_response.json()))  # type: ignore
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

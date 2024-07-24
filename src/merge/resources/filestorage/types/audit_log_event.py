@@ -3,25 +3,26 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .audit_log_event_event_type import AuditLogEventEventType
 from .audit_log_event_role import AuditLogEventRole
 
 
-class AuditLogEvent(pydantic_v1.BaseModel):
+class AuditLogEvent(UniversalBaseModel):
     id: typing.Optional[str]
-    user_name: typing.Optional[str] = pydantic_v1.Field()
+    user_name: typing.Optional[str] = pydantic.Field()
     """
     The User's full name at the time of this Event occurring.
     """
 
-    user_email: typing.Optional[str] = pydantic_v1.Field()
+    user_email: typing.Optional[str] = pydantic.Field()
     """
     The User's email at the time of this Event occurring.
     """
 
-    role: AuditLogEventRole = pydantic_v1.Field()
+    role: AuditLogEventRole = pydantic.Field()
     """
     Designates the role of the user (or SYSTEM/API if action not taken by a user) at the time of this Event occurring.
     
@@ -34,7 +35,7 @@ class AuditLogEvent(pydantic_v1.BaseModel):
     """
 
     ip_address: str
-    event_type: AuditLogEventEventType = pydantic_v1.Field()
+    event_type: AuditLogEventEventType = pydantic.Field()
     """
     Designates the type of event that occurred.
     
@@ -80,20 +81,11 @@ class AuditLogEvent(pydantic_v1.BaseModel):
     event_description: str
     created_at: typing.Optional[dt.datetime]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

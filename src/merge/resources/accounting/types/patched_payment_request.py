@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .patched_payment_request_account import PatchedPaymentRequestAccount
 from .patched_payment_request_accounting_period import PatchedPaymentRequestAccountingPeriod
 from .patched_payment_request_applied_to_lines_item import PatchedPaymentRequestAppliedToLinesItem
@@ -15,7 +16,7 @@ from .patched_payment_request_tracking_categories_item import PatchedPaymentRequ
 from .patched_payment_request_type import PatchedPaymentRequestType
 
 
-class PatchedPaymentRequest(pydantic_v1.BaseModel):
+class PatchedPaymentRequest(UniversalBaseModel):
     """
     # The Payment Object
 
@@ -28,22 +29,22 @@ class PatchedPaymentRequest(pydantic_v1.BaseModel):
     Fetch from the `GET Payment` endpoint and view an invoice's payment.
     """
 
-    transaction_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    transaction_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The payment's transaction date.
     """
 
-    contact: typing.Optional[PatchedPaymentRequestContact] = pydantic_v1.Field()
+    contact: typing.Optional[PatchedPaymentRequestContact] = pydantic.Field()
     """
     The supplier, or customer involved in the payment.
     """
 
-    account: typing.Optional[PatchedPaymentRequestAccount] = pydantic_v1.Field()
+    account: typing.Optional[PatchedPaymentRequestAccount] = pydantic.Field()
     """
     The supplier’s or customer’s account in which the payment is made.
     """
 
-    currency: typing.Optional[PatchedPaymentRequestCurrency] = pydantic_v1.Field()
+    currency: typing.Optional[PatchedPaymentRequestCurrency] = pydantic.Field()
     """
     The payment's currency.
     
@@ -355,22 +356,22 @@ class PatchedPaymentRequest(pydantic_v1.BaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic_v1.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field()
     """
     The payment's exchange rate.
     """
 
-    company: typing.Optional[PatchedPaymentRequestCompany] = pydantic_v1.Field()
+    company: typing.Optional[PatchedPaymentRequestCompany] = pydantic.Field()
     """
     The company the payment belongs to.
     """
 
-    total_amount: typing.Optional[float] = pydantic_v1.Field()
+    total_amount: typing.Optional[float] = pydantic.Field()
     """
     The total amount of money being paid to the supplier, or customer, after taxes.
     """
 
-    type: typing.Optional[PatchedPaymentRequestType] = pydantic_v1.Field()
+    type: typing.Optional[PatchedPaymentRequestType] = pydantic.Field()
     """
     The type of the invoice.
     
@@ -379,12 +380,12 @@ class PatchedPaymentRequest(pydantic_v1.BaseModel):
     """
 
     tracking_categories: typing.Optional[typing.List[typing.Optional[PatchedPaymentRequestTrackingCategoriesItem]]]
-    accounting_period: typing.Optional[PatchedPaymentRequestAccountingPeriod] = pydantic_v1.Field()
+    accounting_period: typing.Optional[PatchedPaymentRequestAccountingPeriod] = pydantic.Field()
     """
     The accounting period that the Payment was generated in.
     """
 
-    applied_to_lines: typing.Optional[typing.List[PatchedPaymentRequestAppliedToLinesItem]] = pydantic_v1.Field()
+    applied_to_lines: typing.Optional[typing.List[PatchedPaymentRequestAppliedToLinesItem]] = pydantic.Field()
     """
     A list of “Payment Applied to Lines” objects.
     """
@@ -392,20 +393,11 @@ class PatchedPaymentRequest(pydantic_v1.BaseModel):
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

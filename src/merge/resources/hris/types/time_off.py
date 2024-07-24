@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .remote_data import RemoteData
 from .time_off_approver import TimeOffApprover
 from .time_off_employee import TimeOffEmployee
@@ -13,7 +14,7 @@ from .time_off_status import TimeOffStatus
 from .time_off_units import TimeOffUnits
 
 
-class TimeOff(pydantic_v1.BaseModel):
+class TimeOff(UniversalBaseModel):
     """
     # The TimeOff Object
 
@@ -27,32 +28,32 @@ class TimeOff(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    employee: typing.Optional[TimeOffEmployee] = pydantic_v1.Field()
+    employee: typing.Optional[TimeOffEmployee] = pydantic.Field()
     """
     The employee requesting time off.
     """
 
-    approver: typing.Optional[TimeOffApprover] = pydantic_v1.Field()
+    approver: typing.Optional[TimeOffApprover] = pydantic.Field()
     """
     The Merge ID of the employee with the ability to approve the time off request.
     """
 
-    status: typing.Optional[TimeOffStatus] = pydantic_v1.Field()
+    status: typing.Optional[TimeOffStatus] = pydantic.Field()
     """
     The status of this time off request.
     
@@ -63,12 +64,12 @@ class TimeOff(pydantic_v1.BaseModel):
     - `DELETED` - DELETED
     """
 
-    employee_note: typing.Optional[str] = pydantic_v1.Field()
+    employee_note: typing.Optional[str] = pydantic.Field()
     """
     The employee note for this time off request.
     """
 
-    units: typing.Optional[TimeOffUnits] = pydantic_v1.Field()
+    units: typing.Optional[TimeOffUnits] = pydantic.Field()
     """
     The measurement that the third-party integration uses to count time requested.
     
@@ -76,12 +77,12 @@ class TimeOff(pydantic_v1.BaseModel):
     - `DAYS` - DAYS
     """
 
-    amount: typing.Optional[float] = pydantic_v1.Field()
+    amount: typing.Optional[float] = pydantic.Field()
     """
     The time off quantity measured by the prescribed “units”.
     """
 
-    request_type: typing.Optional[TimeOffRequestType] = pydantic_v1.Field()
+    request_type: typing.Optional[TimeOffRequestType] = pydantic.Field()
     """
     The type of time off request.
     
@@ -93,12 +94,12 @@ class TimeOff(pydantic_v1.BaseModel):
     - `BEREAVEMENT` - BEREAVEMENT
     """
 
-    start_time: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    start_time: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The day and time of the start of the time requested off.
     """
 
-    end_time: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    end_time: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The day and time of the end of the time requested off.
     """
@@ -107,20 +108,11 @@ class TimeOff(pydantic_v1.BaseModel):
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .application_request_candidate import ApplicationRequestCandidate
 from .application_request_credited_to import ApplicationRequestCreditedTo
 from .application_request_current_stage import ApplicationRequestCurrentStage
@@ -13,7 +14,7 @@ from .application_request_offers_item import ApplicationRequestOffersItem
 from .application_request_reject_reason import ApplicationRequestRejectReason
 
 
-class ApplicationRequest(pydantic_v1.BaseModel):
+class ApplicationRequest(UniversalBaseModel):
     """
     # The Application Object
 
@@ -26,43 +27,43 @@ class ApplicationRequest(pydantic_v1.BaseModel):
     Fetch from the `LIST Applications` endpoint and filter by `ID` to show all applications.
     """
 
-    candidate: typing.Optional[ApplicationRequestCandidate] = pydantic_v1.Field()
+    candidate: typing.Optional[ApplicationRequestCandidate] = pydantic.Field()
     """
     The candidate applying.
     """
 
-    job: typing.Optional[ApplicationRequestJob] = pydantic_v1.Field()
+    job: typing.Optional[ApplicationRequestJob] = pydantic.Field()
     """
     The job being applied for.
     """
 
-    applied_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    applied_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the application was submitted.
     """
 
-    rejected_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    rejected_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the application was rejected.
     """
 
     offers: typing.Optional[typing.List[typing.Optional[ApplicationRequestOffersItem]]]
-    source: typing.Optional[str] = pydantic_v1.Field()
+    source: typing.Optional[str] = pydantic.Field()
     """
     The application's source.
     """
 
-    credited_to: typing.Optional[ApplicationRequestCreditedTo] = pydantic_v1.Field()
+    credited_to: typing.Optional[ApplicationRequestCreditedTo] = pydantic.Field()
     """
     The user credited for this application.
     """
 
-    current_stage: typing.Optional[ApplicationRequestCurrentStage] = pydantic_v1.Field()
+    current_stage: typing.Optional[ApplicationRequestCurrentStage] = pydantic.Field()
     """
     The application's current stage.
     """
 
-    reject_reason: typing.Optional[ApplicationRequestRejectReason] = pydantic_v1.Field()
+    reject_reason: typing.Optional[ApplicationRequestRejectReason] = pydantic.Field()
     """
     The application's reason for rejection.
     """
@@ -71,20 +72,11 @@ class ApplicationRequest(pydantic_v1.BaseModel):
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

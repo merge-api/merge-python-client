@@ -3,13 +3,14 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .address_request import AddressRequest
 from .remote_field_request import RemoteFieldRequest
 
 
-class PatchedAccountRequest(pydantic_v1.BaseModel):
+class PatchedAccountRequest(UniversalBaseModel):
     """
     # The Account Object
 
@@ -22,38 +23,38 @@ class PatchedAccountRequest(pydantic_v1.BaseModel):
     TODO
     """
 
-    owner: typing.Optional[str] = pydantic_v1.Field()
+    owner: typing.Optional[str] = pydantic.Field()
     """
     The account's owner.
     """
 
-    name: typing.Optional[str] = pydantic_v1.Field()
+    name: typing.Optional[str] = pydantic.Field()
     """
     The account's name.
     """
 
-    description: typing.Optional[str] = pydantic_v1.Field()
+    description: typing.Optional[str] = pydantic.Field()
     """
     The account's description.
     """
 
-    industry: typing.Optional[str] = pydantic_v1.Field()
+    industry: typing.Optional[str] = pydantic.Field()
     """
     The account's industry.
     """
 
-    website: typing.Optional[str] = pydantic_v1.Field()
+    website: typing.Optional[str] = pydantic.Field()
     """
     The account's website.
     """
 
-    number_of_employees: typing.Optional[int] = pydantic_v1.Field()
+    number_of_employees: typing.Optional[int] = pydantic.Field()
     """
     The account's number of employees.
     """
 
     addresses: typing.Optional[typing.List[AddressRequest]]
-    last_activity_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    last_activity_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The last date (either most recent or furthest in the future) of when an activity occurs in an account.
     """
@@ -62,20 +63,11 @@ class PatchedAccountRequest(pydantic_v1.BaseModel):
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

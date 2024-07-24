@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .invoice_accounting_period import InvoiceAccountingPeriod
 from .invoice_applied_payments_item import InvoiceAppliedPaymentsItem
 from .invoice_company import InvoiceCompany
@@ -19,7 +20,7 @@ from .invoice_type import InvoiceType
 from .remote_data import RemoteData
 
 
-class Invoice(pydantic_v1.BaseModel):
+class Invoice(UniversalBaseModel):
     """
     # The Invoice Object
 
@@ -33,22 +34,22 @@ class Invoice(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    type: typing.Optional[InvoiceType] = pydantic_v1.Field()
+    type: typing.Optional[InvoiceType] = pydantic.Field()
     """
     Whether the invoice is an accounts receivable or accounts payable. If `type` is `ACCOUNTS_PAYABLE`, the invoice is a bill. If `type` is `ACCOUNTS_RECEIVABLE`, it is an invoice.
     
@@ -56,42 +57,42 @@ class Invoice(pydantic_v1.BaseModel):
     - `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE
     """
 
-    contact: typing.Optional[InvoiceContact] = pydantic_v1.Field()
+    contact: typing.Optional[InvoiceContact] = pydantic.Field()
     """
     The invoice's contact.
     """
 
-    number: typing.Optional[str] = pydantic_v1.Field()
+    number: typing.Optional[str] = pydantic.Field()
     """
     The invoice's number.
     """
 
-    issue_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    issue_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The invoice's issue date.
     """
 
-    due_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    due_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The invoice's due date.
     """
 
-    paid_on_date: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    paid_on_date: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The invoice's paid date.
     """
 
-    memo: typing.Optional[str] = pydantic_v1.Field()
+    memo: typing.Optional[str] = pydantic.Field()
     """
     The invoice's private note.
     """
 
-    company: typing.Optional[InvoiceCompany] = pydantic_v1.Field()
+    company: typing.Optional[InvoiceCompany] = pydantic.Field()
     """
     The company the invoice belongs to.
     """
 
-    currency: typing.Optional[InvoiceCurrency] = pydantic_v1.Field()
+    currency: typing.Optional[InvoiceCurrency] = pydantic.Field()
     """
     The invoice's currency.
     
@@ -403,22 +404,22 @@ class Invoice(pydantic_v1.BaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic_v1.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field()
     """
     The invoice's exchange rate.
     """
 
-    total_discount: typing.Optional[float] = pydantic_v1.Field()
+    total_discount: typing.Optional[float] = pydantic.Field()
     """
     The total discounts applied to the total cost.
     """
 
-    sub_total: typing.Optional[float] = pydantic_v1.Field()
+    sub_total: typing.Optional[float] = pydantic.Field()
     """
     The total amount being paid before taxes.
     """
 
-    status: typing.Optional[InvoiceStatus] = pydantic_v1.Field()
+    status: typing.Optional[InvoiceStatus] = pydantic.Field()
     """
     The status of the invoice.
     
@@ -430,40 +431,40 @@ class Invoice(pydantic_v1.BaseModel):
     - `VOID` - VOID
     """
 
-    total_tax_amount: typing.Optional[float] = pydantic_v1.Field()
+    total_tax_amount: typing.Optional[float] = pydantic.Field()
     """
     The total amount being paid in taxes.
     """
 
-    total_amount: typing.Optional[float] = pydantic_v1.Field()
+    total_amount: typing.Optional[float] = pydantic.Field()
     """
     The invoice's total amount.
     """
 
-    balance: typing.Optional[float] = pydantic_v1.Field()
+    balance: typing.Optional[float] = pydantic.Field()
     """
     The invoice's remaining balance.
     """
 
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's invoice entry was updated.
     """
 
     tracking_categories: typing.Optional[typing.List[typing.Optional[InvoiceTrackingCategoriesItem]]]
-    payments: typing.Optional[typing.List[typing.Optional[InvoicePaymentsItem]]] = pydantic_v1.Field()
+    payments: typing.Optional[typing.List[typing.Optional[InvoicePaymentsItem]]] = pydantic.Field()
     """
     Array of `Payment` object IDs.
     """
 
-    applied_payments: typing.Optional[typing.List[typing.Optional[InvoiceAppliedPaymentsItem]]] = pydantic_v1.Field()
+    applied_payments: typing.Optional[typing.List[typing.Optional[InvoiceAppliedPaymentsItem]]] = pydantic.Field()
     """
     A list of the Payment Applied to Lines common models related to a given Invoice, Credit Note, or Journal Entry.
     """
 
     line_items: typing.Optional[typing.List[InvoiceLineItem]]
     remote_was_deleted: typing.Optional[bool]
-    accounting_period: typing.Optional[InvoiceAccountingPeriod] = pydantic_v1.Field()
+    accounting_period: typing.Optional[InvoiceAccountingPeriod] = pydantic.Field()
     """
     The accounting period that the Invoice was generated in.
     """
@@ -472,20 +473,11 @@ class Invoice(pydantic_v1.BaseModel):
     field_mappings: typing.Optional[typing.Dict[str, typing.Any]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow

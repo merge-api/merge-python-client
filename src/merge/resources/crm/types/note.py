@@ -3,8 +3,9 @@
 import datetime as dt
 import typing
 
-from ....core.datetime_utils import serialize_datetime
-from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
+import pydantic
+
+from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .note_account import NoteAccount
 from .note_contact import NoteContact
 from .note_opportunity import NoteOpportunity
@@ -13,7 +14,7 @@ from .remote_data import RemoteData
 from .remote_field import RemoteField
 
 
-class Note(pydantic_v1.BaseModel):
+class Note(UniversalBaseModel):
     """
     # The Note Object
 
@@ -27,52 +28,52 @@ class Note(pydantic_v1.BaseModel):
     """
 
     id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     The datetime that this object was modified by Merge.
     """
 
-    owner: typing.Optional[NoteOwner] = pydantic_v1.Field()
+    owner: typing.Optional[NoteOwner] = pydantic.Field()
     """
     The note's owner.
     """
 
-    content: typing.Optional[str] = pydantic_v1.Field()
+    content: typing.Optional[str] = pydantic.Field()
     """
     The note's content.
     """
 
-    contact: typing.Optional[NoteContact] = pydantic_v1.Field()
+    contact: typing.Optional[NoteContact] = pydantic.Field()
     """
     The note's contact.
     """
 
-    account: typing.Optional[NoteAccount] = pydantic_v1.Field()
+    account: typing.Optional[NoteAccount] = pydantic.Field()
     """
     The note's account.
     """
 
-    opportunity: typing.Optional[NoteOpportunity] = pydantic_v1.Field()
+    opportunity: typing.Optional[NoteOpportunity] = pydantic.Field()
     """
     The note's opportunity.
     """
 
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's lead was updated.
     """
 
-    remote_created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
     """
     When the third party's lead was created.
     """
@@ -82,20 +83,11 @@ class Note(pydantic_v1.BaseModel):
     remote_data: typing.Optional[typing.List[RemoteData]]
     remote_fields: typing.Optional[typing.List[RemoteField]]
 
-    def json(self, **kwargs: typing.Any) -> str:
-        kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        return super().json(**kwargs_with_defaults)
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
 
-    def dict(self, **kwargs: typing.Any) -> typing.Dict[str, typing.Any]:
-        kwargs_with_defaults_exclude_unset: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
-        kwargs_with_defaults_exclude_none: typing.Any = {"by_alias": True, "exclude_none": True, **kwargs}
-
-        return deep_union_pydantic_dicts(
-            super().dict(**kwargs_with_defaults_exclude_unset), super().dict(**kwargs_with_defaults_exclude_none)
-        )
-
-    class Config:
-        frozen = True
-        smart_union = True
-        extra = pydantic_v1.Extra.allow
-        json_encoders = {dt.datetime: serialize_datetime}
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow
