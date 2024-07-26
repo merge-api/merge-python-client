@@ -78,11 +78,7 @@ class Activity(pydantic_v1.BaseModel):
     - `PRIVATE` - PRIVATE
     """
 
-    candidate: typing.Optional[str] = pydantic_v1.Field()
-    """
-    The activity’s candidate.
-    """
-
+    candidate: typing.Optional[str]
     remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
     """
     Indicates whether or not this object has been deleted in the third party platform.

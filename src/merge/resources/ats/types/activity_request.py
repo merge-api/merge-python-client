@@ -56,11 +56,7 @@ class ActivityRequest(pydantic_v1.BaseModel):
     - `PRIVATE` - PRIVATE
     """
 
-    candidate: typing.Optional[str] = pydantic_v1.Field()
-    """
-    The activity’s candidate.
-    """
-
+    candidate: typing.Optional[str]
     integration_params: typing.Optional[typing.Dict[str, typing.Any]]
     linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 

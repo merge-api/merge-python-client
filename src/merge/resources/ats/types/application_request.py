@@ -11,6 +11,7 @@ from .application_request_current_stage import ApplicationRequestCurrentStage
 from .application_request_job import ApplicationRequestJob
 from .application_request_offers_item import ApplicationRequestOffersItem
 from .application_request_reject_reason import ApplicationRequestRejectReason
+from .application_request_screening_question_answers_item import ApplicationRequestScreeningQuestionAnswersItem
 
 
 class ApplicationRequest(pydantic_v1.BaseModel):
@@ -57,6 +58,7 @@ class ApplicationRequest(pydantic_v1.BaseModel):
     The user credited for this application.
     """
 
+    screening_question_answers: typing.Optional[typing.List[ApplicationRequestScreeningQuestionAnswersItem]]
     current_stage: typing.Optional[ApplicationRequestCurrentStage] = pydantic_v1.Field()
     """
     The application's current stage.

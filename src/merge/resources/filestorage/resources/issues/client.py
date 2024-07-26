@@ -32,13 +32,14 @@ class IssuesClient:
         integration_name: typing.Optional[str] = None,
         last_incident_time_after: typing.Optional[dt.datetime] = None,
         last_incident_time_before: typing.Optional[dt.datetime] = None,
+        linked_account_id: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         start_date: typing.Optional[str] = None,
         status: typing.Optional[IssuesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedIssueList:
         """
-        Gets issues.
+        Gets all issues for Organization.
 
         Parameters
         ----------
@@ -68,6 +69,9 @@ class IssuesClient:
 
         last_incident_time_before : typing.Optional[dt.datetime]
             If provided, will only return issues whose last incident time was before this datetime.
+
+        linked_account_id : typing.Optional[str]
+            If provided, will only include issues pertaining to the linked account passed in.
 
         page_size : typing.Optional[int]
             Number of results to return per page.
@@ -121,6 +125,7 @@ class IssuesClient:
                 "last_incident_time_before": serialize_datetime(last_incident_time_before)
                 if last_incident_time_before is not None
                 else None,
+                "linked_account_id": linked_account_id,
                 "page_size": page_size,
                 "start_date": start_date,
                 "status": status,
@@ -192,13 +197,14 @@ class AsyncIssuesClient:
         integration_name: typing.Optional[str] = None,
         last_incident_time_after: typing.Optional[dt.datetime] = None,
         last_incident_time_before: typing.Optional[dt.datetime] = None,
+        linked_account_id: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         start_date: typing.Optional[str] = None,
         status: typing.Optional[IssuesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedIssueList:
         """
-        Gets issues.
+        Gets all issues for Organization.
 
         Parameters
         ----------
@@ -228,6 +234,9 @@ class AsyncIssuesClient:
 
         last_incident_time_before : typing.Optional[dt.datetime]
             If provided, will only return issues whose last incident time was before this datetime.
+
+        linked_account_id : typing.Optional[str]
+            If provided, will only include issues pertaining to the linked account passed in.
 
         page_size : typing.Optional[int]
             Number of results to return per page.
@@ -281,6 +290,7 @@ class AsyncIssuesClient:
                 "last_incident_time_before": serialize_datetime(last_incident_time_before)
                 if last_incident_time_before is not None
                 else None,
+                "linked_account_id": linked_account_id,
                 "page_size": page_size,
                 "start_date": start_date,
                 "status": status,

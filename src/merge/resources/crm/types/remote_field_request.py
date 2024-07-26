@@ -10,7 +10,7 @@ from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFie
 
 class RemoteFieldRequest(pydantic_v1.BaseModel):
     remote_field_class: RemoteFieldRequestRemoteFieldClass
-    value: typing.Optional[str]
+    value: typing.Optional[typing.Any]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

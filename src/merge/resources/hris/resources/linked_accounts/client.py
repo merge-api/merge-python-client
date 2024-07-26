@@ -39,7 +39,7 @@ class LinkedAccountsClient:
         Parameters
         ----------
         category : typing.Optional[LinkedAccountsListRequestCategory]
-            Options: ('hris', 'ats', 'accounting', 'ticketing', 'crm', 'mktg', 'filestorage')
+            Options: `accounting`, `ats`, `crm`, `filestorage`, `hris`, `mktg`, `ticketing`
 
             - `hris` - hris
             - `ats` - ats
@@ -159,7 +159,7 @@ class AsyncLinkedAccountsClient:
         Parameters
         ----------
         category : typing.Optional[LinkedAccountsListRequestCategory]
-            Options: ('hris', 'ats', 'accounting', 'ticketing', 'crm', 'mktg', 'filestorage')
+            Options: `accounting`, `ats`, `crm`, `filestorage`, `hris`, `mktg`, `ticketing`
 
             - `hris` - hris
             - `ats` - ats

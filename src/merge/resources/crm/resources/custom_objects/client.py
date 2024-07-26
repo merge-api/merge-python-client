@@ -15,6 +15,7 @@ from ...types.custom_object import CustomObject
 from ...types.custom_object_request import CustomObjectRequest
 from ...types.meta_response import MetaResponse
 from ...types.paginated_custom_object_list import PaginatedCustomObjectList
+from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -288,6 +289,79 @@ class CustomObjectsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def custom_object_classes_custom_objects_remote_field_classes_list(
+        self,
+        *,
+        cursor: typing.Optional[str] = None,
+        include_deleted_data: typing.Optional[bool] = None,
+        include_remote_data: typing.Optional[bool] = None,
+        include_remote_fields: typing.Optional[bool] = None,
+        is_common_model_field: typing.Optional[bool] = None,
+        page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedRemoteFieldClassList:
+        """
+        Returns a list of `RemoteFieldClass` objects.
+
+        Parameters
+        ----------
+        cursor : typing.Optional[str]
+            The pagination cursor value.
+
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
+
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        is_common_model_field : typing.Optional[bool]
+            If provided, will only return remote field classes with this is_common_model_field value
+
+        page_size : typing.Optional[int]
+            Number of results to return per page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedRemoteFieldClassList
+
+
+        Examples
+        --------
+        from merge.client import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.crm.custom_objects.custom_object_classes_custom_objects_remote_field_classes_list()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "crm/v1/custom-object-classes/custom-objects/remote-field-classes",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "is_common_model_field": is_common_model_field,
+                "page_size": page_size,
+            },
+            request_options=request_options,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic_v1.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
 
 class AsyncCustomObjectsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -551,6 +625,79 @@ class AsyncCustomObjectsClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic_v1.parse_obj_as(MetaResponse, _response.json())  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def custom_object_classes_custom_objects_remote_field_classes_list(
+        self,
+        *,
+        cursor: typing.Optional[str] = None,
+        include_deleted_data: typing.Optional[bool] = None,
+        include_remote_data: typing.Optional[bool] = None,
+        include_remote_fields: typing.Optional[bool] = None,
+        is_common_model_field: typing.Optional[bool] = None,
+        page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedRemoteFieldClassList:
+        """
+        Returns a list of `RemoteFieldClass` objects.
+
+        Parameters
+        ----------
+        cursor : typing.Optional[str]
+            The pagination cursor value.
+
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
+
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        is_common_model_field : typing.Optional[bool]
+            If provided, will only return remote field classes with this is_common_model_field value
+
+        page_size : typing.Optional[int]
+            Number of results to return per page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedRemoteFieldClassList
+
+
+        Examples
+        --------
+        from merge.client import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        await client.crm.custom_objects.custom_object_classes_custom_objects_remote_field_classes_list()
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "crm/v1/custom-object-classes/custom-objects/remote-field-classes",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_remote_fields": include_remote_fields,
+                "is_common_model_field": is_common_model_field,
+                "page_size": page_size,
+            },
+            request_options=request_options,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic_v1.parse_obj_as(PaginatedRemoteFieldClassList, _response.json())  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:

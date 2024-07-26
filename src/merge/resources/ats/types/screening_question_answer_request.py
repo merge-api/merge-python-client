@@ -5,50 +5,39 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
-from .email_address_email_address_type import EmailAddressEmailAddressType
+from .screening_question_answer_request_question import ScreeningQuestionAnswerRequestQuestion
 
 
-class EmailAddress(pydantic_v1.BaseModel):
+class ScreeningQuestionAnswerRequest(pydantic_v1.BaseModel):
     """
-    # The EmailAddress Object
+    # The ScreeningQuestionAnswer Object
 
     ### Description
 
-    The `EmailAddress` object is used to represent a candidate's email address.
+    The `ScreeningQuestionAnswer` object is used to represent candidate responses to a screening question, for a specific application.
 
     ### Usage Example
 
-    Fetch from the `GET Candidate` endpoint and view their email addresses.
+    TODO
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
+    remote_id: typing.Optional[str] = pydantic_v1.Field()
     """
-    The datetime that this object was created by Merge.
-    """
-
-    modified_at: typing.Optional[dt.datetime] = pydantic_v1.Field()
-    """
-    The datetime that this object was modified by Merge.
+    The third-party API ID of the matching object.
     """
 
-    value: typing.Optional[str] = pydantic_v1.Field()
+    question: typing.Optional[ScreeningQuestionAnswerRequestQuestion] = pydantic_v1.Field()
     """
-    The email address.
-    """
-
-    email_address_type: typing.Optional[EmailAddressEmailAddressType] = pydantic_v1.Field()
-    """
-    The type of email address.
-    
-    - `PERSONAL` - PERSONAL
-    - `WORK` - WORK
-    - `OTHER` - OTHER
+    The screening question associated with the candidate’s answer. To determine the data type of the answer, you can expand on the screening question by adding `screening_question_answers.question` to the `expand` query parameter.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
+    answer: typing.Optional[str] = pydantic_v1.Field()
     """
-    Indicates whether or not this object has been deleted in the third party platform.
+    The candidate’s response to the screening question.
     """
+
+    integration_params: typing.Optional[typing.Dict[str, typing.Any]]
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Any]]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

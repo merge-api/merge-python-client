@@ -14,7 +14,7 @@ class RemoteFieldApi(pydantic_v1.BaseModel):
     schema_: typing.Dict[str, typing.Any] = pydantic_v1.Field(alias="schema")
     remote_key_name: str
     remote_endpoint_info: RemoteEndpointInfo
-    example_values: typing.List[typing.Any]
+    example_values: typing.Optional[typing.List[typing.Any]]
     advanced_metadata: typing.Optional[AdvancedMetadata]
     coverage: typing.Optional[RemoteFieldApiCoverage]
 

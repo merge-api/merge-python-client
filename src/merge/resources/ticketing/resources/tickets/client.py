@@ -69,6 +69,7 @@ class TicketsClient:
         status: typing.Optional[TicketsListRequestStatus] = None,
         tags: typing.Optional[str] = None,
         ticket_type: typing.Optional[str] = None,
+        ticket_url: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedTicketList:
         """
@@ -176,6 +177,9 @@ class TicketsClient:
         ticket_type : typing.Optional[str]
             If provided, will only return tickets of this type.
 
+        ticket_url : typing.Optional[str]
+            If provided, will only return tickets where the URL matches or contains the substring
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -236,6 +240,7 @@ class TicketsClient:
                 "status": status,
                 "tags": tags,
                 "ticket_type": ticket_type,
+                "ticket_url": ticket_url,
             },
             request_options=request_options,
         )
@@ -593,6 +598,7 @@ class TicketsClient:
         cursor: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
+        is_common_model_field: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedRemoteFieldClassList:
@@ -609,6 +615,9 @@ class TicketsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        is_common_model_field : typing.Optional[bool]
+            If provided, will only return remote field classes with this is_common_model_field value
 
         page_size : typing.Optional[int]
             Number of results to return per page.
@@ -638,6 +647,7 @@ class TicketsClient:
                 "cursor": cursor,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
+                "is_common_model_field": is_common_model_field,
                 "page_size": page_size,
             },
             request_options=request_options,
@@ -688,6 +698,7 @@ class AsyncTicketsClient:
         status: typing.Optional[TicketsListRequestStatus] = None,
         tags: typing.Optional[str] = None,
         ticket_type: typing.Optional[str] = None,
+        ticket_url: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedTicketList:
         """
@@ -795,6 +806,9 @@ class AsyncTicketsClient:
         ticket_type : typing.Optional[str]
             If provided, will only return tickets of this type.
 
+        ticket_url : typing.Optional[str]
+            If provided, will only return tickets where the URL matches or contains the substring
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -855,6 +869,7 @@ class AsyncTicketsClient:
                 "status": status,
                 "tags": tags,
                 "ticket_type": ticket_type,
+                "ticket_url": ticket_url,
             },
             request_options=request_options,
         )
@@ -1214,6 +1229,7 @@ class AsyncTicketsClient:
         cursor: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
+        is_common_model_field: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedRemoteFieldClassList:
@@ -1230,6 +1246,9 @@ class AsyncTicketsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        is_common_model_field : typing.Optional[bool]
+            If provided, will only return remote field classes with this is_common_model_field value
 
         page_size : typing.Optional[int]
             Number of results to return per page.
@@ -1259,6 +1278,7 @@ class AsyncTicketsClient:
                 "cursor": cursor,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
+                "is_common_model_field": is_common_model_field,
                 "page_size": page_size,
             },
             request_options=request_options,

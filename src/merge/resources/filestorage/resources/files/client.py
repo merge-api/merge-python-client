@@ -260,7 +260,7 @@ class FilesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Iterator[bytes]:
         """
-        Returns a `File` object with the given `id`.
+        Returns the `File` content with the given `id` as a stream of bytes.
 
         Parameters
         ----------
@@ -581,7 +581,7 @@ class AsyncFilesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.AsyncIterator[bytes]:
         """
-        Returns a `File` object with the given `id`.
+        Returns the `File` content with the given `id` as a stream of bytes.
 
         Parameters
         ----------

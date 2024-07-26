@@ -77,7 +77,7 @@ class EmploymentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         order_by : typing.Optional[EmploymentsListRequestOrderBy]
-            Overrides the default ordering for this endpoint.
+            Overrides the default ordering for this endpoint. Possible values include: effective_date, -effective_date.
 
         page_size : typing.Optional[int]
             Number of results to return per page.
@@ -263,7 +263,7 @@ class AsyncEmploymentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         order_by : typing.Optional[EmploymentsListRequestOrderBy]
-            Overrides the default ordering for this endpoint.
+            Overrides the default ordering for this endpoint. Possible values include: effective_date, -effective_date.
 
         page_size : typing.Optional[int]
             Number of results to return per page.

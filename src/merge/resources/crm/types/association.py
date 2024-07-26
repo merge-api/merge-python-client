@@ -31,8 +31,8 @@ class Association(pydantic_v1.BaseModel):
     The datetime that this object was modified by Merge.
     """
 
-    source_object: typing.Optional[typing.Dict[str, typing.Any]]
-    target_object: typing.Optional[typing.Dict[str, typing.Any]]
+    source_object: typing.Optional[str]
+    target_object: typing.Optional[str]
     association_type: typing.Optional[AssociationAssociationType] = pydantic_v1.Field()
     """
     The association type the association belongs to.

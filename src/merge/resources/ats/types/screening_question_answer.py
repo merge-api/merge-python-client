@@ -5,17 +5,16 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from ....core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
-from .screening_question_job import ScreeningQuestionJob
-from .screening_question_type import ScreeningQuestionType
+from .screening_question_answer_question import ScreeningQuestionAnswerQuestion
 
 
-class ScreeningQuestion(pydantic_v1.BaseModel):
+class ScreeningQuestionAnswer(pydantic_v1.BaseModel):
     """
-    # The ScreeningQuestion Object
+    # The ScreeningQuestionAnswer Object
 
     ### Description
 
-    The `ScreeningQuestion` object is used to represent questions asked to screen candidates for a job.
+    The `ScreeningQuestionAnswer` object is used to represent candidate responses to a screening question, for a specific application.
 
     ### Usage Example
 
@@ -38,41 +37,16 @@ class ScreeningQuestion(pydantic_v1.BaseModel):
     The datetime that this object was modified by Merge.
     """
 
-    job: typing.Optional[ScreeningQuestionJob] = pydantic_v1.Field()
+    question: typing.Optional[ScreeningQuestionAnswerQuestion] = pydantic_v1.Field()
     """
-    The job associated with the screening question.
-    """
-
-    description: typing.Optional[str] = pydantic_v1.Field()
-    """
-    The description of the screening question
+    The screening question associated with the candidate’s answer. To determine the data type of the answer, you can expand on the screening question by adding `screening_question_answers.question` to the `expand` query parameter.
     """
 
-    title: typing.Optional[str] = pydantic_v1.Field()
+    answer: typing.Optional[str] = pydantic_v1.Field()
     """
-    The title of the screening question
-    """
-
-    type: typing.Optional[ScreeningQuestionType] = pydantic_v1.Field()
-    """
-    The data type for the screening question.
-    
-    - `DATE` - DATE
-    - `FILE` - FILE
-    - `SINGLE_SELECT` - SINGLE_SELECT
-    - `MULTI_SELECT` - MULTI_SELECT
-    - `SINGLE_LINE_TEXT` - SINGLE_LINE_TEXT
-    - `MULTI_LINE_TEXT` - MULTI_LINE_TEXT
-    - `NUMERIC` - NUMERIC
-    - `BOOLEAN` - BOOLEAN
+    The candidate’s response to the screening question.
     """
 
-    required: typing.Optional[bool] = pydantic_v1.Field()
-    """
-    Whether or not the screening question is required.
-    """
-
-    options: typing.Optional[typing.List[typing.Any]]
     remote_was_deleted: typing.Optional[bool] = pydantic_v1.Field()
     """
     Indicates whether or not this object has been deleted in the third party platform.

@@ -390,6 +390,7 @@ class TasksClient:
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        is_common_model_field: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedRemoteFieldClassList:
@@ -409,6 +410,9 @@ class TasksClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        is_common_model_field : typing.Optional[bool]
+            If provided, will only return remote field classes with this is_common_model_field value
 
         page_size : typing.Optional[int]
             Number of results to return per page.
@@ -439,6 +443,7 @@ class TasksClient:
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "is_common_model_field": is_common_model_field,
                 "page_size": page_size,
             },
             request_options=request_options,
@@ -820,6 +825,7 @@ class AsyncTasksClient:
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        is_common_model_field: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedRemoteFieldClassList:
@@ -839,6 +845,9 @@ class AsyncTasksClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        is_common_model_field : typing.Optional[bool]
+            If provided, will only return remote field classes with this is_common_model_field value
 
         page_size : typing.Optional[int]
             Number of results to return per page.
@@ -869,6 +878,7 @@ class AsyncTasksClient:
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "is_common_model_field": is_common_model_field,
                 "page_size": page_size,
             },
             request_options=request_options,
