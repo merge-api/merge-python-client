@@ -83,7 +83,7 @@ class BankInfoClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         order_by : typing.Optional[BankInfoListRequestOrderBy]
-            Overrides the default ordering for this endpoint.
+            Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
 
         page_size : typing.Optional[int]
             Number of results to return per page.
@@ -282,7 +282,7 @@ class AsyncBankInfoClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         order_by : typing.Optional[BankInfoListRequestOrderBy]
-            Overrides the default ordering for this endpoint.
+            Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
 
         page_size : typing.Optional[int]
             Number of results to return per page.

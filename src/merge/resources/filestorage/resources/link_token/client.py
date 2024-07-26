@@ -30,6 +30,7 @@ class LinkTokenClient:
         integration: typing.Optional[str] = OMIT,
         link_expiry_mins: typing.Optional[int] = OMIT,
         should_create_magic_link_url: typing.Optional[bool] = OMIT,
+        hide_admin_magic_link: typing.Optional[bool] = OMIT,
         common_models: typing.Optional[typing.Sequence[CommonModelScopesBodyRequest]] = OMIT,
         category_common_model_scopes: typing.Optional[
             typing.Dict[str, typing.Optional[typing.Sequence[IndividualCommonModelScopeDeserializerRequest]]]
@@ -63,6 +64,9 @@ class LinkTokenClient:
 
         should_create_magic_link_url : typing.Optional[bool]
             Whether to generate a Magic Link URL. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/integrations-fast-say-hello-to-magic-link.
+
+        hide_admin_magic_link : typing.Optional[bool]
+            Whether to generate a Magic Link URL on the Admin Needed screen during the linking flow. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/integrations-fast-say-hello-to-magic-link.
 
         common_models : typing.Optional[typing.Sequence[CommonModelScopesBodyRequest]]
             An array of objects to specify the models and fields that will be disabled for a given Linked Account. Each object uses model_id, enabled_actions, and disabled_fields to specify the model, method, and fields that are scoped for a given Linked Account.
@@ -111,6 +115,7 @@ class LinkTokenClient:
                 "integration": integration,
                 "link_expiry_mins": link_expiry_mins,
                 "should_create_magic_link_url": should_create_magic_link_url,
+                "hide_admin_magic_link": hide_admin_magic_link,
                 "common_models": common_models,
                 "category_common_model_scopes": category_common_model_scopes,
                 "language": language,
@@ -142,6 +147,7 @@ class AsyncLinkTokenClient:
         integration: typing.Optional[str] = OMIT,
         link_expiry_mins: typing.Optional[int] = OMIT,
         should_create_magic_link_url: typing.Optional[bool] = OMIT,
+        hide_admin_magic_link: typing.Optional[bool] = OMIT,
         common_models: typing.Optional[typing.Sequence[CommonModelScopesBodyRequest]] = OMIT,
         category_common_model_scopes: typing.Optional[
             typing.Dict[str, typing.Optional[typing.Sequence[IndividualCommonModelScopeDeserializerRequest]]]
@@ -175,6 +181,9 @@ class AsyncLinkTokenClient:
 
         should_create_magic_link_url : typing.Optional[bool]
             Whether to generate a Magic Link URL. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/integrations-fast-say-hello-to-magic-link.
+
+        hide_admin_magic_link : typing.Optional[bool]
+            Whether to generate a Magic Link URL on the Admin Needed screen during the linking flow. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/integrations-fast-say-hello-to-magic-link.
 
         common_models : typing.Optional[typing.Sequence[CommonModelScopesBodyRequest]]
             An array of objects to specify the models and fields that will be disabled for a given Linked Account. Each object uses model_id, enabled_actions, and disabled_fields to specify the model, method, and fields that are scoped for a given Linked Account.
@@ -223,6 +232,7 @@ class AsyncLinkTokenClient:
                 "integration": integration,
                 "link_expiry_mins": link_expiry_mins,
                 "should_create_magic_link_url": should_create_magic_link_url,
+                "hide_admin_magic_link": hide_admin_magic_link,
                 "common_models": common_models,
                 "category_common_model_scopes": category_common_model_scopes,
                 "language": language,

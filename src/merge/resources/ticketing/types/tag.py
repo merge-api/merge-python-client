@@ -36,6 +36,7 @@ class Tag(pydantic_v1.BaseModel):
     The datetime that this object was modified by Merge.
     """
 
+    id: typing.Optional[str]
     name: typing.Optional[str] = pydantic_v1.Field()
     """
     The tag's name.

@@ -53,7 +53,7 @@ class PurchaseOrderLineItemRequest(pydantic_v1.BaseModel):
     The purchase order line item's associated tracking category.
     """
 
-    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]] = pydantic_v1.Field()
+    tracking_categories: typing.List[str] = pydantic_v1.Field()
     """
     The purchase order line item's associated tracking categories.
     """

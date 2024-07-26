@@ -62,7 +62,7 @@ class CreditNoteLineItem(pydantic_v1.BaseModel):
     The credit note line item's associated tracking category.
     """
 
-    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]] = pydantic_v1.Field()
+    tracking_categories: typing.List[str] = pydantic_v1.Field()
     """
     The credit note line item's associated tracking categories.
     """

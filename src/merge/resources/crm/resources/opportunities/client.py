@@ -44,6 +44,7 @@ class OpportunitiesClient:
         modified_before: typing.Optional[dt.datetime] = None,
         owner_id: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
+        remote_created_after: typing.Optional[dt.datetime] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
@@ -91,6 +92,9 @@ class OpportunitiesClient:
 
         page_size : typing.Optional[int]
             Number of results to return per page.
+
+        remote_created_after : typing.Optional[dt.datetime]
+            If provided, will only return opportunities created in the third party platform after this datetime.
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -145,6 +149,9 @@ class OpportunitiesClient:
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                 "owner_id": owner_id,
                 "page_size": page_size,
+                "remote_created_after": serialize_datetime(remote_created_after)
+                if remote_created_after is not None
+                else None,
                 "remote_fields": remote_fields,
                 "remote_id": remote_id,
                 "show_enum_origins": show_enum_origins,
@@ -435,6 +442,7 @@ class OpportunitiesClient:
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        is_common_model_field: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedRemoteFieldClassList:
@@ -454,6 +462,9 @@ class OpportunitiesClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        is_common_model_field : typing.Optional[bool]
+            If provided, will only return remote field classes with this is_common_model_field value
 
         page_size : typing.Optional[int]
             Number of results to return per page.
@@ -484,6 +495,7 @@ class OpportunitiesClient:
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "is_common_model_field": is_common_model_field,
                 "page_size": page_size,
             },
             request_options=request_options,
@@ -516,6 +528,7 @@ class AsyncOpportunitiesClient:
         modified_before: typing.Optional[dt.datetime] = None,
         owner_id: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
+        remote_created_after: typing.Optional[dt.datetime] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
@@ -563,6 +576,9 @@ class AsyncOpportunitiesClient:
 
         page_size : typing.Optional[int]
             Number of results to return per page.
+
+        remote_created_after : typing.Optional[dt.datetime]
+            If provided, will only return opportunities created in the third party platform after this datetime.
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -617,6 +633,9 @@ class AsyncOpportunitiesClient:
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                 "owner_id": owner_id,
                 "page_size": page_size,
+                "remote_created_after": serialize_datetime(remote_created_after)
+                if remote_created_after is not None
+                else None,
                 "remote_fields": remote_fields,
                 "remote_id": remote_id,
                 "show_enum_origins": show_enum_origins,
@@ -909,6 +928,7 @@ class AsyncOpportunitiesClient:
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        is_common_model_field: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedRemoteFieldClassList:
@@ -928,6 +948,9 @@ class AsyncOpportunitiesClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        is_common_model_field : typing.Optional[bool]
+            If provided, will only return remote field classes with this is_common_model_field value
 
         page_size : typing.Optional[int]
             Number of results to return per page.
@@ -958,6 +981,7 @@ class AsyncOpportunitiesClient:
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "is_common_model_field": is_common_model_field,
                 "page_size": page_size,
             },
             request_options=request_options,

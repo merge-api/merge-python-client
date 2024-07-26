@@ -11,6 +11,7 @@ from .application_credited_to import ApplicationCreditedTo
 from .application_current_stage import ApplicationCurrentStage
 from .application_job import ApplicationJob
 from .application_reject_reason import ApplicationRejectReason
+from .application_screening_question_answers_item import ApplicationScreeningQuestionAnswersItem
 from .remote_data import RemoteData
 
 
@@ -74,6 +75,7 @@ class Application(pydantic_v1.BaseModel):
     The user credited for this application.
     """
 
+    screening_question_answers: typing.Optional[typing.List[ApplicationScreeningQuestionAnswersItem]]
     current_stage: typing.Optional[ApplicationCurrentStage] = pydantic_v1.Field()
     """
     The application's current stage.

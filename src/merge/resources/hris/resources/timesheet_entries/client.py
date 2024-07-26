@@ -60,13 +60,13 @@ class TimesheetEntriesClient:
             The pagination cursor value.
 
         employee_id : typing.Optional[str]
-            If provided, will only return employee payroll runs for this employee.
+            If provided, will only return timesheet entries for this employee.
 
         ended_after : typing.Optional[str]
-            If provided, will only return employee payroll runs ended after this datetime.
+            If provided, will only return timesheet entries ended after this datetime.
 
         ended_before : typing.Optional[str]
-            If provided, will only return employee payroll runs ended before this datetime.
+            If provided, will only return timesheet entries ended before this datetime.
 
         include_deleted_data : typing.Optional[bool]
             Whether to include data that was marked as deleted by third party webhooks.
@@ -90,10 +90,10 @@ class TimesheetEntriesClient:
             The API provider's ID for the given object.
 
         started_after : typing.Optional[str]
-            If provided, will only return employee payroll runs started after this datetime.
+            If provided, will only return timesheet entries started after this datetime.
 
         started_before : typing.Optional[str]
-            If provided, will only return employee payroll runs started before this datetime.
+            If provided, will only return timesheet entries started before this datetime.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -327,13 +327,13 @@ class AsyncTimesheetEntriesClient:
             The pagination cursor value.
 
         employee_id : typing.Optional[str]
-            If provided, will only return employee payroll runs for this employee.
+            If provided, will only return timesheet entries for this employee.
 
         ended_after : typing.Optional[str]
-            If provided, will only return employee payroll runs ended after this datetime.
+            If provided, will only return timesheet entries ended after this datetime.
 
         ended_before : typing.Optional[str]
-            If provided, will only return employee payroll runs ended before this datetime.
+            If provided, will only return timesheet entries ended before this datetime.
 
         include_deleted_data : typing.Optional[bool]
             Whether to include data that was marked as deleted by third party webhooks.
@@ -357,10 +357,10 @@ class AsyncTimesheetEntriesClient:
             The API provider's ID for the given object.
 
         started_after : typing.Optional[str]
-            If provided, will only return employee payroll runs started after this datetime.
+            If provided, will only return timesheet entries started after this datetime.
 
         started_before : typing.Optional[str]
-            If provided, will only return employee payroll runs started before this datetime.
+            If provided, will only return timesheet entries started before this datetime.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

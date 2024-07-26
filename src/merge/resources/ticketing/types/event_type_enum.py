@@ -45,6 +45,7 @@ class EventTypeEnum(str, enum.Enum):
     - `ENABLED_MERGE_WEBHOOK` - ENABLED_MERGE_WEBHOOK
     - `DISABLED_MERGE_WEBHOOK` - DISABLED_MERGE_WEBHOOK
     - `MERGE_WEBHOOK_TARGET_CHANGED` - MERGE_WEBHOOK_TARGET_CHANGED
+    - `END_USER_CREDENTIALS_ACCESSED` - END_USER_CREDENTIALS_ACCESSED
     """
 
     CREATED_REMOTE_PRODUCTION_API_KEY = "CREATED_REMOTE_PRODUCTION_API_KEY"
@@ -84,6 +85,7 @@ class EventTypeEnum(str, enum.Enum):
     ENABLED_MERGE_WEBHOOK = "ENABLED_MERGE_WEBHOOK"
     DISABLED_MERGE_WEBHOOK = "DISABLED_MERGE_WEBHOOK"
     MERGE_WEBHOOK_TARGET_CHANGED = "MERGE_WEBHOOK_TARGET_CHANGED"
+    END_USER_CREDENTIALS_ACCESSED = "END_USER_CREDENTIALS_ACCESSED"
 
     def visit(
         self,
@@ -124,6 +126,7 @@ class EventTypeEnum(str, enum.Enum):
         enabled_merge_webhook: typing.Callable[[], T_Result],
         disabled_merge_webhook: typing.Callable[[], T_Result],
         merge_webhook_target_changed: typing.Callable[[], T_Result],
+        end_user_credentials_accessed: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is EventTypeEnum.CREATED_REMOTE_PRODUCTION_API_KEY:
             return created_remote_production_api_key()
@@ -199,3 +202,5 @@ class EventTypeEnum(str, enum.Enum):
             return disabled_merge_webhook()
         if self is EventTypeEnum.MERGE_WEBHOOK_TARGET_CHANGED:
             return merge_webhook_target_changed()
+        if self is EventTypeEnum.END_USER_CREDENTIALS_ACCESSED:
+            return end_user_credentials_accessed()
