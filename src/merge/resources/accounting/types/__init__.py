@@ -51,6 +51,7 @@ from .common_model_scope_api import CommonModelScopeApi
 from .common_model_scopes_body_request import CommonModelScopesBodyRequest
 from .company_info import CompanyInfo
 from .company_info_currency import CompanyInfoCurrency
+from .component_type_enum import ComponentTypeEnum
 from .contact import Contact
 from .contact_addresses_item import ContactAddressesItem
 from .contact_request import ContactRequest
@@ -111,6 +112,7 @@ from .expense_response import ExpenseResponse
 from .expense_tracking_categories_item import ExpenseTrackingCategoriesItem
 from .external_target_field_api import ExternalTargetFieldApi
 from .external_target_field_api_response import ExternalTargetFieldApiResponse
+from .field_format_enum import FieldFormatEnum
 from .field_mapping_api_instance import FieldMappingApiInstance
 from .field_mapping_api_instance_remote_field import FieldMappingApiInstanceRemoteField
 from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
@@ -121,6 +123,7 @@ from .field_mapping_api_instance_target_field import FieldMappingApiInstanceTarg
 from .field_mapping_instance_response import FieldMappingInstanceResponse
 from .field_permission_deserializer import FieldPermissionDeserializer
 from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
+from .field_type_enum import FieldTypeEnum
 from .income_statement import IncomeStatement
 from .income_statement_company import IncomeStatementCompany
 from .income_statement_currency import IncomeStatementCurrency
@@ -166,9 +169,14 @@ from .issue_status import IssueStatus
 from .issue_status_enum import IssueStatusEnum
 from .item import Item
 from .item_company import ItemCompany
+from .item_format_enum import ItemFormatEnum
 from .item_purchase_account import ItemPurchaseAccount
+from .item_purchase_tax_rate import ItemPurchaseTaxRate
 from .item_sales_account import ItemSalesAccount
+from .item_sales_tax_rate import ItemSalesTaxRate
+from .item_schema import ItemSchema
 from .item_status import ItemStatus
+from .item_type_enum import ItemTypeEnum
 from .journal_entry import JournalEntry
 from .journal_entry_accounting_period import JournalEntryAccountingPeriod
 from .journal_entry_applied_payments_item import JournalEntryAppliedPaymentsItem
@@ -194,6 +202,7 @@ from .journal_line_request_tracking_categories_item import JournalLineRequestTra
 from .journal_line_request_tracking_category import JournalLineRequestTrackingCategory
 from .journal_line_tracking_categories_item import JournalLineTrackingCategoriesItem
 from .journal_line_tracking_category import JournalLineTrackingCategory
+from .language_enum import LanguageEnum
 from .link_token import LinkToken
 from .linked_account_status import LinkedAccountStatus
 from .meta_response import MetaResponse
@@ -221,6 +230,7 @@ from .paginated_item_list import PaginatedItemList
 from .paginated_journal_entry_list import PaginatedJournalEntryList
 from .paginated_payment_list import PaginatedPaymentList
 from .paginated_purchase_order_list import PaginatedPurchaseOrderList
+from .paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from .paginated_sync_status_list import PaginatedSyncStatusList
 from .paginated_tax_rate_list import PaginatedTaxRateList
 from .paginated_tracking_category_list import PaginatedTrackingCategoryList
@@ -283,9 +293,13 @@ from .purchase_order_tracking_categories_item import PurchaseOrderTrackingCatego
 from .purchase_order_vendor import PurchaseOrderVendor
 from .remote_data import RemoteData
 from .remote_endpoint_info import RemoteEndpointInfo
+from .remote_field import RemoteField
 from .remote_field_api import RemoteFieldApi
 from .remote_field_api_coverage import RemoteFieldApiCoverage
 from .remote_field_api_response import RemoteFieldApiResponse
+from .remote_field_class import RemoteFieldClass
+from .remote_field_request import RemoteFieldRequest
+from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
 from .remote_key import RemoteKey
 from .remote_response import RemoteResponse
 from .report_item import ReportItem
@@ -296,8 +310,12 @@ from .selective_sync_configurations_usage_enum import SelectiveSyncConfiguration
 from .status_7_d_1_enum import Status7D1Enum
 from .sync_status import SyncStatus
 from .sync_status_status_enum import SyncStatusStatusEnum
+from .tax_component import TaxComponent
+from .tax_component_component_type import TaxComponentComponentType
 from .tax_rate import TaxRate
 from .tax_rate_company import TaxRateCompany
+from .tax_rate_status import TaxRateStatus
+from .tax_rate_tax_components_item import TaxRateTaxComponentsItem
 from .tracking_category import TrackingCategory
 from .tracking_category_category_type import TrackingCategoryCategoryType
 from .tracking_category_company import TrackingCategoryCompany
@@ -375,6 +393,7 @@ __all__ = [
     "CommonModelScopesBodyRequest",
     "CompanyInfo",
     "CompanyInfoCurrency",
+    "ComponentTypeEnum",
     "Contact",
     "ContactAddressesItem",
     "ContactRequest",
@@ -435,6 +454,7 @@ __all__ = [
     "ExpenseTrackingCategoriesItem",
     "ExternalTargetFieldApi",
     "ExternalTargetFieldApiResponse",
+    "FieldFormatEnum",
     "FieldMappingApiInstance",
     "FieldMappingApiInstanceRemoteField",
     "FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo",
@@ -443,6 +463,7 @@ __all__ = [
     "FieldMappingInstanceResponse",
     "FieldPermissionDeserializer",
     "FieldPermissionDeserializerRequest",
+    "FieldTypeEnum",
     "IncomeStatement",
     "IncomeStatementCompany",
     "IncomeStatementCurrency",
@@ -488,9 +509,14 @@ __all__ = [
     "IssueStatusEnum",
     "Item",
     "ItemCompany",
+    "ItemFormatEnum",
     "ItemPurchaseAccount",
+    "ItemPurchaseTaxRate",
     "ItemSalesAccount",
+    "ItemSalesTaxRate",
+    "ItemSchema",
     "ItemStatus",
+    "ItemTypeEnum",
     "JournalEntry",
     "JournalEntryAccountingPeriod",
     "JournalEntryAppliedPaymentsItem",
@@ -516,6 +542,7 @@ __all__ = [
     "JournalLineRequestTrackingCategory",
     "JournalLineTrackingCategoriesItem",
     "JournalLineTrackingCategory",
+    "LanguageEnum",
     "LinkToken",
     "LinkedAccountStatus",
     "MetaResponse",
@@ -543,6 +570,7 @@ __all__ = [
     "PaginatedJournalEntryList",
     "PaginatedPaymentList",
     "PaginatedPurchaseOrderList",
+    "PaginatedRemoteFieldClassList",
     "PaginatedSyncStatusList",
     "PaginatedTaxRateList",
     "PaginatedTrackingCategoryList",
@@ -605,9 +633,13 @@ __all__ = [
     "PurchaseOrderVendor",
     "RemoteData",
     "RemoteEndpointInfo",
+    "RemoteField",
     "RemoteFieldApi",
     "RemoteFieldApiCoverage",
     "RemoteFieldApiResponse",
+    "RemoteFieldClass",
+    "RemoteFieldRequest",
+    "RemoteFieldRequestRemoteFieldClass",
     "RemoteKey",
     "RemoteResponse",
     "ReportItem",
@@ -618,8 +650,12 @@ __all__ = [
     "Status7D1Enum",
     "SyncStatus",
     "SyncStatusStatusEnum",
+    "TaxComponent",
+    "TaxComponentComponentType",
     "TaxRate",
     "TaxRateCompany",
+    "TaxRateStatus",
+    "TaxRateTaxComponentsItem",
     "TrackingCategory",
     "TrackingCategoryCategoryType",
     "TrackingCategoryCompany",
