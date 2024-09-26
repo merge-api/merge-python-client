@@ -1170,23 +1170,17 @@ class ApplicationsRetrieveRequestExpand(str, enum.Enum):
             self
             is ApplicationsRetrieveRequestExpand.OFFERS_SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CANDIDATE_CREDITED_TO_CURRENT_STAGE
         ):
-            return (
-                offers_screening_question_answers_screening_question_answers_question_candidate_credited_to_current_stage()
-            )
+            return offers_screening_question_answers_screening_question_answers_question_candidate_credited_to_current_stage()
         if (
             self
             is ApplicationsRetrieveRequestExpand.OFFERS_SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CANDIDATE_CREDITED_TO_CURRENT_STAGE_REJECT_REASON
         ):
-            return (
-                offers_screening_question_answers_screening_question_answers_question_candidate_credited_to_current_stage_reject_reason()
-            )
+            return offers_screening_question_answers_screening_question_answers_question_candidate_credited_to_current_stage_reject_reason()
         if (
             self
             is ApplicationsRetrieveRequestExpand.OFFERS_SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CANDIDATE_CREDITED_TO_REJECT_REASON
         ):
-            return (
-                offers_screening_question_answers_screening_question_answers_question_candidate_credited_to_reject_reason()
-            )
+            return offers_screening_question_answers_screening_question_answers_question_candidate_credited_to_reject_reason()
         if (
             self
             is ApplicationsRetrieveRequestExpand.OFFERS_SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CANDIDATE_CURRENT_STAGE
@@ -1196,9 +1190,7 @@ class ApplicationsRetrieveRequestExpand(str, enum.Enum):
             self
             is ApplicationsRetrieveRequestExpand.OFFERS_SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CANDIDATE_CURRENT_STAGE_REJECT_REASON
         ):
-            return (
-                offers_screening_question_answers_screening_question_answers_question_candidate_current_stage_reject_reason()
-            )
+            return offers_screening_question_answers_screening_question_answers_question_candidate_current_stage_reject_reason()
         if (
             self
             is ApplicationsRetrieveRequestExpand.OFFERS_SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CANDIDATE_JOB
@@ -1213,23 +1205,17 @@ class ApplicationsRetrieveRequestExpand(str, enum.Enum):
             self
             is ApplicationsRetrieveRequestExpand.OFFERS_SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CANDIDATE_JOB_CREDITED_TO_CURRENT_STAGE
         ):
-            return (
-                offers_screening_question_answers_screening_question_answers_question_candidate_job_credited_to_current_stage()
-            )
+            return offers_screening_question_answers_screening_question_answers_question_candidate_job_credited_to_current_stage()
         if (
             self
             is ApplicationsRetrieveRequestExpand.OFFERS_SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CANDIDATE_JOB_CREDITED_TO_CURRENT_STAGE_REJECT_REASON
         ):
-            return (
-                offers_screening_question_answers_screening_question_answers_question_candidate_job_credited_to_current_stage_reject_reason()
-            )
+            return offers_screening_question_answers_screening_question_answers_question_candidate_job_credited_to_current_stage_reject_reason()
         if (
             self
             is ApplicationsRetrieveRequestExpand.OFFERS_SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CANDIDATE_JOB_CREDITED_TO_REJECT_REASON
         ):
-            return (
-                offers_screening_question_answers_screening_question_answers_question_candidate_job_credited_to_reject_reason()
-            )
+            return offers_screening_question_answers_screening_question_answers_question_candidate_job_credited_to_reject_reason()
         if (
             self
             is ApplicationsRetrieveRequestExpand.OFFERS_SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CANDIDATE_JOB_CURRENT_STAGE
@@ -1239,9 +1225,7 @@ class ApplicationsRetrieveRequestExpand(str, enum.Enum):
             self
             is ApplicationsRetrieveRequestExpand.OFFERS_SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CANDIDATE_JOB_CURRENT_STAGE_REJECT_REASON
         ):
-            return (
-                offers_screening_question_answers_screening_question_answers_question_candidate_job_current_stage_reject_reason()
-            )
+            return offers_screening_question_answers_screening_question_answers_question_candidate_job_current_stage_reject_reason()
         if (
             self
             is ApplicationsRetrieveRequestExpand.OFFERS_SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CANDIDATE_JOB_REJECT_REASON
@@ -1266,9 +1250,7 @@ class ApplicationsRetrieveRequestExpand(str, enum.Enum):
             self
             is ApplicationsRetrieveRequestExpand.OFFERS_SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CREDITED_TO_CURRENT_STAGE_REJECT_REASON
         ):
-            return (
-                offers_screening_question_answers_screening_question_answers_question_credited_to_current_stage_reject_reason()
-            )
+            return offers_screening_question_answers_screening_question_answers_question_credited_to_current_stage_reject_reason()
         if (
             self
             is ApplicationsRetrieveRequestExpand.OFFERS_SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CREDITED_TO_REJECT_REASON
@@ -1303,9 +1285,7 @@ class ApplicationsRetrieveRequestExpand(str, enum.Enum):
             self
             is ApplicationsRetrieveRequestExpand.OFFERS_SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_JOB_CREDITED_TO_CURRENT_STAGE_REJECT_REASON
         ):
-            return (
-                offers_screening_question_answers_screening_question_answers_question_job_credited_to_current_stage_reject_reason()
-            )
+            return offers_screening_question_answers_screening_question_answers_question_job_credited_to_current_stage_reject_reason()
         if (
             self
             is ApplicationsRetrieveRequestExpand.OFFERS_SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_JOB_CREDITED_TO_REJECT_REASON
@@ -1553,9 +1533,7 @@ class ApplicationsRetrieveRequestExpand(str, enum.Enum):
             self
             is ApplicationsRetrieveRequestExpand.SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CANDIDATE_CREDITED_TO_CURRENT_STAGE_REJECT_REASON
         ):
-            return (
-                screening_question_answers_screening_question_answers_question_candidate_credited_to_current_stage_reject_reason()
-            )
+            return screening_question_answers_screening_question_answers_question_candidate_credited_to_current_stage_reject_reason()
         if (
             self
             is ApplicationsRetrieveRequestExpand.SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CANDIDATE_CREDITED_TO_REJECT_REASON
@@ -1594,9 +1572,7 @@ class ApplicationsRetrieveRequestExpand(str, enum.Enum):
             self
             is ApplicationsRetrieveRequestExpand.SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CANDIDATE_JOB_CREDITED_TO_CURRENT_STAGE_REJECT_REASON
         ):
-            return (
-                screening_question_answers_screening_question_answers_question_candidate_job_credited_to_current_stage_reject_reason()
-            )
+            return screening_question_answers_screening_question_answers_question_candidate_job_credited_to_current_stage_reject_reason()
         if (
             self
             is ApplicationsRetrieveRequestExpand.SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CANDIDATE_JOB_CREDITED_TO_REJECT_REASON
@@ -1613,9 +1589,7 @@ class ApplicationsRetrieveRequestExpand(str, enum.Enum):
             self
             is ApplicationsRetrieveRequestExpand.SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CANDIDATE_JOB_CURRENT_STAGE_REJECT_REASON
         ):
-            return (
-                screening_question_answers_screening_question_answers_question_candidate_job_current_stage_reject_reason()
-            )
+            return screening_question_answers_screening_question_answers_question_candidate_job_current_stage_reject_reason()
         if (
             self
             is ApplicationsRetrieveRequestExpand.SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_CANDIDATE_JOB_REJECT_REASON
@@ -1674,9 +1648,7 @@ class ApplicationsRetrieveRequestExpand(str, enum.Enum):
             self
             is ApplicationsRetrieveRequestExpand.SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_JOB_CREDITED_TO_CURRENT_STAGE_REJECT_REASON
         ):
-            return (
-                screening_question_answers_screening_question_answers_question_job_credited_to_current_stage_reject_reason()
-            )
+            return screening_question_answers_screening_question_answers_question_job_credited_to_current_stage_reject_reason()
         if (
             self
             is ApplicationsRetrieveRequestExpand.SCREENING_QUESTION_ANSWERS_SCREENING_QUESTION_ANSWERS_QUESTION_JOB_CREDITED_TO_REJECT_REASON
