@@ -1144,9 +1144,7 @@ class InvoicesListRequestExpand(str, enum.Enum):
             self
             is InvoicesListRequestExpand.PAYMENTS_APPLIED_PAYMENTS_LINE_ITEMS_TRACKING_CATEGORIES_PURCHASE_ORDERS_CONTACT_COMPANY_ACCOUNTING_PERIOD
         ):
-            return (
-                payments_applied_payments_line_items_tracking_categories_purchase_orders_contact_company_accounting_period()
-            )
+            return payments_applied_payments_line_items_tracking_categories_purchase_orders_contact_company_accounting_period()
         if self is InvoicesListRequestExpand.PAYMENTS_APPLIED_PAYMENTS_PURCHASE_ORDERS:
             return payments_applied_payments_purchase_orders()
         if self is InvoicesListRequestExpand.PAYMENTS_APPLIED_PAYMENTS_PURCHASE_ORDERS_ACCOUNTING_PERIOD:
