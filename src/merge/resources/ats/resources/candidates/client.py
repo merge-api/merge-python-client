@@ -39,6 +39,7 @@ class CandidatesClient:
         first_name: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         last_name: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
@@ -71,10 +72,13 @@ class CandidatesClient:
             If provided, will only return candidates with this first name.
 
         include_deleted_data : typing.Optional[bool]
-            Whether to include data that was marked as deleted by third party webhooks.
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         last_name : typing.Optional[str]
             If provided, will only return candidates with this last name.
@@ -124,6 +128,7 @@ class CandidatesClient:
                 "first_name": first_name,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "last_name": last_name,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
@@ -527,6 +532,7 @@ class AsyncCandidatesClient:
         first_name: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         last_name: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
@@ -559,10 +565,13 @@ class AsyncCandidatesClient:
             If provided, will only return candidates with this first name.
 
         include_deleted_data : typing.Optional[bool]
-            Whether to include data that was marked as deleted by third party webhooks.
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         last_name : typing.Optional[str]
             If provided, will only return candidates with this last name.
@@ -620,6 +629,7 @@ class AsyncCandidatesClient:
                 "first_name": first_name,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "last_name": last_name,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,

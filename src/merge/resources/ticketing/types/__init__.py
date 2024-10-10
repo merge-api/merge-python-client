@@ -69,6 +69,7 @@ from .issue_status_enum import IssueStatusEnum
 from .item_format_enum import ItemFormatEnum
 from .item_schema import ItemSchema
 from .item_type_enum import ItemTypeEnum
+from .language_enum import LanguageEnum
 from .link_token import LinkToken
 from .linked_account_status import LinkedAccountStatus
 from .meta_response import MetaResponse
@@ -226,6 +227,7 @@ __all__ = [
     "ItemFormatEnum",
     "ItemSchema",
     "ItemTypeEnum",
+    "LanguageEnum",
     "LinkToken",
     "LinkedAccountStatus",
     "MetaResponse",

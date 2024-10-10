@@ -28,6 +28,7 @@ class EngagementTypesClient:
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
@@ -49,13 +50,16 @@ class EngagementTypesClient:
             The pagination cursor value.
 
         include_deleted_data : typing.Optional[bool]
-            Whether to include data that was marked as deleted by third party webhooks.
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         modified_after : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge after this date time will be returned.
@@ -97,6 +101,7 @@ class EngagementTypesClient:
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "include_shell_data": include_shell_data,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                 "page_size": page_size,
@@ -189,6 +194,7 @@ class EngagementTypesClient:
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         is_common_model_field: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -202,13 +208,16 @@ class EngagementTypesClient:
             The pagination cursor value.
 
         include_deleted_data : typing.Optional[bool]
-            Whether to include data that was marked as deleted by third party webhooks.
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         is_common_model_field : typing.Optional[bool]
             If provided, will only return remote field classes with this is_common_model_field value
@@ -242,6 +251,7 @@ class EngagementTypesClient:
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "include_shell_data": include_shell_data,
                 "is_common_model_field": is_common_model_field,
                 "page_size": page_size,
             },
@@ -275,6 +285,7 @@ class AsyncEngagementTypesClient:
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
@@ -296,13 +307,16 @@ class AsyncEngagementTypesClient:
             The pagination cursor value.
 
         include_deleted_data : typing.Optional[bool]
-            Whether to include data that was marked as deleted by third party webhooks.
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         modified_after : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge after this date time will be returned.
@@ -352,6 +366,7 @@ class AsyncEngagementTypesClient:
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "include_shell_data": include_shell_data,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                 "page_size": page_size,
@@ -452,6 +467,7 @@ class AsyncEngagementTypesClient:
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         is_common_model_field: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -465,13 +481,16 @@ class AsyncEngagementTypesClient:
             The pagination cursor value.
 
         include_deleted_data : typing.Optional[bool]
-            Whether to include data that was marked as deleted by third party webhooks.
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         is_common_model_field : typing.Optional[bool]
             If provided, will only return remote field classes with this is_common_model_field value
@@ -513,6 +532,7 @@ class AsyncEngagementTypesClient:
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "include_shell_data": include_shell_data,
                 "is_common_model_field": is_common_model_field,
                 "page_size": page_size,
             },

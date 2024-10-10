@@ -104,6 +104,7 @@ from .individual_common_model_scope_deserializer_request import IndividualCommon
 from .issue import Issue
 from .issue_status import IssueStatus
 from .issue_status_enum import IssueStatusEnum
+from .language_enum import LanguageEnum
 from .link_token import LinkToken
 from .linked_account_status import LinkedAccountStatus
 from .location import Location
@@ -296,6 +297,7 @@ __all__ = [
     "Issue",
     "IssueStatus",
     "IssueStatusEnum",
+    "LanguageEnum",
     "LinkToken",
     "LinkedAccountStatus",
     "Location",

@@ -49,6 +49,7 @@ class EmployeesClient:
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         job_title: typing.Optional[str] = None,
         last_name: typing.Optional[str] = None,
         manager_id: typing.Optional[str] = None,
@@ -112,13 +113,16 @@ class EmployeesClient:
             If provided, will only return employees for this home location.
 
         include_deleted_data : typing.Optional[bool]
-            Whether to include data that was marked as deleted by third party webhooks.
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
 
         include_sensitive_fields : typing.Optional[bool]
             Whether to include sensitive fields (such as social security numbers) in the response.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         job_title : typing.Optional[str]
             If provided, will only return employees that have an employment of the specified job_title.
@@ -210,6 +214,7 @@ class EmployeesClient:
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_sensitive_fields": include_sensitive_fields,
+                "include_shell_data": include_shell_data,
                 "job_title": job_title,
                 "last_name": last_name,
                 "manager_id": manager_id,
@@ -516,6 +521,7 @@ class AsyncEmployeesClient:
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         job_title: typing.Optional[str] = None,
         last_name: typing.Optional[str] = None,
         manager_id: typing.Optional[str] = None,
@@ -579,13 +585,16 @@ class AsyncEmployeesClient:
             If provided, will only return employees for this home location.
 
         include_deleted_data : typing.Optional[bool]
-            Whether to include data that was marked as deleted by third party webhooks.
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
 
         include_sensitive_fields : typing.Optional[bool]
             Whether to include sensitive fields (such as social security numbers) in the response.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         job_title : typing.Optional[str]
             If provided, will only return employees that have an employment of the specified job_title.
@@ -685,6 +694,7 @@ class AsyncEmployeesClient:
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_sensitive_fields": include_sensitive_fields,
+                "include_shell_data": include_shell_data,
                 "job_title": job_title,
                 "last_name": last_name,
                 "manager_id": manager_id,

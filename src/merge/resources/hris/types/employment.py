@@ -60,7 +60,7 @@ class Employment(UniversalBaseModel):
 
     pay_rate: typing.Optional[float] = pydantic.Field()
     """
-    The position's pay rate in dollars.
+    The position's pay rate.
     """
 
     pay_period: typing.Optional[EmploymentPayPeriod] = pydantic.Field()
@@ -438,7 +438,7 @@ class Employment(UniversalBaseModel):
 
     remote_was_deleted: typing.Optional[bool] = pydantic.Field()
     """
-    Indicates whether or not this object has been deleted in the third party platform.
+    Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
     field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]

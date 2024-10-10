@@ -5,6 +5,7 @@ from .....core.client_wrapper import SyncClientWrapper
 from ...types.categories_enum import CategoriesEnum
 from ...types.common_model_scopes_body_request import CommonModelScopesBodyRequest
 from ...types.individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
+from ...types.language_enum import LanguageEnum
 from .....core.request_options import RequestOptions
 from ...types.link_token import LinkToken
 from .....core.pydantic_utilities import parse_obj_as
@@ -35,7 +36,7 @@ class LinkTokenClient:
         category_common_model_scopes: typing.Optional[
             typing.Dict[str, typing.Optional[typing.Sequence[IndividualCommonModelScopeDeserializerRequest]]]
         ] = OMIT,
-        language: typing.Optional[str] = OMIT,
+        language: typing.Optional[LanguageEnum] = OMIT,
         integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
@@ -74,8 +75,11 @@ class LinkTokenClient:
         category_common_model_scopes : typing.Optional[typing.Dict[str, typing.Optional[typing.Sequence[IndividualCommonModelScopeDeserializerRequest]]]]
             When creating a Link Token, you can set permissions for Common Models that will apply to the account that is going to be linked. Any model or field not specified in link token payload will default to existing settings.
 
-        language : typing.Optional[str]
-            The language code for the language to localize Merge Link to.
+        language : typing.Optional[LanguageEnum]
+            The following subset of IETF language tags can be used to configure localization.
+
+            * `en` - en
+            * `de` - de
 
         integration_specific_config : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             A JSON object containing integration-specific configuration options.
@@ -158,7 +162,7 @@ class AsyncLinkTokenClient:
         category_common_model_scopes: typing.Optional[
             typing.Dict[str, typing.Optional[typing.Sequence[IndividualCommonModelScopeDeserializerRequest]]]
         ] = OMIT,
-        language: typing.Optional[str] = OMIT,
+        language: typing.Optional[LanguageEnum] = OMIT,
         integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
@@ -197,8 +201,11 @@ class AsyncLinkTokenClient:
         category_common_model_scopes : typing.Optional[typing.Dict[str, typing.Optional[typing.Sequence[IndividualCommonModelScopeDeserializerRequest]]]]
             When creating a Link Token, you can set permissions for Common Models that will apply to the account that is going to be linked. Any model or field not specified in link token payload will default to existing settings.
 
-        language : typing.Optional[str]
-            The language code for the language to localize Merge Link to.
+        language : typing.Optional[LanguageEnum]
+            The following subset of IETF language tags can be used to configure localization.
+
+            * `en` - en
+            * `de` - de
 
         integration_specific_config : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             A JSON object containing integration-specific configuration options.

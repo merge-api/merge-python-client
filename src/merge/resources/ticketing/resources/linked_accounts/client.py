@@ -82,7 +82,7 @@ class LinkedAccountsClient:
             Number of results to return per page.
 
         status : typing.Optional[str]
-            Filter by status. Options: `COMPLETE`, `INCOMPLETE`, `RELINK_NEEDED`
+            Filter by status. Options: `COMPLETE`, `IDLE`, `INCOMPLETE`, `RELINK_NEEDED`
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -208,7 +208,7 @@ class AsyncLinkedAccountsClient:
             Number of results to return per page.
 
         status : typing.Optional[str]
-            Filter by status. Options: `COMPLETE`, `INCOMPLETE`, `RELINK_NEEDED`
+            Filter by status. Options: `COMPLETE`, `IDLE`, `INCOMPLETE`, `RELINK_NEEDED`
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

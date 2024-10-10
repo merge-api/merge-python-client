@@ -6,6 +6,7 @@ from .category_enum import CategoryEnum
 from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
 import pydantic
 from .account_details_and_actions_integration import AccountDetailsAndActionsIntegration
+import datetime as dt
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -42,6 +43,7 @@ class AccountDetailsAndActions(UniversalBaseModel):
 
     integration: typing.Optional[AccountDetailsAndActionsIntegration]
     account_type: str
+    completed_at: dt.datetime
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
