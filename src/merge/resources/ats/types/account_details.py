@@ -4,6 +4,7 @@ from ....core.pydantic_utilities import UniversalBaseModel
 import typing
 from .category_enum import CategoryEnum
 import pydantic
+import datetime as dt
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -23,6 +24,10 @@ class AccountDetails(UniversalBaseModel):
     """
 
     account_type: typing.Optional[str]
+    completed_at: typing.Optional[dt.datetime] = pydantic.Field()
+    """
+    The time at which account completes the linking flow.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

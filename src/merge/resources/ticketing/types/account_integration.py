@@ -25,12 +25,12 @@ class AccountIntegration(UniversalBaseModel):
 
     image: typing.Optional[str] = pydantic.Field()
     """
-    Company logo in rectangular shape. <b>Upload an image with a clear background.</b>
+    Company logo in rectangular shape.
     """
 
     square_image: typing.Optional[str] = pydantic.Field()
     """
-    Company logo in square shape. <b>Upload an image with a white background.</b>
+    Company logo in square shape.
     """
 
     color: typing.Optional[str] = pydantic.Field()

@@ -27,6 +27,7 @@ class JobInterviewStagesClient:
         expand: typing.Optional[typing.Literal["job"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         job_id: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
@@ -52,10 +53,13 @@ class JobInterviewStagesClient:
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
-            Whether to include data that was marked as deleted by third party webhooks.
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         job_id : typing.Optional[str]
             If provided, will only return interview stages for this job.
@@ -100,6 +104,7 @@ class JobInterviewStagesClient:
                 "expand": expand,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "job_id": job_id,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
@@ -200,6 +205,7 @@ class AsyncJobInterviewStagesClient:
         expand: typing.Optional[typing.Literal["job"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         job_id: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
@@ -225,10 +231,13 @@ class AsyncJobInterviewStagesClient:
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
-            Whether to include data that was marked as deleted by third party webhooks.
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         job_id : typing.Optional[str]
             If provided, will only return interview stages for this job.
@@ -281,6 +290,7 @@ class AsyncJobInterviewStagesClient:
                 "expand": expand,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "job_id": job_id,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,

@@ -22,7 +22,7 @@ class ScopesClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CommonModelScopeApi:
         """
-        Get the default permissions for Merge Common Models and fields across all Linked Accounts of a given category. [Learn more](https://help.merge.dev/en/articles/8828211-common-model-and-field-scopes).
+        Get the default permissions for Merge Common Models and fields across all Linked Accounts of a given category. [Learn more](https://help.merge.dev/en/articles/5950052-common-model-and-field-scopes).
 
         Parameters
         ----------
@@ -67,7 +67,7 @@ class ScopesClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CommonModelScopeApi:
         """
-        Get all available permissions for Merge Common Models and fields for a single Linked Account. [Learn more](https://help.merge.dev/en/articles/8828211-common-model-and-field-scopes).
+        Get all available permissions for Merge Common Models and fields for a single Linked Account. [Learn more](https://help.merge.dev/en/articles/5950052-common-model-and-field-scopes).
 
         Parameters
         ----------
@@ -115,7 +115,7 @@ class ScopesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CommonModelScopeApi:
         """
-        Update permissions for any Common Model or field for a single Linked Account. Any Scopes not set in this POST request will inherit the default Scopes. [Learn more](https://help.merge.dev/en/articles/8828211-common-model-and-field-scopes)
+        Update permissions for any Common Model or field for a single Linked Account. Any Scopes not set in this POST request will inherit the default Scopes. [Learn more](https://help.merge.dev/en/articles/5950052-common-model-and-field-scopes)
 
         Parameters
         ----------
@@ -198,7 +198,7 @@ class AsyncScopesClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CommonModelScopeApi:
         """
-        Get the default permissions for Merge Common Models and fields across all Linked Accounts of a given category. [Learn more](https://help.merge.dev/en/articles/8828211-common-model-and-field-scopes).
+        Get the default permissions for Merge Common Models and fields across all Linked Accounts of a given category. [Learn more](https://help.merge.dev/en/articles/5950052-common-model-and-field-scopes).
 
         Parameters
         ----------
@@ -251,7 +251,7 @@ class AsyncScopesClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> CommonModelScopeApi:
         """
-        Get all available permissions for Merge Common Models and fields for a single Linked Account. [Learn more](https://help.merge.dev/en/articles/8828211-common-model-and-field-scopes).
+        Get all available permissions for Merge Common Models and fields for a single Linked Account. [Learn more](https://help.merge.dev/en/articles/5950052-common-model-and-field-scopes).
 
         Parameters
         ----------
@@ -307,7 +307,7 @@ class AsyncScopesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CommonModelScopeApi:
         """
-        Update permissions for any Common Model or field for a single Linked Account. Any Scopes not set in this POST request will inherit the default Scopes. [Learn more](https://help.merge.dev/en/articles/8828211-common-model-and-field-scopes)
+        Update permissions for any Common Model or field for a single Linked Account. Any Scopes not set in this POST request will inherit the default Scopes. [Learn more](https://help.merge.dev/en/articles/5950052-common-model-and-field-scopes)
 
         Parameters
         ----------

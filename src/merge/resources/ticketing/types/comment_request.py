@@ -29,12 +29,12 @@ class CommentRequest(UniversalBaseModel):
 
     user: typing.Optional[CommentRequestUser] = pydantic.Field()
     """
-    The author of the Comment, if the author is a User.
+    The author of the Comment, if the author is a User. If the third party does not support specifying an author, we will append "[Posted on behalf of {name}]" to the comment.
     """
 
     contact: typing.Optional[CommentRequestContact] = pydantic.Field()
     """
-    The author of the Comment, if the author is a Contact.
+    The author of the Comment, if the author is a Contact.If the third party does not support specifying an author, we will append "[Posted on behalf of {name}]" to the comment.
     """
 
     body: typing.Optional[str] = pydantic.Field()
