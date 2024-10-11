@@ -47,12 +47,12 @@ class Comment(UniversalBaseModel):
 
     user: typing.Optional[CommentUser] = pydantic.Field()
     """
-    The author of the Comment, if the author is a User.
+    The author of the Comment, if the author is a User. If the third party does not support specifying an author, we will append "[Posted on behalf of {name}]" to the comment.
     """
 
     contact: typing.Optional[CommentContact] = pydantic.Field()
     """
-    The author of the Comment, if the author is a Contact.
+    The author of the Comment, if the author is a Contact.If the third party does not support specifying an author, we will append "[Posted on behalf of {name}]" to the comment.
     """
 
     body: typing.Optional[str] = pydantic.Field()
@@ -80,7 +80,11 @@ class Comment(UniversalBaseModel):
     When the third party's comment was created.
     """
 
-    remote_was_deleted: typing.Optional[bool]
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    """
+    Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    """
+
     field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
     remote_data: typing.Optional[typing.List[RemoteData]]
 

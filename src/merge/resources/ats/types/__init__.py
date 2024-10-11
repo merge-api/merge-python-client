@@ -109,6 +109,7 @@ from .job_recruiters_item import JobRecruitersItem
 from .job_status import JobStatus
 from .job_status_enum import JobStatusEnum
 from .job_type_enum import JobTypeEnum
+from .language_enum import LanguageEnum
 from .link_token import LinkToken
 from .linked_account_status import LinkedAccountStatus
 from .meta_response import MetaResponse
@@ -319,6 +320,7 @@ __all__ = [
     "JobStatus",
     "JobStatusEnum",
     "JobTypeEnum",
+    "LanguageEnum",
     "LinkToken",
     "LinkedAccountStatus",
     "MetaResponse",

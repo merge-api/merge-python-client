@@ -30,6 +30,7 @@ class ScorecardsClient:
         expand: typing.Optional[ScorecardsListRequestExpand] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         interview_id: typing.Optional[str] = None,
         interviewer_id: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
@@ -61,10 +62,13 @@ class ScorecardsClient:
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
-            Whether to include data that was marked as deleted by third party webhooks.
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         interview_id : typing.Optional[str]
             If provided, will only return scorecards for this interview.
@@ -119,6 +123,7 @@ class ScorecardsClient:
                 "expand": expand,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "interview_id": interview_id,
                 "interviewer_id": interviewer_id,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
@@ -233,6 +238,7 @@ class AsyncScorecardsClient:
         expand: typing.Optional[ScorecardsListRequestExpand] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         interview_id: typing.Optional[str] = None,
         interviewer_id: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
@@ -264,10 +270,13 @@ class AsyncScorecardsClient:
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
-            Whether to include data that was marked as deleted by third party webhooks.
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         interview_id : typing.Optional[str]
             If provided, will only return scorecards for this interview.
@@ -330,6 +339,7 @@ class AsyncScorecardsClient:
                 "expand": expand,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "interview_id": interview_id,
                 "interviewer_id": interviewer_id,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,

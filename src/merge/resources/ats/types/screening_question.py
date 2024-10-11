@@ -75,7 +75,7 @@ class ScreeningQuestion(UniversalBaseModel):
     options: typing.Optional[typing.List[typing.Optional[typing.Any]]]
     remote_was_deleted: typing.Optional[bool] = pydantic.Field()
     """
-    Indicates whether or not this object has been deleted in the third party platform.
+    Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
     if IS_PYDANTIC_V2:

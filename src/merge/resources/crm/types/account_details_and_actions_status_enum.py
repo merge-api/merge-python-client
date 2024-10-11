@@ -11,17 +11,20 @@ class AccountDetailsAndActionsStatusEnum(str, enum.Enum):
     - `COMPLETE` - COMPLETE
     - `INCOMPLETE` - INCOMPLETE
     - `RELINK_NEEDED` - RELINK_NEEDED
+    - `IDLE` - IDLE
     """
 
     COMPLETE = "COMPLETE"
     INCOMPLETE = "INCOMPLETE"
     RELINK_NEEDED = "RELINK_NEEDED"
+    IDLE = "IDLE"
 
     def visit(
         self,
         complete: typing.Callable[[], T_Result],
         incomplete: typing.Callable[[], T_Result],
         relink_needed: typing.Callable[[], T_Result],
+        idle: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is AccountDetailsAndActionsStatusEnum.COMPLETE:
             return complete()
@@ -29,3 +32,5 @@ class AccountDetailsAndActionsStatusEnum(str, enum.Enum):
             return incomplete()
         if self is AccountDetailsAndActionsStatusEnum.RELINK_NEEDED:
             return relink_needed()
+        if self is AccountDetailsAndActionsStatusEnum.IDLE:
+            return idle()
