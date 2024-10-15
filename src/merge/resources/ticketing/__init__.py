@@ -159,6 +159,7 @@ from .types import (
     WebhookReceiver,
 )
 from .resources import (
+    AsyncPassthroughRetrieveResponse,
     CollectionsUsersListRequestExpand,
     CommentsListRequestExpand,
     CommentsRetrieveRequestExpand,
@@ -217,6 +218,7 @@ __all__ = [
     "AccountToken",
     "AdvancedMetadata",
     "AsyncPassthroughReciept",
+    "AsyncPassthroughRetrieveResponse",
     "Attachment",
     "AttachmentRequest",
     "AttachmentRequestTicket",

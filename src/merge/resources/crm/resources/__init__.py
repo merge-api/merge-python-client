@@ -33,6 +33,7 @@ from . import (
     users,
     webhook_receivers,
 )
+from .async_passthrough import AsyncPassthroughRetrieveResponse
 from .contacts import ContactsListRequestExpand, ContactsRetrieveRequestExpand
 from .engagements import EngagementsListRequestExpand, EngagementsRetrieveRequestExpand
 from .issues import IssuesListRequestStatus
@@ -47,6 +48,7 @@ from .opportunities import (
 from .tasks import TasksListRequestExpand, TasksRetrieveRequestExpand
 
 __all__ = [
+    "AsyncPassthroughRetrieveResponse",
     "ContactsListRequestExpand",
     "ContactsRetrieveRequestExpand",
     "EngagementsListRequestExpand",

@@ -112,6 +112,7 @@ from .types import (
     WebhookReceiver,
 )
 from .resources import (
+    AsyncPassthroughRetrieveResponse,
     FilesListRequestExpand,
     FilesRetrieveRequestExpand,
     FoldersListRequestExpand,
@@ -151,6 +152,7 @@ __all__ = [
     "AccountToken",
     "AdvancedMetadata",
     "AsyncPassthroughReciept",
+    "AsyncPassthroughRetrieveResponse",
     "AuditLogEvent",
     "AuditLogEventEventType",
     "AuditLogEventRole",
