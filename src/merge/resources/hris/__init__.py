@@ -194,6 +194,7 @@ from .types import (
     WebhookReceiver,
 )
 from .resources import (
+    AsyncPassthroughRetrieveResponse,
     BankInfoListRequestAccountType,
     BankInfoListRequestOrderBy,
     EmployeePayrollRunsListRequestExpand,
@@ -276,6 +277,7 @@ __all__ = [
     "AccountTypeEnum",
     "AdvancedMetadata",
     "AsyncPassthroughReciept",
+    "AsyncPassthroughRetrieveResponse",
     "AuditLogEvent",
     "AuditLogEventEventType",
     "AuditLogEventRole",

@@ -8,7 +8,7 @@ from ...types.async_passthrough_reciept import AsyncPassthroughReciept
 from .....core.pydantic_utilities import parse_obj_as
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
-from ...types.remote_response import RemoteResponse
+from .types.async_passthrough_retrieve_response import AsyncPassthroughRetrieveResponse
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.client_wrapper import AsyncClientWrapper
 
@@ -77,7 +77,7 @@ class AsyncPassthroughClient:
 
     def retrieve(
         self, async_passthrough_receipt_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> RemoteResponse:
+    ) -> AsyncPassthroughRetrieveResponse:
         """
         Retrieves data from earlier async-passthrough POST request
 
@@ -90,7 +90,7 @@ class AsyncPassthroughClient:
 
         Returns
         -------
-        RemoteResponse
+        AsyncPassthroughRetrieveResponse
 
 
         Examples
@@ -113,9 +113,9 @@ class AsyncPassthroughClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    RemoteResponse,
+                    AsyncPassthroughRetrieveResponse,
                     parse_obj_as(
-                        type_=RemoteResponse,  # type: ignore
+                        type_=AsyncPassthroughRetrieveResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -194,7 +194,7 @@ class AsyncAsyncPassthroughClient:
 
     async def retrieve(
         self, async_passthrough_receipt_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> RemoteResponse:
+    ) -> AsyncPassthroughRetrieveResponse:
         """
         Retrieves data from earlier async-passthrough POST request
 
@@ -207,7 +207,7 @@ class AsyncAsyncPassthroughClient:
 
         Returns
         -------
-        RemoteResponse
+        AsyncPassthroughRetrieveResponse
 
 
         Examples
@@ -238,9 +238,9 @@ class AsyncAsyncPassthroughClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    RemoteResponse,
+                    AsyncPassthroughRetrieveResponse,
                     parse_obj_as(
-                        type_=RemoteResponse,  # type: ignore
+                        type_=AsyncPassthroughRetrieveResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

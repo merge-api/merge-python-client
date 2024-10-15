@@ -30,6 +30,7 @@ from . import (
     users,
     webhook_receivers,
 )
+from .async_passthrough import AsyncPassthroughRetrieveResponse
 from .collections import CollectionsUsersListRequestExpand
 from .comments import CommentsListRequestExpand, CommentsRetrieveRequestExpand
 from .issues import IssuesListRequestStatus
@@ -49,6 +50,7 @@ from .tickets import (
 from .users import UsersListRequestExpand, UsersRetrieveRequestExpand
 
 __all__ = [
+    "AsyncPassthroughRetrieveResponse",
     "CollectionsUsersListRequestExpand",
     "CommentsListRequestExpand",
     "CommentsRetrieveRequestExpand",

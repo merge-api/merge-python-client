@@ -216,6 +216,7 @@ from .types import (
     WebhookReceiver,
 )
 from .resources import (
+    AsyncPassthroughRetrieveResponse,
     ContactsListRequestExpand,
     ContactsRetrieveRequestExpand,
     EngagementsListRequestExpand,
@@ -291,6 +292,7 @@ __all__ = [
     "AssociationTypeCardinality",
     "AssociationTypeRequestRequest",
     "AsyncPassthroughReciept",
+    "AsyncPassthroughRetrieveResponse",
     "AuditLogEvent",
     "AuditLogEventEventType",
     "AuditLogEventRole",

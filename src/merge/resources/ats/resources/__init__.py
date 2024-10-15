@@ -42,6 +42,7 @@ from .activities import (
     ActivitiesRetrieveRequestShowEnumOrigins,
 )
 from .applications import ApplicationsListRequestExpand, ApplicationsRetrieveRequestExpand
+from .async_passthrough import AsyncPassthroughRetrieveResponse
 from .candidates import CandidatesListRequestExpand, CandidatesRetrieveRequestExpand
 from .eeocs import (
     EeocsListRequestRemoteFields,
@@ -69,6 +70,7 @@ __all__ = [
     "ActivitiesRetrieveRequestShowEnumOrigins",
     "ApplicationsListRequestExpand",
     "ApplicationsRetrieveRequestExpand",
+    "AsyncPassthroughRetrieveResponse",
     "CandidatesListRequestExpand",
     "CandidatesRetrieveRequestExpand",
     "EeocsListRequestRemoteFields",

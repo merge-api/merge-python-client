@@ -46,6 +46,7 @@ from .accounts import (
     AccountsRetrieveRequestRemoteFields,
     AccountsRetrieveRequestShowEnumOrigins,
 )
+from .async_passthrough import AsyncPassthroughRetrieveResponse
 from .company_info import CompanyInfoListRequestExpand, CompanyInfoRetrieveRequestExpand
 from .contacts import ContactsListRequestExpand, ContactsRetrieveRequestExpand
 from .credit_notes import (
@@ -72,6 +73,7 @@ __all__ = [
     "AccountsListRequestShowEnumOrigins",
     "AccountsRetrieveRequestRemoteFields",
     "AccountsRetrieveRequestShowEnumOrigins",
+    "AsyncPassthroughRetrieveResponse",
     "CompanyInfoListRequestExpand",
     "CompanyInfoRetrieveRequestExpand",
     "ContactsListRequestExpand",

@@ -35,6 +35,7 @@ from . import (
     timesheet_entries,
     webhook_receivers,
 )
+from .async_passthrough import AsyncPassthroughRetrieveResponse
 from .bank_info import BankInfoListRequestAccountType, BankInfoListRequestOrderBy
 from .employee_payroll_runs import EmployeePayrollRunsListRequestExpand, EmployeePayrollRunsRetrieveRequestExpand
 from .employees import (
@@ -80,6 +81,7 @@ from .time_off_balances import TimeOffBalancesListRequestPolicyType
 from .timesheet_entries import TimesheetEntriesListRequestOrderBy
 
 __all__ = [
+    "AsyncPassthroughRetrieveResponse",
     "BankInfoListRequestAccountType",
     "BankInfoListRequestOrderBy",
     "EmployeePayrollRunsListRequestExpand",

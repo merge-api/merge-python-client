@@ -24,12 +24,14 @@ from . import (
     users,
     webhook_receivers,
 )
+from .async_passthrough import AsyncPassthroughRetrieveResponse
 from .files import FilesListRequestExpand, FilesRetrieveRequestExpand
 from .folders import FoldersListRequestExpand, FoldersRetrieveRequestExpand
 from .issues import IssuesListRequestStatus
 from .linked_accounts import LinkedAccountsListRequestCategory
 
 __all__ = [
+    "AsyncPassthroughRetrieveResponse",
     "FilesListRequestExpand",
     "FilesRetrieveRequestExpand",
     "FoldersListRequestExpand",
