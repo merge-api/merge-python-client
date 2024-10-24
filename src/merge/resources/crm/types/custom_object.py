@@ -47,7 +47,7 @@ class CustomObject(UniversalBaseModel):
     The fields and values contained within the custom object record.
     """
 
-    remote_fields: typing.Optional[typing.List[RemoteField]]
+    remote_fields: typing.Optional[typing.List[RemoteField]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -20,7 +20,7 @@ class PaymentLineItem(UniversalBaseModel):
     `Payment` will have a field called `applied-to-lines` which will be an array of `PaymentLineItemInternalMappingSerializer` objects that can either be a `Invoice`, `CreditNote`, or `JournalEntry`.
     """
 
-    id: typing.Optional[str]
+    id: typing.Optional[typing.Any] = None
     remote_id: typing.Optional[str] = pydantic.Field()
     """
     The third-party API ID of the matching object.
@@ -46,12 +46,12 @@ class PaymentLineItem(UniversalBaseModel):
     The date the payment portion is applied.
     """
 
-    related_object_id: typing.Optional[str] = pydantic.Field()
+    related_object_id: typing.Optional[str] = None
     """
     The Merge ID of the transaction the payment portion is being applied to.
     """
 
-    related_object_type: typing.Optional[str] = pydantic.Field()
+    related_object_type: typing.Optional[str] = None
     """
     The type of transaction the payment portion is being applied to. Possible values include: INVOICE, JOURNAL_ENTRY, or CREDIT_NOTE.
     """

@@ -412,7 +412,7 @@ class PurchaseOrderLineItem(UniversalBaseModel):
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    remote_fields: typing.Optional[typing.List[RemoteField]]
+    remote_fields: typing.Optional[typing.List[RemoteField]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

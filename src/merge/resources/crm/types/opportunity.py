@@ -103,7 +103,7 @@ class Opportunity(UniversalBaseModel):
 
     field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
     remote_data: typing.Optional[typing.List[RemoteData]]
-    remote_fields: typing.Optional[typing.List[RemoteField]]
+    remote_fields: typing.Optional[typing.List[RemoteField]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
