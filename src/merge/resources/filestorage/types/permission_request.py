@@ -23,22 +23,22 @@ class PermissionRequest(UniversalBaseModel):
     Fetch from the `GET Files` or `GET Folders` endpoint. Permissions are unexpanded by default. Use the query param `expand=permissions` to see more details.
     """
 
-    remote_id: typing.Optional[str] = pydantic.Field()
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    user: typing.Optional[PermissionRequestUser] = pydantic.Field()
+    user: typing.Optional[PermissionRequestUser] = pydantic.Field(default=None)
     """
     The user that is granted this permission.
     """
 
-    group: typing.Optional[PermissionRequestGroup] = pydantic.Field()
+    group: typing.Optional[PermissionRequestGroup] = pydantic.Field(default=None)
     """
     The group that is granted this permission.
     """
 
-    type: typing.Optional[PermissionRequestType] = pydantic.Field()
+    type: typing.Optional[PermissionRequestType] = pydantic.Field(default=None)
     """
     Denotes what type of people have access to the file.
     
@@ -48,13 +48,13 @@ class PermissionRequest(UniversalBaseModel):
     - `ANYONE` - ANYONE
     """
 
-    roles: typing.Optional[typing.List[typing.Optional[PermissionRequestRolesItem]]] = pydantic.Field()
+    roles: typing.Optional[typing.List[typing.Optional[PermissionRequestRolesItem]]] = pydantic.Field(default=None)
     """
     The permissions that the user or group has for the File or Folder. It is possible for a user or group to have multiple roles, such as viewing & uploading. Possible values include: `READ`, `WRITE`, `OWNER`. In cases where there is no clear mapping, the original value passed through will be returned.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

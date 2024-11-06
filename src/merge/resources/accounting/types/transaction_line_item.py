@@ -22,64 +22,64 @@ class TransactionLineItem(UniversalBaseModel):
     Fetch from the `GET TransactionLineItem` endpoint and view the transaction's line items.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    memo: typing.Optional[str] = pydantic.Field()
+    memo: typing.Optional[str] = pydantic.Field(default=None)
     """
     An internal note used by the business to clarify purpose of the transaction.
     """
 
-    unit_price: typing.Optional[str] = pydantic.Field()
+    unit_price: typing.Optional[str] = pydantic.Field(default=None)
     """
     The line item's unit price.
     """
 
-    quantity: typing.Optional[str] = pydantic.Field()
+    quantity: typing.Optional[str] = pydantic.Field(default=None)
     """
     The line item's quantity.
     """
 
-    item: typing.Optional[TransactionLineItemItem]
-    account: typing.Optional[str] = pydantic.Field()
+    item: typing.Optional[TransactionLineItemItem] = None
+    account: typing.Optional[str] = pydantic.Field(default=None)
     """
     The line item's account.
     """
 
-    tracking_category: typing.Optional[str] = pydantic.Field()
+    tracking_category: typing.Optional[str] = pydantic.Field(default=None)
     """
     The line's associated tracking category.
     """
 
-    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field()
+    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(default=None)
     """
     The transaction line item's associated tracking categories.
     """
 
-    total_line_amount: typing.Optional[str] = pydantic.Field()
+    total_line_amount: typing.Optional[str] = pydantic.Field(default=None)
     """
     The line item's total.
     """
 
-    tax_rate: typing.Optional[str] = pydantic.Field()
+    tax_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The tax rate that applies to this line item.
     """
 
-    currency: typing.Optional[TransactionLineItemCurrency] = pydantic.Field()
+    currency: typing.Optional[TransactionLineItemCurrency] = pydantic.Field(default=None)
     """
     The line item's currency.
     
@@ -391,17 +391,17 @@ class TransactionLineItem(UniversalBaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The line item's exchange rate.
     """
 
-    company: typing.Optional[str] = pydantic.Field()
+    company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company the line belongs to.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """

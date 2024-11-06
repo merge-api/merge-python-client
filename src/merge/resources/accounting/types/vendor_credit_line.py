@@ -21,63 +21,63 @@ class VendorCreditLine(UniversalBaseModel):
     Fetch from the `GET VendorCredit` endpoint and view the vendor credit's line items.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    net_amount: typing.Optional[float] = pydantic.Field()
+    net_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The full value of the credit.
     """
 
-    tracking_category: typing.Optional[str] = pydantic.Field()
+    tracking_category: typing.Optional[str] = pydantic.Field(default=None)
     """
     The line's associated tracking category.
     """
 
-    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field()
+    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(default=None)
     """
     The vendor credit line item's associated tracking categories.
     """
 
-    description: typing.Optional[str] = pydantic.Field()
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The line's description.
     """
 
-    account: typing.Optional[VendorCreditLineAccount] = pydantic.Field()
+    account: typing.Optional[VendorCreditLineAccount] = pydantic.Field(default=None)
     """
     The line's account.
     """
 
-    company: typing.Optional[str] = pydantic.Field()
+    company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company the line belongs to.
     """
 
-    tax_rate: typing.Optional[str] = pydantic.Field()
+    tax_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The tax rate that applies to this line item.
     """
 
-    exchange_rate: typing.Optional[str] = pydantic.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The vendor credit line item's exchange rate.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """

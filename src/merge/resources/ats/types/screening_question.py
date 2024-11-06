@@ -22,38 +22,38 @@ class ScreeningQuestion(UniversalBaseModel):
     TODO
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    job: typing.Optional[ScreeningQuestionJob] = pydantic.Field()
+    job: typing.Optional[ScreeningQuestionJob] = pydantic.Field(default=None)
     """
     The job associated with the screening question.
     """
 
-    description: typing.Optional[str] = pydantic.Field()
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The description of the screening question
     """
 
-    title: typing.Optional[str] = pydantic.Field()
+    title: typing.Optional[str] = pydantic.Field(default=None)
     """
     The title of the screening question
     """
 
-    type: typing.Optional[ScreeningQuestionType] = pydantic.Field()
+    type: typing.Optional[ScreeningQuestionType] = pydantic.Field(default=None)
     """
     The data type for the screening question.
     
@@ -67,13 +67,13 @@ class ScreeningQuestion(UniversalBaseModel):
     - `BOOLEAN` - BOOLEAN
     """
 
-    required: typing.Optional[bool] = pydantic.Field()
+    required: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether or not the screening question is required.
     """
 
-    options: typing.Optional[typing.List[typing.Optional[typing.Any]]]
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    options: typing.Optional[typing.List[typing.Optional[typing.Any]]] = None
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """

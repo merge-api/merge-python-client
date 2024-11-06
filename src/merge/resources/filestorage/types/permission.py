@@ -24,33 +24,33 @@ class Permission(UniversalBaseModel):
     Fetch from the `GET Files` or `GET Folders` endpoint. Permissions are unexpanded by default. Use the query param `expand=permissions` to see more details.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    user: typing.Optional[PermissionUser] = pydantic.Field()
+    user: typing.Optional[PermissionUser] = pydantic.Field(default=None)
     """
     The user that is granted this permission.
     """
 
-    group: typing.Optional[PermissionGroup] = pydantic.Field()
+    group: typing.Optional[PermissionGroup] = pydantic.Field(default=None)
     """
     The group that is granted this permission.
     """
 
-    type: typing.Optional[PermissionType] = pydantic.Field()
+    type: typing.Optional[PermissionType] = pydantic.Field(default=None)
     """
     Denotes what type of people have access to the file.
     
@@ -60,7 +60,7 @@ class Permission(UniversalBaseModel):
     - `ANYONE` - ANYONE
     """
 
-    roles: typing.Optional[typing.List[typing.Optional[PermissionRolesItem]]] = pydantic.Field()
+    roles: typing.Optional[typing.List[typing.Optional[PermissionRolesItem]]] = pydantic.Field(default=None)
     """
     The permissions that the user or group has for the File or Folder. It is possible for a user or group to have multiple roles, such as viewing & uploading. Possible values include: `READ`, `WRITE`, `OWNER`. In cases where there is no clear mapping, the original value passed through will be returned.
     """

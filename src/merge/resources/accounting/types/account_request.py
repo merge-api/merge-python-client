@@ -30,17 +30,17 @@ class AccountRequest(UniversalBaseModel):
     Fetch from the `LIST Accounts` endpoint and view a company's accounts.
     """
 
-    name: typing.Optional[str] = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The account's name.
     """
 
-    description: typing.Optional[str] = pydantic.Field()
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The account's description.
     """
 
-    classification: typing.Optional[AccountRequestClassification] = pydantic.Field()
+    classification: typing.Optional[AccountRequestClassification] = pydantic.Field(default=None)
     """
     The account's broadest grouping.
     
@@ -51,12 +51,12 @@ class AccountRequest(UniversalBaseModel):
     - `REVENUE` - REVENUE
     """
 
-    type: typing.Optional[str] = pydantic.Field()
+    type: typing.Optional[str] = pydantic.Field(default=None)
     """
     The account's type is a narrower and more specific grouping within the account's classification.
     """
 
-    status: typing.Optional[AccountRequestStatus] = pydantic.Field()
+    status: typing.Optional[AccountRequestStatus] = pydantic.Field(default=None)
     """
     The account's status.
     
@@ -65,12 +65,12 @@ class AccountRequest(UniversalBaseModel):
     - `INACTIVE` - INACTIVE
     """
 
-    current_balance: typing.Optional[float] = pydantic.Field()
+    current_balance: typing.Optional[float] = pydantic.Field(default=None)
     """
     The account's current balance.
     """
 
-    currency: typing.Optional[AccountRequestCurrency] = pydantic.Field()
+    currency: typing.Optional[AccountRequestCurrency] = pydantic.Field(default=None)
     """
     The account's currency.
     
@@ -382,23 +382,23 @@ class AccountRequest(UniversalBaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    account_number: typing.Optional[str] = pydantic.Field()
+    account_number: typing.Optional[str] = pydantic.Field(default=None)
     """
     The account's number.
     """
 
-    parent_account: typing.Optional[str] = pydantic.Field()
+    parent_account: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of the parent account.
     """
 
-    company: typing.Optional[str] = pydantic.Field()
+    company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company the account belongs to.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

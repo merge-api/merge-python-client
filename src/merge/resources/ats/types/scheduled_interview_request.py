@@ -30,44 +30,44 @@ class ScheduledInterviewRequest(UniversalBaseModel):
     Fetch from the `LIST ScheduledInterviews` endpoint and filter by `interviewers` to show all office locations.
     """
 
-    application: typing.Optional[ScheduledInterviewRequestApplication] = pydantic.Field()
+    application: typing.Optional[ScheduledInterviewRequestApplication] = pydantic.Field(default=None)
     """
     The application being interviewed.
     """
 
-    job_interview_stage: typing.Optional[ScheduledInterviewRequestJobInterviewStage] = pydantic.Field()
+    job_interview_stage: typing.Optional[ScheduledInterviewRequestJobInterviewStage] = pydantic.Field(default=None)
     """
     The stage of the interview.
     """
 
-    organizer: typing.Optional[ScheduledInterviewRequestOrganizer] = pydantic.Field()
+    organizer: typing.Optional[ScheduledInterviewRequestOrganizer] = pydantic.Field(default=None)
     """
     The user organizing the interview.
     """
 
     interviewers: typing.Optional[typing.List[typing.Optional[ScheduledInterviewRequestInterviewersItem]]] = (
-        pydantic.Field()
+        pydantic.Field(default=None)
     )
     """
     Array of `RemoteUser` IDs.
     """
 
-    location: typing.Optional[str] = pydantic.Field()
+    location: typing.Optional[str] = pydantic.Field(default=None)
     """
     The interview's location.
     """
 
-    start_at: typing.Optional[dt.datetime] = pydantic.Field()
+    start_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the interview was started.
     """
 
-    end_at: typing.Optional[dt.datetime] = pydantic.Field()
+    end_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the interview was ended.
     """
 
-    status: typing.Optional[ScheduledInterviewRequestStatus] = pydantic.Field()
+    status: typing.Optional[ScheduledInterviewRequestStatus] = pydantic.Field(default=None)
     """
     The interview's status.
     
@@ -76,8 +76,8 @@ class ScheduledInterviewRequest(UniversalBaseModel):
     - `COMPLETE` - COMPLETE
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

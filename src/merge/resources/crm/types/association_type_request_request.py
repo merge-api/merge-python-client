@@ -12,9 +12,9 @@ class AssociationTypeRequestRequest(UniversalBaseModel):
     source_object_class: ObjectClassDescriptionRequest
     target_object_classes: typing.List[ObjectClassDescriptionRequest]
     remote_key_name: str
-    display_name: typing.Optional[str]
-    cardinality: typing.Optional[CardinalityEnum]
-    is_required: typing.Optional[bool]
+    display_name: typing.Optional[str] = None
+    cardinality: typing.Optional[CardinalityEnum] = None
+    is_required: typing.Optional[bool] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

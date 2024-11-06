@@ -26,32 +26,32 @@ class ContactRequest(UniversalBaseModel):
     Fetch from the `LIST Contacts` endpoint and view a company's contacts.
     """
 
-    name: typing.Optional[str] = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The contact's name.
     """
 
-    is_supplier: typing.Optional[bool] = pydantic.Field()
+    is_supplier: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the contact is a supplier.
     """
 
-    is_customer: typing.Optional[bool] = pydantic.Field()
+    is_customer: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the contact is a customer.
     """
 
-    email_address: typing.Optional[str] = pydantic.Field()
+    email_address: typing.Optional[str] = pydantic.Field(default=None)
     """
     The contact's email address.
     """
 
-    tax_number: typing.Optional[str] = pydantic.Field()
+    tax_number: typing.Optional[str] = pydantic.Field(default=None)
     """
     The contact's tax number.
     """
 
-    status: typing.Optional[ContactRequestStatus] = pydantic.Field()
+    status: typing.Optional[ContactRequestStatus] = pydantic.Field(default=None)
     """
     The contact's status
     
@@ -59,29 +59,29 @@ class ContactRequest(UniversalBaseModel):
     - `ARCHIVED` - ARCHIVED
     """
 
-    currency: typing.Optional[str] = pydantic.Field()
+    currency: typing.Optional[str] = pydantic.Field(default=None)
     """
     The currency the contact's transactions are in.
     """
 
-    company: typing.Optional[str] = pydantic.Field()
+    company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company the contact belongs to.
     """
 
-    addresses: typing.Optional[typing.List[typing.Optional[ContactRequestAddressesItem]]] = pydantic.Field()
+    addresses: typing.Optional[typing.List[typing.Optional[ContactRequestAddressesItem]]] = pydantic.Field(default=None)
     """
     `Address` object IDs for the given `Contacts` object.
     """
 
-    phone_numbers: typing.Optional[typing.List[AccountingPhoneNumberRequest]] = pydantic.Field()
+    phone_numbers: typing.Optional[typing.List[AccountingPhoneNumberRequest]] = pydantic.Field(default=None)
     """
     `AccountingPhoneNumber` object for the given `Contacts` object.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

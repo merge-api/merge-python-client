@@ -21,31 +21,33 @@ class CustomObjectClass(UniversalBaseModel):
     TODO
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime]
-    modified_at: typing.Optional[dt.datetime]
-    name: typing.Optional[str] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = None
+    modified_at: typing.Optional[dt.datetime] = None
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The custom object class's name.
     """
 
-    description: typing.Optional[str] = pydantic.Field()
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The custom object class's description.
     """
 
-    labels: typing.Optional[typing.Dict[str, typing.Optional[str]]] = pydantic.Field()
+    labels: typing.Optional[typing.Dict[str, typing.Optional[str]]] = pydantic.Field(default=None)
     """
     The custom object class's singular and plural labels.
     """
 
-    fields: typing.Optional[typing.List[RemoteFieldClassForCustomObjectClass]]
-    association_types: typing.Optional[typing.List[typing.Dict[str, typing.Optional[typing.Any]]]] = pydantic.Field()
+    fields: typing.Optional[typing.List[RemoteFieldClassForCustomObjectClass]] = None
+    association_types: typing.Optional[typing.List[typing.Dict[str, typing.Optional[typing.Any]]]] = pydantic.Field(
+        default=None
+    )
     """
     The types of associations with other models that the custom object class can have.
     """

@@ -8,18 +8,18 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class AssociationSubType(UniversalBaseModel):
-    id: typing.Optional[str]
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    id: typing.Optional[str] = None
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    origin_type: typing.Optional[str]
+    origin_type: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

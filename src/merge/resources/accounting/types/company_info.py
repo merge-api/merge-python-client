@@ -24,48 +24,48 @@ class CompanyInfo(UniversalBaseModel):
     Fetch from the `GET CompanyInfo` endpoint and view a company's information.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    name: typing.Optional[str] = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company's name.
     """
 
-    legal_name: typing.Optional[str] = pydantic.Field()
+    legal_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company's legal name.
     """
 
-    tax_number: typing.Optional[str] = pydantic.Field()
+    tax_number: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company's tax number.
     """
 
-    fiscal_year_end_month: typing.Optional[int] = pydantic.Field()
+    fiscal_year_end_month: typing.Optional[int] = pydantic.Field(default=None)
     """
     The company's fiscal year end month.
     """
 
-    fiscal_year_end_day: typing.Optional[int] = pydantic.Field()
+    fiscal_year_end_day: typing.Optional[int] = pydantic.Field(default=None)
     """
     The company's fiscal year end day.
     """
 
-    currency: typing.Optional[CompanyInfoCurrency] = pydantic.Field()
+    currency: typing.Optional[CompanyInfoCurrency] = pydantic.Field(default=None)
     """
     The currency set in the company's accounting platform.
     
@@ -377,25 +377,25 @@ class CompanyInfo(UniversalBaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the third party's company was created.
     """
 
-    urls: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field()
+    urls: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(default=None)
     """
     The company's urls.
     """
 
-    addresses: typing.Optional[typing.List[Address]]
-    phone_numbers: typing.Optional[typing.List[AccountingPhoneNumber]]
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    addresses: typing.Optional[typing.List[Address]] = None
+    phone_numbers: typing.Optional[typing.List[AccountingPhoneNumber]] = None
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

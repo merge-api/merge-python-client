@@ -31,67 +31,67 @@ class EmployeePayrollRun(UniversalBaseModel):
     Fetch from the `LIST EmployeePayrollRun` endpoint and filter by `ID` to show all employee payroll runs.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    employee: typing.Optional[EmployeePayrollRunEmployee] = pydantic.Field()
+    employee: typing.Optional[EmployeePayrollRunEmployee] = pydantic.Field(default=None)
     """
     The employee whose payroll is being run.
     """
 
-    payroll_run: typing.Optional[EmployeePayrollRunPayrollRun] = pydantic.Field()
+    payroll_run: typing.Optional[EmployeePayrollRunPayrollRun] = pydantic.Field(default=None)
     """
     The payroll being run.
     """
 
-    gross_pay: typing.Optional[float] = pydantic.Field()
+    gross_pay: typing.Optional[float] = pydantic.Field(default=None)
     """
     The total earnings throughout a given period for an employee before any deductions are made.
     """
 
-    net_pay: typing.Optional[float] = pydantic.Field()
+    net_pay: typing.Optional[float] = pydantic.Field(default=None)
     """
     The take-home pay throughout a given period for an employee after deductions are made.
     """
 
-    start_date: typing.Optional[dt.datetime] = pydantic.Field()
+    start_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The day and time the payroll run started.
     """
 
-    end_date: typing.Optional[dt.datetime] = pydantic.Field()
+    end_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The day and time the payroll run ended.
     """
 
-    check_date: typing.Optional[dt.datetime] = pydantic.Field()
+    check_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The day and time the payroll run was checked.
     """
 
-    earnings: typing.Optional[typing.List[Earning]]
-    deductions: typing.Optional[typing.List[Deduction]]
-    taxes: typing.Optional[typing.List[Tax]]
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    earnings: typing.Optional[typing.List[Earning]] = None
+    deductions: typing.Optional[typing.List[Deduction]] = None
+    taxes: typing.Optional[typing.List[Tax]] = None
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

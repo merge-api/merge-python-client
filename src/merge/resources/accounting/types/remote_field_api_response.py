@@ -8,29 +8,41 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class RemoteFieldApiResponse(UniversalBaseModel):
-    account: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Account")
-    accounting_attachment: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="AccountingAttachment")
-    balance_sheet: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="BalanceSheet")
-    cash_flow_statement: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="CashFlowStatement")
-    company_info: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="CompanyInfo")
-    contact: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Contact")
-    income_statement: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="IncomeStatement")
-    credit_note: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="CreditNote")
-    item: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Item")
-    purchase_order: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="PurchaseOrder")
-    tracking_category: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="TrackingCategory")
-    journal_entry: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="JournalEntry")
-    tax_rate: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="TaxRate")
-    invoice: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Invoice")
-    payment: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Payment")
-    expense: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Expense")
-    vendor_credit: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="VendorCredit")
-    transaction: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Transaction")
-    accounting_period: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="AccountingPeriod")
-    general_ledger_transaction: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(
-        alias="GeneralLedgerTransaction"
+    account: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Account", default=None)
+    accounting_attachment: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(
+        alias="AccountingAttachment", default=None
     )
-    bank_feed_account: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="BankFeedAccount")
+    balance_sheet: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="BalanceSheet", default=None)
+    cash_flow_statement: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(
+        alias="CashFlowStatement", default=None
+    )
+    company_info: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="CompanyInfo", default=None)
+    contact: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Contact", default=None)
+    income_statement: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(
+        alias="IncomeStatement", default=None
+    )
+    credit_note: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="CreditNote", default=None)
+    item: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Item", default=None)
+    purchase_order: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="PurchaseOrder", default=None)
+    tracking_category: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(
+        alias="TrackingCategory", default=None
+    )
+    journal_entry: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="JournalEntry", default=None)
+    tax_rate: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="TaxRate", default=None)
+    invoice: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Invoice", default=None)
+    payment: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Payment", default=None)
+    expense: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Expense", default=None)
+    vendor_credit: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="VendorCredit", default=None)
+    transaction: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Transaction", default=None)
+    accounting_period: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(
+        alias="AccountingPeriod", default=None
+    )
+    general_ledger_transaction: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(
+        alias="GeneralLedgerTransaction", default=None
+    )
+    bank_feed_account: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(
+        alias="BankFeedAccount", default=None
+    )
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

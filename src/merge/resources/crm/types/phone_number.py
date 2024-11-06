@@ -20,22 +20,22 @@ class PhoneNumber(UniversalBaseModel):
     Fetch from the `GET Contact` endpoint and view their phone numbers.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    phone_number: typing.Optional[str] = pydantic.Field()
+    phone_number: typing.Optional[str] = pydantic.Field(default=None)
     """
     The phone number.
     """
 
-    phone_number_type: typing.Optional[str] = pydantic.Field()
+    phone_number_type: typing.Optional[str] = pydantic.Field(default=None)
     """
     The phone number's type.
     """

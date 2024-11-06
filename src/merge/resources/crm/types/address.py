@@ -22,42 +22,42 @@ class Address(UniversalBaseModel):
     TODO
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    street_1: typing.Optional[str] = pydantic.Field()
+    street_1: typing.Optional[str] = pydantic.Field(default=None)
     """
     Line 1 of the address's street.
     """
 
-    street_2: typing.Optional[str] = pydantic.Field()
+    street_2: typing.Optional[str] = pydantic.Field(default=None)
     """
     Line 2 of the address's street.
     """
 
-    city: typing.Optional[str] = pydantic.Field()
+    city: typing.Optional[str] = pydantic.Field(default=None)
     """
     The address's city.
     """
 
-    state: typing.Optional[str] = pydantic.Field()
+    state: typing.Optional[str] = pydantic.Field(default=None)
     """
     The address's state.
     """
 
-    postal_code: typing.Optional[str] = pydantic.Field()
+    postal_code: typing.Optional[str] = pydantic.Field(default=None)
     """
     The address's postal code.
     """
 
-    country: typing.Optional[AddressCountry] = pydantic.Field()
+    country: typing.Optional[AddressCountry] = pydantic.Field(default=None)
     """
     The address's country.
     
@@ -312,7 +312,7 @@ class Address(UniversalBaseModel):
     - `ZW` - Zimbabwe
     """
 
-    address_type: typing.Optional[AddressAddressType] = pydantic.Field()
+    address_type: typing.Optional[AddressAddressType] = pydantic.Field(default=None)
     """
     The address type.
     

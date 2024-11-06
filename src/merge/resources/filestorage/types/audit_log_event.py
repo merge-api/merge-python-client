@@ -10,13 +10,13 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class AuditLogEvent(UniversalBaseModel):
-    id: typing.Optional[str]
-    user_name: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    user_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The User's full name at the time of this Event occurring.
     """
 
-    user_email: typing.Optional[str] = pydantic.Field()
+    user_email: typing.Optional[str] = pydantic.Field(default=None)
     """
     The User's email at the time of this Event occurring.
     """
@@ -79,7 +79,7 @@ class AuditLogEvent(UniversalBaseModel):
     """
 
     event_description: str
-    created_at: typing.Optional[dt.datetime]
+    created_at: typing.Optional[dt.datetime] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

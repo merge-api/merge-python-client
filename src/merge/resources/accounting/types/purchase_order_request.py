@@ -28,7 +28,7 @@ class PurchaseOrderRequest(UniversalBaseModel):
     Fetch from the `LIST PurchaseOrders` endpoint and view a company's purchase orders.
     """
 
-    status: typing.Optional[PurchaseOrderRequestStatus] = pydantic.Field()
+    status: typing.Optional[PurchaseOrderRequestStatus] = pydantic.Field(default=None)
     """
     The purchase order's status.
     
@@ -39,47 +39,47 @@ class PurchaseOrderRequest(UniversalBaseModel):
     - `DELETED` - DELETED
     """
 
-    issue_date: typing.Optional[dt.datetime] = pydantic.Field()
+    issue_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The purchase order's issue date.
     """
 
-    delivery_date: typing.Optional[dt.datetime] = pydantic.Field()
+    delivery_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The purchase order's delivery date.
     """
 
-    delivery_address: typing.Optional[PurchaseOrderRequestDeliveryAddress] = pydantic.Field()
+    delivery_address: typing.Optional[PurchaseOrderRequestDeliveryAddress] = pydantic.Field(default=None)
     """
     The purchase order's delivery address.
     """
 
-    customer: typing.Optional[str] = pydantic.Field()
+    customer: typing.Optional[str] = pydantic.Field(default=None)
     """
     The contact making the purchase order.
     """
 
-    vendor: typing.Optional[PurchaseOrderRequestVendor] = pydantic.Field()
+    vendor: typing.Optional[PurchaseOrderRequestVendor] = pydantic.Field(default=None)
     """
     The party fulfilling the purchase order.
     """
 
-    memo: typing.Optional[str] = pydantic.Field()
+    memo: typing.Optional[str] = pydantic.Field(default=None)
     """
     A memo attached to the purchase order.
     """
 
-    company: typing.Optional[PurchaseOrderRequestCompany] = pydantic.Field()
+    company: typing.Optional[PurchaseOrderRequestCompany] = pydantic.Field(default=None)
     """
     The company the purchase order belongs to.
     """
 
-    total_amount: typing.Optional[float] = pydantic.Field()
+    total_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The purchase order's total amount.
     """
 
-    currency: typing.Optional[PurchaseOrderRequestCurrency] = pydantic.Field()
+    currency: typing.Optional[PurchaseOrderRequestCurrency] = pydantic.Field(default=None)
     """
     The purchase order's currency.
     
@@ -391,21 +391,23 @@ class PurchaseOrderRequest(UniversalBaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    inclusive_of_tax: typing.Optional[bool] = pydantic.Field()
+    inclusive_of_tax: typing.Optional[bool] = pydantic.Field(default=None)
     """
     If the transaction is inclusive or exclusive of tax. `True` if inclusive, `False` if exclusive.
     """
 
-    exchange_rate: typing.Optional[str] = pydantic.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The purchase order's exchange rate.
     """
 
-    tracking_categories: typing.Optional[typing.List[typing.Optional[PurchaseOrderRequestTrackingCategoriesItem]]]
-    line_items: typing.Optional[typing.List[PurchaseOrderLineItemRequest]]
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
+    tracking_categories: typing.Optional[typing.List[typing.Optional[PurchaseOrderRequestTrackingCategoriesItem]]] = (
+        None
+    )
+    line_items: typing.Optional[typing.List[PurchaseOrderLineItemRequest]] = None
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

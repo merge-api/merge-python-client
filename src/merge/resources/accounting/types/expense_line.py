@@ -26,46 +26,46 @@ class ExpenseLine(UniversalBaseModel):
     Fetch from the `GET Expense` endpoint and view the expense's line items.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    item: typing.Optional[ExpenseLineItem] = pydantic.Field()
+    item: typing.Optional[ExpenseLineItem] = pydantic.Field(default=None)
     """
     The line's item.
     """
 
-    net_amount: typing.Optional[float] = pydantic.Field()
+    net_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The line's net amount.
     """
 
-    tracking_category: typing.Optional[ExpenseLineTrackingCategory]
+    tracking_category: typing.Optional[ExpenseLineTrackingCategory] = None
     tracking_categories: typing.Optional[typing.List[typing.Optional[ExpenseLineTrackingCategoriesItem]]] = (
-        pydantic.Field()
+        pydantic.Field(default=None)
     )
     """
     The expense line item's associated tracking categories.
     """
 
-    company: typing.Optional[str] = pydantic.Field()
+    company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company the line belongs to.
     """
 
-    currency: typing.Optional[ExpenseLineCurrency] = pydantic.Field()
+    currency: typing.Optional[ExpenseLineCurrency] = pydantic.Field(default=None)
     """
     The expense line item's currency.
     
@@ -377,32 +377,32 @@ class ExpenseLine(UniversalBaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    account: typing.Optional[ExpenseLineAccount] = pydantic.Field()
+    account: typing.Optional[ExpenseLineAccount] = pydantic.Field(default=None)
     """
     The expense's payment account.
     """
 
-    contact: typing.Optional[ExpenseLineContact] = pydantic.Field()
+    contact: typing.Optional[ExpenseLineContact] = pydantic.Field(default=None)
     """
     The expense's contact.
     """
 
-    description: typing.Optional[str] = pydantic.Field()
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The description of the item that was purchased by the company.
     """
 
-    exchange_rate: typing.Optional[str] = pydantic.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The expense line item's exchange rate.
     """
 
-    tax_rate: typing.Optional[str] = pydantic.Field()
+    tax_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The tax rate that applies to this line item.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """

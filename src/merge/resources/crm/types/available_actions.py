@@ -23,7 +23,7 @@ class AvailableActions(UniversalBaseModel):
 
     integration: AccountIntegration
     passthrough_available: bool
-    available_model_operations: typing.Optional[typing.List[ModelOperation]]
+    available_model_operations: typing.Optional[typing.List[ModelOperation]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

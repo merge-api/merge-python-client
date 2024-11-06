@@ -35,58 +35,58 @@ class Transaction(UniversalBaseModel):
     Fetch from the `GET Transaction` endpoint and view a company's transactions.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    transaction_type: typing.Optional[str] = pydantic.Field()
+    transaction_type: typing.Optional[str] = pydantic.Field(default=None)
     """
     The type of transaction, which can by any transaction object not already included in Merge’s common model.
     """
 
-    number: typing.Optional[str] = pydantic.Field()
+    number: typing.Optional[str] = pydantic.Field(default=None)
     """
     The transaction's number used for identifying purposes.
     """
 
-    transaction_date: typing.Optional[dt.datetime] = pydantic.Field()
+    transaction_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The date upon which the transaction occurred.
     """
 
-    account: typing.Optional[TransactionAccount] = pydantic.Field()
+    account: typing.Optional[TransactionAccount] = pydantic.Field(default=None)
     """
     The transaction's account.
     """
 
-    contact: typing.Optional[TransactionContact] = pydantic.Field()
+    contact: typing.Optional[TransactionContact] = pydantic.Field(default=None)
     """
     The contact to whom the transaction relates to.
     """
 
-    inclusive_of_tax: typing.Optional[bool] = pydantic.Field()
+    inclusive_of_tax: typing.Optional[bool] = pydantic.Field(default=None)
     """
     If the transaction is inclusive or exclusive of tax. `True` if inclusive, `False` if exclusive.
     """
 
-    total_amount: typing.Optional[str] = pydantic.Field()
+    total_amount: typing.Optional[str] = pydantic.Field(default=None)
     """
     The total amount being paid after taxes.
     """
 
-    currency: typing.Optional[TransactionCurrency] = pydantic.Field()
+    currency: typing.Optional[TransactionCurrency] = pydantic.Field(default=None)
     """
     The transaction's currency.
     
@@ -398,30 +398,30 @@ class Transaction(UniversalBaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The transaction's exchange rate.
     """
 
-    company: typing.Optional[str] = pydantic.Field()
+    company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company the transaction belongs to.
     """
 
-    tracking_categories: typing.Optional[typing.List[typing.Optional[TransactionTrackingCategoriesItem]]]
-    line_items: typing.Optional[typing.List[TransactionLineItem]]
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    tracking_categories: typing.Optional[typing.List[typing.Optional[TransactionTrackingCategoriesItem]]] = None
+    line_items: typing.Optional[typing.List[TransactionLineItem]] = None
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    accounting_period: typing.Optional[TransactionAccountingPeriod] = pydantic.Field()
+    accounting_period: typing.Optional[TransactionAccountingPeriod] = pydantic.Field(default=None)
     """
     The accounting period that the Transaction was generated in.
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

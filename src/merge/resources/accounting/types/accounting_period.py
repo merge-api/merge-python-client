@@ -22,40 +22,40 @@ class AccountingPeriod(UniversalBaseModel):
     Common models like `Invoice` and `Transaction` will have `AccountingPeriod` objects which will denote when they occurred.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    name: typing.Optional[str] = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Name of the accounting period.
     """
 
-    status: typing.Optional[AccountingPeriodStatus]
-    start_date: typing.Optional[dt.datetime] = pydantic.Field()
+    status: typing.Optional[AccountingPeriodStatus] = None
+    start_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     Beginning date of the period
     """
 
-    end_date: typing.Optional[dt.datetime] = pydantic.Field()
+    end_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     End date of the period
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

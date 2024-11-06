@@ -21,22 +21,22 @@ class Url(UniversalBaseModel):
     Fetch from the `GET Candidate` endpoint and view their website urls.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    value: typing.Optional[str] = pydantic.Field()
+    value: typing.Optional[str] = pydantic.Field(default=None)
     """
     The site's url.
     """
 
-    url_type: typing.Optional[UrlUrlType] = pydantic.Field()
+    url_type: typing.Optional[UrlUrlType] = pydantic.Field(default=None)
     """
     The type of site.
     
@@ -49,7 +49,7 @@ class Url(UniversalBaseModel):
     - `JOB_POSTING` - JOB_POSTING
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """

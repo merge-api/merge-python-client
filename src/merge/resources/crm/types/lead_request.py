@@ -27,57 +27,57 @@ class LeadRequest(UniversalBaseModel):
     TODO
     """
 
-    owner: typing.Optional[LeadRequestOwner] = pydantic.Field()
+    owner: typing.Optional[LeadRequestOwner] = pydantic.Field(default=None)
     """
     The lead's owner.
     """
 
-    lead_source: typing.Optional[str] = pydantic.Field()
+    lead_source: typing.Optional[str] = pydantic.Field(default=None)
     """
     The lead's source.
     """
 
-    title: typing.Optional[str] = pydantic.Field()
+    title: typing.Optional[str] = pydantic.Field(default=None)
     """
     The lead's title.
     """
 
-    company: typing.Optional[str] = pydantic.Field()
+    company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The lead's company.
     """
 
-    first_name: typing.Optional[str] = pydantic.Field()
+    first_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The lead's first name.
     """
 
-    last_name: typing.Optional[str] = pydantic.Field()
+    last_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The lead's last name.
     """
 
-    addresses: typing.Optional[typing.List[AddressRequest]]
-    email_addresses: typing.Optional[typing.List[EmailAddressRequest]]
-    phone_numbers: typing.Optional[typing.List[PhoneNumberRequest]]
-    converted_date: typing.Optional[dt.datetime] = pydantic.Field()
+    addresses: typing.Optional[typing.List[AddressRequest]] = None
+    email_addresses: typing.Optional[typing.List[EmailAddressRequest]] = None
+    phone_numbers: typing.Optional[typing.List[PhoneNumberRequest]] = None
+    converted_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the lead was converted.
     """
 
-    converted_contact: typing.Optional[LeadRequestConvertedContact] = pydantic.Field()
+    converted_contact: typing.Optional[LeadRequestConvertedContact] = pydantic.Field(default=None)
     """
     The contact of the converted lead.
     """
 
-    converted_account: typing.Optional[LeadRequestConvertedAccount] = pydantic.Field()
+    converted_account: typing.Optional[LeadRequestConvertedAccount] = pydantic.Field(default=None)
     """
     The account of the converted lead.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

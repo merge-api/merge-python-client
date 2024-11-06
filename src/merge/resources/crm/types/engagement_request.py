@@ -26,22 +26,22 @@ class EngagementRequest(UniversalBaseModel):
     TODO
     """
 
-    owner: typing.Optional[EngagementRequestOwner] = pydantic.Field()
+    owner: typing.Optional[EngagementRequestOwner] = pydantic.Field(default=None)
     """
     The engagement's owner.
     """
 
-    content: typing.Optional[str] = pydantic.Field()
+    content: typing.Optional[str] = pydantic.Field(default=None)
     """
     The engagement's content.
     """
 
-    subject: typing.Optional[str] = pydantic.Field()
+    subject: typing.Optional[str] = pydantic.Field(default=None)
     """
     The engagement's subject.
     """
 
-    direction: typing.Optional[EngagementRequestDirection] = pydantic.Field()
+    direction: typing.Optional[EngagementRequestDirection] = pydantic.Field(default=None)
     """
     The engagement's direction.
     
@@ -49,30 +49,30 @@ class EngagementRequest(UniversalBaseModel):
     - `OUTBOUND` - OUTBOUND
     """
 
-    engagement_type: typing.Optional[EngagementRequestEngagementType] = pydantic.Field()
+    engagement_type: typing.Optional[EngagementRequestEngagementType] = pydantic.Field(default=None)
     """
     The engagement type of the engagement.
     """
 
-    start_time: typing.Optional[dt.datetime] = pydantic.Field()
+    start_time: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The time at which the engagement started.
     """
 
-    end_time: typing.Optional[dt.datetime] = pydantic.Field()
+    end_time: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The time at which the engagement ended.
     """
 
-    account: typing.Optional[EngagementRequestAccount] = pydantic.Field()
+    account: typing.Optional[EngagementRequestAccount] = pydantic.Field(default=None)
     """
     The account of the engagement.
     """
 
-    contacts: typing.Optional[typing.List[typing.Optional[EngagementRequestContactsItem]]]
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
+    contacts: typing.Optional[typing.List[typing.Optional[EngagementRequestContactsItem]]] = None
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

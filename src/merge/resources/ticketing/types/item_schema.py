@@ -9,9 +9,9 @@ import pydantic
 
 
 class ItemSchema(UniversalBaseModel):
-    item_type: typing.Optional[ItemTypeEnum]
-    item_format: typing.Optional[ItemFormatEnum]
-    item_choices: typing.Optional[typing.List[str]]
+    item_type: typing.Optional[ItemTypeEnum] = None
+    item_format: typing.Optional[ItemFormatEnum] = None
+    item_choices: typing.Optional[typing.List[str]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

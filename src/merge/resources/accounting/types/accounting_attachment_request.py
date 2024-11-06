@@ -19,23 +19,23 @@ class AccountingAttachmentRequest(UniversalBaseModel):
     Fetch from the `LIST AccountingAttachments` endpoint and view a company's attachments.
     """
 
-    file_name: typing.Optional[str] = pydantic.Field()
+    file_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The attachment's name.
     """
 
-    file_url: typing.Optional[str] = pydantic.Field()
+    file_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     The attachment's url.
     """
 
-    company: typing.Optional[str] = pydantic.Field()
+    company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company the accounting attachment belongs to.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

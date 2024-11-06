@@ -8,15 +8,17 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class ExternalTargetFieldApiResponse(UniversalBaseModel):
-    account: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Account")
-    contact: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Contact")
-    lead: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Lead")
-    note: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Note")
-    opportunity: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Opportunity")
-    stage: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Stage")
-    user: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="User")
-    task: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Task")
-    engagement: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Engagement")
+    account: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Account", default=None)
+    contact: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Contact", default=None)
+    lead: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Lead", default=None)
+    note: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Note", default=None)
+    opportunity: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(
+        alias="Opportunity", default=None
+    )
+    stage: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Stage", default=None)
+    user: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="User", default=None)
+    task: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Task", default=None)
+    engagement: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Engagement", default=None)
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

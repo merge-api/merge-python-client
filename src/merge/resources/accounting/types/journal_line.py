@@ -25,37 +25,37 @@ class JournalLine(UniversalBaseModel):
     Fetch from the `GET JournalEntry` endpoint and view the journal entry's line items.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    account: typing.Optional[JournalLineAccount]
-    net_amount: typing.Optional[float] = pydantic.Field()
+    account: typing.Optional[JournalLineAccount] = None
+    net_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The value of the line item including taxes and other fees.
     """
 
-    tracking_category: typing.Optional[JournalLineTrackingCategory]
+    tracking_category: typing.Optional[JournalLineTrackingCategory] = None
     tracking_categories: typing.Optional[typing.List[typing.Optional[JournalLineTrackingCategoriesItem]]] = (
-        pydantic.Field()
+        pydantic.Field(default=None)
     )
     """
     The journal line item's associated tracking categories.
     """
 
-    currency: typing.Optional[JournalLineCurrency] = pydantic.Field()
+    currency: typing.Optional[JournalLineCurrency] = pydantic.Field(default=None)
     """
     The journal line item's currency.
     
@@ -367,33 +367,33 @@ class JournalLine(UniversalBaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    company: typing.Optional[str] = pydantic.Field()
+    company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company the journal entry belongs to.
     """
 
-    contact: typing.Optional[str]
-    tax_rate: typing.Optional[str] = pydantic.Field()
+    contact: typing.Optional[str] = None
+    tax_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The tax rate that applies to this line item.
     """
 
-    description: typing.Optional[str] = pydantic.Field()
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The line's description.
     """
 
-    exchange_rate: typing.Optional[str] = pydantic.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The journal line item's exchange rate.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    remote_fields: typing.Optional[typing.List[RemoteField]]
+    remote_fields: typing.Optional[typing.List[RemoteField]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

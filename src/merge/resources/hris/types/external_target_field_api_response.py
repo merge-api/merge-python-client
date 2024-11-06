@@ -8,24 +8,30 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class ExternalTargetFieldApiResponse(UniversalBaseModel):
-    benefit: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Benefit")
-    employer_benefit: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="EmployerBenefit")
-    company: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Company")
-    employee_payroll_run: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(
-        alias="EmployeePayrollRun"
+    benefit: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Benefit", default=None)
+    employer_benefit: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(
+        alias="EmployerBenefit", default=None
     )
-    employee: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Employee")
-    employment: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Employment")
-    location: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Location")
-    payroll_run: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="PayrollRun")
-    team: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Team")
-    time_off: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="TimeOff")
-    time_off_balance: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="TimeOffBalance")
-    bank_info: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="BankInfo")
-    pay_group: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="PayGroup")
-    group: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Group")
-    dependent: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Dependent")
-    timesheet_entry: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="TimesheetEntry")
+    company: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Company", default=None)
+    employee_payroll_run: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(
+        alias="EmployeePayrollRun", default=None
+    )
+    employee: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Employee", default=None)
+    employment: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Employment", default=None)
+    location: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Location", default=None)
+    payroll_run: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="PayrollRun", default=None)
+    team: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Team", default=None)
+    time_off: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="TimeOff", default=None)
+    time_off_balance: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(
+        alias="TimeOffBalance", default=None
+    )
+    bank_info: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="BankInfo", default=None)
+    pay_group: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="PayGroup", default=None)
+    group: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Group", default=None)
+    dependent: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(alias="Dependent", default=None)
+    timesheet_entry: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(
+        alias="TimesheetEntry", default=None
+    )
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
