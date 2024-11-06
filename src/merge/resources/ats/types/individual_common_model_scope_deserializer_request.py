@@ -10,8 +10,8 @@ import pydantic
 
 class IndividualCommonModelScopeDeserializerRequest(UniversalBaseModel):
     model_name: str
-    model_permissions: typing.Optional[typing.Dict[str, ModelPermissionDeserializerRequest]]
-    field_permissions: typing.Optional[FieldPermissionDeserializerRequest]
+    model_permissions: typing.Optional[typing.Dict[str, ModelPermissionDeserializerRequest]] = None
+    field_permissions: typing.Optional[FieldPermissionDeserializerRequest] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

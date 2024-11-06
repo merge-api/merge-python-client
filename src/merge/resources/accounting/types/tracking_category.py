@@ -24,28 +24,28 @@ class TrackingCategory(UniversalBaseModel):
     Fetch from the `GET TrackingCategory` endpoint and view a company's tracking category.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    name: typing.Optional[str] = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The tracking category's name.
     """
 
-    status: typing.Optional[TrackingCategoryStatus] = pydantic.Field()
+    status: typing.Optional[TrackingCategoryStatus] = pydantic.Field(default=None)
     """
     The tracking category's status.
     
@@ -53,7 +53,7 @@ class TrackingCategory(UniversalBaseModel):
     - `ARCHIVED` - ARCHIVED
     """
 
-    category_type: typing.Optional[TrackingCategoryCategoryType] = pydantic.Field()
+    category_type: typing.Optional[TrackingCategoryCategoryType] = pydantic.Field(default=None)
     """
     The tracking category’s type.
     
@@ -61,23 +61,23 @@ class TrackingCategory(UniversalBaseModel):
     - `DEPARTMENT` - DEPARTMENT
     """
 
-    parent_category: typing.Optional[str] = pydantic.Field()
+    parent_category: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of the parent tracking category.
     """
 
-    company: typing.Optional[TrackingCategoryCompany] = pydantic.Field()
+    company: typing.Optional[TrackingCategoryCompany] = pydantic.Field(default=None)
     """
     The company the tracking category belongs to.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

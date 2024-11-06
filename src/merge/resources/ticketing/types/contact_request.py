@@ -20,33 +20,33 @@ class ContactRequest(UniversalBaseModel):
     TODO
     """
 
-    name: typing.Optional[str] = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The contact's name.
     """
 
-    email_address: typing.Optional[str] = pydantic.Field()
+    email_address: typing.Optional[str] = pydantic.Field(default=None)
     """
     The contact's email address.
     """
 
-    phone_number: typing.Optional[str] = pydantic.Field()
+    phone_number: typing.Optional[str] = pydantic.Field(default=None)
     """
     The contact's phone number.
     """
 
-    details: typing.Optional[str] = pydantic.Field()
+    details: typing.Optional[str] = pydantic.Field(default=None)
     """
     The contact's details.
     """
 
-    account: typing.Optional[ContactRequestAccount] = pydantic.Field()
+    account: typing.Optional[ContactRequestAccount] = pydantic.Field(default=None)
     """
     The contact's account.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

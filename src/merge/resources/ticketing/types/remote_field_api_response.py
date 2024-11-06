@@ -8,17 +8,17 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class RemoteFieldApiResponse(UniversalBaseModel):
-    ticket: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Ticket")
-    comment: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Comment")
-    project: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Project")
-    collection: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Collection")
-    user: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="User")
-    role: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Role")
-    account: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Account")
-    team: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Team")
-    attachment: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Attachment")
-    tag: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Tag")
-    contact: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Contact")
+    ticket: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Ticket", default=None)
+    comment: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Comment", default=None)
+    project: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Project", default=None)
+    collection: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Collection", default=None)
+    user: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="User", default=None)
+    role: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Role", default=None)
+    account: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Account", default=None)
+    team: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Team", default=None)
+    attachment: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Attachment", default=None)
+    tag: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Tag", default=None)
+    contact: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Contact", default=None)
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

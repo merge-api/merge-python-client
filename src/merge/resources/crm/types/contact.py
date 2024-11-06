@@ -27,63 +27,63 @@ class Contact(UniversalBaseModel):
     TODO
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    first_name: typing.Optional[str] = pydantic.Field()
+    first_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The contact's first name.
     """
 
-    last_name: typing.Optional[str] = pydantic.Field()
+    last_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The contact's last name.
     """
 
-    account: typing.Optional[ContactAccount] = pydantic.Field()
+    account: typing.Optional[ContactAccount] = pydantic.Field(default=None)
     """
     The contact's account.
     """
 
-    owner: typing.Optional[ContactOwner] = pydantic.Field()
+    owner: typing.Optional[ContactOwner] = pydantic.Field(default=None)
     """
     The contact's owner.
     """
 
-    addresses: typing.Optional[typing.List[Address]]
-    email_addresses: typing.Optional[typing.List[EmailAddress]]
-    phone_numbers: typing.Optional[typing.List[PhoneNumber]]
-    last_activity_at: typing.Optional[dt.datetime] = pydantic.Field()
+    addresses: typing.Optional[typing.List[Address]] = None
+    email_addresses: typing.Optional[typing.List[EmailAddress]] = None
+    phone_numbers: typing.Optional[typing.List[PhoneNumber]] = None
+    last_activity_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the contact's last activity occurred.
     """
 
-    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the third party's contact was created.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
-    remote_fields: typing.Optional[typing.List[RemoteField]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
+    remote_fields: typing.Optional[typing.List[RemoteField]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

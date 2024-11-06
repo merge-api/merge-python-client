@@ -7,9 +7,9 @@ import pydantic
 
 
 class FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo(UniversalBaseModel):
-    method: typing.Optional[str]
-    url_path: typing.Optional[str]
-    field_traversal_path: typing.Optional[typing.List[str]]
+    method: typing.Optional[str] = None
+    url_path: typing.Optional[str] = None
+    field_traversal_path: typing.Optional[typing.List[str]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

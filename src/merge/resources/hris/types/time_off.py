@@ -31,33 +31,33 @@ class TimeOff(UniversalBaseModel):
     Fetch from the `LIST TimeOffs` endpoint and filter by `ID` to show all time off requests.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    employee: typing.Optional[TimeOffEmployee] = pydantic.Field()
+    employee: typing.Optional[TimeOffEmployee] = pydantic.Field(default=None)
     """
     The employee requesting time off.
     """
 
-    approver: typing.Optional[TimeOffApprover] = pydantic.Field()
+    approver: typing.Optional[TimeOffApprover] = pydantic.Field(default=None)
     """
     The Merge ID of the employee with the ability to approve the time off request.
     """
 
-    status: typing.Optional[TimeOffStatus] = pydantic.Field()
+    status: typing.Optional[TimeOffStatus] = pydantic.Field(default=None)
     """
     The status of this time off request.
     
@@ -68,12 +68,12 @@ class TimeOff(UniversalBaseModel):
     - `DELETED` - DELETED
     """
 
-    employee_note: typing.Optional[str] = pydantic.Field()
+    employee_note: typing.Optional[str] = pydantic.Field(default=None)
     """
     The employee note for this time off request.
     """
 
-    units: typing.Optional[TimeOffUnits] = pydantic.Field()
+    units: typing.Optional[TimeOffUnits] = pydantic.Field(default=None)
     """
     The measurement that the third-party integration uses to count time requested.
     
@@ -81,12 +81,12 @@ class TimeOff(UniversalBaseModel):
     - `DAYS` - DAYS
     """
 
-    amount: typing.Optional[float] = pydantic.Field()
+    amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The time off quantity measured by the prescribed “units”.
     """
 
-    request_type: typing.Optional[TimeOffRequestType] = pydantic.Field()
+    request_type: typing.Optional[TimeOffRequestType] = pydantic.Field(default=None)
     """
     The type of time off request.
     
@@ -98,23 +98,23 @@ class TimeOff(UniversalBaseModel):
     - `BEREAVEMENT` - BEREAVEMENT
     """
 
-    start_time: typing.Optional[dt.datetime] = pydantic.Field()
+    start_time: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The day and time of the start of the time requested off.
     """
 
-    end_time: typing.Optional[dt.datetime] = pydantic.Field()
+    end_time: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The day and time of the end of the time requested off.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -29,22 +29,22 @@ class PatchedPaymentRequest(UniversalBaseModel):
     Fetch from the `GET Payment` endpoint and view an invoice's payment.
     """
 
-    transaction_date: typing.Optional[dt.datetime] = pydantic.Field()
+    transaction_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The payment's transaction date.
     """
 
-    contact: typing.Optional[PatchedPaymentRequestContact] = pydantic.Field()
+    contact: typing.Optional[PatchedPaymentRequestContact] = pydantic.Field(default=None)
     """
     The supplier, or customer involved in the payment.
     """
 
-    account: typing.Optional[PatchedPaymentRequestAccount] = pydantic.Field()
+    account: typing.Optional[PatchedPaymentRequestAccount] = pydantic.Field(default=None)
     """
     The supplier’s or customer’s account in which the payment is made.
     """
 
-    currency: typing.Optional[PatchedPaymentRequestCurrency] = pydantic.Field()
+    currency: typing.Optional[PatchedPaymentRequestCurrency] = pydantic.Field(default=None)
     """
     The payment's currency.
     
@@ -356,22 +356,22 @@ class PatchedPaymentRequest(UniversalBaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The payment's exchange rate.
     """
 
-    company: typing.Optional[PatchedPaymentRequestCompany] = pydantic.Field()
+    company: typing.Optional[PatchedPaymentRequestCompany] = pydantic.Field(default=None)
     """
     The company the payment belongs to.
     """
 
-    total_amount: typing.Optional[float] = pydantic.Field()
+    total_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The total amount of money being paid to the supplier, or customer, after taxes.
     """
 
-    type: typing.Optional[PatchedPaymentRequestType] = pydantic.Field()
+    type: typing.Optional[PatchedPaymentRequestType] = pydantic.Field(default=None)
     """
     The type of the invoice.
     
@@ -379,20 +379,24 @@ class PatchedPaymentRequest(UniversalBaseModel):
     - `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
     """
 
-    tracking_categories: typing.Optional[typing.List[typing.Optional[PatchedPaymentRequestTrackingCategoriesItem]]]
-    accounting_period: typing.Optional[PatchedPaymentRequestAccountingPeriod] = pydantic.Field()
+    tracking_categories: typing.Optional[typing.List[typing.Optional[PatchedPaymentRequestTrackingCategoriesItem]]] = (
+        None
+    )
+    accounting_period: typing.Optional[PatchedPaymentRequestAccountingPeriod] = pydantic.Field(default=None)
     """
     The accounting period that the Payment was generated in.
     """
 
-    applied_to_lines: typing.Optional[typing.List[PatchedPaymentRequestAppliedToLinesItem]] = pydantic.Field()
+    applied_to_lines: typing.Optional[typing.List[PatchedPaymentRequestAppliedToLinesItem]] = pydantic.Field(
+        default=None
+    )
     """
     A list of “Payment Applied to Lines” objects.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

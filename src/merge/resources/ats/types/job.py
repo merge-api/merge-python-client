@@ -28,38 +28,38 @@ class Job(UniversalBaseModel):
     Fetch from the `LIST Jobs` endpoint to show all job postings.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    name: typing.Optional[str] = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The job's name.
     """
 
-    description: typing.Optional[str] = pydantic.Field()
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The job's description.
     """
 
-    code: typing.Optional[str] = pydantic.Field()
+    code: typing.Optional[str] = pydantic.Field(default=None)
     """
     The job's code. Typically an additional identifier used to reference the particular job that is displayed on the ATS.
     """
 
-    status: typing.Optional[JobStatus] = pydantic.Field()
+    status: typing.Optional[JobStatus] = pydantic.Field(default=None)
     """
     The job's status.
     
@@ -70,7 +70,7 @@ class Job(UniversalBaseModel):
     - `PENDING` - PENDING
     """
 
-    type: typing.Optional[JobTypeEnum] = pydantic.Field()
+    type: typing.Optional[JobTypeEnum] = pydantic.Field(default=None)
     """
     The job's type.
     
@@ -79,54 +79,54 @@ class Job(UniversalBaseModel):
     - `PROFILE` - PROFILE
     """
 
-    job_postings: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field()
+    job_postings: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(default=None)
     """
     IDs of `JobPosting` objects that serve as job postings for this `Job`.
     """
 
-    job_posting_urls: typing.Optional[typing.List[Url]]
-    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    job_posting_urls: typing.Optional[typing.List[Url]] = None
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the third party's job was created.
     """
 
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field()
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the third party's job was updated.
     """
 
-    confidential: typing.Optional[bool] = pydantic.Field()
+    confidential: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the job is confidential.
     """
 
-    departments: typing.Optional[typing.List[typing.Optional[JobDepartmentsItem]]] = pydantic.Field()
+    departments: typing.Optional[typing.List[typing.Optional[JobDepartmentsItem]]] = pydantic.Field(default=None)
     """
     IDs of `Department` objects for this `Job`.
     """
 
-    offices: typing.Optional[typing.List[typing.Optional[JobOfficesItem]]] = pydantic.Field()
+    offices: typing.Optional[typing.List[typing.Optional[JobOfficesItem]]] = pydantic.Field(default=None)
     """
     IDs of `Office` objects for this `Job`.
     """
 
-    hiring_managers: typing.Optional[typing.List[typing.Optional[JobHiringManagersItem]]] = pydantic.Field()
+    hiring_managers: typing.Optional[typing.List[typing.Optional[JobHiringManagersItem]]] = pydantic.Field(default=None)
     """
     IDs of `RemoteUser` objects that serve as hiring managers for this `Job`.
     """
 
-    recruiters: typing.Optional[typing.List[typing.Optional[JobRecruitersItem]]] = pydantic.Field()
+    recruiters: typing.Optional[typing.List[typing.Optional[JobRecruitersItem]]] = pydantic.Field(default=None)
     """
     IDs of `RemoteUser` objects that serve as recruiters for this `Job`.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

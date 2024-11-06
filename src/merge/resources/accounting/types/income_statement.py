@@ -24,28 +24,28 @@ class IncomeStatement(UniversalBaseModel):
     Fetch from the `GET IncomeStatement` endpoint and view a company's income statement for a given period.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    name: typing.Optional[str] = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The income statement's name.
     """
 
-    currency: typing.Optional[IncomeStatementCurrency] = pydantic.Field()
+    currency: typing.Optional[IncomeStatementCurrency] = pydantic.Field(default=None)
     """
     The income statement's currency.
     
@@ -357,47 +357,47 @@ class IncomeStatement(UniversalBaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    company: typing.Optional[IncomeStatementCompany] = pydantic.Field()
+    company: typing.Optional[IncomeStatementCompany] = pydantic.Field(default=None)
     """
     The company the income statement belongs to.
     """
 
-    start_period: typing.Optional[dt.datetime] = pydantic.Field()
+    start_period: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The income statement's start period.
     """
 
-    end_period: typing.Optional[dt.datetime] = pydantic.Field()
+    end_period: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The income statement's end period.
     """
 
-    income: typing.Optional[typing.List[ReportItem]]
-    cost_of_sales: typing.Optional[typing.List[ReportItem]]
-    gross_profit: typing.Optional[float] = pydantic.Field()
+    income: typing.Optional[typing.List[ReportItem]] = None
+    cost_of_sales: typing.Optional[typing.List[ReportItem]] = None
+    gross_profit: typing.Optional[float] = pydantic.Field(default=None)
     """
     The revenue minus the cost of sale.
     """
 
-    operating_expenses: typing.Optional[typing.List[ReportItem]]
-    net_operating_income: typing.Optional[float] = pydantic.Field()
+    operating_expenses: typing.Optional[typing.List[ReportItem]] = None
+    net_operating_income: typing.Optional[float] = pydantic.Field(default=None)
     """
     The revenue minus the operating expenses.
     """
 
-    non_operating_expenses: typing.Optional[typing.List[ReportItem]]
-    net_income: typing.Optional[float] = pydantic.Field()
+    non_operating_expenses: typing.Optional[typing.List[ReportItem]] = None
+    net_income: typing.Optional[float] = pydantic.Field(default=None)
     """
     The gross profit minus the total expenses.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -22,45 +22,45 @@ class PatchedAccountRequest(UniversalBaseModel):
     TODO
     """
 
-    owner: typing.Optional[str] = pydantic.Field()
+    owner: typing.Optional[str] = pydantic.Field(default=None)
     """
     The account's owner.
     """
 
-    name: typing.Optional[str] = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The account's name.
     """
 
-    description: typing.Optional[str] = pydantic.Field()
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The account's description.
     """
 
-    industry: typing.Optional[str] = pydantic.Field()
+    industry: typing.Optional[str] = pydantic.Field(default=None)
     """
     The account's industry.
     """
 
-    website: typing.Optional[str] = pydantic.Field()
+    website: typing.Optional[str] = pydantic.Field(default=None)
     """
     The account's website.
     """
 
-    number_of_employees: typing.Optional[int] = pydantic.Field()
+    number_of_employees: typing.Optional[int] = pydantic.Field(default=None)
     """
     The account's number of employees.
     """
 
-    addresses: typing.Optional[typing.List[AddressRequest]]
-    last_activity_at: typing.Optional[dt.datetime] = pydantic.Field()
+    addresses: typing.Optional[typing.List[AddressRequest]] = None
+    last_activity_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The last date (either most recent or furthest in the future) of when an activity occurs in an account.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

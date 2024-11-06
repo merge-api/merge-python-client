@@ -20,12 +20,12 @@ class EmailAddressRequest(UniversalBaseModel):
     Fetch from the `GET Candidate` endpoint and view their email addresses.
     """
 
-    value: typing.Optional[str] = pydantic.Field()
+    value: typing.Optional[str] = pydantic.Field(default=None)
     """
     The email address.
     """
 
-    email_address_type: typing.Optional[EmailAddressRequestEmailAddressType] = pydantic.Field()
+    email_address_type: typing.Optional[EmailAddressRequestEmailAddressType] = pydantic.Field(default=None)
     """
     The type of email address.
     
@@ -34,8 +34,8 @@ class EmailAddressRequest(UniversalBaseModel):
     - `OTHER` - OTHER
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

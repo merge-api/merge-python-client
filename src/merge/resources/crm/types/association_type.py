@@ -22,32 +22,32 @@ class AssociationType(UniversalBaseModel):
     TODO
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    source_object_class: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field()
+    source_object_class: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
     """
     The class of the source object (Custom Object or Common Model) for the association type.
     """
 
-    target_object_classes: typing.Optional[typing.List[AssociationSubType]]
-    remote_key_name: typing.Optional[str]
-    display_name: typing.Optional[str]
-    cardinality: typing.Optional[AssociationTypeCardinality]
-    is_required: typing.Optional[bool]
+    target_object_classes: typing.Optional[typing.List[AssociationSubType]] = None
+    remote_key_name: typing.Optional[str] = None
+    display_name: typing.Optional[str] = None
+    cardinality: typing.Optional[AssociationTypeCardinality] = None
+    is_required: typing.Optional[bool] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

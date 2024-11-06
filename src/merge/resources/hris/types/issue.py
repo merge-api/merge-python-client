@@ -9,8 +9,8 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class Issue(UniversalBaseModel):
-    id: typing.Optional[str]
-    status: typing.Optional[IssueStatus] = pydantic.Field()
+    id: typing.Optional[str] = None
+    status: typing.Optional[IssueStatus] = pydantic.Field(default=None)
     """
     Status of the issue. Options: ('ONGOING', 'RESOLVED')
     
@@ -19,11 +19,11 @@ class Issue(UniversalBaseModel):
     """
 
     error_description: str
-    end_user: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    first_incident_time: typing.Optional[dt.datetime]
-    last_incident_time: typing.Optional[dt.datetime]
-    is_muted: typing.Optional[bool]
-    error_details: typing.Optional[typing.List[str]]
+    end_user: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    first_incident_time: typing.Optional[dt.datetime] = None
+    last_incident_time: typing.Optional[dt.datetime] = None
+    is_muted: typing.Optional[bool] = None
+    error_details: typing.Optional[typing.List[str]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

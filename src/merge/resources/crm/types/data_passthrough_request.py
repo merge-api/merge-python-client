@@ -28,28 +28,28 @@ class DataPassthroughRequest(UniversalBaseModel):
     The path of the request in the third party's platform.
     """
 
-    base_url_override: typing.Optional[str] = pydantic.Field()
+    base_url_override: typing.Optional[str] = pydantic.Field(default=None)
     """
     An optional override of the third party's base url for the request.
     """
 
-    data: typing.Optional[str] = pydantic.Field()
+    data: typing.Optional[str] = pydantic.Field(default=None)
     """
     The data with the request. You must include a `request_format` parameter matching the data's format
     """
 
-    multipart_form_data: typing.Optional[typing.List[MultipartFormFieldRequest]] = pydantic.Field()
+    multipart_form_data: typing.Optional[typing.List[MultipartFormFieldRequest]] = pydantic.Field(default=None)
     """
     Pass an array of `MultipartFormField` objects in here instead of using the `data` param if `request_format` is set to `MULTIPART`.
     """
 
-    headers: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field()
+    headers: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
     """
     The headers to use for the request (Merge will handle the account's authorization headers). `Content-Type` header is required for passthrough. Choose content type corresponding to expected format of receiving server.
     """
 
-    request_format: typing.Optional[RequestFormatEnum]
-    normalize_response: typing.Optional[bool] = pydantic.Field()
+    request_format: typing.Optional[RequestFormatEnum] = None
+    normalize_response: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Optional. If true, the response will always be an object of the form `{"type": T, "value": ...}` where `T` will be one of `string, boolean, number, null, array, object`.
     """

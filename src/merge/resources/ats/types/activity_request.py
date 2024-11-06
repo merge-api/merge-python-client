@@ -22,12 +22,12 @@ class ActivityRequest(UniversalBaseModel):
     Fetch from the `LIST Activities` endpoint and filter by `ID` to show all activities.
     """
 
-    user: typing.Optional[ActivityRequestUser] = pydantic.Field()
+    user: typing.Optional[ActivityRequestUser] = pydantic.Field(default=None)
     """
     The user that performed the action.
     """
 
-    activity_type: typing.Optional[ActivityRequestActivityType] = pydantic.Field()
+    activity_type: typing.Optional[ActivityRequestActivityType] = pydantic.Field(default=None)
     """
     The activity's type.
     
@@ -36,17 +36,17 @@ class ActivityRequest(UniversalBaseModel):
     - `OTHER` - OTHER
     """
 
-    subject: typing.Optional[str] = pydantic.Field()
+    subject: typing.Optional[str] = pydantic.Field(default=None)
     """
     The activity's subject.
     """
 
-    body: typing.Optional[str] = pydantic.Field()
+    body: typing.Optional[str] = pydantic.Field(default=None)
     """
     The activity's body.
     """
 
-    visibility: typing.Optional[ActivityRequestVisibility] = pydantic.Field()
+    visibility: typing.Optional[ActivityRequestVisibility] = pydantic.Field(default=None)
     """
     The activity's visibility.
     
@@ -55,9 +55,9 @@ class ActivityRequest(UniversalBaseModel):
     - `PRIVATE` - PRIVATE
     """
 
-    candidate: typing.Optional[str]
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+    candidate: typing.Optional[str] = None
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

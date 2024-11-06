@@ -22,23 +22,23 @@ class EngagementType(UniversalBaseModel):
     TODO
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    activity_type: typing.Optional[EngagementTypeActivityType] = pydantic.Field()
+    activity_type: typing.Optional[EngagementTypeActivityType] = pydantic.Field(default=None)
     """
     The engagement type's activity type.
     
@@ -47,12 +47,12 @@ class EngagementType(UniversalBaseModel):
     - `EMAIL` - EMAIL
     """
 
-    name: typing.Optional[str] = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The engagement type's name.
     """
 
-    remote_fields: typing.Optional[typing.List[RemoteField]]
+    remote_fields: typing.Optional[typing.List[RemoteField]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

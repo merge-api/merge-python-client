@@ -32,51 +32,51 @@ class ApplicationRequest(UniversalBaseModel):
     Fetch from the `LIST Applications` endpoint and filter by `ID` to show all applications.
     """
 
-    candidate: typing.Optional[ApplicationRequestCandidate] = pydantic.Field()
+    candidate: typing.Optional[ApplicationRequestCandidate] = pydantic.Field(default=None)
     """
     The candidate applying.
     """
 
-    job: typing.Optional[ApplicationRequestJob] = pydantic.Field()
+    job: typing.Optional[ApplicationRequestJob] = pydantic.Field(default=None)
     """
     The job being applied for.
     """
 
-    applied_at: typing.Optional[dt.datetime] = pydantic.Field()
+    applied_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the application was submitted.
     """
 
-    rejected_at: typing.Optional[dt.datetime] = pydantic.Field()
+    rejected_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the application was rejected.
     """
 
-    offers: typing.Optional[typing.List[typing.Optional[ApplicationRequestOffersItem]]]
-    source: typing.Optional[str] = pydantic.Field()
+    offers: typing.Optional[typing.List[typing.Optional[ApplicationRequestOffersItem]]] = None
+    source: typing.Optional[str] = pydantic.Field(default=None)
     """
     The application's source.
     """
 
-    credited_to: typing.Optional[ApplicationRequestCreditedTo] = pydantic.Field()
+    credited_to: typing.Optional[ApplicationRequestCreditedTo] = pydantic.Field(default=None)
     """
     The user credited for this application.
     """
 
-    screening_question_answers: typing.Optional[typing.List[ApplicationRequestScreeningQuestionAnswersItem]]
-    current_stage: typing.Optional[ApplicationRequestCurrentStage] = pydantic.Field()
+    screening_question_answers: typing.Optional[typing.List[ApplicationRequestScreeningQuestionAnswersItem]] = None
+    current_stage: typing.Optional[ApplicationRequestCurrentStage] = pydantic.Field(default=None)
     """
     The application's current stage.
     """
 
-    reject_reason: typing.Optional[ApplicationRequestRejectReason] = pydantic.Field()
+    reject_reason: typing.Optional[ApplicationRequestRejectReason] = pydantic.Field(default=None)
     """
     The application's reason for rejection.
     """
 
-    remote_template_id: typing.Optional[str]
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+    remote_template_id: typing.Optional[str] = None
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

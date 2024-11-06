@@ -30,37 +30,37 @@ class ExpenseRequest(UniversalBaseModel):
     Fetch from the `GET Expense` endpoint and view a company's expense.
     """
 
-    transaction_date: typing.Optional[dt.datetime] = pydantic.Field()
+    transaction_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the transaction occurred.
     """
 
-    account: typing.Optional[ExpenseRequestAccount] = pydantic.Field()
+    account: typing.Optional[ExpenseRequestAccount] = pydantic.Field(default=None)
     """
     The expense's payment account.
     """
 
-    contact: typing.Optional[ExpenseRequestContact] = pydantic.Field()
+    contact: typing.Optional[ExpenseRequestContact] = pydantic.Field(default=None)
     """
     The expense's contact.
     """
 
-    total_amount: typing.Optional[float] = pydantic.Field()
+    total_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The expense's total amount.
     """
 
-    sub_total: typing.Optional[float] = pydantic.Field()
+    sub_total: typing.Optional[float] = pydantic.Field(default=None)
     """
     The expense's total amount before tax.
     """
 
-    total_tax_amount: typing.Optional[float] = pydantic.Field()
+    total_tax_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The expense's total tax amount.
     """
 
-    currency: typing.Optional[ExpenseRequestCurrency] = pydantic.Field()
+    currency: typing.Optional[ExpenseRequestCurrency] = pydantic.Field(default=None)
     """
     The expense's currency.
     
@@ -372,36 +372,36 @@ class ExpenseRequest(UniversalBaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The expense's exchange rate.
     """
 
-    inclusive_of_tax: typing.Optional[bool] = pydantic.Field()
+    inclusive_of_tax: typing.Optional[bool] = pydantic.Field(default=None)
     """
     If the transaction is inclusive or exclusive of tax. `True` if inclusive, `False` if exclusive.
     """
 
-    company: typing.Optional[ExpenseRequestCompany] = pydantic.Field()
+    company: typing.Optional[ExpenseRequestCompany] = pydantic.Field(default=None)
     """
     The company the expense belongs to.
     """
 
-    memo: typing.Optional[str] = pydantic.Field()
+    memo: typing.Optional[str] = pydantic.Field(default=None)
     """
     The expense's private note.
     """
 
-    lines: typing.Optional[typing.List[ExpenseLineRequest]]
-    tracking_categories: typing.Optional[typing.List[typing.Optional[ExpenseRequestTrackingCategoriesItem]]]
-    accounting_period: typing.Optional[ExpenseRequestAccountingPeriod] = pydantic.Field()
+    lines: typing.Optional[typing.List[ExpenseLineRequest]] = None
+    tracking_categories: typing.Optional[typing.List[typing.Optional[ExpenseRequestTrackingCategoriesItem]]] = None
+    accounting_period: typing.Optional[ExpenseRequestAccountingPeriod] = pydantic.Field(default=None)
     """
     The accounting period that the Expense was generated in.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

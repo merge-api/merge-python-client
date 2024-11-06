@@ -32,23 +32,23 @@ class PurchaseOrder(UniversalBaseModel):
     Fetch from the `LIST PurchaseOrders` endpoint and view a company's purchase orders.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    status: typing.Optional[PurchaseOrderStatus] = pydantic.Field()
+    status: typing.Optional[PurchaseOrderStatus] = pydantic.Field(default=None)
     """
     The purchase order's status.
     
@@ -59,52 +59,52 @@ class PurchaseOrder(UniversalBaseModel):
     - `DELETED` - DELETED
     """
 
-    issue_date: typing.Optional[dt.datetime] = pydantic.Field()
+    issue_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The purchase order's issue date.
     """
 
-    purchase_order_number: typing.Optional[str] = pydantic.Field()
+    purchase_order_number: typing.Optional[str] = pydantic.Field(default=None)
     """
     The human-readable number of the purchase order.
     """
 
-    delivery_date: typing.Optional[dt.datetime] = pydantic.Field()
+    delivery_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The purchase order's delivery date.
     """
 
-    delivery_address: typing.Optional[PurchaseOrderDeliveryAddress] = pydantic.Field()
+    delivery_address: typing.Optional[PurchaseOrderDeliveryAddress] = pydantic.Field(default=None)
     """
     The purchase order's delivery address.
     """
 
-    customer: typing.Optional[str] = pydantic.Field()
+    customer: typing.Optional[str] = pydantic.Field(default=None)
     """
     The contact making the purchase order.
     """
 
-    vendor: typing.Optional[PurchaseOrderVendor] = pydantic.Field()
+    vendor: typing.Optional[PurchaseOrderVendor] = pydantic.Field(default=None)
     """
     The party fulfilling the purchase order.
     """
 
-    memo: typing.Optional[str] = pydantic.Field()
+    memo: typing.Optional[str] = pydantic.Field(default=None)
     """
     A memo attached to the purchase order.
     """
 
-    company: typing.Optional[PurchaseOrderCompany] = pydantic.Field()
+    company: typing.Optional[PurchaseOrderCompany] = pydantic.Field(default=None)
     """
     The company the purchase order belongs to.
     """
 
-    total_amount: typing.Optional[float] = pydantic.Field()
+    total_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The purchase order's total amount.
     """
 
-    currency: typing.Optional[PurchaseOrderCurrency] = pydantic.Field()
+    currency: typing.Optional[PurchaseOrderCurrency] = pydantic.Field(default=None)
     """
     The purchase order's currency.
     
@@ -416,41 +416,41 @@ class PurchaseOrder(UniversalBaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The purchase order's exchange rate.
     """
 
-    line_items: typing.Optional[typing.List[PurchaseOrderLineItem]]
-    inclusive_of_tax: typing.Optional[bool] = pydantic.Field()
+    line_items: typing.Optional[typing.List[PurchaseOrderLineItem]] = None
+    inclusive_of_tax: typing.Optional[bool] = pydantic.Field(default=None)
     """
     If the transaction is inclusive or exclusive of tax. `True` if inclusive, `False` if exclusive.
     """
 
-    tracking_categories: typing.Optional[typing.List[typing.Optional[PurchaseOrderTrackingCategoriesItem]]]
-    accounting_period: typing.Optional[PurchaseOrderAccountingPeriod] = pydantic.Field()
+    tracking_categories: typing.Optional[typing.List[typing.Optional[PurchaseOrderTrackingCategoriesItem]]] = None
+    accounting_period: typing.Optional[PurchaseOrderAccountingPeriod] = pydantic.Field(default=None)
     """
     The accounting period that the PurchaseOrder was generated in.
     """
 
-    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the third party's purchase order note was created.
     """
 
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field()
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the third party's purchase order note was updated.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
-    remote_fields: typing.Optional[typing.List[RemoteField]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
+    remote_fields: typing.Optional[typing.List[RemoteField]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

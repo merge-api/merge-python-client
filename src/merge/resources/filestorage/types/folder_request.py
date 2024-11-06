@@ -25,43 +25,43 @@ class FolderRequest(UniversalBaseModel):
     Fetch from the `GET /api/filestorage/v1/folders` endpoint and view their folders.
     """
 
-    name: typing.Optional[str] = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The folder's name.
     """
 
-    folder_url: typing.Optional[str] = pydantic.Field()
+    folder_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     The URL to access the folder.
     """
 
-    size: typing.Optional[int] = pydantic.Field()
+    size: typing.Optional[int] = pydantic.Field(default=None)
     """
     The folder's size, in bytes.
     """
 
-    description: typing.Optional[str] = pydantic.Field()
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The folder's description.
     """
 
-    parent_folder: typing.Optional[FolderRequestParentFolder] = pydantic.Field()
+    parent_folder: typing.Optional[FolderRequestParentFolder] = pydantic.Field(default=None)
     """
     The folder that the folder belongs to.
     """
 
-    drive: typing.Optional[FolderRequestDrive] = pydantic.Field()
+    drive: typing.Optional[FolderRequestDrive] = pydantic.Field(default=None)
     """
     The drive that the folder belongs to.
     """
 
-    permissions: typing.Optional[FolderRequestPermissions] = pydantic.Field()
+    permissions: typing.Optional[FolderRequestPermissions] = pydantic.Field(default=None)
     """
     The Permission object is used to represent a user's or group's access to a File or Folder. Permissions are unexpanded by default. Use the query param `expand=permissions` to see more details under `GET /folders`.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

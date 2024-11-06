@@ -26,58 +26,58 @@ class Task(UniversalBaseModel):
     TODO
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    subject: typing.Optional[str] = pydantic.Field()
+    subject: typing.Optional[str] = pydantic.Field(default=None)
     """
     The task's subject.
     """
 
-    content: typing.Optional[str] = pydantic.Field()
+    content: typing.Optional[str] = pydantic.Field(default=None)
     """
     The task's content.
     """
 
-    owner: typing.Optional[TaskOwner] = pydantic.Field()
+    owner: typing.Optional[TaskOwner] = pydantic.Field(default=None)
     """
     The task's owner.
     """
 
-    account: typing.Optional[TaskAccount] = pydantic.Field()
+    account: typing.Optional[TaskAccount] = pydantic.Field(default=None)
     """
     The task's account.
     """
 
-    opportunity: typing.Optional[TaskOpportunity] = pydantic.Field()
+    opportunity: typing.Optional[TaskOpportunity] = pydantic.Field(default=None)
     """
     The task's opportunity.
     """
 
-    completed_date: typing.Optional[dt.datetime] = pydantic.Field()
+    completed_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the task is completed.
     """
 
-    due_date: typing.Optional[dt.datetime] = pydantic.Field()
+    due_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the task is due.
     """
 
-    status: typing.Optional[TaskStatus] = pydantic.Field()
+    status: typing.Optional[TaskStatus] = pydantic.Field(default=None)
     """
     The task's status.
     
@@ -85,14 +85,14 @@ class Task(UniversalBaseModel):
     - `CLOSED` - CLOSED
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
-    remote_fields: typing.Optional[typing.List[RemoteField]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
+    remote_fields: typing.Optional[typing.List[RemoteField]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

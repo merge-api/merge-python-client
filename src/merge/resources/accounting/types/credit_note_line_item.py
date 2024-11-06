@@ -10,79 +10,79 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class CreditNoteLineItem(UniversalBaseModel):
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    item: typing.Optional[CreditNoteLineItemItem]
-    name: typing.Optional[str] = pydantic.Field()
+    item: typing.Optional[CreditNoteLineItemItem] = None
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The credit note line item's name.
     """
 
-    description: typing.Optional[str] = pydantic.Field()
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The description of the item that is owed.
     """
 
-    quantity: typing.Optional[str] = pydantic.Field()
+    quantity: typing.Optional[str] = pydantic.Field(default=None)
     """
     The credit note line item's quantity.
     """
 
-    memo: typing.Optional[str] = pydantic.Field()
+    memo: typing.Optional[str] = pydantic.Field(default=None)
     """
     The credit note line item's memo.
     """
 
-    unit_price: typing.Optional[str] = pydantic.Field()
+    unit_price: typing.Optional[str] = pydantic.Field(default=None)
     """
     The credit note line item's unit price.
     """
 
-    tax_rate: typing.Optional[str] = pydantic.Field()
+    tax_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The tax rate that applies to this line item.
     """
 
-    total_line_amount: typing.Optional[str] = pydantic.Field()
+    total_line_amount: typing.Optional[str] = pydantic.Field(default=None)
     """
     The credit note line item's total.
     """
 
-    tracking_category: typing.Optional[str] = pydantic.Field()
+    tracking_category: typing.Optional[str] = pydantic.Field(default=None)
     """
     The credit note line item's associated tracking category.
     """
 
-    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field()
+    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(default=None)
     """
     The credit note line item's associated tracking categories.
     """
 
-    account: typing.Optional[str] = pydantic.Field()
+    account: typing.Optional[str] = pydantic.Field(default=None)
     """
     The credit note line item's account.
     """
 
-    company: typing.Optional[CreditNoteLineItemCompany] = pydantic.Field()
+    company: typing.Optional[CreditNoteLineItemCompany] = pydantic.Field(default=None)
     """
     The company the credit note belongs to.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """

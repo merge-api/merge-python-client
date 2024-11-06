@@ -24,34 +24,34 @@ class NoteRequest(UniversalBaseModel):
     TODO
     """
 
-    owner: typing.Optional[NoteRequestOwner] = pydantic.Field()
+    owner: typing.Optional[NoteRequestOwner] = pydantic.Field(default=None)
     """
     The note's owner.
     """
 
-    content: typing.Optional[str] = pydantic.Field()
+    content: typing.Optional[str] = pydantic.Field(default=None)
     """
     The note's content.
     """
 
-    contact: typing.Optional[NoteRequestContact] = pydantic.Field()
+    contact: typing.Optional[NoteRequestContact] = pydantic.Field(default=None)
     """
     The note's contact.
     """
 
-    account: typing.Optional[NoteRequestAccount] = pydantic.Field()
+    account: typing.Optional[NoteRequestAccount] = pydantic.Field(default=None)
     """
     The note's account.
     """
 
-    opportunity: typing.Optional[NoteRequestOpportunity] = pydantic.Field()
+    opportunity: typing.Optional[NoteRequestOpportunity] = pydantic.Field(default=None)
     """
     The note's opportunity.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

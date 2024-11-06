@@ -25,33 +25,33 @@ class AttachmentRequest(UniversalBaseModel):
     TODO
     """
 
-    file_name: typing.Optional[str] = pydantic.Field()
+    file_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The attachment's name. It is required to include the file extension in the attachment's name.
     """
 
-    ticket: typing.Optional[AttachmentRequestTicket] = pydantic.Field()
+    ticket: typing.Optional[AttachmentRequestTicket] = pydantic.Field(default=None)
     """
     The ticket associated with the attachment.
     """
 
-    file_url: typing.Optional[str] = pydantic.Field()
+    file_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     The attachment's url. It is required to include the file extension in the file's URL.
     """
 
-    content_type: typing.Optional[str] = pydantic.Field()
+    content_type: typing.Optional[str] = pydantic.Field(default=None)
     """
     The attachment's file format.
     """
 
-    uploaded_by: typing.Optional[str] = pydantic.Field()
+    uploaded_by: typing.Optional[str] = pydantic.Field(default=None)
     """
     The user who uploaded the attachment.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

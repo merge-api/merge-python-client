@@ -26,43 +26,43 @@ class InvoiceLineItem(UniversalBaseModel):
     Fetch from the `GET Invoice` endpoint and view the invoice's line items.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    description: typing.Optional[str] = pydantic.Field()
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The line item's description.
     """
 
-    unit_price: typing.Optional[float] = pydantic.Field()
+    unit_price: typing.Optional[float] = pydantic.Field(default=None)
     """
     The line item's unit price.
     """
 
-    quantity: typing.Optional[float] = pydantic.Field()
+    quantity: typing.Optional[float] = pydantic.Field(default=None)
     """
     The line item's quantity.
     """
 
-    total_amount: typing.Optional[float] = pydantic.Field()
+    total_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The line item's total amount.
     """
 
-    currency: typing.Optional[InvoiceLineItemCurrency] = pydantic.Field()
+    currency: typing.Optional[InvoiceLineItemCurrency] = pydantic.Field(default=None)
     """
     The line item's currency.
     
@@ -374,38 +374,38 @@ class InvoiceLineItem(UniversalBaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The line item's exchange rate.
     """
 
-    item: typing.Optional[InvoiceLineItemItem]
-    account: typing.Optional[InvoiceLineItemAccount]
-    tax_rate: typing.Optional[str] = pydantic.Field()
+    item: typing.Optional[InvoiceLineItemItem] = None
+    account: typing.Optional[InvoiceLineItemAccount] = None
+    tax_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The tax rate that applies to this line item.
     """
 
-    tracking_category: typing.Optional[InvoiceLineItemTrackingCategory]
+    tracking_category: typing.Optional[InvoiceLineItemTrackingCategory] = None
     tracking_categories: typing.Optional[typing.List[typing.Optional[InvoiceLineItemTrackingCategoriesItem]]] = (
-        pydantic.Field()
+        pydantic.Field(default=None)
     )
     """
     The invoice line item's associated tracking categories.
     """
 
-    company: typing.Optional[str] = pydantic.Field()
+    company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company the line item belongs to.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_fields: typing.Optional[typing.List[RemoteField]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_fields: typing.Optional[typing.List[RemoteField]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

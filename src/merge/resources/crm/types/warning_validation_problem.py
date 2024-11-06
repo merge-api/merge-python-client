@@ -8,7 +8,7 @@ import pydantic
 
 
 class WarningValidationProblem(UniversalBaseModel):
-    source: typing.Optional[ValidationProblemSource]
+    source: typing.Optional[ValidationProblemSource] = None
     title: str
     detail: str
     problem_type: str

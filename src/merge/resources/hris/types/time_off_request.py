@@ -30,17 +30,17 @@ class TimeOffRequest(UniversalBaseModel):
     Fetch from the `LIST TimeOffs` endpoint and filter by `ID` to show all time off requests.
     """
 
-    employee: typing.Optional[TimeOffRequestEmployee] = pydantic.Field()
+    employee: typing.Optional[TimeOffRequestEmployee] = pydantic.Field(default=None)
     """
     The employee requesting time off.
     """
 
-    approver: typing.Optional[TimeOffRequestApprover] = pydantic.Field()
+    approver: typing.Optional[TimeOffRequestApprover] = pydantic.Field(default=None)
     """
     The Merge ID of the employee with the ability to approve the time off request.
     """
 
-    status: typing.Optional[TimeOffRequestStatus] = pydantic.Field()
+    status: typing.Optional[TimeOffRequestStatus] = pydantic.Field(default=None)
     """
     The status of this time off request.
     
@@ -51,12 +51,12 @@ class TimeOffRequest(UniversalBaseModel):
     - `DELETED` - DELETED
     """
 
-    employee_note: typing.Optional[str] = pydantic.Field()
+    employee_note: typing.Optional[str] = pydantic.Field(default=None)
     """
     The employee note for this time off request.
     """
 
-    units: typing.Optional[TimeOffRequestUnits] = pydantic.Field()
+    units: typing.Optional[TimeOffRequestUnits] = pydantic.Field(default=None)
     """
     The measurement that the third-party integration uses to count time requested.
     
@@ -64,12 +64,12 @@ class TimeOffRequest(UniversalBaseModel):
     - `DAYS` - DAYS
     """
 
-    amount: typing.Optional[float] = pydantic.Field()
+    amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The time off quantity measured by the prescribed “units”.
     """
 
-    request_type: typing.Optional[TimeOffRequestRequestType] = pydantic.Field()
+    request_type: typing.Optional[TimeOffRequestRequestType] = pydantic.Field(default=None)
     """
     The type of time off request.
     
@@ -81,18 +81,18 @@ class TimeOffRequest(UniversalBaseModel):
     - `BEREAVEMENT` - BEREAVEMENT
     """
 
-    start_time: typing.Optional[dt.datetime] = pydantic.Field()
+    start_time: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The day and time of the start of the time requested off.
     """
 
-    end_time: typing.Optional[dt.datetime] = pydantic.Field()
+    end_time: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The day and time of the end of the time requested off.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

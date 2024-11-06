@@ -21,7 +21,7 @@ class AddressRequest(UniversalBaseModel):
     Fetch from the `GET CompanyInfo` endpoint and view the company's addresses.
     """
 
-    type: typing.Optional[AddressRequestType] = pydantic.Field()
+    type: typing.Optional[AddressRequestType] = pydantic.Field(default=None)
     """
     The address type.
     
@@ -29,27 +29,27 @@ class AddressRequest(UniversalBaseModel):
     - `SHIPPING` - SHIPPING
     """
 
-    street_1: typing.Optional[str] = pydantic.Field()
+    street_1: typing.Optional[str] = pydantic.Field(default=None)
     """
     Line 1 of the address's street.
     """
 
-    street_2: typing.Optional[str] = pydantic.Field()
+    street_2: typing.Optional[str] = pydantic.Field(default=None)
     """
     Line 2 of the address's street.
     """
 
-    city: typing.Optional[str] = pydantic.Field()
+    city: typing.Optional[str] = pydantic.Field(default=None)
     """
     The address's city.
     """
 
-    country_subdivision: typing.Optional[str] = pydantic.Field()
+    country_subdivision: typing.Optional[str] = pydantic.Field(default=None)
     """
     The address's state or region.
     """
 
-    country: typing.Optional[AddressRequestCountry] = pydantic.Field()
+    country: typing.Optional[AddressRequestCountry] = pydantic.Field(default=None)
     """
     The address's country.
     
@@ -304,13 +304,13 @@ class AddressRequest(UniversalBaseModel):
     - `ZW` - Zimbabwe
     """
 
-    zip_code: typing.Optional[str] = pydantic.Field()
+    zip_code: typing.Optional[str] = pydantic.Field(default=None)
     """
     The address's zip code.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

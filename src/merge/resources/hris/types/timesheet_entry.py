@@ -20,49 +20,49 @@ class TimesheetEntry(UniversalBaseModel):
     GET and POST Timesheet Entries
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    employee: typing.Optional[str] = pydantic.Field()
+    employee: typing.Optional[str] = pydantic.Field(default=None)
     """
     The employee the timesheet entry is for.
     """
 
-    hours_worked: typing.Optional[float] = pydantic.Field()
+    hours_worked: typing.Optional[float] = pydantic.Field(default=None)
     """
     The number of hours logged by the employee.
     """
 
-    start_time: typing.Optional[dt.datetime] = pydantic.Field()
+    start_time: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The time at which the employee started work.
     """
 
-    end_time: typing.Optional[dt.datetime] = pydantic.Field()
+    end_time: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The time at which the employee ended work.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

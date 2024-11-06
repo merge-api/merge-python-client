@@ -23,38 +23,38 @@ class Dependent(UniversalBaseModel):
     Fetch from the `LIST Dependents` endpoint and filter by `ID` to show all dependents.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    first_name: typing.Optional[str] = pydantic.Field()
+    first_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The dependents's first name.
     """
 
-    middle_name: typing.Optional[str] = pydantic.Field()
+    middle_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The dependents's middle name.
     """
 
-    last_name: typing.Optional[str] = pydantic.Field()
+    last_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The dependents's last name.
     """
 
-    relationship: typing.Optional[DependentRelationship] = pydantic.Field()
+    relationship: typing.Optional[DependentRelationship] = pydantic.Field(default=None)
     """
     The dependent's relationship to the employee.
     
@@ -63,17 +63,17 @@ class Dependent(UniversalBaseModel):
     - `DOMESTIC_PARTNER` - DOMESTIC_PARTNER
     """
 
-    employee: typing.Optional[str] = pydantic.Field()
+    employee: typing.Optional[str] = pydantic.Field(default=None)
     """
     The employee this person is a dependent of.
     """
 
-    date_of_birth: typing.Optional[dt.datetime] = pydantic.Field()
+    date_of_birth: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The dependent's date of birth.
     """
 
-    gender: typing.Optional[DependentGender] = pydantic.Field()
+    gender: typing.Optional[DependentGender] = pydantic.Field(default=None)
     """
     The dependent's gender.
     
@@ -84,33 +84,33 @@ class Dependent(UniversalBaseModel):
     - `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE
     """
 
-    phone_number: typing.Optional[str] = pydantic.Field()
+    phone_number: typing.Optional[str] = pydantic.Field(default=None)
     """
     The dependent's phone number.
     """
 
-    home_location: typing.Optional[str] = pydantic.Field()
+    home_location: typing.Optional[str] = pydantic.Field(default=None)
     """
     The dependents's home address.
     """
 
-    is_student: typing.Optional[bool] = pydantic.Field()
+    is_student: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether or not the dependent is a student
     """
 
-    ssn: typing.Optional[str] = pydantic.Field()
+    ssn: typing.Optional[str] = pydantic.Field(default=None)
     """
     The dependents's social security number.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

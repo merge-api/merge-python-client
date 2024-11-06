@@ -24,26 +24,26 @@ class JournalLineRequest(UniversalBaseModel):
     Fetch from the `GET JournalEntry` endpoint and view the journal entry's line items.
     """
 
-    remote_id: typing.Optional[str] = pydantic.Field()
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    account: typing.Optional[JournalLineRequestAccount]
-    net_amount: typing.Optional[float] = pydantic.Field()
+    account: typing.Optional[JournalLineRequestAccount] = None
+    net_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The value of the line item including taxes and other fees.
     """
 
-    tracking_category: typing.Optional[JournalLineRequestTrackingCategory]
+    tracking_category: typing.Optional[JournalLineRequestTrackingCategory] = None
     tracking_categories: typing.Optional[typing.List[typing.Optional[JournalLineRequestTrackingCategoriesItem]]] = (
-        pydantic.Field()
+        pydantic.Field(default=None)
     )
     """
     The journal line item's associated tracking categories.
     """
 
-    currency: typing.Optional[JournalLineRequestCurrency] = pydantic.Field()
+    currency: typing.Optional[JournalLineRequestCurrency] = pydantic.Field(default=None)
     """
     The journal line item's currency.
     
@@ -355,30 +355,30 @@ class JournalLineRequest(UniversalBaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    company: typing.Optional[str] = pydantic.Field()
+    company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company the journal entry belongs to.
     """
 
-    contact: typing.Optional[str]
-    tax_rate: typing.Optional[str] = pydantic.Field()
+    contact: typing.Optional[str] = None
+    tax_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The tax rate that applies to this line item.
     """
 
-    description: typing.Optional[str] = pydantic.Field()
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The line's description.
     """
 
-    exchange_rate: typing.Optional[str] = pydantic.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The journal line item's exchange rate.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

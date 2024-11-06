@@ -28,48 +28,48 @@ class Contact(UniversalBaseModel):
     Fetch from the `LIST Contacts` endpoint and view a company's contacts.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    name: typing.Optional[str] = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The contact's name.
     """
 
-    is_supplier: typing.Optional[bool] = pydantic.Field()
+    is_supplier: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the contact is a supplier.
     """
 
-    is_customer: typing.Optional[bool] = pydantic.Field()
+    is_customer: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the contact is a customer.
     """
 
-    email_address: typing.Optional[str] = pydantic.Field()
+    email_address: typing.Optional[str] = pydantic.Field(default=None)
     """
     The contact's email address.
     """
 
-    tax_number: typing.Optional[str] = pydantic.Field()
+    tax_number: typing.Optional[str] = pydantic.Field(default=None)
     """
     The contact's tax number.
     """
 
-    status: typing.Optional[ContactStatus] = pydantic.Field()
+    status: typing.Optional[ContactStatus] = pydantic.Field(default=None)
     """
     The contact's status
     
@@ -77,39 +77,39 @@ class Contact(UniversalBaseModel):
     - `ARCHIVED` - ARCHIVED
     """
 
-    currency: typing.Optional[str] = pydantic.Field()
+    currency: typing.Optional[str] = pydantic.Field(default=None)
     """
     The currency the contact's transactions are in.
     """
 
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field()
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the third party's contact was updated.
     """
 
-    company: typing.Optional[str] = pydantic.Field()
+    company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company the contact belongs to.
     """
 
-    addresses: typing.Optional[typing.List[typing.Optional[ContactAddressesItem]]] = pydantic.Field()
+    addresses: typing.Optional[typing.List[typing.Optional[ContactAddressesItem]]] = pydantic.Field(default=None)
     """
     `Address` object IDs for the given `Contacts` object.
     """
 
-    phone_numbers: typing.Optional[typing.List[AccountingPhoneNumber]] = pydantic.Field()
+    phone_numbers: typing.Optional[typing.List[AccountingPhoneNumber]] = pydantic.Field(default=None)
     """
     `AccountingPhoneNumber` object for the given `Contacts` object.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
-    remote_fields: typing.Optional[typing.List[RemoteField]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
+    remote_fields: typing.Optional[typing.List[RemoteField]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

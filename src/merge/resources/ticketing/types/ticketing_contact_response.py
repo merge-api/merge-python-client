@@ -14,7 +14,7 @@ class TicketingContactResponse(UniversalBaseModel):
     model: Contact
     warnings: typing.List[WarningValidationProblem]
     errors: typing.List[ErrorValidationProblem]
-    logs: typing.Optional[typing.List[DebugModeLog]]
+    logs: typing.Optional[typing.List[DebugModeLog]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

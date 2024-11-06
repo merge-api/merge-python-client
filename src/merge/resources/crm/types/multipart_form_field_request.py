@@ -30,7 +30,7 @@ class MultipartFormFieldRequest(UniversalBaseModel):
     The data for the form field.
     """
 
-    encoding: typing.Optional[MultipartFormFieldRequestEncoding] = pydantic.Field()
+    encoding: typing.Optional[MultipartFormFieldRequestEncoding] = pydantic.Field(default=None)
     """
     The encoding of the value of `data`. Defaults to `RAW` if not defined.
     
@@ -39,12 +39,12 @@ class MultipartFormFieldRequest(UniversalBaseModel):
     - `GZIP_BASE64` - GZIP_BASE64
     """
 
-    file_name: typing.Optional[str] = pydantic.Field()
+    file_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The file name of the form field, if the field is for a file.
     """
 
-    content_type: typing.Optional[str] = pydantic.Field()
+    content_type: typing.Optional[str] = pydantic.Field(default=None)
     """
     The MIME type of the file, if the field is for a file.
     """

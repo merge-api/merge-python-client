@@ -14,24 +14,24 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class RemoteFieldClassForCustomObjectClass(UniversalBaseModel):
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    display_name: typing.Optional[str]
-    remote_key_name: typing.Optional[str]
-    description: typing.Optional[str]
-    is_required: typing.Optional[bool]
-    field_type: typing.Optional[RemoteFieldClassForCustomObjectClassFieldType]
-    field_format: typing.Optional[RemoteFieldClassForCustomObjectClassFieldFormat]
-    field_choices: typing.Optional[typing.List[RemoteFieldClassForCustomObjectClassFieldChoicesItem]]
-    item_schema: typing.Optional[RemoteFieldClassForCustomObjectClassItemSchema]
+    display_name: typing.Optional[str] = None
+    remote_key_name: typing.Optional[str] = None
+    description: typing.Optional[str] = None
+    is_required: typing.Optional[bool] = None
+    field_type: typing.Optional[RemoteFieldClassForCustomObjectClassFieldType] = None
+    field_format: typing.Optional[RemoteFieldClassForCustomObjectClassFieldFormat] = None
+    field_choices: typing.Optional[typing.List[RemoteFieldClassForCustomObjectClassFieldChoicesItem]] = None
+    item_schema: typing.Optional[RemoteFieldClassForCustomObjectClassItemSchema] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
