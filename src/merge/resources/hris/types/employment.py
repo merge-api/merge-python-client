@@ -32,38 +32,38 @@ class Employment(UniversalBaseModel):
     Fetch from the `LIST Employments` endpoint and filter by `ID` to show all employees.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    employee: typing.Optional["EmploymentEmployee"] = pydantic.Field()
+    employee: typing.Optional["EmploymentEmployee"] = pydantic.Field(default=None)
     """
     The employee holding this position.
     """
 
-    job_title: typing.Optional[str] = pydantic.Field()
+    job_title: typing.Optional[str] = pydantic.Field(default=None)
     """
     The position's title.
     """
 
-    pay_rate: typing.Optional[float] = pydantic.Field()
+    pay_rate: typing.Optional[float] = pydantic.Field(default=None)
     """
     The position's pay rate.
     """
 
-    pay_period: typing.Optional[EmploymentPayPeriod] = pydantic.Field()
+    pay_period: typing.Optional[EmploymentPayPeriod] = pydantic.Field(default=None)
     """
     The time period this pay rate encompasses.
     
@@ -78,7 +78,7 @@ class Employment(UniversalBaseModel):
     - `YEAR` - YEAR
     """
 
-    pay_frequency: typing.Optional[EmploymentPayFrequency] = pydantic.Field()
+    pay_frequency: typing.Optional[EmploymentPayFrequency] = pydantic.Field(default=None)
     """
     The position's pay frequency.
     
@@ -93,7 +93,7 @@ class Employment(UniversalBaseModel):
     - `SEMIMONTHLY` - SEMIMONTHLY
     """
 
-    pay_currency: typing.Optional[EmploymentPayCurrency] = pydantic.Field()
+    pay_currency: typing.Optional[EmploymentPayCurrency] = pydantic.Field(default=None)
     """
     The position's currency code.
     
@@ -405,12 +405,12 @@ class Employment(UniversalBaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    pay_group: typing.Optional[EmploymentPayGroup] = pydantic.Field()
+    pay_group: typing.Optional[EmploymentPayGroup] = pydantic.Field(default=None)
     """
     The employment's pay group
     """
 
-    flsa_status: typing.Optional[EmploymentFlsaStatus] = pydantic.Field()
+    flsa_status: typing.Optional[EmploymentFlsaStatus] = pydantic.Field(default=None)
     """
     The position's FLSA status.
     
@@ -420,12 +420,12 @@ class Employment(UniversalBaseModel):
     - `OWNER` - OWNER
     """
 
-    effective_date: typing.Optional[dt.datetime] = pydantic.Field()
+    effective_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The position's effective date.
     """
 
-    employment_type: typing.Optional[EmploymentEmploymentType] = pydantic.Field()
+    employment_type: typing.Optional[EmploymentEmploymentType] = pydantic.Field(default=None)
     """
     The position's type of employment.
     
@@ -436,13 +436,13 @@ class Employment(UniversalBaseModel):
     - `FREELANCE` - FREELANCE
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

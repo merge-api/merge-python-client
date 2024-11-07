@@ -20,22 +20,22 @@ class EmailAddress(UniversalBaseModel):
     Fetch from the `GET Contact` endpoint and view their email addresses.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    email_address: typing.Optional[str] = pydantic.Field()
+    email_address: typing.Optional[str] = pydantic.Field(default=None)
     """
     The email address.
     """
 
-    email_address_type: typing.Optional[str] = pydantic.Field()
+    email_address_type: typing.Optional[str] = pydantic.Field(default=None)
     """
     The email address's type.
     """

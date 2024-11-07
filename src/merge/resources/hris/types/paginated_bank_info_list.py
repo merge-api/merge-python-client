@@ -13,9 +13,9 @@ from ....core.pydantic_utilities import update_forward_refs
 
 
 class PaginatedBankInfoList(UniversalBaseModel):
-    next: typing.Optional[str]
-    previous: typing.Optional[str]
-    results: typing.Optional[typing.List[BankInfo]]
+    next: typing.Optional[str] = None
+    previous: typing.Optional[str] = None
+    results: typing.Optional[typing.List[BankInfo]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

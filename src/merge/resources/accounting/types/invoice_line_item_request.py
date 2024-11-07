@@ -25,32 +25,32 @@ class InvoiceLineItemRequest(UniversalBaseModel):
     Fetch from the `GET Invoice` endpoint and view the invoice's line items.
     """
 
-    remote_id: typing.Optional[str] = pydantic.Field()
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    description: typing.Optional[str] = pydantic.Field()
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The line item's description.
     """
 
-    unit_price: typing.Optional[float] = pydantic.Field()
+    unit_price: typing.Optional[float] = pydantic.Field(default=None)
     """
     The line item's unit price.
     """
 
-    quantity: typing.Optional[float] = pydantic.Field()
+    quantity: typing.Optional[float] = pydantic.Field(default=None)
     """
     The line item's quantity.
     """
 
-    total_amount: typing.Optional[float] = pydantic.Field()
+    total_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The line item's total amount.
     """
 
-    currency: typing.Optional[InvoiceLineItemRequestCurrency] = pydantic.Field()
+    currency: typing.Optional[InvoiceLineItemRequestCurrency] = pydantic.Field(default=None)
     """
     The line item's currency.
     
@@ -362,34 +362,34 @@ class InvoiceLineItemRequest(UniversalBaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The line item's exchange rate.
     """
 
-    item: typing.Optional[InvoiceLineItemRequestItem]
-    account: typing.Optional[InvoiceLineItemRequestAccount]
-    tax_rate: typing.Optional[str] = pydantic.Field()
+    item: typing.Optional[InvoiceLineItemRequestItem] = None
+    account: typing.Optional[InvoiceLineItemRequestAccount] = None
+    tax_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The tax rate that applies to this line item.
     """
 
-    tracking_category: typing.Optional[InvoiceLineItemRequestTrackingCategory]
+    tracking_category: typing.Optional[InvoiceLineItemRequestTrackingCategory] = None
     tracking_categories: typing.Optional[typing.List[typing.Optional[InvoiceLineItemRequestTrackingCategoriesItem]]] = (
-        pydantic.Field()
+        pydantic.Field(default=None)
     )
     """
     The invoice line item's associated tracking categories.
     """
 
-    company: typing.Optional[str] = pydantic.Field()
+    company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company the line item belongs to.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

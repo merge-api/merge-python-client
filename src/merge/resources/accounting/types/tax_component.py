@@ -21,38 +21,38 @@ class TaxComponent(UniversalBaseModel):
     Fetch from the `LIST TaxRates` endpoint and view tax components relevant to a tax rate.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    name: typing.Optional[str] = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The tax rate’s name.
     """
 
-    rate: typing.Optional[str] = pydantic.Field()
+    rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The tax component’s rate.
     """
 
-    is_compound: typing.Optional[bool] = pydantic.Field()
+    is_compound: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Returns True if the tax component is compound, False if not.
     """
 
-    component_type: typing.Optional[TaxComponentComponentType] = pydantic.Field()
+    component_type: typing.Optional[TaxComponentComponentType] = pydantic.Field(default=None)
     """
     Returns PURCHASE if the tax component corresponds to a purchase tax or SALES if the tax component corresponds to a sales tax.
     
@@ -60,7 +60,7 @@ class TaxComponent(UniversalBaseModel):
     - `PURCHASE` - PURCHASE
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """

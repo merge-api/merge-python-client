@@ -24,33 +24,33 @@ class Activity(UniversalBaseModel):
     Fetch from the `LIST Activities` endpoint and filter by `ID` to show all activities.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    user: typing.Optional[ActivityUser] = pydantic.Field()
+    user: typing.Optional[ActivityUser] = pydantic.Field(default=None)
     """
     The user that performed the action.
     """
 
-    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the third party's activity was created.
     """
 
-    activity_type: typing.Optional[ActivityActivityType] = pydantic.Field()
+    activity_type: typing.Optional[ActivityActivityType] = pydantic.Field(default=None)
     """
     The activity's type.
     
@@ -59,17 +59,17 @@ class Activity(UniversalBaseModel):
     - `OTHER` - OTHER
     """
 
-    subject: typing.Optional[str] = pydantic.Field()
+    subject: typing.Optional[str] = pydantic.Field(default=None)
     """
     The activity's subject.
     """
 
-    body: typing.Optional[str] = pydantic.Field()
+    body: typing.Optional[str] = pydantic.Field(default=None)
     """
     The activity's body.
     """
 
-    visibility: typing.Optional[ActivityVisibility] = pydantic.Field()
+    visibility: typing.Optional[ActivityVisibility] = pydantic.Field(default=None)
     """
     The activity's visibility.
     
@@ -78,14 +78,14 @@ class Activity(UniversalBaseModel):
     - `PRIVATE` - PRIVATE
     """
 
-    candidate: typing.Optional[str]
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    candidate: typing.Optional[str] = None
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

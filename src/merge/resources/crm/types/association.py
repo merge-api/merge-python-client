@@ -21,19 +21,19 @@ class Association(UniversalBaseModel):
     TODO
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    source_object: typing.Optional[str]
-    target_object: typing.Optional[str]
-    association_type: typing.Optional[AssociationAssociationType] = pydantic.Field()
+    source_object: typing.Optional[str] = None
+    target_object: typing.Optional[str] = None
+    association_type: typing.Optional[AssociationAssociationType] = pydantic.Field(default=None)
     """
     The association type the association belongs to.
     """

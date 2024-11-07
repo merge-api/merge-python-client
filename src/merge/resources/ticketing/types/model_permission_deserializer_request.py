@@ -7,7 +7,7 @@ import pydantic
 
 
 class ModelPermissionDeserializerRequest(UniversalBaseModel):
-    is_enabled: typing.Optional[bool]
+    is_enabled: typing.Optional[bool] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

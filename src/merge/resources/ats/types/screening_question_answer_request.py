@@ -20,23 +20,23 @@ class ScreeningQuestionAnswerRequest(UniversalBaseModel):
     TODO
     """
 
-    remote_id: typing.Optional[str] = pydantic.Field()
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    question: typing.Optional[ScreeningQuestionAnswerRequestQuestion] = pydantic.Field()
+    question: typing.Optional[ScreeningQuestionAnswerRequestQuestion] = pydantic.Field(default=None)
     """
     The screening question associated with the candidate’s answer. To determine the data type of the answer, you can expand on the screening question by adding `screening_question_answers.question` to the `expand` query parameter.
     """
 
-    answer: typing.Optional[str] = pydantic.Field()
+    answer: typing.Optional[str] = pydantic.Field(default=None)
     """
     The candidate’s response to the screening question.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

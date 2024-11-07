@@ -23,23 +23,23 @@ class PatchedTicketRequest(UniversalBaseModel):
     TODO
     """
 
-    name: typing.Optional[str] = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The ticket's name.
     """
 
-    assignees: typing.Optional[typing.List[typing.Optional[str]]]
-    creator: typing.Optional[str] = pydantic.Field()
+    assignees: typing.Optional[typing.List[typing.Optional[str]]] = None
+    creator: typing.Optional[str] = pydantic.Field(default=None)
     """
     The user who created this ticket.
     """
 
-    due_date: typing.Optional[dt.datetime] = pydantic.Field()
+    due_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The ticket's due date.
     """
 
-    status: typing.Optional[PatchedTicketRequestStatus] = pydantic.Field()
+    status: typing.Optional[PatchedTicketRequestStatus] = pydantic.Field(default=None)
     """
     The current status of the ticket.
     
@@ -49,44 +49,44 @@ class PatchedTicketRequest(UniversalBaseModel):
     - `ON_HOLD` - ON_HOLD
     """
 
-    description: typing.Optional[str] = pydantic.Field()
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The ticket’s description. HTML version of description is mapped if supported by the third-party platform.
     """
 
-    collections: typing.Optional[typing.List[typing.Optional[str]]]
-    ticket_type: typing.Optional[str] = pydantic.Field()
+    collections: typing.Optional[typing.List[typing.Optional[str]]] = None
+    ticket_type: typing.Optional[str] = pydantic.Field(default=None)
     """
     The sub category of the ticket within the 3rd party system. Examples include incident, task, subtask or to-do.
     """
 
-    account: typing.Optional[str] = pydantic.Field()
+    account: typing.Optional[str] = pydantic.Field(default=None)
     """
     The account associated with the ticket.
     """
 
-    contact: typing.Optional[str] = pydantic.Field()
+    contact: typing.Optional[str] = pydantic.Field(default=None)
     """
     The contact associated with the ticket.
     """
 
-    parent_ticket: typing.Optional[str] = pydantic.Field()
+    parent_ticket: typing.Optional[str] = pydantic.Field(default=None)
     """
     The ticket's parent ticket.
     """
 
-    tags: typing.Optional[typing.List[typing.Optional[str]]]
-    completed_at: typing.Optional[dt.datetime] = pydantic.Field()
+    tags: typing.Optional[typing.List[typing.Optional[str]]] = None
+    completed_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the ticket was completed.
     """
 
-    ticket_url: typing.Optional[str] = pydantic.Field()
+    ticket_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     The 3rd party url of the Ticket.
     """
 
-    priority: typing.Optional[PatchedTicketRequestPriority] = pydantic.Field()
+    priority: typing.Optional[PatchedTicketRequestPriority] = pydantic.Field(default=None)
     """
     The priority or urgency of the Ticket.
     
@@ -96,9 +96,9 @@ class PatchedTicketRequest(UniversalBaseModel):
     - `LOW` - LOW
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

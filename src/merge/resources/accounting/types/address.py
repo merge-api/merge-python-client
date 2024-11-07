@@ -22,17 +22,17 @@ class Address(UniversalBaseModel):
     Fetch from the `GET CompanyInfo` endpoint and view the company's addresses.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    type: typing.Optional[AddressType] = pydantic.Field()
+    type: typing.Optional[AddressType] = pydantic.Field(default=None)
     """
     The address type.
     
@@ -40,28 +40,28 @@ class Address(UniversalBaseModel):
     - `SHIPPING` - SHIPPING
     """
 
-    street_1: typing.Optional[str] = pydantic.Field()
+    street_1: typing.Optional[str] = pydantic.Field(default=None)
     """
     Line 1 of the address's street.
     """
 
-    street_2: typing.Optional[str] = pydantic.Field()
+    street_2: typing.Optional[str] = pydantic.Field(default=None)
     """
     Line 2 of the address's street.
     """
 
-    city: typing.Optional[str] = pydantic.Field()
+    city: typing.Optional[str] = pydantic.Field(default=None)
     """
     The address's city.
     """
 
-    state: typing.Optional[typing.Optional[typing.Any]]
-    country_subdivision: typing.Optional[str] = pydantic.Field()
+    state: typing.Optional[typing.Optional[typing.Any]] = None
+    country_subdivision: typing.Optional[str] = pydantic.Field(default=None)
     """
     The address's state or region.
     """
 
-    country: typing.Optional[AddressCountry] = pydantic.Field()
+    country: typing.Optional[AddressCountry] = pydantic.Field(default=None)
     """
     The address's country.
     
@@ -316,7 +316,7 @@ class Address(UniversalBaseModel):
     - `ZW` - Zimbabwe
     """
 
-    zip_code: typing.Optional[str] = pydantic.Field()
+    zip_code: typing.Optional[str] = pydantic.Field(default=None)
     """
     The address's zip code.
     """

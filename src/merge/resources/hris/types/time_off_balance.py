@@ -28,38 +28,38 @@ class TimeOffBalance(UniversalBaseModel):
     Fetch from the `LIST TimeOffBalances` endpoint and filter by `ID` to show all time off balances.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    employee: typing.Optional[TimeOffBalanceEmployee] = pydantic.Field()
+    employee: typing.Optional[TimeOffBalanceEmployee] = pydantic.Field(default=None)
     """
     The employee the balance belongs to.
     """
 
-    balance: typing.Optional[float] = pydantic.Field()
+    balance: typing.Optional[float] = pydantic.Field(default=None)
     """
     The current remaining PTO balance, measured in hours. For integrations that return this value in days, Merge multiplies by 8 to calculate hours.
     """
 
-    used: typing.Optional[float] = pydantic.Field()
+    used: typing.Optional[float] = pydantic.Field(default=None)
     """
     The amount of PTO used in terms of hours. For integrations that return this value in days, Merge multiplies by 8 to calculate hours.
     """
 
-    policy_type: typing.Optional[TimeOffBalancePolicyType] = pydantic.Field()
+    policy_type: typing.Optional[TimeOffBalancePolicyType] = pydantic.Field(default=None)
     """
     The policy type of this time off balance.
     
@@ -71,13 +71,13 @@ class TimeOffBalance(UniversalBaseModel):
     - `BEREAVEMENT` - BEREAVEMENT
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

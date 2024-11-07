@@ -8,11 +8,11 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class RemoteFieldApiResponse(UniversalBaseModel):
-    file: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="File")
-    folder: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Folder")
-    drive: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Drive")
-    group: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Group")
-    user: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="User")
+    file: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="File", default=None)
+    folder: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Folder", default=None)
+    drive: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Drive", default=None)
+    group: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Group", default=None)
+    user: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="User", default=None)
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

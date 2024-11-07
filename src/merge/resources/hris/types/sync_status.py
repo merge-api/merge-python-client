@@ -24,11 +24,11 @@ class SyncStatus(UniversalBaseModel):
 
     model_name: str
     model_id: str
-    last_sync_start: typing.Optional[dt.datetime]
-    next_sync_start: typing.Optional[dt.datetime]
+    last_sync_start: typing.Optional[dt.datetime] = None
+    next_sync_start: typing.Optional[dt.datetime] = None
     status: SyncStatusStatusEnum
     is_initial_sync: bool
-    selective_sync_configurations_usage: typing.Optional[SelectiveSyncConfigurationsUsageEnum]
+    selective_sync_configurations_usage: typing.Optional[SelectiveSyncConfigurationsUsageEnum] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

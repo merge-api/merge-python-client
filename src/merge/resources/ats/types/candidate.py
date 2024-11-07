@@ -27,97 +27,99 @@ class Candidate(UniversalBaseModel):
     Fetch from the `LIST Candidates` endpoint and filter by `ID` to show all candidates.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    first_name: typing.Optional[str] = pydantic.Field()
+    first_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The candidate's first name.
     """
 
-    last_name: typing.Optional[str] = pydantic.Field()
+    last_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The candidate's last name.
     """
 
-    company: typing.Optional[str] = pydantic.Field()
+    company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The candidate's current company.
     """
 
-    title: typing.Optional[str] = pydantic.Field()
+    title: typing.Optional[str] = pydantic.Field(default=None)
     """
     The candidate's current title.
     """
 
-    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the third party's candidate was created.
     """
 
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field()
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the third party's candidate was updated.
     """
 
-    last_interaction_at: typing.Optional[dt.datetime] = pydantic.Field()
+    last_interaction_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the most recent interaction with the candidate occurred.
     """
 
-    is_private: typing.Optional[bool] = pydantic.Field()
+    is_private: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether or not the candidate is private.
     """
 
-    can_email: typing.Optional[bool] = pydantic.Field()
+    can_email: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether or not the candidate can be emailed.
     """
 
-    locations: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field()
+    locations: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(default=None)
     """
     The candidate's locations.
     """
 
-    phone_numbers: typing.Optional[typing.List[PhoneNumber]]
-    email_addresses: typing.Optional[typing.List[EmailAddress]]
-    urls: typing.Optional[typing.List[Url]]
-    tags: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field()
+    phone_numbers: typing.Optional[typing.List[PhoneNumber]] = None
+    email_addresses: typing.Optional[typing.List[EmailAddress]] = None
+    urls: typing.Optional[typing.List[Url]] = None
+    tags: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(default=None)
     """
     Array of `Tag` names as strings.
     """
 
-    applications: typing.Optional[typing.List[typing.Optional["CandidateApplicationsItem"]]] = pydantic.Field()
+    applications: typing.Optional[typing.List[typing.Optional["CandidateApplicationsItem"]]] = pydantic.Field(
+        default=None
+    )
     """
     Array of `Application` object IDs.
     """
 
-    attachments: typing.Optional[typing.List[typing.Optional[CandidateAttachmentsItem]]] = pydantic.Field()
+    attachments: typing.Optional[typing.List[typing.Optional[CandidateAttachmentsItem]]] = pydantic.Field(default=None)
     """
     Array of `Attachment` object IDs.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

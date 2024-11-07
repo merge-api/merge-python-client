@@ -31,33 +31,33 @@ class Eeoc(UniversalBaseModel):
     Fetch from the `LIST EEOCs` endpoint and filter by `candidate` to show all EEOC information for a candidate.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    candidate: typing.Optional[EeocCandidate] = pydantic.Field()
+    candidate: typing.Optional[EeocCandidate] = pydantic.Field(default=None)
     """
     The candidate being represented.
     """
 
-    submitted_at: typing.Optional[dt.datetime] = pydantic.Field()
+    submitted_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the information was submitted.
     """
 
-    race: typing.Optional[EeocRace] = pydantic.Field()
+    race: typing.Optional[EeocRace] = pydantic.Field(default=None)
     """
     The candidate's race.
     
@@ -71,7 +71,7 @@ class Eeoc(UniversalBaseModel):
     - `DECLINE_TO_SELF_IDENTIFY` - DECLINE_TO_SELF_IDENTIFY
     """
 
-    gender: typing.Optional[EeocGender] = pydantic.Field()
+    gender: typing.Optional[EeocGender] = pydantic.Field(default=None)
     """
     The candidate's gender.
     
@@ -82,7 +82,7 @@ class Eeoc(UniversalBaseModel):
     - `DECLINE_TO_SELF_IDENTIFY` - DECLINE_TO_SELF_IDENTIFY
     """
 
-    veteran_status: typing.Optional[EeocVeteranStatus] = pydantic.Field()
+    veteran_status: typing.Optional[EeocVeteranStatus] = pydantic.Field(default=None)
     """
     The candidate's veteran status.
     
@@ -91,7 +91,7 @@ class Eeoc(UniversalBaseModel):
     - `I_DONT_WISH_TO_ANSWER` - I_DONT_WISH_TO_ANSWER
     """
 
-    disability_status: typing.Optional[EeocDisabilityStatus] = pydantic.Field()
+    disability_status: typing.Optional[EeocDisabilityStatus] = pydantic.Field(default=None)
     """
     The candidate's disability status.
     
@@ -100,13 +100,13 @@ class Eeoc(UniversalBaseModel):
     - `I_DONT_WISH_TO_ANSWER` - I_DONT_WISH_TO_ANSWER
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

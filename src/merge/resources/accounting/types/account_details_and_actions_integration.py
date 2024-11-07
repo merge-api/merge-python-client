@@ -11,12 +11,12 @@ import pydantic
 class AccountDetailsAndActionsIntegration(UniversalBaseModel):
     name: str
     categories: typing.List[CategoriesEnum]
-    image: typing.Optional[str]
-    square_image: typing.Optional[str]
+    image: typing.Optional[str] = None
+    square_image: typing.Optional[str] = None
     color: str
     slug: str
     passthrough_available: bool
-    available_model_operations: typing.Optional[typing.List[ModelOperation]]
+    available_model_operations: typing.Optional[typing.List[ModelOperation]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

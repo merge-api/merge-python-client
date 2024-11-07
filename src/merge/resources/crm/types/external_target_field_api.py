@@ -7,9 +7,9 @@ import pydantic
 
 
 class ExternalTargetFieldApi(UniversalBaseModel):
-    name: typing.Optional[str]
-    description: typing.Optional[str]
-    is_mapped: typing.Optional[str]
+    name: typing.Optional[str] = None
+    description: typing.Optional[str] = None
+    is_mapped: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

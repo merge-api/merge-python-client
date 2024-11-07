@@ -35,23 +35,23 @@ class Invoice(UniversalBaseModel):
     Fetch from the `LIST Invoices` endpoint and view a company's invoices.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    type: typing.Optional[InvoiceType] = pydantic.Field()
+    type: typing.Optional[InvoiceType] = pydantic.Field(default=None)
     """
     Whether the invoice is an accounts receivable or accounts payable. If `type` is `ACCOUNTS_PAYABLE`, the invoice is a bill. If `type` is `ACCOUNTS_RECEIVABLE`, it is an invoice.
     
@@ -59,42 +59,42 @@ class Invoice(UniversalBaseModel):
     - `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE
     """
 
-    contact: typing.Optional[InvoiceContact] = pydantic.Field()
+    contact: typing.Optional[InvoiceContact] = pydantic.Field(default=None)
     """
     The invoice's contact.
     """
 
-    number: typing.Optional[str] = pydantic.Field()
+    number: typing.Optional[str] = pydantic.Field(default=None)
     """
     The invoice's number.
     """
 
-    issue_date: typing.Optional[dt.datetime] = pydantic.Field()
+    issue_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The invoice's issue date.
     """
 
-    due_date: typing.Optional[dt.datetime] = pydantic.Field()
+    due_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The invoice's due date.
     """
 
-    paid_on_date: typing.Optional[dt.datetime] = pydantic.Field()
+    paid_on_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The invoice's paid date.
     """
 
-    memo: typing.Optional[str] = pydantic.Field()
+    memo: typing.Optional[str] = pydantic.Field(default=None)
     """
     The invoice's private note.
     """
 
-    company: typing.Optional[InvoiceCompany] = pydantic.Field()
+    company: typing.Optional[InvoiceCompany] = pydantic.Field(default=None)
     """
     The company the invoice belongs to.
     """
 
-    currency: typing.Optional[InvoiceCurrency] = pydantic.Field()
+    currency: typing.Optional[InvoiceCurrency] = pydantic.Field(default=None)
     """
     The invoice's currency.
     
@@ -406,22 +406,22 @@ class Invoice(UniversalBaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The invoice's exchange rate.
     """
 
-    total_discount: typing.Optional[float] = pydantic.Field()
+    total_discount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The total discounts applied to the total cost.
     """
 
-    sub_total: typing.Optional[float] = pydantic.Field()
+    sub_total: typing.Optional[float] = pydantic.Field(default=None)
     """
     The total amount being paid before taxes.
     """
 
-    status: typing.Optional[InvoiceStatus] = pydantic.Field()
+    status: typing.Optional[InvoiceStatus] = pydantic.Field(default=None)
     """
     The status of the invoice.
     
@@ -433,57 +433,59 @@ class Invoice(UniversalBaseModel):
     - `VOID` - VOID
     """
 
-    total_tax_amount: typing.Optional[float] = pydantic.Field()
+    total_tax_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The total amount being paid in taxes.
     """
 
-    total_amount: typing.Optional[float] = pydantic.Field()
+    total_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The invoice's total amount.
     """
 
-    balance: typing.Optional[float] = pydantic.Field()
+    balance: typing.Optional[float] = pydantic.Field(default=None)
     """
     The invoice's remaining balance.
     """
 
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field()
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the third party's invoice entry was updated.
     """
 
-    tracking_categories: typing.Optional[typing.List[typing.Optional[InvoiceTrackingCategoriesItem]]]
-    accounting_period: typing.Optional[InvoiceAccountingPeriod] = pydantic.Field()
+    tracking_categories: typing.Optional[typing.List[typing.Optional[InvoiceTrackingCategoriesItem]]] = None
+    accounting_period: typing.Optional[InvoiceAccountingPeriod] = pydantic.Field(default=None)
     """
     The accounting period that the Invoice was generated in.
     """
 
-    purchase_orders: typing.Optional[typing.List[typing.Optional[InvoicePurchaseOrdersItem]]]
-    payments: typing.Optional[typing.List[typing.Optional[InvoicePaymentsItem]]] = pydantic.Field()
+    purchase_orders: typing.Optional[typing.List[typing.Optional[InvoicePurchaseOrdersItem]]] = None
+    payments: typing.Optional[typing.List[typing.Optional[InvoicePaymentsItem]]] = pydantic.Field(default=None)
     """
     Array of `Payment` object IDs.
     """
 
-    applied_payments: typing.Optional[typing.List[typing.Optional[InvoiceAppliedPaymentsItem]]] = pydantic.Field()
+    applied_payments: typing.Optional[typing.List[typing.Optional[InvoiceAppliedPaymentsItem]]] = pydantic.Field(
+        default=None
+    )
     """
     A list of the Payment Applied to Lines common models related to a given Invoice, Credit Note, or Journal Entry.
     """
 
-    line_items: typing.Optional[typing.List[InvoiceLineItem]]
-    inclusive_of_tax: typing.Optional[bool] = pydantic.Field()
+    line_items: typing.Optional[typing.List[InvoiceLineItem]] = None
+    inclusive_of_tax: typing.Optional[bool] = pydantic.Field(default=None)
     """
     If the transaction is inclusive or exclusive of tax. `True` if inclusive, `False` if exclusive.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
-    remote_fields: typing.Optional[typing.List[RemoteField]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
+    remote_fields: typing.Optional[typing.List[RemoteField]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

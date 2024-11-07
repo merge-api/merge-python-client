@@ -9,10 +9,10 @@ import pydantic
 
 
 class FieldMappingApiInstance(UniversalBaseModel):
-    id: typing.Optional[str]
-    is_integration_wide: typing.Optional[bool]
-    target_field: typing.Optional[FieldMappingApiInstanceTargetField]
-    remote_field: typing.Optional[FieldMappingApiInstanceRemoteField]
+    id: typing.Optional[str] = None
+    is_integration_wide: typing.Optional[bool] = None
+    target_field: typing.Optional[FieldMappingApiInstanceTargetField] = None
+    remote_field: typing.Optional[FieldMappingApiInstanceRemoteField] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -29,64 +29,64 @@ class Comment(UniversalBaseModel):
     TODO
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    user: typing.Optional[CommentUser] = pydantic.Field()
+    user: typing.Optional[CommentUser] = pydantic.Field(default=None)
     """
     The author of the Comment, if the author is a User. If the third party does not support specifying an author, we will append "[Posted on behalf of {name}]" to the comment.
     """
 
-    contact: typing.Optional[CommentContact] = pydantic.Field()
+    contact: typing.Optional[CommentContact] = pydantic.Field(default=None)
     """
     The author of the Comment, if the author is a Contact.If the third party does not support specifying an author, we will append "[Posted on behalf of {name}]" to the comment.
     """
 
-    body: typing.Optional[str] = pydantic.Field()
+    body: typing.Optional[str] = pydantic.Field(default=None)
     """
     The comment's text body.
     """
 
-    html_body: typing.Optional[str] = pydantic.Field()
+    html_body: typing.Optional[str] = pydantic.Field(default=None)
     """
     The comment's text body formatted as html.
     """
 
-    ticket: typing.Optional[CommentTicket] = pydantic.Field()
+    ticket: typing.Optional[CommentTicket] = pydantic.Field(default=None)
     """
     The ticket associated with the comment.
     """
 
-    is_private: typing.Optional[bool] = pydantic.Field()
+    is_private: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether or not the comment is internal.
     """
 
-    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the third party's comment was created.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

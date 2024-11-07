@@ -37,93 +37,95 @@ class EmployeeRequest(UniversalBaseModel):
     Fetch from the `LIST Employee` endpoint and filter by `ID` to show all employees.
     """
 
-    employee_number: typing.Optional[str] = pydantic.Field()
+    employee_number: typing.Optional[str] = pydantic.Field(default=None)
     """
     The employee's number that appears in the third-party integration's UI.
     """
 
-    company: typing.Optional[EmployeeRequestCompany] = pydantic.Field()
+    company: typing.Optional[EmployeeRequestCompany] = pydantic.Field(default=None)
     """
     The ID of the employee's company.
     """
 
-    first_name: typing.Optional[str] = pydantic.Field()
+    first_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The employee's first name.
     """
 
-    last_name: typing.Optional[str] = pydantic.Field()
+    last_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The employee's last name.
     """
 
-    preferred_name: typing.Optional[str] = pydantic.Field()
+    preferred_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The employee's preferred first name.
     """
 
-    display_full_name: typing.Optional[str] = pydantic.Field()
+    display_full_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The employee's full name, to use for display purposes. If a preferred first name is available, the full name will include the preferred first name.
     """
 
-    username: typing.Optional[str] = pydantic.Field()
+    username: typing.Optional[str] = pydantic.Field(default=None)
     """
     The employee's username that appears in the remote UI.
     """
 
-    groups: typing.Optional[typing.List[typing.Optional[EmployeeRequestGroupsItem]]]
-    work_email: typing.Optional[str] = pydantic.Field()
+    groups: typing.Optional[typing.List[typing.Optional[EmployeeRequestGroupsItem]]] = None
+    work_email: typing.Optional[str] = pydantic.Field(default=None)
     """
     The employee's work email.
     """
 
-    personal_email: typing.Optional[str] = pydantic.Field()
+    personal_email: typing.Optional[str] = pydantic.Field(default=None)
     """
     The employee's personal email.
     """
 
-    mobile_phone_number: typing.Optional[str] = pydantic.Field()
+    mobile_phone_number: typing.Optional[str] = pydantic.Field(default=None)
     """
     The employee's mobile phone number.
     """
 
-    employments: typing.Optional[typing.List[typing.Optional[EmployeeRequestEmploymentsItem]]] = pydantic.Field()
+    employments: typing.Optional[typing.List[typing.Optional[EmployeeRequestEmploymentsItem]]] = pydantic.Field(
+        default=None
+    )
     """
     Array of `Employment` IDs for this Employee.
     """
 
-    home_location: typing.Optional[EmployeeRequestHomeLocation] = pydantic.Field()
+    home_location: typing.Optional[EmployeeRequestHomeLocation] = pydantic.Field(default=None)
     """
     The employee's home address.
     """
 
-    work_location: typing.Optional[EmployeeRequestWorkLocation] = pydantic.Field()
+    work_location: typing.Optional[EmployeeRequestWorkLocation] = pydantic.Field(default=None)
     """
     The employee's work address.
     """
 
-    manager: typing.Optional[EmployeeRequestManager] = pydantic.Field()
+    manager: typing.Optional[EmployeeRequestManager] = pydantic.Field(default=None)
     """
     The employee ID of the employee's manager.
     """
 
-    team: typing.Optional[EmployeeRequestTeam] = pydantic.Field()
+    team: typing.Optional[EmployeeRequestTeam] = pydantic.Field(default=None)
     """
     The employee's team.
     """
 
-    pay_group: typing.Optional[EmployeeRequestPayGroup] = pydantic.Field()
+    pay_group: typing.Optional[EmployeeRequestPayGroup] = pydantic.Field(default=None)
     """
     The employee's pay group
     """
 
-    ssn: typing.Optional[str] = pydantic.Field()
+    ssn: typing.Optional[str] = pydantic.Field(default=None)
     """
     The employee's social security number.
     """
 
-    gender: typing.Optional[EmployeeRequestGender] = pydantic.Field()
+    gender: typing.Optional[EmployeeRequestGender] = pydantic.Field(default=None)
     """
     The employee's gender.
     
@@ -134,7 +136,7 @@ class EmployeeRequest(UniversalBaseModel):
     - `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE
     """
 
-    ethnicity: typing.Optional[EmployeeRequestEthnicity] = pydantic.Field()
+    ethnicity: typing.Optional[EmployeeRequestEthnicity] = pydantic.Field(default=None)
     """
     The employee's ethnicity.
     
@@ -148,7 +150,7 @@ class EmployeeRequest(UniversalBaseModel):
     - `PREFER_NOT_TO_DISCLOSE` - PREFER_NOT_TO_DISCLOSE
     """
 
-    marital_status: typing.Optional[EmployeeRequestMaritalStatus] = pydantic.Field()
+    marital_status: typing.Optional[EmployeeRequestMaritalStatus] = pydantic.Field(default=None)
     """
     The employee's filing status as related to marital status.
     
@@ -159,22 +161,22 @@ class EmployeeRequest(UniversalBaseModel):
     - `QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD` - QUALIFYING_WIDOW_OR_WIDOWER_WITH_DEPENDENT_CHILD
     """
 
-    date_of_birth: typing.Optional[dt.datetime] = pydantic.Field()
+    date_of_birth: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The employee's date of birth.
     """
 
-    hire_date: typing.Optional[dt.datetime] = pydantic.Field()
+    hire_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The date that the employee was hired, usually the day that an offer letter is signed. If an employee has multiple hire dates from previous employments, this represents the most recent hire date. Note: If you're looking for the employee's start date, refer to the start_date field.
     """
 
-    start_date: typing.Optional[dt.datetime] = pydantic.Field()
+    start_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The date that the employee started working. If an employee was rehired, the most recent start date will be returned.
     """
 
-    employment_status: typing.Optional[EmployeeRequestEmploymentStatus] = pydantic.Field()
+    employment_status: typing.Optional[EmployeeRequestEmploymentStatus] = pydantic.Field(default=None)
     """
     The employment status of the employee.
     
@@ -183,18 +185,18 @@ class EmployeeRequest(UniversalBaseModel):
     - `INACTIVE` - INACTIVE
     """
 
-    termination_date: typing.Optional[dt.datetime] = pydantic.Field()
+    termination_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The employee's termination date.
     """
 
-    avatar: typing.Optional[str] = pydantic.Field()
+    avatar: typing.Optional[str] = pydantic.Field(default=None)
     """
     The URL of the employee's avatar image.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

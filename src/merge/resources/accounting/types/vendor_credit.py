@@ -27,43 +27,43 @@ class VendorCredit(UniversalBaseModel):
     Fetch from the `GET VendorCredit` endpoint and view a company's vendor credits.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    number: typing.Optional[str] = pydantic.Field()
+    number: typing.Optional[str] = pydantic.Field(default=None)
     """
     The vendor credit's number.
     """
 
-    transaction_date: typing.Optional[dt.datetime] = pydantic.Field()
+    transaction_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The vendor credit's transaction date.
     """
 
-    vendor: typing.Optional[VendorCreditVendor] = pydantic.Field()
+    vendor: typing.Optional[VendorCreditVendor] = pydantic.Field(default=None)
     """
     The vendor that owes the gift or refund.
     """
 
-    total_amount: typing.Optional[float] = pydantic.Field()
+    total_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The vendor credit's total amount.
     """
 
-    currency: typing.Optional[VendorCreditCurrency] = pydantic.Field()
+    currency: typing.Optional[VendorCreditCurrency] = pydantic.Field(default=None)
     """
     The vendor credit's currency.
     
@@ -375,35 +375,35 @@ class VendorCredit(UniversalBaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The vendor credit's exchange rate.
     """
 
-    inclusive_of_tax: typing.Optional[bool] = pydantic.Field()
+    inclusive_of_tax: typing.Optional[bool] = pydantic.Field(default=None)
     """
     If the transaction is inclusive or exclusive of tax. `True` if inclusive, `False` if exclusive.
     """
 
-    company: typing.Optional[VendorCreditCompany] = pydantic.Field()
+    company: typing.Optional[VendorCreditCompany] = pydantic.Field(default=None)
     """
     The company the vendor credit belongs to.
     """
 
-    lines: typing.Optional[typing.List[VendorCreditLine]]
-    tracking_categories: typing.Optional[typing.List[typing.Optional[VendorCreditTrackingCategoriesItem]]]
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    lines: typing.Optional[typing.List[VendorCreditLine]] = None
+    tracking_categories: typing.Optional[typing.List[typing.Optional[VendorCreditTrackingCategoriesItem]]] = None
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    accounting_period: typing.Optional[VendorCreditAccountingPeriod] = pydantic.Field()
+    accounting_period: typing.Optional[VendorCreditAccountingPeriod] = pydantic.Field(default=None)
     """
     The accounting period that the VendorCredit was generated in.
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

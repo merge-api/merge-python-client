@@ -27,22 +27,24 @@ class JournalEntryRequest(UniversalBaseModel):
     Fetch from the `GET JournalEntry` endpoint and view a company's journey entry.
     """
 
-    transaction_date: typing.Optional[dt.datetime] = pydantic.Field()
+    transaction_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The journal entry's transaction date.
     """
 
-    payments: typing.Optional[typing.List[typing.Optional[JournalEntryRequestPaymentsItem]]] = pydantic.Field()
+    payments: typing.Optional[typing.List[typing.Optional[JournalEntryRequestPaymentsItem]]] = pydantic.Field(
+        default=None
+    )
     """
     Array of `Payment` object IDs.
     """
 
-    memo: typing.Optional[str] = pydantic.Field()
+    memo: typing.Optional[str] = pydantic.Field(default=None)
     """
     The journal entry's private note.
     """
 
-    currency: typing.Optional[JournalEntryRequestCurrency] = pydantic.Field()
+    currency: typing.Optional[JournalEntryRequestCurrency] = pydantic.Field(default=None)
     """
     The journal's currency.
     
@@ -354,29 +356,29 @@ class JournalEntryRequest(UniversalBaseModel):
     - `ZWL` - Zimbabwean Dollar (2009)
     """
 
-    exchange_rate: typing.Optional[str] = pydantic.Field()
+    exchange_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The journal entry's exchange rate.
     """
 
-    company: typing.Optional[JournalEntryRequestCompany] = pydantic.Field()
+    company: typing.Optional[JournalEntryRequestCompany] = pydantic.Field(default=None)
     """
     The company the journal entry belongs to.
     """
 
-    tracking_categories: typing.Optional[typing.List[typing.Optional[JournalEntryRequestTrackingCategoriesItem]]]
-    inclusive_of_tax: typing.Optional[bool] = pydantic.Field()
+    tracking_categories: typing.Optional[typing.List[typing.Optional[JournalEntryRequestTrackingCategoriesItem]]] = None
+    inclusive_of_tax: typing.Optional[bool] = pydantic.Field(default=None)
     """
     If the transaction is inclusive or exclusive of tax. `True` if inclusive, `False` if exclusive.
     """
 
-    lines: typing.Optional[typing.List[JournalLineRequest]]
-    journal_number: typing.Optional[str] = pydantic.Field()
+    lines: typing.Optional[typing.List[JournalLineRequest]] = None
+    journal_number: typing.Optional[str] = pydantic.Field(default=None)
     """
     Reference number for identifying journal entries.
     """
 
-    posting_status: typing.Optional[JournalEntryRequestPostingStatus] = pydantic.Field()
+    posting_status: typing.Optional[JournalEntryRequestPostingStatus] = pydantic.Field(default=None)
     """
     The journal's posting status.
     
@@ -384,9 +386,9 @@ class JournalEntryRequest(UniversalBaseModel):
     - `POSTED` - POSTED
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

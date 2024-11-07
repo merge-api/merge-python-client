@@ -20,22 +20,22 @@ class AccountingPhoneNumber(UniversalBaseModel):
     Fetch from the `GET CompanyInfo` endpoint and view the company's phone numbers.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    number: typing.Optional[str] = pydantic.Field()
+    number: typing.Optional[str] = pydantic.Field(default=None)
     """
     The phone number.
     """
 
-    type: typing.Optional[str] = pydantic.Field()
+    type: typing.Optional[str] = pydantic.Field(default=None)
     """
     The phone number's type.
     """

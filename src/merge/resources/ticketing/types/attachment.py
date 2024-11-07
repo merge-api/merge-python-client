@@ -24,59 +24,59 @@ class Attachment(UniversalBaseModel):
     TODO
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    file_name: typing.Optional[str] = pydantic.Field()
+    file_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The attachment's name. It is required to include the file extension in the attachment's name.
     """
 
-    ticket: typing.Optional["AttachmentTicket"] = pydantic.Field()
+    ticket: typing.Optional["AttachmentTicket"] = pydantic.Field(default=None)
     """
     The ticket associated with the attachment.
     """
 
-    file_url: typing.Optional[str] = pydantic.Field()
+    file_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     The attachment's url. It is required to include the file extension in the file's URL.
     """
 
-    content_type: typing.Optional[str] = pydantic.Field()
+    content_type: typing.Optional[str] = pydantic.Field(default=None)
     """
     The attachment's file format.
     """
 
-    uploaded_by: typing.Optional[str] = pydantic.Field()
+    uploaded_by: typing.Optional[str] = pydantic.Field(default=None)
     """
     The user who uploaded the attachment.
     """
 
-    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the third party's attachment was created.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

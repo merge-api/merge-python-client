@@ -20,38 +20,38 @@ class ReportItem(UniversalBaseModel):
     Fetch from the `GET BalanceSheet` endpoint and view the balance sheet's report items.
     """
 
-    remote_id: typing.Optional[str] = pydantic.Field()
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    name: typing.Optional[str] = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The report item's name.
     """
 
-    value: typing.Optional[float] = pydantic.Field()
+    value: typing.Optional[float] = pydantic.Field(default=None)
     """
     The report item's value.
     """
 
-    sub_items: typing.Optional[typing.List[typing.Dict[str, typing.Optional[typing.Any]]]]
-    company: typing.Optional[str] = pydantic.Field()
+    sub_items: typing.Optional[typing.List[typing.Dict[str, typing.Optional[typing.Any]]]] = None
+    company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company the report item belongs to.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """

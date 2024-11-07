@@ -23,23 +23,23 @@ class PayrollRun(UniversalBaseModel):
     Fetch from the `LIST PayrollRuns` endpoint and filter by `ID` to show all payroll runs.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    run_state: typing.Optional[PayrollRunRunState] = pydantic.Field()
+    run_state: typing.Optional[PayrollRunRunState] = pydantic.Field(default=None)
     """
     The state of the payroll run
     
@@ -50,7 +50,7 @@ class PayrollRun(UniversalBaseModel):
     - `CLOSED` - CLOSED
     """
 
-    run_type: typing.Optional[PayrollRunRunType] = pydantic.Field()
+    run_type: typing.Optional[PayrollRunRunType] = pydantic.Field(default=None)
     """
     The type of the payroll run
     
@@ -61,28 +61,28 @@ class PayrollRun(UniversalBaseModel):
     - `SIGN_ON_BONUS` - SIGN_ON_BONUS
     """
 
-    start_date: typing.Optional[dt.datetime] = pydantic.Field()
+    start_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The day and time the payroll run started.
     """
 
-    end_date: typing.Optional[dt.datetime] = pydantic.Field()
+    end_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The day and time the payroll run ended.
     """
 
-    check_date: typing.Optional[dt.datetime] = pydantic.Field()
+    check_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The day and time the payroll run was checked.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -20,28 +20,28 @@ class TimesheetEntryRequest(UniversalBaseModel):
     GET and POST Timesheet Entries
     """
 
-    employee: typing.Optional[str] = pydantic.Field()
+    employee: typing.Optional[str] = pydantic.Field(default=None)
     """
     The employee the timesheet entry is for.
     """
 
-    hours_worked: typing.Optional[float] = pydantic.Field()
+    hours_worked: typing.Optional[float] = pydantic.Field(default=None)
     """
     The number of hours logged by the employee.
     """
 
-    start_time: typing.Optional[dt.datetime] = pydantic.Field()
+    start_time: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The time at which the employee started work.
     """
 
-    end_time: typing.Optional[dt.datetime] = pydantic.Field()
+    end_time: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The time at which the employee ended work.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

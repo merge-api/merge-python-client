@@ -11,16 +11,16 @@ import pydantic
 
 
 class RemoteFieldClass(UniversalBaseModel):
-    id: typing.Optional[str]
-    display_name: typing.Optional[str]
-    remote_key_name: typing.Optional[str]
-    description: typing.Optional[str]
-    is_custom: typing.Optional[bool]
-    is_required: typing.Optional[bool]
-    field_type: typing.Optional[RemoteFieldClassFieldType]
-    field_format: typing.Optional[RemoteFieldClassFieldFormat]
-    field_choices: typing.Optional[typing.List[RemoteFieldClassFieldChoicesItem]]
-    item_schema: typing.Optional[ItemSchema]
+    id: typing.Optional[str] = None
+    display_name: typing.Optional[str] = None
+    remote_key_name: typing.Optional[str] = None
+    description: typing.Optional[str] = None
+    is_custom: typing.Optional[bool] = None
+    is_required: typing.Optional[bool] = None
+    field_type: typing.Optional[RemoteFieldClassFieldType] = None
+    field_format: typing.Optional[RemoteFieldClassFieldFormat] = None
+    field_choices: typing.Optional[typing.List[RemoteFieldClassFieldChoicesItem]] = None
+    item_schema: typing.Optional[ItemSchema] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

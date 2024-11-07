@@ -24,43 +24,43 @@ class TaxRate(UniversalBaseModel):
     Fetch from the `LIST TaxRates` endpoint and view tax rates relevant to a company.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    company: typing.Optional[TaxRateCompany] = pydantic.Field()
+    company: typing.Optional[TaxRateCompany] = pydantic.Field(default=None)
     """
     The subsidiary that the tax rate belongs to (in the case of multi-entity systems).
     """
 
-    code: typing.Optional[str] = pydantic.Field()
+    code: typing.Optional[str] = pydantic.Field(default=None)
     """
     The tax code associated with this tax rate or group of tax rates from the third-party platform.
     """
 
-    name: typing.Optional[str] = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The tax rate’s name.
     """
 
-    description: typing.Optional[str] = pydantic.Field()
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The tax rate's description.
     """
 
-    status: typing.Optional[TaxRateStatus] = pydantic.Field()
+    status: typing.Optional[TaxRateStatus] = pydantic.Field(default=None)
     """
     The tax rate’s status - `ACTIVE` if an active tax rate, `ARCHIVED` if not active.
     
@@ -68,33 +68,33 @@ class TaxRate(UniversalBaseModel):
     - `ARCHIVED` - ARCHIVED
     """
 
-    country: typing.Optional[str] = pydantic.Field()
+    country: typing.Optional[str] = pydantic.Field(default=None)
     """
     The country the tax rate is associated with.
     """
 
-    total_tax_rate: typing.Optional[float] = pydantic.Field()
+    total_tax_rate: typing.Optional[float] = pydantic.Field(default=None)
     """
     The tax’s total tax rate - sum of the tax components (not compounded).
     """
 
-    effective_tax_rate: typing.Optional[float] = pydantic.Field()
+    effective_tax_rate: typing.Optional[float] = pydantic.Field(default=None)
     """
     The tax rate’s effective tax rate - total amount of tax with compounding.
     """
 
-    tax_components: typing.Optional[typing.List[TaxRateTaxComponentsItem]] = pydantic.Field()
+    tax_components: typing.Optional[typing.List[TaxRateTaxComponentsItem]] = pydantic.Field(default=None)
     """
     The related tax components of the tax rate.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

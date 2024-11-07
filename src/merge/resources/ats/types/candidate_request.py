@@ -30,67 +30,71 @@ class CandidateRequest(UniversalBaseModel):
     Fetch from the `LIST Candidates` endpoint and filter by `ID` to show all candidates.
     """
 
-    first_name: typing.Optional[str] = pydantic.Field()
+    first_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The candidate's first name.
     """
 
-    last_name: typing.Optional[str] = pydantic.Field()
+    last_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The candidate's last name.
     """
 
-    company: typing.Optional[str] = pydantic.Field()
+    company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The candidate's current company.
     """
 
-    title: typing.Optional[str] = pydantic.Field()
+    title: typing.Optional[str] = pydantic.Field(default=None)
     """
     The candidate's current title.
     """
 
-    last_interaction_at: typing.Optional[dt.datetime] = pydantic.Field()
+    last_interaction_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the most recent interaction with the candidate occurred.
     """
 
-    is_private: typing.Optional[bool] = pydantic.Field()
+    is_private: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether or not the candidate is private.
     """
 
-    can_email: typing.Optional[bool] = pydantic.Field()
+    can_email: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether or not the candidate can be emailed.
     """
 
-    locations: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field()
+    locations: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(default=None)
     """
     The candidate's locations.
     """
 
-    phone_numbers: typing.Optional[typing.List[PhoneNumberRequest]]
-    email_addresses: typing.Optional[typing.List[EmailAddressRequest]]
-    urls: typing.Optional[typing.List[UrlRequest]]
-    tags: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field()
+    phone_numbers: typing.Optional[typing.List[PhoneNumberRequest]] = None
+    email_addresses: typing.Optional[typing.List[EmailAddressRequest]] = None
+    urls: typing.Optional[typing.List[UrlRequest]] = None
+    tags: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(default=None)
     """
     Array of `Tag` names as strings.
     """
 
-    applications: typing.Optional[typing.List[typing.Optional[CandidateRequestApplicationsItem]]] = pydantic.Field()
+    applications: typing.Optional[typing.List[typing.Optional[CandidateRequestApplicationsItem]]] = pydantic.Field(
+        default=None
+    )
     """
     Array of `Application` object IDs.
     """
 
-    attachments: typing.Optional[typing.List[typing.Optional[CandidateRequestAttachmentsItem]]] = pydantic.Field()
+    attachments: typing.Optional[typing.List[typing.Optional[CandidateRequestAttachmentsItem]]] = pydantic.Field(
+        default=None
+    )
     """
     Array of `Attachment` object IDs.
     """
 
-    remote_template_id: typing.Optional[str]
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+    remote_template_id: typing.Optional[str] = None
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

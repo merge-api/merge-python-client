@@ -22,42 +22,42 @@ class PatchedTaskRequest(UniversalBaseModel):
     TODO
     """
 
-    subject: typing.Optional[str] = pydantic.Field()
+    subject: typing.Optional[str] = pydantic.Field(default=None)
     """
     The task's subject.
     """
 
-    content: typing.Optional[str] = pydantic.Field()
+    content: typing.Optional[str] = pydantic.Field(default=None)
     """
     The task's content.
     """
 
-    owner: typing.Optional[str] = pydantic.Field()
+    owner: typing.Optional[str] = pydantic.Field(default=None)
     """
     The task's owner.
     """
 
-    account: typing.Optional[str] = pydantic.Field()
+    account: typing.Optional[str] = pydantic.Field(default=None)
     """
     The task's account.
     """
 
-    opportunity: typing.Optional[str] = pydantic.Field()
+    opportunity: typing.Optional[str] = pydantic.Field(default=None)
     """
     The task's opportunity.
     """
 
-    completed_date: typing.Optional[dt.datetime] = pydantic.Field()
+    completed_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the task is completed.
     """
 
-    due_date: typing.Optional[dt.datetime] = pydantic.Field()
+    due_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the task is due.
     """
 
-    status: typing.Optional[PatchedTaskRequestStatus] = pydantic.Field()
+    status: typing.Optional[PatchedTaskRequestStatus] = pydantic.Field(default=None)
     """
     The task's status.
     
@@ -65,9 +65,9 @@ class PatchedTaskRequest(UniversalBaseModel):
     - `CLOSED` - CLOSED
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

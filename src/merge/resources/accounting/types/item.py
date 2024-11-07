@@ -27,28 +27,28 @@ class Item(UniversalBaseModel):
     Fetch from the `LIST Items` endpoint and view a company's items.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    name: typing.Optional[str] = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The item's name.
     """
 
-    status: typing.Optional[ItemStatus] = pydantic.Field()
+    status: typing.Optional[ItemStatus] = pydantic.Field(default=None)
     """
     The item's status.
     
@@ -56,53 +56,53 @@ class Item(UniversalBaseModel):
     - `ARCHIVED` - ARCHIVED
     """
 
-    unit_price: typing.Optional[float] = pydantic.Field()
+    unit_price: typing.Optional[float] = pydantic.Field(default=None)
     """
     The item's unit price.
     """
 
-    purchase_price: typing.Optional[float] = pydantic.Field()
+    purchase_price: typing.Optional[float] = pydantic.Field(default=None)
     """
     The price at which the item is purchased from a vendor.
     """
 
-    purchase_account: typing.Optional[ItemPurchaseAccount] = pydantic.Field()
+    purchase_account: typing.Optional[ItemPurchaseAccount] = pydantic.Field(default=None)
     """
     References the default account used to record a purchase of the item.
     """
 
-    sales_account: typing.Optional[ItemSalesAccount] = pydantic.Field()
+    sales_account: typing.Optional[ItemSalesAccount] = pydantic.Field(default=None)
     """
     References the default account used to record a sale.
     """
 
-    company: typing.Optional[ItemCompany] = pydantic.Field()
+    company: typing.Optional[ItemCompany] = pydantic.Field(default=None)
     """
     The company the item belongs to.
     """
 
-    purchase_tax_rate: typing.Optional[ItemPurchaseTaxRate] = pydantic.Field()
+    purchase_tax_rate: typing.Optional[ItemPurchaseTaxRate] = pydantic.Field(default=None)
     """
     The default purchase tax rate for this item.
     """
 
-    sales_tax_rate: typing.Optional[ItemSalesTaxRate] = pydantic.Field()
+    sales_tax_rate: typing.Optional[ItemSalesTaxRate] = pydantic.Field(default=None)
     """
     The default sales tax rate for this item.
     """
 
-    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field()
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the third party's item note was updated.
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

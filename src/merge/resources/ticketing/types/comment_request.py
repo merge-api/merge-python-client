@@ -27,38 +27,38 @@ class CommentRequest(UniversalBaseModel):
     TODO
     """
 
-    user: typing.Optional[CommentRequestUser] = pydantic.Field()
+    user: typing.Optional[CommentRequestUser] = pydantic.Field(default=None)
     """
     The author of the Comment, if the author is a User. If the third party does not support specifying an author, we will append "[Posted on behalf of {name}]" to the comment.
     """
 
-    contact: typing.Optional[CommentRequestContact] = pydantic.Field()
+    contact: typing.Optional[CommentRequestContact] = pydantic.Field(default=None)
     """
     The author of the Comment, if the author is a Contact.If the third party does not support specifying an author, we will append "[Posted on behalf of {name}]" to the comment.
     """
 
-    body: typing.Optional[str] = pydantic.Field()
+    body: typing.Optional[str] = pydantic.Field(default=None)
     """
     The comment's text body.
     """
 
-    html_body: typing.Optional[str] = pydantic.Field()
+    html_body: typing.Optional[str] = pydantic.Field(default=None)
     """
     The comment's text body formatted as html.
     """
 
-    ticket: typing.Optional[CommentRequestTicket] = pydantic.Field()
+    ticket: typing.Optional[CommentRequestTicket] = pydantic.Field(default=None)
     """
     The ticket associated with the comment.
     """
 
-    is_private: typing.Optional[bool] = pydantic.Field()
+    is_private: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether or not the comment is internal.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

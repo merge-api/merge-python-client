@@ -20,38 +20,38 @@ class PaymentLineItem(UniversalBaseModel):
     `Payment` will have a field called `applied-to-lines` which will be an array of `PaymentLineItemInternalMappingSerializer` objects that can either be a `Invoice`, `CreditNote`, or `JournalEntry`.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    applied_amount: typing.Optional[str] = pydantic.Field()
+    applied_amount: typing.Optional[str] = pydantic.Field(default=None)
     """
     The amount being applied to the transaction.
     """
 
-    applied_date: typing.Optional[dt.datetime] = pydantic.Field()
+    applied_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The date the payment portion is applied.
     """
 
-    related_object_id: typing.Optional[str] = pydantic.Field()
+    related_object_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The Merge ID of the transaction the payment portion is being applied to.
     """
 
-    related_object_type: typing.Optional[str] = pydantic.Field()
+    related_object_type: typing.Optional[str] = pydantic.Field(default=None)
     """
     The type of transaction the payment portion is being applied to. Possible values include: INVOICE, JOURNAL_ENTRY, or CREDIT_NOTE.
     """

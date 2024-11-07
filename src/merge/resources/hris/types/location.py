@@ -23,58 +23,58 @@ class Location(UniversalBaseModel):
     Fetch from the `LIST Locations` endpoint and filter by `ID` to show all office locations.
     """
 
-    id: typing.Optional[str]
-    remote_id: typing.Optional[str] = pydantic.Field()
+    id: typing.Optional[str] = None
+    remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The third-party API ID of the matching object.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field()
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was created by Merge.
     """
 
-    modified_at: typing.Optional[dt.datetime] = pydantic.Field()
+    modified_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The datetime that this object was modified by Merge.
     """
 
-    name: typing.Optional[str] = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The location's name.
     """
 
-    phone_number: typing.Optional[str] = pydantic.Field()
+    phone_number: typing.Optional[str] = pydantic.Field(default=None)
     """
     The location's phone number.
     """
 
-    street_1: typing.Optional[str] = pydantic.Field()
+    street_1: typing.Optional[str] = pydantic.Field(default=None)
     """
     Line 1 of the location's street address.
     """
 
-    street_2: typing.Optional[str] = pydantic.Field()
+    street_2: typing.Optional[str] = pydantic.Field(default=None)
     """
     Line 2 of the location's street address.
     """
 
-    city: typing.Optional[str] = pydantic.Field()
+    city: typing.Optional[str] = pydantic.Field(default=None)
     """
     The location's city.
     """
 
-    state: typing.Optional[str] = pydantic.Field()
+    state: typing.Optional[str] = pydantic.Field(default=None)
     """
     The location's state. Represents a region if outside of the US.
     """
 
-    zip_code: typing.Optional[str] = pydantic.Field()
+    zip_code: typing.Optional[str] = pydantic.Field(default=None)
     """
     The location's zip code or postal code.
     """
 
-    country: typing.Optional[LocationCountry] = pydantic.Field()
+    country: typing.Optional[LocationCountry] = pydantic.Field(default=None)
     """
     The location's country.
     
@@ -329,7 +329,7 @@ class Location(UniversalBaseModel):
     - `ZW` - Zimbabwe
     """
 
-    location_type: typing.Optional[LocationLocationType] = pydantic.Field()
+    location_type: typing.Optional[LocationLocationType] = pydantic.Field(default=None)
     """
     The location's type. Can be either WORK or HOME
     
@@ -337,13 +337,13 @@ class Location(UniversalBaseModel):
     - `WORK` - WORK
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field()
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_data: typing.Optional[typing.List[RemoteData]]
+    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

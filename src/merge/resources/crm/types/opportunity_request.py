@@ -25,37 +25,37 @@ class OpportunityRequest(UniversalBaseModel):
     TODO
     """
 
-    name: typing.Optional[str] = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The opportunity's name.
     """
 
-    description: typing.Optional[str] = pydantic.Field()
+    description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The opportunity's description.
     """
 
-    amount: typing.Optional[int] = pydantic.Field()
+    amount: typing.Optional[int] = pydantic.Field(default=None)
     """
     The opportunity's amount.
     """
 
-    owner: typing.Optional[OpportunityRequestOwner] = pydantic.Field()
+    owner: typing.Optional[OpportunityRequestOwner] = pydantic.Field(default=None)
     """
     The opportunity's owner.
     """
 
-    account: typing.Optional[OpportunityRequestAccount] = pydantic.Field()
+    account: typing.Optional[OpportunityRequestAccount] = pydantic.Field(default=None)
     """
     The account of the opportunity.
     """
 
-    stage: typing.Optional[OpportunityRequestStage] = pydantic.Field()
+    stage: typing.Optional[OpportunityRequestStage] = pydantic.Field(default=None)
     """
     The stage of the opportunity.
     """
 
-    status: typing.Optional[OpportunityRequestStatus] = pydantic.Field()
+    status: typing.Optional[OpportunityRequestStatus] = pydantic.Field(default=None)
     """
     The opportunity's status.
     
@@ -64,19 +64,19 @@ class OpportunityRequest(UniversalBaseModel):
     - `LOST` - LOST
     """
 
-    last_activity_at: typing.Optional[dt.datetime] = pydantic.Field()
+    last_activity_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the opportunity's last activity occurred.
     """
 
-    close_date: typing.Optional[dt.datetime] = pydantic.Field()
+    close_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the opportunity was closed.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]]
+    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
