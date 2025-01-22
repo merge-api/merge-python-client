@@ -7,6 +7,7 @@ import datetime as dt
 from .expense_line_item import ExpenseLineItem
 from .expense_line_tracking_category import ExpenseLineTrackingCategory
 from .expense_line_tracking_categories_item import ExpenseLineTrackingCategoriesItem
+from .expense_line_employee import ExpenseLineEmployee
 from .expense_line_currency import ExpenseLineCurrency
 from .expense_line_account import ExpenseLineAccount
 from .expense_line_contact import ExpenseLineContact
@@ -62,7 +63,12 @@ class ExpenseLine(UniversalBaseModel):
 
     company: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The company the line belongs to.
+    The company the expense belongs to.
+    """
+
+    employee: typing.Optional[ExpenseLineEmployee] = pydantic.Field(default=None)
+    """
+    The employee this overall transaction relates to.
     """
 
     currency: typing.Optional[ExpenseLineCurrency] = pydantic.Field(default=None)

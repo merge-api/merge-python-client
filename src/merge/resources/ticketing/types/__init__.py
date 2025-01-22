@@ -24,6 +24,7 @@ from .collection import Collection
 from .collection_access_level import CollectionAccessLevel
 from .collection_collection_type import CollectionCollectionType
 from .collection_parent_collection import CollectionParentCollection
+from .collection_teams_item import CollectionTeamsItem
 from .collection_type_enum import CollectionTypeEnum
 from .comment import Comment
 from .comment_contact import CommentContact
@@ -95,6 +96,7 @@ from .paginated_tag_list import PaginatedTagList
 from .paginated_team_list import PaginatedTeamList
 from .paginated_ticket_list import PaginatedTicketList
 from .paginated_user_list import PaginatedUserList
+from .paginated_viewer_list import PaginatedViewerList
 from .patched_ticket_request import PatchedTicketRequest
 from .patched_ticket_request_priority import PatchedTicketRequestPriority
 from .patched_ticket_request_status import PatchedTicketRequestStatus
@@ -130,6 +132,7 @@ from .ticket import Ticket
 from .ticket_access_enum import TicketAccessEnum
 from .ticket_account import TicketAccount
 from .ticket_actions_enum import TicketActionsEnum
+from .ticket_assigned_teams_item import TicketAssignedTeamsItem
 from .ticket_assignees_item import TicketAssigneesItem
 from .ticket_attachments_item import TicketAttachmentsItem
 from .ticket_collections_item import TicketCollectionsItem
@@ -139,6 +142,7 @@ from .ticket_parent_ticket import TicketParentTicket
 from .ticket_priority import TicketPriority
 from .ticket_request import TicketRequest
 from .ticket_request_account import TicketRequestAccount
+from .ticket_request_assigned_teams_item import TicketRequestAssignedTeamsItem
 from .ticket_request_assignees_item import TicketRequestAssigneesItem
 from .ticket_request_attachments_item import TicketRequestAttachmentsItem
 from .ticket_request_collections_item import TicketRequestCollectionsItem
@@ -156,6 +160,9 @@ from .user import User
 from .user_roles_item import UserRolesItem
 from .user_teams_item import UserTeamsItem
 from .validation_problem_source import ValidationProblemSource
+from .viewer import Viewer
+from .viewer_team import ViewerTeam
+from .viewer_user import ViewerUser
 from .warning_validation_problem import WarningValidationProblem
 from .webhook_receiver import WebhookReceiver
 
@@ -184,6 +191,7 @@ __all__ = [
     "CollectionAccessLevel",
     "CollectionCollectionType",
     "CollectionParentCollection",
+    "CollectionTeamsItem",
     "CollectionTypeEnum",
     "Comment",
     "CommentContact",
@@ -253,6 +261,7 @@ __all__ = [
     "PaginatedTeamList",
     "PaginatedTicketList",
     "PaginatedUserList",
+    "PaginatedViewerList",
     "PatchedTicketRequest",
     "PatchedTicketRequestPriority",
     "PatchedTicketRequestStatus",
@@ -288,6 +297,7 @@ __all__ = [
     "TicketAccessEnum",
     "TicketAccount",
     "TicketActionsEnum",
+    "TicketAssignedTeamsItem",
     "TicketAssigneesItem",
     "TicketAttachmentsItem",
     "TicketCollectionsItem",
@@ -297,6 +307,7 @@ __all__ = [
     "TicketPriority",
     "TicketRequest",
     "TicketRequestAccount",
+    "TicketRequestAssignedTeamsItem",
     "TicketRequestAssigneesItem",
     "TicketRequestAttachmentsItem",
     "TicketRequestCollectionsItem",
@@ -314,6 +325,9 @@ __all__ = [
     "UserRolesItem",
     "UserTeamsItem",
     "ValidationProblemSource",
+    "Viewer",
+    "ViewerTeam",
+    "ViewerUser",
     "WarningValidationProblem",
     "WebhookReceiver",
 ]

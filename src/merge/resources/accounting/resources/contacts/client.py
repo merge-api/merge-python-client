@@ -34,6 +34,7 @@ class ContactsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        email_address: typing.Optional[str] = None,
         expand: typing.Optional[ContactsListRequestExpand] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
@@ -43,6 +44,7 @@ class ContactsClient:
         is_supplier: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        name: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
@@ -65,6 +67,9 @@ class ContactsClient:
 
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        email_address : typing.Optional[str]
+            If provided, will only return Contacts that match this email.
 
         expand : typing.Optional[ContactsListRequestExpand]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
@@ -92,6 +97,9 @@ class ContactsClient:
 
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
+
+        name : typing.Optional[str]
+            If provided, will only return Contacts that match this name.
 
         page_size : typing.Optional[int]
             Number of results to return per page.
@@ -131,6 +139,7 @@ class ContactsClient:
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
+                "email_address": email_address,
                 "expand": expand,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
@@ -140,6 +149,7 @@ class ContactsClient:
                 "is_supplier": is_supplier,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "name": name,
                 "page_size": page_size,
                 "remote_fields": remote_fields,
                 "remote_id": remote_id,
@@ -443,6 +453,7 @@ class AsyncContactsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        email_address: typing.Optional[str] = None,
         expand: typing.Optional[ContactsListRequestExpand] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
@@ -452,6 +463,7 @@ class AsyncContactsClient:
         is_supplier: typing.Optional[str] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        name: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
@@ -474,6 +486,9 @@ class AsyncContactsClient:
 
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        email_address : typing.Optional[str]
+            If provided, will only return Contacts that match this email.
 
         expand : typing.Optional[ContactsListRequestExpand]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
@@ -501,6 +516,9 @@ class AsyncContactsClient:
 
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
+
+        name : typing.Optional[str]
+            If provided, will only return Contacts that match this name.
 
         page_size : typing.Optional[int]
             Number of results to return per page.
@@ -548,6 +566,7 @@ class AsyncContactsClient:
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
+                "email_address": email_address,
                 "expand": expand,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
@@ -557,6 +576,7 @@ class AsyncContactsClient:
                 "is_supplier": is_supplier,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "name": name,
                 "page_size": page_size,
                 "remote_fields": remote_fields,
                 "remote_id": remote_id,

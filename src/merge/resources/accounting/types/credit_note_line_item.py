@@ -10,6 +10,18 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class CreditNoteLineItem(UniversalBaseModel):
+    """
+    # The CreditNoteLineItem Object
+
+    ### Description
+
+    The `CreditNoteLineItem` object is used to represent a credit note's line items.
+
+    ### Usage Example
+
+    Fetch from the `GET CreditNote` endpoint and view the credit note's line items.
+    """
+
     id: typing.Optional[str] = None
     remote_id: typing.Optional[str] = pydantic.Field(default=None)
     """

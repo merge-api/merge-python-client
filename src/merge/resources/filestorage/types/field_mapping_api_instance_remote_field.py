@@ -10,8 +10,10 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class FieldMappingApiInstanceRemoteField(UniversalBaseModel):
-    remote_key_name: str
-    schema_: typing.Dict[str, typing.Optional[typing.Any]] = pydantic.Field(alias="schema")
+    remote_key_name: typing.Optional[str] = None
+    schema_: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(
+        alias="schema", default=None
+    )
     remote_endpoint_info: FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo
 
     if IS_PYDANTIC_V2:

@@ -16,7 +16,8 @@ class User(UniversalBaseModel):
 
     ### Description
 
-    The `User` object is used to represent an employee within a company.
+    The `User` object is used to represent a user with a login to the ticketing system.
+    Users are either assignees who are directly responsible or a viewer on a `Ticket`/ `Collection`.
 
     ### Usage Example
 

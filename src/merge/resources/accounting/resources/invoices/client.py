@@ -4,6 +4,7 @@ import typing
 from .....core.client_wrapper import SyncClientWrapper
 import datetime as dt
 from .types.invoices_list_request_expand import InvoicesListRequestExpand
+from .types.invoices_list_request_status import InvoicesListRequestStatus
 from .types.invoices_list_request_type import InvoicesListRequestType
 from .....core.request_options import RequestOptions
 from ...types.paginated_invoice_list import PaginatedInvoiceList
@@ -45,10 +46,12 @@ class InvoicesClient:
         issue_date_before: typing.Optional[dt.datetime] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        number: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         remote_fields: typing.Optional[typing.Literal["type"]] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
+        status: typing.Optional[InvoicesListRequestStatus] = None,
         type: typing.Optional[InvoicesListRequestType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedInvoiceList:
@@ -99,6 +102,9 @@ class InvoicesClient:
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
 
+        number : typing.Optional[str]
+            If provided, will only return Invoices with this number.
+
         page_size : typing.Optional[int]
             Number of results to return per page.
 
@@ -111,8 +117,18 @@ class InvoicesClient:
         show_enum_origins : typing.Optional[typing.Literal["type"]]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
+        status : typing.Optional[InvoicesListRequestStatus]
+            If provided, will only return Invoices with this status.
+
+            - `PAID` - PAID
+            - `DRAFT` - DRAFT
+            - `SUBMITTED` - SUBMITTED
+            - `PARTIALLY_PAID` - PARTIALLY_PAID
+            - `OPEN` - OPEN
+            - `VOID` - VOID
+
         type : typing.Optional[InvoicesListRequestType]
-            If provided, will only return Invoices with this type
+            If provided, will only return Invoices with this type.
 
             - `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
             - `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE
@@ -153,10 +169,12 @@ class InvoicesClient:
                 "issue_date_before": serialize_datetime(issue_date_before) if issue_date_before is not None else None,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "number": number,
                 "page_size": page_size,
                 "remote_fields": remote_fields,
                 "remote_id": remote_id,
                 "show_enum_origins": show_enum_origins,
+                "status": status,
                 "type": type,
             },
             request_options=request_options,
@@ -185,6 +203,7 @@ class InvoicesClient:
     ) -> InvoiceResponse:
         """
         Creates an `Invoice` object with the given values.
+        Including a `PurchaseOrder` id in the `purchase_orders` property will generate an Accounts Payable Invoice from the specified Purchase Order(s).
 
         Parameters
         ----------
@@ -666,10 +685,12 @@ class AsyncInvoicesClient:
         issue_date_before: typing.Optional[dt.datetime] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        number: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         remote_fields: typing.Optional[typing.Literal["type"]] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
+        status: typing.Optional[InvoicesListRequestStatus] = None,
         type: typing.Optional[InvoicesListRequestType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedInvoiceList:
@@ -720,6 +741,9 @@ class AsyncInvoicesClient:
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
 
+        number : typing.Optional[str]
+            If provided, will only return Invoices with this number.
+
         page_size : typing.Optional[int]
             Number of results to return per page.
 
@@ -732,8 +756,18 @@ class AsyncInvoicesClient:
         show_enum_origins : typing.Optional[typing.Literal["type"]]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
+        status : typing.Optional[InvoicesListRequestStatus]
+            If provided, will only return Invoices with this status.
+
+            - `PAID` - PAID
+            - `DRAFT` - DRAFT
+            - `SUBMITTED` - SUBMITTED
+            - `PARTIALLY_PAID` - PARTIALLY_PAID
+            - `OPEN` - OPEN
+            - `VOID` - VOID
+
         type : typing.Optional[InvoicesListRequestType]
-            If provided, will only return Invoices with this type
+            If provided, will only return Invoices with this type.
 
             - `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
             - `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE
@@ -782,10 +816,12 @@ class AsyncInvoicesClient:
                 "issue_date_before": serialize_datetime(issue_date_before) if issue_date_before is not None else None,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "number": number,
                 "page_size": page_size,
                 "remote_fields": remote_fields,
                 "remote_id": remote_id,
                 "show_enum_origins": show_enum_origins,
+                "status": status,
                 "type": type,
             },
             request_options=request_options,
@@ -814,6 +850,7 @@ class AsyncInvoicesClient:
     ) -> InvoiceResponse:
         """
         Creates an `Invoice` object with the given values.
+        Including a `PurchaseOrder` id in the `purchase_orders` property will generate an Accounts Payable Invoice from the specified Purchase Order(s).
 
         Parameters
         ----------

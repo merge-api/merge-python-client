@@ -4,6 +4,7 @@ from ....core.pydantic_utilities import UniversalBaseModel
 import typing
 import pydantic
 import datetime as dt
+from .invoice_line_item_employee import InvoiceLineItemEmployee
 from .invoice_line_item_currency import InvoiceLineItemCurrency
 from .invoice_line_item_item import InvoiceLineItemItem
 from .invoice_line_item_account import InvoiceLineItemAccount
@@ -60,6 +61,11 @@ class InvoiceLineItem(UniversalBaseModel):
     total_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The line item's total amount.
+    """
+
+    employee: typing.Optional[InvoiceLineItemEmployee] = pydantic.Field(default=None)
+    """
+    The employee this overall transaction relates to.
     """
 
     currency: typing.Optional[InvoiceLineItemCurrency] = pydantic.Field(default=None)
@@ -396,7 +402,7 @@ class InvoiceLineItem(UniversalBaseModel):
 
     company: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The company the line item belongs to.
+    The company the invoice belongs to.
     """
 
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)

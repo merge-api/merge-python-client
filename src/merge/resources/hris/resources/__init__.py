@@ -59,7 +59,13 @@ from .employments import (
 )
 from .issues import IssuesListRequestStatus
 from .linked_accounts import LinkedAccountsListRequestCategory
-from .locations import LocationsListRequestLocationType
+from .locations import (
+    LocationsListRequestLocationType,
+    LocationsListRequestRemoteFields,
+    LocationsListRequestShowEnumOrigins,
+    LocationsRetrieveRequestRemoteFields,
+    LocationsRetrieveRequestShowEnumOrigins,
+)
 from .payroll_runs import (
     PayrollRunsListRequestRemoteFields,
     PayrollRunsListRequestRunType,
@@ -104,6 +110,10 @@ __all__ = [
     "IssuesListRequestStatus",
     "LinkedAccountsListRequestCategory",
     "LocationsListRequestLocationType",
+    "LocationsListRequestRemoteFields",
+    "LocationsListRequestShowEnumOrigins",
+    "LocationsRetrieveRequestRemoteFields",
+    "LocationsRetrieveRequestShowEnumOrigins",
     "PayrollRunsListRequestRemoteFields",
     "PayrollRunsListRequestRunType",
     "PayrollRunsListRequestShowEnumOrigins",

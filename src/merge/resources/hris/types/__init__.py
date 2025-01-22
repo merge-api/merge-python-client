@@ -187,7 +187,9 @@ from .time_off_status import TimeOffStatus
 from .time_off_status_enum import TimeOffStatusEnum
 from .time_off_units import TimeOffUnits
 from .timesheet_entry import TimesheetEntry
+from .timesheet_entry_employee import TimesheetEntryEmployee
 from .timesheet_entry_request import TimesheetEntryRequest
+from .timesheet_entry_request_employee import TimesheetEntryRequestEmployee
 from .timesheet_entry_response import TimesheetEntryResponse
 from .units_enum import UnitsEnum
 from .validation_problem_source import ValidationProblemSource
@@ -380,7 +382,9 @@ __all__ = [
     "TimeOffStatusEnum",
     "TimeOffUnits",
     "TimesheetEntry",
+    "TimesheetEntryEmployee",
     "TimesheetEntryRequest",
+    "TimesheetEntryRequestEmployee",
     "TimesheetEntryResponse",
     "UnitsEnum",
     "ValidationProblemSource",

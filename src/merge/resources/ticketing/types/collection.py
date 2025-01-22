@@ -6,6 +6,7 @@ import typing
 import pydantic
 import datetime as dt
 from .collection_collection_type import CollectionCollectionType
+from .collection_teams_item import CollectionTeamsItem
 from .collection_access_level import CollectionAccessLevel
 from .remote_data import RemoteData
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
@@ -18,8 +19,7 @@ class Collection(UniversalBaseModel):
 
     ### Description
 
-    The `Collection` object is used to represent collections of tickets. Collections may include other collections as
-    sub collections.
+    The `Collection` object is used to represent one or more `Tickets`. There can be a hierarchy of `Collections`, in which a sub-collection belongs to a parent-collection.
 
     ### Usage Example
 
@@ -65,6 +65,7 @@ class Collection(UniversalBaseModel):
     The parent collection for this collection.
     """
 
+    teams: typing.Optional[typing.List[typing.Optional[CollectionTeamsItem]]] = None
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).

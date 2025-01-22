@@ -7,7 +7,6 @@ from .types.tickets_list_request_expand import TicketsListRequestExpand
 from .types.tickets_list_request_priority import TicketsListRequestPriority
 from .types.tickets_list_request_remote_fields import TicketsListRequestRemoteFields
 from .types.tickets_list_request_show_enum_origins import TicketsListRequestShowEnumOrigins
-from .types.tickets_list_request_status import TicketsListRequestStatus
 from .....core.request_options import RequestOptions
 from ...types.paginated_ticket_list import PaginatedTicketList
 from .....core.datetime_utils import serialize_datetime
@@ -22,8 +21,8 @@ from .types.tickets_retrieve_request_show_enum_origins import TicketsRetrieveReq
 from ...types.ticket import Ticket
 from .....core.jsonable_encoder import jsonable_encoder
 from ...types.patched_ticket_request import PatchedTicketRequest
-from .types.tickets_collaborators_list_request_expand import TicketsCollaboratorsListRequestExpand
-from ...types.paginated_user_list import PaginatedUserList
+from .types.tickets_viewers_list_request_expand import TicketsViewersListRequestExpand
+from ...types.paginated_viewer_list import PaginatedViewerList
 from ...types.meta_response import MetaResponse
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from .....core.client_wrapper import AsyncClientWrapper
@@ -67,7 +66,7 @@ class TicketsClient:
         remote_updated_after: typing.Optional[dt.datetime] = None,
         remote_updated_before: typing.Optional[dt.datetime] = None,
         show_enum_origins: typing.Optional[TicketsListRequestShowEnumOrigins] = None,
-        status: typing.Optional[TicketsListRequestStatus] = None,
+        status: typing.Optional[str] = None,
         tags: typing.Optional[str] = None,
         ticket_type: typing.Optional[str] = None,
         ticket_url: typing.Optional[str] = None,
@@ -167,13 +166,8 @@ class TicketsClient:
         show_enum_origins : typing.Optional[TicketsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[TicketsListRequestStatus]
+        status : typing.Optional[str]
             If provided, will only return tickets of this status.
-
-            - `OPEN` - OPEN
-            - `CLOSED` - CLOSED
-            - `IN_PROGRESS` - IN_PROGRESS
-            - `ON_HOLD` - ON_HOLD
 
         tags : typing.Optional[str]
             If provided, will only return tickets matching the tags; multiple tags can be separated by commas.
@@ -484,29 +478,29 @@ class TicketsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def collaborators_list(
+    def viewers_list(
         self,
-        parent_id: str,
+        ticket_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[TicketsCollaboratorsListRequestExpand] = None,
+        expand: typing.Optional[TicketsViewersListRequestExpand] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedUserList:
+    ) -> PaginatedViewerList:
         """
-        Returns a list of `User` objects.
+        Returns a list of `Viewer` objects.
 
         Parameters
         ----------
-        parent_id : str
+        ticket_id : str
 
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[TicketsCollaboratorsListRequestExpand]
+        expand : typing.Optional[TicketsViewersListRequestExpand]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -526,7 +520,7 @@ class TicketsClient:
 
         Returns
         -------
-        PaginatedUserList
+        PaginatedViewerList
 
 
         Examples
@@ -537,12 +531,12 @@ class TicketsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.tickets.collaborators_list(
-            parent_id="parent_id",
+        client.ticketing.tickets.viewers_list(
+            ticket_id="ticket_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"ticketing/v1/tickets/{jsonable_encoder(parent_id)}/collaborators",
+            f"ticketing/v1/tickets/{jsonable_encoder(ticket_id)}/viewers",
             method="GET",
             params={
                 "cursor": cursor,
@@ -557,9 +551,9 @@ class TicketsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    PaginatedUserList,
+                    PaginatedViewerList,
                     parse_obj_as(
-                        type_=PaginatedUserList,  # type: ignore
+                        type_=PaginatedViewerList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -773,7 +767,7 @@ class AsyncTicketsClient:
         remote_updated_after: typing.Optional[dt.datetime] = None,
         remote_updated_before: typing.Optional[dt.datetime] = None,
         show_enum_origins: typing.Optional[TicketsListRequestShowEnumOrigins] = None,
-        status: typing.Optional[TicketsListRequestStatus] = None,
+        status: typing.Optional[str] = None,
         tags: typing.Optional[str] = None,
         ticket_type: typing.Optional[str] = None,
         ticket_url: typing.Optional[str] = None,
@@ -873,13 +867,8 @@ class AsyncTicketsClient:
         show_enum_origins : typing.Optional[TicketsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[TicketsListRequestStatus]
+        status : typing.Optional[str]
             If provided, will only return tickets of this status.
-
-            - `OPEN` - OPEN
-            - `CLOSED` - CLOSED
-            - `IN_PROGRESS` - IN_PROGRESS
-            - `ON_HOLD` - ON_HOLD
 
         tags : typing.Optional[str]
             If provided, will only return tickets matching the tags; multiple tags can be separated by commas.
@@ -1222,29 +1211,29 @@ class AsyncTicketsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def collaborators_list(
+    async def viewers_list(
         self,
-        parent_id: str,
+        ticket_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[TicketsCollaboratorsListRequestExpand] = None,
+        expand: typing.Optional[TicketsViewersListRequestExpand] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedUserList:
+    ) -> PaginatedViewerList:
         """
-        Returns a list of `User` objects.
+        Returns a list of `Viewer` objects.
 
         Parameters
         ----------
-        parent_id : str
+        ticket_id : str
 
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[TicketsCollaboratorsListRequestExpand]
+        expand : typing.Optional[TicketsViewersListRequestExpand]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -1264,7 +1253,7 @@ class AsyncTicketsClient:
 
         Returns
         -------
-        PaginatedUserList
+        PaginatedViewerList
 
 
         Examples
@@ -1280,15 +1269,15 @@ class AsyncTicketsClient:
 
 
         async def main() -> None:
-            await client.ticketing.tickets.collaborators_list(
-                parent_id="parent_id",
+            await client.ticketing.tickets.viewers_list(
+                ticket_id="ticket_id",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"ticketing/v1/tickets/{jsonable_encoder(parent_id)}/collaborators",
+            f"ticketing/v1/tickets/{jsonable_encoder(ticket_id)}/viewers",
             method="GET",
             params={
                 "cursor": cursor,
@@ -1303,9 +1292,9 @@ class AsyncTicketsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    PaginatedUserList,
+                    PaginatedViewerList,
                     parse_obj_as(
-                        type_=PaginatedUserList,  # type: ignore
+                        type_=PaginatedViewerList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

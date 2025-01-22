@@ -7,6 +7,7 @@ import typing
 import pydantic
 import datetime as dt
 from .ticket_assignees_item import TicketAssigneesItem
+from .ticket_assigned_teams_item import TicketAssignedTeamsItem
 from .ticket_creator import TicketCreator
 from .ticket_status import TicketStatus
 from .ticket_collections_item import TicketCollectionsItem
@@ -25,7 +26,7 @@ class Ticket(UniversalBaseModel):
 
     ### Description
 
-    The `Ticket` object is used to represent a ticket or a task within a system.
+    The `Ticket` object is used to represent a ticket, issue, task or case.
 
     ### Usage Example
 
@@ -53,7 +54,18 @@ class Ticket(UniversalBaseModel):
     The ticket's name.
     """
 
-    assignees: typing.Optional[typing.List[typing.Optional[TicketAssigneesItem]]] = None
+    assignees: typing.Optional[typing.List[typing.Optional[TicketAssigneesItem]]] = pydantic.Field(default=None)
+    """
+    The individual `Users` who are assigned to this ticket. This does not include `Users` who just have view access to this ticket.
+    """
+
+    assigned_teams: typing.Optional[typing.List[typing.Optional[TicketAssignedTeamsItem]]] = pydantic.Field(
+        default=None
+    )
+    """
+    The `Teams` that are assigned to this ticket. This does not include `Teams` who just have view access to this ticket.
+    """
+
     creator: typing.Optional[TicketCreator] = pydantic.Field(default=None)
     """
     The user who created this ticket.
@@ -79,7 +91,11 @@ class Ticket(UniversalBaseModel):
     The ticket’s description. HTML version of description is mapped if supported by the third-party platform.
     """
 
-    collections: typing.Optional[typing.List[typing.Optional[TicketCollectionsItem]]] = None
+    collections: typing.Optional[typing.List[typing.Optional[TicketCollectionsItem]]] = pydantic.Field(default=None)
+    """
+    The `Collections` that this `Ticket` is included in.
+    """
+
     ticket_type: typing.Optional[str] = pydantic.Field(default=None)
     """
     The sub category of the ticket within the 3rd party system. Examples include incident, task, subtask or to-do.
@@ -102,6 +118,7 @@ class Ticket(UniversalBaseModel):
 
     attachments: typing.Optional[typing.List[typing.Optional["TicketAttachmentsItem"]]] = None
     tags: typing.Optional[typing.List[typing.Optional[str]]] = None
+    roles: typing.Optional[typing.List[typing.Optional[str]]] = None
     remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the third party's ticket was created.

@@ -32,8 +32,9 @@ class TimesheetEntriesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        ended_after: typing.Optional[str] = None,
-        ended_before: typing.Optional[str] = None,
+        ended_after: typing.Optional[dt.datetime] = None,
+        ended_before: typing.Optional[dt.datetime] = None,
+        expand: typing.Optional[typing.Literal["employee"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -42,8 +43,8 @@ class TimesheetEntriesClient:
         order_by: typing.Optional[TimesheetEntriesListRequestOrderBy] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
-        started_after: typing.Optional[str] = None,
-        started_before: typing.Optional[str] = None,
+        started_after: typing.Optional[dt.datetime] = None,
+        started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedTimesheetEntryList:
         """
@@ -63,11 +64,14 @@ class TimesheetEntriesClient:
         employee_id : typing.Optional[str]
             If provided, will only return timesheet entries for this employee.
 
-        ended_after : typing.Optional[str]
+        ended_after : typing.Optional[dt.datetime]
             If provided, will only return timesheet entries ended after this datetime.
 
-        ended_before : typing.Optional[str]
+        ended_before : typing.Optional[dt.datetime]
             If provided, will only return timesheet entries ended before this datetime.
+
+        expand : typing.Optional[typing.Literal["employee"]]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -93,10 +97,10 @@ class TimesheetEntriesClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        started_after : typing.Optional[str]
+        started_after : typing.Optional[dt.datetime]
             If provided, will only return timesheet entries started after this datetime.
 
-        started_before : typing.Optional[str]
+        started_before : typing.Optional[dt.datetime]
             If provided, will only return timesheet entries started before this datetime.
 
         request_options : typing.Optional[RequestOptions]
@@ -125,8 +129,9 @@ class TimesheetEntriesClient:
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
                 "employee_id": employee_id,
-                "ended_after": ended_after,
-                "ended_before": ended_before,
+                "ended_after": serialize_datetime(ended_after) if ended_after is not None else None,
+                "ended_before": serialize_datetime(ended_before) if ended_before is not None else None,
+                "expand": expand,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_shell_data": include_shell_data,
@@ -135,8 +140,8 @@ class TimesheetEntriesClient:
                 "order_by": order_by,
                 "page_size": page_size,
                 "remote_id": remote_id,
-                "started_after": started_after,
-                "started_before": started_before,
+                "started_after": serialize_datetime(started_after) if started_after is not None else None,
+                "started_before": serialize_datetime(started_before) if started_before is not None else None,
             },
             request_options=request_options,
         )
@@ -227,6 +232,7 @@ class TimesheetEntriesClient:
         self,
         id: str,
         *,
+        expand: typing.Optional[typing.Literal["employee"]] = None,
         include_remote_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TimesheetEntry:
@@ -236,6 +242,9 @@ class TimesheetEntriesClient:
         Parameters
         ----------
         id : str
+
+        expand : typing.Optional[typing.Literal["employee"]]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
@@ -264,6 +273,7 @@ class TimesheetEntriesClient:
             f"hris/v1/timesheet-entries/{jsonable_encoder(id)}",
             method="GET",
             params={
+                "expand": expand,
                 "include_remote_data": include_remote_data,
             },
             request_options=request_options,
@@ -337,8 +347,9 @@ class AsyncTimesheetEntriesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        ended_after: typing.Optional[str] = None,
-        ended_before: typing.Optional[str] = None,
+        ended_after: typing.Optional[dt.datetime] = None,
+        ended_before: typing.Optional[dt.datetime] = None,
+        expand: typing.Optional[typing.Literal["employee"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -347,8 +358,8 @@ class AsyncTimesheetEntriesClient:
         order_by: typing.Optional[TimesheetEntriesListRequestOrderBy] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
-        started_after: typing.Optional[str] = None,
-        started_before: typing.Optional[str] = None,
+        started_after: typing.Optional[dt.datetime] = None,
+        started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedTimesheetEntryList:
         """
@@ -368,11 +379,14 @@ class AsyncTimesheetEntriesClient:
         employee_id : typing.Optional[str]
             If provided, will only return timesheet entries for this employee.
 
-        ended_after : typing.Optional[str]
+        ended_after : typing.Optional[dt.datetime]
             If provided, will only return timesheet entries ended after this datetime.
 
-        ended_before : typing.Optional[str]
+        ended_before : typing.Optional[dt.datetime]
             If provided, will only return timesheet entries ended before this datetime.
+
+        expand : typing.Optional[typing.Literal["employee"]]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -398,10 +412,10 @@ class AsyncTimesheetEntriesClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        started_after : typing.Optional[str]
+        started_after : typing.Optional[dt.datetime]
             If provided, will only return timesheet entries started after this datetime.
 
-        started_before : typing.Optional[str]
+        started_before : typing.Optional[dt.datetime]
             If provided, will only return timesheet entries started before this datetime.
 
         request_options : typing.Optional[RequestOptions]
@@ -438,8 +452,9 @@ class AsyncTimesheetEntriesClient:
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
                 "employee_id": employee_id,
-                "ended_after": ended_after,
-                "ended_before": ended_before,
+                "ended_after": serialize_datetime(ended_after) if ended_after is not None else None,
+                "ended_before": serialize_datetime(ended_before) if ended_before is not None else None,
+                "expand": expand,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_shell_data": include_shell_data,
@@ -448,8 +463,8 @@ class AsyncTimesheetEntriesClient:
                 "order_by": order_by,
                 "page_size": page_size,
                 "remote_id": remote_id,
-                "started_after": started_after,
-                "started_before": started_before,
+                "started_after": serialize_datetime(started_after) if started_after is not None else None,
+                "started_before": serialize_datetime(started_before) if started_before is not None else None,
             },
             request_options=request_options,
         )
@@ -548,6 +563,7 @@ class AsyncTimesheetEntriesClient:
         self,
         id: str,
         *,
+        expand: typing.Optional[typing.Literal["employee"]] = None,
         include_remote_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TimesheetEntry:
@@ -557,6 +573,9 @@ class AsyncTimesheetEntriesClient:
         Parameters
         ----------
         id : str
+
+        expand : typing.Optional[typing.Literal["employee"]]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
@@ -593,6 +612,7 @@ class AsyncTimesheetEntriesClient:
             f"hris/v1/timesheet-entries/{jsonable_encoder(id)}",
             method="GET",
             params={
+                "expand": expand,
                 "include_remote_data": include_remote_data,
             },
             request_options=request_options,

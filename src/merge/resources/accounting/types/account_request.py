@@ -4,6 +4,7 @@ from ....core.pydantic_utilities import UniversalBaseModel
 import typing
 import pydantic
 from .account_request_classification import AccountRequestClassification
+from .account_request_account_type import AccountRequestAccountType
 from .account_request_status import AccountRequestStatus
 from .account_request_currency import AccountRequestCurrency
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
@@ -54,6 +55,25 @@ class AccountRequest(UniversalBaseModel):
     type: typing.Optional[str] = pydantic.Field(default=None)
     """
     The account's type is a narrower and more specific grouping within the account's classification.
+    """
+
+    account_type: typing.Optional[AccountRequestAccountType] = pydantic.Field(default=None)
+    """
+    Normalized account type- which is a narrower and more specific grouping within the account's classification.
+    
+    - `BANK` - BANK
+    - `CREDIT_CARD` - CREDIT_CARD
+    - `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE
+    - `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
+    - `FIXED_ASSET` - FIXED_ASSET
+    - `OTHER_ASSET` - OTHER_ASSET
+    - `OTHER_CURRENT_ASSET` - OTHER_CURRENT_ASSET
+    - `OTHER_EXPENSE` - OTHER_EXPENSE
+    - `OTHER_INCOME` - OTHER_INCOME
+    - `COST_OF_GOODS_SOLD` - COST_OF_GOODS_SOLD
+    - `OTHER_CURRENT_LIABILITY` - OTHER_CURRENT_LIABILITY
+    - `LONG_TERM_LIABILITY` - LONG_TERM_LIABILITY
+    - `NON_POSTING` - NON_POSTING
     """
 
     status: typing.Optional[AccountRequestStatus] = pydantic.Field(default=None)

@@ -3,6 +3,7 @@
 from __future__ import annotations
 from ....core.pydantic_utilities import UniversalBaseModel
 from .folder import Folder
+from .group import Group
 from .file import File
 import typing
 from .warning_validation_problem import WarningValidationProblem
@@ -30,3 +31,4 @@ class FileStorageFileResponse(UniversalBaseModel):
 
 
 update_forward_refs(Folder, FileStorageFileResponse=FileStorageFileResponse)
+update_forward_refs(Group, FileStorageFileResponse=FileStorageFileResponse)
