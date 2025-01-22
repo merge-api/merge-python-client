@@ -8,6 +8,7 @@ from .expense_request_account import ExpenseRequestAccount
 from .expense_request_contact import ExpenseRequestContact
 from .expense_request_currency import ExpenseRequestCurrency
 from .expense_request_company import ExpenseRequestCompany
+from .expense_request_employee import ExpenseRequestEmployee
 from .expense_line_request import ExpenseLineRequest
 from .expense_request_tracking_categories_item import ExpenseRequestTrackingCategoriesItem
 from .expense_request_accounting_period import ExpenseRequestAccountingPeriod
@@ -385,6 +386,11 @@ class ExpenseRequest(UniversalBaseModel):
     company: typing.Optional[ExpenseRequestCompany] = pydantic.Field(default=None)
     """
     The company the expense belongs to.
+    """
+
+    employee: typing.Optional[ExpenseRequestEmployee] = pydantic.Field(default=None)
+    """
+    The employee this overall transaction relates to.
     """
 
     memo: typing.Optional[str] = pydantic.Field(default=None)

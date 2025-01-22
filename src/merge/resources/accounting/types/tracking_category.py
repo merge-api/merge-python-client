@@ -7,7 +7,6 @@ import datetime as dt
 from .tracking_category_status import TrackingCategoryStatus
 from .tracking_category_category_type import TrackingCategoryCategoryType
 from .tracking_category_company import TrackingCategoryCompany
-from .remote_data import RemoteData
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -61,14 +60,10 @@ class TrackingCategory(UniversalBaseModel):
     - `DEPARTMENT` - DEPARTMENT
     """
 
-    parent_category: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    ID of the parent tracking category.
-    """
-
+    parent_category: typing.Optional[str] = None
     company: typing.Optional[TrackingCategoryCompany] = pydantic.Field(default=None)
     """
-    The company the tracking category belongs to.
+    The company the GeneralLedgerTransaction belongs to.
     """
 
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
@@ -77,7 +72,6 @@ class TrackingCategory(UniversalBaseModel):
     """
 
     field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
-    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -9,18 +9,23 @@ from .resources.addresses.client import AddressesClient
 from .resources.async_passthrough.client import (
     AsyncPassthroughClient as resources_accounting_resources_async_passthrough_client_AsyncPassthroughClient,
 )
+from .resources.async_tasks.client import AsyncTasksClient
 from .resources.attachments.client import AttachmentsClient
 from .resources.audit_trail.client import AuditTrailClient
 from .resources.available_actions.client import AvailableActionsClient
 from .resources.balance_sheets.client import BalanceSheetsClient
+from .resources.bank_feed_accounts.client import BankFeedAccountsClient
+from .resources.bank_feed_transactions.client import BankFeedTransactionsClient
 from .resources.cash_flow_statements.client import CashFlowStatementsClient
 from .resources.company_info.client import CompanyInfoClient
 from .resources.contacts.client import ContactsClient
 from .resources.credit_notes.client import CreditNotesClient
 from .resources.scopes.client import ScopesClient
 from .resources.delete_account.client import DeleteAccountClient
+from .resources.employees.client import EmployeesClient
 from .resources.expenses.client import ExpensesClient
 from .resources.field_mapping.client import FieldMappingClient
+from .resources.general_ledger_transactions.client import GeneralLedgerTransactionsClient
 from .resources.generate_key.client import GenerateKeyClient
 from .resources.income_statements.client import IncomeStatementsClient
 from .resources.invoices.client import InvoicesClient
@@ -48,18 +53,23 @@ from .resources.accounting_periods.client import AsyncAccountingPeriodsClient
 from .resources.accounts.client import AsyncAccountsClient
 from .resources.addresses.client import AsyncAddressesClient
 from .resources.async_passthrough.client import AsyncAsyncPassthroughClient
+from .resources.async_tasks.client import AsyncAsyncTasksClient
 from .resources.attachments.client import AsyncAttachmentsClient
 from .resources.audit_trail.client import AsyncAuditTrailClient
 from .resources.available_actions.client import AsyncAvailableActionsClient
 from .resources.balance_sheets.client import AsyncBalanceSheetsClient
+from .resources.bank_feed_accounts.client import AsyncBankFeedAccountsClient
+from .resources.bank_feed_transactions.client import AsyncBankFeedTransactionsClient
 from .resources.cash_flow_statements.client import AsyncCashFlowStatementsClient
 from .resources.company_info.client import AsyncCompanyInfoClient
 from .resources.contacts.client import AsyncContactsClient
 from .resources.credit_notes.client import AsyncCreditNotesClient
 from .resources.scopes.client import AsyncScopesClient
 from .resources.delete_account.client import AsyncDeleteAccountClient
+from .resources.employees.client import AsyncEmployeesClient
 from .resources.expenses.client import AsyncExpensesClient
 from .resources.field_mapping.client import AsyncFieldMappingClient
+from .resources.general_ledger_transactions.client import AsyncGeneralLedgerTransactionsClient
 from .resources.generate_key.client import AsyncGenerateKeyClient
 from .resources.income_statements.client import AsyncIncomeStatementsClient
 from .resources.invoices.client import AsyncInvoicesClient
@@ -95,18 +105,23 @@ class AccountingClient:
         self.async_passthrough = resources_accounting_resources_async_passthrough_client_AsyncPassthroughClient(
             client_wrapper=self._client_wrapper
         )
+        self.async_tasks = AsyncTasksClient(client_wrapper=self._client_wrapper)
         self.attachments = AttachmentsClient(client_wrapper=self._client_wrapper)
         self.audit_trail = AuditTrailClient(client_wrapper=self._client_wrapper)
         self.available_actions = AvailableActionsClient(client_wrapper=self._client_wrapper)
         self.balance_sheets = BalanceSheetsClient(client_wrapper=self._client_wrapper)
+        self.bank_feed_accounts = BankFeedAccountsClient(client_wrapper=self._client_wrapper)
+        self.bank_feed_transactions = BankFeedTransactionsClient(client_wrapper=self._client_wrapper)
         self.cash_flow_statements = CashFlowStatementsClient(client_wrapper=self._client_wrapper)
         self.company_info = CompanyInfoClient(client_wrapper=self._client_wrapper)
         self.contacts = ContactsClient(client_wrapper=self._client_wrapper)
         self.credit_notes = CreditNotesClient(client_wrapper=self._client_wrapper)
         self.scopes = ScopesClient(client_wrapper=self._client_wrapper)
         self.delete_account = DeleteAccountClient(client_wrapper=self._client_wrapper)
+        self.employees = EmployeesClient(client_wrapper=self._client_wrapper)
         self.expenses = ExpensesClient(client_wrapper=self._client_wrapper)
         self.field_mapping = FieldMappingClient(client_wrapper=self._client_wrapper)
+        self.general_ledger_transactions = GeneralLedgerTransactionsClient(client_wrapper=self._client_wrapper)
         self.generate_key = GenerateKeyClient(client_wrapper=self._client_wrapper)
         self.income_statements = IncomeStatementsClient(client_wrapper=self._client_wrapper)
         self.invoices = InvoicesClient(client_wrapper=self._client_wrapper)
@@ -138,18 +153,23 @@ class AsyncAccountingClient:
         self.accounts = AsyncAccountsClient(client_wrapper=self._client_wrapper)
         self.addresses = AsyncAddressesClient(client_wrapper=self._client_wrapper)
         self.async_passthrough = AsyncAsyncPassthroughClient(client_wrapper=self._client_wrapper)
+        self.async_tasks = AsyncAsyncTasksClient(client_wrapper=self._client_wrapper)
         self.attachments = AsyncAttachmentsClient(client_wrapper=self._client_wrapper)
         self.audit_trail = AsyncAuditTrailClient(client_wrapper=self._client_wrapper)
         self.available_actions = AsyncAvailableActionsClient(client_wrapper=self._client_wrapper)
         self.balance_sheets = AsyncBalanceSheetsClient(client_wrapper=self._client_wrapper)
+        self.bank_feed_accounts = AsyncBankFeedAccountsClient(client_wrapper=self._client_wrapper)
+        self.bank_feed_transactions = AsyncBankFeedTransactionsClient(client_wrapper=self._client_wrapper)
         self.cash_flow_statements = AsyncCashFlowStatementsClient(client_wrapper=self._client_wrapper)
         self.company_info = AsyncCompanyInfoClient(client_wrapper=self._client_wrapper)
         self.contacts = AsyncContactsClient(client_wrapper=self._client_wrapper)
         self.credit_notes = AsyncCreditNotesClient(client_wrapper=self._client_wrapper)
         self.scopes = AsyncScopesClient(client_wrapper=self._client_wrapper)
         self.delete_account = AsyncDeleteAccountClient(client_wrapper=self._client_wrapper)
+        self.employees = AsyncEmployeesClient(client_wrapper=self._client_wrapper)
         self.expenses = AsyncExpensesClient(client_wrapper=self._client_wrapper)
         self.field_mapping = AsyncFieldMappingClient(client_wrapper=self._client_wrapper)
+        self.general_ledger_transactions = AsyncGeneralLedgerTransactionsClient(client_wrapper=self._client_wrapper)
         self.generate_key = AsyncGenerateKeyClient(client_wrapper=self._client_wrapper)
         self.income_statements = AsyncIncomeStatementsClient(client_wrapper=self._client_wrapper)
         self.invoices = AsyncInvoicesClient(client_wrapper=self._client_wrapper)

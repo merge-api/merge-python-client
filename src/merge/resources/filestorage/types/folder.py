@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 from ....core.pydantic_utilities import UniversalBaseModel
+from .group import Group
 import typing
 import pydantic
 import datetime as dt
 from .folder_drive import FolderDrive
 from .folder_permissions import FolderPermissions
+from .remote_data import RemoteData
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.pydantic_utilities import update_forward_refs
 
@@ -91,7 +93,7 @@ class Folder(UniversalBaseModel):
     """
 
     field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
-    remote_data: typing.Optional[typing.List[typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
@@ -105,4 +107,5 @@ class Folder(UniversalBaseModel):
 
 from .folder_parent_folder import FolderParentFolder  # noqa: E402
 
+update_forward_refs(Group, Folder=Folder)
 update_forward_refs(Folder)

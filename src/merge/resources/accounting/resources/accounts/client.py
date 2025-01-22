@@ -31,6 +31,7 @@ class AccountsClient:
     def list(
         self,
         *,
+        account_type: typing.Optional[str] = None,
         company_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
@@ -52,6 +53,9 @@ class AccountsClient:
 
         Parameters
         ----------
+        account_type : typing.Optional[str]
+            If provided, will only provide accounts with the passed in enum.
+
         company_id : typing.Optional[str]
             If provided, will only return accounts for this company.
 
@@ -116,6 +120,7 @@ class AccountsClient:
             "accounting/v1/accounts",
             method="GET",
             params={
+                "account_type": account_type,
                 "company_id": company_id,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
@@ -341,6 +346,7 @@ class AsyncAccountsClient:
     async def list(
         self,
         *,
+        account_type: typing.Optional[str] = None,
         company_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
@@ -362,6 +368,9 @@ class AsyncAccountsClient:
 
         Parameters
         ----------
+        account_type : typing.Optional[str]
+            If provided, will only provide accounts with the passed in enum.
+
         company_id : typing.Optional[str]
             If provided, will only return accounts for this company.
 
@@ -434,6 +443,7 @@ class AsyncAccountsClient:
             "accounting/v1/accounts",
             method="GET",
             params={
+                "account_type": account_type,
                 "company_id": company_id,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,

@@ -6,7 +6,7 @@ import typing
 T_Result = typing.TypeVar("T_Result")
 
 
-class CurrencyEnum(str, enum.Enum):
+class TransactionCurrencyEnum(str, enum.Enum):
     """
     - `XUA` - ADB Unit of Account
     - `AFN` - Afghan Afghani
@@ -932,615 +932,615 @@ class CurrencyEnum(str, enum.Enum):
         zwr: typing.Callable[[], T_Result],
         zwl: typing.Callable[[], T_Result],
     ) -> T_Result:
-        if self is CurrencyEnum.XUA:
+        if self is TransactionCurrencyEnum.XUA:
             return xua()
-        if self is CurrencyEnum.AFN:
+        if self is TransactionCurrencyEnum.AFN:
             return afn()
-        if self is CurrencyEnum.AFA:
+        if self is TransactionCurrencyEnum.AFA:
             return afa()
-        if self is CurrencyEnum.ALL:
+        if self is TransactionCurrencyEnum.ALL:
             return all_()
-        if self is CurrencyEnum.ALK:
+        if self is TransactionCurrencyEnum.ALK:
             return alk()
-        if self is CurrencyEnum.DZD:
+        if self is TransactionCurrencyEnum.DZD:
             return dzd()
-        if self is CurrencyEnum.ADP:
+        if self is TransactionCurrencyEnum.ADP:
             return adp()
-        if self is CurrencyEnum.AOA:
+        if self is TransactionCurrencyEnum.AOA:
             return aoa()
-        if self is CurrencyEnum.AOK:
+        if self is TransactionCurrencyEnum.AOK:
             return aok()
-        if self is CurrencyEnum.AON:
+        if self is TransactionCurrencyEnum.AON:
             return aon()
-        if self is CurrencyEnum.AOR:
+        if self is TransactionCurrencyEnum.AOR:
             return aor()
-        if self is CurrencyEnum.ARA:
+        if self is TransactionCurrencyEnum.ARA:
             return ara()
-        if self is CurrencyEnum.ARS:
+        if self is TransactionCurrencyEnum.ARS:
             return ars()
-        if self is CurrencyEnum.ARM:
+        if self is TransactionCurrencyEnum.ARM:
             return arm()
-        if self is CurrencyEnum.ARP:
+        if self is TransactionCurrencyEnum.ARP:
             return arp()
-        if self is CurrencyEnum.ARL:
+        if self is TransactionCurrencyEnum.ARL:
             return arl()
-        if self is CurrencyEnum.AMD:
+        if self is TransactionCurrencyEnum.AMD:
             return amd()
-        if self is CurrencyEnum.AWG:
+        if self is TransactionCurrencyEnum.AWG:
             return awg()
-        if self is CurrencyEnum.AUD:
+        if self is TransactionCurrencyEnum.AUD:
             return aud()
-        if self is CurrencyEnum.ATS:
+        if self is TransactionCurrencyEnum.ATS:
             return ats()
-        if self is CurrencyEnum.AZN:
+        if self is TransactionCurrencyEnum.AZN:
             return azn()
-        if self is CurrencyEnum.AZM:
+        if self is TransactionCurrencyEnum.AZM:
             return azm()
-        if self is CurrencyEnum.BSD:
+        if self is TransactionCurrencyEnum.BSD:
             return bsd()
-        if self is CurrencyEnum.BHD:
+        if self is TransactionCurrencyEnum.BHD:
             return bhd()
-        if self is CurrencyEnum.BDT:
+        if self is TransactionCurrencyEnum.BDT:
             return bdt()
-        if self is CurrencyEnum.BBD:
+        if self is TransactionCurrencyEnum.BBD:
             return bbd()
-        if self is CurrencyEnum.BYN:
+        if self is TransactionCurrencyEnum.BYN:
             return byn()
-        if self is CurrencyEnum.BYB:
+        if self is TransactionCurrencyEnum.BYB:
             return byb()
-        if self is CurrencyEnum.BYR:
+        if self is TransactionCurrencyEnum.BYR:
             return byr()
-        if self is CurrencyEnum.BEF:
+        if self is TransactionCurrencyEnum.BEF:
             return bef()
-        if self is CurrencyEnum.BEC:
+        if self is TransactionCurrencyEnum.BEC:
             return bec()
-        if self is CurrencyEnum.BEL:
+        if self is TransactionCurrencyEnum.BEL:
             return bel()
-        if self is CurrencyEnum.BZD:
+        if self is TransactionCurrencyEnum.BZD:
             return bzd()
-        if self is CurrencyEnum.BMD:
+        if self is TransactionCurrencyEnum.BMD:
             return bmd()
-        if self is CurrencyEnum.BTN:
+        if self is TransactionCurrencyEnum.BTN:
             return btn()
-        if self is CurrencyEnum.BOB:
+        if self is TransactionCurrencyEnum.BOB:
             return bob()
-        if self is CurrencyEnum.BOL:
+        if self is TransactionCurrencyEnum.BOL:
             return bol()
-        if self is CurrencyEnum.BOV:
+        if self is TransactionCurrencyEnum.BOV:
             return bov()
-        if self is CurrencyEnum.BOP:
+        if self is TransactionCurrencyEnum.BOP:
             return bop()
-        if self is CurrencyEnum.BAM:
+        if self is TransactionCurrencyEnum.BAM:
             return bam()
-        if self is CurrencyEnum.BAD:
+        if self is TransactionCurrencyEnum.BAD:
             return bad()
-        if self is CurrencyEnum.BAN:
+        if self is TransactionCurrencyEnum.BAN:
             return ban()
-        if self is CurrencyEnum.BWP:
+        if self is TransactionCurrencyEnum.BWP:
             return bwp()
-        if self is CurrencyEnum.BRC:
+        if self is TransactionCurrencyEnum.BRC:
             return brc()
-        if self is CurrencyEnum.BRZ:
+        if self is TransactionCurrencyEnum.BRZ:
             return brz()
-        if self is CurrencyEnum.BRE:
+        if self is TransactionCurrencyEnum.BRE:
             return bre()
-        if self is CurrencyEnum.BRR:
+        if self is TransactionCurrencyEnum.BRR:
             return brr()
-        if self is CurrencyEnum.BRN:
+        if self is TransactionCurrencyEnum.BRN:
             return brn()
-        if self is CurrencyEnum.BRB:
+        if self is TransactionCurrencyEnum.BRB:
             return brb()
-        if self is CurrencyEnum.BRL:
+        if self is TransactionCurrencyEnum.BRL:
             return brl()
-        if self is CurrencyEnum.GBP:
+        if self is TransactionCurrencyEnum.GBP:
             return gbp()
-        if self is CurrencyEnum.BND:
+        if self is TransactionCurrencyEnum.BND:
             return bnd()
-        if self is CurrencyEnum.BGL:
+        if self is TransactionCurrencyEnum.BGL:
             return bgl()
-        if self is CurrencyEnum.BGN:
+        if self is TransactionCurrencyEnum.BGN:
             return bgn()
-        if self is CurrencyEnum.BGO:
+        if self is TransactionCurrencyEnum.BGO:
             return bgo()
-        if self is CurrencyEnum.BGM:
+        if self is TransactionCurrencyEnum.BGM:
             return bgm()
-        if self is CurrencyEnum.BUK:
+        if self is TransactionCurrencyEnum.BUK:
             return buk()
-        if self is CurrencyEnum.BIF:
+        if self is TransactionCurrencyEnum.BIF:
             return bif()
-        if self is CurrencyEnum.XPF:
+        if self is TransactionCurrencyEnum.XPF:
             return xpf()
-        if self is CurrencyEnum.KHR:
+        if self is TransactionCurrencyEnum.KHR:
             return khr()
-        if self is CurrencyEnum.CAD:
+        if self is TransactionCurrencyEnum.CAD:
             return cad()
-        if self is CurrencyEnum.CVE:
+        if self is TransactionCurrencyEnum.CVE:
             return cve()
-        if self is CurrencyEnum.KYD:
+        if self is TransactionCurrencyEnum.KYD:
             return kyd()
-        if self is CurrencyEnum.XAF:
+        if self is TransactionCurrencyEnum.XAF:
             return xaf()
-        if self is CurrencyEnum.CLE:
+        if self is TransactionCurrencyEnum.CLE:
             return cle()
-        if self is CurrencyEnum.CLP:
+        if self is TransactionCurrencyEnum.CLP:
             return clp()
-        if self is CurrencyEnum.CLF:
+        if self is TransactionCurrencyEnum.CLF:
             return clf()
-        if self is CurrencyEnum.CNX:
+        if self is TransactionCurrencyEnum.CNX:
             return cnx()
-        if self is CurrencyEnum.CNY:
+        if self is TransactionCurrencyEnum.CNY:
             return cny()
-        if self is CurrencyEnum.CNH:
+        if self is TransactionCurrencyEnum.CNH:
             return cnh()
-        if self is CurrencyEnum.COP:
+        if self is TransactionCurrencyEnum.COP:
             return cop()
-        if self is CurrencyEnum.COU:
+        if self is TransactionCurrencyEnum.COU:
             return cou()
-        if self is CurrencyEnum.KMF:
+        if self is TransactionCurrencyEnum.KMF:
             return kmf()
-        if self is CurrencyEnum.CDF:
+        if self is TransactionCurrencyEnum.CDF:
             return cdf()
-        if self is CurrencyEnum.CRC:
+        if self is TransactionCurrencyEnum.CRC:
             return crc()
-        if self is CurrencyEnum.HRD:
+        if self is TransactionCurrencyEnum.HRD:
             return hrd()
-        if self is CurrencyEnum.HRK:
+        if self is TransactionCurrencyEnum.HRK:
             return hrk()
-        if self is CurrencyEnum.CUC:
+        if self is TransactionCurrencyEnum.CUC:
             return cuc()
-        if self is CurrencyEnum.CUP:
+        if self is TransactionCurrencyEnum.CUP:
             return cup()
-        if self is CurrencyEnum.CYP:
+        if self is TransactionCurrencyEnum.CYP:
             return cyp()
-        if self is CurrencyEnum.CZK:
+        if self is TransactionCurrencyEnum.CZK:
             return czk()
-        if self is CurrencyEnum.CSK:
+        if self is TransactionCurrencyEnum.CSK:
             return csk()
-        if self is CurrencyEnum.DKK:
+        if self is TransactionCurrencyEnum.DKK:
             return dkk()
-        if self is CurrencyEnum.DJF:
+        if self is TransactionCurrencyEnum.DJF:
             return djf()
-        if self is CurrencyEnum.DOP:
+        if self is TransactionCurrencyEnum.DOP:
             return dop()
-        if self is CurrencyEnum.NLG:
+        if self is TransactionCurrencyEnum.NLG:
             return nlg()
-        if self is CurrencyEnum.XCD:
+        if self is TransactionCurrencyEnum.XCD:
             return xcd()
-        if self is CurrencyEnum.DDM:
+        if self is TransactionCurrencyEnum.DDM:
             return ddm()
-        if self is CurrencyEnum.ECS:
+        if self is TransactionCurrencyEnum.ECS:
             return ecs()
-        if self is CurrencyEnum.ECV:
+        if self is TransactionCurrencyEnum.ECV:
             return ecv()
-        if self is CurrencyEnum.EGP:
+        if self is TransactionCurrencyEnum.EGP:
             return egp()
-        if self is CurrencyEnum.GQE:
+        if self is TransactionCurrencyEnum.GQE:
             return gqe()
-        if self is CurrencyEnum.ERN:
+        if self is TransactionCurrencyEnum.ERN:
             return ern()
-        if self is CurrencyEnum.EEK:
+        if self is TransactionCurrencyEnum.EEK:
             return eek()
-        if self is CurrencyEnum.ETB:
+        if self is TransactionCurrencyEnum.ETB:
             return etb()
-        if self is CurrencyEnum.EUR:
+        if self is TransactionCurrencyEnum.EUR:
             return eur()
-        if self is CurrencyEnum.XBA:
+        if self is TransactionCurrencyEnum.XBA:
             return xba()
-        if self is CurrencyEnum.XEU:
+        if self is TransactionCurrencyEnum.XEU:
             return xeu()
-        if self is CurrencyEnum.XBB:
+        if self is TransactionCurrencyEnum.XBB:
             return xbb()
-        if self is CurrencyEnum.XBC:
+        if self is TransactionCurrencyEnum.XBC:
             return xbc()
-        if self is CurrencyEnum.XBD:
+        if self is TransactionCurrencyEnum.XBD:
             return xbd()
-        if self is CurrencyEnum.FKP:
+        if self is TransactionCurrencyEnum.FKP:
             return fkp()
-        if self is CurrencyEnum.FJD:
+        if self is TransactionCurrencyEnum.FJD:
             return fjd()
-        if self is CurrencyEnum.FIM:
+        if self is TransactionCurrencyEnum.FIM:
             return fim()
-        if self is CurrencyEnum.FRF:
+        if self is TransactionCurrencyEnum.FRF:
             return frf()
-        if self is CurrencyEnum.XFO:
+        if self is TransactionCurrencyEnum.XFO:
             return xfo()
-        if self is CurrencyEnum.XFU:
+        if self is TransactionCurrencyEnum.XFU:
             return xfu()
-        if self is CurrencyEnum.GMD:
+        if self is TransactionCurrencyEnum.GMD:
             return gmd()
-        if self is CurrencyEnum.GEK:
+        if self is TransactionCurrencyEnum.GEK:
             return gek()
-        if self is CurrencyEnum.GEL:
+        if self is TransactionCurrencyEnum.GEL:
             return gel()
-        if self is CurrencyEnum.DEM:
+        if self is TransactionCurrencyEnum.DEM:
             return dem()
-        if self is CurrencyEnum.GHS:
+        if self is TransactionCurrencyEnum.GHS:
             return ghs()
-        if self is CurrencyEnum.GHC:
+        if self is TransactionCurrencyEnum.GHC:
             return ghc()
-        if self is CurrencyEnum.GIP:
+        if self is TransactionCurrencyEnum.GIP:
             return gip()
-        if self is CurrencyEnum.XAU:
+        if self is TransactionCurrencyEnum.XAU:
             return xau()
-        if self is CurrencyEnum.GRD:
+        if self is TransactionCurrencyEnum.GRD:
             return grd()
-        if self is CurrencyEnum.GTQ:
+        if self is TransactionCurrencyEnum.GTQ:
             return gtq()
-        if self is CurrencyEnum.GWP:
+        if self is TransactionCurrencyEnum.GWP:
             return gwp()
-        if self is CurrencyEnum.GNF:
+        if self is TransactionCurrencyEnum.GNF:
             return gnf()
-        if self is CurrencyEnum.GNS:
+        if self is TransactionCurrencyEnum.GNS:
             return gns()
-        if self is CurrencyEnum.GYD:
+        if self is TransactionCurrencyEnum.GYD:
             return gyd()
-        if self is CurrencyEnum.HTG:
+        if self is TransactionCurrencyEnum.HTG:
             return htg()
-        if self is CurrencyEnum.HNL:
+        if self is TransactionCurrencyEnum.HNL:
             return hnl()
-        if self is CurrencyEnum.HKD:
+        if self is TransactionCurrencyEnum.HKD:
             return hkd()
-        if self is CurrencyEnum.HUF:
+        if self is TransactionCurrencyEnum.HUF:
             return huf()
-        if self is CurrencyEnum.IMP:
+        if self is TransactionCurrencyEnum.IMP:
             return imp()
-        if self is CurrencyEnum.ISK:
+        if self is TransactionCurrencyEnum.ISK:
             return isk()
-        if self is CurrencyEnum.ISJ:
+        if self is TransactionCurrencyEnum.ISJ:
             return isj()
-        if self is CurrencyEnum.INR:
+        if self is TransactionCurrencyEnum.INR:
             return inr()
-        if self is CurrencyEnum.IDR:
+        if self is TransactionCurrencyEnum.IDR:
             return idr()
-        if self is CurrencyEnum.IRR:
+        if self is TransactionCurrencyEnum.IRR:
             return irr()
-        if self is CurrencyEnum.IQD:
+        if self is TransactionCurrencyEnum.IQD:
             return iqd()
-        if self is CurrencyEnum.IEP:
+        if self is TransactionCurrencyEnum.IEP:
             return iep()
-        if self is CurrencyEnum.ILS:
+        if self is TransactionCurrencyEnum.ILS:
             return ils()
-        if self is CurrencyEnum.ILP:
+        if self is TransactionCurrencyEnum.ILP:
             return ilp()
-        if self is CurrencyEnum.ILR:
+        if self is TransactionCurrencyEnum.ILR:
             return ilr()
-        if self is CurrencyEnum.ITL:
+        if self is TransactionCurrencyEnum.ITL:
             return itl()
-        if self is CurrencyEnum.JMD:
+        if self is TransactionCurrencyEnum.JMD:
             return jmd()
-        if self is CurrencyEnum.JPY:
+        if self is TransactionCurrencyEnum.JPY:
             return jpy()
-        if self is CurrencyEnum.JOD:
+        if self is TransactionCurrencyEnum.JOD:
             return jod()
-        if self is CurrencyEnum.KZT:
+        if self is TransactionCurrencyEnum.KZT:
             return kzt()
-        if self is CurrencyEnum.KES:
+        if self is TransactionCurrencyEnum.KES:
             return kes()
-        if self is CurrencyEnum.KWD:
+        if self is TransactionCurrencyEnum.KWD:
             return kwd()
-        if self is CurrencyEnum.KGS:
+        if self is TransactionCurrencyEnum.KGS:
             return kgs()
-        if self is CurrencyEnum.LAK:
+        if self is TransactionCurrencyEnum.LAK:
             return lak()
-        if self is CurrencyEnum.LVL:
+        if self is TransactionCurrencyEnum.LVL:
             return lvl()
-        if self is CurrencyEnum.LVR:
+        if self is TransactionCurrencyEnum.LVR:
             return lvr()
-        if self is CurrencyEnum.LBP:
+        if self is TransactionCurrencyEnum.LBP:
             return lbp()
-        if self is CurrencyEnum.LSL:
+        if self is TransactionCurrencyEnum.LSL:
             return lsl()
-        if self is CurrencyEnum.LRD:
+        if self is TransactionCurrencyEnum.LRD:
             return lrd()
-        if self is CurrencyEnum.LYD:
+        if self is TransactionCurrencyEnum.LYD:
             return lyd()
-        if self is CurrencyEnum.LTL:
+        if self is TransactionCurrencyEnum.LTL:
             return ltl()
-        if self is CurrencyEnum.LTT:
+        if self is TransactionCurrencyEnum.LTT:
             return ltt()
-        if self is CurrencyEnum.LUL:
+        if self is TransactionCurrencyEnum.LUL:
             return lul()
-        if self is CurrencyEnum.LUC:
+        if self is TransactionCurrencyEnum.LUC:
             return luc()
-        if self is CurrencyEnum.LUF:
+        if self is TransactionCurrencyEnum.LUF:
             return luf()
-        if self is CurrencyEnum.MOP:
+        if self is TransactionCurrencyEnum.MOP:
             return mop()
-        if self is CurrencyEnum.MKD:
+        if self is TransactionCurrencyEnum.MKD:
             return mkd()
-        if self is CurrencyEnum.MKN:
+        if self is TransactionCurrencyEnum.MKN:
             return mkn()
-        if self is CurrencyEnum.MGA:
+        if self is TransactionCurrencyEnum.MGA:
             return mga()
-        if self is CurrencyEnum.MGF:
+        if self is TransactionCurrencyEnum.MGF:
             return mgf()
-        if self is CurrencyEnum.MWK:
+        if self is TransactionCurrencyEnum.MWK:
             return mwk()
-        if self is CurrencyEnum.MYR:
+        if self is TransactionCurrencyEnum.MYR:
             return myr()
-        if self is CurrencyEnum.MVR:
+        if self is TransactionCurrencyEnum.MVR:
             return mvr()
-        if self is CurrencyEnum.MVP:
+        if self is TransactionCurrencyEnum.MVP:
             return mvp()
-        if self is CurrencyEnum.MLF:
+        if self is TransactionCurrencyEnum.MLF:
             return mlf()
-        if self is CurrencyEnum.MTL:
+        if self is TransactionCurrencyEnum.MTL:
             return mtl()
-        if self is CurrencyEnum.MTP:
+        if self is TransactionCurrencyEnum.MTP:
             return mtp()
-        if self is CurrencyEnum.MRU:
+        if self is TransactionCurrencyEnum.MRU:
             return mru()
-        if self is CurrencyEnum.MRO:
+        if self is TransactionCurrencyEnum.MRO:
             return mro()
-        if self is CurrencyEnum.MUR:
+        if self is TransactionCurrencyEnum.MUR:
             return mur()
-        if self is CurrencyEnum.MXV:
+        if self is TransactionCurrencyEnum.MXV:
             return mxv()
-        if self is CurrencyEnum.MXN:
+        if self is TransactionCurrencyEnum.MXN:
             return mxn()
-        if self is CurrencyEnum.MXP:
+        if self is TransactionCurrencyEnum.MXP:
             return mxp()
-        if self is CurrencyEnum.MDC:
+        if self is TransactionCurrencyEnum.MDC:
             return mdc()
-        if self is CurrencyEnum.MDL:
+        if self is TransactionCurrencyEnum.MDL:
             return mdl()
-        if self is CurrencyEnum.MCF:
+        if self is TransactionCurrencyEnum.MCF:
             return mcf()
-        if self is CurrencyEnum.MNT:
+        if self is TransactionCurrencyEnum.MNT:
             return mnt()
-        if self is CurrencyEnum.MAD:
+        if self is TransactionCurrencyEnum.MAD:
             return mad()
-        if self is CurrencyEnum.MAF:
+        if self is TransactionCurrencyEnum.MAF:
             return maf()
-        if self is CurrencyEnum.MZE:
+        if self is TransactionCurrencyEnum.MZE:
             return mze()
-        if self is CurrencyEnum.MZN:
+        if self is TransactionCurrencyEnum.MZN:
             return mzn()
-        if self is CurrencyEnum.MZM:
+        if self is TransactionCurrencyEnum.MZM:
             return mzm()
-        if self is CurrencyEnum.MMK:
+        if self is TransactionCurrencyEnum.MMK:
             return mmk()
-        if self is CurrencyEnum.NAD:
+        if self is TransactionCurrencyEnum.NAD:
             return nad()
-        if self is CurrencyEnum.NPR:
+        if self is TransactionCurrencyEnum.NPR:
             return npr()
-        if self is CurrencyEnum.ANG:
+        if self is TransactionCurrencyEnum.ANG:
             return ang()
-        if self is CurrencyEnum.TWD:
+        if self is TransactionCurrencyEnum.TWD:
             return twd()
-        if self is CurrencyEnum.NZD:
+        if self is TransactionCurrencyEnum.NZD:
             return nzd()
-        if self is CurrencyEnum.NIO:
+        if self is TransactionCurrencyEnum.NIO:
             return nio()
-        if self is CurrencyEnum.NIC:
+        if self is TransactionCurrencyEnum.NIC:
             return nic()
-        if self is CurrencyEnum.NGN:
+        if self is TransactionCurrencyEnum.NGN:
             return ngn()
-        if self is CurrencyEnum.KPW:
+        if self is TransactionCurrencyEnum.KPW:
             return kpw()
-        if self is CurrencyEnum.NOK:
+        if self is TransactionCurrencyEnum.NOK:
             return nok()
-        if self is CurrencyEnum.OMR:
+        if self is TransactionCurrencyEnum.OMR:
             return omr()
-        if self is CurrencyEnum.PKR:
+        if self is TransactionCurrencyEnum.PKR:
             return pkr()
-        if self is CurrencyEnum.XPD:
+        if self is TransactionCurrencyEnum.XPD:
             return xpd()
-        if self is CurrencyEnum.PAB:
+        if self is TransactionCurrencyEnum.PAB:
             return pab()
-        if self is CurrencyEnum.PGK:
+        if self is TransactionCurrencyEnum.PGK:
             return pgk()
-        if self is CurrencyEnum.PYG:
+        if self is TransactionCurrencyEnum.PYG:
             return pyg()
-        if self is CurrencyEnum.PEI:
+        if self is TransactionCurrencyEnum.PEI:
             return pei()
-        if self is CurrencyEnum.PEN:
+        if self is TransactionCurrencyEnum.PEN:
             return pen()
-        if self is CurrencyEnum.PES:
+        if self is TransactionCurrencyEnum.PES:
             return pes()
-        if self is CurrencyEnum.PHP:
+        if self is TransactionCurrencyEnum.PHP:
             return php()
-        if self is CurrencyEnum.XPT:
+        if self is TransactionCurrencyEnum.XPT:
             return xpt()
-        if self is CurrencyEnum.PLN:
+        if self is TransactionCurrencyEnum.PLN:
             return pln()
-        if self is CurrencyEnum.PLZ:
+        if self is TransactionCurrencyEnum.PLZ:
             return plz()
-        if self is CurrencyEnum.PTE:
+        if self is TransactionCurrencyEnum.PTE:
             return pte()
-        if self is CurrencyEnum.GWE:
+        if self is TransactionCurrencyEnum.GWE:
             return gwe()
-        if self is CurrencyEnum.QAR:
+        if self is TransactionCurrencyEnum.QAR:
             return qar()
-        if self is CurrencyEnum.XRE:
+        if self is TransactionCurrencyEnum.XRE:
             return xre()
-        if self is CurrencyEnum.RHD:
+        if self is TransactionCurrencyEnum.RHD:
             return rhd()
-        if self is CurrencyEnum.RON:
+        if self is TransactionCurrencyEnum.RON:
             return ron()
-        if self is CurrencyEnum.ROL:
+        if self is TransactionCurrencyEnum.ROL:
             return rol()
-        if self is CurrencyEnum.RUB:
+        if self is TransactionCurrencyEnum.RUB:
             return rub()
-        if self is CurrencyEnum.RUR:
+        if self is TransactionCurrencyEnum.RUR:
             return rur()
-        if self is CurrencyEnum.RWF:
+        if self is TransactionCurrencyEnum.RWF:
             return rwf()
-        if self is CurrencyEnum.SVC:
+        if self is TransactionCurrencyEnum.SVC:
             return svc()
-        if self is CurrencyEnum.WST:
+        if self is TransactionCurrencyEnum.WST:
             return wst()
-        if self is CurrencyEnum.SAR:
+        if self is TransactionCurrencyEnum.SAR:
             return sar()
-        if self is CurrencyEnum.RSD:
+        if self is TransactionCurrencyEnum.RSD:
             return rsd()
-        if self is CurrencyEnum.CSD:
+        if self is TransactionCurrencyEnum.CSD:
             return csd()
-        if self is CurrencyEnum.SCR:
+        if self is TransactionCurrencyEnum.SCR:
             return scr()
-        if self is CurrencyEnum.SLL:
+        if self is TransactionCurrencyEnum.SLL:
             return sll()
-        if self is CurrencyEnum.XAG:
+        if self is TransactionCurrencyEnum.XAG:
             return xag()
-        if self is CurrencyEnum.SGD:
+        if self is TransactionCurrencyEnum.SGD:
             return sgd()
-        if self is CurrencyEnum.SKK:
+        if self is TransactionCurrencyEnum.SKK:
             return skk()
-        if self is CurrencyEnum.SIT:
+        if self is TransactionCurrencyEnum.SIT:
             return sit()
-        if self is CurrencyEnum.SBD:
+        if self is TransactionCurrencyEnum.SBD:
             return sbd()
-        if self is CurrencyEnum.SOS:
+        if self is TransactionCurrencyEnum.SOS:
             return sos()
-        if self is CurrencyEnum.ZAR:
+        if self is TransactionCurrencyEnum.ZAR:
             return zar()
-        if self is CurrencyEnum.ZAL:
+        if self is TransactionCurrencyEnum.ZAL:
             return zal()
-        if self is CurrencyEnum.KRH:
+        if self is TransactionCurrencyEnum.KRH:
             return krh()
-        if self is CurrencyEnum.KRW:
+        if self is TransactionCurrencyEnum.KRW:
             return krw()
-        if self is CurrencyEnum.KRO:
+        if self is TransactionCurrencyEnum.KRO:
             return kro()
-        if self is CurrencyEnum.SSP:
+        if self is TransactionCurrencyEnum.SSP:
             return ssp()
-        if self is CurrencyEnum.SUR:
+        if self is TransactionCurrencyEnum.SUR:
             return sur()
-        if self is CurrencyEnum.ESP:
+        if self is TransactionCurrencyEnum.ESP:
             return esp()
-        if self is CurrencyEnum.ESA:
+        if self is TransactionCurrencyEnum.ESA:
             return esa()
-        if self is CurrencyEnum.ESB:
+        if self is TransactionCurrencyEnum.ESB:
             return esb()
-        if self is CurrencyEnum.XDR:
+        if self is TransactionCurrencyEnum.XDR:
             return xdr()
-        if self is CurrencyEnum.LKR:
+        if self is TransactionCurrencyEnum.LKR:
             return lkr()
-        if self is CurrencyEnum.SHP:
+        if self is TransactionCurrencyEnum.SHP:
             return shp()
-        if self is CurrencyEnum.XSU:
+        if self is TransactionCurrencyEnum.XSU:
             return xsu()
-        if self is CurrencyEnum.SDD:
+        if self is TransactionCurrencyEnum.SDD:
             return sdd()
-        if self is CurrencyEnum.SDG:
+        if self is TransactionCurrencyEnum.SDG:
             return sdg()
-        if self is CurrencyEnum.SDP:
+        if self is TransactionCurrencyEnum.SDP:
             return sdp()
-        if self is CurrencyEnum.SRD:
+        if self is TransactionCurrencyEnum.SRD:
             return srd()
-        if self is CurrencyEnum.SRG:
+        if self is TransactionCurrencyEnum.SRG:
             return srg()
-        if self is CurrencyEnum.SZL:
+        if self is TransactionCurrencyEnum.SZL:
             return szl()
-        if self is CurrencyEnum.SEK:
+        if self is TransactionCurrencyEnum.SEK:
             return sek()
-        if self is CurrencyEnum.CHF:
+        if self is TransactionCurrencyEnum.CHF:
             return chf()
-        if self is CurrencyEnum.SYP:
+        if self is TransactionCurrencyEnum.SYP:
             return syp()
-        if self is CurrencyEnum.STN:
+        if self is TransactionCurrencyEnum.STN:
             return stn()
-        if self is CurrencyEnum.STD:
+        if self is TransactionCurrencyEnum.STD:
             return std()
-        if self is CurrencyEnum.TVD:
+        if self is TransactionCurrencyEnum.TVD:
             return tvd()
-        if self is CurrencyEnum.TJR:
+        if self is TransactionCurrencyEnum.TJR:
             return tjr()
-        if self is CurrencyEnum.TJS:
+        if self is TransactionCurrencyEnum.TJS:
             return tjs()
-        if self is CurrencyEnum.TZS:
+        if self is TransactionCurrencyEnum.TZS:
             return tzs()
-        if self is CurrencyEnum.XTS:
+        if self is TransactionCurrencyEnum.XTS:
             return xts()
-        if self is CurrencyEnum.THB:
+        if self is TransactionCurrencyEnum.THB:
             return thb()
-        if self is CurrencyEnum.XXX:
+        if self is TransactionCurrencyEnum.XXX:
             return xxx()
-        if self is CurrencyEnum.TPE:
+        if self is TransactionCurrencyEnum.TPE:
             return tpe()
-        if self is CurrencyEnum.TOP:
+        if self is TransactionCurrencyEnum.TOP:
             return top()
-        if self is CurrencyEnum.TTD:
+        if self is TransactionCurrencyEnum.TTD:
             return ttd()
-        if self is CurrencyEnum.TND:
+        if self is TransactionCurrencyEnum.TND:
             return tnd()
-        if self is CurrencyEnum.TRY:
+        if self is TransactionCurrencyEnum.TRY:
             return try_()
-        if self is CurrencyEnum.TRL:
+        if self is TransactionCurrencyEnum.TRL:
             return trl()
-        if self is CurrencyEnum.TMT:
+        if self is TransactionCurrencyEnum.TMT:
             return tmt()
-        if self is CurrencyEnum.TMM:
+        if self is TransactionCurrencyEnum.TMM:
             return tmm()
-        if self is CurrencyEnum.USD:
+        if self is TransactionCurrencyEnum.USD:
             return usd()
-        if self is CurrencyEnum.USN:
+        if self is TransactionCurrencyEnum.USN:
             return usn()
-        if self is CurrencyEnum.USS:
+        if self is TransactionCurrencyEnum.USS:
             return uss()
-        if self is CurrencyEnum.UGX:
+        if self is TransactionCurrencyEnum.UGX:
             return ugx()
-        if self is CurrencyEnum.UGS:
+        if self is TransactionCurrencyEnum.UGS:
             return ugs()
-        if self is CurrencyEnum.UAH:
+        if self is TransactionCurrencyEnum.UAH:
             return uah()
-        if self is CurrencyEnum.UAK:
+        if self is TransactionCurrencyEnum.UAK:
             return uak()
-        if self is CurrencyEnum.AED:
+        if self is TransactionCurrencyEnum.AED:
             return aed()
-        if self is CurrencyEnum.UYW:
+        if self is TransactionCurrencyEnum.UYW:
             return uyw()
-        if self is CurrencyEnum.UYU:
+        if self is TransactionCurrencyEnum.UYU:
             return uyu()
-        if self is CurrencyEnum.UYP:
+        if self is TransactionCurrencyEnum.UYP:
             return uyp()
-        if self is CurrencyEnum.UYI:
+        if self is TransactionCurrencyEnum.UYI:
             return uyi()
-        if self is CurrencyEnum.UZS:
+        if self is TransactionCurrencyEnum.UZS:
             return uzs()
-        if self is CurrencyEnum.VUV:
+        if self is TransactionCurrencyEnum.VUV:
             return vuv()
-        if self is CurrencyEnum.VES:
+        if self is TransactionCurrencyEnum.VES:
             return ves()
-        if self is CurrencyEnum.VEB:
+        if self is TransactionCurrencyEnum.VEB:
             return veb()
-        if self is CurrencyEnum.VEF:
+        if self is TransactionCurrencyEnum.VEF:
             return vef()
-        if self is CurrencyEnum.VND:
+        if self is TransactionCurrencyEnum.VND:
             return vnd()
-        if self is CurrencyEnum.VNN:
+        if self is TransactionCurrencyEnum.VNN:
             return vnn()
-        if self is CurrencyEnum.CHE:
+        if self is TransactionCurrencyEnum.CHE:
             return che()
-        if self is CurrencyEnum.CHW:
+        if self is TransactionCurrencyEnum.CHW:
             return chw()
-        if self is CurrencyEnum.XOF:
+        if self is TransactionCurrencyEnum.XOF:
             return xof()
-        if self is CurrencyEnum.YDD:
+        if self is TransactionCurrencyEnum.YDD:
             return ydd()
-        if self is CurrencyEnum.YER:
+        if self is TransactionCurrencyEnum.YER:
             return yer()
-        if self is CurrencyEnum.YUN:
+        if self is TransactionCurrencyEnum.YUN:
             return yun()
-        if self is CurrencyEnum.YUD:
+        if self is TransactionCurrencyEnum.YUD:
             return yud()
-        if self is CurrencyEnum.YUM:
+        if self is TransactionCurrencyEnum.YUM:
             return yum()
-        if self is CurrencyEnum.YUR:
+        if self is TransactionCurrencyEnum.YUR:
             return yur()
-        if self is CurrencyEnum.ZWN:
+        if self is TransactionCurrencyEnum.ZWN:
             return zwn()
-        if self is CurrencyEnum.ZRN:
+        if self is TransactionCurrencyEnum.ZRN:
             return zrn()
-        if self is CurrencyEnum.ZRZ:
+        if self is TransactionCurrencyEnum.ZRZ:
             return zrz()
-        if self is CurrencyEnum.ZMW:
+        if self is TransactionCurrencyEnum.ZMW:
             return zmw()
-        if self is CurrencyEnum.ZMK:
+        if self is TransactionCurrencyEnum.ZMK:
             return zmk()
-        if self is CurrencyEnum.ZWD:
+        if self is TransactionCurrencyEnum.ZWD:
             return zwd()
-        if self is CurrencyEnum.ZWR:
+        if self is TransactionCurrencyEnum.ZWR:
             return zwr()
-        if self is CurrencyEnum.ZWL:
+        if self is TransactionCurrencyEnum.ZWL:
             return zwl()

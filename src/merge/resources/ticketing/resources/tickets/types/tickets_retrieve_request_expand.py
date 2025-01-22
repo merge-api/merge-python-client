@@ -15,6 +15,22 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
     ACCOUNT_CREATOR = "account,creator"
     ACCOUNT_CREATOR_PARENT_TICKET = "account,creator,parent_ticket"
     ACCOUNT_PARENT_TICKET = "account,parent_ticket"
+    ASSIGNED_TEAMS = "assigned_teams"
+    ASSIGNED_TEAMS_ACCOUNT = "assigned_teams,account"
+    ASSIGNED_TEAMS_ACCOUNT_CONTACT = "assigned_teams,account,contact"
+    ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR = "assigned_teams,account,contact,creator"
+    ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR_PARENT_TICKET = "assigned_teams,account,contact,creator,parent_ticket"
+    ASSIGNED_TEAMS_ACCOUNT_CONTACT_PARENT_TICKET = "assigned_teams,account,contact,parent_ticket"
+    ASSIGNED_TEAMS_ACCOUNT_CREATOR = "assigned_teams,account,creator"
+    ASSIGNED_TEAMS_ACCOUNT_CREATOR_PARENT_TICKET = "assigned_teams,account,creator,parent_ticket"
+    ASSIGNED_TEAMS_ACCOUNT_PARENT_TICKET = "assigned_teams,account,parent_ticket"
+    ASSIGNED_TEAMS_CONTACT = "assigned_teams,contact"
+    ASSIGNED_TEAMS_CONTACT_CREATOR = "assigned_teams,contact,creator"
+    ASSIGNED_TEAMS_CONTACT_CREATOR_PARENT_TICKET = "assigned_teams,contact,creator,parent_ticket"
+    ASSIGNED_TEAMS_CONTACT_PARENT_TICKET = "assigned_teams,contact,parent_ticket"
+    ASSIGNED_TEAMS_CREATOR = "assigned_teams,creator"
+    ASSIGNED_TEAMS_CREATOR_PARENT_TICKET = "assigned_teams,creator,parent_ticket"
+    ASSIGNED_TEAMS_PARENT_TICKET = "assigned_teams,parent_ticket"
     ASSIGNEES = "assignees"
     ASSIGNEES_ACCOUNT = "assignees,account"
     ASSIGNEES_ACCOUNT_CONTACT = "assignees,account,contact"
@@ -24,6 +40,24 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
     ASSIGNEES_ACCOUNT_CREATOR = "assignees,account,creator"
     ASSIGNEES_ACCOUNT_CREATOR_PARENT_TICKET = "assignees,account,creator,parent_ticket"
     ASSIGNEES_ACCOUNT_PARENT_TICKET = "assignees,account,parent_ticket"
+    ASSIGNEES_ASSIGNED_TEAMS = "assignees,assigned_teams"
+    ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT = "assignees,assigned_teams,account"
+    ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CONTACT = "assignees,assigned_teams,account,contact"
+    ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR = "assignees,assigned_teams,account,contact,creator"
+    ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR_PARENT_TICKET = (
+        "assignees,assigned_teams,account,contact,creator,parent_ticket"
+    )
+    ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CONTACT_PARENT_TICKET = "assignees,assigned_teams,account,contact,parent_ticket"
+    ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CREATOR = "assignees,assigned_teams,account,creator"
+    ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CREATOR_PARENT_TICKET = "assignees,assigned_teams,account,creator,parent_ticket"
+    ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_PARENT_TICKET = "assignees,assigned_teams,account,parent_ticket"
+    ASSIGNEES_ASSIGNED_TEAMS_CONTACT = "assignees,assigned_teams,contact"
+    ASSIGNEES_ASSIGNED_TEAMS_CONTACT_CREATOR = "assignees,assigned_teams,contact,creator"
+    ASSIGNEES_ASSIGNED_TEAMS_CONTACT_CREATOR_PARENT_TICKET = "assignees,assigned_teams,contact,creator,parent_ticket"
+    ASSIGNEES_ASSIGNED_TEAMS_CONTACT_PARENT_TICKET = "assignees,assigned_teams,contact,parent_ticket"
+    ASSIGNEES_ASSIGNED_TEAMS_CREATOR = "assignees,assigned_teams,creator"
+    ASSIGNEES_ASSIGNED_TEAMS_CREATOR_PARENT_TICKET = "assignees,assigned_teams,creator,parent_ticket"
+    ASSIGNEES_ASSIGNED_TEAMS_PARENT_TICKET = "assignees,assigned_teams,parent_ticket"
     ASSIGNEES_COLLECTIONS = "assignees,collections"
     ASSIGNEES_COLLECTIONS_ACCOUNT = "assignees,collections,account"
     ASSIGNEES_COLLECTIONS_ACCOUNT_CONTACT = "assignees,collections,account,contact"
@@ -35,6 +69,38 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
     ASSIGNEES_COLLECTIONS_ACCOUNT_CREATOR = "assignees,collections,account,creator"
     ASSIGNEES_COLLECTIONS_ACCOUNT_CREATOR_PARENT_TICKET = "assignees,collections,account,creator,parent_ticket"
     ASSIGNEES_COLLECTIONS_ACCOUNT_PARENT_TICKET = "assignees,collections,account,parent_ticket"
+    ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS = "assignees,collections,assigned_teams"
+    ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT = "assignees,collections,assigned_teams,account"
+    ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT = "assignees,collections,assigned_teams,account,contact"
+    ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR = (
+        "assignees,collections,assigned_teams,account,contact,creator"
+    )
+    ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR_PARENT_TICKET = (
+        "assignees,collections,assigned_teams,account,contact,creator,parent_ticket"
+    )
+    ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_PARENT_TICKET = (
+        "assignees,collections,assigned_teams,account,contact,parent_ticket"
+    )
+    ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CREATOR = "assignees,collections,assigned_teams,account,creator"
+    ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CREATOR_PARENT_TICKET = (
+        "assignees,collections,assigned_teams,account,creator,parent_ticket"
+    )
+    ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_PARENT_TICKET = (
+        "assignees,collections,assigned_teams,account,parent_ticket"
+    )
+    ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CONTACT = "assignees,collections,assigned_teams,contact"
+    ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CONTACT_CREATOR = "assignees,collections,assigned_teams,contact,creator"
+    ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CONTACT_CREATOR_PARENT_TICKET = (
+        "assignees,collections,assigned_teams,contact,creator,parent_ticket"
+    )
+    ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CONTACT_PARENT_TICKET = (
+        "assignees,collections,assigned_teams,contact,parent_ticket"
+    )
+    ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CREATOR = "assignees,collections,assigned_teams,creator"
+    ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CREATOR_PARENT_TICKET = (
+        "assignees,collections,assigned_teams,creator,parent_ticket"
+    )
+    ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_PARENT_TICKET = "assignees,collections,assigned_teams,parent_ticket"
     ASSIGNEES_COLLECTIONS_CONTACT = "assignees,collections,contact"
     ASSIGNEES_COLLECTIONS_CONTACT_CREATOR = "assignees,collections,contact,creator"
     ASSIGNEES_COLLECTIONS_CONTACT_CREATOR_PARENT_TICKET = "assignees,collections,contact,creator,parent_ticket"
@@ -58,6 +124,30 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
     ATTACHMENTS_ACCOUNT_CREATOR = "attachments,account,creator"
     ATTACHMENTS_ACCOUNT_CREATOR_PARENT_TICKET = "attachments,account,creator,parent_ticket"
     ATTACHMENTS_ACCOUNT_PARENT_TICKET = "attachments,account,parent_ticket"
+    ATTACHMENTS_ASSIGNED_TEAMS = "attachments,assigned_teams"
+    ATTACHMENTS_ASSIGNED_TEAMS_ACCOUNT = "attachments,assigned_teams,account"
+    ATTACHMENTS_ASSIGNED_TEAMS_ACCOUNT_CONTACT = "attachments,assigned_teams,account,contact"
+    ATTACHMENTS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR = "attachments,assigned_teams,account,contact,creator"
+    ATTACHMENTS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR_PARENT_TICKET = (
+        "attachments,assigned_teams,account,contact,creator,parent_ticket"
+    )
+    ATTACHMENTS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_PARENT_TICKET = (
+        "attachments,assigned_teams,account,contact,parent_ticket"
+    )
+    ATTACHMENTS_ASSIGNED_TEAMS_ACCOUNT_CREATOR = "attachments,assigned_teams,account,creator"
+    ATTACHMENTS_ASSIGNED_TEAMS_ACCOUNT_CREATOR_PARENT_TICKET = (
+        "attachments,assigned_teams,account,creator,parent_ticket"
+    )
+    ATTACHMENTS_ASSIGNED_TEAMS_ACCOUNT_PARENT_TICKET = "attachments,assigned_teams,account,parent_ticket"
+    ATTACHMENTS_ASSIGNED_TEAMS_CONTACT = "attachments,assigned_teams,contact"
+    ATTACHMENTS_ASSIGNED_TEAMS_CONTACT_CREATOR = "attachments,assigned_teams,contact,creator"
+    ATTACHMENTS_ASSIGNED_TEAMS_CONTACT_CREATOR_PARENT_TICKET = (
+        "attachments,assigned_teams,contact,creator,parent_ticket"
+    )
+    ATTACHMENTS_ASSIGNED_TEAMS_CONTACT_PARENT_TICKET = "attachments,assigned_teams,contact,parent_ticket"
+    ATTACHMENTS_ASSIGNED_TEAMS_CREATOR = "attachments,assigned_teams,creator"
+    ATTACHMENTS_ASSIGNED_TEAMS_CREATOR_PARENT_TICKET = "attachments,assigned_teams,creator,parent_ticket"
+    ATTACHMENTS_ASSIGNED_TEAMS_PARENT_TICKET = "attachments,assigned_teams,parent_ticket"
     ATTACHMENTS_ASSIGNEES = "attachments,assignees"
     ATTACHMENTS_ASSIGNEES_ACCOUNT = "attachments,assignees,account"
     ATTACHMENTS_ASSIGNEES_ACCOUNT_CONTACT = "attachments,assignees,account,contact"
@@ -69,6 +159,38 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
     ATTACHMENTS_ASSIGNEES_ACCOUNT_CREATOR = "attachments,assignees,account,creator"
     ATTACHMENTS_ASSIGNEES_ACCOUNT_CREATOR_PARENT_TICKET = "attachments,assignees,account,creator,parent_ticket"
     ATTACHMENTS_ASSIGNEES_ACCOUNT_PARENT_TICKET = "attachments,assignees,account,parent_ticket"
+    ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS = "attachments,assignees,assigned_teams"
+    ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT = "attachments,assignees,assigned_teams,account"
+    ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CONTACT = "attachments,assignees,assigned_teams,account,contact"
+    ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR = (
+        "attachments,assignees,assigned_teams,account,contact,creator"
+    )
+    ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR_PARENT_TICKET = (
+        "attachments,assignees,assigned_teams,account,contact,creator,parent_ticket"
+    )
+    ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CONTACT_PARENT_TICKET = (
+        "attachments,assignees,assigned_teams,account,contact,parent_ticket"
+    )
+    ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CREATOR = "attachments,assignees,assigned_teams,account,creator"
+    ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CREATOR_PARENT_TICKET = (
+        "attachments,assignees,assigned_teams,account,creator,parent_ticket"
+    )
+    ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_PARENT_TICKET = (
+        "attachments,assignees,assigned_teams,account,parent_ticket"
+    )
+    ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_CONTACT = "attachments,assignees,assigned_teams,contact"
+    ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_CONTACT_CREATOR = "attachments,assignees,assigned_teams,contact,creator"
+    ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_CONTACT_CREATOR_PARENT_TICKET = (
+        "attachments,assignees,assigned_teams,contact,creator,parent_ticket"
+    )
+    ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_CONTACT_PARENT_TICKET = (
+        "attachments,assignees,assigned_teams,contact,parent_ticket"
+    )
+    ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_CREATOR = "attachments,assignees,assigned_teams,creator"
+    ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_CREATOR_PARENT_TICKET = (
+        "attachments,assignees,assigned_teams,creator,parent_ticket"
+    )
+    ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_PARENT_TICKET = "attachments,assignees,assigned_teams,parent_ticket"
     ATTACHMENTS_ASSIGNEES_COLLECTIONS = "attachments,assignees,collections"
     ATTACHMENTS_ASSIGNEES_COLLECTIONS_ACCOUNT = "attachments,assignees,collections,account"
     ATTACHMENTS_ASSIGNEES_COLLECTIONS_ACCOUNT_CONTACT = "attachments,assignees,collections,account,contact"
@@ -86,6 +208,52 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
         "attachments,assignees,collections,account,creator,parent_ticket"
     )
     ATTACHMENTS_ASSIGNEES_COLLECTIONS_ACCOUNT_PARENT_TICKET = "attachments,assignees,collections,account,parent_ticket"
+    ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS = "attachments,assignees,collections,assigned_teams"
+    ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT = (
+        "attachments,assignees,collections,assigned_teams,account"
+    )
+    ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT = (
+        "attachments,assignees,collections,assigned_teams,account,contact"
+    )
+    ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR = (
+        "attachments,assignees,collections,assigned_teams,account,contact,creator"
+    )
+    ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR_PARENT_TICKET = (
+        "attachments,assignees,collections,assigned_teams,account,contact,creator,parent_ticket"
+    )
+    ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_PARENT_TICKET = (
+        "attachments,assignees,collections,assigned_teams,account,contact,parent_ticket"
+    )
+    ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CREATOR = (
+        "attachments,assignees,collections,assigned_teams,account,creator"
+    )
+    ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CREATOR_PARENT_TICKET = (
+        "attachments,assignees,collections,assigned_teams,account,creator,parent_ticket"
+    )
+    ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_PARENT_TICKET = (
+        "attachments,assignees,collections,assigned_teams,account,parent_ticket"
+    )
+    ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CONTACT = (
+        "attachments,assignees,collections,assigned_teams,contact"
+    )
+    ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CONTACT_CREATOR = (
+        "attachments,assignees,collections,assigned_teams,contact,creator"
+    )
+    ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CONTACT_CREATOR_PARENT_TICKET = (
+        "attachments,assignees,collections,assigned_teams,contact,creator,parent_ticket"
+    )
+    ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CONTACT_PARENT_TICKET = (
+        "attachments,assignees,collections,assigned_teams,contact,parent_ticket"
+    )
+    ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CREATOR = (
+        "attachments,assignees,collections,assigned_teams,creator"
+    )
+    ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CREATOR_PARENT_TICKET = (
+        "attachments,assignees,collections,assigned_teams,creator,parent_ticket"
+    )
+    ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_PARENT_TICKET = (
+        "attachments,assignees,collections,assigned_teams,parent_ticket"
+    )
     ATTACHMENTS_ASSIGNEES_COLLECTIONS_CONTACT = "attachments,assignees,collections,contact"
     ATTACHMENTS_ASSIGNEES_COLLECTIONS_CONTACT_CREATOR = "attachments,assignees,collections,contact,creator"
     ATTACHMENTS_ASSIGNEES_COLLECTIONS_CONTACT_CREATOR_PARENT_TICKET = (
@@ -113,6 +281,38 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
     ATTACHMENTS_COLLECTIONS_ACCOUNT_CREATOR = "attachments,collections,account,creator"
     ATTACHMENTS_COLLECTIONS_ACCOUNT_CREATOR_PARENT_TICKET = "attachments,collections,account,creator,parent_ticket"
     ATTACHMENTS_COLLECTIONS_ACCOUNT_PARENT_TICKET = "attachments,collections,account,parent_ticket"
+    ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS = "attachments,collections,assigned_teams"
+    ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT = "attachments,collections,assigned_teams,account"
+    ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT = "attachments,collections,assigned_teams,account,contact"
+    ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR = (
+        "attachments,collections,assigned_teams,account,contact,creator"
+    )
+    ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR_PARENT_TICKET = (
+        "attachments,collections,assigned_teams,account,contact,creator,parent_ticket"
+    )
+    ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_PARENT_TICKET = (
+        "attachments,collections,assigned_teams,account,contact,parent_ticket"
+    )
+    ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CREATOR = "attachments,collections,assigned_teams,account,creator"
+    ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CREATOR_PARENT_TICKET = (
+        "attachments,collections,assigned_teams,account,creator,parent_ticket"
+    )
+    ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_PARENT_TICKET = (
+        "attachments,collections,assigned_teams,account,parent_ticket"
+    )
+    ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_CONTACT = "attachments,collections,assigned_teams,contact"
+    ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_CONTACT_CREATOR = "attachments,collections,assigned_teams,contact,creator"
+    ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_CONTACT_CREATOR_PARENT_TICKET = (
+        "attachments,collections,assigned_teams,contact,creator,parent_ticket"
+    )
+    ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_CONTACT_PARENT_TICKET = (
+        "attachments,collections,assigned_teams,contact,parent_ticket"
+    )
+    ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_CREATOR = "attachments,collections,assigned_teams,creator"
+    ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_CREATOR_PARENT_TICKET = (
+        "attachments,collections,assigned_teams,creator,parent_ticket"
+    )
+    ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_PARENT_TICKET = "attachments,collections,assigned_teams,parent_ticket"
     ATTACHMENTS_COLLECTIONS_CONTACT = "attachments,collections,contact"
     ATTACHMENTS_COLLECTIONS_CONTACT_CREATOR = "attachments,collections,contact,creator"
     ATTACHMENTS_COLLECTIONS_CONTACT_CREATOR_PARENT_TICKET = "attachments,collections,contact,creator,parent_ticket"
@@ -136,6 +336,30 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
     COLLECTIONS_ACCOUNT_CREATOR = "collections,account,creator"
     COLLECTIONS_ACCOUNT_CREATOR_PARENT_TICKET = "collections,account,creator,parent_ticket"
     COLLECTIONS_ACCOUNT_PARENT_TICKET = "collections,account,parent_ticket"
+    COLLECTIONS_ASSIGNED_TEAMS = "collections,assigned_teams"
+    COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT = "collections,assigned_teams,account"
+    COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT = "collections,assigned_teams,account,contact"
+    COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR = "collections,assigned_teams,account,contact,creator"
+    COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR_PARENT_TICKET = (
+        "collections,assigned_teams,account,contact,creator,parent_ticket"
+    )
+    COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_PARENT_TICKET = (
+        "collections,assigned_teams,account,contact,parent_ticket"
+    )
+    COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CREATOR = "collections,assigned_teams,account,creator"
+    COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CREATOR_PARENT_TICKET = (
+        "collections,assigned_teams,account,creator,parent_ticket"
+    )
+    COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_PARENT_TICKET = "collections,assigned_teams,account,parent_ticket"
+    COLLECTIONS_ASSIGNED_TEAMS_CONTACT = "collections,assigned_teams,contact"
+    COLLECTIONS_ASSIGNED_TEAMS_CONTACT_CREATOR = "collections,assigned_teams,contact,creator"
+    COLLECTIONS_ASSIGNED_TEAMS_CONTACT_CREATOR_PARENT_TICKET = (
+        "collections,assigned_teams,contact,creator,parent_ticket"
+    )
+    COLLECTIONS_ASSIGNED_TEAMS_CONTACT_PARENT_TICKET = "collections,assigned_teams,contact,parent_ticket"
+    COLLECTIONS_ASSIGNED_TEAMS_CREATOR = "collections,assigned_teams,creator"
+    COLLECTIONS_ASSIGNED_TEAMS_CREATOR_PARENT_TICKET = "collections,assigned_teams,creator,parent_ticket"
+    COLLECTIONS_ASSIGNED_TEAMS_PARENT_TICKET = "collections,assigned_teams,parent_ticket"
     COLLECTIONS_CONTACT = "collections,contact"
     COLLECTIONS_CONTACT_CREATOR = "collections,contact,creator"
     COLLECTIONS_CONTACT_CREATOR_PARENT_TICKET = "collections,contact,creator,parent_ticket"
@@ -161,6 +385,22 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
         account_creator: typing.Callable[[], T_Result],
         account_creator_parent_ticket: typing.Callable[[], T_Result],
         account_parent_ticket: typing.Callable[[], T_Result],
+        assigned_teams: typing.Callable[[], T_Result],
+        assigned_teams_account: typing.Callable[[], T_Result],
+        assigned_teams_account_contact: typing.Callable[[], T_Result],
+        assigned_teams_account_contact_creator: typing.Callable[[], T_Result],
+        assigned_teams_account_contact_creator_parent_ticket: typing.Callable[[], T_Result],
+        assigned_teams_account_contact_parent_ticket: typing.Callable[[], T_Result],
+        assigned_teams_account_creator: typing.Callable[[], T_Result],
+        assigned_teams_account_creator_parent_ticket: typing.Callable[[], T_Result],
+        assigned_teams_account_parent_ticket: typing.Callable[[], T_Result],
+        assigned_teams_contact: typing.Callable[[], T_Result],
+        assigned_teams_contact_creator: typing.Callable[[], T_Result],
+        assigned_teams_contact_creator_parent_ticket: typing.Callable[[], T_Result],
+        assigned_teams_contact_parent_ticket: typing.Callable[[], T_Result],
+        assigned_teams_creator: typing.Callable[[], T_Result],
+        assigned_teams_creator_parent_ticket: typing.Callable[[], T_Result],
+        assigned_teams_parent_ticket: typing.Callable[[], T_Result],
         assignees: typing.Callable[[], T_Result],
         assignees_account: typing.Callable[[], T_Result],
         assignees_account_contact: typing.Callable[[], T_Result],
@@ -170,6 +410,22 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
         assignees_account_creator: typing.Callable[[], T_Result],
         assignees_account_creator_parent_ticket: typing.Callable[[], T_Result],
         assignees_account_parent_ticket: typing.Callable[[], T_Result],
+        assignees_assigned_teams: typing.Callable[[], T_Result],
+        assignees_assigned_teams_account: typing.Callable[[], T_Result],
+        assignees_assigned_teams_account_contact: typing.Callable[[], T_Result],
+        assignees_assigned_teams_account_contact_creator: typing.Callable[[], T_Result],
+        assignees_assigned_teams_account_contact_creator_parent_ticket: typing.Callable[[], T_Result],
+        assignees_assigned_teams_account_contact_parent_ticket: typing.Callable[[], T_Result],
+        assignees_assigned_teams_account_creator: typing.Callable[[], T_Result],
+        assignees_assigned_teams_account_creator_parent_ticket: typing.Callable[[], T_Result],
+        assignees_assigned_teams_account_parent_ticket: typing.Callable[[], T_Result],
+        assignees_assigned_teams_contact: typing.Callable[[], T_Result],
+        assignees_assigned_teams_contact_creator: typing.Callable[[], T_Result],
+        assignees_assigned_teams_contact_creator_parent_ticket: typing.Callable[[], T_Result],
+        assignees_assigned_teams_contact_parent_ticket: typing.Callable[[], T_Result],
+        assignees_assigned_teams_creator: typing.Callable[[], T_Result],
+        assignees_assigned_teams_creator_parent_ticket: typing.Callable[[], T_Result],
+        assignees_assigned_teams_parent_ticket: typing.Callable[[], T_Result],
         assignees_collections: typing.Callable[[], T_Result],
         assignees_collections_account: typing.Callable[[], T_Result],
         assignees_collections_account_contact: typing.Callable[[], T_Result],
@@ -179,6 +435,22 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
         assignees_collections_account_creator: typing.Callable[[], T_Result],
         assignees_collections_account_creator_parent_ticket: typing.Callable[[], T_Result],
         assignees_collections_account_parent_ticket: typing.Callable[[], T_Result],
+        assignees_collections_assigned_teams: typing.Callable[[], T_Result],
+        assignees_collections_assigned_teams_account: typing.Callable[[], T_Result],
+        assignees_collections_assigned_teams_account_contact: typing.Callable[[], T_Result],
+        assignees_collections_assigned_teams_account_contact_creator: typing.Callable[[], T_Result],
+        assignees_collections_assigned_teams_account_contact_creator_parent_ticket: typing.Callable[[], T_Result],
+        assignees_collections_assigned_teams_account_contact_parent_ticket: typing.Callable[[], T_Result],
+        assignees_collections_assigned_teams_account_creator: typing.Callable[[], T_Result],
+        assignees_collections_assigned_teams_account_creator_parent_ticket: typing.Callable[[], T_Result],
+        assignees_collections_assigned_teams_account_parent_ticket: typing.Callable[[], T_Result],
+        assignees_collections_assigned_teams_contact: typing.Callable[[], T_Result],
+        assignees_collections_assigned_teams_contact_creator: typing.Callable[[], T_Result],
+        assignees_collections_assigned_teams_contact_creator_parent_ticket: typing.Callable[[], T_Result],
+        assignees_collections_assigned_teams_contact_parent_ticket: typing.Callable[[], T_Result],
+        assignees_collections_assigned_teams_creator: typing.Callable[[], T_Result],
+        assignees_collections_assigned_teams_creator_parent_ticket: typing.Callable[[], T_Result],
+        assignees_collections_assigned_teams_parent_ticket: typing.Callable[[], T_Result],
         assignees_collections_contact: typing.Callable[[], T_Result],
         assignees_collections_contact_creator: typing.Callable[[], T_Result],
         assignees_collections_contact_creator_parent_ticket: typing.Callable[[], T_Result],
@@ -202,6 +474,22 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
         attachments_account_creator: typing.Callable[[], T_Result],
         attachments_account_creator_parent_ticket: typing.Callable[[], T_Result],
         attachments_account_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assigned_teams: typing.Callable[[], T_Result],
+        attachments_assigned_teams_account: typing.Callable[[], T_Result],
+        attachments_assigned_teams_account_contact: typing.Callable[[], T_Result],
+        attachments_assigned_teams_account_contact_creator: typing.Callable[[], T_Result],
+        attachments_assigned_teams_account_contact_creator_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assigned_teams_account_contact_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assigned_teams_account_creator: typing.Callable[[], T_Result],
+        attachments_assigned_teams_account_creator_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assigned_teams_account_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assigned_teams_contact: typing.Callable[[], T_Result],
+        attachments_assigned_teams_contact_creator: typing.Callable[[], T_Result],
+        attachments_assigned_teams_contact_creator_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assigned_teams_contact_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assigned_teams_creator: typing.Callable[[], T_Result],
+        attachments_assigned_teams_creator_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assigned_teams_parent_ticket: typing.Callable[[], T_Result],
         attachments_assignees: typing.Callable[[], T_Result],
         attachments_assignees_account: typing.Callable[[], T_Result],
         attachments_assignees_account_contact: typing.Callable[[], T_Result],
@@ -211,6 +499,22 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
         attachments_assignees_account_creator: typing.Callable[[], T_Result],
         attachments_assignees_account_creator_parent_ticket: typing.Callable[[], T_Result],
         attachments_assignees_account_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assignees_assigned_teams: typing.Callable[[], T_Result],
+        attachments_assignees_assigned_teams_account: typing.Callable[[], T_Result],
+        attachments_assignees_assigned_teams_account_contact: typing.Callable[[], T_Result],
+        attachments_assignees_assigned_teams_account_contact_creator: typing.Callable[[], T_Result],
+        attachments_assignees_assigned_teams_account_contact_creator_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assignees_assigned_teams_account_contact_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assignees_assigned_teams_account_creator: typing.Callable[[], T_Result],
+        attachments_assignees_assigned_teams_account_creator_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assignees_assigned_teams_account_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assignees_assigned_teams_contact: typing.Callable[[], T_Result],
+        attachments_assignees_assigned_teams_contact_creator: typing.Callable[[], T_Result],
+        attachments_assignees_assigned_teams_contact_creator_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assignees_assigned_teams_contact_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assignees_assigned_teams_creator: typing.Callable[[], T_Result],
+        attachments_assignees_assigned_teams_creator_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assignees_assigned_teams_parent_ticket: typing.Callable[[], T_Result],
         attachments_assignees_collections: typing.Callable[[], T_Result],
         attachments_assignees_collections_account: typing.Callable[[], T_Result],
         attachments_assignees_collections_account_contact: typing.Callable[[], T_Result],
@@ -220,6 +524,24 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
         attachments_assignees_collections_account_creator: typing.Callable[[], T_Result],
         attachments_assignees_collections_account_creator_parent_ticket: typing.Callable[[], T_Result],
         attachments_assignees_collections_account_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assignees_collections_assigned_teams: typing.Callable[[], T_Result],
+        attachments_assignees_collections_assigned_teams_account: typing.Callable[[], T_Result],
+        attachments_assignees_collections_assigned_teams_account_contact: typing.Callable[[], T_Result],
+        attachments_assignees_collections_assigned_teams_account_contact_creator: typing.Callable[[], T_Result],
+        attachments_assignees_collections_assigned_teams_account_contact_creator_parent_ticket: typing.Callable[
+            [], T_Result
+        ],
+        attachments_assignees_collections_assigned_teams_account_contact_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assignees_collections_assigned_teams_account_creator: typing.Callable[[], T_Result],
+        attachments_assignees_collections_assigned_teams_account_creator_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assignees_collections_assigned_teams_account_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assignees_collections_assigned_teams_contact: typing.Callable[[], T_Result],
+        attachments_assignees_collections_assigned_teams_contact_creator: typing.Callable[[], T_Result],
+        attachments_assignees_collections_assigned_teams_contact_creator_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assignees_collections_assigned_teams_contact_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assignees_collections_assigned_teams_creator: typing.Callable[[], T_Result],
+        attachments_assignees_collections_assigned_teams_creator_parent_ticket: typing.Callable[[], T_Result],
+        attachments_assignees_collections_assigned_teams_parent_ticket: typing.Callable[[], T_Result],
         attachments_assignees_collections_contact: typing.Callable[[], T_Result],
         attachments_assignees_collections_contact_creator: typing.Callable[[], T_Result],
         attachments_assignees_collections_contact_creator_parent_ticket: typing.Callable[[], T_Result],
@@ -243,6 +565,22 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
         attachments_collections_account_creator: typing.Callable[[], T_Result],
         attachments_collections_account_creator_parent_ticket: typing.Callable[[], T_Result],
         attachments_collections_account_parent_ticket: typing.Callable[[], T_Result],
+        attachments_collections_assigned_teams: typing.Callable[[], T_Result],
+        attachments_collections_assigned_teams_account: typing.Callable[[], T_Result],
+        attachments_collections_assigned_teams_account_contact: typing.Callable[[], T_Result],
+        attachments_collections_assigned_teams_account_contact_creator: typing.Callable[[], T_Result],
+        attachments_collections_assigned_teams_account_contact_creator_parent_ticket: typing.Callable[[], T_Result],
+        attachments_collections_assigned_teams_account_contact_parent_ticket: typing.Callable[[], T_Result],
+        attachments_collections_assigned_teams_account_creator: typing.Callable[[], T_Result],
+        attachments_collections_assigned_teams_account_creator_parent_ticket: typing.Callable[[], T_Result],
+        attachments_collections_assigned_teams_account_parent_ticket: typing.Callable[[], T_Result],
+        attachments_collections_assigned_teams_contact: typing.Callable[[], T_Result],
+        attachments_collections_assigned_teams_contact_creator: typing.Callable[[], T_Result],
+        attachments_collections_assigned_teams_contact_creator_parent_ticket: typing.Callable[[], T_Result],
+        attachments_collections_assigned_teams_contact_parent_ticket: typing.Callable[[], T_Result],
+        attachments_collections_assigned_teams_creator: typing.Callable[[], T_Result],
+        attachments_collections_assigned_teams_creator_parent_ticket: typing.Callable[[], T_Result],
+        attachments_collections_assigned_teams_parent_ticket: typing.Callable[[], T_Result],
         attachments_collections_contact: typing.Callable[[], T_Result],
         attachments_collections_contact_creator: typing.Callable[[], T_Result],
         attachments_collections_contact_creator_parent_ticket: typing.Callable[[], T_Result],
@@ -266,6 +604,22 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
         collections_account_creator: typing.Callable[[], T_Result],
         collections_account_creator_parent_ticket: typing.Callable[[], T_Result],
         collections_account_parent_ticket: typing.Callable[[], T_Result],
+        collections_assigned_teams: typing.Callable[[], T_Result],
+        collections_assigned_teams_account: typing.Callable[[], T_Result],
+        collections_assigned_teams_account_contact: typing.Callable[[], T_Result],
+        collections_assigned_teams_account_contact_creator: typing.Callable[[], T_Result],
+        collections_assigned_teams_account_contact_creator_parent_ticket: typing.Callable[[], T_Result],
+        collections_assigned_teams_account_contact_parent_ticket: typing.Callable[[], T_Result],
+        collections_assigned_teams_account_creator: typing.Callable[[], T_Result],
+        collections_assigned_teams_account_creator_parent_ticket: typing.Callable[[], T_Result],
+        collections_assigned_teams_account_parent_ticket: typing.Callable[[], T_Result],
+        collections_assigned_teams_contact: typing.Callable[[], T_Result],
+        collections_assigned_teams_contact_creator: typing.Callable[[], T_Result],
+        collections_assigned_teams_contact_creator_parent_ticket: typing.Callable[[], T_Result],
+        collections_assigned_teams_contact_parent_ticket: typing.Callable[[], T_Result],
+        collections_assigned_teams_creator: typing.Callable[[], T_Result],
+        collections_assigned_teams_creator_parent_ticket: typing.Callable[[], T_Result],
+        collections_assigned_teams_parent_ticket: typing.Callable[[], T_Result],
         collections_contact: typing.Callable[[], T_Result],
         collections_contact_creator: typing.Callable[[], T_Result],
         collections_contact_creator_parent_ticket: typing.Callable[[], T_Result],
@@ -297,6 +651,38 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
             return account_creator_parent_ticket()
         if self is TicketsRetrieveRequestExpand.ACCOUNT_PARENT_TICKET:
             return account_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNED_TEAMS:
+            return assigned_teams()
+        if self is TicketsRetrieveRequestExpand.ASSIGNED_TEAMS_ACCOUNT:
+            return assigned_teams_account()
+        if self is TicketsRetrieveRequestExpand.ASSIGNED_TEAMS_ACCOUNT_CONTACT:
+            return assigned_teams_account_contact()
+        if self is TicketsRetrieveRequestExpand.ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR:
+            return assigned_teams_account_contact_creator()
+        if self is TicketsRetrieveRequestExpand.ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR_PARENT_TICKET:
+            return assigned_teams_account_contact_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNED_TEAMS_ACCOUNT_CONTACT_PARENT_TICKET:
+            return assigned_teams_account_contact_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNED_TEAMS_ACCOUNT_CREATOR:
+            return assigned_teams_account_creator()
+        if self is TicketsRetrieveRequestExpand.ASSIGNED_TEAMS_ACCOUNT_CREATOR_PARENT_TICKET:
+            return assigned_teams_account_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNED_TEAMS_ACCOUNT_PARENT_TICKET:
+            return assigned_teams_account_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNED_TEAMS_CONTACT:
+            return assigned_teams_contact()
+        if self is TicketsRetrieveRequestExpand.ASSIGNED_TEAMS_CONTACT_CREATOR:
+            return assigned_teams_contact_creator()
+        if self is TicketsRetrieveRequestExpand.ASSIGNED_TEAMS_CONTACT_CREATOR_PARENT_TICKET:
+            return assigned_teams_contact_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNED_TEAMS_CONTACT_PARENT_TICKET:
+            return assigned_teams_contact_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNED_TEAMS_CREATOR:
+            return assigned_teams_creator()
+        if self is TicketsRetrieveRequestExpand.ASSIGNED_TEAMS_CREATOR_PARENT_TICKET:
+            return assigned_teams_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNED_TEAMS_PARENT_TICKET:
+            return assigned_teams_parent_ticket()
         if self is TicketsRetrieveRequestExpand.ASSIGNEES:
             return assignees()
         if self is TicketsRetrieveRequestExpand.ASSIGNEES_ACCOUNT:
@@ -315,6 +701,38 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
             return assignees_account_creator_parent_ticket()
         if self is TicketsRetrieveRequestExpand.ASSIGNEES_ACCOUNT_PARENT_TICKET:
             return assignees_account_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_ASSIGNED_TEAMS:
+            return assignees_assigned_teams()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT:
+            return assignees_assigned_teams_account()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CONTACT:
+            return assignees_assigned_teams_account_contact()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR:
+            return assignees_assigned_teams_account_contact_creator()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR_PARENT_TICKET:
+            return assignees_assigned_teams_account_contact_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CONTACT_PARENT_TICKET:
+            return assignees_assigned_teams_account_contact_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CREATOR:
+            return assignees_assigned_teams_account_creator()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CREATOR_PARENT_TICKET:
+            return assignees_assigned_teams_account_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_PARENT_TICKET:
+            return assignees_assigned_teams_account_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_ASSIGNED_TEAMS_CONTACT:
+            return assignees_assigned_teams_contact()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_ASSIGNED_TEAMS_CONTACT_CREATOR:
+            return assignees_assigned_teams_contact_creator()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_ASSIGNED_TEAMS_CONTACT_CREATOR_PARENT_TICKET:
+            return assignees_assigned_teams_contact_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_ASSIGNED_TEAMS_CONTACT_PARENT_TICKET:
+            return assignees_assigned_teams_contact_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_ASSIGNED_TEAMS_CREATOR:
+            return assignees_assigned_teams_creator()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_ASSIGNED_TEAMS_CREATOR_PARENT_TICKET:
+            return assignees_assigned_teams_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_ASSIGNED_TEAMS_PARENT_TICKET:
+            return assignees_assigned_teams_parent_ticket()
         if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS:
             return assignees_collections()
         if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_ACCOUNT:
@@ -333,6 +751,41 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
             return assignees_collections_account_creator_parent_ticket()
         if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_ACCOUNT_PARENT_TICKET:
             return assignees_collections_account_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS:
+            return assignees_collections_assigned_teams()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT:
+            return assignees_collections_assigned_teams_account()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT:
+            return assignees_collections_assigned_teams_account_contact()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR:
+            return assignees_collections_assigned_teams_account_contact_creator()
+        if (
+            self
+            is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR_PARENT_TICKET
+        ):
+            return assignees_collections_assigned_teams_account_contact_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_PARENT_TICKET:
+            return assignees_collections_assigned_teams_account_contact_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CREATOR:
+            return assignees_collections_assigned_teams_account_creator()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CREATOR_PARENT_TICKET:
+            return assignees_collections_assigned_teams_account_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_PARENT_TICKET:
+            return assignees_collections_assigned_teams_account_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CONTACT:
+            return assignees_collections_assigned_teams_contact()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CONTACT_CREATOR:
+            return assignees_collections_assigned_teams_contact_creator()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CONTACT_CREATOR_PARENT_TICKET:
+            return assignees_collections_assigned_teams_contact_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CONTACT_PARENT_TICKET:
+            return assignees_collections_assigned_teams_contact_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CREATOR:
+            return assignees_collections_assigned_teams_creator()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CREATOR_PARENT_TICKET:
+            return assignees_collections_assigned_teams_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_PARENT_TICKET:
+            return assignees_collections_assigned_teams_parent_ticket()
         if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_CONTACT:
             return assignees_collections_contact()
         if self is TicketsRetrieveRequestExpand.ASSIGNEES_COLLECTIONS_CONTACT_CREATOR:
@@ -379,6 +832,38 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
             return attachments_account_creator_parent_ticket()
         if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ACCOUNT_PARENT_TICKET:
             return attachments_account_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNED_TEAMS:
+            return attachments_assigned_teams()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNED_TEAMS_ACCOUNT:
+            return attachments_assigned_teams_account()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNED_TEAMS_ACCOUNT_CONTACT:
+            return attachments_assigned_teams_account_contact()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR:
+            return attachments_assigned_teams_account_contact_creator()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR_PARENT_TICKET:
+            return attachments_assigned_teams_account_contact_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_PARENT_TICKET:
+            return attachments_assigned_teams_account_contact_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNED_TEAMS_ACCOUNT_CREATOR:
+            return attachments_assigned_teams_account_creator()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNED_TEAMS_ACCOUNT_CREATOR_PARENT_TICKET:
+            return attachments_assigned_teams_account_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNED_TEAMS_ACCOUNT_PARENT_TICKET:
+            return attachments_assigned_teams_account_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNED_TEAMS_CONTACT:
+            return attachments_assigned_teams_contact()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNED_TEAMS_CONTACT_CREATOR:
+            return attachments_assigned_teams_contact_creator()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNED_TEAMS_CONTACT_CREATOR_PARENT_TICKET:
+            return attachments_assigned_teams_contact_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNED_TEAMS_CONTACT_PARENT_TICKET:
+            return attachments_assigned_teams_contact_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNED_TEAMS_CREATOR:
+            return attachments_assigned_teams_creator()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNED_TEAMS_CREATOR_PARENT_TICKET:
+            return attachments_assigned_teams_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNED_TEAMS_PARENT_TICKET:
+            return attachments_assigned_teams_parent_ticket()
         if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES:
             return attachments_assignees()
         if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_ACCOUNT:
@@ -397,6 +882,41 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
             return attachments_assignees_account_creator_parent_ticket()
         if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_ACCOUNT_PARENT_TICKET:
             return attachments_assignees_account_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS:
+            return attachments_assignees_assigned_teams()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT:
+            return attachments_assignees_assigned_teams_account()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CONTACT:
+            return attachments_assignees_assigned_teams_account_contact()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR:
+            return attachments_assignees_assigned_teams_account_contact_creator()
+        if (
+            self
+            is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR_PARENT_TICKET
+        ):
+            return attachments_assignees_assigned_teams_account_contact_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CONTACT_PARENT_TICKET:
+            return attachments_assignees_assigned_teams_account_contact_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CREATOR:
+            return attachments_assignees_assigned_teams_account_creator()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_CREATOR_PARENT_TICKET:
+            return attachments_assignees_assigned_teams_account_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_ACCOUNT_PARENT_TICKET:
+            return attachments_assignees_assigned_teams_account_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_CONTACT:
+            return attachments_assignees_assigned_teams_contact()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_CONTACT_CREATOR:
+            return attachments_assignees_assigned_teams_contact_creator()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_CONTACT_CREATOR_PARENT_TICKET:
+            return attachments_assignees_assigned_teams_contact_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_CONTACT_PARENT_TICKET:
+            return attachments_assignees_assigned_teams_contact_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_CREATOR:
+            return attachments_assignees_assigned_teams_creator()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_CREATOR_PARENT_TICKET:
+            return attachments_assignees_assigned_teams_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_ASSIGNED_TEAMS_PARENT_TICKET:
+            return attachments_assignees_assigned_teams_parent_ticket()
         if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS:
             return attachments_assignees_collections()
         if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_ACCOUNT:
@@ -415,6 +935,53 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
             return attachments_assignees_collections_account_creator_parent_ticket()
         if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_ACCOUNT_PARENT_TICKET:
             return attachments_assignees_collections_account_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS:
+            return attachments_assignees_collections_assigned_teams()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT:
+            return attachments_assignees_collections_assigned_teams_account()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT:
+            return attachments_assignees_collections_assigned_teams_account_contact()
+        if (
+            self
+            is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR
+        ):
+            return attachments_assignees_collections_assigned_teams_account_contact_creator()
+        if (
+            self
+            is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR_PARENT_TICKET
+        ):
+            return attachments_assignees_collections_assigned_teams_account_contact_creator_parent_ticket()
+        if (
+            self
+            is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_PARENT_TICKET
+        ):
+            return attachments_assignees_collections_assigned_teams_account_contact_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CREATOR:
+            return attachments_assignees_collections_assigned_teams_account_creator()
+        if (
+            self
+            is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CREATOR_PARENT_TICKET
+        ):
+            return attachments_assignees_collections_assigned_teams_account_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_PARENT_TICKET:
+            return attachments_assignees_collections_assigned_teams_account_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CONTACT:
+            return attachments_assignees_collections_assigned_teams_contact()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CONTACT_CREATOR:
+            return attachments_assignees_collections_assigned_teams_contact_creator()
+        if (
+            self
+            is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CONTACT_CREATOR_PARENT_TICKET
+        ):
+            return attachments_assignees_collections_assigned_teams_contact_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CONTACT_PARENT_TICKET:
+            return attachments_assignees_collections_assigned_teams_contact_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CREATOR:
+            return attachments_assignees_collections_assigned_teams_creator()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_CREATOR_PARENT_TICKET:
+            return attachments_assignees_collections_assigned_teams_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_ASSIGNED_TEAMS_PARENT_TICKET:
+            return attachments_assignees_collections_assigned_teams_parent_ticket()
         if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_CONTACT:
             return attachments_assignees_collections_contact()
         if self is TicketsRetrieveRequestExpand.ATTACHMENTS_ASSIGNEES_COLLECTIONS_CONTACT_CREATOR:
@@ -461,6 +1028,41 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
             return attachments_collections_account_creator_parent_ticket()
         if self is TicketsRetrieveRequestExpand.ATTACHMENTS_COLLECTIONS_ACCOUNT_PARENT_TICKET:
             return attachments_collections_account_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS:
+            return attachments_collections_assigned_teams()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT:
+            return attachments_collections_assigned_teams_account()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT:
+            return attachments_collections_assigned_teams_account_contact()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR:
+            return attachments_collections_assigned_teams_account_contact_creator()
+        if (
+            self
+            is TicketsRetrieveRequestExpand.ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR_PARENT_TICKET
+        ):
+            return attachments_collections_assigned_teams_account_contact_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_PARENT_TICKET:
+            return attachments_collections_assigned_teams_account_contact_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CREATOR:
+            return attachments_collections_assigned_teams_account_creator()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CREATOR_PARENT_TICKET:
+            return attachments_collections_assigned_teams_account_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_PARENT_TICKET:
+            return attachments_collections_assigned_teams_account_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_CONTACT:
+            return attachments_collections_assigned_teams_contact()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_CONTACT_CREATOR:
+            return attachments_collections_assigned_teams_contact_creator()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_CONTACT_CREATOR_PARENT_TICKET:
+            return attachments_collections_assigned_teams_contact_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_CONTACT_PARENT_TICKET:
+            return attachments_collections_assigned_teams_contact_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_CREATOR:
+            return attachments_collections_assigned_teams_creator()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_CREATOR_PARENT_TICKET:
+            return attachments_collections_assigned_teams_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.ATTACHMENTS_COLLECTIONS_ASSIGNED_TEAMS_PARENT_TICKET:
+            return attachments_collections_assigned_teams_parent_ticket()
         if self is TicketsRetrieveRequestExpand.ATTACHMENTS_COLLECTIONS_CONTACT:
             return attachments_collections_contact()
         if self is TicketsRetrieveRequestExpand.ATTACHMENTS_COLLECTIONS_CONTACT_CREATOR:
@@ -507,6 +1109,38 @@ class TicketsRetrieveRequestExpand(str, enum.Enum):
             return collections_account_creator_parent_ticket()
         if self is TicketsRetrieveRequestExpand.COLLECTIONS_ACCOUNT_PARENT_TICKET:
             return collections_account_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.COLLECTIONS_ASSIGNED_TEAMS:
+            return collections_assigned_teams()
+        if self is TicketsRetrieveRequestExpand.COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT:
+            return collections_assigned_teams_account()
+        if self is TicketsRetrieveRequestExpand.COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT:
+            return collections_assigned_teams_account_contact()
+        if self is TicketsRetrieveRequestExpand.COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR:
+            return collections_assigned_teams_account_contact_creator()
+        if self is TicketsRetrieveRequestExpand.COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_CREATOR_PARENT_TICKET:
+            return collections_assigned_teams_account_contact_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CONTACT_PARENT_TICKET:
+            return collections_assigned_teams_account_contact_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CREATOR:
+            return collections_assigned_teams_account_creator()
+        if self is TicketsRetrieveRequestExpand.COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_CREATOR_PARENT_TICKET:
+            return collections_assigned_teams_account_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.COLLECTIONS_ASSIGNED_TEAMS_ACCOUNT_PARENT_TICKET:
+            return collections_assigned_teams_account_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.COLLECTIONS_ASSIGNED_TEAMS_CONTACT:
+            return collections_assigned_teams_contact()
+        if self is TicketsRetrieveRequestExpand.COLLECTIONS_ASSIGNED_TEAMS_CONTACT_CREATOR:
+            return collections_assigned_teams_contact_creator()
+        if self is TicketsRetrieveRequestExpand.COLLECTIONS_ASSIGNED_TEAMS_CONTACT_CREATOR_PARENT_TICKET:
+            return collections_assigned_teams_contact_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.COLLECTIONS_ASSIGNED_TEAMS_CONTACT_PARENT_TICKET:
+            return collections_assigned_teams_contact_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.COLLECTIONS_ASSIGNED_TEAMS_CREATOR:
+            return collections_assigned_teams_creator()
+        if self is TicketsRetrieveRequestExpand.COLLECTIONS_ASSIGNED_TEAMS_CREATOR_PARENT_TICKET:
+            return collections_assigned_teams_creator_parent_ticket()
+        if self is TicketsRetrieveRequestExpand.COLLECTIONS_ASSIGNED_TEAMS_PARENT_TICKET:
+            return collections_assigned_teams_parent_ticket()
         if self is TicketsRetrieveRequestExpand.COLLECTIONS_CONTACT:
             return collections_contact()
         if self is TicketsRetrieveRequestExpand.COLLECTIONS_CONTACT_CREATOR:

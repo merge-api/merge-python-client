@@ -3,6 +3,7 @@
 from __future__ import annotations
 from ....core.pydantic_utilities import UniversalBaseModel
 from .folder import Folder
+from .group import Group
 import typing
 from .file import File
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
@@ -26,3 +27,4 @@ class PaginatedFileList(UniversalBaseModel):
 
 
 update_forward_refs(Folder, PaginatedFileList=PaginatedFileList)
+update_forward_refs(Group, PaginatedFileList=PaginatedFileList)

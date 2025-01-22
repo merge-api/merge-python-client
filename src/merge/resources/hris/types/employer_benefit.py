@@ -5,6 +5,7 @@ import typing
 import pydantic
 import datetime as dt
 from .employer_benefit_benefit_plan_type import EmployerBenefitBenefitPlanType
+from .remote_data import RemoteData
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -69,7 +70,7 @@ class EmployerBenefit(UniversalBaseModel):
     """
 
     field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
-    remote_data: typing.Optional[typing.List[typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

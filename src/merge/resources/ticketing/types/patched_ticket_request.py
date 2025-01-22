@@ -16,7 +16,7 @@ class PatchedTicketRequest(UniversalBaseModel):
 
     ### Description
 
-    The `Ticket` object is used to represent a ticket or a task within a system.
+    The `Ticket` object is used to represent a ticket, issue, task or case.
 
     ### Usage Example
 
@@ -28,7 +28,16 @@ class PatchedTicketRequest(UniversalBaseModel):
     The ticket's name.
     """
 
-    assignees: typing.Optional[typing.List[typing.Optional[str]]] = None
+    assignees: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(default=None)
+    """
+    The individual `Users` who are assigned to this ticket. This does not include `Users` who just have view access to this ticket.
+    """
+
+    assigned_teams: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(default=None)
+    """
+    The `Teams` that are assigned to this ticket. This does not include `Teams` who just have view access to this ticket.
+    """
+
     creator: typing.Optional[str] = pydantic.Field(default=None)
     """
     The user who created this ticket.
@@ -54,7 +63,11 @@ class PatchedTicketRequest(UniversalBaseModel):
     The ticket’s description. HTML version of description is mapped if supported by the third-party platform.
     """
 
-    collections: typing.Optional[typing.List[typing.Optional[str]]] = None
+    collections: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(default=None)
+    """
+    The `Collections` that this `Ticket` is included in.
+    """
+
     ticket_type: typing.Optional[str] = pydantic.Field(default=None)
     """
     The sub category of the ticket within the 3rd party system. Examples include incident, task, subtask or to-do.
@@ -76,6 +89,7 @@ class PatchedTicketRequest(UniversalBaseModel):
     """
 
     tags: typing.Optional[typing.List[typing.Optional[str]]] = None
+    roles: typing.Optional[typing.List[typing.Optional[str]]] = None
     completed_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the ticket was completed.
