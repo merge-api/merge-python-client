@@ -134,6 +134,7 @@ class ScopesClient:
         --------
         from merge import Merge
         from merge.resources.ats import (
+            FieldPermissionDeserializerRequest,
             IndividualCommonModelScopeDeserializerRequest,
             ModelPermissionDeserializerRequest,
         )
@@ -154,6 +155,10 @@ class ScopesClient:
                             is_enabled=False,
                         ),
                     },
+                    field_permissions=FieldPermissionDeserializerRequest(
+                        enabled_fields=["avatar", "home_location"],
+                        disabled_fields=["work_location"],
+                    ),
                 ),
                 IndividualCommonModelScopeDeserializerRequest(
                     model_name="Benefit",
@@ -328,6 +333,7 @@ class AsyncScopesClient:
 
         from merge import AsyncMerge
         from merge.resources.ats import (
+            FieldPermissionDeserializerRequest,
             IndividualCommonModelScopeDeserializerRequest,
             ModelPermissionDeserializerRequest,
         )
@@ -351,6 +357,10 @@ class AsyncScopesClient:
                                 is_enabled=False,
                             ),
                         },
+                        field_permissions=FieldPermissionDeserializerRequest(
+                            enabled_fields=["avatar", "home_location"],
+                            disabled_fields=["work_location"],
+                        ),
                     ),
                     IndividualCommonModelScopeDeserializerRequest(
                         model_name="Benefit",

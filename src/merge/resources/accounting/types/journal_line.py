@@ -372,6 +372,7 @@ class JournalLine(UniversalBaseModel):
     The company the journal entry belongs to.
     """
 
+    employee: typing.Optional[str] = None
     contact: typing.Optional[str] = None
     tax_rate: typing.Optional[str] = pydantic.Field(default=None)
     """

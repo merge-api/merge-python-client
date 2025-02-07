@@ -6,6 +6,7 @@ import pydantic
 from .expense_line_request_item import ExpenseLineRequestItem
 from .expense_line_request_tracking_category import ExpenseLineRequestTrackingCategory
 from .expense_line_request_tracking_categories_item import ExpenseLineRequestTrackingCategoriesItem
+from .expense_line_request_employee import ExpenseLineRequestEmployee
 from .expense_line_request_currency import ExpenseLineRequestCurrency
 from .expense_line_request_account import ExpenseLineRequestAccount
 from .expense_line_request_contact import ExpenseLineRequestContact
@@ -51,7 +52,12 @@ class ExpenseLineRequest(UniversalBaseModel):
 
     company: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The company the line belongs to.
+    The company the expense belongs to.
+    """
+
+    employee: typing.Optional[ExpenseLineRequestEmployee] = pydantic.Field(default=None)
+    """
+    The employee this overall transaction relates to.
     """
 
     currency: typing.Optional[ExpenseLineRequestCurrency] = pydantic.Field(default=None)

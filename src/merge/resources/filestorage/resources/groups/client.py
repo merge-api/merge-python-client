@@ -24,6 +24,7 @@ class GroupsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        expand: typing.Optional[typing.Literal["child_groups"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -46,6 +47,9 @@ class GroupsClient:
 
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        expand : typing.Optional[typing.Literal["child_groups"]]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -93,6 +97,7 @@ class GroupsClient:
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
+                "expand": expand,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_shell_data": include_shell_data,
@@ -121,6 +126,7 @@ class GroupsClient:
         self,
         id: str,
         *,
+        expand: typing.Optional[typing.Literal["child_groups"]] = None,
         include_remote_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Group:
@@ -130,6 +136,9 @@ class GroupsClient:
         Parameters
         ----------
         id : str
+
+        expand : typing.Optional[typing.Literal["child_groups"]]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
@@ -158,6 +167,7 @@ class GroupsClient:
             f"filestorage/v1/groups/{jsonable_encoder(id)}",
             method="GET",
             params={
+                "expand": expand,
                 "include_remote_data": include_remote_data,
             },
             request_options=request_options,
@@ -187,6 +197,7 @@ class AsyncGroupsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        expand: typing.Optional[typing.Literal["child_groups"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -209,6 +220,9 @@ class AsyncGroupsClient:
 
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        expand : typing.Optional[typing.Literal["child_groups"]]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -264,6 +278,7 @@ class AsyncGroupsClient:
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
+                "expand": expand,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_shell_data": include_shell_data,
@@ -292,6 +307,7 @@ class AsyncGroupsClient:
         self,
         id: str,
         *,
+        expand: typing.Optional[typing.Literal["child_groups"]] = None,
         include_remote_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Group:
@@ -301,6 +317,9 @@ class AsyncGroupsClient:
         Parameters
         ----------
         id : str
+
+        expand : typing.Optional[typing.Literal["child_groups"]]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
@@ -337,6 +356,7 @@ class AsyncGroupsClient:
             f"filestorage/v1/groups/{jsonable_encoder(id)}",
             method="GET",
             params={
+                "expand": expand,
                 "include_remote_data": include_remote_data,
             },
             request_options=request_options,

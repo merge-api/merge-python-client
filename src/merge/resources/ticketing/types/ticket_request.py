@@ -8,6 +8,7 @@ from .ticket import Ticket
 import typing
 import pydantic
 from .ticket_request_assignees_item import TicketRequestAssigneesItem
+from .ticket_request_assigned_teams_item import TicketRequestAssignedTeamsItem
 from .ticket_request_creator import TicketRequestCreator
 import datetime as dt
 from .ticket_request_status import TicketRequestStatus
@@ -28,7 +29,7 @@ class TicketRequest(UniversalBaseModel):
 
     ### Description
 
-    The `Ticket` object is used to represent a ticket or a task within a system.
+    The `Ticket` object is used to represent a ticket, issue, task or case.
 
     ### Usage Example
 
@@ -40,7 +41,18 @@ class TicketRequest(UniversalBaseModel):
     The ticket's name.
     """
 
-    assignees: typing.Optional[typing.List[typing.Optional[TicketRequestAssigneesItem]]] = None
+    assignees: typing.Optional[typing.List[typing.Optional[TicketRequestAssigneesItem]]] = pydantic.Field(default=None)
+    """
+    The individual `Users` who are assigned to this ticket. This does not include `Users` who just have view access to this ticket.
+    """
+
+    assigned_teams: typing.Optional[typing.List[typing.Optional[TicketRequestAssignedTeamsItem]]] = pydantic.Field(
+        default=None
+    )
+    """
+    The `Teams` that are assigned to this ticket. This does not include `Teams` who just have view access to this ticket.
+    """
+
     creator: typing.Optional[TicketRequestCreator] = pydantic.Field(default=None)
     """
     The user who created this ticket.
@@ -66,7 +78,13 @@ class TicketRequest(UniversalBaseModel):
     The ticket’s description. HTML version of description is mapped if supported by the third-party platform.
     """
 
-    collections: typing.Optional[typing.List[typing.Optional[TicketRequestCollectionsItem]]] = None
+    collections: typing.Optional[typing.List[typing.Optional[TicketRequestCollectionsItem]]] = pydantic.Field(
+        default=None
+    )
+    """
+    The `Collections` that this `Ticket` is included in.
+    """
+
     ticket_type: typing.Optional[str] = pydantic.Field(default=None)
     """
     The sub category of the ticket within the 3rd party system. Examples include incident, task, subtask or to-do.
@@ -89,6 +107,7 @@ class TicketRequest(UniversalBaseModel):
 
     attachments: typing.Optional[typing.List[typing.Optional[TicketRequestAttachmentsItem]]] = None
     tags: typing.Optional[typing.List[typing.Optional[str]]] = None
+    roles: typing.Optional[typing.List[typing.Optional[str]]] = None
     completed_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the ticket was completed.

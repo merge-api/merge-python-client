@@ -6,6 +6,7 @@ from .invoice_request_type import InvoiceRequestType
 import pydantic
 from .invoice_request_contact import InvoiceRequestContact
 import datetime as dt
+from .invoice_request_employee import InvoiceRequestEmployee
 from .invoice_request_status import InvoiceRequestStatus
 from .invoice_request_company import InvoiceRequestCompany
 from .invoice_request_currency import InvoiceRequestCurrency
@@ -63,6 +64,11 @@ class InvoiceRequest(UniversalBaseModel):
     paid_on_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The invoice's paid date.
+    """
+
+    employee: typing.Optional[InvoiceRequestEmployee] = pydantic.Field(default=None)
+    """
+    The employee this overall transaction relates to.
     """
 
     memo: typing.Optional[str] = pydantic.Field(default=None)

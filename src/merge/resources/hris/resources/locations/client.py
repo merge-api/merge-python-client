@@ -4,12 +4,16 @@ from .....core.client_wrapper import SyncClientWrapper
 import typing
 import datetime as dt
 from .types.locations_list_request_location_type import LocationsListRequestLocationType
+from .types.locations_list_request_remote_fields import LocationsListRequestRemoteFields
+from .types.locations_list_request_show_enum_origins import LocationsListRequestShowEnumOrigins
 from .....core.request_options import RequestOptions
 from ...types.paginated_location_list import PaginatedLocationList
 from .....core.datetime_utils import serialize_datetime
 from .....core.pydantic_utilities import parse_obj_as
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
+from .types.locations_retrieve_request_remote_fields import LocationsRetrieveRequestRemoteFields
+from .types.locations_retrieve_request_show_enum_origins import LocationsRetrieveRequestShowEnumOrigins
 from ...types.location import Location
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.client_wrapper import AsyncClientWrapper
@@ -32,9 +36,9 @@ class LocationsClient:
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["location_type"]] = None,
+        remote_fields: typing.Optional[LocationsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["location_type"]] = None,
+        show_enum_origins: typing.Optional[LocationsListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedLocationList:
         """
@@ -75,13 +79,13 @@ class LocationsClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["location_type"]]
+        remote_fields : typing.Optional[LocationsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["location_type"]]
+        show_enum_origins : typing.Optional[LocationsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -141,8 +145,8 @@ class LocationsClient:
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["location_type"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["location_type"]] = None,
+        remote_fields: typing.Optional[LocationsRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[LocationsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Location:
         """
@@ -155,10 +159,10 @@ class LocationsClient:
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
 
-        remote_fields : typing.Optional[typing.Literal["location_type"]]
+        remote_fields : typing.Optional[LocationsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["location_type"]]
+        show_enum_origins : typing.Optional[LocationsRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -223,9 +227,9 @@ class AsyncLocationsClient:
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["location_type"]] = None,
+        remote_fields: typing.Optional[LocationsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["location_type"]] = None,
+        show_enum_origins: typing.Optional[LocationsListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedLocationList:
         """
@@ -266,13 +270,13 @@ class AsyncLocationsClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["location_type"]]
+        remote_fields : typing.Optional[LocationsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["location_type"]]
+        show_enum_origins : typing.Optional[LocationsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -340,8 +344,8 @@ class AsyncLocationsClient:
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["location_type"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["location_type"]] = None,
+        remote_fields: typing.Optional[LocationsRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[LocationsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Location:
         """
@@ -354,10 +358,10 @@ class AsyncLocationsClient:
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
 
-        remote_fields : typing.Optional[typing.Literal["location_type"]]
+        remote_fields : typing.Optional[LocationsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["location_type"]]
+        show_enum_origins : typing.Optional[LocationsRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]

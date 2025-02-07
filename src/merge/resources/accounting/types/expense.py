@@ -8,6 +8,7 @@ from .expense_account import ExpenseAccount
 from .expense_contact import ExpenseContact
 from .expense_currency import ExpenseCurrency
 from .expense_company import ExpenseCompany
+from .expense_employee import ExpenseEmployee
 from .expense_line import ExpenseLine
 from .expense_tracking_categories_item import ExpenseTrackingCategoriesItem
 from .expense_accounting_period import ExpenseAccountingPeriod
@@ -407,6 +408,11 @@ class Expense(UniversalBaseModel):
     company: typing.Optional[ExpenseCompany] = pydantic.Field(default=None)
     """
     The company the expense belongs to.
+    """
+
+    employee: typing.Optional[ExpenseEmployee] = pydantic.Field(default=None)
+    """
+    The employee this overall transaction relates to.
     """
 
     memo: typing.Optional[str] = pydantic.Field(default=None)

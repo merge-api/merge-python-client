@@ -6,7 +6,7 @@ import typing
 T_Result = typing.TypeVar("T_Result")
 
 
-class AccountingPeriodStatusEnum(str, enum.Enum):
+class FeedStatusEnum(str, enum.Enum):
     """
     - `ACTIVE` - ACTIVE
     - `INACTIVE` - INACTIVE
@@ -16,7 +16,7 @@ class AccountingPeriodStatusEnum(str, enum.Enum):
     INACTIVE = "INACTIVE"
 
     def visit(self, active: typing.Callable[[], T_Result], inactive: typing.Callable[[], T_Result]) -> T_Result:
-        if self is AccountingPeriodStatusEnum.ACTIVE:
+        if self is FeedStatusEnum.ACTIVE:
             return active()
-        if self is AccountingPeriodStatusEnum.INACTIVE:
+        if self is FeedStatusEnum.INACTIVE:
             return inactive()

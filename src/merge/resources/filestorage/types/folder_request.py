@@ -3,6 +3,7 @@
 from __future__ import annotations
 from ....core.pydantic_utilities import UniversalBaseModel
 from .folder import Folder
+from .group import Group
 import typing
 import pydantic
 from .folder_request_parent_folder import FolderRequestParentFolder
@@ -74,3 +75,4 @@ class FolderRequest(UniversalBaseModel):
 
 
 update_forward_refs(Folder, FolderRequest=FolderRequest)
+update_forward_refs(Group, FolderRequest=FolderRequest)

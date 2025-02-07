@@ -39,6 +39,9 @@ class EventTypeEnum(str, enum.Enum):
     - `CHANGED_LINKED_ACCOUNT_FIELD_MAPPING` - CHANGED_LINKED_ACCOUNT_FIELD_MAPPING
     - `DELETED_INTEGRATION_WIDE_FIELD_MAPPING` - DELETED_INTEGRATION_WIDE_FIELD_MAPPING
     - `DELETED_LINKED_ACCOUNT_FIELD_MAPPING` - DELETED_LINKED_ACCOUNT_FIELD_MAPPING
+    - `CREATED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE` - CREATED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE
+    - `CHANGED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE` - CHANGED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE
+    - `DELETED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE` - DELETED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE
     - `FORCED_LINKED_ACCOUNT_RESYNC` - FORCED_LINKED_ACCOUNT_RESYNC
     - `MUTED_ISSUE` - MUTED_ISSUE
     - `GENERATED_MAGIC_LINK` - GENERATED_MAGIC_LINK
@@ -79,6 +82,9 @@ class EventTypeEnum(str, enum.Enum):
     CHANGED_LINKED_ACCOUNT_FIELD_MAPPING = "CHANGED_LINKED_ACCOUNT_FIELD_MAPPING"
     DELETED_INTEGRATION_WIDE_FIELD_MAPPING = "DELETED_INTEGRATION_WIDE_FIELD_MAPPING"
     DELETED_LINKED_ACCOUNT_FIELD_MAPPING = "DELETED_LINKED_ACCOUNT_FIELD_MAPPING"
+    CREATED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE = "CREATED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE"
+    CHANGED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE = "CHANGED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE"
+    DELETED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE = "DELETED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE"
     FORCED_LINKED_ACCOUNT_RESYNC = "FORCED_LINKED_ACCOUNT_RESYNC"
     MUTED_ISSUE = "MUTED_ISSUE"
     GENERATED_MAGIC_LINK = "GENERATED_MAGIC_LINK"
@@ -120,6 +126,9 @@ class EventTypeEnum(str, enum.Enum):
         changed_linked_account_field_mapping: typing.Callable[[], T_Result],
         deleted_integration_wide_field_mapping: typing.Callable[[], T_Result],
         deleted_linked_account_field_mapping: typing.Callable[[], T_Result],
+        created_linked_account_common_model_override: typing.Callable[[], T_Result],
+        changed_linked_account_common_model_override: typing.Callable[[], T_Result],
+        deleted_linked_account_common_model_override: typing.Callable[[], T_Result],
         forced_linked_account_resync: typing.Callable[[], T_Result],
         muted_issue: typing.Callable[[], T_Result],
         generated_magic_link: typing.Callable[[], T_Result],
@@ -190,6 +199,12 @@ class EventTypeEnum(str, enum.Enum):
             return deleted_integration_wide_field_mapping()
         if self is EventTypeEnum.DELETED_LINKED_ACCOUNT_FIELD_MAPPING:
             return deleted_linked_account_field_mapping()
+        if self is EventTypeEnum.CREATED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE:
+            return created_linked_account_common_model_override()
+        if self is EventTypeEnum.CHANGED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE:
+            return changed_linked_account_common_model_override()
+        if self is EventTypeEnum.DELETED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE:
+            return deleted_linked_account_common_model_override()
         if self is EventTypeEnum.FORCED_LINKED_ACCOUNT_RESYNC:
             return forced_linked_account_resync()
         if self is EventTypeEnum.MUTED_ISSUE:

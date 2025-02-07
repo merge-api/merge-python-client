@@ -22,13 +22,19 @@ class FieldMappingClient:
         self._client_wrapper = client_wrapper
 
     def field_mappings_retrieve(
-        self, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        exclude_remote_field_metadata: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> FieldMappingApiInstanceResponse:
         """
         Get all Field Mappings for this Linked Account. Field Mappings are mappings between third-party Remote Fields and user defined Merge fields. [Learn more](https://docs.merge.dev/supplemental-data/field-mappings/overview/).
 
         Parameters
         ----------
+        exclude_remote_field_metadata : typing.Optional[bool]
+            If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -50,6 +56,9 @@ class FieldMappingClient:
         _response = self._client_wrapper.httpx_client.request(
             "ats/v1/field-mappings",
             method="GET",
+            params={
+                "exclude_remote_field_metadata": exclude_remote_field_metadata,
+            },
             request_options=request_options,
         )
         try:
@@ -75,6 +84,7 @@ class FieldMappingClient:
         remote_method: str,
         remote_url_path: str,
         common_model_name: str,
+        exclude_remote_field_metadata: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> FieldMappingInstanceResponse:
         """
@@ -99,6 +109,9 @@ class FieldMappingClient:
 
         common_model_name : str
             The name of the Common Model that the remote field corresponds to in a given category.
+
+        exclude_remote_field_metadata : typing.Optional[bool]
+            If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -128,6 +141,9 @@ class FieldMappingClient:
         _response = self._client_wrapper.httpx_client.request(
             "ats/v1/field-mappings",
             method="POST",
+            params={
+                "exclude_remote_field_metadata": exclude_remote_field_metadata,
+            },
             json={
                 "target_field_name": target_field_name,
                 "target_field_description": target_field_description,
@@ -382,13 +398,19 @@ class AsyncFieldMappingClient:
         self._client_wrapper = client_wrapper
 
     async def field_mappings_retrieve(
-        self, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        exclude_remote_field_metadata: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> FieldMappingApiInstanceResponse:
         """
         Get all Field Mappings for this Linked Account. Field Mappings are mappings between third-party Remote Fields and user defined Merge fields. [Learn more](https://docs.merge.dev/supplemental-data/field-mappings/overview/).
 
         Parameters
         ----------
+        exclude_remote_field_metadata : typing.Optional[bool]
+            If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -418,6 +440,9 @@ class AsyncFieldMappingClient:
         _response = await self._client_wrapper.httpx_client.request(
             "ats/v1/field-mappings",
             method="GET",
+            params={
+                "exclude_remote_field_metadata": exclude_remote_field_metadata,
+            },
             request_options=request_options,
         )
         try:
@@ -443,6 +468,7 @@ class AsyncFieldMappingClient:
         remote_method: str,
         remote_url_path: str,
         common_model_name: str,
+        exclude_remote_field_metadata: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> FieldMappingInstanceResponse:
         """
@@ -467,6 +493,9 @@ class AsyncFieldMappingClient:
 
         common_model_name : str
             The name of the Common Model that the remote field corresponds to in a given category.
+
+        exclude_remote_field_metadata : typing.Optional[bool]
+            If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -504,6 +533,9 @@ class AsyncFieldMappingClient:
         _response = await self._client_wrapper.httpx_client.request(
             "ats/v1/field-mappings",
             method="POST",
+            params={
+                "exclude_remote_field_metadata": exclude_remote_field_metadata,
+            },
             json={
                 "target_field_name": target_field_name,
                 "target_field_description": target_field_description,

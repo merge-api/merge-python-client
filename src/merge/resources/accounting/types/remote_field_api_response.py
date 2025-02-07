@@ -43,6 +43,7 @@ class RemoteFieldApiResponse(UniversalBaseModel):
     bank_feed_account: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(
         alias="BankFeedAccount", default=None
     )
+    employee: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Employee", default=None)
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

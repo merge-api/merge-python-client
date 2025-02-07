@@ -37,6 +37,7 @@ class LinkTokenClient:
             typing.Dict[str, typing.Optional[typing.Sequence[IndividualCommonModelScopeDeserializerRequest]]]
         ] = OMIT,
         language: typing.Optional[LanguageEnum] = OMIT,
+        are_syncs_disabled: typing.Optional[bool] = OMIT,
         integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
@@ -80,6 +81,9 @@ class LinkTokenClient:
 
             * `en` - en
             * `de` - de
+
+        are_syncs_disabled : typing.Optional[bool]
+            The boolean that indicates whether initial, periodic, and force syncs will be disabled.
 
         integration_specific_config : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             A JSON object containing integration-specific configuration options.
@@ -123,6 +127,7 @@ class LinkTokenClient:
                 "common_models": common_models,
                 "category_common_model_scopes": category_common_model_scopes,
                 "language": language,
+                "are_syncs_disabled": are_syncs_disabled,
                 "integration_specific_config": integration_specific_config,
             },
             request_options=request_options,
@@ -163,6 +168,7 @@ class AsyncLinkTokenClient:
             typing.Dict[str, typing.Optional[typing.Sequence[IndividualCommonModelScopeDeserializerRequest]]]
         ] = OMIT,
         language: typing.Optional[LanguageEnum] = OMIT,
+        are_syncs_disabled: typing.Optional[bool] = OMIT,
         integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
@@ -206,6 +212,9 @@ class AsyncLinkTokenClient:
 
             * `en` - en
             * `de` - de
+
+        are_syncs_disabled : typing.Optional[bool]
+            The boolean that indicates whether initial, periodic, and force syncs will be disabled.
 
         integration_specific_config : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             A JSON object containing integration-specific configuration options.
@@ -257,6 +266,7 @@ class AsyncLinkTokenClient:
                 "common_models": common_models,
                 "category_common_model_scopes": category_common_model_scopes,
                 "language": language,
+                "are_syncs_disabled": are_syncs_disabled,
                 "integration_specific_config": integration_specific_config,
             },
             request_options=request_options,

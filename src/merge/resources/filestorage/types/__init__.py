@@ -59,6 +59,7 @@ from .folder_request_parent_folder import FolderRequestParentFolder
 from .folder_request_permissions import FolderRequestPermissions
 from .folder_request_permissions_item import FolderRequestPermissionsItem
 from .group import Group
+from .group_child_groups_item import GroupChildGroupsItem
 from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
 from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
 from .issue import Issue
@@ -93,6 +94,7 @@ from .permission_request_user import PermissionRequestUser
 from .permission_roles_item import PermissionRolesItem
 from .permission_type import PermissionType
 from .permission_user import PermissionUser
+from .remote_data import RemoteData
 from .remote_endpoint_info import RemoteEndpointInfo
 from .remote_field_api import RemoteFieldApi
 from .remote_field_api_coverage import RemoteFieldApiCoverage
@@ -170,6 +172,7 @@ __all__ = [
     "FolderRequestPermissions",
     "FolderRequestPermissionsItem",
     "Group",
+    "GroupChildGroupsItem",
     "IndividualCommonModelScopeDeserializer",
     "IndividualCommonModelScopeDeserializerRequest",
     "Issue",
@@ -204,6 +207,7 @@ __all__ = [
     "PermissionRolesItem",
     "PermissionType",
     "PermissionUser",
+    "RemoteData",
     "RemoteEndpointInfo",
     "RemoteFieldApi",
     "RemoteFieldApiCoverage",

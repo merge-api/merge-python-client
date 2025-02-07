@@ -3,6 +3,7 @@
 from ....core.pydantic_utilities import UniversalBaseModel
 import typing
 import pydantic
+from .invoice_line_item_request_employee import InvoiceLineItemRequestEmployee
 from .invoice_line_item_request_currency import InvoiceLineItemRequestCurrency
 from .invoice_line_item_request_item import InvoiceLineItemRequestItem
 from .invoice_line_item_request_account import InvoiceLineItemRequestAccount
@@ -48,6 +49,11 @@ class InvoiceLineItemRequest(UniversalBaseModel):
     total_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The line item's total amount.
+    """
+
+    employee: typing.Optional[InvoiceLineItemRequestEmployee] = pydantic.Field(default=None)
+    """
+    The employee this overall transaction relates to.
     """
 
     currency: typing.Optional[InvoiceLineItemRequestCurrency] = pydantic.Field(default=None)
@@ -384,7 +390,7 @@ class InvoiceLineItemRequest(UniversalBaseModel):
 
     company: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The company the line item belongs to.
+    The company the invoice belongs to.
     """
 
     integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
