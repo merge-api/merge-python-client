@@ -59,14 +59,14 @@ class Group(UniversalBaseModel):
     - `GROUP` - GROUP
     """
 
-    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
-    """
-    Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    """
-
     is_commonly_used_as_team: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether the Group refers to a team in the third party platform. Note that this is an opinionated view based on how Merge observes most organizations representing teams in each third party platform. If your customer uses a platform different from most, there is a chance this will not be correct.
+    """
+
+    remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
     field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None

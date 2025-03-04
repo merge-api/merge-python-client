@@ -128,6 +128,7 @@ class DependentsClient:
         *,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Dependent:
         """
@@ -142,6 +143,9 @@ class DependentsClient:
 
         include_sensitive_fields : typing.Optional[bool]
             Whether to include sensitive fields (such as social security numbers) in the response.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -169,6 +173,7 @@ class DependentsClient:
             params={
                 "include_remote_data": include_remote_data,
                 "include_sensitive_fields": include_sensitive_fields,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -309,6 +314,7 @@ class AsyncDependentsClient:
         *,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Dependent:
         """
@@ -323,6 +329,9 @@ class AsyncDependentsClient:
 
         include_sensitive_fields : typing.Optional[bool]
             Whether to include sensitive fields (such as social security numbers) in the response.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -358,6 +367,7 @@ class AsyncDependentsClient:
             params={
                 "include_remote_data": include_remote_data,
                 "include_sensitive_fields": include_sensitive_fields,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )

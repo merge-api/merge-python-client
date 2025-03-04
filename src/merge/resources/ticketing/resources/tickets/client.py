@@ -333,6 +333,7 @@ class TicketsClient:
         expand: typing.Optional[TicketsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[TicketsRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[TicketsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -352,6 +353,9 @@ class TicketsClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[TicketsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -386,6 +390,7 @@ class TicketsClient:
                 "expand": expand,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -491,7 +496,7 @@ class TicketsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedViewerList:
         """
-        Returns a list of `Viewer` objects.
+        Returns a list of `Viewer` objects that point to a User id or Team id that is either an assignee or viewer on a `Ticket` with the given id. [Learn more.](https://help.merge.dev/en/articles/10333658-ticketing-access-control-list-acls)
 
         Parameters
         ----------
@@ -656,6 +661,7 @@ class TicketsClient:
         self,
         *,
         cursor: typing.Optional[str] = None,
+        ids: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -670,6 +676,9 @@ class TicketsClient:
         ----------
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        ids : typing.Optional[str]
+            If provided, will only return remote field classes with the `ids` in this list
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -709,6 +718,7 @@ class TicketsClient:
             method="GET",
             params={
                 "cursor": cursor,
+                "ids": ids,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_shell_data": include_shell_data,
@@ -1050,6 +1060,7 @@ class AsyncTicketsClient:
         expand: typing.Optional[TicketsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[TicketsRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[TicketsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1069,6 +1080,9 @@ class AsyncTicketsClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[TicketsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -1111,6 +1125,7 @@ class AsyncTicketsClient:
                 "expand": expand,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -1224,7 +1239,7 @@ class AsyncTicketsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedViewerList:
         """
-        Returns a list of `Viewer` objects.
+        Returns a list of `Viewer` objects that point to a User id or Team id that is either an assignee or viewer on a `Ticket` with the given id. [Learn more.](https://help.merge.dev/en/articles/10333658-ticketing-access-control-list-acls)
 
         Parameters
         ----------
@@ -1415,6 +1430,7 @@ class AsyncTicketsClient:
         self,
         *,
         cursor: typing.Optional[str] = None,
+        ids: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -1429,6 +1445,9 @@ class AsyncTicketsClient:
         ----------
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        ids : typing.Optional[str]
+            If provided, will only return remote field classes with the `ids` in this list
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -1476,6 +1495,7 @@ class AsyncTicketsClient:
             method="GET",
             params={
                 "cursor": cursor,
+                "ids": ids,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_shell_data": include_shell_data,

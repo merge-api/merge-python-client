@@ -3,16 +3,16 @@
 from .....core.client_wrapper import SyncClientWrapper
 import typing
 import datetime as dt
-from .types.collections_list_request_expand import CollectionsListRequestExpand
 from .....core.request_options import RequestOptions
 from ...types.paginated_collection_list import PaginatedCollectionList
 from .....core.datetime_utils import serialize_datetime
 from .....core.pydantic_utilities import parse_obj_as
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
-from .types.collections_retrieve_request_expand import CollectionsRetrieveRequestExpand
-from ...types.collection import Collection
+from .types.collections_viewers_list_request_expand import CollectionsViewersListRequestExpand
+from ...types.paginated_viewer_list import PaginatedViewerList
 from .....core.jsonable_encoder import jsonable_encoder
+from ...types.collection import Collection
 from .....core.client_wrapper import AsyncClientWrapper
 
 
@@ -27,7 +27,7 @@ class CollectionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CollectionsListRequestExpand] = None,
+        expand: typing.Optional[typing.Literal["parent_collection"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -57,7 +57,7 @@ class CollectionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CollectionsListRequestExpand]
+        expand : typing.Optional[typing.Literal["parent_collection"]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -144,12 +144,97 @@ class CollectionsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def viewers_list(
+        self,
+        collection_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        expand: typing.Optional[CollectionsViewersListRequestExpand] = None,
+        include_deleted_data: typing.Optional[bool] = None,
+        include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
+        page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedViewerList:
+        """
+        Returns a list of `Viewer` objects that point to a User id or Team id that is either an assignee or viewer on a `Collection` with the given id. [Learn more.](https://help.merge.dev/en/articles/10333658-ticketing-access-control-list-acls)
+
+        Parameters
+        ----------
+        collection_id : str
+
+        cursor : typing.Optional[str]
+            The pagination cursor value.
+
+        expand : typing.Optional[CollectionsViewersListRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+
+        include_deleted_data : typing.Optional[bool]
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+
+        page_size : typing.Optional[int]
+            Number of results to return per page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedViewerList
+
+
+        Examples
+        --------
+        from merge import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.collections.viewers_list(
+            collection_id="collection_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"ticketing/v1/collections/{jsonable_encoder(collection_id)}/viewers",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "expand": expand,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
+                "page_size": page_size,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    PaginatedViewerList,
+                    parse_obj_as(
+                        type_=PaginatedViewerList,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[CollectionsRetrieveRequestExpand] = None,
+        expand: typing.Optional[typing.Literal["parent_collection"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["collection_type"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["collection_type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -161,11 +246,14 @@ class CollectionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[CollectionsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Literal["parent_collection"]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["collection_type"]]
             Deprecated. Use show_enum_origins.
@@ -199,6 +287,7 @@ class CollectionsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -230,7 +319,7 @@ class AsyncCollectionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CollectionsListRequestExpand] = None,
+        expand: typing.Optional[typing.Literal["parent_collection"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -260,7 +349,7 @@ class AsyncCollectionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CollectionsListRequestExpand]
+        expand : typing.Optional[typing.Literal["parent_collection"]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -355,12 +444,105 @@ class AsyncCollectionsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    async def viewers_list(
+        self,
+        collection_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        expand: typing.Optional[CollectionsViewersListRequestExpand] = None,
+        include_deleted_data: typing.Optional[bool] = None,
+        include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
+        page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedViewerList:
+        """
+        Returns a list of `Viewer` objects that point to a User id or Team id that is either an assignee or viewer on a `Collection` with the given id. [Learn more.](https://help.merge.dev/en/articles/10333658-ticketing-access-control-list-acls)
+
+        Parameters
+        ----------
+        collection_id : str
+
+        cursor : typing.Optional[str]
+            The pagination cursor value.
+
+        expand : typing.Optional[CollectionsViewersListRequestExpand]
+            Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+
+        include_deleted_data : typing.Optional[bool]
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+
+        include_remote_data : typing.Optional[bool]
+            Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+
+        page_size : typing.Optional[int]
+            Number of results to return per page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedViewerList
+
+
+        Examples
+        --------
+        import asyncio
+
+        from merge import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.ticketing.collections.viewers_list(
+                collection_id="collection_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"ticketing/v1/collections/{jsonable_encoder(collection_id)}/viewers",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "expand": expand,
+                "include_deleted_data": include_deleted_data,
+                "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
+                "page_size": page_size,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    PaginatedViewerList,
+                    parse_obj_as(
+                        type_=PaginatedViewerList,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[CollectionsRetrieveRequestExpand] = None,
+        expand: typing.Optional[typing.Literal["parent_collection"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["collection_type"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["collection_type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -372,11 +554,14 @@ class AsyncCollectionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[CollectionsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Literal["parent_collection"]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["collection_type"]]
             Deprecated. Use show_enum_origins.
@@ -418,6 +603,7 @@ class AsyncCollectionsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },

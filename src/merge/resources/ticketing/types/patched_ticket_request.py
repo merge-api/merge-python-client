@@ -30,12 +30,12 @@ class PatchedTicketRequest(UniversalBaseModel):
 
     assignees: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(default=None)
     """
-    The individual `Users` who are assigned to this ticket. This does not include `Users` who just have view access to this ticket.
+    The individual `Users` who are assigned to this ticket. This does not include `Users` who just have view access to this ticket. To fetch all `Users` and `Teams` that can access the ticket, use the `GET /tickets/{ticket_id}/viewers` [endpoint](https://docs.merge.dev/ticketing/tickets/#tickets_viewers_list).
     """
 
     assigned_teams: typing.Optional[typing.List[typing.Optional[str]]] = pydantic.Field(default=None)
     """
-    The `Teams` that are assigned to this ticket. This does not include `Teams` who just have view access to this ticket.
+    The `Teams` that are assigned to this ticket. This does not include `Teams` who just have view access to this ticket. To fetch all `Users` and `Teams` that can access this ticket, use the `GET /tickets/{ticket_id}/viewers` [endpoint](https://docs.merge.dev/ticketing/tickets/#tickets_viewers_list).
     """
 
     creator: typing.Optional[str] = pydantic.Field(default=None)

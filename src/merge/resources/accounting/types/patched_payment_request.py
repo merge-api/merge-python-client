@@ -6,6 +6,7 @@ import datetime as dt
 import pydantic
 from .patched_payment_request_contact import PatchedPaymentRequestContact
 from .patched_payment_request_account import PatchedPaymentRequestAccount
+from .patched_payment_request_payment_method import PatchedPaymentRequestPaymentMethod
 from .patched_payment_request_currency import PatchedPaymentRequestCurrency
 from .patched_payment_request_company import PatchedPaymentRequestCompany
 from .patched_payment_request_type import PatchedPaymentRequestType
@@ -42,6 +43,11 @@ class PatchedPaymentRequest(UniversalBaseModel):
     account: typing.Optional[PatchedPaymentRequestAccount] = pydantic.Field(default=None)
     """
     The supplier’s or customer’s account in which the payment is made.
+    """
+
+    payment_method: typing.Optional[PatchedPaymentRequestPaymentMethod] = pydantic.Field(default=None)
+    """
+    The method which this payment was made by.
     """
 
     currency: typing.Optional[PatchedPaymentRequestCurrency] = pydantic.Field(default=None)

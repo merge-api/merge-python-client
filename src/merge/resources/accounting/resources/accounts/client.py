@@ -42,6 +42,7 @@ class AccountsClient:
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        name: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         remote_fields: typing.Optional[AccountsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
@@ -85,6 +86,9 @@ class AccountsClient:
 
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
+
+        name : typing.Optional[str]
+            If provided, will only return Accounts with this name.
 
         page_size : typing.Optional[int]
             Number of results to return per page.
@@ -131,6 +135,7 @@ class AccountsClient:
                 "include_shell_data": include_shell_data,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "name": name,
                 "page_size": page_size,
                 "remote_fields": remote_fields,
                 "remote_id": remote_id,
@@ -227,6 +232,7 @@ class AccountsClient:
         *,
         expand: typing.Optional[typing.Literal["company"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[AccountsRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[AccountsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -243,6 +249,9 @@ class AccountsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[AccountsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -276,6 +285,7 @@ class AccountsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -357,6 +367,7 @@ class AsyncAccountsClient:
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        name: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         remote_fields: typing.Optional[AccountsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
@@ -400,6 +411,9 @@ class AsyncAccountsClient:
 
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
+
+        name : typing.Optional[str]
+            If provided, will only return Accounts with this name.
 
         page_size : typing.Optional[int]
             Number of results to return per page.
@@ -454,6 +468,7 @@ class AsyncAccountsClient:
                 "include_shell_data": include_shell_data,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "name": name,
                 "page_size": page_size,
                 "remote_fields": remote_fields,
                 "remote_id": remote_id,
@@ -558,6 +573,7 @@ class AsyncAccountsClient:
         *,
         expand: typing.Optional[typing.Literal["company"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[AccountsRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[AccountsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -574,6 +590,9 @@ class AsyncAccountsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[AccountsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -615,6 +634,7 @@ class AsyncAccountsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },

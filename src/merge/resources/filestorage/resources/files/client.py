@@ -15,6 +15,8 @@ from ...types.file_storage_file_response import FileStorageFileResponse
 from .types.files_retrieve_request_expand import FilesRetrieveRequestExpand
 from ...types.file import File
 from .....core.jsonable_encoder import jsonable_encoder
+from ...types.download_request_meta import DownloadRequestMeta
+from ...types.paginated_download_request_meta_list import PaginatedDownloadRequestMetaList
 from ...types.meta_response import MetaResponse
 from .....core.client_wrapper import AsyncClientWrapper
 
@@ -225,6 +227,7 @@ class FilesClient:
         *,
         expand: typing.Optional[FilesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> File:
         """
@@ -239,6 +242,9 @@ class FilesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -266,6 +272,7 @@ class FilesClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -287,6 +294,7 @@ class FilesClient:
         self,
         id: str,
         *,
+        include_shell_data: typing.Optional[bool] = None,
         mime_type: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Iterator[bytes]:
@@ -296,6 +304,9 @@ class FilesClient:
         Parameters
         ----------
         id : str
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         mime_type : typing.Optional[str]
             If provided, specifies the export format of the file to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
@@ -318,6 +329,7 @@ class FilesClient:
         )
         client.filestorage.files.download_retrieve(
             id="string",
+            include_shell_data=True,
             mime_type="string",
         )
         """
@@ -325,6 +337,7 @@ class FilesClient:
             f"filestorage/v1/files/{jsonable_encoder(id)}/download",
             method="GET",
             params={
+                "include_shell_data": include_shell_data,
                 "mime_type": mime_type,
             },
             request_options=request_options,
@@ -339,6 +352,134 @@ class FilesClient:
             except JSONDecodeError:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def download_request_meta_retrieve(
+        self,
+        id: str,
+        *,
+        mime_type: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> DownloadRequestMeta:
+        """
+        Returns metadata to construct an authenticated file download request for a singular file, allowing you to download file directly from the third-party.
+
+        Parameters
+        ----------
+        id : str
+
+        mime_type : typing.Optional[str]
+            If provided, specifies the export format of the file to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DownloadRequestMeta
+
+
+        Examples
+        --------
+        from merge import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.filestorage.files.download_request_meta_retrieve(
+            id="id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"filestorage/v1/files/{jsonable_encoder(id)}/download/request-meta",
+            method="GET",
+            params={
+                "mime_type": mime_type,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    DownloadRequestMeta,
+                    parse_obj_as(
+                        type_=DownloadRequestMeta,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def download_request_meta_list(
+        self,
+        *,
+        cursor: typing.Optional[str] = None,
+        include_deleted_data: typing.Optional[bool] = None,
+        mime_type: typing.Optional[str] = None,
+        page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedDownloadRequestMetaList:
+        """
+        Returns metadata to construct authenticated file download requests, allowing you to download files directly from the third-party.
+
+        Parameters
+        ----------
+        cursor : typing.Optional[str]
+            The pagination cursor value.
+
+        include_deleted_data : typing.Optional[bool]
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+
+        mime_type : typing.Optional[str]
+            If provided, specifies the export format of the files to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
+
+        page_size : typing.Optional[int]
+            Number of results to return per page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedDownloadRequestMetaList
+
+
+        Examples
+        --------
+        from merge import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.filestorage.files.download_request_meta_list()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "filestorage/v1/files/download/request-meta",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "include_deleted_data": include_deleted_data,
+                "mime_type": mime_type,
+                "page_size": page_size,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    PaginatedDownloadRequestMetaList,
+                    parse_obj_as(
+                        type_=PaginatedDownloadRequestMetaList,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -603,6 +744,7 @@ class AsyncFilesClient:
         *,
         expand: typing.Optional[FilesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> File:
         """
@@ -617,6 +759,9 @@ class AsyncFilesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -652,6 +797,7 @@ class AsyncFilesClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -673,6 +819,7 @@ class AsyncFilesClient:
         self,
         id: str,
         *,
+        include_shell_data: typing.Optional[bool] = None,
         mime_type: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.AsyncIterator[bytes]:
@@ -682,6 +829,9 @@ class AsyncFilesClient:
         Parameters
         ----------
         id : str
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         mime_type : typing.Optional[str]
             If provided, specifies the export format of the file to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
@@ -709,6 +859,7 @@ class AsyncFilesClient:
         async def main() -> None:
             await client.filestorage.files.download_retrieve(
                 id="string",
+                include_shell_data=True,
                 mime_type="string",
             )
 
@@ -719,6 +870,7 @@ class AsyncFilesClient:
             f"filestorage/v1/files/{jsonable_encoder(id)}/download",
             method="GET",
             params={
+                "include_shell_data": include_shell_data,
                 "mime_type": mime_type,
             },
             request_options=request_options,
@@ -733,6 +885,150 @@ class AsyncFilesClient:
             except JSONDecodeError:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def download_request_meta_retrieve(
+        self,
+        id: str,
+        *,
+        mime_type: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> DownloadRequestMeta:
+        """
+        Returns metadata to construct an authenticated file download request for a singular file, allowing you to download file directly from the third-party.
+
+        Parameters
+        ----------
+        id : str
+
+        mime_type : typing.Optional[str]
+            If provided, specifies the export format of the file to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DownloadRequestMeta
+
+
+        Examples
+        --------
+        import asyncio
+
+        from merge import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.filestorage.files.download_request_meta_retrieve(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"filestorage/v1/files/{jsonable_encoder(id)}/download/request-meta",
+            method="GET",
+            params={
+                "mime_type": mime_type,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    DownloadRequestMeta,
+                    parse_obj_as(
+                        type_=DownloadRequestMeta,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def download_request_meta_list(
+        self,
+        *,
+        cursor: typing.Optional[str] = None,
+        include_deleted_data: typing.Optional[bool] = None,
+        mime_type: typing.Optional[str] = None,
+        page_size: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedDownloadRequestMetaList:
+        """
+        Returns metadata to construct authenticated file download requests, allowing you to download files directly from the third-party.
+
+        Parameters
+        ----------
+        cursor : typing.Optional[str]
+            The pagination cursor value.
+
+        include_deleted_data : typing.Optional[bool]
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+
+        mime_type : typing.Optional[str]
+            If provided, specifies the export format of the files to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
+
+        page_size : typing.Optional[int]
+            Number of results to return per page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedDownloadRequestMetaList
+
+
+        Examples
+        --------
+        import asyncio
+
+        from merge import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.filestorage.files.download_request_meta_list()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "filestorage/v1/files/download/request-meta",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "include_deleted_data": include_deleted_data,
+                "mime_type": mime_type,
+                "page_size": page_size,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    PaginatedDownloadRequestMetaList,
+                    parse_obj_as(
+                        type_=PaginatedDownloadRequestMetaList,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """

@@ -215,6 +215,7 @@ class AttachmentsClient:
         *,
         expand: typing.Optional[typing.Literal["ticket"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Attachment:
         """
@@ -229,6 +230,9 @@ class AttachmentsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -256,6 +260,7 @@ class AttachmentsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -277,6 +282,7 @@ class AttachmentsClient:
         self,
         id: str,
         *,
+        include_shell_data: typing.Optional[bool] = None,
         mime_type: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Iterator[bytes]:
@@ -286,6 +292,9 @@ class AttachmentsClient:
         Parameters
         ----------
         id : str
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         mime_type : typing.Optional[str]
             If provided, specifies the export format of the file to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
@@ -308,6 +317,7 @@ class AttachmentsClient:
         )
         client.ticketing.attachments.download_retrieve(
             id="string",
+            include_shell_data=True,
             mime_type="string",
         )
         """
@@ -315,6 +325,7 @@ class AttachmentsClient:
             f"ticketing/v1/attachments/{jsonable_encoder(id)}/download",
             method="GET",
             params={
+                "include_shell_data": include_shell_data,
                 "mime_type": mime_type,
             },
             request_options=request_options,
@@ -585,6 +596,7 @@ class AsyncAttachmentsClient:
         *,
         expand: typing.Optional[typing.Literal["ticket"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Attachment:
         """
@@ -599,6 +611,9 @@ class AsyncAttachmentsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -634,6 +649,7 @@ class AsyncAttachmentsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -655,6 +671,7 @@ class AsyncAttachmentsClient:
         self,
         id: str,
         *,
+        include_shell_data: typing.Optional[bool] = None,
         mime_type: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.AsyncIterator[bytes]:
@@ -664,6 +681,9 @@ class AsyncAttachmentsClient:
         Parameters
         ----------
         id : str
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         mime_type : typing.Optional[str]
             If provided, specifies the export format of the file to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
@@ -691,6 +711,7 @@ class AsyncAttachmentsClient:
         async def main() -> None:
             await client.ticketing.attachments.download_retrieve(
                 id="string",
+                include_shell_data=True,
                 mime_type="string",
             )
 
@@ -701,6 +722,7 @@ class AsyncAttachmentsClient:
             f"ticketing/v1/attachments/{jsonable_encoder(id)}/download",
             method="GET",
             params={
+                "include_shell_data": include_shell_data,
                 "mime_type": mime_type,
             },
             request_options=request_options,

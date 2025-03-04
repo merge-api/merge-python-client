@@ -8,6 +8,7 @@ import datetime as dt
 from .purchase_order_request_delivery_address import PurchaseOrderRequestDeliveryAddress
 from .purchase_order_request_vendor import PurchaseOrderRequestVendor
 from .purchase_order_request_company import PurchaseOrderRequestCompany
+from .purchase_order_request_payment_term import PurchaseOrderRequestPaymentTerm
 from .purchase_order_request_currency import PurchaseOrderRequestCurrency
 from .purchase_order_request_tracking_categories_item import PurchaseOrderRequestTrackingCategoriesItem
 from .purchase_order_line_item_request import PurchaseOrderLineItemRequest
@@ -77,6 +78,11 @@ class PurchaseOrderRequest(UniversalBaseModel):
     total_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The purchase order's total amount.
+    """
+
+    payment_term: typing.Optional[PurchaseOrderRequestPaymentTerm] = pydantic.Field(default=None)
+    """
+    The payment term that applies to this transaction.
     """
 
     currency: typing.Optional[PurchaseOrderRequestCurrency] = pydantic.Field(default=None)

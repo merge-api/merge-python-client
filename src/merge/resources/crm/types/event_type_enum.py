@@ -17,6 +17,7 @@ class EventTypeEnum(str, enum.Enum):
     - `TWO_FACTOR_AUTH_ENABLED` - TWO_FACTOR_AUTH_ENABLED
     - `TWO_FACTOR_AUTH_DISABLED` - TWO_FACTOR_AUTH_DISABLED
     - `DELETED_LINKED_ACCOUNT` - DELETED_LINKED_ACCOUNT
+    - `DELETED_ALL_COMMON_MODELS_FOR_LINKED_ACCOUNT` - DELETED_ALL_COMMON_MODELS_FOR_LINKED_ACCOUNT
     - `CREATED_DESTINATION` - CREATED_DESTINATION
     - `DELETED_DESTINATION` - DELETED_DESTINATION
     - `CHANGED_DESTINATION` - CHANGED_DESTINATION
@@ -60,6 +61,7 @@ class EventTypeEnum(str, enum.Enum):
     TWO_FACTOR_AUTH_ENABLED = "TWO_FACTOR_AUTH_ENABLED"
     TWO_FACTOR_AUTH_DISABLED = "TWO_FACTOR_AUTH_DISABLED"
     DELETED_LINKED_ACCOUNT = "DELETED_LINKED_ACCOUNT"
+    DELETED_ALL_COMMON_MODELS_FOR_LINKED_ACCOUNT = "DELETED_ALL_COMMON_MODELS_FOR_LINKED_ACCOUNT"
     CREATED_DESTINATION = "CREATED_DESTINATION"
     DELETED_DESTINATION = "DELETED_DESTINATION"
     CHANGED_DESTINATION = "CHANGED_DESTINATION"
@@ -104,6 +106,7 @@ class EventTypeEnum(str, enum.Enum):
         two_factor_auth_enabled: typing.Callable[[], T_Result],
         two_factor_auth_disabled: typing.Callable[[], T_Result],
         deleted_linked_account: typing.Callable[[], T_Result],
+        deleted_all_common_models_for_linked_account: typing.Callable[[], T_Result],
         created_destination: typing.Callable[[], T_Result],
         deleted_destination: typing.Callable[[], T_Result],
         changed_destination: typing.Callable[[], T_Result],
@@ -155,6 +158,8 @@ class EventTypeEnum(str, enum.Enum):
             return two_factor_auth_disabled()
         if self is EventTypeEnum.DELETED_LINKED_ACCOUNT:
             return deleted_linked_account()
+        if self is EventTypeEnum.DELETED_ALL_COMMON_MODELS_FOR_LINKED_ACCOUNT:
+            return deleted_all_common_models_for_linked_account()
         if self is EventTypeEnum.CREATED_DESTINATION:
             return created_destination()
         if self is EventTypeEnum.DELETED_DESTINATION:

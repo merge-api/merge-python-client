@@ -9,6 +9,7 @@ from .purchase_order_delivery_address import PurchaseOrderDeliveryAddress
 from .purchase_order_vendor import PurchaseOrderVendor
 from .purchase_order_company import PurchaseOrderCompany
 from .purchase_order_currency import PurchaseOrderCurrency
+from .purchase_order_payment_term import PurchaseOrderPaymentTerm
 from .purchase_order_line_item import PurchaseOrderLineItem
 from .purchase_order_tracking_categories_item import PurchaseOrderTrackingCategoriesItem
 from .purchase_order_accounting_period import PurchaseOrderAccountingPeriod
@@ -419,6 +420,11 @@ class PurchaseOrder(UniversalBaseModel):
     exchange_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The purchase order's exchange rate.
+    """
+
+    payment_term: typing.Optional[PurchaseOrderPaymentTerm] = pydantic.Field(default=None)
+    """
+    The payment term that applies to this transaction.
     """
 
     line_items: typing.Optional[typing.List[PurchaseOrderLineItem]] = None

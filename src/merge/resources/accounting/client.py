@@ -35,6 +35,8 @@ from .resources.journal_entries.client import JournalEntriesClient
 from .resources.link_token.client import LinkTokenClient
 from .resources.linked_accounts.client import LinkedAccountsClient
 from .resources.passthrough.client import PassthroughClient
+from .resources.payment_methods.client import PaymentMethodsClient
+from .resources.payment_terms.client import PaymentTermsClient
 from .resources.payments.client import PaymentsClient
 from .resources.phone_numbers.client import PhoneNumbersClient
 from .resources.purchase_orders.client import PurchaseOrdersClient
@@ -81,6 +83,8 @@ from .resources.linked_accounts.client import AsyncLinkedAccountsClient
 from .resources.passthrough.client import (
     AsyncPassthroughClient as resources_accounting_resources_passthrough_client_AsyncPassthroughClient,
 )
+from .resources.payment_methods.client import AsyncPaymentMethodsClient
+from .resources.payment_terms.client import AsyncPaymentTermsClient
 from .resources.payments.client import AsyncPaymentsClient
 from .resources.phone_numbers.client import AsyncPhoneNumbersClient
 from .resources.purchase_orders.client import AsyncPurchaseOrdersClient
@@ -131,6 +135,8 @@ class AccountingClient:
         self.link_token = LinkTokenClient(client_wrapper=self._client_wrapper)
         self.linked_accounts = LinkedAccountsClient(client_wrapper=self._client_wrapper)
         self.passthrough = PassthroughClient(client_wrapper=self._client_wrapper)
+        self.payment_methods = PaymentMethodsClient(client_wrapper=self._client_wrapper)
+        self.payment_terms = PaymentTermsClient(client_wrapper=self._client_wrapper)
         self.payments = PaymentsClient(client_wrapper=self._client_wrapper)
         self.phone_numbers = PhoneNumbersClient(client_wrapper=self._client_wrapper)
         self.purchase_orders = PurchaseOrdersClient(client_wrapper=self._client_wrapper)
@@ -181,6 +187,8 @@ class AsyncAccountingClient:
         self.passthrough = resources_accounting_resources_passthrough_client_AsyncPassthroughClient(
             client_wrapper=self._client_wrapper
         )
+        self.payment_methods = AsyncPaymentMethodsClient(client_wrapper=self._client_wrapper)
+        self.payment_terms = AsyncPaymentTermsClient(client_wrapper=self._client_wrapper)
         self.payments = AsyncPaymentsClient(client_wrapper=self._client_wrapper)
         self.phone_numbers = AsyncPhoneNumbersClient(client_wrapper=self._client_wrapper)
         self.purchase_orders = AsyncPurchaseOrdersClient(client_wrapper=self._client_wrapper)

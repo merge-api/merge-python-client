@@ -10,7 +10,7 @@ from .general_ledger_transaction_line_employee import GeneralLedgerTransactionLi
 from .general_ledger_transaction_line_contact import GeneralLedgerTransactionLineContact
 from .general_ledger_transaction_line_base_currency import GeneralLedgerTransactionLineBaseCurrency
 from .general_ledger_transaction_line_transaction_currency import GeneralLedgerTransactionLineTransactionCurrency
-from .tracking_category import TrackingCategory
+from .general_ledger_transaction_line_tracking_categories_item import GeneralLedgerTransactionLineTrackingCategoriesItem
 from .general_ledger_transaction_line_item import GeneralLedgerTransactionLineItem
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -688,7 +688,7 @@ class GeneralLedgerTransactionLine(UniversalBaseModel):
     A description of the line item.
     """
 
-    tracking_categories: typing.Optional[typing.List[TrackingCategory]] = None
+    tracking_categories: typing.Optional[typing.List[GeneralLedgerTransactionLineTrackingCategoriesItem]] = None
     debit_amount: str
     credit_amount: str
     item: typing.Optional[GeneralLedgerTransactionLineItem] = None

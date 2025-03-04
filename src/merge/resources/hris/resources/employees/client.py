@@ -326,6 +326,7 @@ class EmployeesClient:
         expand: typing.Optional[EmployeesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EmployeesRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[EmployeesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -345,6 +346,9 @@ class EmployeesClient:
 
         include_sensitive_fields : typing.Optional[bool]
             Whether to include sensitive fields (such as social security numbers) in the response.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[EmployeesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -379,6 +383,7 @@ class EmployeesClient:
                 "expand": expand,
                 "include_remote_data": include_remote_data,
                 "include_sensitive_fields": include_sensitive_fields,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -814,6 +819,7 @@ class AsyncEmployeesClient:
         expand: typing.Optional[EmployeesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EmployeesRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[EmployeesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -833,6 +839,9 @@ class AsyncEmployeesClient:
 
         include_sensitive_fields : typing.Optional[bool]
             Whether to include sensitive fields (such as social security numbers) in the response.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[EmployeesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -875,6 +884,7 @@ class AsyncEmployeesClient:
                 "expand": expand,
                 "include_remote_data": include_remote_data,
                 "include_sensitive_fields": include_sensitive_fields,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },

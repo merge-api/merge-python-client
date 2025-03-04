@@ -6,6 +6,7 @@ import datetime as dt
 import pydantic
 from .payment_request_contact import PaymentRequestContact
 from .payment_request_account import PaymentRequestAccount
+from .payment_request_payment_method import PaymentRequestPaymentMethod
 from .payment_request_currency import PaymentRequestCurrency
 from .payment_request_company import PaymentRequestCompany
 from .payment_request_type import PaymentRequestType
@@ -42,6 +43,11 @@ class PaymentRequest(UniversalBaseModel):
     account: typing.Optional[PaymentRequestAccount] = pydantic.Field(default=None)
     """
     The supplier’s or customer’s account in which the payment is made.
+    """
+
+    payment_method: typing.Optional[PaymentRequestPaymentMethod] = pydantic.Field(default=None)
+    """
+    The method which this payment was made by.
     """
 
     currency: typing.Optional[PaymentRequestCurrency] = pydantic.Field(default=None)

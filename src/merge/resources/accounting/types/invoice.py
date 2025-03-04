@@ -10,6 +10,7 @@ from .invoice_contact import InvoiceContact
 from .invoice_company import InvoiceCompany
 from .invoice_employee import InvoiceEmployee
 from .invoice_currency import InvoiceCurrency
+from .invoice_payment_term import InvoicePaymentTerm
 from .invoice_status import InvoiceStatus
 from .invoice_tracking_categories_item import InvoiceTrackingCategoriesItem
 from .invoice_accounting_period import InvoiceAccountingPeriod
@@ -417,6 +418,11 @@ class Invoice(UniversalBaseModel):
     exchange_rate: typing.Optional[str] = pydantic.Field(default=None)
     """
     The invoice's exchange rate.
+    """
+
+    payment_term: typing.Optional[InvoicePaymentTerm] = pydantic.Field(default=None)
+    """
+    The payment term that applies to this transaction.
     """
 
     total_discount: typing.Optional[float] = pydantic.Field(default=None)

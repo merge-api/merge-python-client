@@ -10,6 +10,7 @@ from .invoice_request_employee import InvoiceRequestEmployee
 from .invoice_request_status import InvoiceRequestStatus
 from .invoice_request_company import InvoiceRequestCompany
 from .invoice_request_currency import InvoiceRequestCurrency
+from .invoice_request_payment_term import InvoiceRequestPaymentTerm
 from .invoice_request_payments_item import InvoiceRequestPaymentsItem
 from .invoice_request_tracking_categories_item import InvoiceRequestTrackingCategoriesItem
 from .invoice_line_item_request import InvoiceLineItemRequest
@@ -418,6 +419,11 @@ class InvoiceRequest(UniversalBaseModel):
     sub_total: typing.Optional[float] = pydantic.Field(default=None)
     """
     The total amount being paid before taxes.
+    """
+
+    payment_term: typing.Optional[InvoiceRequestPaymentTerm] = pydantic.Field(default=None)
+    """
+    The payment term that applies to this transaction.
     """
 
     total_tax_amount: typing.Optional[float] = pydantic.Field(default=None)

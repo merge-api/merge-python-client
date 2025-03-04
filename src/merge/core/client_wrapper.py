@@ -24,7 +24,7 @@ class BaseClientWrapper:
         headers: typing.Dict[str, str] = {
             "X-Fern-Language": "Python",
             "X-Fern-SDK-Name": "MergePythonClient",
-            "X-Fern-SDK-Version": "1.1.4",
+            "X-Fern-SDK-Version": "1.1.5",
         }
         if self._account_token is not None:
             headers["X-Account-Token"] = self._account_token

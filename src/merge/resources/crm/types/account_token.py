@@ -10,6 +10,7 @@ import pydantic
 class AccountToken(UniversalBaseModel):
     account_token: str
     integration: AccountIntegration
+    id: str
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

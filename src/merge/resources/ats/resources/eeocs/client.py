@@ -147,6 +147,7 @@ class EeocsClient:
         *,
         expand: typing.Optional[typing.Literal["candidate"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EeocsRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[EeocsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -163,6 +164,9 @@ class EeocsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[EeocsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -196,6 +200,7 @@ class EeocsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -353,6 +358,7 @@ class AsyncEeocsClient:
         *,
         expand: typing.Optional[typing.Literal["candidate"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EeocsRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[EeocsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -369,6 +375,9 @@ class AsyncEeocsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[EeocsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -410,6 +419,7 @@ class AsyncEeocsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
