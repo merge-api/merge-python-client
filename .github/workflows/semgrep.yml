@@ -28,7 +28,6 @@ jobs:
           curl --location --show-error --silent --output poetry.py https://install.python-poetry.org \
           && echo '963d56703976ce9cdc6ff460c44a4f8fbad64c110dc447b86eeabb4a47ec2160' poetry.py | sha256sum -c \
           && python poetry.py -y \
-          && cd $GITHUB_WORKSPACE \
           && /github/home/.local/bin/poetry install \
           && semgrep ci
         env:
