@@ -7,7 +7,7 @@ from .types.items_list_request_expand import ItemsListRequestExpand
 from .....core.request_options import RequestOptions
 from ...types.paginated_item_list import PaginatedItemList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .types.items_retrieve_request_expand import ItemsRetrieveRequestExpand
@@ -129,7 +129,7 @@ class ItemsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedItemList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedItemList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -145,6 +145,7 @@ class ItemsClient:
         *,
         expand: typing.Optional[ItemsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -161,6 +162,9 @@ class ItemsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -194,6 +198,7 @@ class ItemsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -203,7 +208,7 @@ class ItemsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Item,
-                    parse_obj_as(
+                    construct_type(
                         type_=Item,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -335,7 +340,7 @@ class AsyncItemsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedItemList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedItemList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -351,6 +356,7 @@ class AsyncItemsClient:
         *,
         expand: typing.Optional[ItemsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -367,6 +373,9 @@ class AsyncItemsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -408,6 +417,7 @@ class AsyncItemsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -417,7 +427,7 @@ class AsyncItemsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Item,
-                    parse_obj_as(
+                    construct_type(
                         type_=Item,  # type: ignore
                         object_=_response.json(),
                     ),

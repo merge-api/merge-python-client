@@ -7,7 +7,7 @@ from .types.applications_list_request_expand import ApplicationsListRequestExpan
 from .....core.request_options import RequestOptions
 from ...types.paginated_application_list import PaginatedApplicationList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.application_request import ApplicationRequest
@@ -150,7 +150,7 @@ class ApplicationsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedApplicationList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedApplicationList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -227,7 +227,7 @@ class ApplicationsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     ApplicationResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=ApplicationResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -243,6 +243,7 @@ class ApplicationsClient:
         *,
         expand: typing.Optional[ApplicationsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Application:
         """
@@ -257,6 +258,9 @@ class ApplicationsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -284,6 +288,7 @@ class ApplicationsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -291,7 +296,7 @@ class ApplicationsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Application,
-                    parse_obj_as(
+                    construct_type(
                         type_=Application,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -367,7 +372,7 @@ class ApplicationsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     ApplicationResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=ApplicationResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -421,7 +426,7 @@ class ApplicationsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -568,7 +573,7 @@ class AsyncApplicationsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedApplicationList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedApplicationList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -653,7 +658,7 @@ class AsyncApplicationsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     ApplicationResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=ApplicationResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -669,6 +674,7 @@ class AsyncApplicationsClient:
         *,
         expand: typing.Optional[ApplicationsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Application:
         """
@@ -683,6 +689,9 @@ class AsyncApplicationsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -718,6 +727,7 @@ class AsyncApplicationsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -725,7 +735,7 @@ class AsyncApplicationsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Application,
-                    parse_obj_as(
+                    construct_type(
                         type_=Application,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -809,7 +819,7 @@ class AsyncApplicationsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     ApplicationResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=ApplicationResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -871,7 +881,7 @@ class AsyncApplicationsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),

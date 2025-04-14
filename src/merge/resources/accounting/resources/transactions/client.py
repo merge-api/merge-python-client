@@ -7,7 +7,7 @@ from .types.transactions_list_request_expand import TransactionsListRequestExpan
 from .....core.request_options import RequestOptions
 from ...types.paginated_transaction_list import PaginatedTransactionList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .types.transactions_retrieve_request_expand import TransactionsRetrieveRequestExpand
@@ -133,7 +133,7 @@ class TransactionsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedTransactionList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedTransactionList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -149,6 +149,7 @@ class TransactionsClient:
         *,
         expand: typing.Optional[TransactionsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Transaction:
         """
@@ -163,6 +164,9 @@ class TransactionsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -190,6 +194,7 @@ class TransactionsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -197,7 +202,7 @@ class TransactionsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Transaction,
-                    parse_obj_as(
+                    construct_type(
                         type_=Transaction,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -333,7 +338,7 @@ class AsyncTransactionsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedTransactionList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedTransactionList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -349,6 +354,7 @@ class AsyncTransactionsClient:
         *,
         expand: typing.Optional[TransactionsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Transaction:
         """
@@ -363,6 +369,9 @@ class AsyncTransactionsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -398,6 +407,7 @@ class AsyncTransactionsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -405,7 +415,7 @@ class AsyncTransactionsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Transaction,
-                    parse_obj_as(
+                    construct_type(
                         type_=Transaction,  # type: ignore
                         object_=_response.json(),
                     ),

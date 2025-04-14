@@ -4,7 +4,7 @@ from .....core.client_wrapper import SyncClientWrapper
 import typing
 from .....core.request_options import RequestOptions
 from ...types.account_details import AccountDetails
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper
@@ -47,7 +47,7 @@ class AccountDetailsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AccountDetails,
-                    parse_obj_as(
+                    construct_type(
                         type_=AccountDetails,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -103,7 +103,7 @@ class AsyncAccountDetailsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AccountDetails,
-                    parse_obj_as(
+                    construct_type(
                         type_=AccountDetails,  # type: ignore
                         object_=_response.json(),
                     ),

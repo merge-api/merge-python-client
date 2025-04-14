@@ -7,7 +7,7 @@ from .types.engagements_list_request_expand import EngagementsListRequestExpand
 from .....core.request_options import RequestOptions
 from ...types.paginated_engagement_list import PaginatedEngagementList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.engagement_request import EngagementRequest
@@ -137,7 +137,7 @@ class EngagementsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedEngagementList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedEngagementList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -206,7 +206,7 @@ class EngagementsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     EngagementResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=EngagementResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -223,6 +223,7 @@ class EngagementsClient:
         expand: typing.Optional[EngagementsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Engagement:
         """
@@ -240,6 +241,9 @@ class EngagementsClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -268,6 +272,7 @@ class EngagementsClient:
                 "expand": expand,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -275,7 +280,7 @@ class EngagementsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Engagement,
-                    parse_obj_as(
+                    construct_type(
                         type_=Engagement,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -348,7 +353,7 @@ class EngagementsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     EngagementResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=EngagementResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -395,7 +400,7 @@ class EngagementsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -438,7 +443,7 @@ class EngagementsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -522,7 +527,7 @@ class EngagementsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedRemoteFieldClassList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -654,7 +659,7 @@ class AsyncEngagementsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedEngagementList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedEngagementList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -731,7 +736,7 @@ class AsyncEngagementsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     EngagementResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=EngagementResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -748,6 +753,7 @@ class AsyncEngagementsClient:
         expand: typing.Optional[EngagementsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Engagement:
         """
@@ -765,6 +771,9 @@ class AsyncEngagementsClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -801,6 +810,7 @@ class AsyncEngagementsClient:
                 "expand": expand,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -808,7 +818,7 @@ class AsyncEngagementsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Engagement,
-                    parse_obj_as(
+                    construct_type(
                         type_=Engagement,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -889,7 +899,7 @@ class AsyncEngagementsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     EngagementResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=EngagementResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -946,7 +956,7 @@ class AsyncEngagementsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -997,7 +1007,7 @@ class AsyncEngagementsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1089,7 +1099,7 @@ class AsyncEngagementsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedRemoteFieldClassList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),

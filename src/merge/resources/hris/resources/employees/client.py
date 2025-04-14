@@ -10,7 +10,7 @@ from .types.employees_list_request_show_enum_origins import EmployeesListRequest
 from .....core.request_options import RequestOptions
 from ...types.paginated_employee_list import PaginatedEmployeeList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.employee_request import EmployeeRequest
@@ -240,7 +240,7 @@ class EmployeesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedEmployeeList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedEmployeeList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -309,7 +309,7 @@ class EmployeesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     EmployeeResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=EmployeeResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -326,6 +326,7 @@ class EmployeesClient:
         expand: typing.Optional[EmployeesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EmployeesRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[EmployeesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -345,6 +346,9 @@ class EmployeesClient:
 
         include_sensitive_fields : typing.Optional[bool]
             Whether to include sensitive fields (such as social security numbers) in the response.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[EmployeesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -379,6 +383,7 @@ class EmployeesClient:
                 "expand": expand,
                 "include_remote_data": include_remote_data,
                 "include_sensitive_fields": include_sensitive_fields,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -388,7 +393,7 @@ class EmployeesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Employee,
-                    parse_obj_as(
+                    construct_type(
                         type_=Employee,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -489,7 +494,7 @@ class EmployeesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -720,7 +725,7 @@ class AsyncEmployeesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedEmployeeList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedEmployeeList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -797,7 +802,7 @@ class AsyncEmployeesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     EmployeeResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=EmployeeResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -814,6 +819,7 @@ class AsyncEmployeesClient:
         expand: typing.Optional[EmployeesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EmployeesRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[EmployeesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -833,6 +839,9 @@ class AsyncEmployeesClient:
 
         include_sensitive_fields : typing.Optional[bool]
             Whether to include sensitive fields (such as social security numbers) in the response.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[EmployeesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -875,6 +884,7 @@ class AsyncEmployeesClient:
                 "expand": expand,
                 "include_remote_data": include_remote_data,
                 "include_sensitive_fields": include_sensitive_fields,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -884,7 +894,7 @@ class AsyncEmployeesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Employee,
-                    parse_obj_as(
+                    construct_type(
                         type_=Employee,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1001,7 +1011,7 @@ class AsyncEmployeesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),

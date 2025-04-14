@@ -5,7 +5,7 @@ import typing
 from .....core.request_options import RequestOptions
 from ...types.async_post_task import AsyncPostTask
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper
@@ -52,7 +52,7 @@ class AsyncTasksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AsyncPostTask,
-                    parse_obj_as(
+                    construct_type(
                         type_=AsyncPostTask,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -112,7 +112,7 @@ class AsyncAsyncTasksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AsyncPostTask,
-                    parse_obj_as(
+                    construct_type(
                         type_=AsyncPostTask,  # type: ignore
                         object_=_response.json(),
                     ),

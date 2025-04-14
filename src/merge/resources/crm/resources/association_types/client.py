@@ -7,7 +7,7 @@ from .....core.request_options import RequestOptions
 from ...types.paginated_association_type_list import PaginatedAssociationTypeList
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.association_type_request_request import AssociationTypeRequestRequest
@@ -123,7 +123,7 @@ class AssociationTypesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedAssociationTypeList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedAssociationTypeList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -212,7 +212,7 @@ class AssociationTypesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     CrmAssociationTypeResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=CrmAssociationTypeResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -229,6 +229,7 @@ class AssociationTypesClient:
         *,
         expand: typing.Optional[typing.Literal["target_object_classes"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AssociationType:
         """
@@ -245,6 +246,9 @@ class AssociationTypesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -273,6 +277,7 @@ class AssociationTypesClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -280,7 +285,7 @@ class AssociationTypesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AssociationType,
-                    parse_obj_as(
+                    construct_type(
                         type_=AssociationType,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -329,7 +334,7 @@ class AssociationTypesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -451,7 +456,7 @@ class AsyncAssociationTypesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedAssociationTypeList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedAssociationTypeList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -548,7 +553,7 @@ class AsyncAssociationTypesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     CrmAssociationTypeResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=CrmAssociationTypeResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -565,6 +570,7 @@ class AsyncAssociationTypesClient:
         *,
         expand: typing.Optional[typing.Literal["target_object_classes"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AssociationType:
         """
@@ -581,6 +587,9 @@ class AsyncAssociationTypesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -617,6 +626,7 @@ class AsyncAssociationTypesClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -624,7 +634,7 @@ class AsyncAssociationTypesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AssociationType,
-                    parse_obj_as(
+                    construct_type(
                         type_=AssociationType,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -681,7 +691,7 @@ class AsyncAssociationTypesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),

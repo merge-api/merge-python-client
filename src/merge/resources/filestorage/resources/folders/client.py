@@ -7,7 +7,7 @@ from .types.folders_list_request_expand import FoldersListRequestExpand
 from .....core.request_options import RequestOptions
 from ...types.paginated_folder_list import PaginatedFolderList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.folder_request import FolderRequest
@@ -135,7 +135,7 @@ class FoldersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedFolderList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedFolderList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -204,7 +204,7 @@ class FoldersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     FileStorageFolderResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=FileStorageFolderResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -220,6 +220,7 @@ class FoldersClient:
         *,
         expand: typing.Optional[FoldersRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Folder:
         """
@@ -234,6 +235,9 @@ class FoldersClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -261,6 +265,7 @@ class FoldersClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -268,7 +273,7 @@ class FoldersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Folder,
-                    parse_obj_as(
+                    construct_type(
                         type_=Folder,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -311,7 +316,7 @@ class FoldersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -443,7 +448,7 @@ class AsyncFoldersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedFolderList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedFolderList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -520,7 +525,7 @@ class AsyncFoldersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     FileStorageFolderResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=FileStorageFolderResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -536,6 +541,7 @@ class AsyncFoldersClient:
         *,
         expand: typing.Optional[FoldersRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Folder:
         """
@@ -550,6 +556,9 @@ class AsyncFoldersClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -585,6 +594,7 @@ class AsyncFoldersClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -592,7 +602,7 @@ class AsyncFoldersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Folder,
-                    parse_obj_as(
+                    construct_type(
                         type_=Folder,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -643,7 +653,7 @@ class AsyncFoldersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),

@@ -10,7 +10,7 @@ from .types.employments_list_request_show_enum_origins import EmploymentsListReq
 from .....core.request_options import RequestOptions
 from ...types.paginated_employment_list import PaginatedEmploymentList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .types.employments_retrieve_request_expand import EmploymentsRetrieveRequestExpand
@@ -139,7 +139,7 @@ class EmploymentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedEmploymentList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedEmploymentList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -155,6 +155,7 @@ class EmploymentsClient:
         *,
         expand: typing.Optional[EmploymentsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EmploymentsRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[EmploymentsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -171,6 +172,9 @@ class EmploymentsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[EmploymentsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -204,6 +208,7 @@ class EmploymentsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -213,7 +218,7 @@ class EmploymentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Employment,
-                    parse_obj_as(
+                    construct_type(
                         type_=Employment,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -350,7 +355,7 @@ class AsyncEmploymentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedEmploymentList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedEmploymentList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -366,6 +371,7 @@ class AsyncEmploymentsClient:
         *,
         expand: typing.Optional[EmploymentsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EmploymentsRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[EmploymentsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -382,6 +388,9 @@ class AsyncEmploymentsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[EmploymentsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -423,6 +432,7 @@ class AsyncEmploymentsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -432,7 +442,7 @@ class AsyncEmploymentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Employment,
-                    parse_obj_as(
+                    construct_type(
                         type_=Employment,  # type: ignore
                         object_=_response.json(),
                     ),

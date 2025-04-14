@@ -6,7 +6,7 @@ import datetime as dt
 from .....core.request_options import RequestOptions
 from ...types.paginated_job_interview_stage_list import PaginatedJobInterviewStageList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.job_interview_stage import JobInterviewStage
@@ -117,7 +117,7 @@ class JobInterviewStagesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedJobInterviewStageList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedJobInterviewStageList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -133,6 +133,7 @@ class JobInterviewStagesClient:
         *,
         expand: typing.Optional[typing.Literal["job"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> JobInterviewStage:
         """
@@ -147,6 +148,9 @@ class JobInterviewStagesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -174,6 +178,7 @@ class JobInterviewStagesClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -181,7 +186,7 @@ class JobInterviewStagesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     JobInterviewStage,
-                    parse_obj_as(
+                    construct_type(
                         type_=JobInterviewStage,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -303,7 +308,7 @@ class AsyncJobInterviewStagesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedJobInterviewStageList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedJobInterviewStageList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -319,6 +324,7 @@ class AsyncJobInterviewStagesClient:
         *,
         expand: typing.Optional[typing.Literal["job"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> JobInterviewStage:
         """
@@ -333,6 +339,9 @@ class AsyncJobInterviewStagesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -368,6 +377,7 @@ class AsyncJobInterviewStagesClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -375,7 +385,7 @@ class AsyncJobInterviewStagesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     JobInterviewStage,
-                    parse_obj_as(
+                    construct_type(
                         type_=JobInterviewStage,  # type: ignore
                         object_=_response.json(),
                     ),

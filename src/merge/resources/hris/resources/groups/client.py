@@ -6,7 +6,7 @@ import datetime as dt
 from .....core.request_options import RequestOptions
 from ...types.paginated_group_list import PaginatedGroupList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.group import Group
@@ -132,7 +132,7 @@ class GroupsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedGroupList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedGroupList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -147,6 +147,7 @@ class GroupsClient:
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["type"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -160,6 +161,9 @@ class GroupsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["type"]]
             Deprecated. Use show_enum_origins.
@@ -192,6 +196,7 @@ class GroupsClient:
             method="GET",
             params={
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -201,7 +206,7 @@ class GroupsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Group,
-                    parse_obj_as(
+                    construct_type(
                         type_=Group,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -338,7 +343,7 @@ class AsyncGroupsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedGroupList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedGroupList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -353,6 +358,7 @@ class AsyncGroupsClient:
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["type"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -366,6 +372,9 @@ class AsyncGroupsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["type"]]
             Deprecated. Use show_enum_origins.
@@ -406,6 +415,7 @@ class AsyncGroupsClient:
             method="GET",
             params={
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -415,7 +425,7 @@ class AsyncGroupsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Group,
-                    parse_obj_as(
+                    construct_type(
                         type_=Group,  # type: ignore
                         object_=_response.json(),
                     ),

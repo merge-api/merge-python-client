@@ -7,7 +7,7 @@ from .types.vendor_credits_list_request_expand import VendorCreditsListRequestEx
 from .....core.request_options import RequestOptions
 from ...types.paginated_vendor_credit_list import PaginatedVendorCreditList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.vendor_credit_request import VendorCreditRequest
@@ -139,7 +139,7 @@ class VendorCreditsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedVendorCreditList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedVendorCreditList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -208,7 +208,7 @@ class VendorCreditsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     VendorCreditResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=VendorCreditResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -224,6 +224,7 @@ class VendorCreditsClient:
         *,
         expand: typing.Optional[VendorCreditsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> VendorCredit:
         """
@@ -238,6 +239,9 @@ class VendorCreditsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -265,6 +269,7 @@ class VendorCreditsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -272,7 +277,7 @@ class VendorCreditsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     VendorCredit,
-                    parse_obj_as(
+                    construct_type(
                         type_=VendorCredit,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -315,7 +320,7 @@ class VendorCreditsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -451,7 +456,7 @@ class AsyncVendorCreditsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedVendorCreditList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedVendorCreditList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -528,7 +533,7 @@ class AsyncVendorCreditsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     VendorCreditResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=VendorCreditResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -544,6 +549,7 @@ class AsyncVendorCreditsClient:
         *,
         expand: typing.Optional[VendorCreditsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> VendorCredit:
         """
@@ -558,6 +564,9 @@ class AsyncVendorCreditsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -593,6 +602,7 @@ class AsyncVendorCreditsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -600,7 +610,7 @@ class AsyncVendorCreditsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     VendorCredit,
-                    parse_obj_as(
+                    construct_type(
                         type_=VendorCredit,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -651,7 +661,7 @@ class AsyncVendorCreditsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),

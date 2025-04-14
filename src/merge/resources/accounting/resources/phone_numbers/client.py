@@ -5,7 +5,7 @@ import typing
 from .....core.request_options import RequestOptions
 from ...types.accounting_phone_number import AccountingPhoneNumber
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper
@@ -20,6 +20,7 @@ class PhoneNumbersClient:
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AccountingPhoneNumber:
         """
@@ -31,6 +32,9 @@ class PhoneNumbersClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -57,6 +61,7 @@ class PhoneNumbersClient:
             method="GET",
             params={
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -64,7 +69,7 @@ class PhoneNumbersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AccountingPhoneNumber,
-                    parse_obj_as(
+                    construct_type(
                         type_=AccountingPhoneNumber,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -84,6 +89,7 @@ class AsyncPhoneNumbersClient:
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AccountingPhoneNumber:
         """
@@ -95,6 +101,9 @@ class AsyncPhoneNumbersClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -129,6 +138,7 @@ class AsyncPhoneNumbersClient:
             method="GET",
             params={
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -136,7 +146,7 @@ class AsyncPhoneNumbersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AccountingPhoneNumber,
-                    parse_obj_as(
+                    construct_type(
                         type_=AccountingPhoneNumber,  # type: ignore
                         object_=_response.json(),
                     ),

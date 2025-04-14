@@ -8,7 +8,7 @@ from .types.activities_list_request_show_enum_origins import ActivitiesListReque
 from .....core.request_options import RequestOptions
 from ...types.paginated_activity_list import PaginatedActivityList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.activity_request import ActivityRequest
@@ -137,7 +137,7 @@ class ActivitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedActivityList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedActivityList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -211,7 +211,7 @@ class ActivitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     ActivityResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=ActivityResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -227,6 +227,7 @@ class ActivitiesClient:
         *,
         expand: typing.Optional[typing.Literal["user"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[ActivitiesRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[ActivitiesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -243,6 +244,9 @@ class ActivitiesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[ActivitiesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -276,6 +280,7 @@ class ActivitiesClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -285,7 +290,7 @@ class ActivitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Activity,
-                    parse_obj_as(
+                    construct_type(
                         type_=Activity,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -328,7 +333,7 @@ class ActivitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -460,7 +465,7 @@ class AsyncActivitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedActivityList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedActivityList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -542,7 +547,7 @@ class AsyncActivitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     ActivityResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=ActivityResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -558,6 +563,7 @@ class AsyncActivitiesClient:
         *,
         expand: typing.Optional[typing.Literal["user"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[ActivitiesRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[ActivitiesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -574,6 +580,9 @@ class AsyncActivitiesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[ActivitiesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -615,6 +624,7 @@ class AsyncActivitiesClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -624,7 +634,7 @@ class AsyncActivitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Activity,
-                    parse_obj_as(
+                    construct_type(
                         type_=Activity,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -675,7 +685,7 @@ class AsyncActivitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),

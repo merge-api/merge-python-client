@@ -6,7 +6,7 @@ import datetime as dt
 from .....core.request_options import RequestOptions
 from ...types.paginated_bank_feed_transaction_list import PaginatedBankFeedTransactionList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.bank_feed_transaction_request_request import BankFeedTransactionRequestRequest
@@ -123,7 +123,7 @@ class BankFeedTransactionsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedBankFeedTransactionList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedBankFeedTransactionList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -192,7 +192,7 @@ class BankFeedTransactionsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     BankFeedTransactionResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=BankFeedTransactionResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -208,6 +208,7 @@ class BankFeedTransactionsClient:
         *,
         expand: typing.Optional[typing.Literal["bank_feed_account"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BankFeedTransaction:
         """
@@ -222,6 +223,9 @@ class BankFeedTransactionsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -249,6 +253,7 @@ class BankFeedTransactionsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -256,7 +261,7 @@ class BankFeedTransactionsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     BankFeedTransaction,
-                    parse_obj_as(
+                    construct_type(
                         type_=BankFeedTransaction,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -299,7 +304,7 @@ class BankFeedTransactionsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -421,7 +426,7 @@ class AsyncBankFeedTransactionsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedBankFeedTransactionList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedBankFeedTransactionList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -498,7 +503,7 @@ class AsyncBankFeedTransactionsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     BankFeedTransactionResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=BankFeedTransactionResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -514,6 +519,7 @@ class AsyncBankFeedTransactionsClient:
         *,
         expand: typing.Optional[typing.Literal["bank_feed_account"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BankFeedTransaction:
         """
@@ -528,6 +534,9 @@ class AsyncBankFeedTransactionsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -563,6 +572,7 @@ class AsyncBankFeedTransactionsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -570,7 +580,7 @@ class AsyncBankFeedTransactionsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     BankFeedTransaction,
-                    parse_obj_as(
+                    construct_type(
                         type_=BankFeedTransaction,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -621,7 +631,7 @@ class AsyncBankFeedTransactionsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),

@@ -7,7 +7,7 @@ from .types.tasks_list_request_expand import TasksListRequestExpand
 from .....core.request_options import RequestOptions
 from ...types.paginated_task_list import PaginatedTaskList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.task_request import TaskRequest
@@ -127,7 +127,7 @@ class TasksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedTaskList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedTaskList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -196,7 +196,7 @@ class TasksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     TaskResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=TaskResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -213,6 +213,7 @@ class TasksClient:
         expand: typing.Optional[TasksRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Task:
         """
@@ -230,6 +231,9 @@ class TasksClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -258,6 +262,7 @@ class TasksClient:
                 "expand": expand,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -265,7 +270,7 @@ class TasksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Task,
-                    parse_obj_as(
+                    construct_type(
                         type_=Task,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -338,7 +343,7 @@ class TasksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     TaskResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=TaskResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -385,7 +390,7 @@ class TasksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -428,7 +433,7 @@ class TasksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -512,7 +517,7 @@ class TasksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedRemoteFieldClassList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -634,7 +639,7 @@ class AsyncTasksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedTaskList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedTaskList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -711,7 +716,7 @@ class AsyncTasksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     TaskResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=TaskResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -728,6 +733,7 @@ class AsyncTasksClient:
         expand: typing.Optional[TasksRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Task:
         """
@@ -745,6 +751,9 @@ class AsyncTasksClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -781,6 +790,7 @@ class AsyncTasksClient:
                 "expand": expand,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -788,7 +798,7 @@ class AsyncTasksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Task,
-                    parse_obj_as(
+                    construct_type(
                         type_=Task,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -869,7 +879,7 @@ class AsyncTasksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     TaskResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=TaskResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -926,7 +936,7 @@ class AsyncTasksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -977,7 +987,7 @@ class AsyncTasksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1069,7 +1079,7 @@ class AsyncTasksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedRemoteFieldClassList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),

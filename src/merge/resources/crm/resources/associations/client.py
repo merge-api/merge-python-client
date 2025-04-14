@@ -7,7 +7,7 @@ from .....core.request_options import RequestOptions
 from ...types.paginated_association_list import PaginatedAssociationList
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.association import Association
@@ -126,7 +126,7 @@ class AssociationsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedAssociationList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedAssociationList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -206,7 +206,7 @@ class AssociationsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Association,
-                    parse_obj_as(
+                    construct_type(
                         type_=Association,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -337,7 +337,7 @@ class AsyncAssociationsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedAssociationList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedAssociationList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -425,7 +425,7 @@ class AsyncAssociationsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Association,
-                    parse_obj_as(
+                    construct_type(
                         type_=Association,  # type: ignore
                         object_=_response.json(),
                     ),

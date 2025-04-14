@@ -6,7 +6,7 @@ import datetime as dt
 from .....core.request_options import RequestOptions
 from ...types.paginated_account_list import PaginatedAccountList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.account_request import AccountRequest
@@ -135,7 +135,7 @@ class AccountsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedAccountList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedAccountList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -204,7 +204,7 @@ class AccountsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     CrmAccountResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=CrmAccountResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -221,6 +221,7 @@ class AccountsClient:
         expand: typing.Optional[typing.Literal["owner"]] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Account:
         """
@@ -238,6 +239,9 @@ class AccountsClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -266,6 +270,7 @@ class AccountsClient:
                 "expand": expand,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -273,7 +278,7 @@ class AccountsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Account,
-                    parse_obj_as(
+                    construct_type(
                         type_=Account,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -346,7 +351,7 @@ class AccountsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     CrmAccountResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=CrmAccountResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -393,7 +398,7 @@ class AccountsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -436,7 +441,7 @@ class AccountsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -520,7 +525,7 @@ class AccountsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedRemoteFieldClassList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -652,7 +657,7 @@ class AsyncAccountsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedAccountList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedAccountList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -729,7 +734,7 @@ class AsyncAccountsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     CrmAccountResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=CrmAccountResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -746,6 +751,7 @@ class AsyncAccountsClient:
         expand: typing.Optional[typing.Literal["owner"]] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Account:
         """
@@ -763,6 +769,9 @@ class AsyncAccountsClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -799,6 +808,7 @@ class AsyncAccountsClient:
                 "expand": expand,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -806,7 +816,7 @@ class AsyncAccountsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Account,
-                    parse_obj_as(
+                    construct_type(
                         type_=Account,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -887,7 +897,7 @@ class AsyncAccountsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     CrmAccountResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=CrmAccountResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -944,7 +954,7 @@ class AsyncAccountsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -995,7 +1005,7 @@ class AsyncAccountsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1087,7 +1097,7 @@ class AsyncAccountsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedRemoteFieldClassList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),

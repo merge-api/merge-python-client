@@ -5,7 +5,7 @@ from .....core.client_wrapper import SyncClientWrapper
 from ...types.data_passthrough_request import DataPassthroughRequest
 from .....core.request_options import RequestOptions
 from ...types.remote_response import RemoteResponse
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper
@@ -63,7 +63,7 @@ class PassthroughClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     RemoteResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=RemoteResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -131,7 +131,7 @@ class AsyncPassthroughClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     RemoteResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=RemoteResponse,  # type: ignore
                         object_=_response.json(),
                     ),

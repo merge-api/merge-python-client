@@ -8,7 +8,7 @@ from ...types.individual_common_model_scope_deserializer_request import Individu
 from ...types.language_enum import LanguageEnum
 from .....core.request_options import RequestOptions
 from ...types.link_token import LinkToken
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper
@@ -137,7 +137,7 @@ class LinkTokenClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     LinkToken,
-                    parse_obj_as(
+                    construct_type(
                         type_=LinkToken,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -276,7 +276,7 @@ class AsyncLinkTokenClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     LinkToken,
-                    parse_obj_as(
+                    construct_type(
                         type_=LinkToken,  # type: ignore
                         object_=_response.json(),
                     ),

@@ -4,7 +4,7 @@ from .....core.client_wrapper import SyncClientWrapper
 import typing
 from .....core.request_options import RequestOptions
 from ...types.paginated_accounting_period_list import PaginatedAccountingPeriodList
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.accounting_period import AccountingPeriod
@@ -80,7 +80,7 @@ class AccountingPeriodsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedAccountingPeriodList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedAccountingPeriodList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -95,6 +95,7 @@ class AccountingPeriodsClient:
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AccountingPeriod:
         """
@@ -106,6 +107,9 @@ class AccountingPeriodsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -132,6 +136,7 @@ class AccountingPeriodsClient:
             method="GET",
             params={
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -139,7 +144,7 @@ class AccountingPeriodsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AccountingPeriod,
-                    parse_obj_as(
+                    construct_type(
                         type_=AccountingPeriod,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -226,7 +231,7 @@ class AsyncAccountingPeriodsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedAccountingPeriodList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedAccountingPeriodList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -241,6 +246,7 @@ class AsyncAccountingPeriodsClient:
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AccountingPeriod:
         """
@@ -252,6 +258,9 @@ class AsyncAccountingPeriodsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -286,6 +295,7 @@ class AsyncAccountingPeriodsClient:
             method="GET",
             params={
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -293,7 +303,7 @@ class AsyncAccountingPeriodsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AccountingPeriod,
-                    parse_obj_as(
+                    construct_type(
                         type_=AccountingPeriod,  # type: ignore
                         object_=_response.json(),
                     ),

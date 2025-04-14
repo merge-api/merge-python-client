@@ -5,7 +5,7 @@ from .....core.client_wrapper import SyncClientWrapper
 from ...types.data_passthrough_request import DataPassthroughRequest
 from .....core.request_options import RequestOptions
 from ...types.async_passthrough_reciept import AsyncPassthroughReciept
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .types.async_passthrough_retrieve_response import AsyncPassthroughRetrieveResponse
@@ -65,7 +65,7 @@ class AsyncPassthroughClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AsyncPassthroughReciept,
-                    parse_obj_as(
+                    construct_type(
                         type_=AsyncPassthroughReciept,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -114,7 +114,7 @@ class AsyncPassthroughClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AsyncPassthroughRetrieveResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=AsyncPassthroughRetrieveResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -182,7 +182,7 @@ class AsyncAsyncPassthroughClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AsyncPassthroughReciept,
-                    parse_obj_as(
+                    construct_type(
                         type_=AsyncPassthroughReciept,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -239,7 +239,7 @@ class AsyncAsyncPassthroughClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AsyncPassthroughRetrieveResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=AsyncPassthroughRetrieveResponse,  # type: ignore
                         object_=_response.json(),
                     ),
