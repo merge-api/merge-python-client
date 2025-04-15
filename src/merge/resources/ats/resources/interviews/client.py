@@ -7,7 +7,7 @@ from .types.interviews_list_request_expand import InterviewsListRequestExpand
 from .....core.request_options import RequestOptions
 from ...types.paginated_scheduled_interview_list import PaginatedScheduledInterviewList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.scheduled_interview_request import ScheduledInterviewRequest
@@ -150,7 +150,7 @@ class InterviewsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedScheduledInterviewList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedScheduledInterviewList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -224,7 +224,7 @@ class InterviewsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     ScheduledInterviewResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=ScheduledInterviewResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -240,6 +240,7 @@ class InterviewsClient:
         *,
         expand: typing.Optional[InterviewsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -256,6 +257,9 @@ class InterviewsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -289,6 +293,7 @@ class InterviewsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -298,7 +303,7 @@ class InterviewsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     ScheduledInterview,
-                    parse_obj_as(
+                    construct_type(
                         type_=ScheduledInterview,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -341,7 +346,7 @@ class InterviewsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -488,7 +493,7 @@ class AsyncInterviewsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedScheduledInterviewList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedScheduledInterviewList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -570,7 +575,7 @@ class AsyncInterviewsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     ScheduledInterviewResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=ScheduledInterviewResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -586,6 +591,7 @@ class AsyncInterviewsClient:
         *,
         expand: typing.Optional[InterviewsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -602,6 +608,9 @@ class AsyncInterviewsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -643,6 +652,7 @@ class AsyncInterviewsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -652,7 +662,7 @@ class AsyncInterviewsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     ScheduledInterview,
-                    parse_obj_as(
+                    construct_type(
                         type_=ScheduledInterview,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -703,7 +713,7 @@ class AsyncInterviewsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),

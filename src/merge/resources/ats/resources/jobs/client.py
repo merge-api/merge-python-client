@@ -8,7 +8,7 @@ from .types.jobs_list_request_status import JobsListRequestStatus
 from .....core.request_options import RequestOptions
 from ...types.paginated_job_list import PaginatedJobList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .types.jobs_retrieve_request_expand import JobsRetrieveRequestExpand
@@ -148,7 +148,7 @@ class JobsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedJobList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedJobList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -164,6 +164,7 @@ class JobsClient:
         *,
         expand: typing.Optional[JobsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -180,6 +181,9 @@ class JobsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -213,6 +217,7 @@ class JobsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -222,7 +227,7 @@ class JobsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Job,
-                    parse_obj_as(
+                    construct_type(
                         type_=Job,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -306,7 +311,7 @@ class JobsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedScreeningQuestionList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedScreeningQuestionList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -454,7 +459,7 @@ class AsyncJobsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedJobList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedJobList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -470,6 +475,7 @@ class AsyncJobsClient:
         *,
         expand: typing.Optional[JobsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -486,6 +492,9 @@ class AsyncJobsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -527,6 +536,7 @@ class AsyncJobsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -536,7 +546,7 @@ class AsyncJobsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Job,
-                    parse_obj_as(
+                    construct_type(
                         type_=Job,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -628,7 +638,7 @@ class AsyncJobsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedScreeningQuestionList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedScreeningQuestionList,  # type: ignore
                         object_=_response.json(),
                     ),

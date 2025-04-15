@@ -5,7 +5,7 @@ import typing
 from .types.linked_accounts_list_request_category import LinkedAccountsListRequestCategory
 from .....core.request_options import RequestOptions
 from ...types.paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper
@@ -126,7 +126,7 @@ class LinkedAccountsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedAccountDetailsAndActionsList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedAccountDetailsAndActionsList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -260,7 +260,7 @@ class AsyncLinkedAccountsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedAccountDetailsAndActionsList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedAccountDetailsAndActionsList,  # type: ignore
                         object_=_response.json(),
                     ),

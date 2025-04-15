@@ -4,7 +4,7 @@ import typing
 from .....core.client_wrapper import SyncClientWrapper
 from .....core.request_options import RequestOptions
 from ...types.webhook_receiver import WebhookReceiver
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper
@@ -50,7 +50,7 @@ class WebhookReceiversClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[WebhookReceiver],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[WebhookReceiver],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -115,7 +115,7 @@ class WebhookReceiversClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     WebhookReceiver,
-                    parse_obj_as(
+                    construct_type(
                         type_=WebhookReceiver,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -171,7 +171,7 @@ class AsyncWebhookReceiversClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[WebhookReceiver],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[WebhookReceiver],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -244,7 +244,7 @@ class AsyncWebhookReceiversClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     WebhookReceiver,
-                    parse_obj_as(
+                    construct_type(
                         type_=WebhookReceiver,  # type: ignore
                         object_=_response.json(),
                     ),

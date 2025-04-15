@@ -7,7 +7,7 @@ from .types.issues_list_request_status import IssuesListRequestStatus
 from .....core.request_options import RequestOptions
 from ...types.paginated_issue_list import PaginatedIssueList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.issue import Issue
@@ -136,7 +136,7 @@ class IssuesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedIssueList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedIssueList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -183,7 +183,7 @@ class IssuesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Issue,
-                    parse_obj_as(
+                    construct_type(
                         type_=Issue,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -323,7 +323,7 @@ class AsyncIssuesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedIssueList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedIssueList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -378,7 +378,7 @@ class AsyncIssuesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Issue,
-                    parse_obj_as(
+                    construct_type(
                         type_=Issue,  # type: ignore
                         object_=_response.json(),
                     ),

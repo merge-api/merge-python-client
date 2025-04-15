@@ -5,7 +5,7 @@ import typing
 from .....core.request_options import RequestOptions
 from ...types.address import Address
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper
@@ -20,6 +20,7 @@ class AddressesClient:
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["type"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -33,6 +34,9 @@ class AddressesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["type"]]
             Deprecated. Use show_enum_origins.
@@ -65,6 +69,7 @@ class AddressesClient:
             method="GET",
             params={
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -74,7 +79,7 @@ class AddressesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Address,
-                    parse_obj_as(
+                    construct_type(
                         type_=Address,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -94,6 +99,7 @@ class AsyncAddressesClient:
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["type"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -107,6 +113,9 @@ class AsyncAddressesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["type"]]
             Deprecated. Use show_enum_origins.
@@ -147,6 +156,7 @@ class AsyncAddressesClient:
             method="GET",
             params={
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -156,7 +166,7 @@ class AsyncAddressesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Address,
-                    parse_obj_as(
+                    construct_type(
                         type_=Address,  # type: ignore
                         object_=_response.json(),
                     ),

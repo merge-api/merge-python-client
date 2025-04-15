@@ -9,7 +9,7 @@ from .types.credit_notes_list_request_show_enum_origins import CreditNotesListRe
 from .....core.request_options import RequestOptions
 from ...types.paginated_credit_note_list import PaginatedCreditNoteList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.credit_note_request import CreditNoteRequest
@@ -153,7 +153,7 @@ class CreditNotesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedCreditNoteList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedCreditNoteList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -222,7 +222,7 @@ class CreditNotesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     CreditNoteResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=CreditNoteResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -238,6 +238,7 @@ class CreditNotesClient:
         *,
         expand: typing.Optional[CreditNotesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[CreditNotesRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[CreditNotesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -254,6 +255,9 @@ class CreditNotesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[CreditNotesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -287,6 +291,7 @@ class CreditNotesClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -296,7 +301,7 @@ class CreditNotesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     CreditNote,
-                    parse_obj_as(
+                    construct_type(
                         type_=CreditNote,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -339,7 +344,7 @@ class CreditNotesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -485,7 +490,7 @@ class AsyncCreditNotesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedCreditNoteList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedCreditNoteList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -562,7 +567,7 @@ class AsyncCreditNotesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     CreditNoteResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=CreditNoteResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -578,6 +583,7 @@ class AsyncCreditNotesClient:
         *,
         expand: typing.Optional[CreditNotesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[CreditNotesRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[CreditNotesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -594,6 +600,9 @@ class AsyncCreditNotesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[CreditNotesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -635,6 +644,7 @@ class AsyncCreditNotesClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -644,7 +654,7 @@ class AsyncCreditNotesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     CreditNote,
-                    parse_obj_as(
+                    construct_type(
                         type_=CreditNote,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -695,7 +705,7 @@ class AsyncCreditNotesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),

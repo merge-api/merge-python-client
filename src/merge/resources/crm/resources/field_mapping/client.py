@@ -4,7 +4,7 @@ import typing
 from .....core.client_wrapper import SyncClientWrapper
 from .....core.request_options import RequestOptions
 from ...types.field_mapping_api_instance_response import FieldMappingApiInstanceResponse
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.field_mapping_instance_response import FieldMappingInstanceResponse
@@ -65,7 +65,7 @@ class FieldMappingClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     FieldMappingApiInstanceResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=FieldMappingApiInstanceResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -159,7 +159,7 @@ class FieldMappingClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     FieldMappingInstanceResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=FieldMappingInstanceResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -208,7 +208,7 @@ class FieldMappingClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     FieldMappingInstanceResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=FieldMappingInstanceResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -278,7 +278,7 @@ class FieldMappingClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     FieldMappingInstanceResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=FieldMappingInstanceResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -337,7 +337,7 @@ class FieldMappingClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     RemoteFieldApiResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=RemoteFieldApiResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -382,7 +382,7 @@ class FieldMappingClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     ExternalTargetFieldApiResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=ExternalTargetFieldApiResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -449,7 +449,7 @@ class AsyncFieldMappingClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     FieldMappingApiInstanceResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=FieldMappingApiInstanceResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -551,7 +551,7 @@ class AsyncFieldMappingClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     FieldMappingInstanceResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=FieldMappingInstanceResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -608,7 +608,7 @@ class AsyncFieldMappingClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     FieldMappingInstanceResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=FieldMappingInstanceResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -686,7 +686,7 @@ class AsyncFieldMappingClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     FieldMappingInstanceResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=FieldMappingInstanceResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -753,7 +753,7 @@ class AsyncFieldMappingClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     RemoteFieldApiResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=RemoteFieldApiResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -806,7 +806,7 @@ class AsyncFieldMappingClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     ExternalTargetFieldApiResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=ExternalTargetFieldApiResponse,  # type: ignore
                         object_=_response.json(),
                     ),

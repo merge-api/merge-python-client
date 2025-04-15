@@ -8,7 +8,7 @@ from .types.opportunities_list_request_status import OpportunitiesListRequestSta
 from .....core.request_options import RequestOptions
 from ...types.paginated_opportunity_list import PaginatedOpportunityList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.opportunity_request import OpportunityRequest
@@ -169,7 +169,7 @@ class OpportunitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedOpportunityList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedOpportunityList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -238,7 +238,7 @@ class OpportunitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     OpportunityResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=OpportunityResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -255,6 +255,7 @@ class OpportunitiesClient:
         expand: typing.Optional[OpportunitiesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -274,6 +275,9 @@ class OpportunitiesClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -308,6 +312,7 @@ class OpportunitiesClient:
                 "expand": expand,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -317,7 +322,7 @@ class OpportunitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Opportunity,
-                    parse_obj_as(
+                    construct_type(
                         type_=Opportunity,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -390,7 +395,7 @@ class OpportunitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     OpportunityResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=OpportunityResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -437,7 +442,7 @@ class OpportunitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -480,7 +485,7 @@ class OpportunitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -564,7 +569,7 @@ class OpportunitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedRemoteFieldClassList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -727,7 +732,7 @@ class AsyncOpportunitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedOpportunityList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedOpportunityList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -804,7 +809,7 @@ class AsyncOpportunitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     OpportunityResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=OpportunityResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -821,6 +826,7 @@ class AsyncOpportunitiesClient:
         expand: typing.Optional[OpportunitiesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -840,6 +846,9 @@ class AsyncOpportunitiesClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -882,6 +891,7 @@ class AsyncOpportunitiesClient:
                 "expand": expand,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -891,7 +901,7 @@ class AsyncOpportunitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Opportunity,
-                    parse_obj_as(
+                    construct_type(
                         type_=Opportunity,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -972,7 +982,7 @@ class AsyncOpportunitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     OpportunityResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=OpportunityResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1029,7 +1039,7 @@ class AsyncOpportunitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1080,7 +1090,7 @@ class AsyncOpportunitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1172,7 +1182,7 @@ class AsyncOpportunitiesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedRemoteFieldClassList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),

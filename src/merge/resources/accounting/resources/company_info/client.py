@@ -7,7 +7,7 @@ from .types.company_info_list_request_expand import CompanyInfoListRequestExpand
 from .....core.request_options import RequestOptions
 from ...types.paginated_company_info_list import PaginatedCompanyInfoList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .types.company_info_retrieve_request_expand import CompanyInfoRetrieveRequestExpand
@@ -114,7 +114,7 @@ class CompanyInfoClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedCompanyInfoList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedCompanyInfoList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -130,6 +130,7 @@ class CompanyInfoClient:
         *,
         expand: typing.Optional[CompanyInfoRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CompanyInfo:
         """
@@ -144,6 +145,9 @@ class CompanyInfoClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -171,6 +175,7 @@ class CompanyInfoClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -178,7 +183,7 @@ class CompanyInfoClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     CompanyInfo,
-                    parse_obj_as(
+                    construct_type(
                         type_=CompanyInfo,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -295,7 +300,7 @@ class AsyncCompanyInfoClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedCompanyInfoList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedCompanyInfoList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -311,6 +316,7 @@ class AsyncCompanyInfoClient:
         *,
         expand: typing.Optional[CompanyInfoRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CompanyInfo:
         """
@@ -325,6 +331,9 @@ class AsyncCompanyInfoClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -360,6 +369,7 @@ class AsyncCompanyInfoClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -367,7 +377,7 @@ class AsyncCompanyInfoClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     CompanyInfo,
-                    parse_obj_as(
+                    construct_type(
                         type_=CompanyInfo,  # type: ignore
                         object_=_response.json(),
                     ),

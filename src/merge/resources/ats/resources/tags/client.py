@@ -6,7 +6,7 @@ import datetime as dt
 from .....core.request_options import RequestOptions
 from ...types.paginated_tag_list import PaginatedTagList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper
@@ -105,7 +105,7 @@ class TagsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedTagList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedTagList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -217,7 +217,7 @@ class AsyncTagsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedTagList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedTagList,  # type: ignore
                         object_=_response.json(),
                     ),

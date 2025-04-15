@@ -6,7 +6,7 @@ import datetime as dt
 from .....core.request_options import RequestOptions
 from ...types.paginated_accounting_attachment_list import PaginatedAccountingAttachmentList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.accounting_attachment_request import AccountingAttachmentRequest
@@ -118,7 +118,7 @@ class AttachmentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedAccountingAttachmentList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedAccountingAttachmentList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -187,7 +187,7 @@ class AttachmentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AccountingAttachmentResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=AccountingAttachmentResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -202,6 +202,7 @@ class AttachmentsClient:
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AccountingAttachment:
         """
@@ -213,6 +214,9 @@ class AttachmentsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -239,6 +243,7 @@ class AttachmentsClient:
             method="GET",
             params={
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -246,7 +251,7 @@ class AttachmentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AccountingAttachment,
-                    parse_obj_as(
+                    construct_type(
                         type_=AccountingAttachment,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -289,7 +294,7 @@ class AttachmentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -406,7 +411,7 @@ class AsyncAttachmentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedAccountingAttachmentList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedAccountingAttachmentList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -483,7 +488,7 @@ class AsyncAttachmentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AccountingAttachmentResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=AccountingAttachmentResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -498,6 +503,7 @@ class AsyncAttachmentsClient:
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AccountingAttachment:
         """
@@ -509,6 +515,9 @@ class AsyncAttachmentsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -543,6 +552,7 @@ class AsyncAttachmentsClient:
             method="GET",
             params={
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -550,7 +560,7 @@ class AsyncAttachmentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AccountingAttachment,
-                    parse_obj_as(
+                    construct_type(
                         type_=AccountingAttachment,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -601,7 +611,7 @@ class AsyncAttachmentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),

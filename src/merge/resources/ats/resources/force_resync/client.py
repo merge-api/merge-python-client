@@ -4,7 +4,7 @@ from .....core.client_wrapper import SyncClientWrapper
 import typing
 from .....core.request_options import RequestOptions
 from ...types.sync_status import SyncStatus
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper
@@ -18,7 +18,7 @@ class ForceResyncClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[SyncStatus]:
         """
-        Force re-sync of all models. This is available for all organizations via the dashboard. Force re-sync is also available programmatically via API for monthly, quarterly, and highest sync frequency customers on the Professional or Enterprise plans. Doing so will consume a sync credit for the relevant linked account.
+        Force re-sync of all models. This endpoint is available for monthly, quarterly, and highest sync frequency customers on the Professional or Enterprise plans. Doing so will consume a sync credit for the relevant linked account. Force re-syncs can also be triggered manually in the Merge Dashboard and is available for all customers.
 
         Parameters
         ----------
@@ -49,7 +49,7 @@ class ForceResyncClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[SyncStatus],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[SyncStatus],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -68,7 +68,7 @@ class AsyncForceResyncClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[SyncStatus]:
         """
-        Force re-sync of all models. This is available for all organizations via the dashboard. Force re-sync is also available programmatically via API for monthly, quarterly, and highest sync frequency customers on the Professional or Enterprise plans. Doing so will consume a sync credit for the relevant linked account.
+        Force re-sync of all models. This endpoint is available for monthly, quarterly, and highest sync frequency customers on the Professional or Enterprise plans. Doing so will consume a sync credit for the relevant linked account. Force re-syncs can also be triggered manually in the Merge Dashboard and is available for all customers.
 
         Parameters
         ----------
@@ -107,7 +107,7 @@ class AsyncForceResyncClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[SyncStatus],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[SyncStatus],  # type: ignore
                         object_=_response.json(),
                     ),

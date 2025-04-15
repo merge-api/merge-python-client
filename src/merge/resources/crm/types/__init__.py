@@ -98,6 +98,7 @@ from .item_format_enum import ItemFormatEnum
 from .item_schema import ItemSchema
 from .item_type_enum import ItemTypeEnum
 from .language_enum import LanguageEnum
+from .last_sync_result_enum import LastSyncResultEnum
 from .lead import Lead
 from .lead_converted_account import LeadConvertedAccount
 from .lead_converted_contact import LeadConvertedContact
@@ -199,8 +200,9 @@ from .response_type_enum import ResponseTypeEnum
 from .role_enum import RoleEnum
 from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
 from .stage import Stage
+from .status_fd_5_enum import StatusFd5Enum
 from .sync_status import SyncStatus
-from .sync_status_status_enum import SyncStatusStatusEnum
+from .sync_status_last_sync_result import SyncStatusLastSyncResult
 from .task import Task
 from .task_account import TaskAccount
 from .task_opportunity import TaskOpportunity
@@ -315,6 +317,7 @@ __all__ = [
     "ItemSchema",
     "ItemTypeEnum",
     "LanguageEnum",
+    "LastSyncResultEnum",
     "Lead",
     "LeadConvertedAccount",
     "LeadConvertedContact",
@@ -414,8 +417,9 @@ __all__ = [
     "RoleEnum",
     "SelectiveSyncConfigurationsUsageEnum",
     "Stage",
+    "StatusFd5Enum",
     "SyncStatus",
-    "SyncStatusStatusEnum",
+    "SyncStatusLastSyncResult",
     "Task",
     "TaskAccount",
     "TaskOpportunity",

@@ -7,7 +7,7 @@ from .types.users_list_request_expand import UsersListRequestExpand
 from .....core.request_options import RequestOptions
 from ...types.paginated_user_list import PaginatedUserList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .types.users_retrieve_request_expand import UsersRetrieveRequestExpand
@@ -35,6 +35,7 @@ class UsersClient:
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
+        team: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedUserList:
         """
@@ -77,6 +78,9 @@ class UsersClient:
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
+
+        team : typing.Optional[str]
+            If provided, will only return users matching in this team.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -112,6 +116,7 @@ class UsersClient:
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                 "page_size": page_size,
                 "remote_id": remote_id,
+                "team": team,
             },
             request_options=request_options,
         )
@@ -119,7 +124,7 @@ class UsersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedUserList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedUserList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -135,6 +140,7 @@ class UsersClient:
         *,
         expand: typing.Optional[UsersRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
@@ -149,6 +155,9 @@ class UsersClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -176,6 +185,7 @@ class UsersClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -183,7 +193,7 @@ class UsersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     User,
-                    parse_obj_as(
+                    construct_type(
                         type_=User,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -213,6 +223,7 @@ class AsyncUsersClient:
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
+        team: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedUserList:
         """
@@ -255,6 +266,9 @@ class AsyncUsersClient:
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
+
+        team : typing.Optional[str]
+            If provided, will only return users matching in this team.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -298,6 +312,7 @@ class AsyncUsersClient:
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                 "page_size": page_size,
                 "remote_id": remote_id,
+                "team": team,
             },
             request_options=request_options,
         )
@@ -305,7 +320,7 @@ class AsyncUsersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedUserList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedUserList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -321,6 +336,7 @@ class AsyncUsersClient:
         *,
         expand: typing.Optional[UsersRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
@@ -335,6 +351,9 @@ class AsyncUsersClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -370,6 +389,7 @@ class AsyncUsersClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -377,7 +397,7 @@ class AsyncUsersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     User,
-                    parse_obj_as(
+                    construct_type(
                         type_=User,  # type: ignore
                         object_=_response.json(),
                     ),

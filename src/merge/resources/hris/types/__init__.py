@@ -105,6 +105,7 @@ from .issue import Issue
 from .issue_status import IssueStatus
 from .issue_status_enum import IssueStatusEnum
 from .language_enum import LanguageEnum
+from .last_sync_result_enum import LastSyncResultEnum
 from .link_token import LinkToken
 from .linked_account_status import LinkedAccountStatus
 from .location import Location
@@ -164,8 +165,9 @@ from .role_enum import RoleEnum
 from .run_state_enum import RunStateEnum
 from .run_type_enum import RunTypeEnum
 from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
+from .status_fd_5_enum import StatusFd5Enum
 from .sync_status import SyncStatus
-from .sync_status_status_enum import SyncStatusStatusEnum
+from .sync_status_last_sync_result import SyncStatusLastSyncResult
 from .tax import Tax
 from .team import Team
 from .team_parent_team import TeamParentTeam
@@ -300,6 +302,7 @@ __all__ = [
     "IssueStatus",
     "IssueStatusEnum",
     "LanguageEnum",
+    "LastSyncResultEnum",
     "LinkToken",
     "LinkedAccountStatus",
     "Location",
@@ -359,8 +362,9 @@ __all__ = [
     "RunStateEnum",
     "RunTypeEnum",
     "SelectiveSyncConfigurationsUsageEnum",
+    "StatusFd5Enum",
     "SyncStatus",
-    "SyncStatusStatusEnum",
+    "SyncStatusLastSyncResult",
     "Tax",
     "Team",
     "TeamParentTeam",

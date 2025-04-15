@@ -6,7 +6,7 @@ import datetime as dt
 from .....core.request_options import RequestOptions
 from ...types.paginated_tax_rate_list import PaginatedTaxRateList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.tax_rate import TaxRate
@@ -31,6 +31,7 @@ class TaxRatesClient:
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        name: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -69,6 +70,9 @@ class TaxRatesClient:
 
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
+
+        name : typing.Optional[str]
+            If provided, will only return TaxRates with this name.
 
         page_size : typing.Optional[int]
             Number of results to return per page.
@@ -108,6 +112,7 @@ class TaxRatesClient:
                 "include_shell_data": include_shell_data,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "name": name,
                 "page_size": page_size,
                 "remote_id": remote_id,
             },
@@ -117,7 +122,7 @@ class TaxRatesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedTaxRateList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedTaxRateList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -133,6 +138,7 @@ class TaxRatesClient:
         *,
         expand: typing.Optional[typing.Literal["company"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TaxRate:
         """
@@ -147,6 +153,9 @@ class TaxRatesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -174,6 +183,7 @@ class TaxRatesClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -181,7 +191,7 @@ class TaxRatesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     TaxRate,
-                    parse_obj_as(
+                    construct_type(
                         type_=TaxRate,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -209,6 +219,7 @@ class AsyncTaxRatesClient:
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        name: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -247,6 +258,9 @@ class AsyncTaxRatesClient:
 
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
+
+        name : typing.Optional[str]
+            If provided, will only return TaxRates with this name.
 
         page_size : typing.Optional[int]
             Number of results to return per page.
@@ -294,6 +308,7 @@ class AsyncTaxRatesClient:
                 "include_shell_data": include_shell_data,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "name": name,
                 "page_size": page_size,
                 "remote_id": remote_id,
             },
@@ -303,7 +318,7 @@ class AsyncTaxRatesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedTaxRateList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedTaxRateList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -319,6 +334,7 @@ class AsyncTaxRatesClient:
         *,
         expand: typing.Optional[typing.Literal["company"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TaxRate:
         """
@@ -333,6 +349,9 @@ class AsyncTaxRatesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -368,6 +387,7 @@ class AsyncTaxRatesClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -375,7 +395,7 @@ class AsyncTaxRatesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     TaxRate,
-                    parse_obj_as(
+                    construct_type(
                         type_=TaxRate,  # type: ignore
                         object_=_response.json(),
                     ),

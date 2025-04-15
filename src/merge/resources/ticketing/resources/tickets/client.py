@@ -10,7 +10,7 @@ from .types.tickets_list_request_show_enum_origins import TicketsListRequestShow
 from .....core.request_options import RequestOptions
 from ...types.paginated_ticket_list import PaginatedTicketList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.ticket_request import TicketRequest
@@ -247,7 +247,7 @@ class TicketsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedTicketList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedTicketList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -316,7 +316,7 @@ class TicketsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     TicketResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=TicketResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -333,6 +333,7 @@ class TicketsClient:
         expand: typing.Optional[TicketsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[TicketsRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[TicketsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -352,6 +353,9 @@ class TicketsClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[TicketsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -386,6 +390,7 @@ class TicketsClient:
                 "expand": expand,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -395,7 +400,7 @@ class TicketsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Ticket,
-                    parse_obj_as(
+                    construct_type(
                         type_=Ticket,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -468,7 +473,7 @@ class TicketsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     TicketResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=TicketResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -491,7 +496,7 @@ class TicketsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedViewerList:
         """
-        Returns a list of `Viewer` objects.
+        Returns a list of `Viewer` objects that point to a User id or Team id that is either an assignee or viewer on a `Ticket` with the given id. [Learn more.](https://help.merge.dev/en/articles/10333658-ticketing-access-control-list-acls)
 
         Parameters
         ----------
@@ -552,7 +557,7 @@ class TicketsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedViewerList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedViewerList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -599,7 +604,7 @@ class TicketsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -642,7 +647,7 @@ class TicketsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -656,6 +661,7 @@ class TicketsClient:
         self,
         *,
         cursor: typing.Optional[str] = None,
+        ids: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -670,6 +676,9 @@ class TicketsClient:
         ----------
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        ids : typing.Optional[str]
+            If provided, will only return remote field classes with the `ids` in this list
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -709,6 +718,7 @@ class TicketsClient:
             method="GET",
             params={
                 "cursor": cursor,
+                "ids": ids,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_shell_data": include_shell_data,
@@ -721,7 +731,7 @@ class TicketsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedRemoteFieldClassList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -956,7 +966,7 @@ class AsyncTicketsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedTicketList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedTicketList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1033,7 +1043,7 @@ class AsyncTicketsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     TicketResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=TicketResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1050,6 +1060,7 @@ class AsyncTicketsClient:
         expand: typing.Optional[TicketsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[TicketsRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[TicketsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1069,6 +1080,9 @@ class AsyncTicketsClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[TicketsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -1111,6 +1125,7 @@ class AsyncTicketsClient:
                 "expand": expand,
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -1120,7 +1135,7 @@ class AsyncTicketsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Ticket,
-                    parse_obj_as(
+                    construct_type(
                         type_=Ticket,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1201,7 +1216,7 @@ class AsyncTicketsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     TicketResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=TicketResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1224,7 +1239,7 @@ class AsyncTicketsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedViewerList:
         """
-        Returns a list of `Viewer` objects.
+        Returns a list of `Viewer` objects that point to a User id or Team id that is either an assignee or viewer on a `Ticket` with the given id. [Learn more.](https://help.merge.dev/en/articles/10333658-ticketing-access-control-list-acls)
 
         Parameters
         ----------
@@ -1293,7 +1308,7 @@ class AsyncTicketsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedViewerList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedViewerList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1350,7 +1365,7 @@ class AsyncTicketsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1401,7 +1416,7 @@ class AsyncTicketsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1415,6 +1430,7 @@ class AsyncTicketsClient:
         self,
         *,
         cursor: typing.Optional[str] = None,
+        ids: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -1429,6 +1445,9 @@ class AsyncTicketsClient:
         ----------
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        ids : typing.Optional[str]
+            If provided, will only return remote field classes with the `ids` in this list
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -1476,6 +1495,7 @@ class AsyncTicketsClient:
             method="GET",
             params={
                 "cursor": cursor,
+                "ids": ids,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_shell_data": include_shell_data,
@@ -1488,7 +1508,7 @@ class AsyncTicketsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedRemoteFieldClassList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),

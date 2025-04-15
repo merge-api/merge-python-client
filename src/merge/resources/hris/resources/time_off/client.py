@@ -11,7 +11,7 @@ from .types.time_off_list_request_status import TimeOffListRequestStatus
 from .....core.request_options import RequestOptions
 from ...types.paginated_time_off_list import PaginatedTimeOffList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.time_off_request import TimeOffRequest
@@ -189,7 +189,7 @@ class TimeOffClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedTimeOffList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedTimeOffList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -258,7 +258,7 @@ class TimeOffClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     TimeOffResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=TimeOffResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -274,6 +274,7 @@ class TimeOffClient:
         *,
         expand: typing.Optional[TimeOffRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[TimeOffRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[TimeOffRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -290,6 +291,9 @@ class TimeOffClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[TimeOffRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -323,6 +327,7 @@ class TimeOffClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -332,7 +337,7 @@ class TimeOffClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     TimeOff,
-                    parse_obj_as(
+                    construct_type(
                         type_=TimeOff,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -375,7 +380,7 @@ class TimeOffClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -555,7 +560,7 @@ class AsyncTimeOffClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedTimeOffList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedTimeOffList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -632,7 +637,7 @@ class AsyncTimeOffClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     TimeOffResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=TimeOffResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -648,6 +653,7 @@ class AsyncTimeOffClient:
         *,
         expand: typing.Optional[TimeOffRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[TimeOffRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[TimeOffRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -664,6 +670,9 @@ class AsyncTimeOffClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[TimeOffRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -705,6 +714,7 @@ class AsyncTimeOffClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -714,7 +724,7 @@ class AsyncTimeOffClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     TimeOff,
-                    parse_obj_as(
+                    construct_type(
                         type_=TimeOff,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -765,7 +775,7 @@ class AsyncTimeOffClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),

@@ -7,7 +7,7 @@ from .types.offers_list_request_expand import OffersListRequestExpand
 from .....core.request_options import RequestOptions
 from ...types.paginated_offer_list import PaginatedOfferList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .types.offers_retrieve_request_expand import OffersRetrieveRequestExpand
@@ -134,7 +134,7 @@ class OffersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedOfferList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedOfferList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -150,6 +150,7 @@ class OffersClient:
         *,
         expand: typing.Optional[OffersRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -166,6 +167,9 @@ class OffersClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -199,6 +203,7 @@ class OffersClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -208,7 +213,7 @@ class OffersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Offer,
-                    parse_obj_as(
+                    construct_type(
                         type_=Offer,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -345,7 +350,7 @@ class AsyncOffersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedOfferList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedOfferList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -361,6 +366,7 @@ class AsyncOffersClient:
         *,
         expand: typing.Optional[OffersRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -377,6 +383,9 @@ class AsyncOffersClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -418,6 +427,7 @@ class AsyncOffersClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -427,7 +437,7 @@ class AsyncOffersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Offer,
-                    parse_obj_as(
+                    construct_type(
                         type_=Offer,  # type: ignore
                         object_=_response.json(),
                     ),

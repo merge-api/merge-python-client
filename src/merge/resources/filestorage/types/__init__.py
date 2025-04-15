@@ -19,6 +19,7 @@ from .common_model_scopes_body_request import CommonModelScopesBodyRequest
 from .data_passthrough_request import DataPassthroughRequest
 from .debug_mode_log import DebugModeLog
 from .debug_model_log_summary import DebugModelLogSummary
+from .download_request_meta import DownloadRequestMeta
 from .drive import Drive
 from .enabled_actions_enum import EnabledActionsEnum
 from .encoding_enum import EncodingEnum
@@ -66,6 +67,7 @@ from .issue import Issue
 from .issue_status import IssueStatus
 from .issue_status_enum import IssueStatusEnum
 from .language_enum import LanguageEnum
+from .last_sync_result_enum import LastSyncResultEnum
 from .link_token import LinkToken
 from .linked_account_status import LinkedAccountStatus
 from .meta_response import MetaResponse
@@ -77,6 +79,7 @@ from .multipart_form_field_request import MultipartFormFieldRequest
 from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
 from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
 from .paginated_audit_log_event_list import PaginatedAuditLogEventList
+from .paginated_download_request_meta_list import PaginatedDownloadRequestMetaList
 from .paginated_drive_list import PaginatedDriveList
 from .paginated_file_list import PaginatedFileList
 from .paginated_folder_list import PaginatedFolderList
@@ -106,8 +109,9 @@ from .response_type_enum import ResponseTypeEnum
 from .role_enum import RoleEnum
 from .roles_enum import RolesEnum
 from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
+from .status_fd_5_enum import StatusFd5Enum
 from .sync_status import SyncStatus
-from .sync_status_status_enum import SyncStatusStatusEnum
+from .sync_status_last_sync_result import SyncStatusLastSyncResult
 from .type_enum import TypeEnum
 from .user import User
 from .validation_problem_source import ValidationProblemSource
@@ -134,6 +138,7 @@ __all__ = [
     "DataPassthroughRequest",
     "DebugModeLog",
     "DebugModelLogSummary",
+    "DownloadRequestMeta",
     "Drive",
     "EnabledActionsEnum",
     "EncodingEnum",
@@ -179,6 +184,7 @@ __all__ = [
     "IssueStatus",
     "IssueStatusEnum",
     "LanguageEnum",
+    "LastSyncResultEnum",
     "LinkToken",
     "LinkedAccountStatus",
     "MetaResponse",
@@ -190,6 +196,7 @@ __all__ = [
     "MultipartFormFieldRequestEncoding",
     "PaginatedAccountDetailsAndActionsList",
     "PaginatedAuditLogEventList",
+    "PaginatedDownloadRequestMetaList",
     "PaginatedDriveList",
     "PaginatedFileList",
     "PaginatedFolderList",
@@ -219,8 +226,9 @@ __all__ = [
     "RoleEnum",
     "RolesEnum",
     "SelectiveSyncConfigurationsUsageEnum",
+    "StatusFd5Enum",
     "SyncStatus",
-    "SyncStatusStatusEnum",
+    "SyncStatusLastSyncResult",
     "TypeEnum",
     "User",
     "ValidationProblemSource",

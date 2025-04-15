@@ -7,7 +7,7 @@ from .types.comments_list_request_expand import CommentsListRequestExpand
 from .....core.request_options import RequestOptions
 from ...types.paginated_comment_list import PaginatedCommentList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.comment_request import CommentRequest
@@ -132,7 +132,7 @@ class CommentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedCommentList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedCommentList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -201,7 +201,7 @@ class CommentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     CommentResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=CommentResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -217,6 +217,7 @@ class CommentsClient:
         *,
         expand: typing.Optional[CommentsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Comment:
         """
@@ -231,6 +232,9 @@ class CommentsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -258,6 +262,7 @@ class CommentsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -265,7 +270,7 @@ class CommentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Comment,
-                    parse_obj_as(
+                    construct_type(
                         type_=Comment,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -308,7 +313,7 @@ class CommentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -437,7 +442,7 @@ class AsyncCommentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedCommentList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedCommentList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -514,7 +519,7 @@ class AsyncCommentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     CommentResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=CommentResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -530,6 +535,7 @@ class AsyncCommentsClient:
         *,
         expand: typing.Optional[CommentsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Comment:
         """
@@ -544,6 +550,9 @@ class AsyncCommentsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -579,6 +588,7 @@ class AsyncCommentsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -586,7 +596,7 @@ class AsyncCommentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Comment,
-                    parse_obj_as(
+                    construct_type(
                         type_=Comment,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -637,7 +647,7 @@ class AsyncCommentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),

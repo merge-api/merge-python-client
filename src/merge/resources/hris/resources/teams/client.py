@@ -6,7 +6,7 @@ import datetime as dt
 from .....core.request_options import RequestOptions
 from ...types.paginated_team_list import PaginatedTeamList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.team import Team
@@ -117,7 +117,7 @@ class TeamsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedTeamList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedTeamList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -133,6 +133,7 @@ class TeamsClient:
         *,
         expand: typing.Optional[typing.Literal["parent_team"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Team:
         """
@@ -147,6 +148,9 @@ class TeamsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -174,6 +178,7 @@ class TeamsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -181,7 +186,7 @@ class TeamsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Team,
-                    parse_obj_as(
+                    construct_type(
                         type_=Team,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -303,7 +308,7 @@ class AsyncTeamsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedTeamList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedTeamList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -319,6 +324,7 @@ class AsyncTeamsClient:
         *,
         expand: typing.Optional[typing.Literal["parent_team"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Team:
         """
@@ -333,6 +339,9 @@ class AsyncTeamsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -368,6 +377,7 @@ class AsyncTeamsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -375,7 +385,7 @@ class AsyncTeamsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Team,
-                    parse_obj_as(
+                    construct_type(
                         type_=Team,  # type: ignore
                         object_=_response.json(),
                     ),

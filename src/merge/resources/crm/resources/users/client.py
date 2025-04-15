@@ -6,7 +6,7 @@ import datetime as dt
 from .....core.request_options import RequestOptions
 from ...types.paginated_user_list import PaginatedUserList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.user import User
@@ -122,7 +122,7 @@ class UsersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedUserList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedUserList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -138,6 +138,7 @@ class UsersClient:
         *,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
@@ -152,6 +153,9 @@ class UsersClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -179,6 +183,7 @@ class UsersClient:
             params={
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -186,7 +191,7 @@ class UsersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     User,
-                    parse_obj_as(
+                    construct_type(
                         type_=User,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -324,7 +329,7 @@ class UsersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedRemoteFieldClassList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -446,7 +451,7 @@ class AsyncUsersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedUserList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedUserList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -462,6 +467,7 @@ class AsyncUsersClient:
         *,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
@@ -476,6 +482,9 @@ class AsyncUsersClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -511,6 +520,7 @@ class AsyncUsersClient:
             params={
                 "include_remote_data": include_remote_data,
                 "include_remote_fields": include_remote_fields,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -518,7 +528,7 @@ class AsyncUsersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     User,
-                    parse_obj_as(
+                    construct_type(
                         type_=User,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -672,7 +682,7 @@ class AsyncUsersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedRemoteFieldClassList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),

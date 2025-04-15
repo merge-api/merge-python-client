@@ -7,7 +7,7 @@ from .types.time_off_balances_list_request_policy_type import TimeOffBalancesLis
 from .....core.request_options import RequestOptions
 from ...types.paginated_time_off_balance_list import PaginatedTimeOffBalanceList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.time_off_balance import TimeOffBalance
@@ -140,7 +140,7 @@ class TimeOffBalancesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedTimeOffBalanceList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedTimeOffBalanceList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -156,6 +156,7 @@ class TimeOffBalancesClient:
         *,
         expand: typing.Optional[typing.Literal["employee"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["policy_type"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["policy_type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -172,6 +173,9 @@ class TimeOffBalancesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["policy_type"]]
             Deprecated. Use show_enum_origins.
@@ -205,6 +209,7 @@ class TimeOffBalancesClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -214,7 +219,7 @@ class TimeOffBalancesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     TimeOffBalance,
-                    parse_obj_as(
+                    construct_type(
                         type_=TimeOffBalance,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -358,7 +363,7 @@ class AsyncTimeOffBalancesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedTimeOffBalanceList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedTimeOffBalanceList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -374,6 +379,7 @@ class AsyncTimeOffBalancesClient:
         *,
         expand: typing.Optional[typing.Literal["employee"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["policy_type"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["policy_type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -390,6 +396,9 @@ class AsyncTimeOffBalancesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["policy_type"]]
             Deprecated. Use show_enum_origins.
@@ -431,6 +440,7 @@ class AsyncTimeOffBalancesClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -440,7 +450,7 @@ class AsyncTimeOffBalancesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     TimeOffBalance,
-                    parse_obj_as(
+                    construct_type(
                         type_=TimeOffBalance,  # type: ignore
                         object_=_response.json(),
                     ),

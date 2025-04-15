@@ -5,7 +5,7 @@ import typing
 from .....core.request_options import RequestOptions
 from ...types.account_token import AccountToken
 from .....core.jsonable_encoder import jsonable_encoder
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper
@@ -52,7 +52,7 @@ class AccountTokenClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AccountToken,
-                    parse_obj_as(
+                    construct_type(
                         type_=AccountToken,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -114,7 +114,7 @@ class AsyncAccountTokenClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AccountToken,
-                    parse_obj_as(
+                    construct_type(
                         type_=AccountToken,  # type: ignore
                         object_=_response.json(),
                     ),

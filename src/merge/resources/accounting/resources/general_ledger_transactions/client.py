@@ -7,7 +7,7 @@ from .types.general_ledger_transactions_list_request_expand import GeneralLedger
 from .....core.request_options import RequestOptions
 from ...types.paginated_general_ledger_transaction_list import PaginatedGeneralLedgerTransactionList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from .types.general_ledger_transactions_retrieve_request_expand import GeneralLedgerTransactionsRetrieveRequestExpand
@@ -131,7 +131,7 @@ class GeneralLedgerTransactionsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedGeneralLedgerTransactionList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedGeneralLedgerTransactionList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -147,6 +147,7 @@ class GeneralLedgerTransactionsClient:
         *,
         expand: typing.Optional[GeneralLedgerTransactionsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GeneralLedgerTransaction:
         """
@@ -161,6 +162,9 @@ class GeneralLedgerTransactionsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -188,6 +192,7 @@ class GeneralLedgerTransactionsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -195,7 +200,7 @@ class GeneralLedgerTransactionsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     GeneralLedgerTransaction,
-                    parse_obj_as(
+                    construct_type(
                         type_=GeneralLedgerTransaction,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -329,7 +334,7 @@ class AsyncGeneralLedgerTransactionsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedGeneralLedgerTransactionList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedGeneralLedgerTransactionList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -345,6 +350,7 @@ class AsyncGeneralLedgerTransactionsClient:
         *,
         expand: typing.Optional[GeneralLedgerTransactionsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GeneralLedgerTransaction:
         """
@@ -359,6 +365,9 @@ class AsyncGeneralLedgerTransactionsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -394,6 +403,7 @@ class AsyncGeneralLedgerTransactionsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
             },
             request_options=request_options,
         )
@@ -401,7 +411,7 @@ class AsyncGeneralLedgerTransactionsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     GeneralLedgerTransaction,
-                    parse_obj_as(
+                    construct_type(
                         type_=GeneralLedgerTransaction,  # type: ignore
                         object_=_response.json(),
                     ),

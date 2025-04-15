@@ -6,7 +6,7 @@ import typing
 T_Result = typing.TypeVar("T_Result")
 
 
-class SyncStatusStatusEnum(str, enum.Enum):
+class LastSyncResultEnum(str, enum.Enum):
     """
     - `SYNCING` - SYNCING
     - `DONE` - DONE
@@ -32,15 +32,15 @@ class SyncStatusStatusEnum(str, enum.Enum):
         paused: typing.Callable[[], T_Result],
         partially_synced: typing.Callable[[], T_Result],
     ) -> T_Result:
-        if self is SyncStatusStatusEnum.SYNCING:
+        if self is LastSyncResultEnum.SYNCING:
             return syncing()
-        if self is SyncStatusStatusEnum.DONE:
+        if self is LastSyncResultEnum.DONE:
             return done()
-        if self is SyncStatusStatusEnum.FAILED:
+        if self is LastSyncResultEnum.FAILED:
             return failed()
-        if self is SyncStatusStatusEnum.DISABLED:
+        if self is LastSyncResultEnum.DISABLED:
             return disabled()
-        if self is SyncStatusStatusEnum.PAUSED:
+        if self is LastSyncResultEnum.PAUSED:
             return paused()
-        if self is SyncStatusStatusEnum.PARTIALLY_SYNCED:
+        if self is LastSyncResultEnum.PARTIALLY_SYNCED:
             return partially_synced()

@@ -6,7 +6,7 @@ import datetime as dt
 from .....core.request_options import RequestOptions
 from ...types.paginated_attachment_list import PaginatedAttachmentList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.attachment_request import AttachmentRequest
@@ -133,7 +133,7 @@ class AttachmentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedAttachmentList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedAttachmentList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -207,7 +207,7 @@ class AttachmentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AttachmentResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=AttachmentResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -223,6 +223,7 @@ class AttachmentsClient:
         *,
         expand: typing.Optional[typing.Literal["candidate"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["attachment_type"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["attachment_type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -239,6 +240,9 @@ class AttachmentsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["attachment_type"]]
             Deprecated. Use show_enum_origins.
@@ -272,6 +276,7 @@ class AttachmentsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -281,7 +286,7 @@ class AttachmentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Attachment,
-                    parse_obj_as(
+                    construct_type(
                         type_=Attachment,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -324,7 +329,7 @@ class AttachmentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -456,7 +461,7 @@ class AsyncAttachmentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedAttachmentList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedAttachmentList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -538,7 +543,7 @@ class AsyncAttachmentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AttachmentResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=AttachmentResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -554,6 +559,7 @@ class AsyncAttachmentsClient:
         *,
         expand: typing.Optional[typing.Literal["candidate"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["attachment_type"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["attachment_type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -570,6 +576,9 @@ class AsyncAttachmentsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["attachment_type"]]
             Deprecated. Use show_enum_origins.
@@ -611,6 +620,7 @@ class AsyncAttachmentsClient:
             params={
                 "expand": expand,
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -620,7 +630,7 @@ class AsyncAttachmentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Attachment,
-                    parse_obj_as(
+                    construct_type(
                         type_=Attachment,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -671,7 +681,7 @@ class AsyncAttachmentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MetaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),

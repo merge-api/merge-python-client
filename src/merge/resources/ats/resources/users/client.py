@@ -6,7 +6,7 @@ import datetime as dt
 from .....core.request_options import RequestOptions
 from ...types.paginated_remote_user_list import PaginatedRemoteUserList
 from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
+from .....core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from .....core.api_error import ApiError
 from ...types.remote_user import RemoteUser
@@ -122,7 +122,7 @@ class UsersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedRemoteUserList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedRemoteUserList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -137,6 +137,7 @@ class UsersClient:
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["access_role"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["access_role"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -150,6 +151,9 @@ class UsersClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["access_role"]]
             Deprecated. Use show_enum_origins.
@@ -182,6 +186,7 @@ class UsersClient:
             method="GET",
             params={
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -191,7 +196,7 @@ class UsersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     RemoteUser,
-                    parse_obj_as(
+                    construct_type(
                         type_=RemoteUser,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -318,7 +323,7 @@ class AsyncUsersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     PaginatedRemoteUserList,
-                    parse_obj_as(
+                    construct_type(
                         type_=PaginatedRemoteUserList,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -333,6 +338,7 @@ class AsyncUsersClient:
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["access_role"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["access_role"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -346,6 +352,9 @@ class AsyncUsersClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["access_role"]]
             Deprecated. Use show_enum_origins.
@@ -386,6 +395,7 @@ class AsyncUsersClient:
             method="GET",
             params={
                 "include_remote_data": include_remote_data,
+                "include_shell_data": include_shell_data,
                 "remote_fields": remote_fields,
                 "show_enum_origins": show_enum_origins,
             },
@@ -395,7 +405,7 @@ class AsyncUsersClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     RemoteUser,
-                    parse_obj_as(
+                    construct_type(
                         type_=RemoteUser,  # type: ignore
                         object_=_response.json(),
                     ),

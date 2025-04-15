@@ -110,6 +110,7 @@ from .job_status import JobStatus
 from .job_status_enum import JobStatusEnum
 from .job_type_enum import JobTypeEnum
 from .language_enum import LanguageEnum
+from .last_sync_result_enum import LastSyncResultEnum
 from .link_token import LinkToken
 from .linked_account_status import LinkedAccountStatus
 from .meta_response import MetaResponse
@@ -198,8 +199,8 @@ from .screening_question_option import ScreeningQuestionOption
 from .screening_question_type import ScreeningQuestionType
 from .screening_question_type_enum import ScreeningQuestionTypeEnum
 from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
+from .status_fd_5_enum import StatusFd5Enum
 from .sync_status import SyncStatus
-from .sync_status_status_enum import SyncStatusStatusEnum
 from .tag import Tag
 from .url import Url
 from .url_request import UrlRequest
@@ -321,6 +322,7 @@ __all__ = [
     "JobStatusEnum",
     "JobTypeEnum",
     "LanguageEnum",
+    "LastSyncResultEnum",
     "LinkToken",
     "LinkedAccountStatus",
     "MetaResponse",
@@ -409,8 +411,8 @@ __all__ = [
     "ScreeningQuestionType",
     "ScreeningQuestionTypeEnum",
     "SelectiveSyncConfigurationsUsageEnum",
+    "StatusFd5Enum",
     "SyncStatus",
-    "SyncStatusStatusEnum",
     "Tag",
     "Url",
     "UrlRequest",
