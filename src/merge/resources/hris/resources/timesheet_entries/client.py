@@ -2,20 +2,17 @@
 
 import typing
 from .....core.client_wrapper import SyncClientWrapper
+from .raw_client import RawTimesheetEntriesClient
 import datetime as dt
 from .types.timesheet_entries_list_request_order_by import TimesheetEntriesListRequestOrderBy
 from .....core.request_options import RequestOptions
 from ...types.paginated_timesheet_entry_list import PaginatedTimesheetEntryList
-from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from .....core.api_error import ApiError
 from ...types.timesheet_entry_request import TimesheetEntryRequest
 from ...types.timesheet_entry_response import TimesheetEntryResponse
 from ...types.timesheet_entry import TimesheetEntry
-from .....core.jsonable_encoder import jsonable_encoder
 from ...types.meta_response import MetaResponse
 from .....core.client_wrapper import AsyncClientWrapper
+from .raw_client import AsyncRawTimesheetEntriesClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -23,7 +20,18 @@ OMIT = typing.cast(typing.Any, ...)
 
 class TimesheetEntriesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = RawTimesheetEntriesClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawTimesheetEntriesClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawTimesheetEntriesClient
+        """
+        return self._raw_client
 
     def list(
         self,
@@ -121,43 +129,27 @@ class TimesheetEntriesClient:
         )
         client.hris.timesheet_entries.list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/timesheet-entries",
-            method="GET",
-            params={
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "employee_id": employee_id,
-                "ended_after": serialize_datetime(ended_after) if ended_after is not None else None,
-                "ended_before": serialize_datetime(ended_before) if ended_before is not None else None,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "order_by": order_by,
-                "page_size": page_size,
-                "remote_id": remote_id,
-                "started_after": serialize_datetime(started_after) if started_after is not None else None,
-                "started_before": serialize_datetime(started_before) if started_before is not None else None,
-            },
+        response = self._raw_client.list(
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            employee_id=employee_id,
+            ended_after=ended_after,
+            ended_before=ended_before,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            order_by=order_by,
+            page_size=page_size,
+            remote_id=remote_id,
+            started_after=started_after,
+            started_before=started_before,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedTimesheetEntryList,
-                    parse_obj_as(
-                        type_=PaginatedTimesheetEntryList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def create(
         self,
@@ -201,32 +193,10 @@ class TimesheetEntriesClient:
             model=TimesheetEntryRequest(),
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/timesheet-entries",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    TimesheetEntryResponse,
-                    parse_obj_as(
-                        type_=TimesheetEntryResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def retrieve(
         self,
@@ -234,6 +204,7 @@ class TimesheetEntriesClient:
         *,
         expand: typing.Optional[typing.Literal["employee"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TimesheetEntry:
         """
@@ -248,6 +219,9 @@ class TimesheetEntriesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -269,28 +243,14 @@ class TimesheetEntriesClient:
             id="id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"hris/v1/timesheet-entries/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-            },
+        response = self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    TimesheetEntry,
-                    parse_obj_as(
-                        type_=TimesheetEntry,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -316,29 +276,24 @@ class TimesheetEntriesClient:
         )
         client.hris.timesheet_entries.meta_post_retrieve()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/timesheet-entries/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data
 
 
 class AsyncTimesheetEntriesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = AsyncRawTimesheetEntriesClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawTimesheetEntriesClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawTimesheetEntriesClient
+        """
+        return self._raw_client
 
     async def list(
         self,
@@ -444,43 +399,27 @@ class AsyncTimesheetEntriesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/timesheet-entries",
-            method="GET",
-            params={
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "employee_id": employee_id,
-                "ended_after": serialize_datetime(ended_after) if ended_after is not None else None,
-                "ended_before": serialize_datetime(ended_before) if ended_before is not None else None,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "order_by": order_by,
-                "page_size": page_size,
-                "remote_id": remote_id,
-                "started_after": serialize_datetime(started_after) if started_after is not None else None,
-                "started_before": serialize_datetime(started_before) if started_before is not None else None,
-            },
+        response = await self._raw_client.list(
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            employee_id=employee_id,
+            ended_after=ended_after,
+            ended_before=ended_before,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            order_by=order_by,
+            page_size=page_size,
+            remote_id=remote_id,
+            started_after=started_after,
+            started_before=started_before,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedTimesheetEntryList,
-                    parse_obj_as(
-                        type_=PaginatedTimesheetEntryList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def create(
         self,
@@ -532,32 +471,10 @@ class AsyncTimesheetEntriesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/timesheet-entries",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = await self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    TimesheetEntryResponse,
-                    parse_obj_as(
-                        type_=TimesheetEntryResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def retrieve(
         self,
@@ -565,6 +482,7 @@ class AsyncTimesheetEntriesClient:
         *,
         expand: typing.Optional[typing.Literal["employee"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TimesheetEntry:
         """
@@ -579,6 +497,9 @@ class AsyncTimesheetEntriesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -608,28 +529,14 @@ class AsyncTimesheetEntriesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"hris/v1/timesheet-entries/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-            },
+        response = await self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    TimesheetEntry,
-                    parse_obj_as(
-                        type_=TimesheetEntry,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -663,21 +570,5 @@ class AsyncTimesheetEntriesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/timesheet-entries/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data

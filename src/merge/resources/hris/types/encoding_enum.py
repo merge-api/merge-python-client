@@ -8,9 +8,9 @@ T_Result = typing.TypeVar("T_Result")
 
 class EncodingEnum(str, enum.Enum):
     """
-    - `RAW` - RAW
-    - `BASE64` - BASE64
-    - `GZIP_BASE64` - GZIP_BASE64
+    * `RAW` - RAW
+    * `BASE64` - BASE64
+    * `GZIP_BASE64` - GZIP_BASE64
     """
 
     RAW = "RAW"

@@ -2,23 +2,20 @@
 
 import typing
 from .....core.client_wrapper import SyncClientWrapper
+from .raw_client import RawActivitiesClient
 import datetime as dt
 from .types.activities_list_request_remote_fields import ActivitiesListRequestRemoteFields
 from .types.activities_list_request_show_enum_origins import ActivitiesListRequestShowEnumOrigins
 from .....core.request_options import RequestOptions
 from ...types.paginated_activity_list import PaginatedActivityList
-from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from .....core.api_error import ApiError
 from ...types.activity_request import ActivityRequest
 from ...types.activity_response import ActivityResponse
 from .types.activities_retrieve_request_remote_fields import ActivitiesRetrieveRequestRemoteFields
 from .types.activities_retrieve_request_show_enum_origins import ActivitiesRetrieveRequestShowEnumOrigins
 from ...types.activity import Activity
-from .....core.jsonable_encoder import jsonable_encoder
 from ...types.meta_response import MetaResponse
 from .....core.client_wrapper import AsyncClientWrapper
+from .raw_client import AsyncRawActivitiesClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -26,7 +23,18 @@ OMIT = typing.cast(typing.Any, ...)
 
 class ActivitiesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = RawActivitiesClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawActivitiesClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawActivitiesClient
+        """
+        return self._raw_client
 
     def list(
         self,
@@ -112,40 +120,24 @@ class ActivitiesClient:
         )
         client.ats.activities.list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "ats/v1/activities",
-            method="GET",
-            params={
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "page_size": page_size,
-                "remote_fields": remote_fields,
-                "remote_id": remote_id,
-                "show_enum_origins": show_enum_origins,
-                "user_id": user_id,
-            },
+        response = self._raw_client.list(
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            page_size=page_size,
+            remote_fields=remote_fields,
+            remote_id=remote_id,
+            show_enum_origins=show_enum_origins,
+            user_id=user_id,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedActivityList,
-                    parse_obj_as(
-                        type_=PaginatedActivityList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def create(
         self,
@@ -193,33 +185,14 @@ class ActivitiesClient:
             remote_user_id="remote_user_id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "ats/v1/activities",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-                "remote_user_id": remote_user_id,
-            },
+        response = self._raw_client.create(
+            model=model,
+            remote_user_id=remote_user_id,
+            is_debug_mode=is_debug_mode,
+            run_async=run_async,
             request_options=request_options,
-            omit=OMIT,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    ActivityResponse,
-                    parse_obj_as(
-                        type_=ActivityResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def retrieve(
         self,
@@ -227,6 +200,7 @@ class ActivitiesClient:
         *,
         expand: typing.Optional[typing.Literal["user"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[ActivitiesRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[ActivitiesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -243,6 +217,9 @@ class ActivitiesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[ActivitiesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -270,30 +247,16 @@ class ActivitiesClient:
             id="id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"ats/v1/activities/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-                "remote_fields": remote_fields,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Activity,
-                    parse_obj_as(
-                        type_=Activity,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -319,29 +282,24 @@ class ActivitiesClient:
         )
         client.ats.activities.meta_post_retrieve()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "ats/v1/activities/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data
 
 
 class AsyncActivitiesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = AsyncRawActivitiesClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawActivitiesClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawActivitiesClient
+        """
+        return self._raw_client
 
     async def list(
         self,
@@ -435,40 +393,24 @@ class AsyncActivitiesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "ats/v1/activities",
-            method="GET",
-            params={
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "page_size": page_size,
-                "remote_fields": remote_fields,
-                "remote_id": remote_id,
-                "show_enum_origins": show_enum_origins,
-                "user_id": user_id,
-            },
+        response = await self._raw_client.list(
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            page_size=page_size,
+            remote_fields=remote_fields,
+            remote_id=remote_id,
+            show_enum_origins=show_enum_origins,
+            user_id=user_id,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedActivityList,
-                    parse_obj_as(
-                        type_=PaginatedActivityList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def create(
         self,
@@ -524,33 +466,14 @@ class AsyncActivitiesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "ats/v1/activities",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-                "remote_user_id": remote_user_id,
-            },
+        response = await self._raw_client.create(
+            model=model,
+            remote_user_id=remote_user_id,
+            is_debug_mode=is_debug_mode,
+            run_async=run_async,
             request_options=request_options,
-            omit=OMIT,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    ActivityResponse,
-                    parse_obj_as(
-                        type_=ActivityResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def retrieve(
         self,
@@ -558,6 +481,7 @@ class AsyncActivitiesClient:
         *,
         expand: typing.Optional[typing.Literal["user"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[ActivitiesRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[ActivitiesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -574,6 +498,9 @@ class AsyncActivitiesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[ActivitiesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -609,30 +536,16 @@ class AsyncActivitiesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"ats/v1/activities/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-                "remote_fields": remote_fields,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = await self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Activity,
-                    parse_obj_as(
-                        type_=Activity,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -666,21 +579,5 @@ class AsyncActivitiesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "ats/v1/activities/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data

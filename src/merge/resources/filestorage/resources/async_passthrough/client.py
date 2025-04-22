@@ -2,15 +2,13 @@
 
 import typing
 from .....core.client_wrapper import SyncClientWrapper
+from .raw_client import RawAsyncPassthroughClient
 from ...types.data_passthrough_request import DataPassthroughRequest
 from .....core.request_options import RequestOptions
 from ...types.async_passthrough_reciept import AsyncPassthroughReciept
-from .....core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from .....core.api_error import ApiError
 from .types.async_passthrough_retrieve_response import AsyncPassthroughRetrieveResponse
-from .....core.jsonable_encoder import jsonable_encoder
 from .....core.client_wrapper import AsyncClientWrapper
+from .raw_client import AsyncRawAsyncPassthroughClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -18,7 +16,18 @@ OMIT = typing.cast(typing.Any, ...)
 
 class AsyncPassthroughClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = RawAsyncPassthroughClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawAsyncPassthroughClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawAsyncPassthroughClient
+        """
+        return self._raw_client
 
     def create(
         self, *, request: DataPassthroughRequest, request_options: typing.Optional[RequestOptions] = None
@@ -54,26 +63,8 @@ class AsyncPassthroughClient:
             ),
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "filestorage/v1/async-passthrough",
-            method="POST",
-            json=request,
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    AsyncPassthroughReciept,
-                    parse_obj_as(
-                        type_=AsyncPassthroughReciept,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.create(request=request, request_options=request_options)
+        return response.data
 
     def retrieve(
         self, async_passthrough_receipt_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -105,29 +96,24 @@ class AsyncPassthroughClient:
             async_passthrough_receipt_id="async_passthrough_receipt_id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"filestorage/v1/async-passthrough/{jsonable_encoder(async_passthrough_receipt_id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    AsyncPassthroughRetrieveResponse,
-                    parse_obj_as(
-                        type_=AsyncPassthroughRetrieveResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.retrieve(async_passthrough_receipt_id, request_options=request_options)
+        return response.data
 
 
 class AsyncAsyncPassthroughClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = AsyncRawAsyncPassthroughClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawAsyncPassthroughClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawAsyncPassthroughClient
+        """
+        return self._raw_client
 
     async def create(
         self, *, request: DataPassthroughRequest, request_options: typing.Optional[RequestOptions] = None
@@ -171,26 +157,8 @@ class AsyncAsyncPassthroughClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "filestorage/v1/async-passthrough",
-            method="POST",
-            json=request,
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    AsyncPassthroughReciept,
-                    parse_obj_as(
-                        type_=AsyncPassthroughReciept,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.create(request=request, request_options=request_options)
+        return response.data
 
     async def retrieve(
         self, async_passthrough_receipt_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -230,21 +198,5 @@ class AsyncAsyncPassthroughClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"filestorage/v1/async-passthrough/{jsonable_encoder(async_passthrough_receipt_id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    AsyncPassthroughRetrieveResponse,
-                    parse_obj_as(
-                        type_=AsyncPassthroughRetrieveResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.retrieve(async_passthrough_receipt_id, request_options=request_options)
+        return response.data

@@ -2,16 +2,15 @@
 
 import typing
 from .....core.client_wrapper import SyncClientWrapper
+from .raw_client import RawLinkTokenClient
 from ...types.categories_enum import CategoriesEnum
 from ...types.common_model_scopes_body_request import CommonModelScopesBodyRequest
 from ...types.individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
 from ...types.language_enum import LanguageEnum
 from .....core.request_options import RequestOptions
 from ...types.link_token import LinkToken
-from .....core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper
+from .raw_client import AsyncRawLinkTokenClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -19,7 +18,18 @@ OMIT = typing.cast(typing.Any, ...)
 
 class LinkTokenClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = RawLinkTokenClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawLinkTokenClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawLinkTokenClient
+        """
+        return self._raw_client
 
     def create(
         self,
@@ -112,45 +122,39 @@ class LinkTokenClient:
             categories=[CategoriesEnum.HRIS, CategoriesEnum.ATS],
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/link-token",
-            method="POST",
-            json={
-                "end_user_email_address": end_user_email_address,
-                "end_user_organization_name": end_user_organization_name,
-                "end_user_origin_id": end_user_origin_id,
-                "categories": categories,
-                "integration": integration,
-                "link_expiry_mins": link_expiry_mins,
-                "should_create_magic_link_url": should_create_magic_link_url,
-                "hide_admin_magic_link": hide_admin_magic_link,
-                "common_models": common_models,
-                "category_common_model_scopes": category_common_model_scopes,
-                "language": language,
-                "are_syncs_disabled": are_syncs_disabled,
-                "integration_specific_config": integration_specific_config,
-            },
+        response = self._raw_client.create(
+            end_user_email_address=end_user_email_address,
+            end_user_organization_name=end_user_organization_name,
+            end_user_origin_id=end_user_origin_id,
+            categories=categories,
+            integration=integration,
+            link_expiry_mins=link_expiry_mins,
+            should_create_magic_link_url=should_create_magic_link_url,
+            hide_admin_magic_link=hide_admin_magic_link,
+            common_models=common_models,
+            category_common_model_scopes=category_common_model_scopes,
+            language=language,
+            are_syncs_disabled=are_syncs_disabled,
+            integration_specific_config=integration_specific_config,
             request_options=request_options,
-            omit=OMIT,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    LinkToken,
-                    parse_obj_as(
-                        type_=LinkToken,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
 
 class AsyncLinkTokenClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = AsyncRawLinkTokenClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawLinkTokenClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawLinkTokenClient
+        """
+        return self._raw_client
 
     async def create(
         self,
@@ -251,37 +255,20 @@ class AsyncLinkTokenClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/link-token",
-            method="POST",
-            json={
-                "end_user_email_address": end_user_email_address,
-                "end_user_organization_name": end_user_organization_name,
-                "end_user_origin_id": end_user_origin_id,
-                "categories": categories,
-                "integration": integration,
-                "link_expiry_mins": link_expiry_mins,
-                "should_create_magic_link_url": should_create_magic_link_url,
-                "hide_admin_magic_link": hide_admin_magic_link,
-                "common_models": common_models,
-                "category_common_model_scopes": category_common_model_scopes,
-                "language": language,
-                "are_syncs_disabled": are_syncs_disabled,
-                "integration_specific_config": integration_specific_config,
-            },
+        response = await self._raw_client.create(
+            end_user_email_address=end_user_email_address,
+            end_user_organization_name=end_user_organization_name,
+            end_user_origin_id=end_user_origin_id,
+            categories=categories,
+            integration=integration,
+            link_expiry_mins=link_expiry_mins,
+            should_create_magic_link_url=should_create_magic_link_url,
+            hide_admin_magic_link=hide_admin_magic_link,
+            common_models=common_models,
+            category_common_model_scopes=category_common_model_scopes,
+            language=language,
+            are_syncs_disabled=are_syncs_disabled,
+            integration_specific_config=integration_specific_config,
             request_options=request_options,
-            omit=OMIT,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    LinkToken,
-                    parse_obj_as(
-                        type_=LinkToken,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data

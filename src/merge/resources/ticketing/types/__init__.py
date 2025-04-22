@@ -24,7 +24,6 @@ from .collection import Collection
 from .collection_access_level import CollectionAccessLevel
 from .collection_collection_type import CollectionCollectionType
 from .collection_parent_collection import CollectionParentCollection
-from .collection_teams_item import CollectionTeamsItem
 from .collection_type_enum import CollectionTypeEnum
 from .comment import Comment
 from .comment_contact import CommentContact
@@ -71,6 +70,7 @@ from .item_format_enum import ItemFormatEnum
 from .item_schema import ItemSchema
 from .item_type_enum import ItemTypeEnum
 from .language_enum import LanguageEnum
+from .last_sync_result_enum import LastSyncResultEnum
 from .link_token import LinkToken
 from .linked_account_status import LinkedAccountStatus
 from .meta_response import MetaResponse
@@ -124,8 +124,8 @@ from .role_enum import RoleEnum
 from .role_ticket_access import RoleTicketAccess
 from .role_ticket_actions_item import RoleTicketActionsItem
 from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
+from .status_fd_5_enum import StatusFd5Enum
 from .sync_status import SyncStatus
-from .sync_status_status_enum import SyncStatusStatusEnum
 from .tag import Tag
 from .team import Team
 from .ticket import Ticket
@@ -191,7 +191,6 @@ __all__ = [
     "CollectionAccessLevel",
     "CollectionCollectionType",
     "CollectionParentCollection",
-    "CollectionTeamsItem",
     "CollectionTypeEnum",
     "Comment",
     "CommentContact",
@@ -236,6 +235,7 @@ __all__ = [
     "ItemSchema",
     "ItemTypeEnum",
     "LanguageEnum",
+    "LastSyncResultEnum",
     "LinkToken",
     "LinkedAccountStatus",
     "MetaResponse",
@@ -289,8 +289,8 @@ __all__ = [
     "RoleTicketAccess",
     "RoleTicketActionsItem",
     "SelectiveSyncConfigurationsUsageEnum",
+    "StatusFd5Enum",
     "SyncStatus",
-    "SyncStatusStatusEnum",
     "Tag",
     "Team",
     "Ticket",

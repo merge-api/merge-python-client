@@ -8,9 +8,9 @@ T_Result = typing.TypeVar("T_Result")
 
 class RolesEnum(str, enum.Enum):
     """
-    - `READ` - READ
-    - `WRITE` - WRITE
-    - `OWNER` - OWNER
+    * `READ` - READ
+    * `WRITE` - WRITE
+    * `OWNER` - OWNER
     """
 
     READ = "READ"

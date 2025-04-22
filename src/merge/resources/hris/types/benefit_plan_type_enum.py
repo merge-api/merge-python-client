@@ -8,11 +8,11 @@ T_Result = typing.TypeVar("T_Result")
 
 class BenefitPlanTypeEnum(str, enum.Enum):
     """
-    - `MEDICAL` - MEDICAL
-    - `HEALTH_SAVINGS` - HEALTH_SAVINGS
-    - `INSURANCE` - INSURANCE
-    - `RETIREMENT` - RETIREMENT
-    - `OTHER` - OTHER
+    * `MEDICAL` - MEDICAL
+    * `HEALTH_SAVINGS` - HEALTH_SAVINGS
+    * `INSURANCE` - INSURANCE
+    * `RETIREMENT` - RETIREMENT
+    * `OTHER` - OTHER
     """
 
     MEDICAL = "MEDICAL"

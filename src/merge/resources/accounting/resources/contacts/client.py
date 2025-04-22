@@ -2,22 +2,19 @@
 
 import typing
 from .....core.client_wrapper import SyncClientWrapper
+from .raw_client import RawContactsClient
 import datetime as dt
 from .types.contacts_list_request_expand import ContactsListRequestExpand
 from .....core.request_options import RequestOptions
 from ...types.paginated_contact_list import PaginatedContactList
-from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from .....core.api_error import ApiError
 from ...types.contact_request import ContactRequest
 from ...types.contact_response import ContactResponse
 from .types.contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
 from ...types.contact import Contact
-from .....core.jsonable_encoder import jsonable_encoder
 from ...types.meta_response import MetaResponse
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from .....core.client_wrapper import AsyncClientWrapper
+from .raw_client import AsyncRawContactsClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -25,7 +22,18 @@ OMIT = typing.cast(typing.Any, ...)
 
 class ContactsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = RawContactsClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawContactsClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawContactsClient
+        """
+        return self._raw_client
 
     def list(
         self,
@@ -131,45 +139,29 @@ class ContactsClient:
         )
         client.accounting.contacts.list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "accounting/v1/contacts",
-            method="GET",
-            params={
-                "company_id": company_id,
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "email_address": email_address,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "include_shell_data": include_shell_data,
-                "is_customer": is_customer,
-                "is_supplier": is_supplier,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "name": name,
-                "page_size": page_size,
-                "remote_fields": remote_fields,
-                "remote_id": remote_id,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = self._raw_client.list(
+            company_id=company_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            email_address=email_address,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            is_customer=is_customer,
+            is_supplier=is_supplier,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            name=name,
+            page_size=page_size,
+            remote_fields=remote_fields,
+            remote_id=remote_id,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedContactList,
-                    parse_obj_as(
-                        type_=PaginatedContactList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def create(
         self,
@@ -213,32 +205,10 @@ class ContactsClient:
             model=ContactRequest(),
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "accounting/v1/contacts",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    ContactResponse,
-                    parse_obj_as(
-                        type_=ContactResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def retrieve(
         self,
@@ -247,6 +217,7 @@ class ContactsClient:
         expand: typing.Optional[ContactsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -266,6 +237,9 @@ class ContactsClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -293,31 +267,17 @@ class ContactsClient:
             id="id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"accounting/v1/contacts/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "remote_fields": remote_fields,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Contact,
-                    parse_obj_as(
-                        type_=Contact,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -343,24 +303,8 @@ class ContactsClient:
         )
         client.accounting.contacts.meta_post_retrieve()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "accounting/v1/contacts/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data
 
     def remote_field_classes_list(
         self,
@@ -414,37 +358,32 @@ class ContactsClient:
         )
         client.accounting.contacts.remote_field_classes_list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "accounting/v1/contacts/remote-field-classes",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "is_common_model_field": is_common_model_field,
-                "page_size": page_size,
-            },
+        response = self._raw_client.remote_field_classes_list(
+            cursor=cursor,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            is_common_model_field=is_common_model_field,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedRemoteFieldClassList,
-                    parse_obj_as(
-                        type_=PaginatedRemoteFieldClassList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
 
 class AsyncContactsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = AsyncRawContactsClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawContactsClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawContactsClient
+        """
+        return self._raw_client
 
     async def list(
         self,
@@ -558,45 +497,29 @@ class AsyncContactsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "accounting/v1/contacts",
-            method="GET",
-            params={
-                "company_id": company_id,
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "email_address": email_address,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "include_shell_data": include_shell_data,
-                "is_customer": is_customer,
-                "is_supplier": is_supplier,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "name": name,
-                "page_size": page_size,
-                "remote_fields": remote_fields,
-                "remote_id": remote_id,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = await self._raw_client.list(
+            company_id=company_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            email_address=email_address,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            is_customer=is_customer,
+            is_supplier=is_supplier,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            name=name,
+            page_size=page_size,
+            remote_fields=remote_fields,
+            remote_id=remote_id,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedContactList,
-                    parse_obj_as(
-                        type_=PaginatedContactList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def create(
         self,
@@ -648,32 +571,10 @@ class AsyncContactsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "accounting/v1/contacts",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = await self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    ContactResponse,
-                    parse_obj_as(
-                        type_=ContactResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def retrieve(
         self,
@@ -682,6 +583,7 @@ class AsyncContactsClient:
         expand: typing.Optional[ContactsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -701,6 +603,9 @@ class AsyncContactsClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -736,31 +641,17 @@ class AsyncContactsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"accounting/v1/contacts/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "remote_fields": remote_fields,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = await self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Contact,
-                    parse_obj_as(
-                        type_=Contact,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -794,24 +685,8 @@ class AsyncContactsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "accounting/v1/contacts/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data
 
     async def remote_field_classes_list(
         self,
@@ -873,29 +748,13 @@ class AsyncContactsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "accounting/v1/contacts/remote-field-classes",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "is_common_model_field": is_common_model_field,
-                "page_size": page_size,
-            },
+        response = await self._raw_client.remote_field_classes_list(
+            cursor=cursor,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            is_common_model_field=is_common_model_field,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedRemoteFieldClassList,
-                    parse_obj_as(
-                        type_=PaginatedRemoteFieldClassList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data

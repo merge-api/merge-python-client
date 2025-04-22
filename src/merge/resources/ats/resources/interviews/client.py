@@ -2,21 +2,18 @@
 
 import typing
 from .....core.client_wrapper import SyncClientWrapper
+from .raw_client import RawInterviewsClient
 import datetime as dt
 from .types.interviews_list_request_expand import InterviewsListRequestExpand
 from .....core.request_options import RequestOptions
 from ...types.paginated_scheduled_interview_list import PaginatedScheduledInterviewList
-from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from .....core.api_error import ApiError
 from ...types.scheduled_interview_request import ScheduledInterviewRequest
 from ...types.scheduled_interview_response import ScheduledInterviewResponse
 from .types.interviews_retrieve_request_expand import InterviewsRetrieveRequestExpand
 from ...types.scheduled_interview import ScheduledInterview
-from .....core.jsonable_encoder import jsonable_encoder
 from ...types.meta_response import MetaResponse
 from .....core.client_wrapper import AsyncClientWrapper
+from .raw_client import AsyncRawInterviewsClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -24,7 +21,18 @@ OMIT = typing.cast(typing.Any, ...)
 
 class InterviewsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = RawInterviewsClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawInterviewsClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawInterviewsClient
+        """
+        return self._raw_client
 
     def list(
         self,
@@ -122,43 +130,27 @@ class InterviewsClient:
         )
         client.ats.interviews.list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "ats/v1/interviews",
-            method="GET",
-            params={
-                "application_id": application_id,
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "job_id": job_id,
-                "job_interview_stage_id": job_interview_stage_id,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "organizer_id": organizer_id,
-                "page_size": page_size,
-                "remote_fields": remote_fields,
-                "remote_id": remote_id,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = self._raw_client.list(
+            application_id=application_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            job_id=job_id,
+            job_interview_stage_id=job_interview_stage_id,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            organizer_id=organizer_id,
+            page_size=page_size,
+            remote_fields=remote_fields,
+            remote_id=remote_id,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedScheduledInterviewList,
-                    parse_obj_as(
-                        type_=PaginatedScheduledInterviewList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def create(
         self,
@@ -206,33 +198,14 @@ class InterviewsClient:
             remote_user_id="remote_user_id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "ats/v1/interviews",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-                "remote_user_id": remote_user_id,
-            },
+        response = self._raw_client.create(
+            model=model,
+            remote_user_id=remote_user_id,
+            is_debug_mode=is_debug_mode,
+            run_async=run_async,
             request_options=request_options,
-            omit=OMIT,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    ScheduledInterviewResponse,
-                    parse_obj_as(
-                        type_=ScheduledInterviewResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def retrieve(
         self,
@@ -240,6 +213,7 @@ class InterviewsClient:
         *,
         expand: typing.Optional[InterviewsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -256,6 +230,9 @@ class InterviewsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -283,30 +260,16 @@ class InterviewsClient:
             id="id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"ats/v1/interviews/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-                "remote_fields": remote_fields,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    ScheduledInterview,
-                    parse_obj_as(
-                        type_=ScheduledInterview,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -332,29 +295,24 @@ class InterviewsClient:
         )
         client.ats.interviews.meta_post_retrieve()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "ats/v1/interviews/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data
 
 
 class AsyncInterviewsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = AsyncRawInterviewsClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawInterviewsClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawInterviewsClient
+        """
+        return self._raw_client
 
     async def list(
         self,
@@ -460,43 +418,27 @@ class AsyncInterviewsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "ats/v1/interviews",
-            method="GET",
-            params={
-                "application_id": application_id,
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "job_id": job_id,
-                "job_interview_stage_id": job_interview_stage_id,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "organizer_id": organizer_id,
-                "page_size": page_size,
-                "remote_fields": remote_fields,
-                "remote_id": remote_id,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = await self._raw_client.list(
+            application_id=application_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            job_id=job_id,
+            job_interview_stage_id=job_interview_stage_id,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            organizer_id=organizer_id,
+            page_size=page_size,
+            remote_fields=remote_fields,
+            remote_id=remote_id,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedScheduledInterviewList,
-                    parse_obj_as(
-                        type_=PaginatedScheduledInterviewList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def create(
         self,
@@ -552,33 +494,14 @@ class AsyncInterviewsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "ats/v1/interviews",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-                "remote_user_id": remote_user_id,
-            },
+        response = await self._raw_client.create(
+            model=model,
+            remote_user_id=remote_user_id,
+            is_debug_mode=is_debug_mode,
+            run_async=run_async,
             request_options=request_options,
-            omit=OMIT,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    ScheduledInterviewResponse,
-                    parse_obj_as(
-                        type_=ScheduledInterviewResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def retrieve(
         self,
@@ -586,6 +509,7 @@ class AsyncInterviewsClient:
         *,
         expand: typing.Optional[InterviewsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -602,6 +526,9 @@ class AsyncInterviewsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -637,30 +564,16 @@ class AsyncInterviewsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"ats/v1/interviews/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-                "remote_fields": remote_fields,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = await self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    ScheduledInterview,
-                    parse_obj_as(
-                        type_=ScheduledInterview,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -694,21 +607,5 @@ class AsyncInterviewsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "ats/v1/interviews/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data

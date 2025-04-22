@@ -2,19 +2,16 @@
 
 import typing
 from .....core.client_wrapper import SyncClientWrapper
+from .raw_client import RawAssociationTypesClient
 import datetime as dt
 from .....core.request_options import RequestOptions
 from ...types.paginated_association_type_list import PaginatedAssociationTypeList
-from .....core.jsonable_encoder import jsonable_encoder
-from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from .....core.api_error import ApiError
 from ...types.association_type_request_request import AssociationTypeRequestRequest
 from ...types.crm_association_type_response import CrmAssociationTypeResponse
 from ...types.association_type import AssociationType
 from ...types.meta_response import MetaResponse
 from .....core.client_wrapper import AsyncClientWrapper
+from .raw_client import AsyncRawAssociationTypesClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -22,7 +19,18 @@ OMIT = typing.cast(typing.Any, ...)
 
 class AssociationTypesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = RawAssociationTypesClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawAssociationTypesClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawAssociationTypesClient
+        """
+        return self._raw_client
 
     def custom_object_classes_association_types_list(
         self,
@@ -101,37 +109,22 @@ class AssociationTypesClient:
             custom_object_class_id="custom_object_class_id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/association-types",
-            method="GET",
-            params={
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "page_size": page_size,
-                "remote_id": remote_id,
-            },
+        response = self._raw_client.custom_object_classes_association_types_list(
+            custom_object_class_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            page_size=page_size,
+            remote_id=remote_id,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedAssociationTypeList,
-                    parse_obj_as(
-                        type_=PaginatedAssociationTypeList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def custom_object_classes_association_types_create(
         self,
@@ -195,32 +188,14 @@ class AssociationTypesClient:
             ),
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/association-types",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
+        response = self._raw_client.custom_object_classes_association_types_create(
+            custom_object_class_id,
+            model=model,
+            is_debug_mode=is_debug_mode,
+            run_async=run_async,
             request_options=request_options,
-            omit=OMIT,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    CrmAssociationTypeResponse,
-                    parse_obj_as(
-                        type_=CrmAssociationTypeResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def custom_object_classes_association_types_retrieve(
         self,
@@ -229,6 +204,7 @@ class AssociationTypesClient:
         *,
         expand: typing.Optional[typing.Literal["target_object_classes"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AssociationType:
         """
@@ -245,6 +221,9 @@ class AssociationTypesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -267,28 +246,15 @@ class AssociationTypesClient:
             id="id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/association-types/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-            },
+        response = self._raw_client.custom_object_classes_association_types_retrieve(
+            custom_object_class_id,
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    AssociationType,
-                    parse_obj_as(
-                        type_=AssociationType,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def custom_object_classes_association_types_meta_post_retrieve(
         self, custom_object_class_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -320,29 +286,26 @@ class AssociationTypesClient:
             custom_object_class_id="custom_object_class_id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/association-types/meta/post",
-            method="GET",
-            request_options=request_options,
+        response = self._raw_client.custom_object_classes_association_types_meta_post_retrieve(
+            custom_object_class_id, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
 
 class AsyncAssociationTypesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = AsyncRawAssociationTypesClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawAssociationTypesClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawAssociationTypesClient
+        """
+        return self._raw_client
 
     async def custom_object_classes_association_types_list(
         self,
@@ -429,37 +392,22 @@ class AsyncAssociationTypesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/association-types",
-            method="GET",
-            params={
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "page_size": page_size,
-                "remote_id": remote_id,
-            },
+        response = await self._raw_client.custom_object_classes_association_types_list(
+            custom_object_class_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            page_size=page_size,
+            remote_id=remote_id,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedAssociationTypeList,
-                    parse_obj_as(
-                        type_=PaginatedAssociationTypeList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def custom_object_classes_association_types_create(
         self,
@@ -531,32 +479,14 @@ class AsyncAssociationTypesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/association-types",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
+        response = await self._raw_client.custom_object_classes_association_types_create(
+            custom_object_class_id,
+            model=model,
+            is_debug_mode=is_debug_mode,
+            run_async=run_async,
             request_options=request_options,
-            omit=OMIT,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    CrmAssociationTypeResponse,
-                    parse_obj_as(
-                        type_=CrmAssociationTypeResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def custom_object_classes_association_types_retrieve(
         self,
@@ -565,6 +495,7 @@ class AsyncAssociationTypesClient:
         *,
         expand: typing.Optional[typing.Literal["target_object_classes"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AssociationType:
         """
@@ -581,6 +512,9 @@ class AsyncAssociationTypesClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -611,28 +545,15 @@ class AsyncAssociationTypesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/association-types/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-            },
+        response = await self._raw_client.custom_object_classes_association_types_retrieve(
+            custom_object_class_id,
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    AssociationType,
-                    parse_obj_as(
-                        type_=AssociationType,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def custom_object_classes_association_types_meta_post_retrieve(
         self, custom_object_class_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -672,21 +593,7 @@ class AsyncAssociationTypesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/association-types/meta/post",
-            method="GET",
-            request_options=request_options,
+        response = await self._raw_client.custom_object_classes_association_types_meta_post_retrieve(
+            custom_object_class_id, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data

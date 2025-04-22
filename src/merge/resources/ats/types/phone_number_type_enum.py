@@ -8,11 +8,11 @@ T_Result = typing.TypeVar("T_Result")
 
 class PhoneNumberTypeEnum(str, enum.Enum):
     """
-    - `HOME` - HOME
-    - `WORK` - WORK
-    - `MOBILE` - MOBILE
-    - `SKYPE` - SKYPE
-    - `OTHER` - OTHER
+    * `HOME` - HOME
+    * `WORK` - WORK
+    * `MOBILE` - MOBILE
+    * `SKYPE` - SKYPE
+    * `OTHER` - OTHER
     """
 
     HOME = "HOME"

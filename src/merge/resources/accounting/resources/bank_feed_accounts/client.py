@@ -2,17 +2,15 @@
 
 import typing
 from .....core.client_wrapper import SyncClientWrapper
+from .raw_client import RawBankFeedAccountsClient
 from .....core.request_options import RequestOptions
 from ...types.paginated_bank_feed_account_list import PaginatedBankFeedAccountList
-from .....core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from .....core.api_error import ApiError
 from ...types.bank_feed_account_request import BankFeedAccountRequest
 from ...types.bank_feed_account_response import BankFeedAccountResponse
 from ...types.bank_feed_account import BankFeedAccount
-from .....core.jsonable_encoder import jsonable_encoder
 from ...types.meta_response import MetaResponse
 from .....core.client_wrapper import AsyncClientWrapper
+from .raw_client import AsyncRawBankFeedAccountsClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -20,7 +18,18 @@ OMIT = typing.cast(typing.Any, ...)
 
 class BankFeedAccountsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = RawBankFeedAccountsClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawBankFeedAccountsClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawBankFeedAccountsClient
+        """
+        return self._raw_client
 
     def list(
         self,
@@ -70,31 +79,15 @@ class BankFeedAccountsClient:
         )
         client.accounting.bank_feed_accounts.list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "accounting/v1/bank-feed-accounts",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "page_size": page_size,
-            },
+        response = self._raw_client.list(
+            cursor=cursor,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedBankFeedAccountList,
-                    parse_obj_as(
-                        type_=PaginatedBankFeedAccountList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def create(
         self,
@@ -138,38 +131,17 @@ class BankFeedAccountsClient:
             model=BankFeedAccountRequest(),
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "accounting/v1/bank-feed-accounts",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    BankFeedAccountResponse,
-                    parse_obj_as(
-                        type_=BankFeedAccountResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def retrieve(
         self,
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BankFeedAccount:
         """
@@ -181,6 +153,9 @@ class BankFeedAccountsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -202,27 +177,13 @@ class BankFeedAccountsClient:
             id="id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"accounting/v1/bank-feed-accounts/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "include_remote_data": include_remote_data,
-            },
+        response = self._raw_client.retrieve(
+            id,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    BankFeedAccount,
-                    parse_obj_as(
-                        type_=BankFeedAccount,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -248,29 +209,24 @@ class BankFeedAccountsClient:
         )
         client.accounting.bank_feed_accounts.meta_post_retrieve()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "accounting/v1/bank-feed-accounts/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data
 
 
 class AsyncBankFeedAccountsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = AsyncRawBankFeedAccountsClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawBankFeedAccountsClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawBankFeedAccountsClient
+        """
+        return self._raw_client
 
     async def list(
         self,
@@ -328,31 +284,15 @@ class AsyncBankFeedAccountsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "accounting/v1/bank-feed-accounts",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "page_size": page_size,
-            },
+        response = await self._raw_client.list(
+            cursor=cursor,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedBankFeedAccountList,
-                    parse_obj_as(
-                        type_=PaginatedBankFeedAccountList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def create(
         self,
@@ -404,38 +344,17 @@ class AsyncBankFeedAccountsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "accounting/v1/bank-feed-accounts",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = await self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    BankFeedAccountResponse,
-                    parse_obj_as(
-                        type_=BankFeedAccountResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def retrieve(
         self,
         id: str,
         *,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BankFeedAccount:
         """
@@ -447,6 +366,9 @@ class AsyncBankFeedAccountsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -476,27 +398,13 @@ class AsyncBankFeedAccountsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"accounting/v1/bank-feed-accounts/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "include_remote_data": include_remote_data,
-            },
+        response = await self._raw_client.retrieve(
+            id,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    BankFeedAccount,
-                    parse_obj_as(
-                        type_=BankFeedAccount,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -530,21 +438,5 @@ class AsyncBankFeedAccountsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "accounting/v1/bank-feed-accounts/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data

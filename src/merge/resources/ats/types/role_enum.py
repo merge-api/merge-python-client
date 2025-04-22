@@ -8,12 +8,12 @@ T_Result = typing.TypeVar("T_Result")
 
 class RoleEnum(str, enum.Enum):
     """
-    - `ADMIN` - ADMIN
-    - `DEVELOPER` - DEVELOPER
-    - `MEMBER` - MEMBER
-    - `API` - API
-    - `SYSTEM` - SYSTEM
-    - `MERGE_TEAM` - MERGE_TEAM
+    * `ADMIN` - ADMIN
+    * `DEVELOPER` - DEVELOPER
+    * `MEMBER` - MEMBER
+    * `API` - API
+    * `SYSTEM` - SYSTEM
+    * `MERGE_TEAM` - MERGE_TEAM
     """
 
     ADMIN = "ADMIN"

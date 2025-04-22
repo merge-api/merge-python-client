@@ -2,22 +2,19 @@
 
 import typing
 from .....core.client_wrapper import SyncClientWrapper
+from .raw_client import RawExpensesClient
 import datetime as dt
 from .types.expenses_list_request_expand import ExpensesListRequestExpand
 from .....core.request_options import RequestOptions
 from ...types.paginated_expense_list import PaginatedExpenseList
-from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from .....core.api_error import ApiError
 from ...types.expense_request import ExpenseRequest
 from ...types.expense_response import ExpenseResponse
 from .types.expenses_retrieve_request_expand import ExpensesRetrieveRequestExpand
 from ...types.expense import Expense
-from .....core.jsonable_encoder import jsonable_encoder
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.meta_response import MetaResponse
 from .....core.client_wrapper import AsyncClientWrapper
+from .raw_client import AsyncRawExpensesClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -25,7 +22,18 @@ OMIT = typing.cast(typing.Any, ...)
 
 class ExpensesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = RawExpensesClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawExpensesClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawExpensesClient
+        """
+        return self._raw_client
 
     def list(
         self,
@@ -115,45 +123,25 @@ class ExpensesClient:
         )
         client.accounting.expenses.list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "accounting/v1/expenses",
-            method="GET",
-            params={
-                "company_id": company_id,
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "include_shell_data": include_shell_data,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "page_size": page_size,
-                "remote_id": remote_id,
-                "transaction_date_after": serialize_datetime(transaction_date_after)
-                if transaction_date_after is not None
-                else None,
-                "transaction_date_before": serialize_datetime(transaction_date_before)
-                if transaction_date_before is not None
-                else None,
-            },
+        response = self._raw_client.list(
+            company_id=company_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            page_size=page_size,
+            remote_id=remote_id,
+            transaction_date_after=transaction_date_after,
+            transaction_date_before=transaction_date_before,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedExpenseList,
-                    parse_obj_as(
-                        type_=PaginatedExpenseList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def create(
         self,
@@ -197,32 +185,10 @@ class ExpensesClient:
             model=ExpenseRequest(),
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "accounting/v1/expenses",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    ExpenseResponse,
-                    parse_obj_as(
-                        type_=ExpenseResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def retrieve(
         self,
@@ -231,6 +197,7 @@ class ExpensesClient:
         expand: typing.Optional[ExpensesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Expense:
         """
@@ -248,6 +215,9 @@ class ExpensesClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -269,29 +239,15 @@ class ExpensesClient:
             id="id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"accounting/v1/expenses/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-            },
+        response = self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Expense,
-                    parse_obj_as(
-                        type_=Expense,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def lines_remote_field_classes_list(
         self,
@@ -345,32 +301,16 @@ class ExpensesClient:
         )
         client.accounting.expenses.lines_remote_field_classes_list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "accounting/v1/expenses/lines/remote-field-classes",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "is_common_model_field": is_common_model_field,
-                "page_size": page_size,
-            },
+        response = self._raw_client.lines_remote_field_classes_list(
+            cursor=cursor,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            is_common_model_field=is_common_model_field,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedRemoteFieldClassList,
-                    parse_obj_as(
-                        type_=PaginatedRemoteFieldClassList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -396,24 +336,8 @@ class ExpensesClient:
         )
         client.accounting.expenses.meta_post_retrieve()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "accounting/v1/expenses/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data
 
     def remote_field_classes_list(
         self,
@@ -467,37 +391,32 @@ class ExpensesClient:
         )
         client.accounting.expenses.remote_field_classes_list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "accounting/v1/expenses/remote-field-classes",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "is_common_model_field": is_common_model_field,
-                "page_size": page_size,
-            },
+        response = self._raw_client.remote_field_classes_list(
+            cursor=cursor,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            is_common_model_field=is_common_model_field,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedRemoteFieldClassList,
-                    parse_obj_as(
-                        type_=PaginatedRemoteFieldClassList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
 
 class AsyncExpensesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = AsyncRawExpensesClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawExpensesClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawExpensesClient
+        """
+        return self._raw_client
 
     async def list(
         self,
@@ -595,45 +514,25 @@ class AsyncExpensesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "accounting/v1/expenses",
-            method="GET",
-            params={
-                "company_id": company_id,
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "include_shell_data": include_shell_data,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "page_size": page_size,
-                "remote_id": remote_id,
-                "transaction_date_after": serialize_datetime(transaction_date_after)
-                if transaction_date_after is not None
-                else None,
-                "transaction_date_before": serialize_datetime(transaction_date_before)
-                if transaction_date_before is not None
-                else None,
-            },
+        response = await self._raw_client.list(
+            company_id=company_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            page_size=page_size,
+            remote_id=remote_id,
+            transaction_date_after=transaction_date_after,
+            transaction_date_before=transaction_date_before,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedExpenseList,
-                    parse_obj_as(
-                        type_=PaginatedExpenseList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def create(
         self,
@@ -685,32 +584,10 @@ class AsyncExpensesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "accounting/v1/expenses",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = await self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    ExpenseResponse,
-                    parse_obj_as(
-                        type_=ExpenseResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def retrieve(
         self,
@@ -719,6 +596,7 @@ class AsyncExpensesClient:
         expand: typing.Optional[ExpensesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Expense:
         """
@@ -736,6 +614,9 @@ class AsyncExpensesClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -765,29 +646,15 @@ class AsyncExpensesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"accounting/v1/expenses/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-            },
+        response = await self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Expense,
-                    parse_obj_as(
-                        type_=Expense,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def lines_remote_field_classes_list(
         self,
@@ -849,32 +716,16 @@ class AsyncExpensesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "accounting/v1/expenses/lines/remote-field-classes",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "is_common_model_field": is_common_model_field,
-                "page_size": page_size,
-            },
+        response = await self._raw_client.lines_remote_field_classes_list(
+            cursor=cursor,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            is_common_model_field=is_common_model_field,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedRemoteFieldClassList,
-                    parse_obj_as(
-                        type_=PaginatedRemoteFieldClassList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -908,24 +759,8 @@ class AsyncExpensesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "accounting/v1/expenses/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data
 
     async def remote_field_classes_list(
         self,
@@ -987,29 +822,13 @@ class AsyncExpensesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "accounting/v1/expenses/remote-field-classes",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "is_common_model_field": is_common_model_field,
-                "page_size": page_size,
-            },
+        response = await self._raw_client.remote_field_classes_list(
+            cursor=cursor,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            is_common_model_field=is_common_model_field,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedRemoteFieldClassList,
-                    parse_obj_as(
-                        type_=PaginatedRemoteFieldClassList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data

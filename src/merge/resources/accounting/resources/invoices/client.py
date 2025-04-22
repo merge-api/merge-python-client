@@ -2,24 +2,21 @@
 
 import typing
 from .....core.client_wrapper import SyncClientWrapper
+from .raw_client import RawInvoicesClient
 import datetime as dt
 from .types.invoices_list_request_expand import InvoicesListRequestExpand
 from .types.invoices_list_request_status import InvoicesListRequestStatus
 from .types.invoices_list_request_type import InvoicesListRequestType
 from .....core.request_options import RequestOptions
 from ...types.paginated_invoice_list import PaginatedInvoiceList
-from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from .....core.api_error import ApiError
 from ...types.invoice_request import InvoiceRequest
 from ...types.invoice_response import InvoiceResponse
 from .types.invoices_retrieve_request_expand import InvoicesRetrieveRequestExpand
 from ...types.invoice import Invoice
-from .....core.jsonable_encoder import jsonable_encoder
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.meta_response import MetaResponse
 from .....core.client_wrapper import AsyncClientWrapper
+from .raw_client import AsyncRawInvoicesClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -27,7 +24,18 @@ OMIT = typing.cast(typing.Any, ...)
 
 class InvoicesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = RawInvoicesClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawInvoicesClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawInvoicesClient
+        """
+        return self._raw_client
 
     def list(
         self,
@@ -120,18 +128,18 @@ class InvoicesClient:
         status : typing.Optional[InvoicesListRequestStatus]
             If provided, will only return Invoices with this status.
 
-            - `PAID` - PAID
-            - `DRAFT` - DRAFT
-            - `SUBMITTED` - SUBMITTED
-            - `PARTIALLY_PAID` - PARTIALLY_PAID
-            - `OPEN` - OPEN
-            - `VOID` - VOID
+            * `PAID` - PAID
+            * `DRAFT` - DRAFT
+            * `SUBMITTED` - SUBMITTED
+            * `PARTIALLY_PAID` - PARTIALLY_PAID
+            * `OPEN` - OPEN
+            * `VOID` - VOID
 
         type : typing.Optional[InvoicesListRequestType]
             If provided, will only return Invoices with this type.
 
-            - `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
-            - `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE
+            * `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
+            * `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -151,47 +159,31 @@ class InvoicesClient:
         )
         client.accounting.invoices.list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "accounting/v1/invoices",
-            method="GET",
-            params={
-                "company_id": company_id,
-                "contact_id": contact_id,
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "include_shell_data": include_shell_data,
-                "issue_date_after": serialize_datetime(issue_date_after) if issue_date_after is not None else None,
-                "issue_date_before": serialize_datetime(issue_date_before) if issue_date_before is not None else None,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "number": number,
-                "page_size": page_size,
-                "remote_fields": remote_fields,
-                "remote_id": remote_id,
-                "show_enum_origins": show_enum_origins,
-                "status": status,
-                "type": type,
-            },
+        response = self._raw_client.list(
+            company_id=company_id,
+            contact_id=contact_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            issue_date_after=issue_date_after,
+            issue_date_before=issue_date_before,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            number=number,
+            page_size=page_size,
+            remote_fields=remote_fields,
+            remote_id=remote_id,
+            show_enum_origins=show_enum_origins,
+            status=status,
+            type=type,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedInvoiceList,
-                    parse_obj_as(
-                        type_=PaginatedInvoiceList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def create(
         self,
@@ -203,7 +195,8 @@ class InvoicesClient:
     ) -> InvoiceResponse:
         """
         Creates an `Invoice` object with the given values.
-        Including a `PurchaseOrder` id in the `purchase_orders` property will generate an Accounts Payable Invoice from the specified Purchase Order(s).
+                    Including a `PurchaseOrder` id in the `purchase_orders` property will generate an Accounts Payable Invoice from the specified Purchase Order(s).
+
 
         Parameters
         ----------
@@ -236,32 +229,10 @@ class InvoicesClient:
             model=InvoiceRequest(),
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "accounting/v1/invoices",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    InvoiceResponse,
-                    parse_obj_as(
-                        type_=InvoiceResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def retrieve(
         self,
@@ -270,6 +241,7 @@ class InvoicesClient:
         expand: typing.Optional[InvoicesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["type"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -289,6 +261,9 @@ class InvoicesClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["type"]]
             Deprecated. Use show_enum_origins.
@@ -316,31 +291,17 @@ class InvoicesClient:
             id="id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"accounting/v1/invoices/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "remote_fields": remote_fields,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Invoice,
-                    parse_obj_as(
-                        type_=Invoice,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def partial_update(
         self,
@@ -388,32 +349,10 @@ class InvoicesClient:
             model=InvoiceRequest(),
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"accounting/v1/invoices/{jsonable_encoder(id)}",
-            method="PATCH",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = self._raw_client.partial_update(
+            id, model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    InvoiceResponse,
-                    parse_obj_as(
-                        type_=InvoiceResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def line_items_remote_field_classes_list(
         self,
@@ -467,32 +406,16 @@ class InvoicesClient:
         )
         client.accounting.invoices.line_items_remote_field_classes_list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "accounting/v1/invoices/line-items/remote-field-classes",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "is_common_model_field": is_common_model_field,
-                "page_size": page_size,
-            },
+        response = self._raw_client.line_items_remote_field_classes_list(
+            cursor=cursor,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            is_common_model_field=is_common_model_field,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedRemoteFieldClassList,
-                    parse_obj_as(
-                        type_=PaginatedRemoteFieldClassList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def meta_patch_retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -522,24 +445,8 @@ class InvoicesClient:
             id="id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"accounting/v1/invoices/meta/patch/{jsonable_encoder(id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.meta_patch_retrieve(id, request_options=request_options)
+        return response.data
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -565,24 +472,8 @@ class InvoicesClient:
         )
         client.accounting.invoices.meta_post_retrieve()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "accounting/v1/invoices/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data
 
     def remote_field_classes_list(
         self,
@@ -636,37 +527,32 @@ class InvoicesClient:
         )
         client.accounting.invoices.remote_field_classes_list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "accounting/v1/invoices/remote-field-classes",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "is_common_model_field": is_common_model_field,
-                "page_size": page_size,
-            },
+        response = self._raw_client.remote_field_classes_list(
+            cursor=cursor,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            is_common_model_field=is_common_model_field,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedRemoteFieldClassList,
-                    parse_obj_as(
-                        type_=PaginatedRemoteFieldClassList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
 
 class AsyncInvoicesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = AsyncRawInvoicesClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawInvoicesClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawInvoicesClient
+        """
+        return self._raw_client
 
     async def list(
         self,
@@ -759,18 +645,18 @@ class AsyncInvoicesClient:
         status : typing.Optional[InvoicesListRequestStatus]
             If provided, will only return Invoices with this status.
 
-            - `PAID` - PAID
-            - `DRAFT` - DRAFT
-            - `SUBMITTED` - SUBMITTED
-            - `PARTIALLY_PAID` - PARTIALLY_PAID
-            - `OPEN` - OPEN
-            - `VOID` - VOID
+            * `PAID` - PAID
+            * `DRAFT` - DRAFT
+            * `SUBMITTED` - SUBMITTED
+            * `PARTIALLY_PAID` - PARTIALLY_PAID
+            * `OPEN` - OPEN
+            * `VOID` - VOID
 
         type : typing.Optional[InvoicesListRequestType]
             If provided, will only return Invoices with this type.
 
-            - `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
-            - `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE
+            * `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
+            * `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -798,47 +684,31 @@ class AsyncInvoicesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "accounting/v1/invoices",
-            method="GET",
-            params={
-                "company_id": company_id,
-                "contact_id": contact_id,
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "include_shell_data": include_shell_data,
-                "issue_date_after": serialize_datetime(issue_date_after) if issue_date_after is not None else None,
-                "issue_date_before": serialize_datetime(issue_date_before) if issue_date_before is not None else None,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "number": number,
-                "page_size": page_size,
-                "remote_fields": remote_fields,
-                "remote_id": remote_id,
-                "show_enum_origins": show_enum_origins,
-                "status": status,
-                "type": type,
-            },
+        response = await self._raw_client.list(
+            company_id=company_id,
+            contact_id=contact_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            issue_date_after=issue_date_after,
+            issue_date_before=issue_date_before,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            number=number,
+            page_size=page_size,
+            remote_fields=remote_fields,
+            remote_id=remote_id,
+            show_enum_origins=show_enum_origins,
+            status=status,
+            type=type,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedInvoiceList,
-                    parse_obj_as(
-                        type_=PaginatedInvoiceList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def create(
         self,
@@ -850,7 +720,8 @@ class AsyncInvoicesClient:
     ) -> InvoiceResponse:
         """
         Creates an `Invoice` object with the given values.
-        Including a `PurchaseOrder` id in the `purchase_orders` property will generate an Accounts Payable Invoice from the specified Purchase Order(s).
+                    Including a `PurchaseOrder` id in the `purchase_orders` property will generate an Accounts Payable Invoice from the specified Purchase Order(s).
+
 
         Parameters
         ----------
@@ -891,32 +762,10 @@ class AsyncInvoicesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "accounting/v1/invoices",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = await self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    InvoiceResponse,
-                    parse_obj_as(
-                        type_=InvoiceResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def retrieve(
         self,
@@ -925,6 +774,7 @@ class AsyncInvoicesClient:
         expand: typing.Optional[InvoicesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["type"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -944,6 +794,9 @@ class AsyncInvoicesClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["type"]]
             Deprecated. Use show_enum_origins.
@@ -979,31 +832,17 @@ class AsyncInvoicesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"accounting/v1/invoices/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "remote_fields": remote_fields,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = await self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Invoice,
-                    parse_obj_as(
-                        type_=Invoice,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def partial_update(
         self,
@@ -1059,32 +898,10 @@ class AsyncInvoicesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"accounting/v1/invoices/{jsonable_encoder(id)}",
-            method="PATCH",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = await self._raw_client.partial_update(
+            id, model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    InvoiceResponse,
-                    parse_obj_as(
-                        type_=InvoiceResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def line_items_remote_field_classes_list(
         self,
@@ -1146,32 +963,16 @@ class AsyncInvoicesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "accounting/v1/invoices/line-items/remote-field-classes",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "is_common_model_field": is_common_model_field,
-                "page_size": page_size,
-            },
+        response = await self._raw_client.line_items_remote_field_classes_list(
+            cursor=cursor,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            is_common_model_field=is_common_model_field,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedRemoteFieldClassList,
-                    parse_obj_as(
-                        type_=PaginatedRemoteFieldClassList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def meta_patch_retrieve(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -1211,24 +1012,8 @@ class AsyncInvoicesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"accounting/v1/invoices/meta/patch/{jsonable_encoder(id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.meta_patch_retrieve(id, request_options=request_options)
+        return response.data
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -1262,24 +1047,8 @@ class AsyncInvoicesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "accounting/v1/invoices/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data
 
     async def remote_field_classes_list(
         self,
@@ -1341,29 +1110,13 @@ class AsyncInvoicesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "accounting/v1/invoices/remote-field-classes",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "is_common_model_field": is_common_model_field,
-                "page_size": page_size,
-            },
+        response = await self._raw_client.remote_field_classes_list(
+            cursor=cursor,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            is_common_model_field=is_common_model_field,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedRemoteFieldClassList,
-                    parse_obj_as(
-                        type_=PaginatedRemoteFieldClassList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data

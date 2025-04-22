@@ -2,24 +2,21 @@
 
 import typing
 from .....core.client_wrapper import SyncClientWrapper
+from .raw_client import RawOpportunitiesClient
 import datetime as dt
 from .types.opportunities_list_request_expand import OpportunitiesListRequestExpand
 from .types.opportunities_list_request_status import OpportunitiesListRequestStatus
 from .....core.request_options import RequestOptions
 from ...types.paginated_opportunity_list import PaginatedOpportunityList
-from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from .....core.api_error import ApiError
 from ...types.opportunity_request import OpportunityRequest
 from ...types.opportunity_response import OpportunityResponse
 from .types.opportunities_retrieve_request_expand import OpportunitiesRetrieveRequestExpand
 from ...types.opportunity import Opportunity
-from .....core.jsonable_encoder import jsonable_encoder
 from ...types.patched_opportunity_request import PatchedOpportunityRequest
 from ...types.meta_response import MetaResponse
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from .....core.client_wrapper import AsyncClientWrapper
+from .raw_client import AsyncRawOpportunitiesClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -27,7 +24,18 @@ OMIT = typing.cast(typing.Any, ...)
 
 class OpportunitiesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = RawOpportunitiesClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawOpportunitiesClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawOpportunitiesClient
+        """
+        return self._raw_client
 
     def list(
         self,
@@ -115,9 +123,9 @@ class OpportunitiesClient:
         status : typing.Optional[OpportunitiesListRequestStatus]
             If provided, will only return opportunities with this status. Options: ('OPEN', 'WON', 'LOST')
 
-            - `OPEN` - OPEN
-            - `WON` - WON
-            - `LOST` - LOST
+            * `OPEN` - OPEN
+            * `WON` - WON
+            * `LOST` - LOST
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -137,47 +145,29 @@ class OpportunitiesClient:
         )
         client.crm.opportunities.list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "crm/v1/opportunities",
-            method="GET",
-            params={
-                "account_id": account_id,
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "include_shell_data": include_shell_data,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "owner_id": owner_id,
-                "page_size": page_size,
-                "remote_created_after": serialize_datetime(remote_created_after)
-                if remote_created_after is not None
-                else None,
-                "remote_fields": remote_fields,
-                "remote_id": remote_id,
-                "show_enum_origins": show_enum_origins,
-                "stage_id": stage_id,
-                "status": status,
-            },
+        response = self._raw_client.list(
+            account_id=account_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            owner_id=owner_id,
+            page_size=page_size,
+            remote_created_after=remote_created_after,
+            remote_fields=remote_fields,
+            remote_id=remote_id,
+            show_enum_origins=show_enum_origins,
+            stage_id=stage_id,
+            status=status,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedOpportunityList,
-                    parse_obj_as(
-                        type_=PaginatedOpportunityList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def create(
         self,
@@ -221,32 +211,10 @@ class OpportunitiesClient:
             model=OpportunityRequest(),
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "crm/v1/opportunities",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    OpportunityResponse,
-                    parse_obj_as(
-                        type_=OpportunityResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def retrieve(
         self,
@@ -255,6 +223,7 @@ class OpportunitiesClient:
         expand: typing.Optional[OpportunitiesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -274,6 +243,9 @@ class OpportunitiesClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -301,31 +273,17 @@ class OpportunitiesClient:
             id="id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"crm/v1/opportunities/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "remote_fields": remote_fields,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Opportunity,
-                    parse_obj_as(
-                        type_=Opportunity,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def partial_update(
         self,
@@ -373,32 +331,10 @@ class OpportunitiesClient:
             model=PatchedOpportunityRequest(),
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"crm/v1/opportunities/{jsonable_encoder(id)}",
-            method="PATCH",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = self._raw_client.partial_update(
+            id, model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    OpportunityResponse,
-                    parse_obj_as(
-                        type_=OpportunityResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def meta_patch_retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -428,24 +364,8 @@ class OpportunitiesClient:
             id="id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"crm/v1/opportunities/meta/patch/{jsonable_encoder(id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.meta_patch_retrieve(id, request_options=request_options)
+        return response.data
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -471,24 +391,8 @@ class OpportunitiesClient:
         )
         client.crm.opportunities.meta_post_retrieve()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "crm/v1/opportunities/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data
 
     def remote_field_classes_list(
         self,
@@ -546,38 +450,33 @@ class OpportunitiesClient:
         )
         client.crm.opportunities.remote_field_classes_list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "crm/v1/opportunities/remote-field-classes",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "include_shell_data": include_shell_data,
-                "is_common_model_field": is_common_model_field,
-                "page_size": page_size,
-            },
+        response = self._raw_client.remote_field_classes_list(
+            cursor=cursor,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            is_common_model_field=is_common_model_field,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedRemoteFieldClassList,
-                    parse_obj_as(
-                        type_=PaginatedRemoteFieldClassList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
 
 class AsyncOpportunitiesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = AsyncRawOpportunitiesClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawOpportunitiesClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawOpportunitiesClient
+        """
+        return self._raw_client
 
     async def list(
         self,
@@ -665,9 +564,9 @@ class AsyncOpportunitiesClient:
         status : typing.Optional[OpportunitiesListRequestStatus]
             If provided, will only return opportunities with this status. Options: ('OPEN', 'WON', 'LOST')
 
-            - `OPEN` - OPEN
-            - `WON` - WON
-            - `LOST` - LOST
+            * `OPEN` - OPEN
+            * `WON` - WON
+            * `LOST` - LOST
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -695,47 +594,29 @@ class AsyncOpportunitiesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "crm/v1/opportunities",
-            method="GET",
-            params={
-                "account_id": account_id,
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "include_shell_data": include_shell_data,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "owner_id": owner_id,
-                "page_size": page_size,
-                "remote_created_after": serialize_datetime(remote_created_after)
-                if remote_created_after is not None
-                else None,
-                "remote_fields": remote_fields,
-                "remote_id": remote_id,
-                "show_enum_origins": show_enum_origins,
-                "stage_id": stage_id,
-                "status": status,
-            },
+        response = await self._raw_client.list(
+            account_id=account_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            owner_id=owner_id,
+            page_size=page_size,
+            remote_created_after=remote_created_after,
+            remote_fields=remote_fields,
+            remote_id=remote_id,
+            show_enum_origins=show_enum_origins,
+            stage_id=stage_id,
+            status=status,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedOpportunityList,
-                    parse_obj_as(
-                        type_=PaginatedOpportunityList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def create(
         self,
@@ -787,32 +668,10 @@ class AsyncOpportunitiesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "crm/v1/opportunities",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = await self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    OpportunityResponse,
-                    parse_obj_as(
-                        type_=OpportunityResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def retrieve(
         self,
@@ -821,6 +680,7 @@ class AsyncOpportunitiesClient:
         expand: typing.Optional[OpportunitiesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -840,6 +700,9 @@ class AsyncOpportunitiesClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -875,31 +738,17 @@ class AsyncOpportunitiesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"crm/v1/opportunities/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "remote_fields": remote_fields,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = await self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Opportunity,
-                    parse_obj_as(
-                        type_=Opportunity,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def partial_update(
         self,
@@ -955,32 +804,10 @@ class AsyncOpportunitiesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"crm/v1/opportunities/{jsonable_encoder(id)}",
-            method="PATCH",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = await self._raw_client.partial_update(
+            id, model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    OpportunityResponse,
-                    parse_obj_as(
-                        type_=OpportunityResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def meta_patch_retrieve(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -1020,24 +847,8 @@ class AsyncOpportunitiesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"crm/v1/opportunities/meta/patch/{jsonable_encoder(id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.meta_patch_retrieve(id, request_options=request_options)
+        return response.data
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -1071,24 +882,8 @@ class AsyncOpportunitiesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "crm/v1/opportunities/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data
 
     async def remote_field_classes_list(
         self,
@@ -1154,30 +949,14 @@ class AsyncOpportunitiesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "crm/v1/opportunities/remote-field-classes",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "include_shell_data": include_shell_data,
-                "is_common_model_field": is_common_model_field,
-                "page_size": page_size,
-            },
+        response = await self._raw_client.remote_field_classes_list(
+            cursor=cursor,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            is_common_model_field=is_common_model_field,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedRemoteFieldClassList,
-                    parse_obj_as(
-                        type_=PaginatedRemoteFieldClassList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
