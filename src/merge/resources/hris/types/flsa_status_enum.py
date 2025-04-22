@@ -8,10 +8,10 @@ T_Result = typing.TypeVar("T_Result")
 
 class FlsaStatusEnum(str, enum.Enum):
     """
-    - `EXEMPT` - EXEMPT
-    - `SALARIED_NONEXEMPT` - SALARIED_NONEXEMPT
-    - `NONEXEMPT` - NONEXEMPT
-    - `OWNER` - OWNER
+    * `EXEMPT` - EXEMPT
+    * `SALARIED_NONEXEMPT` - SALARIED_NONEXEMPT
+    * `NONEXEMPT` - NONEXEMPT
+    * `OWNER` - OWNER
     """
 
     EXEMPT = "EXEMPT"

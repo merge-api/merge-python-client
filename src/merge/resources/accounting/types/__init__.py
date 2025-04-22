@@ -188,6 +188,7 @@ from .general_ledger_transaction_line_company import GeneralLedgerTransactionLin
 from .general_ledger_transaction_line_contact import GeneralLedgerTransactionLineContact
 from .general_ledger_transaction_line_employee import GeneralLedgerTransactionLineEmployee
 from .general_ledger_transaction_line_item import GeneralLedgerTransactionLineItem
+from .general_ledger_transaction_line_tracking_categories_item import GeneralLedgerTransactionLineTrackingCategoriesItem
 from .general_ledger_transaction_line_transaction_currency import GeneralLedgerTransactionLineTransactionCurrency
 from .general_ledger_transaction_tracking_categories_item import GeneralLedgerTransactionTrackingCategoriesItem
 from .general_ledger_transaction_underlying_transaction_type import GeneralLedgerTransactionUnderlyingTransactionType
@@ -219,6 +220,7 @@ from .invoice_line_item_request_tracking_categories_item import InvoiceLineItemR
 from .invoice_line_item_request_tracking_category import InvoiceLineItemRequestTrackingCategory
 from .invoice_line_item_tracking_categories_item import InvoiceLineItemTrackingCategoriesItem
 from .invoice_line_item_tracking_category import InvoiceLineItemTrackingCategory
+from .invoice_payment_term import InvoicePaymentTerm
 from .invoice_payments_item import InvoicePaymentsItem
 from .invoice_purchase_orders_item import InvoicePurchaseOrdersItem
 from .invoice_request import InvoiceRequest
@@ -226,6 +228,7 @@ from .invoice_request_company import InvoiceRequestCompany
 from .invoice_request_contact import InvoiceRequestContact
 from .invoice_request_currency import InvoiceRequestCurrency
 from .invoice_request_employee import InvoiceRequestEmployee
+from .invoice_request_payment_term import InvoiceRequestPaymentTerm
 from .invoice_request_payments_item import InvoiceRequestPaymentsItem
 from .invoice_request_purchase_orders_item import InvoiceRequestPurchaseOrdersItem
 from .invoice_request_status import InvoiceRequestStatus
@@ -276,10 +279,12 @@ from .journal_line_request_tracking_category import JournalLineRequestTrackingCa
 from .journal_line_tracking_categories_item import JournalLineTrackingCategoriesItem
 from .journal_line_tracking_category import JournalLineTrackingCategory
 from .language_enum import LanguageEnum
+from .last_sync_result_enum import LastSyncResultEnum
 from .link_token import LinkToken
 from .linked_account_status import LinkedAccountStatus
 from .meta_response import MetaResponse
 from .method_enum import MethodEnum
+from .method_type_enum import MethodTypeEnum
 from .model_operation import ModelOperation
 from .model_permission_deserializer import ModelPermissionDeserializer
 from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
@@ -306,6 +311,8 @@ from .paginated_issue_list import PaginatedIssueList
 from .paginated_item_list import PaginatedItemList
 from .paginated_journal_entry_list import PaginatedJournalEntryList
 from .paginated_payment_list import PaginatedPaymentList
+from .paginated_payment_method_list import PaginatedPaymentMethodList
+from .paginated_payment_term_list import PaginatedPaymentTermList
 from .paginated_purchase_order_list import PaginatedPurchaseOrderList
 from .paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from .paginated_sync_status_list import PaginatedSyncStatusList
@@ -320,6 +327,7 @@ from .patched_payment_request_applied_to_lines_item import PatchedPaymentRequest
 from .patched_payment_request_company import PatchedPaymentRequestCompany
 from .patched_payment_request_contact import PatchedPaymentRequestContact
 from .patched_payment_request_currency import PatchedPaymentRequestCurrency
+from .patched_payment_request_payment_method import PatchedPaymentRequestPaymentMethod
 from .patched_payment_request_tracking_categories_item import PatchedPaymentRequestTrackingCategoriesItem
 from .patched_payment_request_type import PatchedPaymentRequestType
 from .payment import Payment
@@ -331,6 +339,9 @@ from .payment_contact import PaymentContact
 from .payment_currency import PaymentCurrency
 from .payment_line_item import PaymentLineItem
 from .payment_line_item_request import PaymentLineItemRequest
+from .payment_method import PaymentMethod
+from .payment_method_method_type import PaymentMethodMethodType
+from .payment_payment_method import PaymentPaymentMethod
 from .payment_request import PaymentRequest
 from .payment_request_account import PaymentRequestAccount
 from .payment_request_accounting_period import PaymentRequestAccountingPeriod
@@ -338,9 +349,12 @@ from .payment_request_applied_to_lines_item import PaymentRequestAppliedToLinesI
 from .payment_request_company import PaymentRequestCompany
 from .payment_request_contact import PaymentRequestContact
 from .payment_request_currency import PaymentRequestCurrency
+from .payment_request_payment_method import PaymentRequestPaymentMethod
 from .payment_request_tracking_categories_item import PaymentRequestTrackingCategoriesItem
 from .payment_request_type import PaymentRequestType
 from .payment_response import PaymentResponse
+from .payment_term import PaymentTerm
+from .payment_term_company import PaymentTermCompany
 from .payment_tracking_categories_item import PaymentTrackingCategoriesItem
 from .payment_type import PaymentType
 from .payment_type_enum import PaymentTypeEnum
@@ -356,10 +370,12 @@ from .purchase_order_line_item_item import PurchaseOrderLineItemItem
 from .purchase_order_line_item_request import PurchaseOrderLineItemRequest
 from .purchase_order_line_item_request_currency import PurchaseOrderLineItemRequestCurrency
 from .purchase_order_line_item_request_item import PurchaseOrderLineItemRequestItem
+from .purchase_order_payment_term import PurchaseOrderPaymentTerm
 from .purchase_order_request import PurchaseOrderRequest
 from .purchase_order_request_company import PurchaseOrderRequestCompany
 from .purchase_order_request_currency import PurchaseOrderRequestCurrency
 from .purchase_order_request_delivery_address import PurchaseOrderRequestDeliveryAddress
+from .purchase_order_request_payment_term import PurchaseOrderRequestPaymentTerm
 from .purchase_order_request_status import PurchaseOrderRequestStatus
 from .purchase_order_request_tracking_categories_item import PurchaseOrderRequestTrackingCategoriesItem
 from .purchase_order_request_vendor import PurchaseOrderRequestVendor
@@ -375,6 +391,7 @@ from .remote_field_api import RemoteFieldApi
 from .remote_field_api_coverage import RemoteFieldApiCoverage
 from .remote_field_api_response import RemoteFieldApiResponse
 from .remote_field_class import RemoteFieldClass
+from .remote_field_remote_field_class import RemoteFieldRemoteFieldClass
 from .remote_field_request import RemoteFieldRequest
 from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
 from .remote_key import RemoteKey
@@ -386,8 +403,8 @@ from .role_enum import RoleEnum
 from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
 from .status_7_d_1_enum import Status7D1Enum
 from .status_895_enum import Status895Enum
+from .status_fd_5_enum import StatusFd5Enum
 from .sync_status import SyncStatus
-from .sync_status_status_enum import SyncStatusStatusEnum
 from .tax_component import TaxComponent
 from .tax_component_component_type import TaxComponentComponentType
 from .tax_rate import TaxRate
@@ -623,6 +640,7 @@ __all__ = [
     "GeneralLedgerTransactionLineContact",
     "GeneralLedgerTransactionLineEmployee",
     "GeneralLedgerTransactionLineItem",
+    "GeneralLedgerTransactionLineTrackingCategoriesItem",
     "GeneralLedgerTransactionLineTransactionCurrency",
     "GeneralLedgerTransactionTrackingCategoriesItem",
     "GeneralLedgerTransactionUnderlyingTransactionType",
@@ -654,6 +672,7 @@ __all__ = [
     "InvoiceLineItemRequestTrackingCategory",
     "InvoiceLineItemTrackingCategoriesItem",
     "InvoiceLineItemTrackingCategory",
+    "InvoicePaymentTerm",
     "InvoicePaymentsItem",
     "InvoicePurchaseOrdersItem",
     "InvoiceRequest",
@@ -661,6 +680,7 @@ __all__ = [
     "InvoiceRequestContact",
     "InvoiceRequestCurrency",
     "InvoiceRequestEmployee",
+    "InvoiceRequestPaymentTerm",
     "InvoiceRequestPaymentsItem",
     "InvoiceRequestPurchaseOrdersItem",
     "InvoiceRequestStatus",
@@ -711,10 +731,12 @@ __all__ = [
     "JournalLineTrackingCategoriesItem",
     "JournalLineTrackingCategory",
     "LanguageEnum",
+    "LastSyncResultEnum",
     "LinkToken",
     "LinkedAccountStatus",
     "MetaResponse",
     "MethodEnum",
+    "MethodTypeEnum",
     "ModelOperation",
     "ModelPermissionDeserializer",
     "ModelPermissionDeserializerRequest",
@@ -741,6 +763,8 @@ __all__ = [
     "PaginatedItemList",
     "PaginatedJournalEntryList",
     "PaginatedPaymentList",
+    "PaginatedPaymentMethodList",
+    "PaginatedPaymentTermList",
     "PaginatedPurchaseOrderList",
     "PaginatedRemoteFieldClassList",
     "PaginatedSyncStatusList",
@@ -755,6 +779,7 @@ __all__ = [
     "PatchedPaymentRequestCompany",
     "PatchedPaymentRequestContact",
     "PatchedPaymentRequestCurrency",
+    "PatchedPaymentRequestPaymentMethod",
     "PatchedPaymentRequestTrackingCategoriesItem",
     "PatchedPaymentRequestType",
     "Payment",
@@ -766,6 +791,9 @@ __all__ = [
     "PaymentCurrency",
     "PaymentLineItem",
     "PaymentLineItemRequest",
+    "PaymentMethod",
+    "PaymentMethodMethodType",
+    "PaymentPaymentMethod",
     "PaymentRequest",
     "PaymentRequestAccount",
     "PaymentRequestAccountingPeriod",
@@ -773,9 +801,12 @@ __all__ = [
     "PaymentRequestCompany",
     "PaymentRequestContact",
     "PaymentRequestCurrency",
+    "PaymentRequestPaymentMethod",
     "PaymentRequestTrackingCategoriesItem",
     "PaymentRequestType",
     "PaymentResponse",
+    "PaymentTerm",
+    "PaymentTermCompany",
     "PaymentTrackingCategoriesItem",
     "PaymentType",
     "PaymentTypeEnum",
@@ -791,10 +822,12 @@ __all__ = [
     "PurchaseOrderLineItemRequest",
     "PurchaseOrderLineItemRequestCurrency",
     "PurchaseOrderLineItemRequestItem",
+    "PurchaseOrderPaymentTerm",
     "PurchaseOrderRequest",
     "PurchaseOrderRequestCompany",
     "PurchaseOrderRequestCurrency",
     "PurchaseOrderRequestDeliveryAddress",
+    "PurchaseOrderRequestPaymentTerm",
     "PurchaseOrderRequestStatus",
     "PurchaseOrderRequestTrackingCategoriesItem",
     "PurchaseOrderRequestVendor",
@@ -810,6 +843,7 @@ __all__ = [
     "RemoteFieldApiCoverage",
     "RemoteFieldApiResponse",
     "RemoteFieldClass",
+    "RemoteFieldRemoteFieldClass",
     "RemoteFieldRequest",
     "RemoteFieldRequestRemoteFieldClass",
     "RemoteKey",
@@ -821,8 +855,8 @@ __all__ = [
     "SelectiveSyncConfigurationsUsageEnum",
     "Status7D1Enum",
     "Status895Enum",
+    "StatusFd5Enum",
     "SyncStatus",
-    "SyncStatusStatusEnum",
     "TaxComponent",
     "TaxComponentComponentType",
     "TaxRate",

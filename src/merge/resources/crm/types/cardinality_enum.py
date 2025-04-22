@@ -8,10 +8,10 @@ T_Result = typing.TypeVar("T_Result")
 
 class CardinalityEnum(str, enum.Enum):
     """
-    - `ONE_TO_ONE` - ONE_TO_ONE
-    - `MANY_TO_ONE` - MANY_TO_ONE
-    - `MANY_TO_MANY` - MANY_TO_MANY
-    - `ONE_TO_MANY` - ONE_TO_MANY
+    * `ONE_TO_ONE` - ONE_TO_ONE
+    * `MANY_TO_ONE` - MANY_TO_ONE
+    * `MANY_TO_MANY` - MANY_TO_MANY
+    * `ONE_TO_MANY` - ONE_TO_MANY
     """
 
     ONE_TO_ONE = "ONE_TO_ONE"

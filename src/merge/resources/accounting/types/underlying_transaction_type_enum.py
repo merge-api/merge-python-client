@@ -8,13 +8,13 @@ T_Result = typing.TypeVar("T_Result")
 
 class UnderlyingTransactionTypeEnum(str, enum.Enum):
     """
-    - `INVOICE` - INVOICE
-    - `EXPENSE` - EXPENSE
-    - `TRANSACTION` - TRANSACTION
-    - `JOURNAL_ENTRY` - JOURNAL_ENTRY
-    - `PAYMENT` - PAYMENT
-    - `VENDOR_CREDIT` - VENDOR_CREDIT
-    - `CREDIT_NOTE` - CREDIT_NOTE
+    * `INVOICE` - INVOICE
+    * `EXPENSE` - EXPENSE
+    * `TRANSACTION` - TRANSACTION
+    * `JOURNAL_ENTRY` - JOURNAL_ENTRY
+    * `PAYMENT` - PAYMENT
+    * `VENDOR_CREDIT` - VENDOR_CREDIT
+    * `CREDIT_NOTE` - CREDIT_NOTE
     """
 
     INVOICE = "INVOICE"

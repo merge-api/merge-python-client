@@ -8,10 +8,10 @@ T_Result = typing.TypeVar("T_Result")
 
 class AsyncPostTaskStatusEnum(str, enum.Enum):
     """
-    - `QUEUED` - QUEUED
-    - `IN_PROGRESS` - IN_PROGRESS
-    - `COMPLETED` - COMPLETED
-    - `FAILURE` - FAILURE
+    * `QUEUED` - QUEUED
+    * `IN_PROGRESS` - IN_PROGRESS
+    * `COMPLETED` - COMPLETED
+    * `FAILURE` - FAILURE
     """
 
     QUEUED = "QUEUED"

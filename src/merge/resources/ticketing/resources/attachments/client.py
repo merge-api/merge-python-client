@@ -2,19 +2,16 @@
 
 import typing
 from .....core.client_wrapper import SyncClientWrapper
+from .raw_client import RawAttachmentsClient
 import datetime as dt
 from .....core.request_options import RequestOptions
 from ...types.paginated_attachment_list import PaginatedAttachmentList
-from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from .....core.api_error import ApiError
 from ...types.attachment_request import AttachmentRequest
 from ...types.ticketing_attachment_response import TicketingAttachmentResponse
 from ...types.attachment import Attachment
-from .....core.jsonable_encoder import jsonable_encoder
 from ...types.meta_response import MetaResponse
 from .....core.client_wrapper import AsyncClientWrapper
+from .raw_client import AsyncRawAttachmentsClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -22,7 +19,18 @@ OMIT = typing.cast(typing.Any, ...)
 
 class AttachmentsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = RawAttachmentsClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawAttachmentsClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawAttachmentsClient
+        """
+        return self._raw_client
 
     def list(
         self,
@@ -104,41 +112,23 @@ class AttachmentsClient:
         )
         client.ticketing.attachments.list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "ticketing/v1/attachments",
-            method="GET",
-            params={
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "page_size": page_size,
-                "remote_created_after": serialize_datetime(remote_created_after)
-                if remote_created_after is not None
-                else None,
-                "remote_id": remote_id,
-                "ticket_id": ticket_id,
-            },
+        response = self._raw_client.list(
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            page_size=page_size,
+            remote_created_after=remote_created_after,
+            remote_id=remote_id,
+            ticket_id=ticket_id,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedAttachmentList,
-                    parse_obj_as(
-                        type_=PaginatedAttachmentList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def create(
         self,
@@ -182,32 +172,10 @@ class AttachmentsClient:
             model=AttachmentRequest(),
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "ticketing/v1/attachments",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    TicketingAttachmentResponse,
-                    parse_obj_as(
-                        type_=TicketingAttachmentResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def retrieve(
         self,
@@ -215,6 +183,7 @@ class AttachmentsClient:
         *,
         expand: typing.Optional[typing.Literal["ticket"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Attachment:
         """
@@ -229,6 +198,9 @@ class AttachmentsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -250,33 +222,20 @@ class AttachmentsClient:
             id="id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"ticketing/v1/attachments/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-            },
+        response = self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Attachment,
-                    parse_obj_as(
-                        type_=Attachment,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def download_retrieve(
         self,
         id: str,
         *,
+        include_shell_data: typing.Optional[bool] = None,
         mime_type: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Iterator[bytes]:
@@ -287,48 +246,24 @@ class AttachmentsClient:
         ----------
         id : str
 
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+
         mime_type : typing.Optional[str]
             If provided, specifies the export format of the file to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
 
         request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
+            Request-specific configuration. You can pass in configuration such as `chunk_size`, and more to customize the request and response.
 
-        Yields
-        ------
+        Returns
+        -------
         typing.Iterator[bytes]
 
-
-        Examples
-        --------
-        from merge import Merge
-
-        client = Merge(
-            account_token="YOUR_ACCOUNT_TOKEN",
-            api_key="YOUR_API_KEY",
-        )
-        client.ticketing.attachments.download_retrieve(
-            id="string",
-            mime_type="string",
-        )
         """
-        with self._client_wrapper.httpx_client.stream(
-            f"ticketing/v1/attachments/{jsonable_encoder(id)}/download",
-            method="GET",
-            params={
-                "mime_type": mime_type,
-            },
-            request_options=request_options,
-        ) as _response:
-            try:
-                if 200 <= _response.status_code < 300:
-                    for _chunk in _response.iter_bytes():
-                        yield _chunk
-                    return
-                _response.read()
-                _response_json = _response.json()
-            except JSONDecodeError:
-                raise ApiError(status_code=_response.status_code, body=_response.text)
-            raise ApiError(status_code=_response.status_code, body=_response_json)
+        with self._raw_client.download_retrieve(
+            id, include_shell_data=include_shell_data, mime_type=mime_type, request_options=request_options
+        ) as r:
+            yield from r.data
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -354,29 +289,24 @@ class AttachmentsClient:
         )
         client.ticketing.attachments.meta_post_retrieve()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "ticketing/v1/attachments/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data
 
 
 class AsyncAttachmentsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = AsyncRawAttachmentsClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawAttachmentsClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawAttachmentsClient
+        """
+        return self._raw_client
 
     async def list(
         self,
@@ -466,41 +396,23 @@ class AsyncAttachmentsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "ticketing/v1/attachments",
-            method="GET",
-            params={
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "page_size": page_size,
-                "remote_created_after": serialize_datetime(remote_created_after)
-                if remote_created_after is not None
-                else None,
-                "remote_id": remote_id,
-                "ticket_id": ticket_id,
-            },
+        response = await self._raw_client.list(
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            page_size=page_size,
+            remote_created_after=remote_created_after,
+            remote_id=remote_id,
+            ticket_id=ticket_id,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedAttachmentList,
-                    parse_obj_as(
-                        type_=PaginatedAttachmentList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def create(
         self,
@@ -552,32 +464,10 @@ class AsyncAttachmentsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "ticketing/v1/attachments",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = await self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    TicketingAttachmentResponse,
-                    parse_obj_as(
-                        type_=TicketingAttachmentResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def retrieve(
         self,
@@ -585,6 +475,7 @@ class AsyncAttachmentsClient:
         *,
         expand: typing.Optional[typing.Literal["ticket"]] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Attachment:
         """
@@ -599,6 +490,9 @@ class AsyncAttachmentsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -628,33 +522,20 @@ class AsyncAttachmentsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"ticketing/v1/attachments/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-            },
+        response = await self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Attachment,
-                    parse_obj_as(
-                        type_=Attachment,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def download_retrieve(
         self,
         id: str,
         *,
+        include_shell_data: typing.Optional[bool] = None,
         mime_type: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.AsyncIterator[bytes]:
@@ -665,56 +546,25 @@ class AsyncAttachmentsClient:
         ----------
         id : str
 
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+
         mime_type : typing.Optional[str]
             If provided, specifies the export format of the file to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
 
         request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
+            Request-specific configuration. You can pass in configuration such as `chunk_size`, and more to customize the request and response.
 
-        Yields
-        ------
+        Returns
+        -------
         typing.AsyncIterator[bytes]
 
-
-        Examples
-        --------
-        import asyncio
-
-        from merge import AsyncMerge
-
-        client = AsyncMerge(
-            account_token="YOUR_ACCOUNT_TOKEN",
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.ticketing.attachments.download_retrieve(
-                id="string",
-                mime_type="string",
-            )
-
-
-        asyncio.run(main())
         """
-        async with self._client_wrapper.httpx_client.stream(
-            f"ticketing/v1/attachments/{jsonable_encoder(id)}/download",
-            method="GET",
-            params={
-                "mime_type": mime_type,
-            },
-            request_options=request_options,
-        ) as _response:
-            try:
-                if 200 <= _response.status_code < 300:
-                    async for _chunk in _response.aiter_bytes():
-                        yield _chunk
-                    return
-                await _response.aread()
-                _response_json = _response.json()
-            except JSONDecodeError:
-                raise ApiError(status_code=_response.status_code, body=_response.text)
-            raise ApiError(status_code=_response.status_code, body=_response_json)
+        async with self._raw_client.download_retrieve(
+            id, include_shell_data=include_shell_data, mime_type=mime_type, request_options=request_options
+        ) as r:
+            async for data in r.data:
+                yield data
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -748,21 +598,5 @@ class AsyncAttachmentsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "ticketing/v1/attachments/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data

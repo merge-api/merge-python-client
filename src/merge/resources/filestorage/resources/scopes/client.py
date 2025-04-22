@@ -2,13 +2,12 @@
 
 import typing
 from .....core.client_wrapper import SyncClientWrapper
+from .raw_client import RawScopesClient
 from .....core.request_options import RequestOptions
 from ...types.common_model_scope_api import CommonModelScopeApi
-from .....core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from .....core.api_error import ApiError
 from ...types.individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
 from .....core.client_wrapper import AsyncClientWrapper
+from .raw_client import AsyncRawScopesClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -16,7 +15,18 @@ OMIT = typing.cast(typing.Any, ...)
 
 class ScopesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = RawScopesClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawScopesClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawScopesClient
+        """
+        return self._raw_client
 
     def default_scopes_retrieve(
         self, *, request_options: typing.Optional[RequestOptions] = None
@@ -44,24 +54,8 @@ class ScopesClient:
         )
         client.filestorage.scopes.default_scopes_retrieve()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "filestorage/v1/default-scopes",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    CommonModelScopeApi,
-                    parse_obj_as(
-                        type_=CommonModelScopeApi,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.default_scopes_retrieve(request_options=request_options)
+        return response.data
 
     def linked_account_scopes_retrieve(
         self, *, request_options: typing.Optional[RequestOptions] = None
@@ -89,24 +83,8 @@ class ScopesClient:
         )
         client.filestorage.scopes.linked_account_scopes_retrieve()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "filestorage/v1/linked-account-scopes",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    CommonModelScopeApi,
-                    parse_obj_as(
-                        type_=CommonModelScopeApi,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.linked_account_scopes_retrieve(request_options=request_options)
+        return response.data
 
     def linked_account_scopes_create(
         self,
@@ -171,33 +149,26 @@ class ScopesClient:
             ],
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "filestorage/v1/linked-account-scopes",
-            method="POST",
-            json={
-                "common_models": common_models,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = self._raw_client.linked_account_scopes_create(
+            common_models=common_models, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    CommonModelScopeApi,
-                    parse_obj_as(
-                        type_=CommonModelScopeApi,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
 
 class AsyncScopesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = AsyncRawScopesClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawScopesClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawScopesClient
+        """
+        return self._raw_client
 
     async def default_scopes_retrieve(
         self, *, request_options: typing.Optional[RequestOptions] = None
@@ -233,24 +204,8 @@ class AsyncScopesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "filestorage/v1/default-scopes",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    CommonModelScopeApi,
-                    parse_obj_as(
-                        type_=CommonModelScopeApi,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.default_scopes_retrieve(request_options=request_options)
+        return response.data
 
     async def linked_account_scopes_retrieve(
         self, *, request_options: typing.Optional[RequestOptions] = None
@@ -286,24 +241,8 @@ class AsyncScopesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "filestorage/v1/linked-account-scopes",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    CommonModelScopeApi,
-                    parse_obj_as(
-                        type_=CommonModelScopeApi,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.linked_account_scopes_retrieve(request_options=request_options)
+        return response.data
 
     async def linked_account_scopes_create(
         self,
@@ -376,25 +315,7 @@ class AsyncScopesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "filestorage/v1/linked-account-scopes",
-            method="POST",
-            json={
-                "common_models": common_models,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = await self._raw_client.linked_account_scopes_create(
+            common_models=common_models, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    CommonModelScopeApi,
-                    parse_obj_as(
-                        type_=CommonModelScopeApi,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data

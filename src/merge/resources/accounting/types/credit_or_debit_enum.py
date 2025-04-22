@@ -8,8 +8,8 @@ T_Result = typing.TypeVar("T_Result")
 
 class CreditOrDebitEnum(str, enum.Enum):
     """
-    - `CREDIT` - CREDIT
-    - `DEBIT` - DEBIT
+    * `CREDIT` - CREDIT
+    * `DEBIT` - DEBIT
     """
 
     CREDIT = "CREDIT"

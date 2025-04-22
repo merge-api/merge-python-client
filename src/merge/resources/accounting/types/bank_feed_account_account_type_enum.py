@@ -8,8 +8,8 @@ T_Result = typing.TypeVar("T_Result")
 
 class BankFeedAccountAccountTypeEnum(str, enum.Enum):
     """
-    - `BANK` - BANK
-    - `CREDIT_CARD` - CREDIT_CARD
+    * `BANK` - BANK
+    * `CREDIT_CARD` - CREDIT_CARD
     """
 
     BANK = "BANK"

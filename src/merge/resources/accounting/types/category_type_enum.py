@@ -8,8 +8,8 @@ T_Result = typing.TypeVar("T_Result")
 
 class CategoryTypeEnum(str, enum.Enum):
     """
-    - `CLASS` - CLASS
-    - `DEPARTMENT` - DEPARTMENT
+    * `CLASS` - CLASS
+    * `DEPARTMENT` - DEPARTMENT
     """
 
     CLASS = "CLASS"

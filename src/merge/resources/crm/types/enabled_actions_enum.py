@@ -8,8 +8,8 @@ T_Result = typing.TypeVar("T_Result")
 
 class EnabledActionsEnum(str, enum.Enum):
     """
-    - `READ` - READ
-    - `WRITE` - WRITE
+    * `READ` - READ
+    * `WRITE` - WRITE
     """
 
     READ = "READ"

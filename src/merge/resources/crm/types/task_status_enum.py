@@ -8,8 +8,8 @@ T_Result = typing.TypeVar("T_Result")
 
 class TaskStatusEnum(str, enum.Enum):
     """
-    - `OPEN` - OPEN
-    - `CLOSED` - CLOSED
+    * `OPEN` - OPEN
+    * `CLOSED` - CLOSED
     """
 
     OPEN = "OPEN"

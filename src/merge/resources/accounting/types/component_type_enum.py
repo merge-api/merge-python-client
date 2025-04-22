@@ -8,8 +8,8 @@ T_Result = typing.TypeVar("T_Result")
 
 class ComponentTypeEnum(str, enum.Enum):
     """
-    - `SALES` - SALES
-    - `PURCHASE` - PURCHASE
+    * `SALES` - SALES
+    * `PURCHASE` - PURCHASE
     """
 
     SALES = "SALES"

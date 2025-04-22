@@ -8,9 +8,9 @@ T_Result = typing.TypeVar("T_Result")
 
 class JobTypeEnum(str, enum.Enum):
     """
-    - `POSTING` - POSTING
-    - `REQUISITION` - REQUISITION
-    - `PROFILE` - PROFILE
+    * `POSTING` - POSTING
+    * `REQUISITION` - REQUISITION
+    * `PROFILE` - PROFILE
     """
 
     POSTING = "POSTING"

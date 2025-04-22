@@ -8,11 +8,11 @@ T_Result = typing.TypeVar("T_Result")
 
 class GenderEnum(str, enum.Enum):
     """
-    - `MALE` - MALE
-    - `FEMALE` - FEMALE
-    - `NON-BINARY` - NON-BINARY
-    - `OTHER` - OTHER
-    - `DECLINE_TO_SELF_IDENTIFY` - DECLINE_TO_SELF_IDENTIFY
+    * `MALE` - MALE
+    * `FEMALE` - FEMALE
+    * `NON-BINARY` - NON-BINARY
+    * `OTHER` - OTHER
+    * `DECLINE_TO_SELF_IDENTIFY` - DECLINE_TO_SELF_IDENTIFY
     """
 
     MALE = "MALE"
