@@ -2,6 +2,7 @@
 
 import typing
 from .....core.client_wrapper import SyncClientWrapper
+from .raw_client import RawTicketsClient
 import datetime as dt
 from .types.tickets_list_request_expand import TicketsListRequestExpand
 from .types.tickets_list_request_priority import TicketsListRequestPriority
@@ -9,23 +10,19 @@ from .types.tickets_list_request_remote_fields import TicketsListRequestRemoteFi
 from .types.tickets_list_request_show_enum_origins import TicketsListRequestShowEnumOrigins
 from .....core.request_options import RequestOptions
 from ...types.paginated_ticket_list import PaginatedTicketList
-from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from .....core.api_error import ApiError
 from ...types.ticket_request import TicketRequest
 from ...types.ticket_response import TicketResponse
 from .types.tickets_retrieve_request_expand import TicketsRetrieveRequestExpand
 from .types.tickets_retrieve_request_remote_fields import TicketsRetrieveRequestRemoteFields
 from .types.tickets_retrieve_request_show_enum_origins import TicketsRetrieveRequestShowEnumOrigins
 from ...types.ticket import Ticket
-from .....core.jsonable_encoder import jsonable_encoder
 from ...types.patched_ticket_request import PatchedTicketRequest
 from .types.tickets_viewers_list_request_expand import TicketsViewersListRequestExpand
 from ...types.paginated_viewer_list import PaginatedViewerList
 from ...types.meta_response import MetaResponse
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from .....core.client_wrapper import AsyncClientWrapper
+from .raw_client import AsyncRawTicketsClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -33,7 +30,18 @@ OMIT = typing.cast(typing.Any, ...)
 
 class TicketsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = RawTicketsClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawTicketsClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawTicketsClient
+        """
+        return self._raw_client
 
     def list(
         self,
@@ -140,10 +148,10 @@ class TicketsClient:
         priority : typing.Optional[TicketsListRequestPriority]
             If provided, will only return tickets of this priority.
 
-            - `URGENT` - URGENT
-            - `HIGH` - HIGH
-            - `NORMAL` - NORMAL
-            - `LOW` - LOW
+            * `URGENT` - URGENT
+            * `HIGH` - HIGH
+            * `NORMAL` - NORMAL
+            * `LOW` - LOW
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return tickets created in the third party platform after this datetime.
@@ -196,66 +204,42 @@ class TicketsClient:
         )
         client.ticketing.tickets.list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "ticketing/v1/tickets",
-            method="GET",
-            params={
-                "account_id": account_id,
-                "assignee_ids": assignee_ids,
-                "collection_ids": collection_ids,
-                "completed_after": serialize_datetime(completed_after) if completed_after is not None else None,
-                "completed_before": serialize_datetime(completed_before) if completed_before is not None else None,
-                "contact_id": contact_id,
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "due_after": serialize_datetime(due_after) if due_after is not None else None,
-                "due_before": serialize_datetime(due_before) if due_before is not None else None,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "include_shell_data": include_shell_data,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "page_size": page_size,
-                "parent_ticket_id": parent_ticket_id,
-                "priority": priority,
-                "remote_created_after": serialize_datetime(remote_created_after)
-                if remote_created_after is not None
-                else None,
-                "remote_created_before": serialize_datetime(remote_created_before)
-                if remote_created_before is not None
-                else None,
-                "remote_fields": remote_fields,
-                "remote_id": remote_id,
-                "remote_updated_after": serialize_datetime(remote_updated_after)
-                if remote_updated_after is not None
-                else None,
-                "remote_updated_before": serialize_datetime(remote_updated_before)
-                if remote_updated_before is not None
-                else None,
-                "show_enum_origins": show_enum_origins,
-                "status": status,
-                "tags": tags,
-                "ticket_type": ticket_type,
-                "ticket_url": ticket_url,
-            },
+        response = self._raw_client.list(
+            account_id=account_id,
+            assignee_ids=assignee_ids,
+            collection_ids=collection_ids,
+            completed_after=completed_after,
+            completed_before=completed_before,
+            contact_id=contact_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            due_after=due_after,
+            due_before=due_before,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            page_size=page_size,
+            parent_ticket_id=parent_ticket_id,
+            priority=priority,
+            remote_created_after=remote_created_after,
+            remote_created_before=remote_created_before,
+            remote_fields=remote_fields,
+            remote_id=remote_id,
+            remote_updated_after=remote_updated_after,
+            remote_updated_before=remote_updated_before,
+            show_enum_origins=show_enum_origins,
+            status=status,
+            tags=tags,
+            ticket_type=ticket_type,
+            ticket_url=ticket_url,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedTicketList,
-                    parse_obj_as(
-                        type_=PaginatedTicketList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def create(
         self,
@@ -299,32 +283,10 @@ class TicketsClient:
             model=TicketRequest(),
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "ticketing/v1/tickets",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    TicketResponse,
-                    parse_obj_as(
-                        type_=TicketResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def retrieve(
         self,
@@ -333,6 +295,7 @@ class TicketsClient:
         expand: typing.Optional[TicketsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[TicketsRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[TicketsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -352,6 +315,9 @@ class TicketsClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[TicketsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -379,31 +345,17 @@ class TicketsClient:
             id="id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"ticketing/v1/tickets/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "remote_fields": remote_fields,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Ticket,
-                    parse_obj_as(
-                        type_=Ticket,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def partial_update(
         self,
@@ -451,32 +403,10 @@ class TicketsClient:
             model=PatchedTicketRequest(),
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"ticketing/v1/tickets/{jsonable_encoder(id)}",
-            method="PATCH",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = self._raw_client.partial_update(
+            id, model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    TicketResponse,
-                    parse_obj_as(
-                        type_=TicketResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def viewers_list(
         self,
@@ -491,7 +421,7 @@ class TicketsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedViewerList:
         """
-        Returns a list of `Viewer` objects.
+        Returns a list of `Viewer` objects that point to a User id or Team id that is either an assignee or viewer on a `Ticket` with the given id. [Learn more.](https://help.merge.dev/en/articles/10333658-ticketing-access-control-list-acls)
 
         Parameters
         ----------
@@ -535,32 +465,17 @@ class TicketsClient:
             ticket_id="ticket_id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"ticketing/v1/tickets/{jsonable_encoder(ticket_id)}/viewers",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "page_size": page_size,
-            },
+        response = self._raw_client.viewers_list(
+            ticket_id,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedViewerList,
-                    parse_obj_as(
-                        type_=PaginatedViewerList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def meta_patch_retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -590,24 +505,8 @@ class TicketsClient:
             id="id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"ticketing/v1/tickets/meta/patch/{jsonable_encoder(id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.meta_patch_retrieve(id, request_options=request_options)
+        return response.data
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -633,29 +532,14 @@ class TicketsClient:
         )
         client.ticketing.tickets.meta_post_retrieve()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "ticketing/v1/tickets/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data
 
     def remote_field_classes_list(
         self,
         *,
         cursor: typing.Optional[str] = None,
+        ids: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -670,6 +554,9 @@ class TicketsClient:
         ----------
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        ids : typing.Optional[str]
+            If provided, will only return remote field classes with the `ids` in this list
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -704,37 +591,33 @@ class TicketsClient:
         )
         client.ticketing.tickets.remote_field_classes_list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "ticketing/v1/tickets/remote-field-classes",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "is_common_model_field": is_common_model_field,
-                "page_size": page_size,
-            },
+        response = self._raw_client.remote_field_classes_list(
+            cursor=cursor,
+            ids=ids,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            is_common_model_field=is_common_model_field,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedRemoteFieldClassList,
-                    parse_obj_as(
-                        type_=PaginatedRemoteFieldClassList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
 
 class AsyncTicketsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = AsyncRawTicketsClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawTicketsClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawTicketsClient
+        """
+        return self._raw_client
 
     async def list(
         self,
@@ -841,10 +724,10 @@ class AsyncTicketsClient:
         priority : typing.Optional[TicketsListRequestPriority]
             If provided, will only return tickets of this priority.
 
-            - `URGENT` - URGENT
-            - `HIGH` - HIGH
-            - `NORMAL` - NORMAL
-            - `LOW` - LOW
+            * `URGENT` - URGENT
+            * `HIGH` - HIGH
+            * `NORMAL` - NORMAL
+            * `LOW` - LOW
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return tickets created in the third party platform after this datetime.
@@ -905,66 +788,42 @@ class AsyncTicketsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "ticketing/v1/tickets",
-            method="GET",
-            params={
-                "account_id": account_id,
-                "assignee_ids": assignee_ids,
-                "collection_ids": collection_ids,
-                "completed_after": serialize_datetime(completed_after) if completed_after is not None else None,
-                "completed_before": serialize_datetime(completed_before) if completed_before is not None else None,
-                "contact_id": contact_id,
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "due_after": serialize_datetime(due_after) if due_after is not None else None,
-                "due_before": serialize_datetime(due_before) if due_before is not None else None,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "include_shell_data": include_shell_data,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "page_size": page_size,
-                "parent_ticket_id": parent_ticket_id,
-                "priority": priority,
-                "remote_created_after": serialize_datetime(remote_created_after)
-                if remote_created_after is not None
-                else None,
-                "remote_created_before": serialize_datetime(remote_created_before)
-                if remote_created_before is not None
-                else None,
-                "remote_fields": remote_fields,
-                "remote_id": remote_id,
-                "remote_updated_after": serialize_datetime(remote_updated_after)
-                if remote_updated_after is not None
-                else None,
-                "remote_updated_before": serialize_datetime(remote_updated_before)
-                if remote_updated_before is not None
-                else None,
-                "show_enum_origins": show_enum_origins,
-                "status": status,
-                "tags": tags,
-                "ticket_type": ticket_type,
-                "ticket_url": ticket_url,
-            },
+        response = await self._raw_client.list(
+            account_id=account_id,
+            assignee_ids=assignee_ids,
+            collection_ids=collection_ids,
+            completed_after=completed_after,
+            completed_before=completed_before,
+            contact_id=contact_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            due_after=due_after,
+            due_before=due_before,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            page_size=page_size,
+            parent_ticket_id=parent_ticket_id,
+            priority=priority,
+            remote_created_after=remote_created_after,
+            remote_created_before=remote_created_before,
+            remote_fields=remote_fields,
+            remote_id=remote_id,
+            remote_updated_after=remote_updated_after,
+            remote_updated_before=remote_updated_before,
+            show_enum_origins=show_enum_origins,
+            status=status,
+            tags=tags,
+            ticket_type=ticket_type,
+            ticket_url=ticket_url,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedTicketList,
-                    parse_obj_as(
-                        type_=PaginatedTicketList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def create(
         self,
@@ -1016,32 +875,10 @@ class AsyncTicketsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "ticketing/v1/tickets",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = await self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    TicketResponse,
-                    parse_obj_as(
-                        type_=TicketResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def retrieve(
         self,
@@ -1050,6 +887,7 @@ class AsyncTicketsClient:
         expand: typing.Optional[TicketsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[TicketsRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[TicketsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1069,6 +907,9 @@ class AsyncTicketsClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[TicketsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -1104,31 +945,17 @@ class AsyncTicketsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"ticketing/v1/tickets/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "remote_fields": remote_fields,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = await self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Ticket,
-                    parse_obj_as(
-                        type_=Ticket,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def partial_update(
         self,
@@ -1184,32 +1011,10 @@ class AsyncTicketsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"ticketing/v1/tickets/{jsonable_encoder(id)}",
-            method="PATCH",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = await self._raw_client.partial_update(
+            id, model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    TicketResponse,
-                    parse_obj_as(
-                        type_=TicketResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def viewers_list(
         self,
@@ -1224,7 +1029,7 @@ class AsyncTicketsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedViewerList:
         """
-        Returns a list of `Viewer` objects.
+        Returns a list of `Viewer` objects that point to a User id or Team id that is either an assignee or viewer on a `Ticket` with the given id. [Learn more.](https://help.merge.dev/en/articles/10333658-ticketing-access-control-list-acls)
 
         Parameters
         ----------
@@ -1276,32 +1081,17 @@ class AsyncTicketsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"ticketing/v1/tickets/{jsonable_encoder(ticket_id)}/viewers",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "page_size": page_size,
-            },
+        response = await self._raw_client.viewers_list(
+            ticket_id,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedViewerList,
-                    parse_obj_as(
-                        type_=PaginatedViewerList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def meta_patch_retrieve(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -1341,24 +1131,8 @@ class AsyncTicketsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"ticketing/v1/tickets/meta/patch/{jsonable_encoder(id)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.meta_patch_retrieve(id, request_options=request_options)
+        return response.data
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -1392,29 +1166,14 @@ class AsyncTicketsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "ticketing/v1/tickets/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data
 
     async def remote_field_classes_list(
         self,
         *,
         cursor: typing.Optional[str] = None,
+        ids: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -1429,6 +1188,9 @@ class AsyncTicketsClient:
         ----------
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        ids : typing.Optional[str]
+            If provided, will only return remote field classes with the `ids` in this list
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -1471,29 +1233,14 @@ class AsyncTicketsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "ticketing/v1/tickets/remote-field-classes",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "is_common_model_field": is_common_model_field,
-                "page_size": page_size,
-            },
+        response = await self._raw_client.remote_field_classes_list(
+            cursor=cursor,
+            ids=ids,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            is_common_model_field=is_common_model_field,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedRemoteFieldClassList,
-                    parse_obj_as(
-                        type_=PaginatedRemoteFieldClassList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data

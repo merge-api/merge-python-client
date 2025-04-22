@@ -8,11 +8,11 @@ T_Result = typing.TypeVar("T_Result")
 
 class AccessRoleEnum(str, enum.Enum):
     """
-    - `SUPER_ADMIN` - SUPER_ADMIN
-    - `ADMIN` - ADMIN
-    - `TEAM_MEMBER` - TEAM_MEMBER
-    - `LIMITED_TEAM_MEMBER` - LIMITED_TEAM_MEMBER
-    - `INTERVIEWER` - INTERVIEWER
+    * `SUPER_ADMIN` - SUPER_ADMIN
+    * `ADMIN` - ADMIN
+    * `TEAM_MEMBER` - TEAM_MEMBER
+    * `LIMITED_TEAM_MEMBER` - LIMITED_TEAM_MEMBER
+    * `INTERVIEWER` - INTERVIEWER
     """
 
     SUPER_ADMIN = "SUPER_ADMIN"

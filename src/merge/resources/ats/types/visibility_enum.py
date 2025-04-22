@@ -8,9 +8,9 @@ T_Result = typing.TypeVar("T_Result")
 
 class VisibilityEnum(str, enum.Enum):
     """
-    - `ADMIN_ONLY` - ADMIN_ONLY
-    - `PUBLIC` - PUBLIC
-    - `PRIVATE` - PRIVATE
+    * `ADMIN_ONLY` - ADMIN_ONLY
+    * `PUBLIC` - PUBLIC
+    * `PRIVATE` - PRIVATE
     """
 
     ADMIN_ONLY = "ADMIN_ONLY"

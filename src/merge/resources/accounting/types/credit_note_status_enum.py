@@ -8,9 +8,9 @@ T_Result = typing.TypeVar("T_Result")
 
 class CreditNoteStatusEnum(str, enum.Enum):
     """
-    - `SUBMITTED` - SUBMITTED
-    - `AUTHORIZED` - AUTHORIZED
-    - `PAID` - PAID
+    * `SUBMITTED` - SUBMITTED
+    * `AUTHORIZED` - AUTHORIZED
+    * `PAID` - PAID
     """
 
     SUBMITTED = "SUBMITTED"

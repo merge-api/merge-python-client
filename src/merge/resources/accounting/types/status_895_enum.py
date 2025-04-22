@@ -8,8 +8,8 @@ T_Result = typing.TypeVar("T_Result")
 
 class Status895Enum(str, enum.Enum):
     """
-    - `ACTIVE` - ACTIVE
-    - `INACTIVE` - INACTIVE
+    * `ACTIVE` - ACTIVE
+    * `INACTIVE` - INACTIVE
     """
 
     ACTIVE = "ACTIVE"

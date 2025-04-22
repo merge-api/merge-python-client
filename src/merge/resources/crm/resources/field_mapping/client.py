@@ -2,16 +2,14 @@
 
 import typing
 from .....core.client_wrapper import SyncClientWrapper
+from .raw_client import RawFieldMappingClient
 from .....core.request_options import RequestOptions
 from ...types.field_mapping_api_instance_response import FieldMappingApiInstanceResponse
-from .....core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from .....core.api_error import ApiError
 from ...types.field_mapping_instance_response import FieldMappingInstanceResponse
-from .....core.jsonable_encoder import jsonable_encoder
 from ...types.remote_field_api_response import RemoteFieldApiResponse
 from ...types.external_target_field_api_response import ExternalTargetFieldApiResponse
 from .....core.client_wrapper import AsyncClientWrapper
+from .raw_client import AsyncRawFieldMappingClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -19,7 +17,18 @@ OMIT = typing.cast(typing.Any, ...)
 
 class FieldMappingClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = RawFieldMappingClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawFieldMappingClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawFieldMappingClient
+        """
+        return self._raw_client
 
     def field_mappings_retrieve(
         self,
@@ -53,27 +62,10 @@ class FieldMappingClient:
         )
         client.crm.field_mapping.field_mappings_retrieve()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "crm/v1/field-mappings",
-            method="GET",
-            params={
-                "exclude_remote_field_metadata": exclude_remote_field_metadata,
-            },
-            request_options=request_options,
+        response = self._raw_client.field_mappings_retrieve(
+            exclude_remote_field_metadata=exclude_remote_field_metadata, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    FieldMappingApiInstanceResponse,
-                    parse_obj_as(
-                        type_=FieldMappingApiInstanceResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def field_mappings_create(
         self,
@@ -138,36 +130,17 @@ class FieldMappingClient:
             common_model_name="ExampleCommonModel",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "crm/v1/field-mappings",
-            method="POST",
-            params={
-                "exclude_remote_field_metadata": exclude_remote_field_metadata,
-            },
-            json={
-                "target_field_name": target_field_name,
-                "target_field_description": target_field_description,
-                "remote_field_traversal_path": remote_field_traversal_path,
-                "remote_method": remote_method,
-                "remote_url_path": remote_url_path,
-                "common_model_name": common_model_name,
-            },
+        response = self._raw_client.field_mappings_create(
+            target_field_name=target_field_name,
+            target_field_description=target_field_description,
+            remote_field_traversal_path=remote_field_traversal_path,
+            remote_method=remote_method,
+            remote_url_path=remote_url_path,
+            common_model_name=common_model_name,
+            exclude_remote_field_metadata=exclude_remote_field_metadata,
             request_options=request_options,
-            omit=OMIT,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    FieldMappingInstanceResponse,
-                    parse_obj_as(
-                        type_=FieldMappingInstanceResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def field_mappings_destroy(
         self, field_mapping_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -199,24 +172,8 @@ class FieldMappingClient:
             field_mapping_id="field_mapping_id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"crm/v1/field-mappings/{jsonable_encoder(field_mapping_id)}",
-            method="DELETE",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    FieldMappingInstanceResponse,
-                    parse_obj_as(
-                        type_=FieldMappingInstanceResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.field_mappings_destroy(field_mapping_id, request_options=request_options)
+        return response.data
 
     def field_mappings_partial_update(
         self,
@@ -263,30 +220,14 @@ class FieldMappingClient:
             field_mapping_id="field_mapping_id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"crm/v1/field-mappings/{jsonable_encoder(field_mapping_id)}",
-            method="PATCH",
-            json={
-                "remote_field_traversal_path": remote_field_traversal_path,
-                "remote_method": remote_method,
-                "remote_url_path": remote_url_path,
-            },
+        response = self._raw_client.field_mappings_partial_update(
+            field_mapping_id,
+            remote_field_traversal_path=remote_field_traversal_path,
+            remote_method=remote_method,
+            remote_url_path=remote_url_path,
             request_options=request_options,
-            omit=OMIT,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    FieldMappingInstanceResponse,
-                    parse_obj_as(
-                        type_=FieldMappingInstanceResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def remote_fields_retrieve(
         self,
@@ -324,28 +265,10 @@ class FieldMappingClient:
         )
         client.crm.field_mapping.remote_fields_retrieve()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "crm/v1/remote-fields",
-            method="GET",
-            params={
-                "common_models": common_models,
-                "include_example_values": include_example_values,
-            },
-            request_options=request_options,
+        response = self._raw_client.remote_fields_retrieve(
+            common_models=common_models, include_example_values=include_example_values, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    RemoteFieldApiResponse,
-                    parse_obj_as(
-                        type_=RemoteFieldApiResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def target_fields_retrieve(
         self, *, request_options: typing.Optional[RequestOptions] = None
@@ -373,29 +296,24 @@ class FieldMappingClient:
         )
         client.crm.field_mapping.target_fields_retrieve()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "crm/v1/target-fields",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    ExternalTargetFieldApiResponse,
-                    parse_obj_as(
-                        type_=ExternalTargetFieldApiResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.target_fields_retrieve(request_options=request_options)
+        return response.data
 
 
 class AsyncFieldMappingClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = AsyncRawFieldMappingClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawFieldMappingClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawFieldMappingClient
+        """
+        return self._raw_client
 
     async def field_mappings_retrieve(
         self,
@@ -437,27 +355,10 @@ class AsyncFieldMappingClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "crm/v1/field-mappings",
-            method="GET",
-            params={
-                "exclude_remote_field_metadata": exclude_remote_field_metadata,
-            },
-            request_options=request_options,
+        response = await self._raw_client.field_mappings_retrieve(
+            exclude_remote_field_metadata=exclude_remote_field_metadata, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    FieldMappingApiInstanceResponse,
-                    parse_obj_as(
-                        type_=FieldMappingApiInstanceResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def field_mappings_create(
         self,
@@ -530,36 +431,17 @@ class AsyncFieldMappingClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "crm/v1/field-mappings",
-            method="POST",
-            params={
-                "exclude_remote_field_metadata": exclude_remote_field_metadata,
-            },
-            json={
-                "target_field_name": target_field_name,
-                "target_field_description": target_field_description,
-                "remote_field_traversal_path": remote_field_traversal_path,
-                "remote_method": remote_method,
-                "remote_url_path": remote_url_path,
-                "common_model_name": common_model_name,
-            },
+        response = await self._raw_client.field_mappings_create(
+            target_field_name=target_field_name,
+            target_field_description=target_field_description,
+            remote_field_traversal_path=remote_field_traversal_path,
+            remote_method=remote_method,
+            remote_url_path=remote_url_path,
+            common_model_name=common_model_name,
+            exclude_remote_field_metadata=exclude_remote_field_metadata,
             request_options=request_options,
-            omit=OMIT,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    FieldMappingInstanceResponse,
-                    parse_obj_as(
-                        type_=FieldMappingInstanceResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def field_mappings_destroy(
         self, field_mapping_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -599,24 +481,8 @@ class AsyncFieldMappingClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"crm/v1/field-mappings/{jsonable_encoder(field_mapping_id)}",
-            method="DELETE",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    FieldMappingInstanceResponse,
-                    parse_obj_as(
-                        type_=FieldMappingInstanceResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.field_mappings_destroy(field_mapping_id, request_options=request_options)
+        return response.data
 
     async def field_mappings_partial_update(
         self,
@@ -671,30 +537,14 @@ class AsyncFieldMappingClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"crm/v1/field-mappings/{jsonable_encoder(field_mapping_id)}",
-            method="PATCH",
-            json={
-                "remote_field_traversal_path": remote_field_traversal_path,
-                "remote_method": remote_method,
-                "remote_url_path": remote_url_path,
-            },
+        response = await self._raw_client.field_mappings_partial_update(
+            field_mapping_id,
+            remote_field_traversal_path=remote_field_traversal_path,
+            remote_method=remote_method,
+            remote_url_path=remote_url_path,
             request_options=request_options,
-            omit=OMIT,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    FieldMappingInstanceResponse,
-                    parse_obj_as(
-                        type_=FieldMappingInstanceResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def remote_fields_retrieve(
         self,
@@ -740,28 +590,10 @@ class AsyncFieldMappingClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "crm/v1/remote-fields",
-            method="GET",
-            params={
-                "common_models": common_models,
-                "include_example_values": include_example_values,
-            },
-            request_options=request_options,
+        response = await self._raw_client.remote_fields_retrieve(
+            common_models=common_models, include_example_values=include_example_values, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    RemoteFieldApiResponse,
-                    parse_obj_as(
-                        type_=RemoteFieldApiResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def target_fields_retrieve(
         self, *, request_options: typing.Optional[RequestOptions] = None
@@ -797,21 +629,5 @@ class AsyncFieldMappingClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "crm/v1/target-fields",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    ExternalTargetFieldApiResponse,
-                    parse_obj_as(
-                        type_=ExternalTargetFieldApiResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.target_fields_retrieve(request_options=request_options)
+        return response.data

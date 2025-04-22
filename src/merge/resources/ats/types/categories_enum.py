@@ -8,13 +8,13 @@ T_Result = typing.TypeVar("T_Result")
 
 class CategoriesEnum(str, enum.Enum):
     """
-    - `hris` - hris
-    - `ats` - ats
-    - `accounting` - accounting
-    - `ticketing` - ticketing
-    - `crm` - crm
-    - `mktg` - mktg
-    - `filestorage` - filestorage
+    * `hris` - hris
+    * `ats` - ats
+    * `accounting` - accounting
+    * `ticketing` - ticketing
+    * `crm` - crm
+    * `mktg` - mktg
+    * `filestorage` - filestorage
     """
 
     HRIS = "hris"

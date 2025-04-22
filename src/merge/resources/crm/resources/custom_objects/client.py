@@ -2,20 +2,17 @@
 
 import typing
 from .....core.client_wrapper import SyncClientWrapper
+from .raw_client import RawCustomObjectsClient
 import datetime as dt
 from .....core.request_options import RequestOptions
 from ...types.paginated_custom_object_list import PaginatedCustomObjectList
-from .....core.jsonable_encoder import jsonable_encoder
-from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from .....core.api_error import ApiError
 from ...types.custom_object_request import CustomObjectRequest
 from ...types.crm_custom_object_response import CrmCustomObjectResponse
 from ...types.custom_object import CustomObject
 from ...types.meta_response import MetaResponse
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from .....core.client_wrapper import AsyncClientWrapper
+from .raw_client import AsyncRawCustomObjectsClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -23,7 +20,18 @@ OMIT = typing.cast(typing.Any, ...)
 
 class CustomObjectsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = RawCustomObjectsClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawCustomObjectsClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawCustomObjectsClient
+        """
+        return self._raw_client
 
     def custom_object_classes_custom_objects_list(
         self,
@@ -102,37 +110,22 @@ class CustomObjectsClient:
             custom_object_class_id="custom_object_class_id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects",
-            method="GET",
-            params={
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "include_shell_data": include_shell_data,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "page_size": page_size,
-                "remote_id": remote_id,
-            },
+        response = self._raw_client.custom_object_classes_custom_objects_list(
+            custom_object_class_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            page_size=page_size,
+            remote_id=remote_id,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedCustomObjectList,
-                    parse_obj_as(
-                        type_=PaginatedCustomObjectList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def custom_object_classes_custom_objects_create(
         self,
@@ -182,32 +175,14 @@ class CustomObjectsClient:
             ),
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
+        response = self._raw_client.custom_object_classes_custom_objects_create(
+            custom_object_class_id,
+            model=model,
+            is_debug_mode=is_debug_mode,
+            run_async=run_async,
             request_options=request_options,
-            omit=OMIT,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    CrmCustomObjectResponse,
-                    parse_obj_as(
-                        type_=CrmCustomObjectResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def custom_object_classes_custom_objects_retrieve(
         self,
@@ -216,6 +191,7 @@ class CustomObjectsClient:
         *,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CustomObject:
         """
@@ -232,6 +208,9 @@ class CustomObjectsClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -254,28 +233,15 @@ class CustomObjectsClient:
             id="id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-            },
+        response = self._raw_client.custom_object_classes_custom_objects_retrieve(
+            custom_object_class_id,
+            id,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    CustomObject,
-                    parse_obj_as(
-                        type_=CustomObject,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def custom_object_classes_custom_objects_meta_post_retrieve(
         self, custom_object_class_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -307,24 +273,10 @@ class CustomObjectsClient:
             custom_object_class_id="custom_object_class_id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects/meta/post",
-            method="GET",
-            request_options=request_options,
+        response = self._raw_client.custom_object_classes_custom_objects_meta_post_retrieve(
+            custom_object_class_id, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def custom_object_classes_custom_objects_remote_field_classes_list(
         self,
@@ -382,38 +334,33 @@ class CustomObjectsClient:
         )
         client.crm.custom_objects.custom_object_classes_custom_objects_remote_field_classes_list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "crm/v1/custom-object-classes/custom-objects/remote-field-classes",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "include_shell_data": include_shell_data,
-                "is_common_model_field": is_common_model_field,
-                "page_size": page_size,
-            },
+        response = self._raw_client.custom_object_classes_custom_objects_remote_field_classes_list(
+            cursor=cursor,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            is_common_model_field=is_common_model_field,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedRemoteFieldClassList,
-                    parse_obj_as(
-                        type_=PaginatedRemoteFieldClassList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
 
 class AsyncCustomObjectsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = AsyncRawCustomObjectsClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawCustomObjectsClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawCustomObjectsClient
+        """
+        return self._raw_client
 
     async def custom_object_classes_custom_objects_list(
         self,
@@ -500,37 +447,22 @@ class AsyncCustomObjectsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects",
-            method="GET",
-            params={
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "include_shell_data": include_shell_data,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "page_size": page_size,
-                "remote_id": remote_id,
-            },
+        response = await self._raw_client.custom_object_classes_custom_objects_list(
+            custom_object_class_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            page_size=page_size,
+            remote_id=remote_id,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedCustomObjectList,
-                    parse_obj_as(
-                        type_=PaginatedCustomObjectList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def custom_object_classes_custom_objects_create(
         self,
@@ -588,32 +520,14 @@ class AsyncCustomObjectsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
+        response = await self._raw_client.custom_object_classes_custom_objects_create(
+            custom_object_class_id,
+            model=model,
+            is_debug_mode=is_debug_mode,
+            run_async=run_async,
             request_options=request_options,
-            omit=OMIT,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    CrmCustomObjectResponse,
-                    parse_obj_as(
-                        type_=CrmCustomObjectResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def custom_object_classes_custom_objects_retrieve(
         self,
@@ -622,6 +536,7 @@ class AsyncCustomObjectsClient:
         *,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CustomObject:
         """
@@ -638,6 +553,9 @@ class AsyncCustomObjectsClient:
 
         include_remote_fields : typing.Optional[bool]
             Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -668,28 +586,15 @@ class AsyncCustomObjectsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-            },
+        response = await self._raw_client.custom_object_classes_custom_objects_retrieve(
+            custom_object_class_id,
+            id,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    CustomObject,
-                    parse_obj_as(
-                        type_=CustomObject,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def custom_object_classes_custom_objects_meta_post_retrieve(
         self, custom_object_class_id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -729,24 +634,10 @@ class AsyncCustomObjectsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"crm/v1/custom-object-classes/{jsonable_encoder(custom_object_class_id)}/custom-objects/meta/post",
-            method="GET",
-            request_options=request_options,
+        response = await self._raw_client.custom_object_classes_custom_objects_meta_post_retrieve(
+            custom_object_class_id, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def custom_object_classes_custom_objects_remote_field_classes_list(
         self,
@@ -812,30 +703,14 @@ class AsyncCustomObjectsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "crm/v1/custom-object-classes/custom-objects/remote-field-classes",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_remote_fields": include_remote_fields,
-                "include_shell_data": include_shell_data,
-                "is_common_model_field": is_common_model_field,
-                "page_size": page_size,
-            },
+        response = await self._raw_client.custom_object_classes_custom_objects_remote_field_classes_list(
+            cursor=cursor,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            is_common_model_field=is_common_model_field,
+            page_size=page_size,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedRemoteFieldClassList,
-                    parse_obj_as(
-                        type_=PaginatedRemoteFieldClassList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data

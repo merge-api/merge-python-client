@@ -8,8 +8,8 @@ T_Result = typing.TypeVar("T_Result")
 
 class AccountTypeEnum(str, enum.Enum):
     """
-    - `SAVINGS` - SAVINGS
-    - `CHECKING` - CHECKING
+    * `SAVINGS` - SAVINGS
+    * `CHECKING` - CHECKING
     """
 
     SAVINGS = "SAVINGS"

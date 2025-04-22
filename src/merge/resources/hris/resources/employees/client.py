@@ -2,6 +2,7 @@
 
 import typing
 from .....core.client_wrapper import SyncClientWrapper
+from .raw_client import RawEmployeesClient
 import datetime as dt
 from .types.employees_list_request_employment_status import EmployeesListRequestEmploymentStatus
 from .types.employees_list_request_expand import EmployeesListRequestExpand
@@ -9,20 +10,16 @@ from .types.employees_list_request_remote_fields import EmployeesListRequestRemo
 from .types.employees_list_request_show_enum_origins import EmployeesListRequestShowEnumOrigins
 from .....core.request_options import RequestOptions
 from ...types.paginated_employee_list import PaginatedEmployeeList
-from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from .....core.api_error import ApiError
 from ...types.employee_request import EmployeeRequest
 from ...types.employee_response import EmployeeResponse
 from .types.employees_retrieve_request_expand import EmployeesRetrieveRequestExpand
 from .types.employees_retrieve_request_remote_fields import EmployeesRetrieveRequestRemoteFields
 from .types.employees_retrieve_request_show_enum_origins import EmployeesRetrieveRequestShowEnumOrigins
 from ...types.employee import Employee
-from .....core.jsonable_encoder import jsonable_encoder
 from .types.ignore_common_model_request_reason import IgnoreCommonModelRequestReason
 from ...types.meta_response import MetaResponse
 from .....core.client_wrapper import AsyncClientWrapper
+from .raw_client import AsyncRawEmployeesClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -30,7 +27,18 @@ OMIT = typing.cast(typing.Any, ...)
 
 class EmployeesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = RawEmployeesClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawEmployeesClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawEmployeesClient
+        """
+        return self._raw_client
 
     def list(
         self,
@@ -93,9 +101,9 @@ class EmployeesClient:
         employment_status : typing.Optional[EmployeesListRequestEmploymentStatus]
             If provided, will only return employees with this employment status.
 
-            - `ACTIVE` - ACTIVE
-            - `PENDING` - PENDING
-            - `INACTIVE` - INACTIVE
+            * `ACTIVE` - ACTIVE
+            * `PENDING` - PENDING
+            * `INACTIVE` - INACTIVE
 
         employment_type : typing.Optional[str]
             If provided, will only return employees that have an employment of the specified employment_type.
@@ -196,59 +204,43 @@ class EmployeesClient:
         )
         client.hris.employees.list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/employees",
-            method="GET",
-            params={
-                "company_id": company_id,
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "display_full_name": display_full_name,
-                "employment_status": employment_status,
-                "employment_type": employment_type,
-                "expand": expand,
-                "first_name": first_name,
-                "groups": groups,
-                "home_location_id": home_location_id,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_sensitive_fields": include_sensitive_fields,
-                "include_shell_data": include_shell_data,
-                "job_title": job_title,
-                "last_name": last_name,
-                "manager_id": manager_id,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "page_size": page_size,
-                "pay_group_id": pay_group_id,
-                "personal_email": personal_email,
-                "remote_fields": remote_fields,
-                "remote_id": remote_id,
-                "show_enum_origins": show_enum_origins,
-                "started_after": serialize_datetime(started_after) if started_after is not None else None,
-                "started_before": serialize_datetime(started_before) if started_before is not None else None,
-                "team_id": team_id,
-                "terminated_after": serialize_datetime(terminated_after) if terminated_after is not None else None,
-                "terminated_before": serialize_datetime(terminated_before) if terminated_before is not None else None,
-                "work_email": work_email,
-                "work_location_id": work_location_id,
-            },
+        response = self._raw_client.list(
+            company_id=company_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            display_full_name=display_full_name,
+            employment_status=employment_status,
+            employment_type=employment_type,
+            expand=expand,
+            first_name=first_name,
+            groups=groups,
+            home_location_id=home_location_id,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_sensitive_fields=include_sensitive_fields,
+            include_shell_data=include_shell_data,
+            job_title=job_title,
+            last_name=last_name,
+            manager_id=manager_id,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            page_size=page_size,
+            pay_group_id=pay_group_id,
+            personal_email=personal_email,
+            remote_fields=remote_fields,
+            remote_id=remote_id,
+            show_enum_origins=show_enum_origins,
+            started_after=started_after,
+            started_before=started_before,
+            team_id=team_id,
+            terminated_after=terminated_after,
+            terminated_before=terminated_before,
+            work_email=work_email,
+            work_location_id=work_location_id,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedEmployeeList,
-                    parse_obj_as(
-                        type_=PaginatedEmployeeList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def create(
         self,
@@ -292,32 +284,10 @@ class EmployeesClient:
             model=EmployeeRequest(),
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/employees",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    EmployeeResponse,
-                    parse_obj_as(
-                        type_=EmployeeResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def retrieve(
         self,
@@ -326,6 +296,7 @@ class EmployeesClient:
         expand: typing.Optional[EmployeesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EmployeesRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[EmployeesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -345,6 +316,9 @@ class EmployeesClient:
 
         include_sensitive_fields : typing.Optional[bool]
             Whether to include sensitive fields (such as social security numbers) in the response.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[EmployeesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -372,31 +346,17 @@ class EmployeesClient:
             id="id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"hris/v1/employees/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-                "include_sensitive_fields": include_sensitive_fields,
-                "remote_fields": remote_fields,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_sensitive_fields=include_sensitive_fields,
+            include_shell_data=include_shell_data,
+            remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Employee,
-                    parse_obj_as(
-                        type_=Employee,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def ignore_create(
         self,
@@ -438,23 +398,10 @@ class EmployeesClient:
             reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"hris/v1/employees/ignore/{jsonable_encoder(model_id)}",
-            method="POST",
-            json={
-                "reason": reason,
-                "message": message,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = self._raw_client.ignore_create(
+            model_id, reason=reason, message=message, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -480,29 +427,24 @@ class EmployeesClient:
         )
         client.hris.employees.meta_post_retrieve()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/employees/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data
 
 
 class AsyncEmployeesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = AsyncRawEmployeesClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawEmployeesClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawEmployeesClient
+        """
+        return self._raw_client
 
     async def list(
         self,
@@ -565,9 +507,9 @@ class AsyncEmployeesClient:
         employment_status : typing.Optional[EmployeesListRequestEmploymentStatus]
             If provided, will only return employees with this employment status.
 
-            - `ACTIVE` - ACTIVE
-            - `PENDING` - PENDING
-            - `INACTIVE` - INACTIVE
+            * `ACTIVE` - ACTIVE
+            * `PENDING` - PENDING
+            * `INACTIVE` - INACTIVE
 
         employment_type : typing.Optional[str]
             If provided, will only return employees that have an employment of the specified employment_type.
@@ -676,59 +618,43 @@ class AsyncEmployeesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/employees",
-            method="GET",
-            params={
-                "company_id": company_id,
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "display_full_name": display_full_name,
-                "employment_status": employment_status,
-                "employment_type": employment_type,
-                "expand": expand,
-                "first_name": first_name,
-                "groups": groups,
-                "home_location_id": home_location_id,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_sensitive_fields": include_sensitive_fields,
-                "include_shell_data": include_shell_data,
-                "job_title": job_title,
-                "last_name": last_name,
-                "manager_id": manager_id,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "page_size": page_size,
-                "pay_group_id": pay_group_id,
-                "personal_email": personal_email,
-                "remote_fields": remote_fields,
-                "remote_id": remote_id,
-                "show_enum_origins": show_enum_origins,
-                "started_after": serialize_datetime(started_after) if started_after is not None else None,
-                "started_before": serialize_datetime(started_before) if started_before is not None else None,
-                "team_id": team_id,
-                "terminated_after": serialize_datetime(terminated_after) if terminated_after is not None else None,
-                "terminated_before": serialize_datetime(terminated_before) if terminated_before is not None else None,
-                "work_email": work_email,
-                "work_location_id": work_location_id,
-            },
+        response = await self._raw_client.list(
+            company_id=company_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            display_full_name=display_full_name,
+            employment_status=employment_status,
+            employment_type=employment_type,
+            expand=expand,
+            first_name=first_name,
+            groups=groups,
+            home_location_id=home_location_id,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_sensitive_fields=include_sensitive_fields,
+            include_shell_data=include_shell_data,
+            job_title=job_title,
+            last_name=last_name,
+            manager_id=manager_id,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            page_size=page_size,
+            pay_group_id=pay_group_id,
+            personal_email=personal_email,
+            remote_fields=remote_fields,
+            remote_id=remote_id,
+            show_enum_origins=show_enum_origins,
+            started_after=started_after,
+            started_before=started_before,
+            team_id=team_id,
+            terminated_after=terminated_after,
+            terminated_before=terminated_before,
+            work_email=work_email,
+            work_location_id=work_location_id,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedEmployeeList,
-                    parse_obj_as(
-                        type_=PaginatedEmployeeList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def create(
         self,
@@ -780,32 +706,10 @@ class AsyncEmployeesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/employees",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = await self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    EmployeeResponse,
-                    parse_obj_as(
-                        type_=EmployeeResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def retrieve(
         self,
@@ -814,6 +718,7 @@ class AsyncEmployeesClient:
         expand: typing.Optional[EmployeesRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EmployeesRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[EmployeesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -833,6 +738,9 @@ class AsyncEmployeesClient:
 
         include_sensitive_fields : typing.Optional[bool]
             Whether to include sensitive fields (such as social security numbers) in the response.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[EmployeesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -868,31 +776,17 @@ class AsyncEmployeesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"hris/v1/employees/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-                "include_sensitive_fields": include_sensitive_fields,
-                "remote_fields": remote_fields,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = await self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_sensitive_fields=include_sensitive_fields,
+            include_shell_data=include_shell_data,
+            remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Employee,
-                    parse_obj_as(
-                        type_=Employee,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def ignore_create(
         self,
@@ -942,23 +836,10 @@ class AsyncEmployeesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"hris/v1/employees/ignore/{jsonable_encoder(model_id)}",
-            method="POST",
-            json={
-                "reason": reason,
-                "message": message,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = await self._raw_client.ignore_create(
+            model_id, reason=reason, message=message, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -992,21 +873,5 @@ class AsyncEmployeesClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/employees/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data

@@ -6,16 +6,16 @@ import httpx
 from .core.client_wrapper import SyncClientWrapper
 from .resources.ats.client import AtsClient
 from .resources.crm.client import CrmClient
+from .resources.filestorage.client import FilestorageClient
 from .resources.hris.client import HrisClient
 from .resources.ticketing.client import TicketingClient
-from .resources.filestorage.client import FilestorageClient
 from .resources.accounting.client import AccountingClient
 from .core.client_wrapper import AsyncClientWrapper
 from .resources.ats.client import AsyncAtsClient
 from .resources.crm.client import AsyncCrmClient
+from .resources.filestorage.client import AsyncFilestorageClient
 from .resources.hris.client import AsyncHrisClient
 from .resources.ticketing.client import AsyncTicketingClient
-from .resources.filestorage.client import AsyncFilestorageClient
 from .resources.accounting.client import AsyncAccountingClient
 
 
@@ -69,7 +69,9 @@ class Merge:
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.Client] = None,
     ):
-        _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
+        _defaulted_timeout = (
+            timeout if timeout is not None else 60 if httpx_client is None else httpx_client.timeout.read
+        )
         self._client_wrapper = SyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
             account_token=account_token,
@@ -83,9 +85,9 @@ class Merge:
         )
         self.ats = AtsClient(client_wrapper=self._client_wrapper)
         self.crm = CrmClient(client_wrapper=self._client_wrapper)
+        self.filestorage = FilestorageClient(client_wrapper=self._client_wrapper)
         self.hris = HrisClient(client_wrapper=self._client_wrapper)
         self.ticketing = TicketingClient(client_wrapper=self._client_wrapper)
-        self.filestorage = FilestorageClient(client_wrapper=self._client_wrapper)
         self.accounting = AccountingClient(client_wrapper=self._client_wrapper)
 
 
@@ -139,7 +141,9 @@ class AsyncMerge:
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.AsyncClient] = None,
     ):
-        _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
+        _defaulted_timeout = (
+            timeout if timeout is not None else 60 if httpx_client is None else httpx_client.timeout.read
+        )
         self._client_wrapper = AsyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
             account_token=account_token,
@@ -153,9 +157,9 @@ class AsyncMerge:
         )
         self.ats = AsyncAtsClient(client_wrapper=self._client_wrapper)
         self.crm = AsyncCrmClient(client_wrapper=self._client_wrapper)
+        self.filestorage = AsyncFilestorageClient(client_wrapper=self._client_wrapper)
         self.hris = AsyncHrisClient(client_wrapper=self._client_wrapper)
         self.ticketing = AsyncTicketingClient(client_wrapper=self._client_wrapper)
-        self.filestorage = AsyncFilestorageClient(client_wrapper=self._client_wrapper)
         self.accounting = AsyncAccountingClient(client_wrapper=self._client_wrapper)
 
 

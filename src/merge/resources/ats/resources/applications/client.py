@@ -2,21 +2,18 @@
 
 import typing
 from .....core.client_wrapper import SyncClientWrapper
+from .raw_client import RawApplicationsClient
 import datetime as dt
 from .types.applications_list_request_expand import ApplicationsListRequestExpand
 from .....core.request_options import RequestOptions
 from ...types.paginated_application_list import PaginatedApplicationList
-from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from .....core.api_error import ApiError
 from ...types.application_request import ApplicationRequest
 from ...types.application_response import ApplicationResponse
 from .types.applications_retrieve_request_expand import ApplicationsRetrieveRequestExpand
 from ...types.application import Application
-from .....core.jsonable_encoder import jsonable_encoder
 from ...types.meta_response import MetaResponse
 from .....core.client_wrapper import AsyncClientWrapper
+from .raw_client import AsyncRawApplicationsClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -24,7 +21,18 @@ OMIT = typing.cast(typing.Any, ...)
 
 class ApplicationsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = RawApplicationsClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawApplicationsClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawApplicationsClient
+        """
+        return self._raw_client
 
     def list(
         self,
@@ -122,43 +130,27 @@ class ApplicationsClient:
         )
         client.ats.applications.list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "ats/v1/applications",
-            method="GET",
-            params={
-                "candidate_id": candidate_id,
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "credited_to_id": credited_to_id,
-                "current_stage_id": current_stage_id,
-                "cursor": cursor,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "job_id": job_id,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "page_size": page_size,
-                "reject_reason_id": reject_reason_id,
-                "remote_id": remote_id,
-                "source": source,
-            },
+        response = self._raw_client.list(
+            candidate_id=candidate_id,
+            created_after=created_after,
+            created_before=created_before,
+            credited_to_id=credited_to_id,
+            current_stage_id=current_stage_id,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            job_id=job_id,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            page_size=page_size,
+            reject_reason_id=reject_reason_id,
+            remote_id=remote_id,
+            source=source,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedApplicationList,
-                    parse_obj_as(
-                        type_=PaginatedApplicationList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def create(
         self,
@@ -209,33 +201,14 @@ class ApplicationsClient:
             remote_user_id="remote_user_id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "ats/v1/applications",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-                "remote_user_id": remote_user_id,
-            },
+        response = self._raw_client.create(
+            model=model,
+            remote_user_id=remote_user_id,
+            is_debug_mode=is_debug_mode,
+            run_async=run_async,
             request_options=request_options,
-            omit=OMIT,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    ApplicationResponse,
-                    parse_obj_as(
-                        type_=ApplicationResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def retrieve(
         self,
@@ -243,6 +216,7 @@ class ApplicationsClient:
         *,
         expand: typing.Optional[ApplicationsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Application:
         """
@@ -257,6 +231,9 @@ class ApplicationsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -278,28 +255,14 @@ class ApplicationsClient:
             id="id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"ats/v1/applications/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-            },
+        response = self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Application,
-                    parse_obj_as(
-                        type_=Application,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def change_stage_create(
         self,
@@ -349,33 +312,15 @@ class ApplicationsClient:
             id="id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"ats/v1/applications/{jsonable_encoder(id)}/change-stage",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "job_interview_stage": job_interview_stage,
-                "remote_user_id": remote_user_id,
-            },
+        response = self._raw_client.change_stage_create(
+            id,
+            is_debug_mode=is_debug_mode,
+            run_async=run_async,
+            job_interview_stage=job_interview_stage,
+            remote_user_id=remote_user_id,
             request_options=request_options,
-            omit=OMIT,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    ApplicationResponse,
-                    parse_obj_as(
-                        type_=ApplicationResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def meta_post_retrieve(
         self,
@@ -409,32 +354,26 @@ class ApplicationsClient:
         )
         client.ats.applications.meta_post_retrieve()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "ats/v1/applications/meta/post",
-            method="GET",
-            params={
-                "application_remote_template_id": application_remote_template_id,
-            },
-            request_options=request_options,
+        response = self._raw_client.meta_post_retrieve(
+            application_remote_template_id=application_remote_template_id, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
 
 class AsyncApplicationsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = AsyncRawApplicationsClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawApplicationsClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawApplicationsClient
+        """
+        return self._raw_client
 
     async def list(
         self,
@@ -540,43 +479,27 @@ class AsyncApplicationsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "ats/v1/applications",
-            method="GET",
-            params={
-                "candidate_id": candidate_id,
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "credited_to_id": credited_to_id,
-                "current_stage_id": current_stage_id,
-                "cursor": cursor,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "job_id": job_id,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "page_size": page_size,
-                "reject_reason_id": reject_reason_id,
-                "remote_id": remote_id,
-                "source": source,
-            },
+        response = await self._raw_client.list(
+            candidate_id=candidate_id,
+            created_after=created_after,
+            created_before=created_before,
+            credited_to_id=credited_to_id,
+            current_stage_id=current_stage_id,
+            cursor=cursor,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            job_id=job_id,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            page_size=page_size,
+            reject_reason_id=reject_reason_id,
+            remote_id=remote_id,
+            source=source,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedApplicationList,
-                    parse_obj_as(
-                        type_=PaginatedApplicationList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def create(
         self,
@@ -635,33 +558,14 @@ class AsyncApplicationsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "ats/v1/applications",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-                "remote_user_id": remote_user_id,
-            },
+        response = await self._raw_client.create(
+            model=model,
+            remote_user_id=remote_user_id,
+            is_debug_mode=is_debug_mode,
+            run_async=run_async,
             request_options=request_options,
-            omit=OMIT,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    ApplicationResponse,
-                    parse_obj_as(
-                        type_=ApplicationResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def retrieve(
         self,
@@ -669,6 +573,7 @@ class AsyncApplicationsClient:
         *,
         expand: typing.Optional[ApplicationsRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Application:
         """
@@ -683,6 +588,9 @@ class AsyncApplicationsClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -712,28 +620,14 @@ class AsyncApplicationsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"ats/v1/applications/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-            },
+        response = await self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Application,
-                    parse_obj_as(
-                        type_=Application,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def change_stage_create(
         self,
@@ -791,33 +685,15 @@ class AsyncApplicationsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"ats/v1/applications/{jsonable_encoder(id)}/change-stage",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "job_interview_stage": job_interview_stage,
-                "remote_user_id": remote_user_id,
-            },
+        response = await self._raw_client.change_stage_create(
+            id,
+            is_debug_mode=is_debug_mode,
+            run_async=run_async,
+            job_interview_stage=job_interview_stage,
+            remote_user_id=remote_user_id,
             request_options=request_options,
-            omit=OMIT,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    ApplicationResponse,
-                    parse_obj_as(
-                        type_=ApplicationResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def meta_post_retrieve(
         self,
@@ -859,24 +735,7 @@ class AsyncApplicationsClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "ats/v1/applications/meta/post",
-            method="GET",
-            params={
-                "application_remote_template_id": application_remote_template_id,
-            },
-            request_options=request_options,
+        response = await self._raw_client.meta_post_retrieve(
+            application_remote_template_id=application_remote_template_id, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data

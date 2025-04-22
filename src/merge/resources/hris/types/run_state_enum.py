@@ -8,11 +8,11 @@ T_Result = typing.TypeVar("T_Result")
 
 class RunStateEnum(str, enum.Enum):
     """
-    - `PAID` - PAID
-    - `DRAFT` - DRAFT
-    - `APPROVED` - APPROVED
-    - `FAILED` - FAILED
-    - `CLOSED` - CLOSED
+    * `PAID` - PAID
+    * `DRAFT` - DRAFT
+    * `APPROVED` - APPROVED
+    * `FAILED` - FAILED
+    * `CLOSED` - CLOSED
     """
 
     PAID = "PAID"

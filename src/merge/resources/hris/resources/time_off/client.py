@@ -2,6 +2,7 @@
 
 import typing
 from .....core.client_wrapper import SyncClientWrapper
+from .raw_client import RawTimeOffClient
 import datetime as dt
 from .types.time_off_list_request_expand import TimeOffListRequestExpand
 from .types.time_off_list_request_remote_fields import TimeOffListRequestRemoteFields
@@ -10,19 +11,15 @@ from .types.time_off_list_request_show_enum_origins import TimeOffListRequestSho
 from .types.time_off_list_request_status import TimeOffListRequestStatus
 from .....core.request_options import RequestOptions
 from ...types.paginated_time_off_list import PaginatedTimeOffList
-from .....core.datetime_utils import serialize_datetime
-from .....core.pydantic_utilities import parse_obj_as
-from json.decoder import JSONDecodeError
-from .....core.api_error import ApiError
 from ...types.time_off_request import TimeOffRequest
 from ...types.time_off_response import TimeOffResponse
 from .types.time_off_retrieve_request_expand import TimeOffRetrieveRequestExpand
 from .types.time_off_retrieve_request_remote_fields import TimeOffRetrieveRequestRemoteFields
 from .types.time_off_retrieve_request_show_enum_origins import TimeOffRetrieveRequestShowEnumOrigins
 from ...types.time_off import TimeOff
-from .....core.jsonable_encoder import jsonable_encoder
 from ...types.meta_response import MetaResponse
 from .....core.client_wrapper import AsyncClientWrapper
+from .raw_client import AsyncRawTimeOffClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -30,7 +27,18 @@ OMIT = typing.cast(typing.Any, ...)
 
 class TimeOffClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = RawTimeOffClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> RawTimeOffClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        RawTimeOffClient
+        """
+        return self._raw_client
 
     def list(
         self,
@@ -114,12 +122,12 @@ class TimeOffClient:
         request_type : typing.Optional[TimeOffListRequestRequestType]
             If provided, will only return TimeOff with this request type. Options: ('VACATION', 'SICK', 'PERSONAL', 'JURY_DUTY', 'VOLUNTEER', 'BEREAVEMENT')
 
-            - `VACATION` - VACATION
-            - `SICK` - SICK
-            - `PERSONAL` - PERSONAL
-            - `JURY_DUTY` - JURY_DUTY
-            - `VOLUNTEER` - VOLUNTEER
-            - `BEREAVEMENT` - BEREAVEMENT
+            * `VACATION` - VACATION
+            * `SICK` - SICK
+            * `PERSONAL` - PERSONAL
+            * `JURY_DUTY` - JURY_DUTY
+            * `VOLUNTEER` - VOLUNTEER
+            * `BEREAVEMENT` - BEREAVEMENT
 
         show_enum_origins : typing.Optional[TimeOffListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
@@ -133,11 +141,11 @@ class TimeOffClient:
         status : typing.Optional[TimeOffListRequestStatus]
             If provided, will only return TimeOff with this status. Options: ('REQUESTED', 'APPROVED', 'DECLINED', 'CANCELLED', 'DELETED')
 
-            - `REQUESTED` - REQUESTED
-            - `APPROVED` - APPROVED
-            - `DECLINED` - DECLINED
-            - `CANCELLED` - CANCELLED
-            - `DELETED` - DELETED
+            * `REQUESTED` - REQUESTED
+            * `APPROVED` - APPROVED
+            * `DECLINED` - DECLINED
+            * `CANCELLED` - CANCELLED
+            * `DELETED` - DELETED
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -157,47 +165,31 @@ class TimeOffClient:
         )
         client.hris.time_off.list()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/time-off",
-            method="GET",
-            params={
-                "approver_id": approver_id,
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "employee_id": employee_id,
-                "ended_after": serialize_datetime(ended_after) if ended_after is not None else None,
-                "ended_before": serialize_datetime(ended_before) if ended_before is not None else None,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "page_size": page_size,
-                "remote_fields": remote_fields,
-                "remote_id": remote_id,
-                "request_type": request_type,
-                "show_enum_origins": show_enum_origins,
-                "started_after": serialize_datetime(started_after) if started_after is not None else None,
-                "started_before": serialize_datetime(started_before) if started_before is not None else None,
-                "status": status,
-            },
+        response = self._raw_client.list(
+            approver_id=approver_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            employee_id=employee_id,
+            ended_after=ended_after,
+            ended_before=ended_before,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            page_size=page_size,
+            remote_fields=remote_fields,
+            remote_id=remote_id,
+            request_type=request_type,
+            show_enum_origins=show_enum_origins,
+            started_after=started_after,
+            started_before=started_before,
+            status=status,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedTimeOffList,
-                    parse_obj_as(
-                        type_=PaginatedTimeOffList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def create(
         self,
@@ -241,32 +233,10 @@ class TimeOffClient:
             model=TimeOffRequest(),
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/time-off",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    TimeOffResponse,
-                    parse_obj_as(
-                        type_=TimeOffResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def retrieve(
         self,
@@ -274,6 +244,7 @@ class TimeOffClient:
         *,
         expand: typing.Optional[TimeOffRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[TimeOffRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[TimeOffRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -290,6 +261,9 @@ class TimeOffClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[TimeOffRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -317,30 +291,16 @@ class TimeOffClient:
             id="id",
         )
         """
-        _response = self._client_wrapper.httpx_client.request(
-            f"hris/v1/time-off/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-                "remote_fields": remote_fields,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    TimeOff,
-                    parse_obj_as(
-                        type_=TimeOff,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -366,29 +326,24 @@ class TimeOffClient:
         )
         client.hris.time_off.meta_post_retrieve()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/time-off/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data
 
 
 class AsyncTimeOffClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
+        self._raw_client = AsyncRawTimeOffClient(client_wrapper=client_wrapper)
+
+    @property
+    def with_raw_response(self) -> AsyncRawTimeOffClient:
+        """
+        Retrieves a raw implementation of this client that returns raw responses.
+
+        Returns
+        -------
+        AsyncRawTimeOffClient
+        """
+        return self._raw_client
 
     async def list(
         self,
@@ -472,12 +427,12 @@ class AsyncTimeOffClient:
         request_type : typing.Optional[TimeOffListRequestRequestType]
             If provided, will only return TimeOff with this request type. Options: ('VACATION', 'SICK', 'PERSONAL', 'JURY_DUTY', 'VOLUNTEER', 'BEREAVEMENT')
 
-            - `VACATION` - VACATION
-            - `SICK` - SICK
-            - `PERSONAL` - PERSONAL
-            - `JURY_DUTY` - JURY_DUTY
-            - `VOLUNTEER` - VOLUNTEER
-            - `BEREAVEMENT` - BEREAVEMENT
+            * `VACATION` - VACATION
+            * `SICK` - SICK
+            * `PERSONAL` - PERSONAL
+            * `JURY_DUTY` - JURY_DUTY
+            * `VOLUNTEER` - VOLUNTEER
+            * `BEREAVEMENT` - BEREAVEMENT
 
         show_enum_origins : typing.Optional[TimeOffListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
@@ -491,11 +446,11 @@ class AsyncTimeOffClient:
         status : typing.Optional[TimeOffListRequestStatus]
             If provided, will only return TimeOff with this status. Options: ('REQUESTED', 'APPROVED', 'DECLINED', 'CANCELLED', 'DELETED')
 
-            - `REQUESTED` - REQUESTED
-            - `APPROVED` - APPROVED
-            - `DECLINED` - DECLINED
-            - `CANCELLED` - CANCELLED
-            - `DELETED` - DELETED
+            * `REQUESTED` - REQUESTED
+            * `APPROVED` - APPROVED
+            * `DECLINED` - DECLINED
+            * `CANCELLED` - CANCELLED
+            * `DELETED` - DELETED
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -523,47 +478,31 @@ class AsyncTimeOffClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/time-off",
-            method="GET",
-            params={
-                "approver_id": approver_id,
-                "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "created_before": serialize_datetime(created_before) if created_before is not None else None,
-                "cursor": cursor,
-                "employee_id": employee_id,
-                "ended_after": serialize_datetime(ended_after) if ended_after is not None else None,
-                "ended_before": serialize_datetime(ended_before) if ended_before is not None else None,
-                "expand": expand,
-                "include_deleted_data": include_deleted_data,
-                "include_remote_data": include_remote_data,
-                "include_shell_data": include_shell_data,
-                "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
-                "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
-                "page_size": page_size,
-                "remote_fields": remote_fields,
-                "remote_id": remote_id,
-                "request_type": request_type,
-                "show_enum_origins": show_enum_origins,
-                "started_after": serialize_datetime(started_after) if started_after is not None else None,
-                "started_before": serialize_datetime(started_before) if started_before is not None else None,
-                "status": status,
-            },
+        response = await self._raw_client.list(
+            approver_id=approver_id,
+            created_after=created_after,
+            created_before=created_before,
+            cursor=cursor,
+            employee_id=employee_id,
+            ended_after=ended_after,
+            ended_before=ended_before,
+            expand=expand,
+            include_deleted_data=include_deleted_data,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            modified_after=modified_after,
+            modified_before=modified_before,
+            page_size=page_size,
+            remote_fields=remote_fields,
+            remote_id=remote_id,
+            request_type=request_type,
+            show_enum_origins=show_enum_origins,
+            started_after=started_after,
+            started_before=started_before,
+            status=status,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    PaginatedTimeOffList,
-                    parse_obj_as(
-                        type_=PaginatedTimeOffList,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def create(
         self,
@@ -615,32 +554,10 @@ class AsyncTimeOffClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/time-off",
-            method="POST",
-            params={
-                "is_debug_mode": is_debug_mode,
-                "run_async": run_async,
-            },
-            json={
-                "model": model,
-            },
-            request_options=request_options,
-            omit=OMIT,
+        response = await self._raw_client.create(
+            model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    TimeOffResponse,
-                    parse_obj_as(
-                        type_=TimeOffResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def retrieve(
         self,
@@ -648,6 +565,7 @@ class AsyncTimeOffClient:
         *,
         expand: typing.Optional[TimeOffRetrieveRequestExpand] = None,
         include_remote_data: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[TimeOffRetrieveRequestRemoteFields] = None,
         show_enum_origins: typing.Optional[TimeOffRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -664,6 +582,9 @@ class AsyncTimeOffClient:
 
         include_remote_data : typing.Optional[bool]
             Whether to include the original data Merge fetched from the third-party to produce these models.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         remote_fields : typing.Optional[TimeOffRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -699,30 +620,16 @@ class AsyncTimeOffClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"hris/v1/time-off/{jsonable_encoder(id)}",
-            method="GET",
-            params={
-                "expand": expand,
-                "include_remote_data": include_remote_data,
-                "remote_fields": remote_fields,
-                "show_enum_origins": show_enum_origins,
-            },
+        response = await self._raw_client.retrieve(
+            id,
+            expand=expand,
+            include_remote_data=include_remote_data,
+            include_shell_data=include_shell_data,
+            remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    TimeOff,
-                    parse_obj_as(
-                        type_=TimeOff,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        return response.data
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -756,21 +663,5 @@ class AsyncTimeOffClient:
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/time-off/meta/post",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MetaResponse,
-                    parse_obj_as(
-                        type_=MetaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+        response = await self._raw_client.meta_post_retrieve(request_options=request_options)
+        return response.data
