@@ -23,6 +23,7 @@ class RawTrackingCategoriesClient:
     def list(
         self,
         *,
+        category_type: typing.Optional[str] = None,
         company_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
@@ -38,6 +39,7 @@ class RawTrackingCategoriesClient:
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        status: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaginatedTrackingCategoryList]:
         """
@@ -45,6 +47,9 @@ class RawTrackingCategoriesClient:
 
         Parameters
         ----------
+        category_type : typing.Optional[str]
+            If provided, will only return tracking categories with this type.
+
         company_id : typing.Optional[str]
             If provided, will only return tracking categories for this company.
 
@@ -90,6 +95,9 @@ class RawTrackingCategoriesClient:
         show_enum_origins : typing.Optional[typing.Literal["status"]]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
+        status : typing.Optional[str]
+            If provided, will only return tracking categories with this status.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -102,6 +110,7 @@ class RawTrackingCategoriesClient:
             "accounting/v1/tracking-categories",
             method="GET",
             params={
+                "category_type": category_type,
                 "company_id": company_id,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
@@ -117,6 +126,7 @@ class RawTrackingCategoriesClient:
                 "remote_fields": remote_fields,
                 "remote_id": remote_id,
                 "show_enum_origins": show_enum_origins,
+                "status": status,
             },
             request_options=request_options,
         )
@@ -211,6 +221,7 @@ class AsyncRawTrackingCategoriesClient:
     async def list(
         self,
         *,
+        category_type: typing.Optional[str] = None,
         company_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
@@ -226,6 +237,7 @@ class AsyncRawTrackingCategoriesClient:
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        status: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaginatedTrackingCategoryList]:
         """
@@ -233,6 +245,9 @@ class AsyncRawTrackingCategoriesClient:
 
         Parameters
         ----------
+        category_type : typing.Optional[str]
+            If provided, will only return tracking categories with this type.
+
         company_id : typing.Optional[str]
             If provided, will only return tracking categories for this company.
 
@@ -278,6 +293,9 @@ class AsyncRawTrackingCategoriesClient:
         show_enum_origins : typing.Optional[typing.Literal["status"]]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
+        status : typing.Optional[str]
+            If provided, will only return tracking categories with this status.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -290,6 +308,7 @@ class AsyncRawTrackingCategoriesClient:
             "accounting/v1/tracking-categories",
             method="GET",
             params={
+                "category_type": category_type,
                 "company_id": company_id,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
@@ -305,6 +324,7 @@ class AsyncRawTrackingCategoriesClient:
                 "remote_fields": remote_fields,
                 "remote_id": remote_id,
                 "show_enum_origins": show_enum_origins,
+                "status": status,
             },
             request_options=request_options,
         )
