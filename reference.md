@@ -36386,6 +36386,14 @@ client.accounting.accounts.list()
 <dl>
 <dd>
 
+**status:** `typing.Optional[str]` — If provided, will only return accounts with this status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -39225,6 +39233,14 @@ client.accounting.contacts.list()
 <dd>
 
 **show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[str]` — If provided, will only return Contacts that match this status.
     
 </dd>
 </dl>
@@ -47353,6 +47369,14 @@ client.accounting.tracking_categories.list()
 <dl>
 <dd>
 
+**category_type:** `typing.Optional[str]` — If provided, will only return tracking categories with this type.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **company_id:** `typing.Optional[str]` — If provided, will only return tracking categories for this company.
     
 </dd>
@@ -47466,6 +47490,14 @@ client.accounting.tracking_categories.list()
 <dd>
 
 **show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[str]` — If provided, will only return tracking categories with this status.
     
 </dd>
 </dl>

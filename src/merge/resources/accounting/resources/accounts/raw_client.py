@@ -49,6 +49,7 @@ class RawAccountsClient:
         remote_fields: typing.Optional[AccountsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[AccountsListRequestShowEnumOrigins] = None,
+        status: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaginatedAccountList]:
         """
@@ -104,6 +105,9 @@ class RawAccountsClient:
         show_enum_origins : typing.Optional[AccountsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
+        status : typing.Optional[str]
+            If provided, will only return accounts with this status.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -132,6 +136,7 @@ class RawAccountsClient:
                 "remote_fields": remote_fields,
                 "remote_id": remote_id,
                 "show_enum_origins": show_enum_origins,
+                "status": status,
             },
             request_options=request_options,
         )
@@ -338,6 +343,7 @@ class AsyncRawAccountsClient:
         remote_fields: typing.Optional[AccountsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[AccountsListRequestShowEnumOrigins] = None,
+        status: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaginatedAccountList]:
         """
@@ -393,6 +399,9 @@ class AsyncRawAccountsClient:
         show_enum_origins : typing.Optional[AccountsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
+        status : typing.Optional[str]
+            If provided, will only return accounts with this status.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -421,6 +430,7 @@ class AsyncRawAccountsClient:
                 "remote_fields": remote_fields,
                 "remote_id": remote_id,
                 "show_enum_origins": show_enum_origins,
+                "status": status,
             },
             request_options=request_options,
         )
