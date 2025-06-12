@@ -1,8 +1,9 @@
 # Merge Python Library
 
-[![pypi](https://img.shields.io/pypi/v/MergePythonClient.svg)](https://pypi.python.org/pypi/MergePythonClient)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fmerge-api%2Fmerge-python-client)
+[![pypi](https://img.shields.io/pypi/v/MergePythonClient)](https://pypi.python.org/pypi/MergePythonClient)
 
-The Merge Python library provides access to the Merge API from Python.
+The Merge Python library provides convenient access to the Merge API from Python.
 
 ## Documentation
 
@@ -11,8 +12,12 @@ API reference documentation is available [here](https://docs.merge.dev/).
 ## Installation
 
 ```sh
-pip install --upgrade MergePythonClient
+pip install MergePythonClient
 ```
+
+## Reference
+
+A full reference for this library is available [here](https://github.com/merge-api/merge-python-client/blob/HEAD/./reference.md).
 
 ## Instantiation
 
@@ -39,131 +44,61 @@ client.hris. # APIs specific to the HRIS Category
 
 ## Usage
 
-### Async Client
-The SDK also exports an async client so that you can make non-blocking
-calls to our API. This client leverages `httpx`'s AsyncClient, and exports all the same functions and functionality of the sync client.
+Instantiate and use the client with the following:
+
+```python
+from merge import Merge
+from merge.resources.ats import ActivityRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.ats.activities.create(
+    model=ActivityRequest(),
+    remote_user_id="remote_user_id",
+)
+```
+
+## Async Client
+
+The SDK also exports an `async` client so that you can make non-blocking calls to our API.
 
 ```python
 import asyncio
-from merge.client import AsyncMerge
+
+from merge import AsyncMerge
+from merge.resources.ats import ActivityRequest
 
 client = AsyncMerge(
-    api_key="<YOUR_API_KEY>", 
-    account_token="<YOUR_ACCOUNT_TOKEN>")
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+
 
 async def main() -> None:
-    await merge_client.ats.link_token.create(
-        end_user_email_address="john.smith@gmail.com",
-        end_user_organization_name="acme",
-        end_user_origin_id="1234",
-        categories=[CategoriesEnum.ATS],
-        link_expiry_mins=30,
+    await client.ats.activities.create(
+        model=ActivityRequest(),
+        remote_user_id="remote_user_id",
     )
+
 
 asyncio.run(main())
 ```
 
-### Create Link Token
+## Exception Handling
+
+When the API returns a non-success status code (4xx or 5xx response), a subclass of the following error
+will be thrown.
 
 ```python
-import merge
-from merge.client import Merge
-from merge.resources.ats.types import CategoriesEnum
+from merge.core.api_error import ApiError
 
-merge_client = Merge(
-    api_key="<YOUR_API_KEY>", 
-    account_token="<YOUR_ACCOUNT_TOKEN>")
-
-link_token_response = merge_client.ats.link_token.create(
-    end_user_email_address="john.smith@gmail.com",
-    end_user_organization_name="acme",
-    end_user_origin_id="1234",
-    categories=[CategoriesEnum.ATS],
-    link_expiry_mins=30,
-)
-
-print("Created link token", link_token_response.link_token)
-```
-
-### Get Employee
-
-```python
-import merge
-from merge.client import Merge
-
-merge_client = Merge(
-    api_key="<YOUR_API_KEY>", 
-    account_token="<YOUR_ACCOUNT_TOKEN>")
-
-employee = merge_client.hris.employees.retrieve(
-    id="0958cbc6-6040-430a-848e-aafacbadf4ae")
-```
-
-### Get Candidate
-
-```python
-import merge
-from merge.client import Merge
-
-merge_client = Merge(
-    api_key="<YOUR_API_KEY>", 
-    account_token="<YOUR_ACCOUNT_TOKEN>")
-
-candidate = merge_client.ats.candidates.retrieve(
-    id="521b18c2-4d01-4297-b451-19858d07c133")
-```
-
-### Filter Candidate
-
-```python
-import merge
-from merge.client import Merge
-
-merge_client = Merge(
-    api_key="<YOUR_API_KEY>", 
-    account_token="<YOUR_ACCOUNT_TOKEN>")
-
-candidates_response = merge_client.ats.candidates.list(
-    created_after="2030-01-01")
-
-print(candidates_response.results)
-```
-
-### Get Contact
-
-```python
-import merge
-from merge.client import Merge
-
-merge_client = Merge(
-    api_key="<YOUR_API_KEY>", 
-    account_token="<YOUR_ACCOUNT_TOKEN>")
-
-contact = merge_client.accounting.contacts.retrieve(
-    id="c640b80b-fac9-409f-aa19-1f9221aec445")
-```
-
-### Create Ticket
-
-```python
-import merge
-from merge.client import Merge
-from merge.resources.ticketing.types import TicketStatusEnum
-
-merge_client = Merge(
-    api_key="<YOUR_API_KEY>", 
-    account_token="<YOUR_ACCOUNT_TOKEN>")
-
-merge_client.ticketing.tickets.create(
-    model=merge.ticketing.TicketRequest(
-        name="Please add more integrations",
-        assignees=[
-            "17a54124-287f-494d-965e-3c5b330c9a68"
-        ],
-        creator="3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        due_date="2022-10-11T00:00:00Z",
-        status=TicketStatusEnum.OPEN,
-    ))
+try:
+    client.ats.activities.create(...)
+except ApiError as e:
+    print(e.status_code)
+    print(e.body)
 ```
 
 ## File Download
@@ -209,8 +144,88 @@ while response.next is not None:
         created_after="2030-01-01")
 ```
 
+## Advanced
+
+### Access Raw Response Data
+
+The SDK provides access to raw response data, including headers, through the `.with_raw_response` property.
+The `.with_raw_response` property returns a "raw" client that can be used to access the `.headers` and `.data` attributes.
+
+```python
+from merge import Merge
+
+client = Merge(
+    ...,
+)
+response = client.ats.activities.with_raw_response.create(...)
+print(response.headers)  # access the response headers
+print(response.data)  # access the underlying object
+```
+
+### Retries
+
+The SDK is instrumented with automatic retries with exponential backoff. A request will be retried as long
+as the request is deemed retryable and the number of retry attempts has not grown larger than the configured
+retry limit (default: 2).
+
+A request is deemed retryable when any of the following HTTP status codes is returned:
+
+- [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
+- [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
+- [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500) (Internal Server Errors)
+
+Use the `max_retries` request option to configure this behavior.
+
+```python
+client.ats.activities.create(..., request_options={
+    "max_retries": 1
+})
+```
+
+### Timeouts
+
+The SDK defaults to a 60 second timeout. You can configure this with a timeout option at the client or request level.
+
+```python
+
+from merge import Merge
+
+client = Merge(
+    ...,
+    timeout=20.0,
+)
+
+
+# Override timeout for a specific method
+client.ats.activities.create(..., request_options={
+    "timeout_in_seconds": 1
+})
+```
+
+### Custom Client
+
+You can override the `httpx` client to customize it for your use-case. Some common use-cases include support for proxies
+and transports.
+
+```python
+import httpx
+from merge import Merge
+
+client = Merge(
+    ...,
+    httpx_client=httpx.Client(
+        proxies="http://my.test.proxy.example.com",
+        transport=httpx.HTTPTransport(local_address="0.0.0.0"),
+    ),
+)
+```
+
 ## Contributing
 
-While we value open-source contributions to this SDK, this library is generated programmatically. Additions made directly to this library would have to be moved over to our generation code, otherwise they would be overwritten upon the next generated release. Feel free to open a PR as a proof of concept, but know that we will not be able to merge it as-is. We suggest opening an issue first to discuss with us!
+While we value open-source contributions to this SDK, this library is generated programmatically.
+Additions made directly to this library would have to be moved over to our generation code,
+otherwise they would be overwritten upon the next generated release. Feel free to open a PR as
+a proof of concept, but know that we will not be able to merge it as-is. We suggest opening
+an issue first to discuss with us!
 
 On the other hand, contributions to the README are always very welcome!

@@ -6,26 +6,31 @@ import typing
 T_Result = typing.TypeVar("T_Result")
 
 
-class AccessLevelEnum(str, enum.Enum):
+class CollectionAccessLevelEnum(str, enum.Enum):
     """
     * `PRIVATE` - PRIVATE
     * `COMPANY` - COMPANY
     * `PUBLIC` - PUBLIC
+    * `PARENT_COLLECTION` - PARENT_COLLECTION
     """
 
     PRIVATE = "PRIVATE"
     COMPANY = "COMPANY"
     PUBLIC = "PUBLIC"
+    PARENT_COLLECTION = "PARENT_COLLECTION"
 
     def visit(
         self,
         private: typing.Callable[[], T_Result],
         company: typing.Callable[[], T_Result],
         public: typing.Callable[[], T_Result],
+        parent_collection: typing.Callable[[], T_Result],
     ) -> T_Result:
-        if self is AccessLevelEnum.PRIVATE:
+        if self is CollectionAccessLevelEnum.PRIVATE:
             return private()
-        if self is AccessLevelEnum.COMPANY:
+        if self is CollectionAccessLevelEnum.COMPANY:
             return company()
-        if self is AccessLevelEnum.PUBLIC:
+        if self is CollectionAccessLevelEnum.PUBLIC:
             return public()
+        if self is CollectionAccessLevelEnum.PARENT_COLLECTION:
+            return parent_collection()

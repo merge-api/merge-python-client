@@ -13,6 +13,7 @@ class EventTypeEnum(str, enum.Enum):
     * `CREATED_TEST_API_KEY` - CREATED_TEST_API_KEY
     * `DELETED_TEST_API_KEY` - DELETED_TEST_API_KEY
     * `REGENERATED_PRODUCTION_API_KEY` - REGENERATED_PRODUCTION_API_KEY
+    * `REGENERATED_WEBHOOK_SIGNATURE` - REGENERATED_WEBHOOK_SIGNATURE
     * `INVITED_USER` - INVITED_USER
     * `TWO_FACTOR_AUTH_ENABLED` - TWO_FACTOR_AUTH_ENABLED
     * `TWO_FACTOR_AUTH_DISABLED` - TWO_FACTOR_AUTH_DISABLED
@@ -57,6 +58,7 @@ class EventTypeEnum(str, enum.Enum):
     CREATED_TEST_API_KEY = "CREATED_TEST_API_KEY"
     DELETED_TEST_API_KEY = "DELETED_TEST_API_KEY"
     REGENERATED_PRODUCTION_API_KEY = "REGENERATED_PRODUCTION_API_KEY"
+    REGENERATED_WEBHOOK_SIGNATURE = "REGENERATED_WEBHOOK_SIGNATURE"
     INVITED_USER = "INVITED_USER"
     TWO_FACTOR_AUTH_ENABLED = "TWO_FACTOR_AUTH_ENABLED"
     TWO_FACTOR_AUTH_DISABLED = "TWO_FACTOR_AUTH_DISABLED"
@@ -102,6 +104,7 @@ class EventTypeEnum(str, enum.Enum):
         created_test_api_key: typing.Callable[[], T_Result],
         deleted_test_api_key: typing.Callable[[], T_Result],
         regenerated_production_api_key: typing.Callable[[], T_Result],
+        regenerated_webhook_signature: typing.Callable[[], T_Result],
         invited_user: typing.Callable[[], T_Result],
         two_factor_auth_enabled: typing.Callable[[], T_Result],
         two_factor_auth_disabled: typing.Callable[[], T_Result],
@@ -150,6 +153,8 @@ class EventTypeEnum(str, enum.Enum):
             return deleted_test_api_key()
         if self is EventTypeEnum.REGENERATED_PRODUCTION_API_KEY:
             return regenerated_production_api_key()
+        if self is EventTypeEnum.REGENERATED_WEBHOOK_SIGNATURE:
+            return regenerated_webhook_signature()
         if self is EventTypeEnum.INVITED_USER:
             return invited_user()
         if self is EventTypeEnum.TWO_FACTOR_AUTH_ENABLED:
