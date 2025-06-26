@@ -33,6 +33,9 @@ class Merge:
 
     account_token : typing.Optional[str]
     api_key : typing.Union[str, typing.Callable[[], str]]
+    headers : typing.Optional[typing.Dict[str, str]]
+        Additional headers to send with every request.
+
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests. By default the timeout is 60 seconds, unless a custom httpx client is used, in which case this default is not enforced.
 
@@ -59,6 +62,7 @@ class Merge:
         environment: MergeEnvironment = MergeEnvironment.PRODUCTION,
         account_token: typing.Optional[str] = None,
         api_key: typing.Union[str, typing.Callable[[], str]],
+        headers: typing.Optional[typing.Dict[str, str]] = None,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.Client] = None,
@@ -70,6 +74,7 @@ class Merge:
             base_url=_get_base_url(base_url=base_url, environment=environment),
             account_token=account_token,
             api_key=api_key,
+            headers=headers,
             httpx_client=httpx_client
             if httpx_client is not None
             else httpx.Client(timeout=_defaulted_timeout, follow_redirects=follow_redirects)
@@ -78,10 +83,10 @@ class Merge:
             timeout=_defaulted_timeout,
         )
         self.ats = AtsClient(client_wrapper=self._client_wrapper)
-        self.filestorage = FilestorageClient(client_wrapper=self._client_wrapper)
-        self.ticketing = TicketingClient(client_wrapper=self._client_wrapper)
         self.crm = CrmClient(client_wrapper=self._client_wrapper)
+        self.filestorage = FilestorageClient(client_wrapper=self._client_wrapper)
         self.hris = HrisClient(client_wrapper=self._client_wrapper)
+        self.ticketing = TicketingClient(client_wrapper=self._client_wrapper)
         self.accounting = AccountingClient(client_wrapper=self._client_wrapper)
 
 
@@ -105,6 +110,9 @@ class AsyncMerge:
 
     account_token : typing.Optional[str]
     api_key : typing.Union[str, typing.Callable[[], str]]
+    headers : typing.Optional[typing.Dict[str, str]]
+        Additional headers to send with every request.
+
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests. By default the timeout is 60 seconds, unless a custom httpx client is used, in which case this default is not enforced.
 
@@ -131,6 +139,7 @@ class AsyncMerge:
         environment: MergeEnvironment = MergeEnvironment.PRODUCTION,
         account_token: typing.Optional[str] = None,
         api_key: typing.Union[str, typing.Callable[[], str]],
+        headers: typing.Optional[typing.Dict[str, str]] = None,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.AsyncClient] = None,
@@ -142,6 +151,7 @@ class AsyncMerge:
             base_url=_get_base_url(base_url=base_url, environment=environment),
             account_token=account_token,
             api_key=api_key,
+            headers=headers,
             httpx_client=httpx_client
             if httpx_client is not None
             else httpx.AsyncClient(timeout=_defaulted_timeout, follow_redirects=follow_redirects)
@@ -150,10 +160,10 @@ class AsyncMerge:
             timeout=_defaulted_timeout,
         )
         self.ats = AsyncAtsClient(client_wrapper=self._client_wrapper)
-        self.filestorage = AsyncFilestorageClient(client_wrapper=self._client_wrapper)
-        self.ticketing = AsyncTicketingClient(client_wrapper=self._client_wrapper)
         self.crm = AsyncCrmClient(client_wrapper=self._client_wrapper)
+        self.filestorage = AsyncFilestorageClient(client_wrapper=self._client_wrapper)
         self.hris = AsyncHrisClient(client_wrapper=self._client_wrapper)
+        self.ticketing = AsyncTicketingClient(client_wrapper=self._client_wrapper)
         self.accounting = AsyncAccountingClient(client_wrapper=self._client_wrapper)
 
 
