@@ -19,6 +19,24 @@ pip install MergePythonClient
 
 A full reference for this library is available [here](https://github.com/merge-api/merge-python-client/blob/HEAD/./reference.md).
 
+## Usage
+
+Instantiate and use the client with the following:
+
+```python
+from merge import Merge
+from merge.resources.ats import ActivityRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.ats.activities.create(
+    model=ActivityRequest(),
+    remote_user_id="remote_user_id",
+)
+```
+
 ## Instantiation
 
 ```python
@@ -40,24 +58,6 @@ client = Merge(api_key="YOUR_API_KEY")
 client.ats. # APIs specific to the ATS Category
 
 client.hris. # APIs specific to the HRIS Category
-```
-
-## Usage
-
-Instantiate and use the client with the following:
-
-```python
-from merge import Merge
-from merge.resources.ats import ActivityRequest
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.ats.activities.create(
-    model=ActivityRequest(),
-    remote_user_id="remote_user_id",
-)
 ```
 
 ## Async Client
@@ -99,49 +99,6 @@ try:
 except ApiError as e:
     print(e.status_code)
     print(e.body)
-```
-
-## File Download
-
-```python
-import merge
-from merge.client import Merge
-
-merge_client = Merge(
-    api_key="<YOUR_API_KEY>", 
-    account_token="<YOUR_ACCOUNT_TOKEN>")
-
-files = merge_client.filestorage.files.list(name="<FILE_NAME>").results
-
-id = files[0].id
-name = files[0].name
-local_filename = f"<LOCAL_FILE_PATH>/{name}"
-
-response = merge_client.filestorage.files.download_retrieve(id=id)
-with open(local_filename, "wb") as f:
-    for chunk in response:
-        f.write(chunk)
-```
-
-## Pagination
-
-The SDK may return paginated results. Endpoints that return paginated results will 
-include a `next` and `prev` property on the response. To get the next page, you can 
-pass in the value of `next` to the cursor property on the request. Similarly, to 
-get the previous page, you can pass in the value of `prev` to the cursor property on 
-the request. 
-
-Below is an example of iterating over all pages:
-```python
-
-# response contains the first page
-response = merge_client.hris.employees.list(created_after="2030-01-01")
-
-# if there is a next page, load it by passing `next` to the cursor argument
-while response.next is not None:
-    response = hris_client.employees.list(
-        cursor=response.next, 
-        created_after="2030-01-01")
 ```
 
 ## Advanced
@@ -229,3 +186,46 @@ a proof of concept, but know that we will not be able to merge it as-is. We sugg
 an issue first to discuss with us!
 
 On the other hand, contributions to the README are always very welcome!
+## File Download
+
+```python
+import merge
+from merge.client import Merge
+
+merge_client = Merge(
+    api_key="<YOUR_API_KEY>", 
+    account_token="<YOUR_ACCOUNT_TOKEN>")
+
+files = merge_client.filestorage.files.list(name="<FILE_NAME>").results
+
+id = files[0].id
+name = files[0].name
+local_filename = f"<LOCAL_FILE_PATH>/{name}"
+
+response = merge_client.filestorage.files.download_retrieve(id=id)
+with open(local_filename, "wb") as f:
+    for chunk in response:
+        f.write(chunk)
+```
+
+## Pagination
+
+The SDK may return paginated results. Endpoints that return paginated results will 
+include a `next` and `prev` property on the response. To get the next page, you can 
+pass in the value of `next` to the cursor property on the request. Similarly, to 
+get the previous page, you can pass in the value of `prev` to the cursor property on 
+the request. 
+
+Below is an example of iterating over all pages:
+```python
+
+# response contains the first page
+response = merge_client.hris.employees.list(created_after="2030-01-01")
+
+# if there is a next page, load it by passing `next` to the cursor argument
+while response.next is not None:
+    response = hris_client.employees.list(
+        cursor=response.next, 
+        created_after="2030-01-01")
+```
+
