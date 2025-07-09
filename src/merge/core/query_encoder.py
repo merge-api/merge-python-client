@@ -24,6 +24,9 @@ def traverse_query_dict(dict_flat: Dict[str, Any], key_prefix: Optional[str] = N
 
 
 def single_query_encoder(query_key: str, query_value: Any) -> List[Tuple[str, Any]]:
+    # Special-case for 'expand' parameter: join lists into a comma-separated string
+    if query_key == "expand" and isinstance(query_value, list):
+        return [(query_key, ",".join(str(x) for x in query_value))]
     if isinstance(query_value, pydantic.BaseModel) or isinstance(query_value, dict):
         if isinstance(query_value, pydantic.BaseModel):
             obj_dict = query_value.dict(by_alias=True)
