@@ -3,21 +3,21 @@
 # isort: skip_file
 
 from .types import (
-    EmploymentsListRequestExpand,
+    EmploymentsListRequestExpandItem,
     EmploymentsListRequestOrderBy,
     EmploymentsListRequestRemoteFields,
     EmploymentsListRequestShowEnumOrigins,
-    EmploymentsRetrieveRequestExpand,
+    EmploymentsRetrieveRequestExpandItem,
     EmploymentsRetrieveRequestRemoteFields,
     EmploymentsRetrieveRequestShowEnumOrigins,
 )
 
 __all__ = [
-    "EmploymentsListRequestExpand",
+    "EmploymentsListRequestExpandItem",
     "EmploymentsListRequestOrderBy",
     "EmploymentsListRequestRemoteFields",
     "EmploymentsListRequestShowEnumOrigins",
-    "EmploymentsRetrieveRequestExpand",
+    "EmploymentsRetrieveRequestExpandItem",
     "EmploymentsRetrieveRequestRemoteFields",
     "EmploymentsRetrieveRequestShowEnumOrigins",
 ]

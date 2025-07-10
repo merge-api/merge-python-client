@@ -3,8 +3,8 @@
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
-from ...types.paginated_payment_method_list import PaginatedPaymentMethodList
 from ...types.payment_method import PaymentMethod
 from .raw_client import AsyncRawPaymentMethodsClient, RawPaymentMethodsClient
 
@@ -33,7 +33,7 @@ class PaymentMethodsClient:
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedPaymentMethodList:
+    ) -> SyncPager[PaymentMethod]:
         """
         Returns a list of `PaymentMethod` objects.
 
@@ -59,7 +59,7 @@ class PaymentMethodsClient:
 
         Returns
         -------
-        PaginatedPaymentMethodList
+        SyncPager[PaymentMethod]
 
 
         Examples
@@ -70,9 +70,14 @@ class PaymentMethodsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.payment_methods.list()
+        response = client.accounting.payment_methods.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -80,7 +85,6 @@ class PaymentMethodsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -156,7 +160,7 @@ class AsyncPaymentMethodsClient:
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedPaymentMethodList:
+    ) -> AsyncPager[PaymentMethod]:
         """
         Returns a list of `PaymentMethod` objects.
 
@@ -182,7 +186,7 @@ class AsyncPaymentMethodsClient:
 
         Returns
         -------
-        PaginatedPaymentMethodList
+        AsyncPager[PaymentMethod]
 
 
         Examples
@@ -198,12 +202,18 @@ class AsyncPaymentMethodsClient:
 
 
         async def main() -> None:
-            await client.accounting.payment_methods.list()
+            response = await client.accounting.payment_methods.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -211,7 +221,6 @@ class AsyncPaymentMethodsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,

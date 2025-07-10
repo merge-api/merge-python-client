@@ -2,7 +2,7 @@
 
 # isort: skip_file
 
-from .contacts_list_request_expand import ContactsListRequestExpand
-from .contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
+from .contacts_list_request_expand_item import ContactsListRequestExpandItem
+from .contacts_retrieve_request_expand_item import ContactsRetrieveRequestExpandItem
 
-__all__ = ["ContactsListRequestExpand", "ContactsRetrieveRequestExpand"]
+__all__ = ["ContactsListRequestExpandItem", "ContactsRetrieveRequestExpandItem"]

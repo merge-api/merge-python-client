@@ -4,16 +4,16 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.journal_entry import JournalEntry
 from ...types.journal_entry_request import JournalEntryRequest
 from ...types.journal_entry_response import JournalEntryResponse
 from ...types.meta_response import MetaResponse
-from ...types.paginated_journal_entry_list import PaginatedJournalEntryList
-from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
+from ...types.remote_field_class import RemoteFieldClass
 from .raw_client import AsyncRawJournalEntriesClient, RawJournalEntriesClient
-from .types.journal_entries_list_request_expand import JournalEntriesListRequestExpand
-from .types.journal_entries_retrieve_request_expand import JournalEntriesRetrieveRequestExpand
+from .types.journal_entries_list_request_expand_item import JournalEntriesListRequestExpandItem
+from .types.journal_entries_retrieve_request_expand_item import JournalEntriesRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -41,7 +41,9 @@ class JournalEntriesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JournalEntriesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JournalEntriesListRequestExpandItem, typing.Sequence[JournalEntriesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -53,7 +55,7 @@ class JournalEntriesClient:
         transaction_date_after: typing.Optional[dt.datetime] = None,
         transaction_date_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedJournalEntryList:
+    ) -> SyncPager[JournalEntry]:
         """
         Returns a list of `JournalEntry` objects.
 
@@ -71,7 +73,7 @@ class JournalEntriesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JournalEntriesListRequestExpand]
+        expand : typing.Optional[typing.Union[JournalEntriesListRequestExpandItem, typing.Sequence[JournalEntriesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -109,7 +111,7 @@ class JournalEntriesClient:
 
         Returns
         -------
-        PaginatedJournalEntryList
+        SyncPager[JournalEntry]
 
 
         Examples
@@ -120,9 +122,14 @@ class JournalEntriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.journal_entries.list()
+        response = client.accounting.journal_entries.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -140,7 +147,6 @@ class JournalEntriesClient:
             transaction_date_before=transaction_date_before,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -193,7 +199,11 @@ class JournalEntriesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[JournalEntriesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                JournalEntriesRetrieveRequestExpandItem, typing.Sequence[JournalEntriesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -206,7 +216,7 @@ class JournalEntriesClient:
         ----------
         id : str
 
-        expand : typing.Optional[JournalEntriesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[JournalEntriesRetrieveRequestExpandItem, typing.Sequence[JournalEntriesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -259,7 +269,7 @@ class JournalEntriesClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -291,7 +301,7 @@ class JournalEntriesClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass]
 
 
         Examples
@@ -302,9 +312,14 @@ class JournalEntriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.journal_entries.lines_remote_field_classes_list()
+        response = client.accounting.journal_entries.lines_remote_field_classes_list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.lines_remote_field_classes_list(
+        return self._raw_client.lines_remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -314,7 +329,6 @@ class JournalEntriesClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -354,7 +368,7 @@ class JournalEntriesClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -386,7 +400,7 @@ class JournalEntriesClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass]
 
 
         Examples
@@ -397,9 +411,14 @@ class JournalEntriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.journal_entries.remote_field_classes_list()
+        response = client.accounting.journal_entries.remote_field_classes_list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.remote_field_classes_list(
+        return self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -409,7 +428,6 @@ class JournalEntriesClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncJournalEntriesClient:
@@ -434,7 +452,9 @@ class AsyncJournalEntriesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JournalEntriesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JournalEntriesListRequestExpandItem, typing.Sequence[JournalEntriesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -446,7 +466,7 @@ class AsyncJournalEntriesClient:
         transaction_date_after: typing.Optional[dt.datetime] = None,
         transaction_date_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedJournalEntryList:
+    ) -> AsyncPager[JournalEntry]:
         """
         Returns a list of `JournalEntry` objects.
 
@@ -464,7 +484,7 @@ class AsyncJournalEntriesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JournalEntriesListRequestExpand]
+        expand : typing.Optional[typing.Union[JournalEntriesListRequestExpandItem, typing.Sequence[JournalEntriesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -502,7 +522,7 @@ class AsyncJournalEntriesClient:
 
         Returns
         -------
-        PaginatedJournalEntryList
+        AsyncPager[JournalEntry]
 
 
         Examples
@@ -518,12 +538,18 @@ class AsyncJournalEntriesClient:
 
 
         async def main() -> None:
-            await client.accounting.journal_entries.list()
+            response = await client.accounting.journal_entries.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -541,7 +567,6 @@ class AsyncJournalEntriesClient:
             transaction_date_before=transaction_date_before,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -602,7 +627,11 @@ class AsyncJournalEntriesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[JournalEntriesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                JournalEntriesRetrieveRequestExpandItem, typing.Sequence[JournalEntriesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -615,7 +644,7 @@ class AsyncJournalEntriesClient:
         ----------
         id : str
 
-        expand : typing.Optional[JournalEntriesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[JournalEntriesRetrieveRequestExpandItem, typing.Sequence[JournalEntriesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -676,7 +705,7 @@ class AsyncJournalEntriesClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -708,7 +737,7 @@ class AsyncJournalEntriesClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass]
 
 
         Examples
@@ -724,12 +753,20 @@ class AsyncJournalEntriesClient:
 
 
         async def main() -> None:
-            await client.accounting.journal_entries.lines_remote_field_classes_list()
+            response = (
+                await client.accounting.journal_entries.lines_remote_field_classes_list()
+            )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.lines_remote_field_classes_list(
+        return await self._raw_client.lines_remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -739,7 +776,6 @@ class AsyncJournalEntriesClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -787,7 +823,7 @@ class AsyncJournalEntriesClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -819,7 +855,7 @@ class AsyncJournalEntriesClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass]
 
 
         Examples
@@ -835,12 +871,20 @@ class AsyncJournalEntriesClient:
 
 
         async def main() -> None:
-            await client.accounting.journal_entries.remote_field_classes_list()
+            response = (
+                await client.accounting.journal_entries.remote_field_classes_list()
+            )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.remote_field_classes_list(
+        return await self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -850,4 +894,3 @@ class AsyncJournalEntriesClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data

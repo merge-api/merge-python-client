@@ -2,7 +2,7 @@
 
 # isort: skip_file
 
-from .company_info_list_request_expand import CompanyInfoListRequestExpand
-from .company_info_retrieve_request_expand import CompanyInfoRetrieveRequestExpand
+from .company_info_list_request_expand_item import CompanyInfoListRequestExpandItem
+from .company_info_retrieve_request_expand_item import CompanyInfoRetrieveRequestExpandItem
 
-__all__ = ["CompanyInfoListRequestExpand", "CompanyInfoRetrieveRequestExpand"]
+__all__ = ["CompanyInfoListRequestExpandItem", "CompanyInfoRetrieveRequestExpandItem"]

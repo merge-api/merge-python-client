@@ -43,58 +43,57 @@ from .activities import (
     ActivitiesRetrieveRequestRemoteFields,
     ActivitiesRetrieveRequestShowEnumOrigins,
 )
-from .applications import ApplicationsListRequestExpand, ApplicationsRetrieveRequestExpand
+from .applications import ApplicationsListRequestExpandItem, ApplicationsRetrieveRequestExpandItem
 from .async_passthrough import AsyncPassthroughRetrieveResponse
-from .candidates import CandidatesListRequestExpand, CandidatesRetrieveRequestExpand, IgnoreCommonModelRequestReason
+from .candidates import CandidatesListRequestExpandItem, CandidatesRetrieveRequestExpandItem
 from .eeocs import (
     EeocsListRequestRemoteFields,
     EeocsListRequestShowEnumOrigins,
     EeocsRetrieveRequestRemoteFields,
     EeocsRetrieveRequestShowEnumOrigins,
 )
-from .interviews import InterviewsListRequestExpand, InterviewsRetrieveRequestExpand
+from .interviews import InterviewsListRequestExpandItem, InterviewsRetrieveRequestExpandItem
 from .issues import IssuesListRequestStatus
 from .job_postings import JobPostingsListRequestStatus
 from .jobs import (
-    JobsListRequestExpand,
+    JobsListRequestExpandItem,
     JobsListRequestStatus,
-    JobsRetrieveRequestExpand,
-    JobsScreeningQuestionsListRequestExpand,
+    JobsRetrieveRequestExpandItem,
+    JobsScreeningQuestionsListRequestExpandItem,
 )
 from .link_token import EndUserDetailsRequestLanguage
 from .linked_accounts import LinkedAccountsListRequestCategory
-from .offers import OffersListRequestExpand, OffersRetrieveRequestExpand
-from .scorecards import ScorecardsListRequestExpand, ScorecardsRetrieveRequestExpand
+from .offers import OffersListRequestExpandItem, OffersRetrieveRequestExpandItem
+from .scorecards import ScorecardsListRequestExpandItem, ScorecardsRetrieveRequestExpandItem
 
 __all__ = [
     "ActivitiesListRequestRemoteFields",
     "ActivitiesListRequestShowEnumOrigins",
     "ActivitiesRetrieveRequestRemoteFields",
     "ActivitiesRetrieveRequestShowEnumOrigins",
-    "ApplicationsListRequestExpand",
-    "ApplicationsRetrieveRequestExpand",
+    "ApplicationsListRequestExpandItem",
+    "ApplicationsRetrieveRequestExpandItem",
     "AsyncPassthroughRetrieveResponse",
-    "CandidatesListRequestExpand",
-    "CandidatesRetrieveRequestExpand",
+    "CandidatesListRequestExpandItem",
+    "CandidatesRetrieveRequestExpandItem",
     "EeocsListRequestRemoteFields",
     "EeocsListRequestShowEnumOrigins",
     "EeocsRetrieveRequestRemoteFields",
     "EeocsRetrieveRequestShowEnumOrigins",
     "EndUserDetailsRequestLanguage",
-    "IgnoreCommonModelRequestReason",
-    "InterviewsListRequestExpand",
-    "InterviewsRetrieveRequestExpand",
+    "InterviewsListRequestExpandItem",
+    "InterviewsRetrieveRequestExpandItem",
     "IssuesListRequestStatus",
     "JobPostingsListRequestStatus",
-    "JobsListRequestExpand",
+    "JobsListRequestExpandItem",
     "JobsListRequestStatus",
-    "JobsRetrieveRequestExpand",
-    "JobsScreeningQuestionsListRequestExpand",
+    "JobsRetrieveRequestExpandItem",
+    "JobsScreeningQuestionsListRequestExpandItem",
     "LinkedAccountsListRequestCategory",
-    "OffersListRequestExpand",
-    "OffersRetrieveRequestExpand",
-    "ScorecardsListRequestExpand",
-    "ScorecardsRetrieveRequestExpand",
+    "OffersListRequestExpandItem",
+    "OffersRetrieveRequestExpandItem",
+    "ScorecardsListRequestExpandItem",
+    "ScorecardsRetrieveRequestExpandItem",
     "account_details",
     "account_token",
     "activities",

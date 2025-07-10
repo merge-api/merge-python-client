@@ -11,10 +11,10 @@ from .expense_request_account import ExpenseRequestAccount
 from .expense_request_accounting_period import ExpenseRequestAccountingPeriod
 from .expense_request_company import ExpenseRequestCompany
 from .expense_request_contact import ExpenseRequestContact
-from .expense_request_currency import ExpenseRequestCurrency
 from .expense_request_employee import ExpenseRequestEmployee
 from .expense_request_tracking_categories_item import ExpenseRequestTrackingCategoriesItem
 from .remote_field_request import RemoteFieldRequest
+from .transaction_currency_enum import TransactionCurrencyEnum
 
 
 class ExpenseRequest(UncheckedBaseModel):
@@ -59,7 +59,7 @@ class ExpenseRequest(UncheckedBaseModel):
     The expense's total tax amount.
     """
 
-    currency: typing.Optional[ExpenseRequestCurrency] = pydantic.Field(default=None)
+    currency: typing.Optional[TransactionCurrencyEnum] = pydantic.Field(default=None)
     """
     The expense's currency.
     

@@ -3,15 +3,15 @@
 # isort: skip_file
 
 from .types import (
-    JobsListRequestExpand,
+    JobsListRequestExpandItem,
     JobsListRequestStatus,
-    JobsRetrieveRequestExpand,
-    JobsScreeningQuestionsListRequestExpand,
+    JobsRetrieveRequestExpandItem,
+    JobsScreeningQuestionsListRequestExpandItem,
 )
 
 __all__ = [
-    "JobsListRequestExpand",
+    "JobsListRequestExpandItem",
     "JobsListRequestStatus",
-    "JobsRetrieveRequestExpand",
-    "JobsScreeningQuestionsListRequestExpand",
+    "JobsRetrieveRequestExpandItem",
+    "JobsScreeningQuestionsListRequestExpandItem",
 ]

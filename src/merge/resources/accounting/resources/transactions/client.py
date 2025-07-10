@@ -4,12 +4,12 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
-from ...types.paginated_transaction_list import PaginatedTransactionList
 from ...types.transaction import Transaction
 from .raw_client import AsyncRawTransactionsClient, RawTransactionsClient
-from .types.transactions_list_request_expand import TransactionsListRequestExpand
-from .types.transactions_retrieve_request_expand import TransactionsRetrieveRequestExpand
+from .types.transactions_list_request_expand_item import TransactionsListRequestExpandItem
+from .types.transactions_retrieve_request_expand_item import TransactionsRetrieveRequestExpandItem
 
 
 class TransactionsClient:
@@ -34,7 +34,9 @@ class TransactionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[TransactionsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TransactionsListRequestExpandItem, typing.Sequence[TransactionsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -45,7 +47,7 @@ class TransactionsClient:
         transaction_date_after: typing.Optional[dt.datetime] = None,
         transaction_date_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTransactionList:
+    ) -> SyncPager[Transaction]:
         """
         Returns a list of `Transaction` objects.
 
@@ -63,7 +65,7 @@ class TransactionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[TransactionsListRequestExpand]
+        expand : typing.Optional[typing.Union[TransactionsListRequestExpandItem, typing.Sequence[TransactionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -98,7 +100,7 @@ class TransactionsClient:
 
         Returns
         -------
-        PaginatedTransactionList
+        SyncPager[Transaction]
 
 
         Examples
@@ -109,9 +111,14 @@ class TransactionsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.transactions.list()
+        response = client.accounting.transactions.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -128,13 +135,14 @@ class TransactionsClient:
             transaction_date_before=transaction_date_before,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[TransactionsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TransactionsRetrieveRequestExpandItem, typing.Sequence[TransactionsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -146,7 +154,7 @@ class TransactionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[TransactionsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[TransactionsRetrieveRequestExpandItem, typing.Sequence[TransactionsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -207,7 +215,9 @@ class AsyncTransactionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[TransactionsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TransactionsListRequestExpandItem, typing.Sequence[TransactionsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -218,7 +228,7 @@ class AsyncTransactionsClient:
         transaction_date_after: typing.Optional[dt.datetime] = None,
         transaction_date_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTransactionList:
+    ) -> AsyncPager[Transaction]:
         """
         Returns a list of `Transaction` objects.
 
@@ -236,7 +246,7 @@ class AsyncTransactionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[TransactionsListRequestExpand]
+        expand : typing.Optional[typing.Union[TransactionsListRequestExpandItem, typing.Sequence[TransactionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -271,7 +281,7 @@ class AsyncTransactionsClient:
 
         Returns
         -------
-        PaginatedTransactionList
+        AsyncPager[Transaction]
 
 
         Examples
@@ -287,12 +297,18 @@ class AsyncTransactionsClient:
 
 
         async def main() -> None:
-            await client.accounting.transactions.list()
+            response = await client.accounting.transactions.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -309,13 +325,14 @@ class AsyncTransactionsClient:
             transaction_date_before=transaction_date_before,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[TransactionsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TransactionsRetrieveRequestExpandItem, typing.Sequence[TransactionsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -327,7 +344,7 @@ class AsyncTransactionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[TransactionsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[TransactionsRetrieveRequestExpandItem, typing.Sequence[TransactionsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

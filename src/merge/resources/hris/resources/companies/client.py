@@ -4,9 +4,9 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.company import Company
-from ...types.paginated_company_list import PaginatedCompanyList
 from .raw_client import AsyncRawCompaniesClient, RawCompaniesClient
 
 
@@ -39,7 +39,7 @@ class CompaniesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedCompanyList:
+    ) -> SyncPager[Company]:
         """
         Returns a list of `Company` objects.
 
@@ -80,7 +80,7 @@ class CompaniesClient:
 
         Returns
         -------
-        PaginatedCompanyList
+        SyncPager[Company]
 
 
         Examples
@@ -91,9 +91,14 @@ class CompaniesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.companies.list()
+        response = client.hris.companies.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -106,7 +111,6 @@ class CompaniesClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -187,7 +191,7 @@ class AsyncCompaniesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedCompanyList:
+    ) -> AsyncPager[Company]:
         """
         Returns a list of `Company` objects.
 
@@ -228,7 +232,7 @@ class AsyncCompaniesClient:
 
         Returns
         -------
-        PaginatedCompanyList
+        AsyncPager[Company]
 
 
         Examples
@@ -244,12 +248,18 @@ class AsyncCompaniesClient:
 
 
         async def main() -> None:
-            await client.hris.companies.list()
+            response = await client.hris.companies.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -262,7 +272,6 @@ class AsyncCompaniesClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,

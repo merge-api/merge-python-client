@@ -4,8 +4,8 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
-from ...types.paginated_time_off_balance_list import PaginatedTimeOffBalanceList
 from ...types.time_off_balance import TimeOffBalance
 from .raw_client import AsyncRawTimeOffBalancesClient, RawTimeOffBalancesClient
 from .types.time_off_balances_list_request_policy_type import TimeOffBalancesListRequestPolicyType
@@ -33,7 +33,9 @@ class TimeOffBalancesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -45,7 +47,7 @@ class TimeOffBalancesClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["policy_type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTimeOffBalanceList:
+    ) -> SyncPager[TimeOffBalance]:
         """
         Returns a list of `TimeOffBalance` objects.
 
@@ -63,7 +65,7 @@ class TimeOffBalancesClient:
         employee_id : typing.Optional[str]
             If provided, will only return time off balances for this employee.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -108,7 +110,7 @@ class TimeOffBalancesClient:
 
         Returns
         -------
-        PaginatedTimeOffBalanceList
+        SyncPager[TimeOffBalance]
 
 
         Examples
@@ -119,9 +121,14 @@ class TimeOffBalancesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.time_off_balances.list()
+        response = client.hris.time_off_balances.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -139,13 +146,14 @@ class TimeOffBalancesClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["policy_type"]] = None,
@@ -159,7 +167,7 @@ class TimeOffBalancesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -228,7 +236,9 @@ class AsyncTimeOffBalancesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -240,7 +250,7 @@ class AsyncTimeOffBalancesClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["policy_type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTimeOffBalanceList:
+    ) -> AsyncPager[TimeOffBalance]:
         """
         Returns a list of `TimeOffBalance` objects.
 
@@ -258,7 +268,7 @@ class AsyncTimeOffBalancesClient:
         employee_id : typing.Optional[str]
             If provided, will only return time off balances for this employee.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -303,7 +313,7 @@ class AsyncTimeOffBalancesClient:
 
         Returns
         -------
-        PaginatedTimeOffBalanceList
+        AsyncPager[TimeOffBalance]
 
 
         Examples
@@ -319,12 +329,18 @@ class AsyncTimeOffBalancesClient:
 
 
         async def main() -> None:
-            await client.hris.time_off_balances.list()
+            response = await client.hris.time_off_balances.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -342,13 +358,14 @@ class AsyncTimeOffBalancesClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["policy_type"]] = None,
@@ -362,7 +379,7 @@ class AsyncTimeOffBalancesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

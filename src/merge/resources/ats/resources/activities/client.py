@@ -4,12 +4,12 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.activity import Activity
 from ...types.activity_request import ActivityRequest
 from ...types.activity_response import ActivityResponse
 from ...types.meta_response import MetaResponse
-from ...types.paginated_activity_list import PaginatedActivityList
 from .raw_client import AsyncRawActivitiesClient, RawActivitiesClient
 from .types.activities_list_request_remote_fields import ActivitiesListRequestRemoteFields
 from .types.activities_list_request_show_enum_origins import ActivitiesListRequestShowEnumOrigins
@@ -41,7 +41,7 @@ class ActivitiesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["user"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -53,7 +53,7 @@ class ActivitiesClient:
         show_enum_origins: typing.Optional[ActivitiesListRequestShowEnumOrigins] = None,
         user_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedActivityList:
+    ) -> SyncPager[Activity]:
         """
         Returns a list of `Activity` objects.
 
@@ -68,7 +68,7 @@ class ActivitiesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["user"]]
+        expand : typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -106,7 +106,7 @@ class ActivitiesClient:
 
         Returns
         -------
-        PaginatedActivityList
+        SyncPager[Activity]
 
 
         Examples
@@ -117,9 +117,14 @@ class ActivitiesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.activities.list()
+        response = client.ats.activities.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -136,7 +141,6 @@ class ActivitiesClient:
             user_id=user_id,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -197,7 +201,7 @@ class ActivitiesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["user"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[ActivitiesRetrieveRequestRemoteFields] = None,
@@ -211,7 +215,7 @@ class ActivitiesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["user"]]
+        expand : typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -306,7 +310,7 @@ class AsyncActivitiesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["user"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -318,7 +322,7 @@ class AsyncActivitiesClient:
         show_enum_origins: typing.Optional[ActivitiesListRequestShowEnumOrigins] = None,
         user_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedActivityList:
+    ) -> AsyncPager[Activity]:
         """
         Returns a list of `Activity` objects.
 
@@ -333,7 +337,7 @@ class AsyncActivitiesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["user"]]
+        expand : typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -371,7 +375,7 @@ class AsyncActivitiesClient:
 
         Returns
         -------
-        PaginatedActivityList
+        AsyncPager[Activity]
 
 
         Examples
@@ -387,12 +391,18 @@ class AsyncActivitiesClient:
 
 
         async def main() -> None:
-            await client.ats.activities.list()
+            response = await client.ats.activities.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -409,7 +419,6 @@ class AsyncActivitiesClient:
             user_id=user_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -478,7 +487,7 @@ class AsyncActivitiesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["user"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[ActivitiesRetrieveRequestRemoteFields] = None,
@@ -492,7 +501,7 @@ class AsyncActivitiesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["user"]]
+        expand : typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

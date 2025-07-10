@@ -4,9 +4,9 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.account import Account
-from ...types.paginated_account_list import PaginatedAccountList
 from .raw_client import AsyncRawAccountsClient, RawAccountsClient
 
 
@@ -39,7 +39,7 @@ class AccountsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAccountList:
+    ) -> SyncPager[Account]:
         """
         Returns a list of `Account` objects.
 
@@ -80,7 +80,7 @@ class AccountsClient:
 
         Returns
         -------
-        PaginatedAccountList
+        SyncPager[Account]
 
 
         Examples
@@ -91,9 +91,14 @@ class AccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.accounts.list()
+        response = client.ticketing.accounts.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -106,7 +111,6 @@ class AccountsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -187,7 +191,7 @@ class AsyncAccountsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAccountList:
+    ) -> AsyncPager[Account]:
         """
         Returns a list of `Account` objects.
 
@@ -228,7 +232,7 @@ class AsyncAccountsClient:
 
         Returns
         -------
-        PaginatedAccountList
+        AsyncPager[Account]
 
 
         Examples
@@ -244,12 +248,18 @@ class AsyncAccountsClient:
 
 
         async def main() -> None:
-            await client.ticketing.accounts.list()
+            response = await client.ticketing.accounts.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -262,7 +272,6 @@ class AsyncAccountsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,

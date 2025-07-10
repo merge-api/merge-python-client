@@ -4,9 +4,9 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.department import Department
-from ...types.paginated_department_list import PaginatedDepartmentList
 from .raw_client import AsyncRawDepartmentsClient, RawDepartmentsClient
 
 
@@ -39,7 +39,7 @@ class DepartmentsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedDepartmentList:
+    ) -> SyncPager[Department]:
         """
         Returns a list of `Department` objects.
 
@@ -80,7 +80,7 @@ class DepartmentsClient:
 
         Returns
         -------
-        PaginatedDepartmentList
+        SyncPager[Department]
 
 
         Examples
@@ -91,9 +91,14 @@ class DepartmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.departments.list()
+        response = client.ats.departments.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -106,7 +111,6 @@ class DepartmentsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -187,7 +191,7 @@ class AsyncDepartmentsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedDepartmentList:
+    ) -> AsyncPager[Department]:
         """
         Returns a list of `Department` objects.
 
@@ -228,7 +232,7 @@ class AsyncDepartmentsClient:
 
         Returns
         -------
-        PaginatedDepartmentList
+        AsyncPager[Department]
 
 
         Examples
@@ -244,12 +248,18 @@ class AsyncDepartmentsClient:
 
 
         async def main() -> None:
-            await client.ats.departments.list()
+            response = await client.ats.departments.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -262,7 +272,6 @@ class AsyncDepartmentsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,

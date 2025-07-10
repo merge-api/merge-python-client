@@ -2,14 +2,14 @@
 
 # isort: skip_file
 
-from .invoices_list_request_expand import InvoicesListRequestExpand
+from .invoices_list_request_expand_item import InvoicesListRequestExpandItem
 from .invoices_list_request_status import InvoicesListRequestStatus
 from .invoices_list_request_type import InvoicesListRequestType
-from .invoices_retrieve_request_expand import InvoicesRetrieveRequestExpand
+from .invoices_retrieve_request_expand_item import InvoicesRetrieveRequestExpandItem
 
 __all__ = [
-    "InvoicesListRequestExpand",
+    "InvoicesListRequestExpandItem",
     "InvoicesListRequestStatus",
     "InvoicesListRequestType",
-    "InvoicesRetrieveRequestExpand",
+    "InvoicesRetrieveRequestExpandItem",
 ]

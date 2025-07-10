@@ -4,12 +4,12 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
-from ...types.paginated_scorecard_list import PaginatedScorecardList
 from ...types.scorecard import Scorecard
 from .raw_client import AsyncRawScorecardsClient, RawScorecardsClient
-from .types.scorecards_list_request_expand import ScorecardsListRequestExpand
-from .types.scorecards_retrieve_request_expand import ScorecardsRetrieveRequestExpand
+from .types.scorecards_list_request_expand_item import ScorecardsListRequestExpandItem
+from .types.scorecards_retrieve_request_expand_item import ScorecardsRetrieveRequestExpandItem
 
 
 class ScorecardsClient:
@@ -34,7 +34,9 @@ class ScorecardsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ScorecardsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ScorecardsListRequestExpandItem, typing.Sequence[ScorecardsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -47,7 +49,7 @@ class ScorecardsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["overall_recommendation"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedScorecardList:
+    ) -> SyncPager[Scorecard]:
         """
         Returns a list of `Scorecard` objects.
 
@@ -65,7 +67,7 @@ class ScorecardsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ScorecardsListRequestExpand]
+        expand : typing.Optional[typing.Union[ScorecardsListRequestExpandItem, typing.Sequence[ScorecardsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -106,7 +108,7 @@ class ScorecardsClient:
 
         Returns
         -------
-        PaginatedScorecardList
+        SyncPager[Scorecard]
 
 
         Examples
@@ -117,9 +119,14 @@ class ScorecardsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.scorecards.list()
+        response = client.ats.scorecards.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             application_id=application_id,
             created_after=created_after,
             created_before=created_before,
@@ -138,13 +145,14 @@ class ScorecardsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[ScorecardsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ScorecardsRetrieveRequestExpandItem, typing.Sequence[ScorecardsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["overall_recommendation"]] = None,
@@ -158,7 +166,7 @@ class ScorecardsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ScorecardsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ScorecardsRetrieveRequestExpandItem, typing.Sequence[ScorecardsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -227,7 +235,9 @@ class AsyncScorecardsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ScorecardsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ScorecardsListRequestExpandItem, typing.Sequence[ScorecardsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -240,7 +250,7 @@ class AsyncScorecardsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["overall_recommendation"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedScorecardList:
+    ) -> AsyncPager[Scorecard]:
         """
         Returns a list of `Scorecard` objects.
 
@@ -258,7 +268,7 @@ class AsyncScorecardsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ScorecardsListRequestExpand]
+        expand : typing.Optional[typing.Union[ScorecardsListRequestExpandItem, typing.Sequence[ScorecardsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -299,7 +309,7 @@ class AsyncScorecardsClient:
 
         Returns
         -------
-        PaginatedScorecardList
+        AsyncPager[Scorecard]
 
 
         Examples
@@ -315,12 +325,18 @@ class AsyncScorecardsClient:
 
 
         async def main() -> None:
-            await client.ats.scorecards.list()
+            response = await client.ats.scorecards.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             application_id=application_id,
             created_after=created_after,
             created_before=created_before,
@@ -339,13 +355,14 @@ class AsyncScorecardsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[ScorecardsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ScorecardsRetrieveRequestExpandItem, typing.Sequence[ScorecardsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["overall_recommendation"]] = None,
@@ -359,7 +376,7 @@ class AsyncScorecardsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ScorecardsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ScorecardsRetrieveRequestExpandItem, typing.Sequence[ScorecardsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

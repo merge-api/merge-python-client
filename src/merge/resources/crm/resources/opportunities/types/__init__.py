@@ -2,8 +2,12 @@
 
 # isort: skip_file
 
-from .opportunities_list_request_expand import OpportunitiesListRequestExpand
+from .opportunities_list_request_expand_item import OpportunitiesListRequestExpandItem
 from .opportunities_list_request_status import OpportunitiesListRequestStatus
-from .opportunities_retrieve_request_expand import OpportunitiesRetrieveRequestExpand
+from .opportunities_retrieve_request_expand_item import OpportunitiesRetrieveRequestExpandItem
 
-__all__ = ["OpportunitiesListRequestExpand", "OpportunitiesListRequestStatus", "OpportunitiesRetrieveRequestExpand"]
+__all__ = [
+    "OpportunitiesListRequestExpandItem",
+    "OpportunitiesListRequestStatus",
+    "OpportunitiesRetrieveRequestExpandItem",
+]

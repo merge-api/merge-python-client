@@ -4,8 +4,8 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
-from ...types.paginated_payroll_run_list import PaginatedPayrollRunList
 from ...types.payroll_run import PayrollRun
 from .raw_client import AsyncRawPayrollRunsClient, RawPayrollRunsClient
 from .types.payroll_runs_list_request_remote_fields import PayrollRunsListRequestRemoteFields
@@ -51,7 +51,7 @@ class PayrollRunsClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedPayrollRunList:
+    ) -> SyncPager[PayrollRun]:
         """
         Returns a list of `PayrollRun` objects.
 
@@ -119,7 +119,7 @@ class PayrollRunsClient:
 
         Returns
         -------
-        PaginatedPayrollRunList
+        SyncPager[PayrollRun]
 
 
         Examples
@@ -130,9 +130,14 @@ class PayrollRunsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.payroll_runs.list()
+        response = client.hris.payroll_runs.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -152,7 +157,6 @@ class PayrollRunsClient:
             started_before=started_before,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -250,7 +254,7 @@ class AsyncPayrollRunsClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedPayrollRunList:
+    ) -> AsyncPager[PayrollRun]:
         """
         Returns a list of `PayrollRun` objects.
 
@@ -318,7 +322,7 @@ class AsyncPayrollRunsClient:
 
         Returns
         -------
-        PaginatedPayrollRunList
+        AsyncPager[PayrollRun]
 
 
         Examples
@@ -334,12 +338,18 @@ class AsyncPayrollRunsClient:
 
 
         async def main() -> None:
-            await client.hris.payroll_runs.list()
+            response = await client.hris.payroll_runs.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -359,7 +369,6 @@ class AsyncPayrollRunsClient:
             started_before=started_before,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,

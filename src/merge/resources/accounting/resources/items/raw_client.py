@@ -9,6 +9,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, BaseHttpResponse, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.item import Item
@@ -17,8 +18,8 @@ from ...types.item_response import ItemResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_item_list import PaginatedItemList
 from ...types.patched_item_request_request import PatchedItemRequestRequest
-from .types.items_list_request_expand import ItemsListRequestExpand
-from .types.items_retrieve_request_expand import ItemsRetrieveRequestExpand
+from .types.items_list_request_expand_item import ItemsListRequestExpandItem
+from .types.items_retrieve_request_expand_item import ItemsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -35,7 +36,9 @@ class RawItemsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ItemsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ItemsListRequestExpandItem, typing.Sequence[ItemsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -46,7 +49,7 @@ class RawItemsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedItemList]:
+    ) -> SyncPager[Item]:
         """
         Returns a list of `Item` objects.
 
@@ -64,7 +67,7 @@ class RawItemsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ItemsListRequestExpand]
+        expand : typing.Optional[typing.Union[ItemsListRequestExpandItem, typing.Sequence[ItemsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -99,7 +102,7 @@ class RawItemsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedItemList]
+        SyncPager[Item]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -125,14 +128,36 @@ class RawItemsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedItemList,
                     construct_type(
                         type_=PaginatedItemList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    company_id=company_id,
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    remote_fields=remote_fields,
+                    remote_id=remote_id,
+                    show_enum_origins=show_enum_origins,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -202,7 +227,9 @@ class RawItemsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ItemsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ItemsRetrieveRequestExpandItem, typing.Sequence[ItemsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -216,7 +243,7 @@ class RawItemsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ItemsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ItemsRetrieveRequestExpandItem, typing.Sequence[ItemsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -415,7 +442,9 @@ class AsyncRawItemsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ItemsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ItemsListRequestExpandItem, typing.Sequence[ItemsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -426,7 +455,7 @@ class AsyncRawItemsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedItemList]:
+    ) -> AsyncPager[Item]:
         """
         Returns a list of `Item` objects.
 
@@ -444,7 +473,7 @@ class AsyncRawItemsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ItemsListRequestExpand]
+        expand : typing.Optional[typing.Union[ItemsListRequestExpandItem, typing.Sequence[ItemsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -479,7 +508,7 @@ class AsyncRawItemsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedItemList]
+        AsyncPager[Item]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -505,14 +534,39 @@ class AsyncRawItemsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedItemList,
                     construct_type(
                         type_=PaginatedItemList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        company_id=company_id,
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        remote_fields=remote_fields,
+                        remote_id=remote_id,
+                        show_enum_origins=show_enum_origins,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -582,7 +636,9 @@ class AsyncRawItemsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ItemsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ItemsRetrieveRequestExpandItem, typing.Sequence[ItemsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -596,7 +652,7 @@ class AsyncRawItemsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ItemsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ItemsRetrieveRequestExpandItem, typing.Sequence[ItemsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

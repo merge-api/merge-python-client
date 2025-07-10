@@ -2,6 +2,6 @@
 
 # isort: skip_file
 
-from .types import CandidatesListRequestExpand, CandidatesRetrieveRequestExpand, IgnoreCommonModelRequestReason
+from .types import CandidatesListRequestExpandItem, CandidatesRetrieveRequestExpandItem
 
-__all__ = ["CandidatesListRequestExpand", "CandidatesRetrieveRequestExpand", "IgnoreCommonModelRequestReason"]
+__all__ = ["CandidatesListRequestExpandItem", "CandidatesRetrieveRequestExpandItem"]

@@ -7,8 +7,8 @@ import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .patched_ticket_request_access_level import PatchedTicketRequestAccessLevel
-from .patched_ticket_request_priority import PatchedTicketRequestPriority
 from .patched_ticket_request_status import PatchedTicketRequestStatus
+from .priority_enum import PriorityEnum
 from .remote_field_request import RemoteFieldRequest
 
 
@@ -108,7 +108,7 @@ class PatchedTicketRequest(UncheckedBaseModel):
     The 3rd party url of the Ticket.
     """
 
-    priority: typing.Optional[PatchedTicketRequestPriority] = pydantic.Field(default=None)
+    priority: typing.Optional[PriorityEnum] = pydantic.Field(default=None)
     """
     The priority or urgency of the Ticket.
     

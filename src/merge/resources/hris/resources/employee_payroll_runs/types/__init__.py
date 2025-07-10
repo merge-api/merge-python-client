@@ -2,7 +2,7 @@
 
 # isort: skip_file
 
-from .employee_payroll_runs_list_request_expand import EmployeePayrollRunsListRequestExpand
-from .employee_payroll_runs_retrieve_request_expand import EmployeePayrollRunsRetrieveRequestExpand
+from .employee_payroll_runs_list_request_expand_item import EmployeePayrollRunsListRequestExpandItem
+from .employee_payroll_runs_retrieve_request_expand_item import EmployeePayrollRunsRetrieveRequestExpandItem
 
-__all__ = ["EmployeePayrollRunsListRequestExpand", "EmployeePayrollRunsRetrieveRequestExpand"]
+__all__ = ["EmployeePayrollRunsListRequestExpandItem", "EmployeePayrollRunsRetrieveRequestExpandItem"]

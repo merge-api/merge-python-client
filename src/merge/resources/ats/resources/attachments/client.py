@@ -4,12 +4,12 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.attachment import Attachment
 from ...types.attachment_request import AttachmentRequest
 from ...types.attachment_response import AttachmentResponse
 from ...types.meta_response import MetaResponse
-from ...types.paginated_attachment_list import PaginatedAttachmentList
 from .raw_client import AsyncRawAttachmentsClient, RawAttachmentsClient
 
 # this is used as the default value for optional parameters
@@ -38,7 +38,9 @@ class AttachmentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -49,7 +51,7 @@ class AttachmentsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["attachment_type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAttachmentList:
+    ) -> SyncPager[Attachment]:
         """
         Returns a list of `Attachment` objects.
 
@@ -67,7 +69,7 @@ class AttachmentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -102,7 +104,7 @@ class AttachmentsClient:
 
         Returns
         -------
-        PaginatedAttachmentList
+        SyncPager[Attachment]
 
 
         Examples
@@ -113,9 +115,14 @@ class AttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.attachments.list()
+        response = client.ats.attachments.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             candidate_id=candidate_id,
             created_after=created_after,
             created_before=created_before,
@@ -132,7 +139,6 @@ class AttachmentsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -193,7 +199,9 @@ class AttachmentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["attachment_type"]] = None,
@@ -207,7 +215,7 @@ class AttachmentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -303,7 +311,9 @@ class AsyncAttachmentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -314,7 +324,7 @@ class AsyncAttachmentsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["attachment_type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAttachmentList:
+    ) -> AsyncPager[Attachment]:
         """
         Returns a list of `Attachment` objects.
 
@@ -332,7 +342,7 @@ class AsyncAttachmentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -367,7 +377,7 @@ class AsyncAttachmentsClient:
 
         Returns
         -------
-        PaginatedAttachmentList
+        AsyncPager[Attachment]
 
 
         Examples
@@ -383,12 +393,18 @@ class AsyncAttachmentsClient:
 
 
         async def main() -> None:
-            await client.ats.attachments.list()
+            response = await client.ats.attachments.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             candidate_id=candidate_id,
             created_after=created_after,
             created_before=created_before,
@@ -405,7 +421,6 @@ class AsyncAttachmentsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -474,7 +489,9 @@ class AsyncAttachmentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["attachment_type"]] = None,
@@ -488,7 +505,7 @@ class AsyncAttachmentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[typing.Literal["candidate"], typing.Sequence[typing.Literal["candidate"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

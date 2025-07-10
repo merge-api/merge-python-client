@@ -2,7 +2,7 @@
 
 # isort: skip_file
 
-from .items_list_request_expand import ItemsListRequestExpand
-from .items_retrieve_request_expand import ItemsRetrieveRequestExpand
+from .items_list_request_expand_item import ItemsListRequestExpandItem
+from .items_retrieve_request_expand_item import ItemsRetrieveRequestExpandItem
 
-__all__ = ["ItemsListRequestExpand", "ItemsRetrieveRequestExpand"]
+__all__ = ["ItemsListRequestExpandItem", "ItemsRetrieveRequestExpandItem"]

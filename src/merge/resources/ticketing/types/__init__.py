@@ -27,7 +27,6 @@ from .category_enum import CategoryEnum
 from .collection import Collection
 from .collection_access_level import CollectionAccessLevel
 from .collection_access_level_enum import CollectionAccessLevelEnum
-from .collection_collection_type import CollectionCollectionType
 from .collection_parent_collection import CollectionParentCollection
 from .collection_type_enum import CollectionTypeEnum
 from .comment import Comment
@@ -104,7 +103,6 @@ from .paginated_user_list import PaginatedUserList
 from .paginated_viewer_list import PaginatedViewerList
 from .patched_ticket_request import PatchedTicketRequest
 from .patched_ticket_request_access_level import PatchedTicketRequestAccessLevel
-from .patched_ticket_request_priority import PatchedTicketRequestPriority
 from .patched_ticket_request_status import PatchedTicketRequestStatus
 from .priority_enum import PriorityEnum
 from .project import Project
@@ -116,13 +114,12 @@ from .remote_field_api_coverage import RemoteFieldApiCoverage
 from .remote_field_api_response import RemoteFieldApiResponse
 from .remote_field_class import RemoteFieldClass
 from .remote_field_class_field_choices_item import RemoteFieldClassFieldChoicesItem
-from .remote_field_class_field_format import RemoteFieldClassFieldFormat
-from .remote_field_class_field_type import RemoteFieldClassFieldType
 from .remote_field_remote_field_class import RemoteFieldRemoteFieldClass
 from .remote_field_request import RemoteFieldRequest
 from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
 from .remote_key import RemoteKey
 from .remote_response import RemoteResponse
+from .remote_response_response_type import RemoteResponseResponseType
 from .request_format_enum import RequestFormatEnum
 from .response_type_enum import ResponseTypeEnum
 from .role import Role
@@ -133,6 +130,7 @@ from .selective_sync_configurations_usage_enum import SelectiveSyncConfiguration
 from .status_fd_5_enum import StatusFd5Enum
 from .sync_status import SyncStatus
 from .sync_status_last_sync_result import SyncStatusLastSyncResult
+from .sync_status_status import SyncStatusStatus
 from .tag import Tag
 from .team import Team
 from .ticket import Ticket
@@ -202,7 +200,6 @@ __all__ = [
     "Collection",
     "CollectionAccessLevel",
     "CollectionAccessLevelEnum",
-    "CollectionCollectionType",
     "CollectionParentCollection",
     "CollectionTypeEnum",
     "Comment",
@@ -277,7 +274,6 @@ __all__ = [
     "PaginatedViewerList",
     "PatchedTicketRequest",
     "PatchedTicketRequestAccessLevel",
-    "PatchedTicketRequestPriority",
     "PatchedTicketRequestStatus",
     "PriorityEnum",
     "Project",
@@ -289,13 +285,12 @@ __all__ = [
     "RemoteFieldApiResponse",
     "RemoteFieldClass",
     "RemoteFieldClassFieldChoicesItem",
-    "RemoteFieldClassFieldFormat",
-    "RemoteFieldClassFieldType",
     "RemoteFieldRemoteFieldClass",
     "RemoteFieldRequest",
     "RemoteFieldRequestRemoteFieldClass",
     "RemoteKey",
     "RemoteResponse",
+    "RemoteResponseResponseType",
     "RequestFormatEnum",
     "ResponseTypeEnum",
     "Role",
@@ -306,6 +301,7 @@ __all__ = [
     "StatusFd5Enum",
     "SyncStatus",
     "SyncStatusLastSyncResult",
+    "SyncStatusStatus",
     "Tag",
     "Team",
     "Ticket",

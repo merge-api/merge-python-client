@@ -13,7 +13,6 @@ from .account_details_and_actions_category import AccountDetailsAndActionsCatego
 from .account_details_and_actions_integration import AccountDetailsAndActionsIntegration
 from .account_details_and_actions_status import AccountDetailsAndActionsStatus
 from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
-from .account_details_category import AccountDetailsCategory
 from .account_integration import AccountIntegration
 from .account_request import AccountRequest
 from .account_request_account_type import AccountRequestAccountType
@@ -78,7 +77,6 @@ from .classification_enum import ClassificationEnum
 from .common_model_scope_api import CommonModelScopeApi
 from .common_model_scopes_body_request import CommonModelScopesBodyRequest
 from .company_info import CompanyInfo
-from .company_info_currency import CompanyInfoCurrency
 from .component_type_enum import ComponentTypeEnum
 from .contact import Contact
 from .contact_addresses_item import ContactAddressesItem
@@ -127,7 +125,6 @@ from .credit_note_status_enum import CreditNoteStatusEnum
 from .credit_note_tracking_categories_item import CreditNoteTrackingCategoriesItem
 from .credit_or_debit_enum import CreditOrDebitEnum
 from .data_passthrough_request import DataPassthroughRequest
-from .data_passthrough_request_method import DataPassthroughRequestMethod
 from .debug_mode_log import DebugModeLog
 from .debug_model_log_summary import DebugModelLogSummary
 from .employee import Employee
@@ -147,7 +144,6 @@ from .expense_employee import ExpenseEmployee
 from .expense_line import ExpenseLine
 from .expense_line_account import ExpenseLineAccount
 from .expense_line_contact import ExpenseLineContact
-from .expense_line_currency import ExpenseLineCurrency
 from .expense_line_employee import ExpenseLineEmployee
 from .expense_line_item import ExpenseLineItem
 from .expense_line_project import ExpenseLineProject
@@ -167,7 +163,6 @@ from .expense_request_account import ExpenseRequestAccount
 from .expense_request_accounting_period import ExpenseRequestAccountingPeriod
 from .expense_request_company import ExpenseRequestCompany
 from .expense_request_contact import ExpenseRequestContact
-from .expense_request_currency import ExpenseRequestCurrency
 from .expense_request_employee import ExpenseRequestEmployee
 from .expense_request_tracking_categories_item import ExpenseRequestTrackingCategoriesItem
 from .expense_response import ExpenseResponse
@@ -195,7 +190,6 @@ from .general_ledger_transaction_general_ledger_transaction_lines_item import (
 )
 from .general_ledger_transaction_line import GeneralLedgerTransactionLine
 from .general_ledger_transaction_line_account import GeneralLedgerTransactionLineAccount
-from .general_ledger_transaction_line_base_currency import GeneralLedgerTransactionLineBaseCurrency
 from .general_ledger_transaction_line_company import GeneralLedgerTransactionLineCompany
 from .general_ledger_transaction_line_contact import GeneralLedgerTransactionLineContact
 from .general_ledger_transaction_line_employee import GeneralLedgerTransactionLineEmployee
@@ -255,7 +249,6 @@ from .invoice_response import InvoiceResponse
 from .invoice_status import InvoiceStatus
 from .invoice_status_enum import InvoiceStatusEnum
 from .invoice_tracking_categories_item import InvoiceTrackingCategoriesItem
-from .invoice_type import InvoiceType
 from .invoice_type_enum import InvoiceTypeEnum
 from .issue import Issue
 from .issue_status import IssueStatus
@@ -278,6 +271,7 @@ from .item_sales_account import ItemSalesAccount
 from .item_sales_tax_rate import ItemSalesTaxRate
 from .item_schema import ItemSchema
 from .item_status import ItemStatus
+from .item_type import ItemType
 from .item_type_enum import ItemTypeEnum
 from .journal_entry import JournalEntry
 from .journal_entry_accounting_period import JournalEntryAccountingPeriod
@@ -317,7 +311,6 @@ from .model_operation import ModelOperation
 from .model_permission_deserializer import ModelPermissionDeserializer
 from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
 from .multipart_form_field_request import MultipartFormFieldRequest
-from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
 from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
 from .paginated_account_list import PaginatedAccountList
 from .paginated_accounting_attachment_list import PaginatedAccountingAttachmentList
@@ -440,6 +433,7 @@ from .status_7_d_1_enum import Status7D1Enum
 from .status_895_enum import Status895Enum
 from .status_fd_5_enum import StatusFd5Enum
 from .sync_status import SyncStatus
+from .sync_status_last_sync_result import SyncStatusLastSyncResult
 from .sync_status_status import SyncStatusStatus
 from .tax_component import TaxComponent
 from .tax_component_component_type import TaxComponentComponentType
@@ -508,7 +502,6 @@ __all__ = [
     "AccountDetailsAndActionsIntegration",
     "AccountDetailsAndActionsStatus",
     "AccountDetailsAndActionsStatusEnum",
-    "AccountDetailsCategory",
     "AccountIntegration",
     "AccountRequest",
     "AccountRequestAccountType",
@@ -573,7 +566,6 @@ __all__ = [
     "CommonModelScopeApi",
     "CommonModelScopesBodyRequest",
     "CompanyInfo",
-    "CompanyInfoCurrency",
     "ComponentTypeEnum",
     "Contact",
     "ContactAddressesItem",
@@ -622,7 +614,6 @@ __all__ = [
     "CreditNoteTrackingCategoriesItem",
     "CreditOrDebitEnum",
     "DataPassthroughRequest",
-    "DataPassthroughRequestMethod",
     "DebugModeLog",
     "DebugModelLogSummary",
     "Employee",
@@ -642,7 +633,6 @@ __all__ = [
     "ExpenseLine",
     "ExpenseLineAccount",
     "ExpenseLineContact",
-    "ExpenseLineCurrency",
     "ExpenseLineEmployee",
     "ExpenseLineItem",
     "ExpenseLineProject",
@@ -662,7 +652,6 @@ __all__ = [
     "ExpenseRequestAccountingPeriod",
     "ExpenseRequestCompany",
     "ExpenseRequestContact",
-    "ExpenseRequestCurrency",
     "ExpenseRequestEmployee",
     "ExpenseRequestTrackingCategoriesItem",
     "ExpenseResponse",
@@ -686,7 +675,6 @@ __all__ = [
     "GeneralLedgerTransactionGeneralLedgerTransactionLinesItem",
     "GeneralLedgerTransactionLine",
     "GeneralLedgerTransactionLineAccount",
-    "GeneralLedgerTransactionLineBaseCurrency",
     "GeneralLedgerTransactionLineCompany",
     "GeneralLedgerTransactionLineContact",
     "GeneralLedgerTransactionLineEmployee",
@@ -746,7 +734,6 @@ __all__ = [
     "InvoiceStatus",
     "InvoiceStatusEnum",
     "InvoiceTrackingCategoriesItem",
-    "InvoiceType",
     "InvoiceTypeEnum",
     "Issue",
     "IssueStatus",
@@ -769,6 +756,7 @@ __all__ = [
     "ItemSalesTaxRate",
     "ItemSchema",
     "ItemStatus",
+    "ItemType",
     "ItemTypeEnum",
     "JournalEntry",
     "JournalEntryAccountingPeriod",
@@ -808,7 +796,6 @@ __all__ = [
     "ModelPermissionDeserializer",
     "ModelPermissionDeserializerRequest",
     "MultipartFormFieldRequest",
-    "MultipartFormFieldRequestEncoding",
     "PaginatedAccountDetailsAndActionsList",
     "PaginatedAccountList",
     "PaginatedAccountingAttachmentList",
@@ -931,6 +918,7 @@ __all__ = [
     "Status895Enum",
     "StatusFd5Enum",
     "SyncStatus",
+    "SyncStatusLastSyncResult",
     "SyncStatusStatus",
     "TaxComponent",
     "TaxComponentComponentType",

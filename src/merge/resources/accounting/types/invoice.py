@@ -20,7 +20,7 @@ from .invoice_payments_item import InvoicePaymentsItem
 from .invoice_purchase_orders_item import InvoicePurchaseOrdersItem
 from .invoice_status import InvoiceStatus
 from .invoice_tracking_categories_item import InvoiceTrackingCategoriesItem
-from .invoice_type import InvoiceType
+from .invoice_type_enum import InvoiceTypeEnum
 from .remote_data import RemoteData
 from .remote_field import RemoteField
 
@@ -54,7 +54,7 @@ class Invoice(UncheckedBaseModel):
     The datetime that this object was modified by Merge.
     """
 
-    type: typing.Optional[InvoiceType] = pydantic.Field(default=None)
+    type: typing.Optional[InvoiceTypeEnum] = pydantic.Field(default=None)
     """
     Whether the invoice is an accounts receivable or accounts payable. If `type` is `ACCOUNTS_PAYABLE`, the invoice is a bill. If `type` is `ACCOUNTS_RECEIVABLE`, it is an invoice.
     

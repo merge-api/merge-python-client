@@ -3,15 +3,15 @@
 # isort: skip_file
 
 from .types import (
-    InvoicesListRequestExpand,
+    InvoicesListRequestExpandItem,
     InvoicesListRequestStatus,
     InvoicesListRequestType,
-    InvoicesRetrieveRequestExpand,
+    InvoicesRetrieveRequestExpandItem,
 )
 
 __all__ = [
-    "InvoicesListRequestExpand",
+    "InvoicesListRequestExpandItem",
     "InvoicesListRequestStatus",
     "InvoicesListRequestType",
-    "InvoicesRetrieveRequestExpand",
+    "InvoicesRetrieveRequestExpandItem",
 ]

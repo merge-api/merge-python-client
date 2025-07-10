@@ -9,6 +9,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, BaseHttpResponse, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.meta_response import MetaResponse
@@ -16,8 +17,8 @@ from ...types.paginated_scheduled_interview_list import PaginatedScheduledInterv
 from ...types.scheduled_interview import ScheduledInterview
 from ...types.scheduled_interview_request import ScheduledInterviewRequest
 from ...types.scheduled_interview_response import ScheduledInterviewResponse
-from .types.interviews_list_request_expand import InterviewsListRequestExpand
-from .types.interviews_retrieve_request_expand import InterviewsRetrieveRequestExpand
+from .types.interviews_list_request_expand_item import InterviewsListRequestExpandItem
+from .types.interviews_retrieve_request_expand_item import InterviewsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -34,7 +35,9 @@ class RawInterviewsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[InterviewsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InterviewsListRequestExpandItem, typing.Sequence[InterviewsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -48,7 +51,7 @@ class RawInterviewsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedScheduledInterviewList]:
+    ) -> SyncPager[ScheduledInterview]:
         """
         Returns a list of `ScheduledInterview` objects.
 
@@ -66,7 +69,7 @@ class RawInterviewsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[InterviewsListRequestExpand]
+        expand : typing.Optional[typing.Union[InterviewsListRequestExpandItem, typing.Sequence[InterviewsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -110,7 +113,7 @@ class RawInterviewsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedScheduledInterviewList]
+        SyncPager[ScheduledInterview]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -139,14 +142,39 @@ class RawInterviewsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedScheduledInterviewList,
                     construct_type(
                         type_=PaginatedScheduledInterviewList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    application_id=application_id,
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    job_id=job_id,
+                    job_interview_stage_id=job_interview_stage_id,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    organizer_id=organizer_id,
+                    page_size=page_size,
+                    remote_fields=remote_fields,
+                    remote_id=remote_id,
+                    show_enum_origins=show_enum_origins,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -220,7 +248,9 @@ class RawInterviewsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[InterviewsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InterviewsRetrieveRequestExpandItem, typing.Sequence[InterviewsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -234,7 +264,7 @@ class RawInterviewsClient:
         ----------
         id : str
 
-        expand : typing.Optional[InterviewsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[InterviewsRetrieveRequestExpandItem, typing.Sequence[InterviewsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -332,7 +362,9 @@ class AsyncRawInterviewsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[InterviewsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InterviewsListRequestExpandItem, typing.Sequence[InterviewsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -346,7 +378,7 @@ class AsyncRawInterviewsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedScheduledInterviewList]:
+    ) -> AsyncPager[ScheduledInterview]:
         """
         Returns a list of `ScheduledInterview` objects.
 
@@ -364,7 +396,7 @@ class AsyncRawInterviewsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[InterviewsListRequestExpand]
+        expand : typing.Optional[typing.Union[InterviewsListRequestExpandItem, typing.Sequence[InterviewsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -408,7 +440,7 @@ class AsyncRawInterviewsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedScheduledInterviewList]
+        AsyncPager[ScheduledInterview]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -437,14 +469,42 @@ class AsyncRawInterviewsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedScheduledInterviewList,
                     construct_type(
                         type_=PaginatedScheduledInterviewList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        application_id=application_id,
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        job_id=job_id,
+                        job_interview_stage_id=job_interview_stage_id,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        organizer_id=organizer_id,
+                        page_size=page_size,
+                        remote_fields=remote_fields,
+                        remote_id=remote_id,
+                        show_enum_origins=show_enum_origins,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -518,7 +578,9 @@ class AsyncRawInterviewsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[InterviewsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InterviewsRetrieveRequestExpandItem, typing.Sequence[InterviewsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -532,7 +594,7 @@ class AsyncRawInterviewsClient:
         ----------
         id : str
 
-        expand : typing.Optional[InterviewsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[InterviewsRetrieveRequestExpandItem, typing.Sequence[InterviewsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

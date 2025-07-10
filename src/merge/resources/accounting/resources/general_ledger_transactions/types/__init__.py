@@ -2,7 +2,7 @@
 
 # isort: skip_file
 
-from .general_ledger_transactions_list_request_expand import GeneralLedgerTransactionsListRequestExpand
-from .general_ledger_transactions_retrieve_request_expand import GeneralLedgerTransactionsRetrieveRequestExpand
+from .general_ledger_transactions_list_request_expand_item import GeneralLedgerTransactionsListRequestExpandItem
+from .general_ledger_transactions_retrieve_request_expand_item import GeneralLedgerTransactionsRetrieveRequestExpandItem
 
-__all__ = ["GeneralLedgerTransactionsListRequestExpand", "GeneralLedgerTransactionsRetrieveRequestExpand"]
+__all__ = ["GeneralLedgerTransactionsListRequestExpandItem", "GeneralLedgerTransactionsRetrieveRequestExpandItem"]

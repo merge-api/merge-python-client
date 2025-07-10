@@ -2,20 +2,20 @@
 
 # isort: skip_file
 
-from .employments_list_request_expand import EmploymentsListRequestExpand
+from .employments_list_request_expand_item import EmploymentsListRequestExpandItem
 from .employments_list_request_order_by import EmploymentsListRequestOrderBy
 from .employments_list_request_remote_fields import EmploymentsListRequestRemoteFields
 from .employments_list_request_show_enum_origins import EmploymentsListRequestShowEnumOrigins
-from .employments_retrieve_request_expand import EmploymentsRetrieveRequestExpand
+from .employments_retrieve_request_expand_item import EmploymentsRetrieveRequestExpandItem
 from .employments_retrieve_request_remote_fields import EmploymentsRetrieveRequestRemoteFields
 from .employments_retrieve_request_show_enum_origins import EmploymentsRetrieveRequestShowEnumOrigins
 
 __all__ = [
-    "EmploymentsListRequestExpand",
+    "EmploymentsListRequestExpandItem",
     "EmploymentsListRequestOrderBy",
     "EmploymentsListRequestRemoteFields",
     "EmploymentsListRequestShowEnumOrigins",
-    "EmploymentsRetrieveRequestExpand",
+    "EmploymentsRetrieveRequestExpandItem",
     "EmploymentsRetrieveRequestRemoteFields",
     "EmploymentsRetrieveRequestShowEnumOrigins",
 ]

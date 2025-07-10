@@ -2,6 +2,6 @@
 
 # isort: skip_file
 
-from .collections_viewers_list_request_expand import CollectionsViewersListRequestExpand
+from .collections_viewers_list_request_expand_item import CollectionsViewersListRequestExpandItem
 
-__all__ = ["CollectionsViewersListRequestExpand"]
+__all__ = ["CollectionsViewersListRequestExpandItem"]

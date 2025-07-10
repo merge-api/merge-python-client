@@ -4,16 +4,16 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.meta_response import MetaResponse
 from ...types.note import Note
 from ...types.note_request import NoteRequest
 from ...types.note_response import NoteResponse
-from ...types.paginated_note_list import PaginatedNoteList
-from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
+from ...types.remote_field_class import RemoteFieldClass
 from .raw_client import AsyncRawNotesClient, RawNotesClient
-from .types.notes_list_request_expand import NotesListRequestExpand
-from .types.notes_retrieve_request_expand import NotesRetrieveRequestExpand
+from .types.notes_list_request_expand_item import NotesListRequestExpandItem
+from .types.notes_retrieve_request_expand_item import NotesRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -42,7 +42,9 @@ class NotesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[NotesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[NotesListRequestExpandItem, typing.Sequence[NotesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -54,7 +56,7 @@ class NotesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedNoteList:
+    ) -> SyncPager[Note]:
         """
         Returns a list of `Note` objects.
 
@@ -75,7 +77,7 @@ class NotesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[NotesListRequestExpand]
+        expand : typing.Optional[typing.Union[NotesListRequestExpandItem, typing.Sequence[NotesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -113,7 +115,7 @@ class NotesClient:
 
         Returns
         -------
-        PaginatedNoteList
+        SyncPager[Note]
 
 
         Examples
@@ -124,9 +126,14 @@ class NotesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.notes.list()
+        response = client.crm.notes.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             account_id=account_id,
             contact_id=contact_id,
             created_after=created_after,
@@ -145,7 +152,6 @@ class NotesClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -198,7 +204,9 @@ class NotesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[NotesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[NotesRetrieveRequestExpandItem, typing.Sequence[NotesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -211,7 +219,7 @@ class NotesClient:
         ----------
         id : str
 
-        expand : typing.Optional[NotesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[NotesRetrieveRequestExpandItem, typing.Sequence[NotesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -292,7 +300,7 @@ class NotesClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -327,7 +335,7 @@ class NotesClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass]
 
 
         Examples
@@ -338,9 +346,14 @@ class NotesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.notes.remote_field_classes_list()
+        response = client.crm.notes.remote_field_classes_list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.remote_field_classes_list(
+        return self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -351,7 +364,6 @@ class NotesClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncNotesClient:
@@ -377,7 +389,9 @@ class AsyncNotesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[NotesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[NotesListRequestExpandItem, typing.Sequence[NotesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -389,7 +403,7 @@ class AsyncNotesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedNoteList:
+    ) -> AsyncPager[Note]:
         """
         Returns a list of `Note` objects.
 
@@ -410,7 +424,7 @@ class AsyncNotesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[NotesListRequestExpand]
+        expand : typing.Optional[typing.Union[NotesListRequestExpandItem, typing.Sequence[NotesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -448,7 +462,7 @@ class AsyncNotesClient:
 
         Returns
         -------
-        PaginatedNoteList
+        AsyncPager[Note]
 
 
         Examples
@@ -464,12 +478,18 @@ class AsyncNotesClient:
 
 
         async def main() -> None:
-            await client.crm.notes.list()
+            response = await client.crm.notes.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             account_id=account_id,
             contact_id=contact_id,
             created_after=created_after,
@@ -488,7 +508,6 @@ class AsyncNotesClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -549,7 +568,9 @@ class AsyncNotesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[NotesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[NotesRetrieveRequestExpandItem, typing.Sequence[NotesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -562,7 +583,7 @@ class AsyncNotesClient:
         ----------
         id : str
 
-        expand : typing.Optional[NotesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[NotesRetrieveRequestExpandItem, typing.Sequence[NotesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -659,7 +680,7 @@ class AsyncNotesClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -694,7 +715,7 @@ class AsyncNotesClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass]
 
 
         Examples
@@ -710,12 +731,18 @@ class AsyncNotesClient:
 
 
         async def main() -> None:
-            await client.crm.notes.remote_field_classes_list()
+            response = await client.crm.notes.remote_field_classes_list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.remote_field_classes_list(
+        return await self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -726,4 +753,3 @@ class AsyncNotesClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data

@@ -2,14 +2,14 @@
 
 # isort: skip_file
 
-from .jobs_list_request_expand import JobsListRequestExpand
+from .jobs_list_request_expand_item import JobsListRequestExpandItem
 from .jobs_list_request_status import JobsListRequestStatus
-from .jobs_retrieve_request_expand import JobsRetrieveRequestExpand
-from .jobs_screening_questions_list_request_expand import JobsScreeningQuestionsListRequestExpand
+from .jobs_retrieve_request_expand_item import JobsRetrieveRequestExpandItem
+from .jobs_screening_questions_list_request_expand_item import JobsScreeningQuestionsListRequestExpandItem
 
 __all__ = [
-    "JobsListRequestExpand",
+    "JobsListRequestExpandItem",
     "JobsListRequestStatus",
-    "JobsRetrieveRequestExpand",
-    "JobsScreeningQuestionsListRequestExpand",
+    "JobsRetrieveRequestExpandItem",
+    "JobsScreeningQuestionsListRequestExpandItem",
 ]

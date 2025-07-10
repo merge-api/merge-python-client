@@ -4,17 +4,17 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.candidate import Candidate
 from ...types.candidate_request import CandidateRequest
 from ...types.candidate_response import CandidateResponse
+from ...types.ignore_common_model_request import IgnoreCommonModelRequest
 from ...types.meta_response import MetaResponse
-from ...types.paginated_candidate_list import PaginatedCandidateList
 from ...types.patched_candidate_request import PatchedCandidateRequest
 from .raw_client import AsyncRawCandidatesClient, RawCandidatesClient
-from .types.candidates_list_request_expand import CandidatesListRequestExpand
-from .types.candidates_retrieve_request_expand import CandidatesRetrieveRequestExpand
-from .types.ignore_common_model_request_reason import IgnoreCommonModelRequestReason
+from .types.candidates_list_request_expand_item import CandidatesListRequestExpandItem
+from .types.candidates_retrieve_request_expand_item import CandidatesRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -42,7 +42,9 @@ class CandidatesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_addresses: typing.Optional[str] = None,
-        expand: typing.Optional[CandidatesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CandidatesListRequestExpandItem, typing.Sequence[CandidatesListRequestExpandItem]]
+        ] = None,
         first_name: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
@@ -54,7 +56,7 @@ class CandidatesClient:
         remote_id: typing.Optional[str] = None,
         tags: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedCandidateList:
+    ) -> SyncPager[Candidate]:
         """
         Returns a list of `Candidate` objects.
 
@@ -72,7 +74,7 @@ class CandidatesClient:
         email_addresses : typing.Optional[str]
             If provided, will only return candidates with these email addresses; multiple addresses can be separated by commas.
 
-        expand : typing.Optional[CandidatesListRequestExpand]
+        expand : typing.Optional[typing.Union[CandidatesListRequestExpandItem, typing.Sequence[CandidatesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         first_name : typing.Optional[str]
@@ -110,7 +112,7 @@ class CandidatesClient:
 
         Returns
         -------
-        PaginatedCandidateList
+        SyncPager[Candidate]
 
 
         Examples
@@ -121,9 +123,14 @@ class CandidatesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.candidates.list()
+        response = client.ats.candidates.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -141,7 +148,6 @@ class CandidatesClient:
             tags=tags,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -202,7 +208,9 @@ class CandidatesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CandidatesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CandidatesRetrieveRequestExpandItem, typing.Sequence[CandidatesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -214,7 +222,7 @@ class CandidatesClient:
         ----------
         id : str
 
-        expand : typing.Optional[CandidatesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CandidatesRetrieveRequestExpandItem, typing.Sequence[CandidatesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -316,8 +324,7 @@ class CandidatesClient:
         self,
         model_id: str,
         *,
-        reason: IgnoreCommonModelRequestReason,
-        message: typing.Optional[str] = OMIT,
+        request: IgnoreCommonModelRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
@@ -327,9 +334,7 @@ class CandidatesClient:
         ----------
         model_id : str
 
-        reason : IgnoreCommonModelRequestReason
-
-        message : typing.Optional[str]
+        request : IgnoreCommonModelRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -341,7 +346,7 @@ class CandidatesClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.ats import ReasonEnum
+        from merge.resources.ats import IgnoreCommonModelRequest, ReasonEnum
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -349,12 +354,12 @@ class CandidatesClient:
         )
         client.ats.candidates.ignore_create(
             model_id="model_id",
-            reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
+            request=IgnoreCommonModelRequest(
+                reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
+            ),
         )
         """
-        _response = self._raw_client.ignore_create(
-            model_id, reason=reason, message=message, request_options=request_options
-        )
+        _response = self._raw_client.ignore_create(model_id, request=request, request_options=request_options)
         return _response.data
 
     def meta_patch_retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
@@ -438,7 +443,9 @@ class AsyncCandidatesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_addresses: typing.Optional[str] = None,
-        expand: typing.Optional[CandidatesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CandidatesListRequestExpandItem, typing.Sequence[CandidatesListRequestExpandItem]]
+        ] = None,
         first_name: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
@@ -450,7 +457,7 @@ class AsyncCandidatesClient:
         remote_id: typing.Optional[str] = None,
         tags: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedCandidateList:
+    ) -> AsyncPager[Candidate]:
         """
         Returns a list of `Candidate` objects.
 
@@ -468,7 +475,7 @@ class AsyncCandidatesClient:
         email_addresses : typing.Optional[str]
             If provided, will only return candidates with these email addresses; multiple addresses can be separated by commas.
 
-        expand : typing.Optional[CandidatesListRequestExpand]
+        expand : typing.Optional[typing.Union[CandidatesListRequestExpandItem, typing.Sequence[CandidatesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         first_name : typing.Optional[str]
@@ -506,7 +513,7 @@ class AsyncCandidatesClient:
 
         Returns
         -------
-        PaginatedCandidateList
+        AsyncPager[Candidate]
 
 
         Examples
@@ -522,12 +529,18 @@ class AsyncCandidatesClient:
 
 
         async def main() -> None:
-            await client.ats.candidates.list()
+            response = await client.ats.candidates.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -545,7 +558,6 @@ class AsyncCandidatesClient:
             tags=tags,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -614,7 +626,9 @@ class AsyncCandidatesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CandidatesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CandidatesRetrieveRequestExpandItem, typing.Sequence[CandidatesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -626,7 +640,7 @@ class AsyncCandidatesClient:
         ----------
         id : str
 
-        expand : typing.Optional[CandidatesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CandidatesRetrieveRequestExpandItem, typing.Sequence[CandidatesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -744,8 +758,7 @@ class AsyncCandidatesClient:
         self,
         model_id: str,
         *,
-        reason: IgnoreCommonModelRequestReason,
-        message: typing.Optional[str] = OMIT,
+        request: IgnoreCommonModelRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
@@ -755,9 +768,7 @@ class AsyncCandidatesClient:
         ----------
         model_id : str
 
-        reason : IgnoreCommonModelRequestReason
-
-        message : typing.Optional[str]
+        request : IgnoreCommonModelRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -771,7 +782,7 @@ class AsyncCandidatesClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.ats import ReasonEnum
+        from merge.resources.ats import IgnoreCommonModelRequest, ReasonEnum
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -782,15 +793,15 @@ class AsyncCandidatesClient:
         async def main() -> None:
             await client.ats.candidates.ignore_create(
                 model_id="model_id",
-                reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
+                request=IgnoreCommonModelRequest(
+                    reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
+                ),
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.ignore_create(
-            model_id, reason=reason, message=message, request_options=request_options
-        )
+        _response = await self._raw_client.ignore_create(model_id, request=request, request_options=request_options)
         return _response.data
 
     async def meta_patch_retrieve(

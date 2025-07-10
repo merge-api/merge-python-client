@@ -4,17 +4,17 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.credit_note import CreditNote
 from ...types.credit_note_request import CreditNoteRequest
 from ...types.credit_note_response import CreditNoteResponse
 from ...types.meta_response import MetaResponse
-from ...types.paginated_credit_note_list import PaginatedCreditNoteList
 from .raw_client import AsyncRawCreditNotesClient, RawCreditNotesClient
-from .types.credit_notes_list_request_expand import CreditNotesListRequestExpand
+from .types.credit_notes_list_request_expand_item import CreditNotesListRequestExpandItem
 from .types.credit_notes_list_request_remote_fields import CreditNotesListRequestRemoteFields
 from .types.credit_notes_list_request_show_enum_origins import CreditNotesListRequestShowEnumOrigins
-from .types.credit_notes_retrieve_request_expand import CreditNotesRetrieveRequestExpand
+from .types.credit_notes_retrieve_request_expand_item import CreditNotesRetrieveRequestExpandItem
 from .types.credit_notes_retrieve_request_remote_fields import CreditNotesRetrieveRequestRemoteFields
 from .types.credit_notes_retrieve_request_show_enum_origins import CreditNotesRetrieveRequestShowEnumOrigins
 
@@ -44,7 +44,9 @@ class CreditNotesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CreditNotesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CreditNotesListRequestExpandItem, typing.Sequence[CreditNotesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -57,7 +59,7 @@ class CreditNotesClient:
         transaction_date_after: typing.Optional[dt.datetime] = None,
         transaction_date_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedCreditNoteList:
+    ) -> SyncPager[CreditNote]:
         """
         Returns a list of `CreditNote` objects.
 
@@ -75,7 +77,7 @@ class CreditNotesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CreditNotesListRequestExpand]
+        expand : typing.Optional[typing.Union[CreditNotesListRequestExpandItem, typing.Sequence[CreditNotesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -116,7 +118,7 @@ class CreditNotesClient:
 
         Returns
         -------
-        PaginatedCreditNoteList
+        SyncPager[CreditNote]
 
 
         Examples
@@ -127,9 +129,14 @@ class CreditNotesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.credit_notes.list()
+        response = client.accounting.credit_notes.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -148,7 +155,6 @@ class CreditNotesClient:
             transaction_date_before=transaction_date_before,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -201,7 +207,9 @@ class CreditNotesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CreditNotesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CreditNotesRetrieveRequestExpandItem, typing.Sequence[CreditNotesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[CreditNotesRetrieveRequestRemoteFields] = None,
@@ -215,7 +223,7 @@ class CreditNotesClient:
         ----------
         id : str
 
-        expand : typing.Optional[CreditNotesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CreditNotesRetrieveRequestExpandItem, typing.Sequence[CreditNotesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -311,7 +319,9 @@ class AsyncCreditNotesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CreditNotesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CreditNotesListRequestExpandItem, typing.Sequence[CreditNotesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -324,7 +334,7 @@ class AsyncCreditNotesClient:
         transaction_date_after: typing.Optional[dt.datetime] = None,
         transaction_date_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedCreditNoteList:
+    ) -> AsyncPager[CreditNote]:
         """
         Returns a list of `CreditNote` objects.
 
@@ -342,7 +352,7 @@ class AsyncCreditNotesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CreditNotesListRequestExpand]
+        expand : typing.Optional[typing.Union[CreditNotesListRequestExpandItem, typing.Sequence[CreditNotesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -383,7 +393,7 @@ class AsyncCreditNotesClient:
 
         Returns
         -------
-        PaginatedCreditNoteList
+        AsyncPager[CreditNote]
 
 
         Examples
@@ -399,12 +409,18 @@ class AsyncCreditNotesClient:
 
 
         async def main() -> None:
-            await client.accounting.credit_notes.list()
+            response = await client.accounting.credit_notes.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -423,7 +439,6 @@ class AsyncCreditNotesClient:
             transaction_date_before=transaction_date_before,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -484,7 +499,9 @@ class AsyncCreditNotesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CreditNotesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CreditNotesRetrieveRequestExpandItem, typing.Sequence[CreditNotesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[CreditNotesRetrieveRequestRemoteFields] = None,
@@ -498,7 +515,7 @@ class AsyncCreditNotesClient:
         ----------
         id : str
 
-        expand : typing.Optional[CreditNotesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CreditNotesRetrieveRequestExpandItem, typing.Sequence[CreditNotesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

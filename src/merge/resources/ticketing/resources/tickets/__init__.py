@@ -3,23 +3,23 @@
 # isort: skip_file
 
 from .types import (
-    TicketsListRequestExpand,
+    TicketsListRequestExpandItem,
     TicketsListRequestPriority,
     TicketsListRequestRemoteFields,
     TicketsListRequestShowEnumOrigins,
-    TicketsRetrieveRequestExpand,
+    TicketsRetrieveRequestExpandItem,
     TicketsRetrieveRequestRemoteFields,
     TicketsRetrieveRequestShowEnumOrigins,
-    TicketsViewersListRequestExpand,
+    TicketsViewersListRequestExpandItem,
 )
 
 __all__ = [
-    "TicketsListRequestExpand",
+    "TicketsListRequestExpandItem",
     "TicketsListRequestPriority",
     "TicketsListRequestRemoteFields",
     "TicketsListRequestShowEnumOrigins",
-    "TicketsRetrieveRequestExpand",
+    "TicketsRetrieveRequestExpandItem",
     "TicketsRetrieveRequestRemoteFields",
     "TicketsRetrieveRequestShowEnumOrigins",
-    "TicketsViewersListRequestExpand",
+    "TicketsViewersListRequestExpandItem",
 ]

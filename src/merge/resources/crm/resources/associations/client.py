@@ -4,9 +4,9 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.association import Association
-from ...types.paginated_association_list import PaginatedAssociationList
 from .raw_client import AsyncRawAssociationsClient, RawAssociationsClient
 
 
@@ -34,7 +34,9 @@ class AssociationsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["association_type"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["association_type"], typing.Sequence[typing.Literal["association_type"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -43,7 +45,7 @@ class AssociationsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAssociationList:
+    ) -> SyncPager[Association]:
         """
         Returns a list of `Association` objects.
 
@@ -65,7 +67,7 @@ class AssociationsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["association_type"]]
+        expand : typing.Optional[typing.Union[typing.Literal["association_type"], typing.Sequence[typing.Literal["association_type"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -94,7 +96,7 @@ class AssociationsClient:
 
         Returns
         -------
-        PaginatedAssociationList
+        SyncPager[Association]
 
 
         Examples
@@ -105,12 +107,17 @@ class AssociationsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.associations.custom_object_classes_custom_objects_associations_list(
+        response = client.crm.associations.custom_object_classes_custom_objects_associations_list(
             custom_object_class_id="custom_object_class_id",
             object_id="object_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.custom_object_classes_custom_objects_associations_list(
+        return self._raw_client.custom_object_classes_custom_objects_associations_list(
             custom_object_class_id,
             object_id,
             association_type_id=association_type_id,
@@ -127,7 +134,6 @@ class AssociationsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def custom_object_classes_custom_objects_associations_update(
         self,
@@ -223,7 +229,9 @@ class AsyncAssociationsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["association_type"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["association_type"], typing.Sequence[typing.Literal["association_type"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -232,7 +240,7 @@ class AsyncAssociationsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAssociationList:
+    ) -> AsyncPager[Association]:
         """
         Returns a list of `Association` objects.
 
@@ -254,7 +262,7 @@ class AsyncAssociationsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["association_type"]]
+        expand : typing.Optional[typing.Union[typing.Literal["association_type"], typing.Sequence[typing.Literal["association_type"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -283,7 +291,7 @@ class AsyncAssociationsClient:
 
         Returns
         -------
-        PaginatedAssociationList
+        AsyncPager[Association]
 
 
         Examples
@@ -299,15 +307,21 @@ class AsyncAssociationsClient:
 
 
         async def main() -> None:
-            await client.crm.associations.custom_object_classes_custom_objects_associations_list(
+            response = await client.crm.associations.custom_object_classes_custom_objects_associations_list(
                 custom_object_class_id="custom_object_class_id",
                 object_id="object_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.custom_object_classes_custom_objects_associations_list(
+        return await self._raw_client.custom_object_classes_custom_objects_associations_list(
             custom_object_class_id,
             object_id,
             association_type_id=association_type_id,
@@ -324,7 +338,6 @@ class AsyncAssociationsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def custom_object_classes_custom_objects_associations_update(
         self,

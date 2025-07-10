@@ -4,9 +4,9 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.meta_response import MetaResponse
-from ...types.paginated_timesheet_entry_list import PaginatedTimesheetEntryList
 from ...types.timesheet_entry import TimesheetEntry
 from ...types.timesheet_entry_request import TimesheetEntryRequest
 from ...types.timesheet_entry_response import TimesheetEntryResponse
@@ -41,7 +41,9 @@ class TimesheetEntriesClient:
         employee_id: typing.Optional[str] = None,
         ended_after: typing.Optional[dt.datetime] = None,
         ended_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -53,7 +55,7 @@ class TimesheetEntriesClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTimesheetEntryList:
+    ) -> SyncPager[TimesheetEntry]:
         """
         Returns a list of `TimesheetEntry` objects.
 
@@ -77,7 +79,7 @@ class TimesheetEntriesClient:
         ended_before : typing.Optional[dt.datetime]
             If provided, will only return timesheet entries ended before this datetime.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -115,7 +117,7 @@ class TimesheetEntriesClient:
 
         Returns
         -------
-        PaginatedTimesheetEntryList
+        SyncPager[TimesheetEntry]
 
 
         Examples
@@ -126,9 +128,14 @@ class TimesheetEntriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.timesheet_entries.list()
+        response = client.hris.timesheet_entries.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -148,7 +155,6 @@ class TimesheetEntriesClient:
             started_before=started_before,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -201,7 +207,9 @@ class TimesheetEntriesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -213,7 +221,7 @@ class TimesheetEntriesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -303,7 +311,9 @@ class AsyncTimesheetEntriesClient:
         employee_id: typing.Optional[str] = None,
         ended_after: typing.Optional[dt.datetime] = None,
         ended_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -315,7 +325,7 @@ class AsyncTimesheetEntriesClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTimesheetEntryList:
+    ) -> AsyncPager[TimesheetEntry]:
         """
         Returns a list of `TimesheetEntry` objects.
 
@@ -339,7 +349,7 @@ class AsyncTimesheetEntriesClient:
         ended_before : typing.Optional[dt.datetime]
             If provided, will only return timesheet entries ended before this datetime.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -377,7 +387,7 @@ class AsyncTimesheetEntriesClient:
 
         Returns
         -------
-        PaginatedTimesheetEntryList
+        AsyncPager[TimesheetEntry]
 
 
         Examples
@@ -393,12 +403,18 @@ class AsyncTimesheetEntriesClient:
 
 
         async def main() -> None:
-            await client.hris.timesheet_entries.list()
+            response = await client.hris.timesheet_entries.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -418,7 +434,6 @@ class AsyncTimesheetEntriesClient:
             started_before=started_before,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -479,7 +494,9 @@ class AsyncTimesheetEntriesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -491,7 +508,7 @@ class AsyncTimesheetEntriesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

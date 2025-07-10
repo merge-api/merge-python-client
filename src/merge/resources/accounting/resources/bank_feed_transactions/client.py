@@ -4,12 +4,12 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.bank_feed_transaction import BankFeedTransaction
 from ...types.bank_feed_transaction_request_request import BankFeedTransactionRequestRequest
 from ...types.bank_feed_transaction_response import BankFeedTransactionResponse
 from ...types.meta_response import MetaResponse
-from ...types.paginated_bank_feed_transaction_list import PaginatedBankFeedTransactionList
 from .raw_client import AsyncRawBankFeedTransactionsClient, RawBankFeedTransactionsClient
 
 # this is used as the default value for optional parameters
@@ -37,7 +37,9 @@ class BankFeedTransactionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["bank_feed_account"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["bank_feed_account"], typing.Sequence[typing.Literal["bank_feed_account"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -47,7 +49,7 @@ class BankFeedTransactionsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedBankFeedTransactionList:
+    ) -> SyncPager[BankFeedTransaction]:
         """
         Returns a list of `BankFeedTransaction` objects.
 
@@ -62,7 +64,7 @@ class BankFeedTransactionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["bank_feed_account"]]
+        expand : typing.Optional[typing.Union[typing.Literal["bank_feed_account"], typing.Sequence[typing.Literal["bank_feed_account"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -94,7 +96,7 @@ class BankFeedTransactionsClient:
 
         Returns
         -------
-        PaginatedBankFeedTransactionList
+        SyncPager[BankFeedTransaction]
 
 
         Examples
@@ -105,9 +107,14 @@ class BankFeedTransactionsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.bank_feed_transactions.list()
+        response = client.accounting.bank_feed_transactions.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -122,7 +129,6 @@ class BankFeedTransactionsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -175,7 +181,9 @@ class BankFeedTransactionsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["bank_feed_account"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["bank_feed_account"], typing.Sequence[typing.Literal["bank_feed_account"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -187,7 +195,7 @@ class BankFeedTransactionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["bank_feed_account"]]
+        expand : typing.Optional[typing.Union[typing.Literal["bank_feed_account"], typing.Sequence[typing.Literal["bank_feed_account"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -274,7 +282,9 @@ class AsyncBankFeedTransactionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["bank_feed_account"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["bank_feed_account"], typing.Sequence[typing.Literal["bank_feed_account"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -284,7 +294,7 @@ class AsyncBankFeedTransactionsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedBankFeedTransactionList:
+    ) -> AsyncPager[BankFeedTransaction]:
         """
         Returns a list of `BankFeedTransaction` objects.
 
@@ -299,7 +309,7 @@ class AsyncBankFeedTransactionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["bank_feed_account"]]
+        expand : typing.Optional[typing.Union[typing.Literal["bank_feed_account"], typing.Sequence[typing.Literal["bank_feed_account"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -331,7 +341,7 @@ class AsyncBankFeedTransactionsClient:
 
         Returns
         -------
-        PaginatedBankFeedTransactionList
+        AsyncPager[BankFeedTransaction]
 
 
         Examples
@@ -347,12 +357,18 @@ class AsyncBankFeedTransactionsClient:
 
 
         async def main() -> None:
-            await client.accounting.bank_feed_transactions.list()
+            response = await client.accounting.bank_feed_transactions.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -367,7 +383,6 @@ class AsyncBankFeedTransactionsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -428,7 +443,9 @@ class AsyncBankFeedTransactionsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["bank_feed_account"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["bank_feed_account"], typing.Sequence[typing.Literal["bank_feed_account"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -440,7 +457,7 @@ class AsyncBankFeedTransactionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["bank_feed_account"]]
+        expand : typing.Optional[typing.Union[typing.Literal["bank_feed_account"], typing.Sequence[typing.Literal["bank_feed_account"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

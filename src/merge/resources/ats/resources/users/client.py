@@ -4,8 +4,8 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
-from ...types.paginated_remote_user_list import PaginatedRemoteUserList
 from ...types.remote_user import RemoteUser
 from .raw_client import AsyncRawUsersClient, RawUsersClient
 
@@ -42,7 +42,7 @@ class UsersClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["access_role"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteUserList:
+    ) -> SyncPager[RemoteUser]:
         """
         Returns a list of `RemoteUser` objects.
 
@@ -92,7 +92,7 @@ class UsersClient:
 
         Returns
         -------
-        PaginatedRemoteUserList
+        SyncPager[RemoteUser]
 
 
         Examples
@@ -103,9 +103,14 @@ class UsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.users.list()
+        response = client.ats.users.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -121,7 +126,6 @@ class UsersClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -215,7 +219,7 @@ class AsyncUsersClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["access_role"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteUserList:
+    ) -> AsyncPager[RemoteUser]:
         """
         Returns a list of `RemoteUser` objects.
 
@@ -265,7 +269,7 @@ class AsyncUsersClient:
 
         Returns
         -------
-        PaginatedRemoteUserList
+        AsyncPager[RemoteUser]
 
 
         Examples
@@ -281,12 +285,18 @@ class AsyncUsersClient:
 
 
         async def main() -> None:
-            await client.ats.users.list()
+            response = await client.ats.users.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -302,7 +312,6 @@ class AsyncUsersClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,

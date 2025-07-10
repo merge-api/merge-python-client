@@ -4,12 +4,12 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.company_info import CompanyInfo
-from ...types.paginated_company_info_list import PaginatedCompanyInfoList
 from .raw_client import AsyncRawCompanyInfoClient, RawCompanyInfoClient
-from .types.company_info_list_request_expand import CompanyInfoListRequestExpand
-from .types.company_info_retrieve_request_expand import CompanyInfoRetrieveRequestExpand
+from .types.company_info_list_request_expand_item import CompanyInfoListRequestExpandItem
+from .types.company_info_retrieve_request_expand_item import CompanyInfoRetrieveRequestExpandItem
 
 
 class CompanyInfoClient:
@@ -33,7 +33,9 @@ class CompanyInfoClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CompanyInfoListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CompanyInfoListRequestExpandItem, typing.Sequence[CompanyInfoListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -42,7 +44,7 @@ class CompanyInfoClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedCompanyInfoList:
+    ) -> SyncPager[CompanyInfo]:
         """
         Returns a list of `CompanyInfo` objects.
 
@@ -57,7 +59,7 @@ class CompanyInfoClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CompanyInfoListRequestExpand]
+        expand : typing.Optional[typing.Union[CompanyInfoListRequestExpandItem, typing.Sequence[CompanyInfoListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -86,7 +88,7 @@ class CompanyInfoClient:
 
         Returns
         -------
-        PaginatedCompanyInfoList
+        SyncPager[CompanyInfo]
 
 
         Examples
@@ -97,9 +99,14 @@ class CompanyInfoClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.company_info.list()
+        response = client.accounting.company_info.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -113,13 +120,14 @@ class CompanyInfoClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[CompanyInfoRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CompanyInfoRetrieveRequestExpandItem, typing.Sequence[CompanyInfoRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -131,7 +139,7 @@ class CompanyInfoClient:
         ----------
         id : str
 
-        expand : typing.Optional[CompanyInfoRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CompanyInfoRetrieveRequestExpandItem, typing.Sequence[CompanyInfoRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -191,7 +199,9 @@ class AsyncCompanyInfoClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CompanyInfoListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CompanyInfoListRequestExpandItem, typing.Sequence[CompanyInfoListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -200,7 +210,7 @@ class AsyncCompanyInfoClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedCompanyInfoList:
+    ) -> AsyncPager[CompanyInfo]:
         """
         Returns a list of `CompanyInfo` objects.
 
@@ -215,7 +225,7 @@ class AsyncCompanyInfoClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CompanyInfoListRequestExpand]
+        expand : typing.Optional[typing.Union[CompanyInfoListRequestExpandItem, typing.Sequence[CompanyInfoListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -244,7 +254,7 @@ class AsyncCompanyInfoClient:
 
         Returns
         -------
-        PaginatedCompanyInfoList
+        AsyncPager[CompanyInfo]
 
 
         Examples
@@ -260,12 +270,18 @@ class AsyncCompanyInfoClient:
 
 
         async def main() -> None:
-            await client.accounting.company_info.list()
+            response = await client.accounting.company_info.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -279,13 +295,14 @@ class AsyncCompanyInfoClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[CompanyInfoRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CompanyInfoRetrieveRequestExpandItem, typing.Sequence[CompanyInfoRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -297,7 +314,7 @@ class AsyncCompanyInfoClient:
         ----------
         id : str
 
-        expand : typing.Optional[CompanyInfoRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CompanyInfoRetrieveRequestExpandItem, typing.Sequence[CompanyInfoRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

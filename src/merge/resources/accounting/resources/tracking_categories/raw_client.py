@@ -9,6 +9,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, BaseHttpResponse, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.paginated_tracking_category_list import PaginatedTrackingCategoryList
@@ -27,7 +28,9 @@ class RawTrackingCategoriesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -40,7 +43,7 @@ class RawTrackingCategoriesClient:
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         status: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedTrackingCategoryList]:
+    ) -> SyncPager[TrackingCategory]:
         """
         Returns a list of `TrackingCategory` objects.
 
@@ -61,7 +64,7 @@ class RawTrackingCategoriesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -102,7 +105,7 @@ class RawTrackingCategoriesClient:
 
         Returns
         -------
-        HttpResponse[PaginatedTrackingCategoryList]
+        SyncPager[TrackingCategory]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -131,14 +134,39 @@ class RawTrackingCategoriesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedTrackingCategoryList,
                     construct_type(
                         type_=PaginatedTrackingCategoryList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    category_type=category_type,
+                    company_id=company_id,
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    name=name,
+                    page_size=page_size,
+                    remote_fields=remote_fields,
+                    remote_id=remote_id,
+                    show_enum_origins=show_enum_origins,
+                    status=status,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -148,7 +176,9 @@ class RawTrackingCategoriesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -162,7 +192,7 @@ class RawTrackingCategoriesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -225,7 +255,9 @@ class AsyncRawTrackingCategoriesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -238,7 +270,7 @@ class AsyncRawTrackingCategoriesClient:
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         status: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedTrackingCategoryList]:
+    ) -> AsyncPager[TrackingCategory]:
         """
         Returns a list of `TrackingCategory` objects.
 
@@ -259,7 +291,7 @@ class AsyncRawTrackingCategoriesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -300,7 +332,7 @@ class AsyncRawTrackingCategoriesClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedTrackingCategoryList]
+        AsyncPager[TrackingCategory]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -329,14 +361,42 @@ class AsyncRawTrackingCategoriesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedTrackingCategoryList,
                     construct_type(
                         type_=PaginatedTrackingCategoryList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        category_type=category_type,
+                        company_id=company_id,
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        name=name,
+                        page_size=page_size,
+                        remote_fields=remote_fields,
+                        remote_id=remote_id,
+                        show_enum_origins=show_enum_origins,
+                        status=status,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -346,7 +406,9 @@ class AsyncRawTrackingCategoriesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -360,7 +422,7 @@ class AsyncRawTrackingCategoriesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

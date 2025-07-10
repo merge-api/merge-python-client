@@ -9,6 +9,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, BaseHttpResponse, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.meta_response import MetaResponse
@@ -18,9 +19,10 @@ from ...types.opportunity_response import OpportunityResponse
 from ...types.paginated_opportunity_list import PaginatedOpportunityList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.patched_opportunity_request import PatchedOpportunityRequest
-from .types.opportunities_list_request_expand import OpportunitiesListRequestExpand
+from ...types.remote_field_class import RemoteFieldClass
+from .types.opportunities_list_request_expand_item import OpportunitiesListRequestExpandItem
 from .types.opportunities_list_request_status import OpportunitiesListRequestStatus
-from .types.opportunities_retrieve_request_expand import OpportunitiesRetrieveRequestExpand
+from .types.opportunities_retrieve_request_expand_item import OpportunitiesRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -37,7 +39,9 @@ class RawOpportunitiesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[OpportunitiesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -53,7 +57,7 @@ class RawOpportunitiesClient:
         stage_id: typing.Optional[str] = None,
         status: typing.Optional[OpportunitiesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedOpportunityList]:
+    ) -> SyncPager[Opportunity]:
         """
         Returns a list of `Opportunity` objects.
 
@@ -71,7 +75,7 @@ class RawOpportunitiesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[OpportunitiesListRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -125,7 +129,7 @@ class RawOpportunitiesClient:
 
         Returns
         -------
-        HttpResponse[PaginatedOpportunityList]
+        SyncPager[Opportunity]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -158,14 +162,41 @@ class RawOpportunitiesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedOpportunityList,
                     construct_type(
                         type_=PaginatedOpportunityList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    account_id=account_id,
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_remote_fields=include_remote_fields,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    owner_id=owner_id,
+                    page_size=page_size,
+                    remote_created_after=remote_created_after,
+                    remote_fields=remote_fields,
+                    remote_id=remote_id,
+                    show_enum_origins=show_enum_origins,
+                    stage_id=stage_id,
+                    status=status,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -235,7 +266,11 @@ class RawOpportunitiesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[OpportunitiesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -250,7 +285,7 @@ class RawOpportunitiesClient:
         ----------
         id : str
 
-        expand : typing.Optional[OpportunitiesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -453,7 +488,7 @@ class RawOpportunitiesClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedRemoteFieldClassList]:
+    ) -> SyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -488,7 +523,7 @@ class RawOpportunitiesClient:
 
         Returns
         -------
-        HttpResponse[PaginatedRemoteFieldClassList]
+        SyncPager[RemoteFieldClass]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -508,14 +543,30 @@ class RawOpportunitiesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedRemoteFieldClassList,
                     construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.remote_field_classes_list(
+                    cursor=_parsed_next,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_remote_fields=include_remote_fields,
+                    include_shell_data=include_shell_data,
+                    is_common_model_field=is_common_model_field,
+                    is_custom=is_custom,
+                    page_size=page_size,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -533,7 +584,9 @@ class AsyncRawOpportunitiesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[OpportunitiesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -549,7 +602,7 @@ class AsyncRawOpportunitiesClient:
         stage_id: typing.Optional[str] = None,
         status: typing.Optional[OpportunitiesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedOpportunityList]:
+    ) -> AsyncPager[Opportunity]:
         """
         Returns a list of `Opportunity` objects.
 
@@ -567,7 +620,7 @@ class AsyncRawOpportunitiesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[OpportunitiesListRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -621,7 +674,7 @@ class AsyncRawOpportunitiesClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedOpportunityList]
+        AsyncPager[Opportunity]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -654,14 +707,44 @@ class AsyncRawOpportunitiesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedOpportunityList,
                     construct_type(
                         type_=PaginatedOpportunityList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        account_id=account_id,
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_remote_fields=include_remote_fields,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        owner_id=owner_id,
+                        page_size=page_size,
+                        remote_created_after=remote_created_after,
+                        remote_fields=remote_fields,
+                        remote_id=remote_id,
+                        show_enum_origins=show_enum_origins,
+                        stage_id=stage_id,
+                        status=status,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -731,7 +814,11 @@ class AsyncRawOpportunitiesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[OpportunitiesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -746,7 +833,7 @@ class AsyncRawOpportunitiesClient:
         ----------
         id : str
 
-        expand : typing.Optional[OpportunitiesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -949,7 +1036,7 @@ class AsyncRawOpportunitiesClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedRemoteFieldClassList]:
+    ) -> AsyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -984,7 +1071,7 @@ class AsyncRawOpportunitiesClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedRemoteFieldClassList]
+        AsyncPager[RemoteFieldClass]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1004,14 +1091,33 @@ class AsyncRawOpportunitiesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedRemoteFieldClassList,
                     construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.remote_field_classes_list(
+                        cursor=_parsed_next,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_remote_fields=include_remote_fields,
+                        include_shell_data=include_shell_data,
+                        is_common_model_field=is_common_model_field,
+                        is_custom=is_custom,
+                        page_size=page_size,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)

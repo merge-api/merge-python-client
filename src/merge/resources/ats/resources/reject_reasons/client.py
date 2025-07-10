@@ -4,8 +4,8 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
-from ...types.paginated_reject_reason_list import PaginatedRejectReasonList
 from ...types.reject_reason import RejectReason
 from .raw_client import AsyncRawRejectReasonsClient, RawRejectReasonsClient
 
@@ -39,7 +39,7 @@ class RejectReasonsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRejectReasonList:
+    ) -> SyncPager[RejectReason]:
         """
         Returns a list of `RejectReason` objects.
 
@@ -80,7 +80,7 @@ class RejectReasonsClient:
 
         Returns
         -------
-        PaginatedRejectReasonList
+        SyncPager[RejectReason]
 
 
         Examples
@@ -91,9 +91,14 @@ class RejectReasonsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.reject_reasons.list()
+        response = client.ats.reject_reasons.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -106,7 +111,6 @@ class RejectReasonsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -187,7 +191,7 @@ class AsyncRejectReasonsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRejectReasonList:
+    ) -> AsyncPager[RejectReason]:
         """
         Returns a list of `RejectReason` objects.
 
@@ -228,7 +232,7 @@ class AsyncRejectReasonsClient:
 
         Returns
         -------
-        PaginatedRejectReasonList
+        AsyncPager[RejectReason]
 
 
         Examples
@@ -244,12 +248,18 @@ class AsyncRejectReasonsClient:
 
 
         async def main() -> None:
-            await client.ats.reject_reasons.list()
+            response = await client.ats.reject_reasons.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -262,7 +272,6 @@ class AsyncRejectReasonsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,

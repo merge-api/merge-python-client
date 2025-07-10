@@ -2,6 +2,6 @@
 
 # isort: skip_file
 
-from .types import CommentsListRequestExpand, CommentsRetrieveRequestExpand
+from .types import CommentsListRequestExpandItem, CommentsRetrieveRequestExpandItem
 
-__all__ = ["CommentsListRequestExpand", "CommentsRetrieveRequestExpand"]
+__all__ = ["CommentsListRequestExpandItem", "CommentsRetrieveRequestExpandItem"]

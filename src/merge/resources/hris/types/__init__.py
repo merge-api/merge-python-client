@@ -6,6 +6,7 @@ from .account_details import AccountDetails
 from .account_details_and_actions import AccountDetailsAndActions
 from .account_details_and_actions_category import AccountDetailsAndActionsCategory
 from .account_details_and_actions_integration import AccountDetailsAndActionsIntegration
+from .account_details_and_actions_status import AccountDetailsAndActionsStatus
 from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
 from .account_details_category import AccountDetailsCategory
 from .account_integration import AccountIntegration
@@ -103,6 +104,8 @@ from .gender_enum import GenderEnum
 from .group import Group
 from .group_type import GroupType
 from .group_type_enum import GroupTypeEnum
+from .ignore_common_model_request import IgnoreCommonModelRequest
+from .ignore_common_model_request_reason import IgnoreCommonModelRequestReason
 from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
 from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
 from .issue import Issue
@@ -123,7 +126,6 @@ from .model_operation import ModelOperation
 from .model_permission_deserializer import ModelPermissionDeserializer
 from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
 from .multipart_form_field_request import MultipartFormFieldRequest
-from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
 from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
 from .paginated_audit_log_event_list import PaginatedAuditLogEventList
 from .paginated_bank_info_list import PaginatedBankInfoList
@@ -172,6 +174,7 @@ from .selective_sync_configurations_usage_enum import SelectiveSyncConfiguration
 from .status_fd_5_enum import StatusFd5Enum
 from .sync_status import SyncStatus
 from .sync_status_last_sync_result import SyncStatusLastSyncResult
+from .sync_status_status import SyncStatusStatus
 from .tax import Tax
 from .team import Team
 from .team_parent_team import TeamParentTeam
@@ -207,6 +210,7 @@ __all__ = [
     "AccountDetailsAndActions",
     "AccountDetailsAndActionsCategory",
     "AccountDetailsAndActionsIntegration",
+    "AccountDetailsAndActionsStatus",
     "AccountDetailsAndActionsStatusEnum",
     "AccountDetailsCategory",
     "AccountIntegration",
@@ -302,6 +306,8 @@ __all__ = [
     "Group",
     "GroupType",
     "GroupTypeEnum",
+    "IgnoreCommonModelRequest",
+    "IgnoreCommonModelRequestReason",
     "IndividualCommonModelScopeDeserializer",
     "IndividualCommonModelScopeDeserializerRequest",
     "Issue",
@@ -322,7 +328,6 @@ __all__ = [
     "ModelPermissionDeserializer",
     "ModelPermissionDeserializerRequest",
     "MultipartFormFieldRequest",
-    "MultipartFormFieldRequestEncoding",
     "PaginatedAccountDetailsAndActionsList",
     "PaginatedAuditLogEventList",
     "PaginatedBankInfoList",
@@ -371,6 +376,7 @@ __all__ = [
     "StatusFd5Enum",
     "SyncStatus",
     "SyncStatusLastSyncResult",
+    "SyncStatusStatus",
     "Tax",
     "Team",
     "TeamParentTeam",

@@ -9,12 +9,13 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, BaseHttpResponse, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.offer import Offer
 from ...types.paginated_offer_list import PaginatedOfferList
-from .types.offers_list_request_expand import OffersListRequestExpand
-from .types.offers_retrieve_request_expand import OffersRetrieveRequestExpand
+from .types.offers_list_request_expand_item import OffersListRequestExpandItem
+from .types.offers_retrieve_request_expand_item import OffersRetrieveRequestExpandItem
 
 
 class RawOffersClient:
@@ -29,7 +30,9 @@ class RawOffersClient:
         created_before: typing.Optional[dt.datetime] = None,
         creator_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[OffersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OffersListRequestExpandItem, typing.Sequence[OffersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -40,7 +43,7 @@ class RawOffersClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedOfferList]:
+    ) -> SyncPager[Offer]:
         """
         Returns a list of `Offer` objects.
 
@@ -61,7 +64,7 @@ class RawOffersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[OffersListRequestExpand]
+        expand : typing.Optional[typing.Union[OffersListRequestExpandItem, typing.Sequence[OffersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -96,7 +99,7 @@ class RawOffersClient:
 
         Returns
         -------
-        HttpResponse[PaginatedOfferList]
+        SyncPager[Offer]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -123,14 +126,37 @@ class RawOffersClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedOfferList,
                     construct_type(
                         type_=PaginatedOfferList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    application_id=application_id,
+                    created_after=created_after,
+                    created_before=created_before,
+                    creator_id=creator_id,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    remote_fields=remote_fields,
+                    remote_id=remote_id,
+                    show_enum_origins=show_enum_origins,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -140,7 +166,9 @@ class RawOffersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[OffersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OffersRetrieveRequestExpandItem, typing.Sequence[OffersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -154,7 +182,7 @@ class RawOffersClient:
         ----------
         id : str
 
-        expand : typing.Optional[OffersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[OffersRetrieveRequestExpandItem, typing.Sequence[OffersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -217,7 +245,9 @@ class AsyncRawOffersClient:
         created_before: typing.Optional[dt.datetime] = None,
         creator_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[OffersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OffersListRequestExpandItem, typing.Sequence[OffersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -228,7 +258,7 @@ class AsyncRawOffersClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedOfferList]:
+    ) -> AsyncPager[Offer]:
         """
         Returns a list of `Offer` objects.
 
@@ -249,7 +279,7 @@ class AsyncRawOffersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[OffersListRequestExpand]
+        expand : typing.Optional[typing.Union[OffersListRequestExpandItem, typing.Sequence[OffersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -284,7 +314,7 @@ class AsyncRawOffersClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedOfferList]
+        AsyncPager[Offer]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -311,14 +341,40 @@ class AsyncRawOffersClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedOfferList,
                     construct_type(
                         type_=PaginatedOfferList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        application_id=application_id,
+                        created_after=created_after,
+                        created_before=created_before,
+                        creator_id=creator_id,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        remote_fields=remote_fields,
+                        remote_id=remote_id,
+                        show_enum_origins=show_enum_origins,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -328,7 +384,9 @@ class AsyncRawOffersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[OffersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OffersRetrieveRequestExpandItem, typing.Sequence[OffersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -342,7 +400,7 @@ class AsyncRawOffersClient:
         ----------
         id : str
 
-        expand : typing.Optional[OffersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[OffersRetrieveRequestExpandItem, typing.Sequence[OffersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

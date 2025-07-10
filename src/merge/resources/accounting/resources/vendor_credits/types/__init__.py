@@ -2,7 +2,7 @@
 
 # isort: skip_file
 
-from .vendor_credits_list_request_expand import VendorCreditsListRequestExpand
-from .vendor_credits_retrieve_request_expand import VendorCreditsRetrieveRequestExpand
+from .vendor_credits_list_request_expand_item import VendorCreditsListRequestExpandItem
+from .vendor_credits_retrieve_request_expand_item import VendorCreditsRetrieveRequestExpandItem
 
-__all__ = ["VendorCreditsListRequestExpand", "VendorCreditsRetrieveRequestExpand"]
+__all__ = ["VendorCreditsListRequestExpandItem", "VendorCreditsRetrieveRequestExpandItem"]

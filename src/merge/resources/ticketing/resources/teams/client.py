@@ -4,8 +4,8 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
-from ...types.paginated_team_list import PaginatedTeamList
 from ...types.team import Team
 from .raw_client import AsyncRawTeamsClient, RawTeamsClient
 
@@ -39,7 +39,7 @@ class TeamsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTeamList:
+    ) -> SyncPager[Team]:
         """
         Returns a list of `Team` objects.
 
@@ -80,7 +80,7 @@ class TeamsClient:
 
         Returns
         -------
-        PaginatedTeamList
+        SyncPager[Team]
 
 
         Examples
@@ -91,9 +91,14 @@ class TeamsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.teams.list()
+        response = client.ticketing.teams.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -106,7 +111,6 @@ class TeamsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -187,7 +191,7 @@ class AsyncTeamsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTeamList:
+    ) -> AsyncPager[Team]:
         """
         Returns a list of `Team` objects.
 
@@ -228,7 +232,7 @@ class AsyncTeamsClient:
 
         Returns
         -------
-        PaginatedTeamList
+        AsyncPager[Team]
 
 
         Examples
@@ -244,12 +248,18 @@ class AsyncTeamsClient:
 
 
         async def main() -> None:
-            await client.ticketing.teams.list()
+            response = await client.ticketing.teams.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -262,7 +272,6 @@ class AsyncTeamsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,

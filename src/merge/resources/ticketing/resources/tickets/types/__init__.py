@@ -2,22 +2,22 @@
 
 # isort: skip_file
 
-from .tickets_list_request_expand import TicketsListRequestExpand
+from .tickets_list_request_expand_item import TicketsListRequestExpandItem
 from .tickets_list_request_priority import TicketsListRequestPriority
 from .tickets_list_request_remote_fields import TicketsListRequestRemoteFields
 from .tickets_list_request_show_enum_origins import TicketsListRequestShowEnumOrigins
-from .tickets_retrieve_request_expand import TicketsRetrieveRequestExpand
+from .tickets_retrieve_request_expand_item import TicketsRetrieveRequestExpandItem
 from .tickets_retrieve_request_remote_fields import TicketsRetrieveRequestRemoteFields
 from .tickets_retrieve_request_show_enum_origins import TicketsRetrieveRequestShowEnumOrigins
-from .tickets_viewers_list_request_expand import TicketsViewersListRequestExpand
+from .tickets_viewers_list_request_expand_item import TicketsViewersListRequestExpandItem
 
 __all__ = [
-    "TicketsListRequestExpand",
+    "TicketsListRequestExpandItem",
     "TicketsListRequestPriority",
     "TicketsListRequestRemoteFields",
     "TicketsListRequestShowEnumOrigins",
-    "TicketsRetrieveRequestExpand",
+    "TicketsRetrieveRequestExpandItem",
     "TicketsRetrieveRequestRemoteFields",
     "TicketsRetrieveRequestShowEnumOrigins",
-    "TicketsViewersListRequestExpand",
+    "TicketsViewersListRequestExpandItem",
 ]

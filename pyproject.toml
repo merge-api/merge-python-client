@@ -3,7 +3,7 @@ name = "MergePythonClient"
 
 [tool.poetry]
 name = "MergePythonClient"
-version = "2.1.0"
+version = "4.0.0a1"
 description = ""
 readme = "README.md"
 authors = []

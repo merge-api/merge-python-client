@@ -3,12 +3,12 @@
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.bank_feed_account import BankFeedAccount
 from ...types.bank_feed_account_request import BankFeedAccountRequest
 from ...types.bank_feed_account_response import BankFeedAccountResponse
 from ...types.meta_response import MetaResponse
-from ...types.paginated_bank_feed_account_list import PaginatedBankFeedAccountList
 from .raw_client import AsyncRawBankFeedAccountsClient, RawBankFeedAccountsClient
 
 # this is used as the default value for optional parameters
@@ -39,7 +39,7 @@ class BankFeedAccountsClient:
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedBankFeedAccountList:
+    ) -> SyncPager[BankFeedAccount]:
         """
         Returns a list of `BankFeedAccount` objects.
 
@@ -65,7 +65,7 @@ class BankFeedAccountsClient:
 
         Returns
         -------
-        PaginatedBankFeedAccountList
+        SyncPager[BankFeedAccount]
 
 
         Examples
@@ -76,9 +76,14 @@ class BankFeedAccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.bank_feed_accounts.list()
+        response = client.accounting.bank_feed_accounts.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -86,7 +91,6 @@ class BankFeedAccountsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -236,7 +240,7 @@ class AsyncBankFeedAccountsClient:
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedBankFeedAccountList:
+    ) -> AsyncPager[BankFeedAccount]:
         """
         Returns a list of `BankFeedAccount` objects.
 
@@ -262,7 +266,7 @@ class AsyncBankFeedAccountsClient:
 
         Returns
         -------
-        PaginatedBankFeedAccountList
+        AsyncPager[BankFeedAccount]
 
 
         Examples
@@ -278,12 +282,18 @@ class AsyncBankFeedAccountsClient:
 
 
         async def main() -> None:
-            await client.accounting.bank_feed_accounts.list()
+            response = await client.accounting.bank_feed_accounts.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -291,7 +301,6 @@ class AsyncBankFeedAccountsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,

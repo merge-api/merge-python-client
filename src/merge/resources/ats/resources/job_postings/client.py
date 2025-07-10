@@ -4,9 +4,9 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.job_posting import JobPosting
-from ...types.paginated_job_posting_list import PaginatedJobPostingList
 from .raw_client import AsyncRawJobPostingsClient, RawJobPostingsClient
 from .types.job_postings_list_request_status import JobPostingsListRequestStatus
 
@@ -32,7 +32,7 @@ class JobPostingsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["job"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -42,7 +42,7 @@ class JobPostingsClient:
         remote_id: typing.Optional[str] = None,
         status: typing.Optional[JobPostingsListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedJobPostingList:
+    ) -> SyncPager[JobPosting]:
         """
         Returns a list of `JobPosting` objects.
 
@@ -57,7 +57,7 @@ class JobPostingsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["job"]]
+        expand : typing.Optional[typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -95,7 +95,7 @@ class JobPostingsClient:
 
         Returns
         -------
-        PaginatedJobPostingList
+        SyncPager[JobPosting]
 
 
         Examples
@@ -106,9 +106,14 @@ class JobPostingsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.job_postings.list()
+        response = client.ats.job_postings.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -123,13 +128,12 @@ class JobPostingsClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["job"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -141,7 +145,7 @@ class JobPostingsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["job"]]
+        expand : typing.Optional[typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -201,7 +205,7 @@ class AsyncJobPostingsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["job"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -211,7 +215,7 @@ class AsyncJobPostingsClient:
         remote_id: typing.Optional[str] = None,
         status: typing.Optional[JobPostingsListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedJobPostingList:
+    ) -> AsyncPager[JobPosting]:
         """
         Returns a list of `JobPosting` objects.
 
@@ -226,7 +230,7 @@ class AsyncJobPostingsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["job"]]
+        expand : typing.Optional[typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -264,7 +268,7 @@ class AsyncJobPostingsClient:
 
         Returns
         -------
-        PaginatedJobPostingList
+        AsyncPager[JobPosting]
 
 
         Examples
@@ -280,12 +284,18 @@ class AsyncJobPostingsClient:
 
 
         async def main() -> None:
-            await client.ats.job_postings.list()
+            response = await client.ats.job_postings.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -300,13 +310,12 @@ class AsyncJobPostingsClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["job"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -318,7 +327,7 @@ class AsyncJobPostingsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["job"]]
+        expand : typing.Optional[typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

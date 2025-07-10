@@ -33,43 +33,43 @@ from . import (
     webhook_receivers,
 )
 from .async_passthrough import AsyncPassthroughRetrieveResponse
-from .collections import CollectionsViewersListRequestExpand
-from .comments import CommentsListRequestExpand, CommentsRetrieveRequestExpand
+from .collections import CollectionsViewersListRequestExpandItem
+from .comments import CommentsListRequestExpandItem, CommentsRetrieveRequestExpandItem
 from .issues import IssuesListRequestStatus
 from .link_token import EndUserDetailsRequestLanguage
 from .linked_accounts import LinkedAccountsListRequestCategory
-from .projects import ProjectsUsersListRequestExpand
+from .projects import ProjectsUsersListRequestExpandItem
 from .tickets import (
-    TicketsListRequestExpand,
+    TicketsListRequestExpandItem,
     TicketsListRequestPriority,
     TicketsListRequestRemoteFields,
     TicketsListRequestShowEnumOrigins,
-    TicketsRetrieveRequestExpand,
+    TicketsRetrieveRequestExpandItem,
     TicketsRetrieveRequestRemoteFields,
     TicketsRetrieveRequestShowEnumOrigins,
-    TicketsViewersListRequestExpand,
+    TicketsViewersListRequestExpandItem,
 )
-from .users import UsersListRequestExpand, UsersRetrieveRequestExpand
+from .users import UsersListRequestExpandItem, UsersRetrieveRequestExpandItem
 
 __all__ = [
     "AsyncPassthroughRetrieveResponse",
-    "CollectionsViewersListRequestExpand",
-    "CommentsListRequestExpand",
-    "CommentsRetrieveRequestExpand",
+    "CollectionsViewersListRequestExpandItem",
+    "CommentsListRequestExpandItem",
+    "CommentsRetrieveRequestExpandItem",
     "EndUserDetailsRequestLanguage",
     "IssuesListRequestStatus",
     "LinkedAccountsListRequestCategory",
-    "ProjectsUsersListRequestExpand",
-    "TicketsListRequestExpand",
+    "ProjectsUsersListRequestExpandItem",
+    "TicketsListRequestExpandItem",
     "TicketsListRequestPriority",
     "TicketsListRequestRemoteFields",
     "TicketsListRequestShowEnumOrigins",
-    "TicketsRetrieveRequestExpand",
+    "TicketsRetrieveRequestExpandItem",
     "TicketsRetrieveRequestRemoteFields",
     "TicketsRetrieveRequestShowEnumOrigins",
-    "TicketsViewersListRequestExpand",
-    "UsersListRequestExpand",
-    "UsersRetrieveRequestExpand",
+    "TicketsViewersListRequestExpandItem",
+    "UsersListRequestExpandItem",
+    "UsersRetrieveRequestExpandItem",
     "account_details",
     "account_token",
     "accounts",

@@ -2,18 +2,18 @@
 
 # isort: skip_file
 
-from .credit_notes_list_request_expand import CreditNotesListRequestExpand
+from .credit_notes_list_request_expand_item import CreditNotesListRequestExpandItem
 from .credit_notes_list_request_remote_fields import CreditNotesListRequestRemoteFields
 from .credit_notes_list_request_show_enum_origins import CreditNotesListRequestShowEnumOrigins
-from .credit_notes_retrieve_request_expand import CreditNotesRetrieveRequestExpand
+from .credit_notes_retrieve_request_expand_item import CreditNotesRetrieveRequestExpandItem
 from .credit_notes_retrieve_request_remote_fields import CreditNotesRetrieveRequestRemoteFields
 from .credit_notes_retrieve_request_show_enum_origins import CreditNotesRetrieveRequestShowEnumOrigins
 
 __all__ = [
-    "CreditNotesListRequestExpand",
+    "CreditNotesListRequestExpandItem",
     "CreditNotesListRequestRemoteFields",
     "CreditNotesListRequestShowEnumOrigins",
-    "CreditNotesRetrieveRequestExpand",
+    "CreditNotesRetrieveRequestExpandItem",
     "CreditNotesRetrieveRequestRemoteFields",
     "CreditNotesRetrieveRequestShowEnumOrigins",
 ]

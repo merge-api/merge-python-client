@@ -2,6 +2,6 @@
 
 # isort: skip_file
 
-from . import accounting, ats, crm, filestorage, hris, ticketing
+from . import accounting, ats, crm, file_storage, hris, ticketing
 
-__all__ = ["accounting", "ats", "crm", "filestorage", "hris", "ticketing"]
+__all__ = ["accounting", "ats", "crm", "file_storage", "hris", "ticketing"]

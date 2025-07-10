@@ -4,9 +4,9 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.issue import Issue
-from ...types.paginated_issue_list import PaginatedIssueList
 from .raw_client import AsyncRawIssuesClient, RawIssuesClient
 from .types.issues_list_request_status import IssuesListRequestStatus
 
@@ -44,7 +44,7 @@ class IssuesClient:
         start_date: typing.Optional[str] = None,
         status: typing.Optional[IssuesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedIssueList:
+    ) -> SyncPager[Issue]:
         """
         Gets all issues for Organization.
 
@@ -97,7 +97,7 @@ class IssuesClient:
 
         Returns
         -------
-        PaginatedIssueList
+        SyncPager[Issue]
 
 
         Examples
@@ -108,9 +108,14 @@ class IssuesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.issues.list()
+        response = client.hris.issues.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             account_token=account_token,
             cursor=cursor,
             end_date=end_date,
@@ -127,7 +132,6 @@ class IssuesClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Issue:
         """
@@ -194,7 +198,7 @@ class AsyncIssuesClient:
         start_date: typing.Optional[str] = None,
         status: typing.Optional[IssuesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedIssueList:
+    ) -> AsyncPager[Issue]:
         """
         Gets all issues for Organization.
 
@@ -247,7 +251,7 @@ class AsyncIssuesClient:
 
         Returns
         -------
-        PaginatedIssueList
+        AsyncPager[Issue]
 
 
         Examples
@@ -263,12 +267,18 @@ class AsyncIssuesClient:
 
 
         async def main() -> None:
-            await client.hris.issues.list()
+            response = await client.hris.issues.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             account_token=account_token,
             cursor=cursor,
             end_date=end_date,
@@ -285,7 +295,6 @@ class AsyncIssuesClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Issue:
         """

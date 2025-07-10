@@ -4,9 +4,9 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.balance_sheet import BalanceSheet
-from ...types.paginated_balance_sheet_list import PaginatedBalanceSheetList
 from .raw_client import AsyncRawBalanceSheetsClient, RawBalanceSheetsClient
 
 
@@ -32,7 +32,9 @@ class BalanceSheetsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -41,7 +43,7 @@ class BalanceSheetsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedBalanceSheetList:
+    ) -> SyncPager[BalanceSheet]:
         """
         Returns a list of `BalanceSheet` objects.
 
@@ -59,7 +61,7 @@ class BalanceSheetsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -88,7 +90,7 @@ class BalanceSheetsClient:
 
         Returns
         -------
-        PaginatedBalanceSheetList
+        SyncPager[BalanceSheet]
 
 
         Examples
@@ -99,9 +101,14 @@ class BalanceSheetsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.balance_sheets.list()
+        response = client.accounting.balance_sheets.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -116,13 +123,14 @@ class BalanceSheetsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -134,7 +142,7 @@ class BalanceSheetsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -195,7 +203,9 @@ class AsyncBalanceSheetsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -204,7 +214,7 @@ class AsyncBalanceSheetsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedBalanceSheetList:
+    ) -> AsyncPager[BalanceSheet]:
         """
         Returns a list of `BalanceSheet` objects.
 
@@ -222,7 +232,7 @@ class AsyncBalanceSheetsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -251,7 +261,7 @@ class AsyncBalanceSheetsClient:
 
         Returns
         -------
-        PaginatedBalanceSheetList
+        AsyncPager[BalanceSheet]
 
 
         Examples
@@ -267,12 +277,18 @@ class AsyncBalanceSheetsClient:
 
 
         async def main() -> None:
-            await client.accounting.balance_sheets.list()
+            response = await client.accounting.balance_sheets.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -287,13 +303,14 @@ class AsyncBalanceSheetsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -305,7 +322,7 @@ class AsyncBalanceSheetsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

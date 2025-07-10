@@ -57,37 +57,37 @@ from .accounts import (
     AccountsRetrieveRequestShowEnumOrigins,
 )
 from .async_passthrough import AsyncPassthroughRetrieveResponse
-from .company_info import CompanyInfoListRequestExpand, CompanyInfoRetrieveRequestExpand
-from .contacts import ContactsListRequestExpand, ContactsRetrieveRequestExpand
+from .company_info import CompanyInfoListRequestExpandItem, CompanyInfoRetrieveRequestExpandItem
+from .contacts import ContactsListRequestExpandItem, ContactsRetrieveRequestExpandItem
 from .credit_notes import (
-    CreditNotesListRequestExpand,
+    CreditNotesListRequestExpandItem,
     CreditNotesListRequestRemoteFields,
     CreditNotesListRequestShowEnumOrigins,
-    CreditNotesRetrieveRequestExpand,
+    CreditNotesRetrieveRequestExpandItem,
     CreditNotesRetrieveRequestRemoteFields,
     CreditNotesRetrieveRequestShowEnumOrigins,
 )
-from .expenses import ExpensesListRequestExpand, ExpensesRetrieveRequestExpand
+from .expenses import ExpensesListRequestExpandItem, ExpensesRetrieveRequestExpandItem
 from .general_ledger_transactions import (
-    GeneralLedgerTransactionsListRequestExpand,
-    GeneralLedgerTransactionsRetrieveRequestExpand,
+    GeneralLedgerTransactionsListRequestExpandItem,
+    GeneralLedgerTransactionsRetrieveRequestExpandItem,
 )
 from .invoices import (
-    InvoicesListRequestExpand,
+    InvoicesListRequestExpandItem,
     InvoicesListRequestStatus,
     InvoicesListRequestType,
-    InvoicesRetrieveRequestExpand,
+    InvoicesRetrieveRequestExpandItem,
 )
 from .issues import IssuesListRequestStatus
-from .items import ItemsListRequestExpand, ItemsRetrieveRequestExpand
-from .journal_entries import JournalEntriesListRequestExpand, JournalEntriesRetrieveRequestExpand
+from .items import ItemsListRequestExpandItem, ItemsRetrieveRequestExpandItem
+from .journal_entries import JournalEntriesListRequestExpandItem, JournalEntriesRetrieveRequestExpandItem
 from .link_token import EndUserDetailsRequestLanguage
 from .linked_accounts import LinkedAccountsListRequestCategory
-from .payments import PaymentsListRequestExpand, PaymentsRetrieveRequestExpand
-from .projects import ProjectsListRequestExpand, ProjectsRetrieveRequestExpand
-from .purchase_orders import PurchaseOrdersListRequestExpand, PurchaseOrdersRetrieveRequestExpand
-from .transactions import TransactionsListRequestExpand, TransactionsRetrieveRequestExpand
-from .vendor_credits import VendorCreditsListRequestExpand, VendorCreditsRetrieveRequestExpand
+from .payments import PaymentsListRequestExpandItem, PaymentsRetrieveRequestExpandItem
+from .projects import ProjectsListRequestExpandItem, ProjectsRetrieveRequestExpandItem
+from .purchase_orders import PurchaseOrdersListRequestExpandItem, PurchaseOrdersRetrieveRequestExpandItem
+from .transactions import TransactionsListRequestExpandItem, TransactionsRetrieveRequestExpandItem
+from .vendor_credits import VendorCreditsListRequestExpandItem, VendorCreditsRetrieveRequestExpandItem
 
 __all__ = [
     "AccountsListRequestRemoteFields",
@@ -95,41 +95,41 @@ __all__ = [
     "AccountsRetrieveRequestRemoteFields",
     "AccountsRetrieveRequestShowEnumOrigins",
     "AsyncPassthroughRetrieveResponse",
-    "CompanyInfoListRequestExpand",
-    "CompanyInfoRetrieveRequestExpand",
-    "ContactsListRequestExpand",
-    "ContactsRetrieveRequestExpand",
-    "CreditNotesListRequestExpand",
+    "CompanyInfoListRequestExpandItem",
+    "CompanyInfoRetrieveRequestExpandItem",
+    "ContactsListRequestExpandItem",
+    "ContactsRetrieveRequestExpandItem",
+    "CreditNotesListRequestExpandItem",
     "CreditNotesListRequestRemoteFields",
     "CreditNotesListRequestShowEnumOrigins",
-    "CreditNotesRetrieveRequestExpand",
+    "CreditNotesRetrieveRequestExpandItem",
     "CreditNotesRetrieveRequestRemoteFields",
     "CreditNotesRetrieveRequestShowEnumOrigins",
     "EndUserDetailsRequestLanguage",
-    "ExpensesListRequestExpand",
-    "ExpensesRetrieveRequestExpand",
-    "GeneralLedgerTransactionsListRequestExpand",
-    "GeneralLedgerTransactionsRetrieveRequestExpand",
-    "InvoicesListRequestExpand",
+    "ExpensesListRequestExpandItem",
+    "ExpensesRetrieveRequestExpandItem",
+    "GeneralLedgerTransactionsListRequestExpandItem",
+    "GeneralLedgerTransactionsRetrieveRequestExpandItem",
+    "InvoicesListRequestExpandItem",
     "InvoicesListRequestStatus",
     "InvoicesListRequestType",
-    "InvoicesRetrieveRequestExpand",
+    "InvoicesRetrieveRequestExpandItem",
     "IssuesListRequestStatus",
-    "ItemsListRequestExpand",
-    "ItemsRetrieveRequestExpand",
-    "JournalEntriesListRequestExpand",
-    "JournalEntriesRetrieveRequestExpand",
+    "ItemsListRequestExpandItem",
+    "ItemsRetrieveRequestExpandItem",
+    "JournalEntriesListRequestExpandItem",
+    "JournalEntriesRetrieveRequestExpandItem",
     "LinkedAccountsListRequestCategory",
-    "PaymentsListRequestExpand",
-    "PaymentsRetrieveRequestExpand",
-    "ProjectsListRequestExpand",
-    "ProjectsRetrieveRequestExpand",
-    "PurchaseOrdersListRequestExpand",
-    "PurchaseOrdersRetrieveRequestExpand",
-    "TransactionsListRequestExpand",
-    "TransactionsRetrieveRequestExpand",
-    "VendorCreditsListRequestExpand",
-    "VendorCreditsRetrieveRequestExpand",
+    "PaymentsListRequestExpandItem",
+    "PaymentsRetrieveRequestExpandItem",
+    "ProjectsListRequestExpandItem",
+    "ProjectsRetrieveRequestExpandItem",
+    "PurchaseOrdersListRequestExpandItem",
+    "PurchaseOrdersRetrieveRequestExpandItem",
+    "TransactionsListRequestExpandItem",
+    "TransactionsRetrieveRequestExpandItem",
+    "VendorCreditsListRequestExpandItem",
+    "VendorCreditsRetrieveRequestExpandItem",
     "account_details",
     "account_token",
     "accounting_periods",

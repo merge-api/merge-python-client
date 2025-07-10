@@ -3,9 +3,9 @@
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.employee import Employee
-from ...types.paginated_employee_list import PaginatedEmployeeList
 from .raw_client import AsyncRawEmployeesClient, RawEmployeesClient
 
 
@@ -28,13 +28,15 @@ class EmployeesClient:
         self,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedEmployeeList:
+    ) -> SyncPager[Employee]:
         """
         Returns a list of `Employee` objects.
 
@@ -43,7 +45,7 @@ class EmployeesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -63,7 +65,7 @@ class EmployeesClient:
 
         Returns
         -------
-        PaginatedEmployeeList
+        SyncPager[Employee]
 
 
         Examples
@@ -74,9 +76,14 @@ class EmployeesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.employees.list()
+        response = client.accounting.employees.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             cursor=cursor,
             expand=expand,
             include_deleted_data=include_deleted_data,
@@ -85,13 +92,14 @@ class EmployeesClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -103,7 +111,7 @@ class EmployeesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -161,13 +169,15 @@ class AsyncEmployeesClient:
         self,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedEmployeeList:
+    ) -> AsyncPager[Employee]:
         """
         Returns a list of `Employee` objects.
 
@@ -176,7 +186,7 @@ class AsyncEmployeesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -196,7 +206,7 @@ class AsyncEmployeesClient:
 
         Returns
         -------
-        PaginatedEmployeeList
+        AsyncPager[Employee]
 
 
         Examples
@@ -212,12 +222,18 @@ class AsyncEmployeesClient:
 
 
         async def main() -> None:
-            await client.accounting.employees.list()
+            response = await client.accounting.employees.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             cursor=cursor,
             expand=expand,
             include_deleted_data=include_deleted_data,
@@ -226,13 +242,14 @@ class AsyncEmployeesClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -244,7 +261,7 @@ class AsyncEmployeesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

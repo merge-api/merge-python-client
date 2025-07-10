@@ -9,12 +9,14 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, BaseHttpResponse, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.collection import Collection
 from ...types.paginated_collection_list import PaginatedCollectionList
 from ...types.paginated_viewer_list import PaginatedViewerList
-from .types.collections_viewers_list_request_expand import CollectionsViewersListRequestExpand
+from ...types.viewer import Viewer
+from .types.collections_viewers_list_request_expand_item import CollectionsViewersListRequestExpandItem
 
 
 class RawCollectionsClient:
@@ -28,7 +30,9 @@ class RawCollectionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["parent_collection"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["parent_collection"], typing.Sequence[typing.Literal["parent_collection"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -40,7 +44,7 @@ class RawCollectionsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["collection_type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedCollectionList]:
+    ) -> SyncPager[Collection]:
         """
         Returns a list of `Collection` objects.
 
@@ -58,7 +62,7 @@ class RawCollectionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["parent_collection"]]
+        expand : typing.Optional[typing.Union[typing.Literal["parent_collection"], typing.Sequence[typing.Literal["parent_collection"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -96,7 +100,7 @@ class RawCollectionsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedCollectionList]
+        SyncPager[Collection]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -123,14 +127,37 @@ class RawCollectionsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedCollectionList,
                     construct_type(
                         type_=PaginatedCollectionList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    collection_type=collection_type,
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    parent_collection_id=parent_collection_id,
+                    remote_fields=remote_fields,
+                    remote_id=remote_id,
+                    show_enum_origins=show_enum_origins,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -141,13 +168,17 @@ class RawCollectionsClient:
         collection_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CollectionsViewersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                CollectionsViewersListRequestExpandItem, typing.Sequence[CollectionsViewersListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedViewerList]:
+    ) -> SyncPager[Viewer]:
         """
         Returns a list of `Viewer` objects that point to a User id or Team id that is either an assignee or viewer on a `Collection` with the given id. [Learn more.](https://help.merge.dev/en/articles/10333658-ticketing-access-control-list-acls)
 
@@ -158,7 +189,7 @@ class RawCollectionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CollectionsViewersListRequestExpand]
+        expand : typing.Optional[typing.Union[CollectionsViewersListRequestExpandItem, typing.Sequence[CollectionsViewersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -178,7 +209,7 @@ class RawCollectionsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedViewerList]
+        SyncPager[Viewer]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -196,14 +227,29 @@ class RawCollectionsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedViewerList,
                     construct_type(
                         type_=PaginatedViewerList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.viewers_list(
+                    collection_id,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    page_size=page_size,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -213,7 +259,9 @@ class RawCollectionsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["parent_collection"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["parent_collection"], typing.Sequence[typing.Literal["parent_collection"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["collection_type"]] = None,
@@ -227,7 +275,7 @@ class RawCollectionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["parent_collection"]]
+        expand : typing.Optional[typing.Union[typing.Literal["parent_collection"], typing.Sequence[typing.Literal["parent_collection"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -289,7 +337,9 @@ class AsyncRawCollectionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["parent_collection"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["parent_collection"], typing.Sequence[typing.Literal["parent_collection"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -301,7 +351,7 @@ class AsyncRawCollectionsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["collection_type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedCollectionList]:
+    ) -> AsyncPager[Collection]:
         """
         Returns a list of `Collection` objects.
 
@@ -319,7 +369,7 @@ class AsyncRawCollectionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["parent_collection"]]
+        expand : typing.Optional[typing.Union[typing.Literal["parent_collection"], typing.Sequence[typing.Literal["parent_collection"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -357,7 +407,7 @@ class AsyncRawCollectionsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedCollectionList]
+        AsyncPager[Collection]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -384,14 +434,40 @@ class AsyncRawCollectionsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedCollectionList,
                     construct_type(
                         type_=PaginatedCollectionList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        collection_type=collection_type,
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        parent_collection_id=parent_collection_id,
+                        remote_fields=remote_fields,
+                        remote_id=remote_id,
+                        show_enum_origins=show_enum_origins,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -402,13 +478,17 @@ class AsyncRawCollectionsClient:
         collection_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CollectionsViewersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                CollectionsViewersListRequestExpandItem, typing.Sequence[CollectionsViewersListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedViewerList]:
+    ) -> AsyncPager[Viewer]:
         """
         Returns a list of `Viewer` objects that point to a User id or Team id that is either an assignee or viewer on a `Collection` with the given id. [Learn more.](https://help.merge.dev/en/articles/10333658-ticketing-access-control-list-acls)
 
@@ -419,7 +499,7 @@ class AsyncRawCollectionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CollectionsViewersListRequestExpand]
+        expand : typing.Optional[typing.Union[CollectionsViewersListRequestExpandItem, typing.Sequence[CollectionsViewersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -439,7 +519,7 @@ class AsyncRawCollectionsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedViewerList]
+        AsyncPager[Viewer]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -457,14 +537,32 @@ class AsyncRawCollectionsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedViewerList,
                     construct_type(
                         type_=PaginatedViewerList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.viewers_list(
+                        collection_id,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        page_size=page_size,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -474,7 +572,9 @@ class AsyncRawCollectionsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["parent_collection"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["parent_collection"], typing.Sequence[typing.Literal["parent_collection"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["collection_type"]] = None,
@@ -488,7 +588,7 @@ class AsyncRawCollectionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["parent_collection"]]
+        expand : typing.Optional[typing.Union[typing.Literal["parent_collection"], typing.Sequence[typing.Literal["parent_collection"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

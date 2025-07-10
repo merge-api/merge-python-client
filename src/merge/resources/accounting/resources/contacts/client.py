@@ -4,16 +4,16 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.contact import Contact
 from ...types.contact_request import ContactRequest
 from ...types.contact_response import ContactResponse
 from ...types.meta_response import MetaResponse
-from ...types.paginated_contact_list import PaginatedContactList
-from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
+from ...types.remote_field_class import RemoteFieldClass
 from .raw_client import AsyncRawContactsClient, RawContactsClient
-from .types.contacts_list_request_expand import ContactsListRequestExpand
-from .types.contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
+from .types.contacts_list_request_expand_item import ContactsListRequestExpandItem
+from .types.contacts_retrieve_request_expand_item import ContactsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -42,7 +42,9 @@ class ContactsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_address: typing.Optional[str] = None,
-        expand: typing.Optional[ContactsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContactsListRequestExpandItem, typing.Sequence[ContactsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -58,7 +60,7 @@ class ContactsClient:
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         status: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedContactList:
+    ) -> SyncPager[Contact]:
         """
         Returns a list of `Contact` objects.
 
@@ -79,7 +81,7 @@ class ContactsClient:
         email_address : typing.Optional[str]
             If provided, will only return Contacts that match this email.
 
-        expand : typing.Optional[ContactsListRequestExpand]
+        expand : typing.Optional[typing.Union[ContactsListRequestExpandItem, typing.Sequence[ContactsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -129,7 +131,7 @@ class ContactsClient:
 
         Returns
         -------
-        PaginatedContactList
+        SyncPager[Contact]
 
 
         Examples
@@ -140,9 +142,14 @@ class ContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.contacts.list()
+        response = client.accounting.contacts.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -165,7 +172,6 @@ class ContactsClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -218,7 +224,9 @@ class ContactsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ContactsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContactsRetrieveRequestExpandItem, typing.Sequence[ContactsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -233,7 +241,7 @@ class ContactsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ContactsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ContactsRetrieveRequestExpandItem, typing.Sequence[ContactsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -321,7 +329,7 @@ class ContactsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -353,7 +361,7 @@ class ContactsClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass]
 
 
         Examples
@@ -364,9 +372,14 @@ class ContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.contacts.remote_field_classes_list()
+        response = client.accounting.contacts.remote_field_classes_list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.remote_field_classes_list(
+        return self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -376,7 +389,6 @@ class ContactsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncContactsClient:
@@ -402,7 +414,9 @@ class AsyncContactsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_address: typing.Optional[str] = None,
-        expand: typing.Optional[ContactsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContactsListRequestExpandItem, typing.Sequence[ContactsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -418,7 +432,7 @@ class AsyncContactsClient:
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         status: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedContactList:
+    ) -> AsyncPager[Contact]:
         """
         Returns a list of `Contact` objects.
 
@@ -439,7 +453,7 @@ class AsyncContactsClient:
         email_address : typing.Optional[str]
             If provided, will only return Contacts that match this email.
 
-        expand : typing.Optional[ContactsListRequestExpand]
+        expand : typing.Optional[typing.Union[ContactsListRequestExpandItem, typing.Sequence[ContactsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -489,7 +503,7 @@ class AsyncContactsClient:
 
         Returns
         -------
-        PaginatedContactList
+        AsyncPager[Contact]
 
 
         Examples
@@ -505,12 +519,18 @@ class AsyncContactsClient:
 
 
         async def main() -> None:
-            await client.accounting.contacts.list()
+            response = await client.accounting.contacts.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -533,7 +553,6 @@ class AsyncContactsClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -594,7 +613,9 @@ class AsyncContactsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ContactsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContactsRetrieveRequestExpandItem, typing.Sequence[ContactsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -609,7 +630,7 @@ class AsyncContactsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ContactsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ContactsRetrieveRequestExpandItem, typing.Sequence[ContactsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -713,7 +734,7 @@ class AsyncContactsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -745,7 +766,7 @@ class AsyncContactsClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass]
 
 
         Examples
@@ -761,12 +782,18 @@ class AsyncContactsClient:
 
 
         async def main() -> None:
-            await client.accounting.contacts.remote_field_classes_list()
+            response = await client.accounting.contacts.remote_field_classes_list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.remote_field_classes_list(
+        return await self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -776,4 +803,3 @@ class AsyncContactsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data

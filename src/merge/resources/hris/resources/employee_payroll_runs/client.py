@@ -4,12 +4,12 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.employee_payroll_run import EmployeePayrollRun
-from ...types.paginated_employee_payroll_run_list import PaginatedEmployeePayrollRunList
 from .raw_client import AsyncRawEmployeePayrollRunsClient, RawEmployeePayrollRunsClient
-from .types.employee_payroll_runs_list_request_expand import EmployeePayrollRunsListRequestExpand
-from .types.employee_payroll_runs_retrieve_request_expand import EmployeePayrollRunsRetrieveRequestExpand
+from .types.employee_payroll_runs_list_request_expand_item import EmployeePayrollRunsListRequestExpandItem
+from .types.employee_payroll_runs_retrieve_request_expand_item import EmployeePayrollRunsRetrieveRequestExpandItem
 
 
 class EmployeePayrollRunsClient:
@@ -36,7 +36,11 @@ class EmployeePayrollRunsClient:
         employee_id: typing.Optional[str] = None,
         ended_after: typing.Optional[dt.datetime] = None,
         ended_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[EmployeePayrollRunsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                EmployeePayrollRunsListRequestExpandItem, typing.Sequence[EmployeePayrollRunsListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -48,7 +52,7 @@ class EmployeePayrollRunsClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedEmployeePayrollRunList:
+    ) -> SyncPager[EmployeePayrollRun]:
         """
         Returns a list of `EmployeePayrollRun` objects.
 
@@ -72,7 +76,7 @@ class EmployeePayrollRunsClient:
         ended_before : typing.Optional[dt.datetime]
             If provided, will only return employee payroll runs ended before this datetime.
 
-        expand : typing.Optional[EmployeePayrollRunsListRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeePayrollRunsListRequestExpandItem, typing.Sequence[EmployeePayrollRunsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -110,7 +114,7 @@ class EmployeePayrollRunsClient:
 
         Returns
         -------
-        PaginatedEmployeePayrollRunList
+        SyncPager[EmployeePayrollRun]
 
 
         Examples
@@ -121,9 +125,14 @@ class EmployeePayrollRunsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.employee_payroll_runs.list()
+        response = client.hris.employee_payroll_runs.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -143,13 +152,17 @@ class EmployeePayrollRunsClient:
             started_before=started_before,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[EmployeePayrollRunsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                EmployeePayrollRunsRetrieveRequestExpandItem,
+                typing.Sequence[EmployeePayrollRunsRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -161,7 +174,7 @@ class EmployeePayrollRunsClient:
         ----------
         id : str
 
-        expand : typing.Optional[EmployeePayrollRunsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeePayrollRunsRetrieveRequestExpandItem, typing.Sequence[EmployeePayrollRunsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -224,7 +237,11 @@ class AsyncEmployeePayrollRunsClient:
         employee_id: typing.Optional[str] = None,
         ended_after: typing.Optional[dt.datetime] = None,
         ended_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[EmployeePayrollRunsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                EmployeePayrollRunsListRequestExpandItem, typing.Sequence[EmployeePayrollRunsListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -236,7 +253,7 @@ class AsyncEmployeePayrollRunsClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedEmployeePayrollRunList:
+    ) -> AsyncPager[EmployeePayrollRun]:
         """
         Returns a list of `EmployeePayrollRun` objects.
 
@@ -260,7 +277,7 @@ class AsyncEmployeePayrollRunsClient:
         ended_before : typing.Optional[dt.datetime]
             If provided, will only return employee payroll runs ended before this datetime.
 
-        expand : typing.Optional[EmployeePayrollRunsListRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeePayrollRunsListRequestExpandItem, typing.Sequence[EmployeePayrollRunsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -298,7 +315,7 @@ class AsyncEmployeePayrollRunsClient:
 
         Returns
         -------
-        PaginatedEmployeePayrollRunList
+        AsyncPager[EmployeePayrollRun]
 
 
         Examples
@@ -314,12 +331,18 @@ class AsyncEmployeePayrollRunsClient:
 
 
         async def main() -> None:
-            await client.hris.employee_payroll_runs.list()
+            response = await client.hris.employee_payroll_runs.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -339,13 +362,17 @@ class AsyncEmployeePayrollRunsClient:
             started_before=started_before,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[EmployeePayrollRunsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                EmployeePayrollRunsRetrieveRequestExpandItem,
+                typing.Sequence[EmployeePayrollRunsRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -357,7 +384,7 @@ class AsyncEmployeePayrollRunsClient:
         ----------
         id : str
 
-        expand : typing.Optional[EmployeePayrollRunsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeePayrollRunsRetrieveRequestExpandItem, typing.Sequence[EmployeePayrollRunsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

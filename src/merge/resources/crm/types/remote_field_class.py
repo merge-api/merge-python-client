@@ -5,10 +5,10 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
+from .field_format_enum import FieldFormatEnum
+from .field_type_enum import FieldTypeEnum
 from .item_schema import ItemSchema
 from .remote_field_class_field_choices_item import RemoteFieldClassFieldChoicesItem
-from .remote_field_class_field_format import RemoteFieldClassFieldFormat
-from .remote_field_class_field_type import RemoteFieldClassFieldType
 
 
 class RemoteFieldClass(UncheckedBaseModel):
@@ -18,8 +18,8 @@ class RemoteFieldClass(UncheckedBaseModel):
     description: typing.Optional[str] = None
     is_custom: typing.Optional[bool] = None
     is_required: typing.Optional[bool] = None
-    field_type: typing.Optional[RemoteFieldClassFieldType] = None
-    field_format: typing.Optional[RemoteFieldClassFieldFormat] = None
+    field_type: typing.Optional[FieldTypeEnum] = None
+    field_format: typing.Optional[FieldFormatEnum] = None
     field_choices: typing.Optional[typing.List[RemoteFieldClassFieldChoicesItem]] = None
     item_schema: typing.Optional[ItemSchema] = None
 

@@ -9,21 +9,22 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, BaseHttpResponse, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.employee import Employee
 from ...types.employee_request import EmployeeRequest
 from ...types.employee_response import EmployeeResponse
+from ...types.ignore_common_model_request import IgnoreCommonModelRequest
 from ...types.meta_response import MetaResponse
 from ...types.paginated_employee_list import PaginatedEmployeeList
 from .types.employees_list_request_employment_status import EmployeesListRequestEmploymentStatus
-from .types.employees_list_request_expand import EmployeesListRequestExpand
+from .types.employees_list_request_expand_item import EmployeesListRequestExpandItem
 from .types.employees_list_request_remote_fields import EmployeesListRequestRemoteFields
 from .types.employees_list_request_show_enum_origins import EmployeesListRequestShowEnumOrigins
-from .types.employees_retrieve_request_expand import EmployeesRetrieveRequestExpand
+from .types.employees_retrieve_request_expand_item import EmployeesRetrieveRequestExpandItem
 from .types.employees_retrieve_request_remote_fields import EmployeesRetrieveRequestRemoteFields
 from .types.employees_retrieve_request_show_enum_origins import EmployeesRetrieveRequestShowEnumOrigins
-from .types.ignore_common_model_request_reason import IgnoreCommonModelRequestReason
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -43,7 +44,9 @@ class RawEmployeesClient:
         display_full_name: typing.Optional[str] = None,
         employment_status: typing.Optional[EmployeesListRequestEmploymentStatus] = None,
         employment_type: typing.Optional[str] = None,
-        expand: typing.Optional[EmployeesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmployeesListRequestExpandItem, typing.Sequence[EmployeesListRequestExpandItem]]
+        ] = None,
         first_name: typing.Optional[str] = None,
         groups: typing.Optional[str] = None,
         home_location_id: typing.Optional[str] = None,
@@ -70,7 +73,7 @@ class RawEmployeesClient:
         work_email: typing.Optional[str] = None,
         work_location_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedEmployeeList]:
+    ) -> SyncPager[Employee]:
         """
         Returns a list of `Employee` objects.
 
@@ -101,7 +104,7 @@ class RawEmployeesClient:
         employment_type : typing.Optional[str]
             If provided, will only return employees that have an employment of the specified employment_type.
 
-        expand : typing.Optional[EmployeesListRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeesListRequestExpandItem, typing.Sequence[EmployeesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         first_name : typing.Optional[str]
@@ -184,7 +187,7 @@ class RawEmployeesClient:
 
         Returns
         -------
-        HttpResponse[PaginatedEmployeeList]
+        SyncPager[Employee]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -229,14 +232,55 @@ class RawEmployeesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedEmployeeList,
                     construct_type(
                         type_=PaginatedEmployeeList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    company_id=company_id,
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    display_full_name=display_full_name,
+                    employment_status=employment_status,
+                    employment_type=employment_type,
+                    expand=expand,
+                    first_name=first_name,
+                    groups=groups,
+                    home_location_id=home_location_id,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_sensitive_fields=include_sensitive_fields,
+                    include_shell_data=include_shell_data,
+                    job_title=job_title,
+                    last_name=last_name,
+                    manager_id=manager_id,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    pay_group_id=pay_group_id,
+                    personal_email=personal_email,
+                    remote_fields=remote_fields,
+                    remote_id=remote_id,
+                    show_enum_origins=show_enum_origins,
+                    started_after=started_after,
+                    started_before=started_before,
+                    team_id=team_id,
+                    terminated_after=terminated_after,
+                    terminated_before=terminated_before,
+                    work_email=work_email,
+                    work_location_id=work_location_id,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -306,7 +350,9 @@ class RawEmployeesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[EmployeesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmployeesRetrieveRequestExpandItem, typing.Sequence[EmployeesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -321,7 +367,7 @@ class RawEmployeesClient:
         ----------
         id : str
 
-        expand : typing.Optional[EmployeesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeesRetrieveRequestExpandItem, typing.Sequence[EmployeesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -379,8 +425,7 @@ class RawEmployeesClient:
         self,
         model_id: str,
         *,
-        reason: IgnoreCommonModelRequestReason,
-        message: typing.Optional[str] = OMIT,
+        request: IgnoreCommonModelRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[None]:
         """
@@ -390,9 +435,7 @@ class RawEmployeesClient:
         ----------
         model_id : str
 
-        reason : IgnoreCommonModelRequestReason
-
-        message : typing.Optional[str]
+        request : IgnoreCommonModelRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -404,10 +447,7 @@ class RawEmployeesClient:
         _response = self._client_wrapper.httpx_client.request(
             f"hris/v1/employees/ignore/{jsonable_encoder(model_id)}",
             method="POST",
-            json={
-                "reason": reason,
-                "message": message,
-            },
+            json=request,
             headers={
                 "content-type": "application/json",
             },
@@ -473,7 +513,9 @@ class AsyncRawEmployeesClient:
         display_full_name: typing.Optional[str] = None,
         employment_status: typing.Optional[EmployeesListRequestEmploymentStatus] = None,
         employment_type: typing.Optional[str] = None,
-        expand: typing.Optional[EmployeesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmployeesListRequestExpandItem, typing.Sequence[EmployeesListRequestExpandItem]]
+        ] = None,
         first_name: typing.Optional[str] = None,
         groups: typing.Optional[str] = None,
         home_location_id: typing.Optional[str] = None,
@@ -500,7 +542,7 @@ class AsyncRawEmployeesClient:
         work_email: typing.Optional[str] = None,
         work_location_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedEmployeeList]:
+    ) -> AsyncPager[Employee]:
         """
         Returns a list of `Employee` objects.
 
@@ -531,7 +573,7 @@ class AsyncRawEmployeesClient:
         employment_type : typing.Optional[str]
             If provided, will only return employees that have an employment of the specified employment_type.
 
-        expand : typing.Optional[EmployeesListRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeesListRequestExpandItem, typing.Sequence[EmployeesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         first_name : typing.Optional[str]
@@ -614,7 +656,7 @@ class AsyncRawEmployeesClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedEmployeeList]
+        AsyncPager[Employee]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -659,14 +701,58 @@ class AsyncRawEmployeesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedEmployeeList,
                     construct_type(
                         type_=PaginatedEmployeeList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        company_id=company_id,
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        display_full_name=display_full_name,
+                        employment_status=employment_status,
+                        employment_type=employment_type,
+                        expand=expand,
+                        first_name=first_name,
+                        groups=groups,
+                        home_location_id=home_location_id,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_sensitive_fields=include_sensitive_fields,
+                        include_shell_data=include_shell_data,
+                        job_title=job_title,
+                        last_name=last_name,
+                        manager_id=manager_id,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        pay_group_id=pay_group_id,
+                        personal_email=personal_email,
+                        remote_fields=remote_fields,
+                        remote_id=remote_id,
+                        show_enum_origins=show_enum_origins,
+                        started_after=started_after,
+                        started_before=started_before,
+                        team_id=team_id,
+                        terminated_after=terminated_after,
+                        terminated_before=terminated_before,
+                        work_email=work_email,
+                        work_location_id=work_location_id,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -736,7 +822,9 @@ class AsyncRawEmployeesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[EmployeesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmployeesRetrieveRequestExpandItem, typing.Sequence[EmployeesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -751,7 +839,7 @@ class AsyncRawEmployeesClient:
         ----------
         id : str
 
-        expand : typing.Optional[EmployeesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeesRetrieveRequestExpandItem, typing.Sequence[EmployeesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -809,8 +897,7 @@ class AsyncRawEmployeesClient:
         self,
         model_id: str,
         *,
-        reason: IgnoreCommonModelRequestReason,
-        message: typing.Optional[str] = OMIT,
+        request: IgnoreCommonModelRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[None]:
         """
@@ -820,9 +907,7 @@ class AsyncRawEmployeesClient:
         ----------
         model_id : str
 
-        reason : IgnoreCommonModelRequestReason
-
-        message : typing.Optional[str]
+        request : IgnoreCommonModelRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -834,10 +919,7 @@ class AsyncRawEmployeesClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"hris/v1/employees/ignore/{jsonable_encoder(model_id)}",
             method="POST",
-            json={
-                "reason": reason,
-                "message": message,
-            },
+            json=request,
             headers={
                 "content-type": "application/json",
             },

@@ -3,9 +3,9 @@
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.accounting_period import AccountingPeriod
-from ...types.paginated_accounting_period_list import PaginatedAccountingPeriodList
 from .raw_client import AsyncRawAccountingPeriodsClient, RawAccountingPeriodsClient
 
 
@@ -33,7 +33,7 @@ class AccountingPeriodsClient:
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAccountingPeriodList:
+    ) -> SyncPager[AccountingPeriod]:
         """
         Returns a list of `AccountingPeriod` objects.
 
@@ -59,7 +59,7 @@ class AccountingPeriodsClient:
 
         Returns
         -------
-        PaginatedAccountingPeriodList
+        SyncPager[AccountingPeriod]
 
 
         Examples
@@ -70,9 +70,14 @@ class AccountingPeriodsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.accounting_periods.list()
+        response = client.accounting.accounting_periods.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -80,7 +85,6 @@ class AccountingPeriodsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -156,7 +160,7 @@ class AsyncAccountingPeriodsClient:
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAccountingPeriodList:
+    ) -> AsyncPager[AccountingPeriod]:
         """
         Returns a list of `AccountingPeriod` objects.
 
@@ -182,7 +186,7 @@ class AsyncAccountingPeriodsClient:
 
         Returns
         -------
-        PaginatedAccountingPeriodList
+        AsyncPager[AccountingPeriod]
 
 
         Examples
@@ -198,12 +202,18 @@ class AsyncAccountingPeriodsClient:
 
 
         async def main() -> None:
-            await client.accounting.accounting_periods.list()
+            response = await client.accounting.accounting_periods.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -211,7 +221,6 @@ class AsyncAccountingPeriodsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,

@@ -8,7 +8,7 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .account_details_and_actions_category import AccountDetailsAndActionsCategory
 from .account_details_and_actions_integration import AccountDetailsAndActionsIntegration
-from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
+from .account_details_and_actions_status import AccountDetailsAndActionsStatus
 
 
 class AccountDetailsAndActions(UncheckedBaseModel):
@@ -23,7 +23,7 @@ class AccountDetailsAndActions(UncheckedBaseModel):
 
     id: str
     category: typing.Optional[AccountDetailsAndActionsCategory] = None
-    status: AccountDetailsAndActionsStatusEnum
+    status: AccountDetailsAndActionsStatus
     status_detail: typing.Optional[str] = None
     end_user_origin_id: typing.Optional[str] = None
     end_user_organization_name: str
@@ -42,7 +42,6 @@ class AccountDetailsAndActions(UncheckedBaseModel):
     integration: typing.Optional[AccountDetailsAndActionsIntegration] = None
     account_type: str
     completed_at: dt.datetime
-    integration_specific_fields: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

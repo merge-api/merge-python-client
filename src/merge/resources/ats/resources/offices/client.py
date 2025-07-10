@@ -4,9 +4,9 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.office import Office
-from ...types.paginated_office_list import PaginatedOfficeList
 from .raw_client import AsyncRawOfficesClient, RawOfficesClient
 
 
@@ -39,7 +39,7 @@ class OfficesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedOfficeList:
+    ) -> SyncPager[Office]:
         """
         Returns a list of `Office` objects.
 
@@ -80,7 +80,7 @@ class OfficesClient:
 
         Returns
         -------
-        PaginatedOfficeList
+        SyncPager[Office]
 
 
         Examples
@@ -91,9 +91,14 @@ class OfficesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.offices.list()
+        response = client.ats.offices.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -106,7 +111,6 @@ class OfficesClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -187,7 +191,7 @@ class AsyncOfficesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedOfficeList:
+    ) -> AsyncPager[Office]:
         """
         Returns a list of `Office` objects.
 
@@ -228,7 +232,7 @@ class AsyncOfficesClient:
 
         Returns
         -------
-        PaginatedOfficeList
+        AsyncPager[Office]
 
 
         Examples
@@ -244,12 +248,18 @@ class AsyncOfficesClient:
 
 
         async def main() -> None:
-            await client.ats.offices.list()
+            response = await client.ats.offices.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -262,7 +272,6 @@ class AsyncOfficesClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,

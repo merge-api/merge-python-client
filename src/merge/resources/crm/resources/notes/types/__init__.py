@@ -2,7 +2,7 @@
 
 # isort: skip_file
 
-from .notes_list_request_expand import NotesListRequestExpand
-from .notes_retrieve_request_expand import NotesRetrieveRequestExpand
+from .notes_list_request_expand_item import NotesListRequestExpandItem
+from .notes_retrieve_request_expand_item import NotesRetrieveRequestExpandItem
 
-__all__ = ["NotesListRequestExpand", "NotesRetrieveRequestExpand"]
+__all__ = ["NotesListRequestExpandItem", "NotesRetrieveRequestExpandItem"]

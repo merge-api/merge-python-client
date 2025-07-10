@@ -2,8 +2,7 @@
 
 # isort: skip_file
 
-from .candidates_list_request_expand import CandidatesListRequestExpand
-from .candidates_retrieve_request_expand import CandidatesRetrieveRequestExpand
-from .ignore_common_model_request_reason import IgnoreCommonModelRequestReason
+from .candidates_list_request_expand_item import CandidatesListRequestExpandItem
+from .candidates_retrieve_request_expand_item import CandidatesRetrieveRequestExpandItem
 
-__all__ = ["CandidatesListRequestExpand", "CandidatesRetrieveRequestExpand", "IgnoreCommonModelRequestReason"]
+__all__ = ["CandidatesListRequestExpandItem", "CandidatesRetrieveRequestExpandItem"]

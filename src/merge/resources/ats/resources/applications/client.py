@@ -4,15 +4,15 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.application import Application
 from ...types.application_request import ApplicationRequest
 from ...types.application_response import ApplicationResponse
 from ...types.meta_response import MetaResponse
-from ...types.paginated_application_list import PaginatedApplicationList
 from .raw_client import AsyncRawApplicationsClient, RawApplicationsClient
-from .types.applications_list_request_expand import ApplicationsListRequestExpand
-from .types.applications_retrieve_request_expand import ApplicationsRetrieveRequestExpand
+from .types.applications_list_request_expand_item import ApplicationsListRequestExpandItem
+from .types.applications_retrieve_request_expand_item import ApplicationsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -42,7 +42,9 @@ class ApplicationsClient:
         credited_to_id: typing.Optional[str] = None,
         current_stage_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ApplicationsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ApplicationsListRequestExpandItem, typing.Sequence[ApplicationsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -54,7 +56,7 @@ class ApplicationsClient:
         remote_id: typing.Optional[str] = None,
         source: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedApplicationList:
+    ) -> SyncPager[Application]:
         """
         Returns a list of `Application` objects.
 
@@ -78,7 +80,7 @@ class ApplicationsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ApplicationsListRequestExpand]
+        expand : typing.Optional[typing.Union[ApplicationsListRequestExpandItem, typing.Sequence[ApplicationsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -116,7 +118,7 @@ class ApplicationsClient:
 
         Returns
         -------
-        PaginatedApplicationList
+        SyncPager[Application]
 
 
         Examples
@@ -127,9 +129,14 @@ class ApplicationsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.applications.list()
+        response = client.ats.applications.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             candidate_id=candidate_id,
             created_after=created_after,
             created_before=created_before,
@@ -149,7 +156,6 @@ class ApplicationsClient:
             source=source,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -213,7 +219,9 @@ class ApplicationsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ApplicationsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ApplicationsRetrieveRequestExpandItem, typing.Sequence[ApplicationsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -225,7 +233,7 @@ class ApplicationsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ApplicationsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ApplicationsRetrieveRequestExpandItem, typing.Sequence[ApplicationsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -383,7 +391,9 @@ class AsyncApplicationsClient:
         credited_to_id: typing.Optional[str] = None,
         current_stage_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ApplicationsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ApplicationsListRequestExpandItem, typing.Sequence[ApplicationsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -395,7 +405,7 @@ class AsyncApplicationsClient:
         remote_id: typing.Optional[str] = None,
         source: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedApplicationList:
+    ) -> AsyncPager[Application]:
         """
         Returns a list of `Application` objects.
 
@@ -419,7 +429,7 @@ class AsyncApplicationsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ApplicationsListRequestExpand]
+        expand : typing.Optional[typing.Union[ApplicationsListRequestExpandItem, typing.Sequence[ApplicationsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -457,7 +467,7 @@ class AsyncApplicationsClient:
 
         Returns
         -------
-        PaginatedApplicationList
+        AsyncPager[Application]
 
 
         Examples
@@ -473,12 +483,18 @@ class AsyncApplicationsClient:
 
 
         async def main() -> None:
-            await client.ats.applications.list()
+            response = await client.ats.applications.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             candidate_id=candidate_id,
             created_after=created_after,
             created_before=created_before,
@@ -498,7 +514,6 @@ class AsyncApplicationsClient:
             source=source,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -570,7 +585,9 @@ class AsyncApplicationsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ApplicationsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ApplicationsRetrieveRequestExpandItem, typing.Sequence[ApplicationsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -582,7 +599,7 @@ class AsyncApplicationsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ApplicationsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ApplicationsRetrieveRequestExpandItem, typing.Sequence[ApplicationsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

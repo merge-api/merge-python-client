@@ -7,7 +7,6 @@ import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .general_ledger_transaction_line_account import GeneralLedgerTransactionLineAccount
-from .general_ledger_transaction_line_base_currency import GeneralLedgerTransactionLineBaseCurrency
 from .general_ledger_transaction_line_company import GeneralLedgerTransactionLineCompany
 from .general_ledger_transaction_line_contact import GeneralLedgerTransactionLineContact
 from .general_ledger_transaction_line_employee import GeneralLedgerTransactionLineEmployee
@@ -15,6 +14,7 @@ from .general_ledger_transaction_line_item import GeneralLedgerTransactionLineIt
 from .general_ledger_transaction_line_project import GeneralLedgerTransactionLineProject
 from .general_ledger_transaction_line_tracking_categories_item import GeneralLedgerTransactionLineTrackingCategoriesItem
 from .general_ledger_transaction_line_transaction_currency import GeneralLedgerTransactionLineTransactionCurrency
+from .transaction_currency_enum import TransactionCurrencyEnum
 
 
 class GeneralLedgerTransactionLine(UncheckedBaseModel):
@@ -52,7 +52,7 @@ class GeneralLedgerTransactionLine(UncheckedBaseModel):
     employee: typing.Optional[GeneralLedgerTransactionLineEmployee] = None
     contact: typing.Optional[GeneralLedgerTransactionLineContact] = None
     project: typing.Optional[GeneralLedgerTransactionLineProject] = None
-    base_currency: typing.Optional[GeneralLedgerTransactionLineBaseCurrency] = pydantic.Field(default=None)
+    base_currency: typing.Optional[TransactionCurrencyEnum] = pydantic.Field(default=None)
     """
     The base currency of the transaction
     

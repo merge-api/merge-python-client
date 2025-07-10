@@ -11,8 +11,8 @@ from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.paginated_project_list import PaginatedProjectList
 from ...types.project import Project
-from .types.projects_list_request_expand import ProjectsListRequestExpand
-from .types.projects_retrieve_request_expand import ProjectsRetrieveRequestExpand
+from .types.projects_list_request_expand_item import ProjectsListRequestExpandItem
+from .types.projects_retrieve_request_expand_item import ProjectsRetrieveRequestExpandItem
 
 
 class RawProjectsClient:
@@ -23,7 +23,9 @@ class RawProjectsClient:
         self,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ProjectsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ProjectsListRequestExpandItem, typing.Sequence[ProjectsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -38,7 +40,7 @@ class RawProjectsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ProjectsListRequestExpand]
+        expand : typing.Optional[typing.Union[ProjectsListRequestExpandItem, typing.Sequence[ProjectsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -93,7 +95,9 @@ class RawProjectsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ProjectsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ProjectsRetrieveRequestExpandItem, typing.Sequence[ProjectsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -105,7 +109,7 @@ class RawProjectsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ProjectsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ProjectsRetrieveRequestExpandItem, typing.Sequence[ProjectsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -156,7 +160,9 @@ class AsyncRawProjectsClient:
         self,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ProjectsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ProjectsListRequestExpandItem, typing.Sequence[ProjectsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -171,7 +177,7 @@ class AsyncRawProjectsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ProjectsListRequestExpand]
+        expand : typing.Optional[typing.Union[ProjectsListRequestExpandItem, typing.Sequence[ProjectsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -226,7 +232,9 @@ class AsyncRawProjectsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ProjectsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ProjectsRetrieveRequestExpandItem, typing.Sequence[ProjectsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -238,7 +246,7 @@ class AsyncRawProjectsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ProjectsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ProjectsRetrieveRequestExpandItem, typing.Sequence[ProjectsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

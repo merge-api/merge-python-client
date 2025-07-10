@@ -4,9 +4,9 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.group import Group
-from ...types.paginated_group_list import PaginatedGroupList
 from .raw_client import AsyncRawGroupsClient, RawGroupsClient
 
 
@@ -44,7 +44,7 @@ class GroupsClient:
         show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
         types: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedGroupList:
+    ) -> SyncPager[Group]:
         """
         Returns a list of `Group` objects.
 
@@ -100,7 +100,7 @@ class GroupsClient:
 
         Returns
         -------
-        PaginatedGroupList
+        SyncPager[Group]
 
 
         Examples
@@ -111,9 +111,14 @@ class GroupsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.groups.list()
+        response = client.hris.groups.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -131,7 +136,6 @@ class GroupsClient:
             types=types,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -227,7 +231,7 @@ class AsyncGroupsClient:
         show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
         types: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedGroupList:
+    ) -> AsyncPager[Group]:
         """
         Returns a list of `Group` objects.
 
@@ -283,7 +287,7 @@ class AsyncGroupsClient:
 
         Returns
         -------
-        PaginatedGroupList
+        AsyncPager[Group]
 
 
         Examples
@@ -299,12 +303,18 @@ class AsyncGroupsClient:
 
 
         async def main() -> None:
-            await client.hris.groups.list()
+            response = await client.hris.groups.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -322,7 +332,6 @@ class AsyncGroupsClient:
             types=types,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,

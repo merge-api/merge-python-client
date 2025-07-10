@@ -3,23 +3,23 @@
 # isort: skip_file
 
 from .types import (
-    TimeOffListRequestExpand,
+    TimeOffListRequestExpandItem,
     TimeOffListRequestRemoteFields,
     TimeOffListRequestRequestType,
     TimeOffListRequestShowEnumOrigins,
     TimeOffListRequestStatus,
-    TimeOffRetrieveRequestExpand,
+    TimeOffRetrieveRequestExpandItem,
     TimeOffRetrieveRequestRemoteFields,
     TimeOffRetrieveRequestShowEnumOrigins,
 )
 
 __all__ = [
-    "TimeOffListRequestExpand",
+    "TimeOffListRequestExpandItem",
     "TimeOffListRequestRemoteFields",
     "TimeOffListRequestRequestType",
     "TimeOffListRequestShowEnumOrigins",
     "TimeOffListRequestStatus",
-    "TimeOffRetrieveRequestExpand",
+    "TimeOffRetrieveRequestExpandItem",
     "TimeOffRetrieveRequestRemoteFields",
     "TimeOffRetrieveRequestShowEnumOrigins",
 ]

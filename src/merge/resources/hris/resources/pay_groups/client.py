@@ -4,8 +4,8 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
-from ...types.paginated_pay_group_list import PaginatedPayGroupList
 from ...types.pay_group import PayGroup
 from .raw_client import AsyncRawPayGroupsClient, RawPayGroupsClient
 
@@ -39,7 +39,7 @@ class PayGroupsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedPayGroupList:
+    ) -> SyncPager[PayGroup]:
         """
         Returns a list of `PayGroup` objects.
 
@@ -80,7 +80,7 @@ class PayGroupsClient:
 
         Returns
         -------
-        PaginatedPayGroupList
+        SyncPager[PayGroup]
 
 
         Examples
@@ -91,9 +91,14 @@ class PayGroupsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.pay_groups.list()
+        response = client.hris.pay_groups.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -106,7 +111,6 @@ class PayGroupsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -187,7 +191,7 @@ class AsyncPayGroupsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedPayGroupList:
+    ) -> AsyncPager[PayGroup]:
         """
         Returns a list of `PayGroup` objects.
 
@@ -228,7 +232,7 @@ class AsyncPayGroupsClient:
 
         Returns
         -------
-        PaginatedPayGroupList
+        AsyncPager[PayGroup]
 
 
         Examples
@@ -244,12 +248,18 @@ class AsyncPayGroupsClient:
 
 
         async def main() -> None:
-            await client.hris.pay_groups.list()
+            response = await client.hris.pay_groups.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -262,7 +272,6 @@ class AsyncPayGroupsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,

@@ -9,6 +9,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, BaseHttpResponse, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.activity import Activity
@@ -35,7 +36,7 @@ class RawActivitiesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["user"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -47,7 +48,7 @@ class RawActivitiesClient:
         show_enum_origins: typing.Optional[ActivitiesListRequestShowEnumOrigins] = None,
         user_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedActivityList]:
+    ) -> SyncPager[Activity]:
         """
         Returns a list of `Activity` objects.
 
@@ -62,7 +63,7 @@ class RawActivitiesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["user"]]
+        expand : typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -100,7 +101,7 @@ class RawActivitiesClient:
 
         Returns
         -------
-        HttpResponse[PaginatedActivityList]
+        SyncPager[Activity]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -126,14 +127,36 @@ class RawActivitiesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedActivityList,
                     construct_type(
                         type_=PaginatedActivityList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    remote_fields=remote_fields,
+                    remote_id=remote_id,
+                    show_enum_origins=show_enum_origins,
+                    user_id=user_id,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -207,7 +230,7 @@ class RawActivitiesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["user"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[ActivitiesRetrieveRequestRemoteFields] = None,
@@ -221,7 +244,7 @@ class RawActivitiesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["user"]]
+        expand : typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -318,7 +341,7 @@ class AsyncRawActivitiesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["user"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -330,7 +353,7 @@ class AsyncRawActivitiesClient:
         show_enum_origins: typing.Optional[ActivitiesListRequestShowEnumOrigins] = None,
         user_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedActivityList]:
+    ) -> AsyncPager[Activity]:
         """
         Returns a list of `Activity` objects.
 
@@ -345,7 +368,7 @@ class AsyncRawActivitiesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["user"]]
+        expand : typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -383,7 +406,7 @@ class AsyncRawActivitiesClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedActivityList]
+        AsyncPager[Activity]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -409,14 +432,39 @@ class AsyncRawActivitiesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedActivityList,
                     construct_type(
                         type_=PaginatedActivityList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        remote_fields=remote_fields,
+                        remote_id=remote_id,
+                        show_enum_origins=show_enum_origins,
+                        user_id=user_id,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -490,7 +538,7 @@ class AsyncRawActivitiesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["user"]] = None,
+        expand: typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[ActivitiesRetrieveRequestRemoteFields] = None,
@@ -504,7 +552,7 @@ class AsyncRawActivitiesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["user"]]
+        expand : typing.Optional[typing.Union[typing.Literal["user"], typing.Sequence[typing.Literal["user"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

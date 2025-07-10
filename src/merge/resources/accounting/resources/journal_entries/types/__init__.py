@@ -2,7 +2,7 @@
 
 # isort: skip_file
 
-from .journal_entries_list_request_expand import JournalEntriesListRequestExpand
-from .journal_entries_retrieve_request_expand import JournalEntriesRetrieveRequestExpand
+from .journal_entries_list_request_expand_item import JournalEntriesListRequestExpandItem
+from .journal_entries_retrieve_request_expand_item import JournalEntriesRetrieveRequestExpandItem
 
-__all__ = ["JournalEntriesListRequestExpand", "JournalEntriesRetrieveRequestExpand"]
+__all__ = ["JournalEntriesListRequestExpandItem", "JournalEntriesRetrieveRequestExpandItem"]

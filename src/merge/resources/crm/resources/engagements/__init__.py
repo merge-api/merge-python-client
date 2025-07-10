@@ -2,6 +2,6 @@
 
 # isort: skip_file
 
-from .types import EngagementsListRequestExpand, EngagementsRetrieveRequestExpand
+from .types import EngagementsListRequestExpandItem, EngagementsRetrieveRequestExpandItem
 
-__all__ = ["EngagementsListRequestExpand", "EngagementsRetrieveRequestExpand"]
+__all__ = ["EngagementsListRequestExpandItem", "EngagementsRetrieveRequestExpandItem"]

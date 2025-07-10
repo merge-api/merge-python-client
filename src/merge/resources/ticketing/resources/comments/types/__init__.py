@@ -2,7 +2,7 @@
 
 # isort: skip_file
 
-from .comments_list_request_expand import CommentsListRequestExpand
-from .comments_retrieve_request_expand import CommentsRetrieveRequestExpand
+from .comments_list_request_expand_item import CommentsListRequestExpandItem
+from .comments_retrieve_request_expand_item import CommentsRetrieveRequestExpandItem
 
-__all__ = ["CommentsListRequestExpand", "CommentsRetrieveRequestExpand"]
+__all__ = ["CommentsListRequestExpandItem", "CommentsRetrieveRequestExpandItem"]

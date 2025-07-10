@@ -4,11 +4,11 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.contact import Contact
 from ...types.contact_request import ContactRequest
 from ...types.meta_response import MetaResponse
-from ...types.paginated_contact_list import PaginatedContactList
 from ...types.ticketing_contact_response import TicketingContactResponse
 from .raw_client import AsyncRawContactsClient, RawContactsClient
 
@@ -37,7 +37,9 @@ class ContactsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["account"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["account"], typing.Sequence[typing.Literal["account"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -46,7 +48,7 @@ class ContactsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedContactList:
+    ) -> SyncPager[Contact]:
         """
         Returns a list of `Contact` objects.
 
@@ -61,7 +63,7 @@ class ContactsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["account"]]
+        expand : typing.Optional[typing.Union[typing.Literal["account"], typing.Sequence[typing.Literal["account"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -90,7 +92,7 @@ class ContactsClient:
 
         Returns
         -------
-        PaginatedContactList
+        SyncPager[Contact]
 
 
         Examples
@@ -101,9 +103,14 @@ class ContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.contacts.list()
+        response = client.ticketing.contacts.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -117,7 +124,6 @@ class ContactsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -170,7 +176,9 @@ class ContactsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["account"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["account"], typing.Sequence[typing.Literal["account"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -182,7 +190,7 @@ class ContactsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["account"]]
+        expand : typing.Optional[typing.Union[typing.Literal["account"], typing.Sequence[typing.Literal["account"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -269,7 +277,9 @@ class AsyncContactsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["account"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["account"], typing.Sequence[typing.Literal["account"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -278,7 +288,7 @@ class AsyncContactsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedContactList:
+    ) -> AsyncPager[Contact]:
         """
         Returns a list of `Contact` objects.
 
@@ -293,7 +303,7 @@ class AsyncContactsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["account"]]
+        expand : typing.Optional[typing.Union[typing.Literal["account"], typing.Sequence[typing.Literal["account"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -322,7 +332,7 @@ class AsyncContactsClient:
 
         Returns
         -------
-        PaginatedContactList
+        AsyncPager[Contact]
 
 
         Examples
@@ -338,12 +348,18 @@ class AsyncContactsClient:
 
 
         async def main() -> None:
-            await client.ticketing.contacts.list()
+            response = await client.ticketing.contacts.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -357,7 +373,6 @@ class AsyncContactsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -418,7 +433,9 @@ class AsyncContactsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["account"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["account"], typing.Sequence[typing.Literal["account"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -430,7 +447,7 @@ class AsyncContactsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["account"]]
+        expand : typing.Optional[typing.Union[typing.Literal["account"], typing.Sequence[typing.Literal["account"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

@@ -15,7 +15,6 @@ from .account_token import AccountToken
 from .activity import Activity
 from .activity_activity_type import ActivityActivityType
 from .activity_request import ActivityRequest
-from .activity_request_activity_type import ActivityRequestActivityType
 from .activity_request_user import ActivityRequestUser
 from .activity_request_visibility import ActivityRequestVisibility
 from .activity_response import ActivityResponse
@@ -95,6 +94,8 @@ from .field_mapping_instance_response import FieldMappingInstanceResponse
 from .field_permission_deserializer import FieldPermissionDeserializer
 from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
 from .gender_enum import GenderEnum
+from .ignore_common_model_request import IgnoreCommonModelRequest
+from .ignore_common_model_request_reason import IgnoreCommonModelRequestReason
 from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
 from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
 from .issue import Issue
@@ -236,7 +237,6 @@ __all__ = [
     "Activity",
     "ActivityActivityType",
     "ActivityRequest",
-    "ActivityRequestActivityType",
     "ActivityRequestUser",
     "ActivityRequestVisibility",
     "ActivityResponse",
@@ -314,6 +314,8 @@ __all__ = [
     "FieldPermissionDeserializer",
     "FieldPermissionDeserializerRequest",
     "GenderEnum",
+    "IgnoreCommonModelRequest",
+    "IgnoreCommonModelRequestReason",
     "IndividualCommonModelScopeDeserializer",
     "IndividualCommonModelScopeDeserializerRequest",
     "Issue",

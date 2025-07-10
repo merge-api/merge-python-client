@@ -3,19 +3,19 @@
 # isort: skip_file
 
 from .types import (
-    CreditNotesListRequestExpand,
+    CreditNotesListRequestExpandItem,
     CreditNotesListRequestRemoteFields,
     CreditNotesListRequestShowEnumOrigins,
-    CreditNotesRetrieveRequestExpand,
+    CreditNotesRetrieveRequestExpandItem,
     CreditNotesRetrieveRequestRemoteFields,
     CreditNotesRetrieveRequestShowEnumOrigins,
 )
 
 __all__ = [
-    "CreditNotesListRequestExpand",
+    "CreditNotesListRequestExpandItem",
     "CreditNotesListRequestRemoteFields",
     "CreditNotesListRequestShowEnumOrigins",
-    "CreditNotesRetrieveRequestExpand",
+    "CreditNotesRetrieveRequestExpandItem",
     "CreditNotesRetrieveRequestRemoteFields",
     "CreditNotesRetrieveRequestShowEnumOrigins",
 ]

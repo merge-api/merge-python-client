@@ -4,22 +4,20 @@
 
 from .types import (
     EmployeesListRequestEmploymentStatus,
-    EmployeesListRequestExpand,
+    EmployeesListRequestExpandItem,
     EmployeesListRequestRemoteFields,
     EmployeesListRequestShowEnumOrigins,
-    EmployeesRetrieveRequestExpand,
+    EmployeesRetrieveRequestExpandItem,
     EmployeesRetrieveRequestRemoteFields,
     EmployeesRetrieveRequestShowEnumOrigins,
-    IgnoreCommonModelRequestReason,
 )
 
 __all__ = [
     "EmployeesListRequestEmploymentStatus",
-    "EmployeesListRequestExpand",
+    "EmployeesListRequestExpandItem",
     "EmployeesListRequestRemoteFields",
     "EmployeesListRequestShowEnumOrigins",
-    "EmployeesRetrieveRequestExpand",
+    "EmployeesRetrieveRequestExpandItem",
     "EmployeesRetrieveRequestRemoteFields",
     "EmployeesRetrieveRequestShowEnumOrigins",
-    "IgnoreCommonModelRequestReason",
 ]

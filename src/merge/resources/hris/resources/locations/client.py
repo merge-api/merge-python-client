@@ -4,9 +4,9 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.location import Location
-from ...types.paginated_location_list import PaginatedLocationList
 from .raw_client import AsyncRawLocationsClient, RawLocationsClient
 from .types.locations_list_request_location_type import LocationsListRequestLocationType
 from .types.locations_list_request_remote_fields import LocationsListRequestRemoteFields
@@ -47,7 +47,7 @@ class LocationsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[LocationsListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedLocationList:
+    ) -> SyncPager[Location]:
         """
         Returns a list of `Location` objects.
 
@@ -100,7 +100,7 @@ class LocationsClient:
 
         Returns
         -------
-        PaginatedLocationList
+        SyncPager[Location]
 
 
         Examples
@@ -111,9 +111,14 @@ class LocationsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.locations.list()
+        response = client.hris.locations.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -129,7 +134,6 @@ class LocationsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -223,7 +227,7 @@ class AsyncLocationsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[LocationsListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedLocationList:
+    ) -> AsyncPager[Location]:
         """
         Returns a list of `Location` objects.
 
@@ -276,7 +280,7 @@ class AsyncLocationsClient:
 
         Returns
         -------
-        PaginatedLocationList
+        AsyncPager[Location]
 
 
         Examples
@@ -292,12 +296,18 @@ class AsyncLocationsClient:
 
 
         async def main() -> None:
-            await client.hris.locations.list()
+            response = await client.hris.locations.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -313,7 +323,6 @@ class AsyncLocationsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,

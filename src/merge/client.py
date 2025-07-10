@@ -8,7 +8,7 @@ from .environment import MergeEnvironment
 from .resources.accounting.client import AccountingClient, AsyncAccountingClient
 from .resources.ats.client import AsyncAtsClient, AtsClient
 from .resources.crm.client import AsyncCrmClient, CrmClient
-from .resources.filestorage.client import AsyncFilestorageClient, FilestorageClient
+from .resources.file_storage.client import AsyncFileStorageClient, FileStorageClient
 from .resources.hris.client import AsyncHrisClient, HrisClient
 from .resources.ticketing.client import AsyncTicketingClient, TicketingClient
 
@@ -83,11 +83,11 @@ class Merge:
             timeout=_defaulted_timeout,
         )
         self.ats = AtsClient(client_wrapper=self._client_wrapper)
+        self.accounting = AccountingClient(client_wrapper=self._client_wrapper)
         self.crm = CrmClient(client_wrapper=self._client_wrapper)
-        self.filestorage = FilestorageClient(client_wrapper=self._client_wrapper)
+        self.file_storage = FileStorageClient(client_wrapper=self._client_wrapper)
         self.hris = HrisClient(client_wrapper=self._client_wrapper)
         self.ticketing = TicketingClient(client_wrapper=self._client_wrapper)
-        self.accounting = AccountingClient(client_wrapper=self._client_wrapper)
 
 
 class AsyncMerge:
@@ -160,11 +160,11 @@ class AsyncMerge:
             timeout=_defaulted_timeout,
         )
         self.ats = AsyncAtsClient(client_wrapper=self._client_wrapper)
+        self.accounting = AsyncAccountingClient(client_wrapper=self._client_wrapper)
         self.crm = AsyncCrmClient(client_wrapper=self._client_wrapper)
-        self.filestorage = AsyncFilestorageClient(client_wrapper=self._client_wrapper)
+        self.file_storage = AsyncFileStorageClient(client_wrapper=self._client_wrapper)
         self.hris = AsyncHrisClient(client_wrapper=self._client_wrapper)
         self.ticketing = AsyncTicketingClient(client_wrapper=self._client_wrapper)
-        self.accounting = AsyncAccountingClient(client_wrapper=self._client_wrapper)
 
 
 def _get_base_url(*, base_url: typing.Optional[str] = None, environment: MergeEnvironment) -> str:

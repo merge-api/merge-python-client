@@ -4,12 +4,12 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.accounting_attachment import AccountingAttachment
 from ...types.accounting_attachment_request import AccountingAttachmentRequest
 from ...types.accounting_attachment_response import AccountingAttachmentResponse
 from ...types.meta_response import MetaResponse
-from ...types.paginated_accounting_attachment_list import PaginatedAccountingAttachmentList
 from .raw_client import AsyncRawAttachmentsClient, RawAttachmentsClient
 
 # this is used as the default value for optional parameters
@@ -46,7 +46,7 @@ class AttachmentsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAccountingAttachmentList:
+    ) -> SyncPager[AccountingAttachment]:
         """
         Returns a list of `AccountingAttachment` objects.
 
@@ -90,7 +90,7 @@ class AttachmentsClient:
 
         Returns
         -------
-        PaginatedAccountingAttachmentList
+        SyncPager[AccountingAttachment]
 
 
         Examples
@@ -101,9 +101,14 @@ class AttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.attachments.list()
+        response = client.accounting.attachments.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -117,7 +122,6 @@ class AttachmentsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -273,7 +277,7 @@ class AsyncAttachmentsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAccountingAttachmentList:
+    ) -> AsyncPager[AccountingAttachment]:
         """
         Returns a list of `AccountingAttachment` objects.
 
@@ -317,7 +321,7 @@ class AsyncAttachmentsClient:
 
         Returns
         -------
-        PaginatedAccountingAttachmentList
+        AsyncPager[AccountingAttachment]
 
 
         Examples
@@ -333,12 +337,18 @@ class AsyncAttachmentsClient:
 
 
         async def main() -> None:
-            await client.accounting.attachments.list()
+            response = await client.accounting.attachments.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -352,7 +362,6 @@ class AsyncAttachmentsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,

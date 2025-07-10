@@ -4,18 +4,18 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.meta_response import MetaResponse
 from ...types.opportunity import Opportunity
 from ...types.opportunity_request import OpportunityRequest
 from ...types.opportunity_response import OpportunityResponse
-from ...types.paginated_opportunity_list import PaginatedOpportunityList
-from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.patched_opportunity_request import PatchedOpportunityRequest
+from ...types.remote_field_class import RemoteFieldClass
 from .raw_client import AsyncRawOpportunitiesClient, RawOpportunitiesClient
-from .types.opportunities_list_request_expand import OpportunitiesListRequestExpand
+from .types.opportunities_list_request_expand_item import OpportunitiesListRequestExpandItem
 from .types.opportunities_list_request_status import OpportunitiesListRequestStatus
-from .types.opportunities_retrieve_request_expand import OpportunitiesRetrieveRequestExpand
+from .types.opportunities_retrieve_request_expand_item import OpportunitiesRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -43,7 +43,9 @@ class OpportunitiesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[OpportunitiesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -59,7 +61,7 @@ class OpportunitiesClient:
         stage_id: typing.Optional[str] = None,
         status: typing.Optional[OpportunitiesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedOpportunityList:
+    ) -> SyncPager[Opportunity]:
         """
         Returns a list of `Opportunity` objects.
 
@@ -77,7 +79,7 @@ class OpportunitiesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[OpportunitiesListRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -131,7 +133,7 @@ class OpportunitiesClient:
 
         Returns
         -------
-        PaginatedOpportunityList
+        SyncPager[Opportunity]
 
 
         Examples
@@ -142,9 +144,14 @@ class OpportunitiesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.opportunities.list()
+        response = client.crm.opportunities.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             account_id=account_id,
             created_after=created_after,
             created_before=created_before,
@@ -166,7 +173,6 @@ class OpportunitiesClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -219,7 +225,11 @@ class OpportunitiesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[OpportunitiesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -234,7 +244,7 @@ class OpportunitiesClient:
         ----------
         id : str
 
-        expand : typing.Optional[OpportunitiesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -405,7 +415,7 @@ class OpportunitiesClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -440,7 +450,7 @@ class OpportunitiesClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass]
 
 
         Examples
@@ -451,9 +461,14 @@ class OpportunitiesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.opportunities.remote_field_classes_list()
+        response = client.crm.opportunities.remote_field_classes_list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.remote_field_classes_list(
+        return self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -464,7 +479,6 @@ class OpportunitiesClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncOpportunitiesClient:
@@ -489,7 +503,9 @@ class AsyncOpportunitiesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[OpportunitiesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -505,7 +521,7 @@ class AsyncOpportunitiesClient:
         stage_id: typing.Optional[str] = None,
         status: typing.Optional[OpportunitiesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedOpportunityList:
+    ) -> AsyncPager[Opportunity]:
         """
         Returns a list of `Opportunity` objects.
 
@@ -523,7 +539,7 @@ class AsyncOpportunitiesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[OpportunitiesListRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -577,7 +593,7 @@ class AsyncOpportunitiesClient:
 
         Returns
         -------
-        PaginatedOpportunityList
+        AsyncPager[Opportunity]
 
 
         Examples
@@ -593,12 +609,18 @@ class AsyncOpportunitiesClient:
 
 
         async def main() -> None:
-            await client.crm.opportunities.list()
+            response = await client.crm.opportunities.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             account_id=account_id,
             created_after=created_after,
             created_before=created_before,
@@ -620,7 +642,6 @@ class AsyncOpportunitiesClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -681,7 +702,11 @@ class AsyncOpportunitiesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[OpportunitiesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -696,7 +721,7 @@ class AsyncOpportunitiesClient:
         ----------
         id : str
 
-        expand : typing.Optional[OpportunitiesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -901,7 +926,7 @@ class AsyncOpportunitiesClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -936,7 +961,7 @@ class AsyncOpportunitiesClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass]
 
 
         Examples
@@ -952,12 +977,18 @@ class AsyncOpportunitiesClient:
 
 
         async def main() -> None:
-            await client.crm.opportunities.remote_field_classes_list()
+            response = await client.crm.opportunities.remote_field_classes_list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.remote_field_classes_list(
+        return await self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -968,4 +999,3 @@ class AsyncOpportunitiesClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
