@@ -31,6 +31,9 @@ class ExternalTargetFieldApiResponse(UncheckedBaseModel):
     purchase_order: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(
         alias="PurchaseOrder", default=None
     )
+    expense_report: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(
+        alias="ExpenseReport", default=None
+    )
     tracking_category: typing.Optional[typing.List[ExternalTargetFieldApi]] = pydantic.Field(
         alias="TrackingCategory", default=None
     )

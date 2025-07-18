@@ -22,6 +22,7 @@ from . import (
     credit_notes,
     delete_account,
     employees,
+    expense_reports,
     expenses,
     field_mapping,
     force_resync,
@@ -67,6 +68,11 @@ from .credit_notes import (
     CreditNotesRetrieveRequestRemoteFields,
     CreditNotesRetrieveRequestShowEnumOrigins,
 )
+from .expense_reports import (
+    ExpenseReportsLinesListRequestExpand,
+    ExpenseReportsListRequestExpand,
+    ExpenseReportsRetrieveRequestExpand,
+)
 from .expenses import ExpensesListRequestExpand, ExpensesRetrieveRequestExpand
 from .general_ledger_transactions import (
     GeneralLedgerTransactionsListRequestExpand,
@@ -106,6 +112,9 @@ __all__ = [
     "CreditNotesRetrieveRequestRemoteFields",
     "CreditNotesRetrieveRequestShowEnumOrigins",
     "EndUserDetailsRequestLanguage",
+    "ExpenseReportsLinesListRequestExpand",
+    "ExpenseReportsListRequestExpand",
+    "ExpenseReportsRetrieveRequestExpand",
     "ExpensesListRequestExpand",
     "ExpensesRetrieveRequestExpand",
     "GeneralLedgerTransactionsListRequestExpand",
@@ -149,6 +158,7 @@ __all__ = [
     "credit_notes",
     "delete_account",
     "employees",
+    "expense_reports",
     "expenses",
     "field_mapping",
     "force_resync",

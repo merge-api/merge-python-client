@@ -12,6 +12,7 @@ from .item_purchase_tax_rate import ItemPurchaseTaxRate
 from .item_sales_account import ItemSalesAccount
 from .item_sales_tax_rate import ItemSalesTaxRate
 from .item_status import ItemStatus
+from .item_type import ItemType
 from .remote_data import RemoteData
 
 
@@ -52,6 +53,16 @@ class Item(UncheckedBaseModel):
     
     * `ACTIVE` - ACTIVE
     * `ARCHIVED` - ARCHIVED
+    """
+
+    type: typing.Optional[ItemType] = pydantic.Field(default=None)
+    """
+    The item's type.
+    
+    * `INVENTORY` - INVENTORY
+    * `NON_INVENTORY` - NON_INVENTORY
+    * `SERVICE` - SERVICE
+    * `UNKNOWN` - UNKNOWN
     """
 
     unit_price: typing.Optional[float] = pydantic.Field(default=None)

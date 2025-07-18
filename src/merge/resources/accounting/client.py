@@ -24,6 +24,7 @@ from .resources.contacts.client import AsyncContactsClient, ContactsClient
 from .resources.credit_notes.client import AsyncCreditNotesClient, CreditNotesClient
 from .resources.delete_account.client import AsyncDeleteAccountClient, DeleteAccountClient
 from .resources.employees.client import AsyncEmployeesClient, EmployeesClient
+from .resources.expense_reports.client import AsyncExpenseReportsClient, ExpenseReportsClient
 from .resources.expenses.client import AsyncExpensesClient, ExpensesClient
 from .resources.field_mapping.client import AsyncFieldMappingClient, FieldMappingClient
 from .resources.force_resync.client import AsyncForceResyncClient, ForceResyncClient
@@ -103,6 +104,8 @@ class AccountingClient:
         self.delete_account = DeleteAccountClient(client_wrapper=client_wrapper)
 
         self.employees = EmployeesClient(client_wrapper=client_wrapper)
+
+        self.expense_reports = ExpenseReportsClient(client_wrapper=client_wrapper)
 
         self.expenses = ExpensesClient(client_wrapper=client_wrapper)
 
@@ -210,6 +213,8 @@ class AsyncAccountingClient:
         self.delete_account = AsyncDeleteAccountClient(client_wrapper=client_wrapper)
 
         self.employees = AsyncEmployeesClient(client_wrapper=client_wrapper)
+
+        self.expense_reports = AsyncExpenseReportsClient(client_wrapper=client_wrapper)
 
         self.expenses = AsyncExpensesClient(client_wrapper=client_wrapper)
 

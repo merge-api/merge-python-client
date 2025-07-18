@@ -162,6 +162,29 @@ from .expense_line_request_tracking_categories_item import ExpenseLineRequestTra
 from .expense_line_request_tracking_category import ExpenseLineRequestTrackingCategory
 from .expense_line_tracking_categories_item import ExpenseLineTrackingCategoriesItem
 from .expense_line_tracking_category import ExpenseLineTrackingCategory
+from .expense_report import ExpenseReport
+from .expense_report_company import ExpenseReportCompany
+from .expense_report_line import ExpenseReportLine
+from .expense_report_line_account import ExpenseReportLineAccount
+from .expense_report_line_company import ExpenseReportLineCompany
+from .expense_report_line_contact import ExpenseReportLineContact
+from .expense_report_line_employee import ExpenseReportLineEmployee
+from .expense_report_line_project import ExpenseReportLineProject
+from .expense_report_line_request import ExpenseReportLineRequest
+from .expense_report_line_request_account import ExpenseReportLineRequestAccount
+from .expense_report_line_request_company import ExpenseReportLineRequestCompany
+from .expense_report_line_request_contact import ExpenseReportLineRequestContact
+from .expense_report_line_request_employee import ExpenseReportLineRequestEmployee
+from .expense_report_line_request_project import ExpenseReportLineRequestProject
+from .expense_report_line_request_tax_rate import ExpenseReportLineRequestTaxRate
+from .expense_report_line_tax_rate import ExpenseReportLineTaxRate
+from .expense_report_request import ExpenseReportRequest
+from .expense_report_request_accounting_period import ExpenseReportRequestAccountingPeriod
+from .expense_report_request_company import ExpenseReportRequestCompany
+from .expense_report_request_employee import ExpenseReportRequestEmployee
+from .expense_report_response import ExpenseReportResponse
+from .expense_report_status import ExpenseReportStatus
+from .expense_report_status_enum import ExpenseReportStatusEnum
 from .expense_request import ExpenseRequest
 from .expense_request_account import ExpenseRequestAccount
 from .expense_request_accounting_period import ExpenseRequestAccountingPeriod
@@ -278,6 +301,7 @@ from .item_sales_account import ItemSalesAccount
 from .item_sales_tax_rate import ItemSalesTaxRate
 from .item_schema import ItemSchema
 from .item_status import ItemStatus
+from .item_type import ItemType
 from .item_type_enum import ItemTypeEnum
 from .journal_entry import JournalEntry
 from .journal_entry_accounting_period import JournalEntryAccountingPeriod
@@ -332,6 +356,8 @@ from .paginated_contact_list import PaginatedContactList
 from .paginated_credit_note_list import PaginatedCreditNoteList
 from .paginated_employee_list import PaginatedEmployeeList
 from .paginated_expense_list import PaginatedExpenseList
+from .paginated_expense_report_line_list import PaginatedExpenseReportLineList
+from .paginated_expense_report_list import PaginatedExpenseReportList
 from .paginated_general_ledger_transaction_list import PaginatedGeneralLedgerTransactionList
 from .paginated_income_statement_list import PaginatedIncomeStatementList
 from .paginated_invoice_list import PaginatedInvoiceList
@@ -657,6 +683,29 @@ __all__ = [
     "ExpenseLineRequestTrackingCategory",
     "ExpenseLineTrackingCategoriesItem",
     "ExpenseLineTrackingCategory",
+    "ExpenseReport",
+    "ExpenseReportCompany",
+    "ExpenseReportLine",
+    "ExpenseReportLineAccount",
+    "ExpenseReportLineCompany",
+    "ExpenseReportLineContact",
+    "ExpenseReportLineEmployee",
+    "ExpenseReportLineProject",
+    "ExpenseReportLineRequest",
+    "ExpenseReportLineRequestAccount",
+    "ExpenseReportLineRequestCompany",
+    "ExpenseReportLineRequestContact",
+    "ExpenseReportLineRequestEmployee",
+    "ExpenseReportLineRequestProject",
+    "ExpenseReportLineRequestTaxRate",
+    "ExpenseReportLineTaxRate",
+    "ExpenseReportRequest",
+    "ExpenseReportRequestAccountingPeriod",
+    "ExpenseReportRequestCompany",
+    "ExpenseReportRequestEmployee",
+    "ExpenseReportResponse",
+    "ExpenseReportStatus",
+    "ExpenseReportStatusEnum",
     "ExpenseRequest",
     "ExpenseRequestAccount",
     "ExpenseRequestAccountingPeriod",
@@ -769,6 +818,7 @@ __all__ = [
     "ItemSalesTaxRate",
     "ItemSchema",
     "ItemStatus",
+    "ItemType",
     "ItemTypeEnum",
     "JournalEntry",
     "JournalEntryAccountingPeriod",
@@ -823,6 +873,8 @@ __all__ = [
     "PaginatedCreditNoteList",
     "PaginatedEmployeeList",
     "PaginatedExpenseList",
+    "PaginatedExpenseReportLineList",
+    "PaginatedExpenseReportList",
     "PaginatedGeneralLedgerTransactionList",
     "PaginatedIncomeStatementList",
     "PaginatedInvoiceList",
