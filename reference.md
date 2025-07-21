@@ -40598,6 +40598,30 @@ client.accounting.employees.list()
 <dl>
 <dd>
 
+**company_id:** `typing.Optional[str]` — If provided, will only return employees for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **cursor:** `typing.Optional[str]` — The pagination cursor value.
     
 </dd>
@@ -40638,7 +40662,31 @@ client.accounting.employees.list()
 <dl>
 <dd>
 
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **page_size:** `typing.Optional[int]` — Number of results to return per page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
     
 </dd>
 </dl>
@@ -40734,6 +40782,790 @@ client.accounting.employees.retrieve(
 <dd>
 
 **include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting ExpenseReports
+<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `ExpenseReport` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.expense_reports.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return expense reports for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[ExpenseReportsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates an `ExpenseReport` object with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import ExpenseReportRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.expense_reports.create(
+    model=ExpenseReportRequest(
+        tracking_categories=[
+            "a1b2c3d4-e5f6-4a5b-9c3d-2e1f0a9b8c7d",
+            "d4c3b2a1-9e8f-7g6h-5i4j-3k2l1m0n9o8p",
+        ],
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**model:** `ExpenseReportRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">lines_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `ExpenseReportLine` objects that point to a `ExpenseReport` with the given id.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.expense_reports.lines_list(
+    expense_report_id="expense_report_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**expense_report_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[ExpenseReportsLinesListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns an `ExpenseReport` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.expense_reports.retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[ExpenseReportsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">lines_remote_field_classes_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `RemoteFieldClass` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.expense_reports.lines_remote_field_classes_list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">meta_post_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `ExpenseReport` POSTs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.expense_reports.meta_post_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">remote_field_classes_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `RemoteFieldClass` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.expense_reports.remote_field_classes_list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page.
     
 </dd>
 </dl>
@@ -46769,6 +47601,30 @@ client.accounting.projects.list()
 <dl>
 <dd>
 
+**company_id:** `typing.Optional[str]` — If provided, will only return projects for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **cursor:** `typing.Optional[str]` — The pagination cursor value.
     
 </dd>
@@ -46809,7 +47665,31 @@ client.accounting.projects.list()
 <dl>
 <dd>
 
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **page_size:** `typing.Optional[int]` — Number of results to return per page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
     
 </dd>
 </dl>
