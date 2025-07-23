@@ -8,3 +8,6 @@ LICENSE.md
 
 # Files that avoid breaking changes due to renames.
 src/merge/resources/accounting/types/currency_enum.py
+
+# File that encodes enum query params as comma separated lists by default
+src/merge/core/query_encoder.py
