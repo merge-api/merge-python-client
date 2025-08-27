@@ -2,7 +2,7 @@
 
 # isort: skip_file
 
-from .resources import accounting, ats, crm, filestorage, hris, ticketing
+from .resources import accounting, ats, communication, crm, filestorage, hris, knowledgebase, ticketing
 from .client import AsyncMerge, Merge
 from .environment import MergeEnvironment
 from .version import __version__
@@ -14,8 +14,10 @@ __all__ = [
     "__version__",
     "accounting",
     "ats",
+    "communication",
     "crm",
     "filestorage",
     "hris",
+    "knowledgebase",
     "ticketing",
 ]

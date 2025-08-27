@@ -7,9 +7,11 @@ from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .environment import MergeEnvironment
 from .resources.accounting.client import AccountingClient, AsyncAccountingClient
 from .resources.ats.client import AsyncAtsClient, AtsClient
+from .resources.communication.client import AsyncCommunicationClient, CommunicationClient
 from .resources.crm.client import AsyncCrmClient, CrmClient
 from .resources.filestorage.client import AsyncFilestorageClient, FilestorageClient
 from .resources.hris.client import AsyncHrisClient, HrisClient
+from .resources.knowledgebase.client import AsyncKnowledgebaseClient, KnowledgebaseClient
 from .resources.ticketing.client import AsyncTicketingClient, TicketingClient
 
 
@@ -82,11 +84,13 @@ class Merge:
             else httpx.Client(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
-        self.ats = AtsClient(client_wrapper=self._client_wrapper)
+        self.communication = CommunicationClient(client_wrapper=self._client_wrapper)
         self.crm = CrmClient(client_wrapper=self._client_wrapper)
         self.filestorage = FilestorageClient(client_wrapper=self._client_wrapper)
         self.hris = HrisClient(client_wrapper=self._client_wrapper)
+        self.knowledgebase = KnowledgebaseClient(client_wrapper=self._client_wrapper)
         self.ticketing = TicketingClient(client_wrapper=self._client_wrapper)
+        self.ats = AtsClient(client_wrapper=self._client_wrapper)
         self.accounting = AccountingClient(client_wrapper=self._client_wrapper)
 
 
@@ -159,11 +163,13 @@ class AsyncMerge:
             else httpx.AsyncClient(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
-        self.ats = AsyncAtsClient(client_wrapper=self._client_wrapper)
+        self.communication = AsyncCommunicationClient(client_wrapper=self._client_wrapper)
         self.crm = AsyncCrmClient(client_wrapper=self._client_wrapper)
         self.filestorage = AsyncFilestorageClient(client_wrapper=self._client_wrapper)
         self.hris = AsyncHrisClient(client_wrapper=self._client_wrapper)
+        self.knowledgebase = AsyncKnowledgebaseClient(client_wrapper=self._client_wrapper)
         self.ticketing = AsyncTicketingClient(client_wrapper=self._client_wrapper)
+        self.ats = AsyncAtsClient(client_wrapper=self._client_wrapper)
         self.accounting = AsyncAccountingClient(client_wrapper=self._client_wrapper)
 
 
