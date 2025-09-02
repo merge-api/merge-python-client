@@ -9,7 +9,7 @@ from ....core.unchecked_base_model import UncheckedBaseModel
 from .expense_report_request_accounting_period import ExpenseReportRequestAccountingPeriod
 from .expense_report_request_company import ExpenseReportRequestCompany
 from .expense_report_request_employee import ExpenseReportRequestEmployee
-from .expense_report_status_enum import ExpenseReportStatusEnum
+from .expense_report_request_status import ExpenseReportRequestStatus
 from .remote_field_request import RemoteFieldRequest
 from .transaction_currency_enum import TransactionCurrencyEnum
 
@@ -40,7 +40,7 @@ class ExpenseReportRequest(UncheckedBaseModel):
     Identifier for the employee who submitted or is associated with the expense report
     """
 
-    status: typing.Optional[ExpenseReportStatusEnum] = pydantic.Field(default=None)
+    status: typing.Optional[ExpenseReportRequestStatus] = pydantic.Field(default=None)
     """
     Overall status of the expense report. One of DRAFT, SUBMITTED, APPROVED, REJECTED
     

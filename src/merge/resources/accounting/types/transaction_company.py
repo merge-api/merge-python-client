@@ -4,4 +4,4 @@ import typing
 
 from .company_info import CompanyInfo
 
-PatchedPaymentRequestCompany = typing.Union[str, CompanyInfo]
+TransactionCompany = typing.Union[str, CompanyInfo]

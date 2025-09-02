@@ -115,7 +115,9 @@ class AccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.accounts.list()
+        client.crm.accounts.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             created_after=created_after,
@@ -409,7 +411,9 @@ class AccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.accounts.remote_field_classes_list()
+        client.crm.accounts.remote_field_classes_list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.remote_field_classes_list(
             cursor=cursor,
@@ -527,7 +531,9 @@ class AsyncAccountsClient:
 
 
         async def main() -> None:
-            await client.crm.accounts.list()
+            await client.crm.accounts.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
@@ -871,7 +877,9 @@ class AsyncAccountsClient:
 
 
         async def main() -> None:
-            await client.crm.accounts.remote_field_classes_list()
+            await client.crm.accounts.remote_field_classes_list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

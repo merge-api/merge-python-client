@@ -9,7 +9,6 @@ from ....core.unchecked_base_model import UncheckedBaseModel
 from .patched_payment_request_account import PatchedPaymentRequestAccount
 from .patched_payment_request_accounting_period import PatchedPaymentRequestAccountingPeriod
 from .patched_payment_request_applied_to_lines_item import PatchedPaymentRequestAppliedToLinesItem
-from .patched_payment_request_company import PatchedPaymentRequestCompany
 from .patched_payment_request_contact import PatchedPaymentRequestContact
 from .patched_payment_request_currency import PatchedPaymentRequestCurrency
 from .patched_payment_request_payment_method import PatchedPaymentRequestPaymentMethod
@@ -365,7 +364,7 @@ class PatchedPaymentRequest(UncheckedBaseModel):
     The payment's exchange rate.
     """
 
-    company: typing.Optional[PatchedPaymentRequestCompany] = pydantic.Field(default=None)
+    company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company the payment belongs to.
     """

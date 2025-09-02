@@ -201,7 +201,9 @@ class TicketsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.tickets.list()
+        client.ticketing.tickets.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             account_id=account_id,
@@ -462,6 +464,7 @@ class TicketsClient:
         )
         client.ticketing.tickets.viewers_list(
             ticket_id="ticket_id",
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
         )
         """
         _response = self._raw_client.viewers_list(
@@ -606,7 +609,9 @@ class TicketsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.tickets.remote_field_classes_list()
+        client.ticketing.tickets.remote_field_classes_list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.remote_field_classes_list(
             cursor=cursor,
@@ -801,7 +806,9 @@ class AsyncTicketsClient:
 
 
         async def main() -> None:
-            await client.ticketing.tickets.list()
+            await client.ticketing.tickets.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
@@ -1094,6 +1101,7 @@ class AsyncTicketsClient:
         async def main() -> None:
             await client.ticketing.tickets.viewers_list(
                 ticket_id="ticket_id",
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             )
 
 
@@ -1264,7 +1272,9 @@ class AsyncTicketsClient:
 
 
         async def main() -> None:
-            await client.ticketing.tickets.remote_field_classes_list()
+            await client.ticketing.tickets.remote_field_classes_list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

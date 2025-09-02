@@ -6,6 +6,7 @@ from .account_details import AccountDetails
 from .account_details_and_actions import AccountDetailsAndActions
 from .account_details_and_actions_category import AccountDetailsAndActionsCategory
 from .account_details_and_actions_integration import AccountDetailsAndActionsIntegration
+from .account_details_and_actions_status import AccountDetailsAndActionsStatus
 from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
 from .account_details_category import AccountDetailsCategory
 from .account_integration import AccountIntegration
@@ -172,6 +173,7 @@ from .selective_sync_configurations_usage_enum import SelectiveSyncConfiguration
 from .status_fd_5_enum import StatusFd5Enum
 from .sync_status import SyncStatus
 from .sync_status_last_sync_result import SyncStatusLastSyncResult
+from .sync_status_status import SyncStatusStatus
 from .tax import Tax
 from .team import Team
 from .team_parent_team import TeamParentTeam
@@ -207,6 +209,7 @@ __all__ = [
     "AccountDetailsAndActions",
     "AccountDetailsAndActionsCategory",
     "AccountDetailsAndActionsIntegration",
+    "AccountDetailsAndActionsStatus",
     "AccountDetailsAndActionsStatusEnum",
     "AccountDetailsCategory",
     "AccountIntegration",
@@ -371,6 +374,7 @@ __all__ = [
     "StatusFd5Enum",
     "SyncStatus",
     "SyncStatusLastSyncResult",
+    "SyncStatusStatus",
     "Tax",
     "Team",
     "TeamParentTeam",

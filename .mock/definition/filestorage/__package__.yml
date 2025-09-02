@@ -48,6 +48,22 @@ types:
         docs: The time at which account completes the linking flow.
     source:
       openapi: openapi/openapi.yml
+  AccountDetailsAndActionsCategory:
+    discriminated: false
+    union:
+      - CategoryEnum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
+  AccountDetailsAndActionsStatus:
+    discriminated: false
+    union:
+      - AccountDetailsAndActionsStatusEnum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   AccountDetailsAndActions:
     docs: >-
       # The LinkedAccount Object
@@ -63,8 +79,8 @@ types:
       View a list of your organization's `LinkedAccount` objects.
     properties:
       id: string
-      category: optional<CategoryEnum>
-      status: AccountDetailsAndActionsStatusEnum
+      category: optional<AccountDetailsAndActionsCategory>
+      status: AccountDetailsAndActionsStatus
       status_detail: optional<string>
       end_user_origin_id: optional<string>
       end_user_organization_name: string
@@ -2243,6 +2259,14 @@ types:
     source:
       openapi: openapi/openapi.yml
     inline: true
+  SyncStatusStatus:
+    discriminated: false
+    union:
+      - StatusFd5Enum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   SyncStatus:
     docs: >-
       # The SyncStatus Object
@@ -2264,7 +2288,7 @@ types:
       next_sync_start: optional<datetime>
       last_sync_result: optional<SyncStatusLastSyncResult>
       last_sync_finished: optional<datetime>
-      status: StatusFd5Enum
+      status: SyncStatusStatus
       is_initial_sync: boolean
       selective_sync_configurations_usage: optional<SelectiveSyncConfigurationsUsageEnum>
     source:

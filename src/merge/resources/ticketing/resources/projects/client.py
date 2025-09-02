@@ -93,7 +93,9 @@ class ProjectsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.projects.list()
+        client.ticketing.projects.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             created_after=created_after,
@@ -214,6 +216,7 @@ class ProjectsClient:
         )
         client.ticketing.projects.users_list(
             parent_id="parent_id",
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
         )
         """
         _response = self._raw_client.users_list(
@@ -315,7 +318,9 @@ class AsyncProjectsClient:
 
 
         async def main() -> None:
-            await client.ticketing.projects.list()
+            await client.ticketing.projects.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
@@ -452,6 +457,7 @@ class AsyncProjectsClient:
         async def main() -> None:
             await client.ticketing.projects.users_list(
                 parent_id="parent_id",
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             )
 
 

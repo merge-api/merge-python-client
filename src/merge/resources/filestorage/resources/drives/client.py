@@ -95,7 +95,9 @@ class DrivesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.drives.list()
+        client.filestorage.drives.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             created_after=created_after,
@@ -253,7 +255,9 @@ class AsyncDrivesClient:
 
 
         async def main() -> None:
-            await client.filestorage.drives.list()
+            await client.filestorage.drives.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

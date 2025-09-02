@@ -117,7 +117,9 @@ class ScorecardsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.scorecards.list()
+        client.ats.scorecards.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             application_id=application_id,
@@ -315,7 +317,9 @@ class AsyncScorecardsClient:
 
 
         async def main() -> None:
-            await client.ats.scorecards.list()
+            await client.ats.scorecards.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

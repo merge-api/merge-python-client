@@ -133,6 +133,7 @@ from .selective_sync_configurations_usage_enum import SelectiveSyncConfiguration
 from .status_fd_5_enum import StatusFd5Enum
 from .sync_status import SyncStatus
 from .sync_status_last_sync_result import SyncStatusLastSyncResult
+from .sync_status_status import SyncStatusStatus
 from .tag import Tag
 from .team import Team
 from .ticket import Ticket
@@ -306,6 +307,7 @@ __all__ = [
     "StatusFd5Enum",
     "SyncStatus",
     "SyncStatusLastSyncResult",
+    "SyncStatusStatus",
     "Tag",
     "Team",
     "Ticket",

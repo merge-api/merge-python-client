@@ -119,7 +119,9 @@ class TrackingCategoriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.tracking_categories.list()
+        client.accounting.tracking_categories.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             category_type=category_type,
@@ -322,7 +324,9 @@ class AsyncTrackingCategoriesClient:
 
 
         async def main() -> None:
-            await client.accounting.tracking_categories.list()
+            await client.accounting.tracking_categories.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

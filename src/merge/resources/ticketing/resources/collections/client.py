@@ -113,7 +113,9 @@ class CollectionsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.collections.list()
+        client.ticketing.collections.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             collection_type=collection_type,
@@ -190,6 +192,7 @@ class CollectionsClient:
         )
         client.ticketing.collections.viewers_list(
             collection_id="collection_id",
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
         )
         """
         _response = self._raw_client.viewers_list(
@@ -375,7 +378,9 @@ class AsyncCollectionsClient:
 
 
         async def main() -> None:
-            await client.ticketing.collections.list()
+            await client.ticketing.collections.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
@@ -460,6 +465,7 @@ class AsyncCollectionsClient:
         async def main() -> None:
             await client.ticketing.collections.viewers_list(
                 collection_id="collection_id",
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             )
 
 
