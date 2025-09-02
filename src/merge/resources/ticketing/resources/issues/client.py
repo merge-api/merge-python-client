@@ -108,7 +108,9 @@ class IssuesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.issues.list()
+        client.ticketing.issues.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             account_token=account_token,
@@ -263,7 +265,9 @@ class AsyncIssuesClient:
 
 
         async def main() -> None:
-            await client.ticketing.issues.list()
+            await client.ticketing.issues.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

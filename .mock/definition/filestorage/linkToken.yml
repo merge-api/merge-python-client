@@ -1,5 +1,22 @@
 imports:
   root: __package__.yml
+types:
+  EndUserDetailsRequestLanguage:
+    discriminated: false
+    docs: >-
+      The following subset of IETF language tags can be used to configure
+      localization.
+
+
+      * `en` - en
+
+      * `de` - de
+    union:
+      - root.LanguageEnum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
 service:
   auth: false
   base-path: ''
@@ -93,7 +110,7 @@ service:
                 linked. Any model or field not specified in link token payload
                 will default to existing settings.
             language:
-              type: optional<root.LanguageEnum>
+              type: optional<EndUserDetailsRequestLanguage>
               docs: >-
                 The following subset of IETF language tags can be used to
                 configure localization.
@@ -119,7 +136,9 @@ service:
         type: root.LinkToken
         status-code: 200
       examples:
-        - request:
+        - headers:
+            X-Account-Token: '[object Object]'
+          request:
             end_user_email_address: example@gmail.com
             end_user_organization_name: Test Organization
             end_user_origin_id: '12345'

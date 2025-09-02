@@ -57,7 +57,9 @@ class SyncStatusClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.sync_status.list()
+        client.ats.sync_status.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(cursor=cursor, page_size=page_size, request_options=request_options)
         return _response.data
@@ -117,7 +119,9 @@ class AsyncSyncStatusClient:
 
 
         async def main() -> None:
-            await client.ats.sync_status.list()
+            await client.ats.sync_status.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

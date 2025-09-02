@@ -115,7 +115,9 @@ class FoldersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.folders.list()
+        client.filestorage.folders.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             created_after=created_after,
@@ -367,7 +369,9 @@ class AsyncFoldersClient:
 
 
         async def main() -> None:
-            await client.filestorage.folders.list()
+            await client.filestorage.folders.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

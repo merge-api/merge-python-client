@@ -162,7 +162,9 @@ class TimeOffClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.time_off.list()
+        client.hris.time_off.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             approver_id=approver_id,
@@ -472,7 +474,9 @@ class AsyncTimeOffClient:
 
 
         async def main() -> None:
-            await client.hris.time_off.list()
+            await client.hris.time_off.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

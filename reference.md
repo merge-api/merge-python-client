@@ -167,7 +167,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.activities.list()
+client.ats.activities.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -610,7 +612,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.applications.list()
+client.ats.applications.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -1322,7 +1326,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.attachments.list()
+client.ats.attachments.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -1765,7 +1771,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.audit_trail.list()
+client.ats.audit_trail.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -1937,7 +1945,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.candidates.list()
+client.ats.candidates.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -2923,7 +2933,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.departments.list()
+client.ats.departments.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -3152,7 +3164,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.eeocs.list()
+client.ats.eeocs.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -4007,7 +4021,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.interviews.list()
+client.ats.interviews.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -4474,7 +4490,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.issues.list()
+client.ats.issues.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -4724,7 +4742,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.job_interview_stages.list()
+client.ats.job_interview_stages.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -4977,7 +4997,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.job_postings.list()
+client.ats.job_postings.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -5238,7 +5260,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.jobs.list()
+client.ats.jobs.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -5548,6 +5572,7 @@ client = Merge(
 )
 client.ats.jobs.screening_questions_list(
     job_id="job_id",
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
 )
 
 ```
@@ -5850,7 +5875,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.linked_accounts.list()
+client.ats.linked_accounts.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -6026,7 +6053,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.offers.list()
+client.ats.offers.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -6319,7 +6348,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.offices.list()
+client.ats.offices.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -6696,7 +6727,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.reject_reasons.list()
+client.ats.reject_reasons.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -6925,7 +6958,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.scorecards.list()
+client.ats.scorecards.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -7226,7 +7261,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.sync_status.list()
+client.ats.sync_status.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -7366,7 +7403,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.tags.list()
+client.ats.tags.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -7508,7 +7547,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.users.list()
+client.ats.users.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -8061,7 +8102,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.accounts.list()
+client.crm.accounts.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -8654,7 +8697,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.accounts.remote_field_classes_list()
+client.crm.accounts.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -8927,7 +8972,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.audit_trail.list()
+client.crm.audit_trail.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -9099,7 +9146,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.contacts.list()
+client.crm.contacts.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -9783,7 +9832,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.contacts.remote_field_classes_list()
+client.crm.contacts.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -9909,7 +9960,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.custom_object_classes.list()
+client.crm.custom_object_classes.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -10156,6 +10209,7 @@ client = Merge(
 )
 client.crm.association_types.custom_object_classes_association_types_list(
     custom_object_class_id="custom_object_class_id",
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
 )
 
 ```
@@ -10604,6 +10658,7 @@ client = Merge(
 )
 client.crm.custom_objects.custom_object_classes_custom_objects_list(
     custom_object_class_id="custom_object_class_id",
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
 )
 
 ```
@@ -11035,7 +11090,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.custom_objects.custom_object_classes_custom_objects_remote_field_classes_list()
+client.crm.custom_objects.custom_object_classes_custom_objects_remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -11164,6 +11221,7 @@ client = Merge(
 client.crm.associations.custom_object_classes_custom_objects_associations_list(
     custom_object_class_id="custom_object_class_id",
     object_id="object_id",
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
 )
 
 ```
@@ -11746,7 +11804,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.engagement_types.list()
+client.crm.engagement_types.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -11990,7 +12050,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.engagement_types.remote_field_classes_list()
+client.crm.engagement_types.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -12116,7 +12178,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.engagements.list()
+client.crm.engagements.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -12709,7 +12773,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.engagements.remote_field_classes_list()
+client.crm.engagements.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -13405,7 +13471,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.issues.list()
+client.crm.issues.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -13655,7 +13723,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.leads.list()
+client.crm.leads.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -14104,7 +14174,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.leads.remote_field_classes_list()
+client.crm.leads.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -14414,7 +14486,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.linked_accounts.list()
+client.crm.linked_accounts.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -14590,7 +14664,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.notes.list()
+client.crm.notes.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -15031,7 +15107,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.notes.remote_field_classes_list()
+client.crm.notes.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -15157,7 +15235,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.opportunities.list()
+client.crm.opportunities.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -15812,7 +15892,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.opportunities.remote_field_classes_list()
+client.crm.opportunities.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -16086,7 +16168,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.stages.list()
+client.crm.stages.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -16330,7 +16414,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.stages.remote_field_classes_list()
+client.crm.stages.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -16456,7 +16542,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.sync_status.list()
+client.crm.sync_status.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -16596,7 +16684,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.tasks.list()
+client.crm.tasks.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -17173,7 +17263,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.tasks.remote_field_classes_list()
+client.crm.tasks.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -17299,7 +17391,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.users.list()
+client.crm.users.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -17634,7 +17728,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.users.remote_field_classes_list()
+client.crm.users.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -18191,7 +18287,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.audit_trail.list()
+client.filestorage.audit_trail.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -18648,7 +18746,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.drives.list()
+client.filestorage.drives.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -19383,7 +19483,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.files.list()
+client.filestorage.files.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -19834,7 +19936,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.files.download_request_meta_list()
+client.filestorage.files.download_request_meta_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -20029,7 +20133,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.folders.list()
+client.filestorage.folders.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -20519,7 +20625,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.groups.list()
+client.filestorage.groups.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -20764,7 +20872,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.issues.list()
+client.filestorage.issues.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -21123,7 +21233,7 @@ client.filestorage.link_token.create(
 <dl>
 <dd>
 
-**language:** `typing.Optional[LanguageEnum]` 
+**language:** `typing.Optional[EndUserDetailsRequestLanguage]` 
 
 The following subset of IETF language tags can be used to configure localization.
 
@@ -21198,7 +21308,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.linked_accounts.list()
+client.filestorage.linked_accounts.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -21522,7 +21634,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.sync_status.list()
+client.filestorage.sync_status.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -21662,7 +21776,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.users.list()
+client.filestorage.users.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -22330,7 +22446,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.audit_trail.list()
+client.hris.audit_trail.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -22502,7 +22620,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.bank_info.list()
+client.hris.bank_info.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -22816,7 +22936,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.benefits.list()
+client.hris.benefits.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -23069,7 +23191,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.companies.list()
+client.hris.companies.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -23583,7 +23707,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.dependents.list()
+client.hris.dependents.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -23828,7 +23954,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.employee_payroll_runs.list()
+client.hris.employee_payroll_runs.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -24121,7 +24249,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.employees.list()
+client.hris.employees.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -24810,7 +24940,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.employer_benefits.list()
+client.hris.employer_benefits.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -25039,7 +25171,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.employments.list()
+client.hris.employments.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -25902,7 +26036,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.groups.list()
+client.hris.groups.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -26187,7 +26323,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.issues.list()
+client.hris.issues.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -26621,7 +26759,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.linked_accounts.list()
+client.hris.linked_accounts.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -26797,7 +26937,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.locations.list()
+client.hris.locations.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -27147,7 +27289,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.pay_groups.list()
+client.hris.pay_groups.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -27376,7 +27520,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.payroll_runs.list()
+client.hris.payroll_runs.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -27757,7 +27903,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.sync_status.list()
+client.hris.sync_status.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -27897,7 +28045,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.teams.list()
+client.hris.teams.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -28150,7 +28300,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.time_off.list()
+client.hris.time_off.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -28657,7 +28809,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.time_off_balances.list()
+client.hris.time_off_balances.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -28959,7 +29113,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.timesheet_entries.list()
+client.hris.timesheet_entries.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -29685,7 +29841,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.accounts.list()
+client.ticketing.accounts.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -30061,7 +30219,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.attachments.list()
+client.ticketing.attachments.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -30471,7 +30631,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.audit_trail.list()
+client.ticketing.audit_trail.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -30643,7 +30805,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.collections.list()
+client.ticketing.collections.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -30826,6 +30990,7 @@ client = Merge(
 )
 client.ticketing.collections.viewers_list(
     collection_id="collection_id",
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
 )
 
 ```
@@ -31055,7 +31220,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.comments.list()
+client.ticketing.comments.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -31465,7 +31632,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.contacts.list()
+client.ticketing.contacts.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -32714,7 +32883,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.issues.list()
+client.ticketing.issues.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -33148,7 +33319,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.linked_accounts.list()
+client.ticketing.linked_accounts.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -33400,7 +33573,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.projects.list()
+client.ticketing.projects.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -33630,6 +33805,7 @@ client = Merge(
 )
 client.ticketing.projects.users_list(
     parent_id="parent_id",
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
 )
 
 ```
@@ -33820,7 +33996,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.roles.list()
+client.ticketing.roles.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -34049,7 +34227,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.sync_status.list()
+client.ticketing.sync_status.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -34189,7 +34369,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.tags.list()
+client.ticketing.tags.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -34418,7 +34600,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.teams.list()
+client.ticketing.teams.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -34647,7 +34831,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.tickets.list()
+client.ticketing.tickets.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -35277,6 +35463,7 @@ client = Merge(
 )
 client.ticketing.tickets.viewers_list(
     ticket_id="ticket_id",
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
 )
 
 ```
@@ -35542,7 +35729,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.tickets.remote_field_classes_list()
+client.ticketing.tickets.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -35668,7 +35857,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.users.list()
+client.ticketing.users.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -36213,7 +36404,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.accounting_periods.list()
+client.accounting.accounting_periods.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -36402,7 +36595,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.accounts.list()
+client.accounting.accounts.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -37191,7 +37386,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.attachments.list()
+client.accounting.attachments.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -37577,7 +37774,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.audit_trail.list()
+client.accounting.audit_trail.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -37749,7 +37948,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.balance_sheets.list()
+client.accounting.balance_sheets.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -38002,7 +38203,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.bank_feed_accounts.list()
+client.accounting.bank_feed_accounts.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -38340,7 +38543,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.bank_feed_transactions.list()
+client.accounting.bank_feed_transactions.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -38742,7 +38947,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.cash_flow_statements.list()
+client.accounting.cash_flow_statements.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -38995,7 +39202,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.company_info.list()
+client.accounting.company_info.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -39240,7 +39449,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.contacts.list()
+client.accounting.contacts.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -39729,7 +39940,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.contacts.remote_field_classes_list()
+client.accounting.contacts.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -39847,7 +40060,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.credit_notes.list()
+client.accounting.credit_notes.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -40582,7 +40797,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.employees.list()
+client.accounting.employees.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -40835,7 +41052,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.expense_reports.list()
+client.accounting.expense_reports.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -41095,6 +41314,7 @@ client = Merge(
 )
 client.accounting.expense_reports.lines_list(
     expense_report_id="expense_report_id",
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
 )
 
 ```
@@ -41323,7 +41543,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.expense_reports.lines_remote_field_classes_list()
+client.accounting.expense_reports.lines_remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -41501,7 +41723,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.expense_reports.remote_field_classes_list()
+client.accounting.expense_reports.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -41619,7 +41843,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.expenses.list()
+client.accounting.expenses.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -41991,7 +42217,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.expenses.lines_remote_field_classes_list()
+client.accounting.expenses.lines_remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -42169,7 +42397,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.expenses.remote_field_classes_list()
+client.accounting.expenses.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -42785,7 +43015,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.general_ledger_transactions.list()
+client.accounting.general_ledger_transactions.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -43126,7 +43358,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.income_statements.list()
+client.accounting.income_statements.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -43379,7 +43613,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.invoices.list()
+client.accounting.invoices.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -43928,7 +44164,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.invoices.line_items_remote_field_classes_list()
+client.accounting.invoices.line_items_remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -44177,7 +44415,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.invoices.remote_field_classes_list()
+client.accounting.invoices.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -44295,7 +44535,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.issues.list()
+client.accounting.issues.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -44545,7 +44787,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.items.list()
+client.accounting.items.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -45147,7 +45391,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.journal_entries.list()
+client.accounting.journal_entries.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -45519,7 +45765,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.journal_entries.lines_remote_field_classes_list()
+client.accounting.journal_entries.lines_remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -45697,7 +45945,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.journal_entries.remote_field_classes_list()
+client.accounting.journal_entries.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -45999,7 +46249,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.linked_accounts.list()
+client.accounting.linked_accounts.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -46251,7 +46503,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.payment_methods.list()
+client.accounting.payment_methods.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -46440,7 +46694,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.payment_terms.list()
+client.accounting.payment_terms.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -46645,7 +46901,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.payments.list()
+client.accounting.payments.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -47130,7 +47388,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.payments.line_items_remote_field_classes_list()
+client.accounting.payments.line_items_remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -47379,7 +47639,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.payments.remote_field_classes_list()
+client.accounting.payments.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -47585,7 +47847,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.projects.list()
+client.accounting.projects.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -47838,7 +48102,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.purchase_orders.list()
+client.accounting.purchase_orders.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -48242,7 +48508,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.purchase_orders.line_items_remote_field_classes_list()
+client.accounting.purchase_orders.line_items_remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -48420,7 +48688,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.purchase_orders.remote_field_classes_list()
+client.accounting.purchase_orders.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -48610,7 +48880,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.sync_status.list()
+client.accounting.sync_status.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -48750,7 +49022,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.tax_rates.list()
+client.accounting.tax_rates.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -49011,7 +49285,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.tracking_categories.list()
+client.accounting.tracking_categories.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -49320,7 +49596,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.transactions.list()
+client.accounting.transactions.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>
@@ -49589,7 +49867,9 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.accounting.vendor_credits.list()
+client.accounting.vendor_credits.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+)
 
 ```
 </dd>

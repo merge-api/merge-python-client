@@ -36,7 +36,7 @@ class PaymentMethod(UncheckedBaseModel):
     The datetime that this object was modified by Merge.
     """
 
-    method_type: PaymentMethodMethodType = pydantic.Field()
+    method_type: typing.Optional[PaymentMethodMethodType] = pydantic.Field(default=None)
     """
     The type of the payment method.
     
