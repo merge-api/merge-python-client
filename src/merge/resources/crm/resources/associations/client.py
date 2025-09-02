@@ -108,6 +108,7 @@ class AssociationsClient:
         client.crm.associations.custom_object_classes_custom_objects_associations_list(
             custom_object_class_id="custom_object_class_id",
             object_id="object_id",
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
         )
         """
         _response = self._raw_client.custom_object_classes_custom_objects_associations_list(
@@ -302,6 +303,7 @@ class AsyncAssociationsClient:
             await client.crm.associations.custom_object_classes_custom_objects_associations_list(
                 custom_object_class_id="custom_object_class_id",
                 object_id="object_id",
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             )
 
 

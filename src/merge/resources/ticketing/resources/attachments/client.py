@@ -109,7 +109,9 @@ class AttachmentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.attachments.list()
+        client.ticketing.attachments.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             created_after=created_after,
@@ -390,7 +392,9 @@ class AsyncAttachmentsClient:
 
 
         async def main() -> None:
-            await client.ticketing.attachments.list()
+            await client.ticketing.attachments.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

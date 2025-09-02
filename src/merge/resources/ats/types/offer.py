@@ -103,6 +103,8 @@ class Offer(UncheckedBaseModel):
 
 from .application import Application  # noqa: E402, F401, I001
 from .candidate import Candidate  # noqa: E402, F401, I001
+from .job import Job  # noqa: E402, F401, I001
+from .job_posting import JobPosting  # noqa: E402, F401, I001
 from .offer_application import OfferApplication  # noqa: E402, F401, I001
 
 update_forward_refs(Offer)

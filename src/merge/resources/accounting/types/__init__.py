@@ -18,7 +18,6 @@ from .account_integration import AccountIntegration
 from .account_request import AccountRequest
 from .account_request_account_type import AccountRequestAccountType
 from .account_request_classification import AccountRequestClassification
-from .account_request_currency import AccountRequestCurrency
 from .account_request_status import AccountRequestStatus
 from .account_response import AccountResponse
 from .account_status import AccountStatus
@@ -70,7 +69,6 @@ from .bank_feed_transaction_request_request_credit_or_debit import BankFeedTrans
 from .bank_feed_transaction_response import BankFeedTransactionResponse
 from .cash_flow_statement import CashFlowStatement
 from .cash_flow_statement_company import CashFlowStatementCompany
-from .cash_flow_statement_currency import CashFlowStatementCurrency
 from .categories_enum import CategoriesEnum
 from .category_enum import CategoryEnum
 from .category_type_enum import CategoryTypeEnum
@@ -163,7 +161,9 @@ from .expense_line_request_tracking_category import ExpenseLineRequestTrackingCa
 from .expense_line_tracking_categories_item import ExpenseLineTrackingCategoriesItem
 from .expense_line_tracking_category import ExpenseLineTrackingCategory
 from .expense_report import ExpenseReport
+from .expense_report_accounting_period import ExpenseReportAccountingPeriod
 from .expense_report_company import ExpenseReportCompany
+from .expense_report_employee import ExpenseReportEmployee
 from .expense_report_line import ExpenseReportLine
 from .expense_report_line_account import ExpenseReportLineAccount
 from .expense_report_line_company import ExpenseReportLineCompany
@@ -182,6 +182,7 @@ from .expense_report_request import ExpenseReportRequest
 from .expense_report_request_accounting_period import ExpenseReportRequestAccountingPeriod
 from .expense_report_request_company import ExpenseReportRequestCompany
 from .expense_report_request_employee import ExpenseReportRequestEmployee
+from .expense_report_request_status import ExpenseReportRequestStatus
 from .expense_report_response import ExpenseReportResponse
 from .expense_report_status import ExpenseReportStatus
 from .expense_report_status_enum import ExpenseReportStatusEnum
@@ -382,7 +383,6 @@ from .patched_payment_request import PatchedPaymentRequest
 from .patched_payment_request_account import PatchedPaymentRequestAccount
 from .patched_payment_request_accounting_period import PatchedPaymentRequestAccountingPeriod
 from .patched_payment_request_applied_to_lines_item import PatchedPaymentRequestAppliedToLinesItem
-from .patched_payment_request_company import PatchedPaymentRequestCompany
 from .patched_payment_request_contact import PatchedPaymentRequestContact
 from .patched_payment_request_currency import PatchedPaymentRequestCurrency
 from .patched_payment_request_payment_method import PatchedPaymentRequestPaymentMethod
@@ -434,7 +434,6 @@ from .purchase_order_line_item_request_item import PurchaseOrderLineItemRequestI
 from .purchase_order_payment_term import PurchaseOrderPaymentTerm
 from .purchase_order_request import PurchaseOrderRequest
 from .purchase_order_request_company import PurchaseOrderRequestCompany
-from .purchase_order_request_currency import PurchaseOrderRequestCurrency
 from .purchase_order_request_delivery_address import PurchaseOrderRequestDeliveryAddress
 from .purchase_order_request_payment_term import PurchaseOrderRequestPaymentTerm
 from .purchase_order_request_status import PurchaseOrderRequestStatus
@@ -466,6 +465,7 @@ from .status_7_d_1_enum import Status7D1Enum
 from .status_895_enum import Status895Enum
 from .status_fd_5_enum import StatusFd5Enum
 from .sync_status import SyncStatus
+from .sync_status_last_sync_result import SyncStatusLastSyncResult
 from .sync_status_status import SyncStatusStatus
 from .tax_component import TaxComponent
 from .tax_component_component_type import TaxComponentComponentType
@@ -480,6 +480,7 @@ from .tracking_category_status import TrackingCategoryStatus
 from .transaction import Transaction
 from .transaction_account import TransactionAccount
 from .transaction_accounting_period import TransactionAccountingPeriod
+from .transaction_company import TransactionCompany
 from .transaction_contact import TransactionContact
 from .transaction_currency import TransactionCurrency
 from .transaction_currency_enum import TransactionCurrencyEnum
@@ -510,6 +511,7 @@ from .vendor_credit_line_request import VendorCreditLineRequest
 from .vendor_credit_line_request_account import VendorCreditLineRequestAccount
 from .vendor_credit_line_request_contact import VendorCreditLineRequestContact
 from .vendor_credit_line_request_project import VendorCreditLineRequestProject
+from .vendor_credit_lines_item import VendorCreditLinesItem
 from .vendor_credit_request import VendorCreditRequest
 from .vendor_credit_request_accounting_period import VendorCreditRequestAccountingPeriod
 from .vendor_credit_request_company import VendorCreditRequestCompany
@@ -539,7 +541,6 @@ __all__ = [
     "AccountRequest",
     "AccountRequestAccountType",
     "AccountRequestClassification",
-    "AccountRequestCurrency",
     "AccountRequestStatus",
     "AccountResponse",
     "AccountStatus",
@@ -591,7 +592,6 @@ __all__ = [
     "BankFeedTransactionResponse",
     "CashFlowStatement",
     "CashFlowStatementCompany",
-    "CashFlowStatementCurrency",
     "CategoriesEnum",
     "CategoryEnum",
     "CategoryTypeEnum",
@@ -684,7 +684,9 @@ __all__ = [
     "ExpenseLineTrackingCategoriesItem",
     "ExpenseLineTrackingCategory",
     "ExpenseReport",
+    "ExpenseReportAccountingPeriod",
     "ExpenseReportCompany",
+    "ExpenseReportEmployee",
     "ExpenseReportLine",
     "ExpenseReportLineAccount",
     "ExpenseReportLineCompany",
@@ -703,6 +705,7 @@ __all__ = [
     "ExpenseReportRequestAccountingPeriod",
     "ExpenseReportRequestCompany",
     "ExpenseReportRequestEmployee",
+    "ExpenseReportRequestStatus",
     "ExpenseReportResponse",
     "ExpenseReportStatus",
     "ExpenseReportStatusEnum",
@@ -899,7 +902,6 @@ __all__ = [
     "PatchedPaymentRequestAccount",
     "PatchedPaymentRequestAccountingPeriod",
     "PatchedPaymentRequestAppliedToLinesItem",
-    "PatchedPaymentRequestCompany",
     "PatchedPaymentRequestContact",
     "PatchedPaymentRequestCurrency",
     "PatchedPaymentRequestPaymentMethod",
@@ -951,7 +953,6 @@ __all__ = [
     "PurchaseOrderPaymentTerm",
     "PurchaseOrderRequest",
     "PurchaseOrderRequestCompany",
-    "PurchaseOrderRequestCurrency",
     "PurchaseOrderRequestDeliveryAddress",
     "PurchaseOrderRequestPaymentTerm",
     "PurchaseOrderRequestStatus",
@@ -983,6 +984,7 @@ __all__ = [
     "Status895Enum",
     "StatusFd5Enum",
     "SyncStatus",
+    "SyncStatusLastSyncResult",
     "SyncStatusStatus",
     "TaxComponent",
     "TaxComponentComponentType",
@@ -997,6 +999,7 @@ __all__ = [
     "Transaction",
     "TransactionAccount",
     "TransactionAccountingPeriod",
+    "TransactionCompany",
     "TransactionContact",
     "TransactionCurrency",
     "TransactionCurrencyEnum",
@@ -1025,6 +1028,7 @@ __all__ = [
     "VendorCreditLineRequestAccount",
     "VendorCreditLineRequestContact",
     "VendorCreditLineRequestProject",
+    "VendorCreditLinesItem",
     "VendorCreditRequest",
     "VendorCreditRequestAccountingPeriod",
     "VendorCreditRequestCompany",

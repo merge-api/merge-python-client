@@ -63,6 +63,8 @@ from .category_enum import CategoryEnum
 from .common_model_scope_api import CommonModelScopeApi
 from .common_model_scopes_body_request import CommonModelScopesBodyRequest
 from .data_passthrough_request import DataPassthroughRequest
+from .data_passthrough_request_method import DataPassthroughRequestMethod
+from .data_passthrough_request_request_format import DataPassthroughRequestRequestFormat
 from .debug_mode_log import DebugModeLog
 from .debug_model_log_summary import DebugModelLogSummary
 from .department import Department
@@ -105,6 +107,7 @@ from .job_departments_item import JobDepartmentsItem
 from .job_hiring_managers_item import JobHiringManagersItem
 from .job_interview_stage import JobInterviewStage
 from .job_interview_stage_job import JobInterviewStageJob
+from .job_job_postings_item import JobJobPostingsItem
 from .job_offices_item import JobOfficesItem
 from .job_posting import JobPosting
 from .job_posting_job import JobPostingJob
@@ -167,6 +170,7 @@ from .reject_reason import RejectReason
 from .remote_data import RemoteData
 from .remote_endpoint_info import RemoteEndpointInfo
 from .remote_field_api import RemoteFieldApi
+from .remote_field_api_advanced_metadata import RemoteFieldApiAdvancedMetadata
 from .remote_field_api_coverage import RemoteFieldApiCoverage
 from .remote_field_api_response import RemoteFieldApiResponse
 from .remote_key import RemoteKey
@@ -284,6 +288,8 @@ __all__ = [
     "CommonModelScopeApi",
     "CommonModelScopesBodyRequest",
     "DataPassthroughRequest",
+    "DataPassthroughRequestMethod",
+    "DataPassthroughRequestRequestFormat",
     "DebugModeLog",
     "DebugModelLogSummary",
     "Department",
@@ -324,6 +330,7 @@ __all__ = [
     "JobHiringManagersItem",
     "JobInterviewStage",
     "JobInterviewStageJob",
+    "JobJobPostingsItem",
     "JobOfficesItem",
     "JobPosting",
     "JobPostingJob",
@@ -386,6 +393,7 @@ __all__ = [
     "RemoteData",
     "RemoteEndpointInfo",
     "RemoteFieldApi",
+    "RemoteFieldApiAdvancedMetadata",
     "RemoteFieldApiCoverage",
     "RemoteFieldApiResponse",
     "RemoteKey",

@@ -133,7 +133,9 @@ class AccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.accounts.list()
+        client.accounting.accounts.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             account_type=account_type,
@@ -415,7 +417,9 @@ class AsyncAccountsClient:
 
 
         async def main() -> None:
-            await client.accounting.accounts.list()
+            await client.accounting.accounts.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

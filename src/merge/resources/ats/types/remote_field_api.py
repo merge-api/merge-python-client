@@ -5,8 +5,8 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
-from .advanced_metadata import AdvancedMetadata
 from .remote_endpoint_info import RemoteEndpointInfo
+from .remote_field_api_advanced_metadata import RemoteFieldApiAdvancedMetadata
 from .remote_field_api_coverage import RemoteFieldApiCoverage
 
 
@@ -15,7 +15,7 @@ class RemoteFieldApi(UncheckedBaseModel):
     remote_key_name: str
     remote_endpoint_info: RemoteEndpointInfo
     example_values: typing.Optional[typing.List[typing.Optional[typing.Any]]] = None
-    advanced_metadata: typing.Optional[AdvancedMetadata] = None
+    advanced_metadata: typing.Optional[RemoteFieldApiAdvancedMetadata] = None
     coverage: typing.Optional[RemoteFieldApiCoverage] = None
 
     if IS_PYDANTIC_V2:

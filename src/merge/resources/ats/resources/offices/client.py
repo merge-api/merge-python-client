@@ -91,7 +91,9 @@ class OfficesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.offices.list()
+        client.ats.offices.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             created_after=created_after,
@@ -244,7 +246,9 @@ class AsyncOfficesClient:
 
 
         async def main() -> None:
-            await client.ats.offices.list()
+            await client.ats.offices.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

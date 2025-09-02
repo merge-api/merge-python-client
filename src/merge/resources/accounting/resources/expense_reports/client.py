@@ -114,7 +114,9 @@ class ExpenseReportsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.expense_reports.list()
+        client.accounting.expense_reports.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             company_id=company_id,
@@ -245,6 +247,7 @@ class ExpenseReportsClient:
         )
         client.accounting.expense_reports.lines_list(
             expense_report_id="expense_report_id",
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
         )
         """
         _response = self._raw_client.lines_list(
@@ -373,7 +376,9 @@ class ExpenseReportsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.expense_reports.lines_remote_field_classes_list()
+        client.accounting.expense_reports.lines_remote_field_classes_list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.lines_remote_field_classes_list(
             cursor=cursor,
@@ -468,7 +473,9 @@ class ExpenseReportsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.expense_reports.remote_field_classes_list()
+        client.accounting.expense_reports.remote_field_classes_list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.remote_field_classes_list(
             cursor=cursor,
@@ -581,7 +588,9 @@ class AsyncExpenseReportsClient:
 
 
         async def main() -> None:
-            await client.accounting.expense_reports.list()
+            await client.accounting.expense_reports.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
@@ -728,6 +737,7 @@ class AsyncExpenseReportsClient:
         async def main() -> None:
             await client.accounting.expense_reports.lines_list(
                 expense_report_id="expense_report_id",
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             )
 
 
@@ -872,7 +882,9 @@ class AsyncExpenseReportsClient:
 
 
         async def main() -> None:
-            await client.accounting.expense_reports.lines_remote_field_classes_list()
+            await client.accounting.expense_reports.lines_remote_field_classes_list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
@@ -983,7 +995,9 @@ class AsyncExpenseReportsClient:
 
 
         async def main() -> None:
-            await client.accounting.expense_reports.remote_field_classes_list()
+            await client.accounting.expense_reports.remote_field_classes_list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

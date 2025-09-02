@@ -35,10 +35,12 @@ from .files import (
 )
 from .folders import FoldersListRequestExpand, FoldersRetrieveRequestExpand
 from .issues import IssuesListRequestStatus
+from .link_token import EndUserDetailsRequestLanguage
 from .linked_accounts import LinkedAccountsListRequestCategory
 
 __all__ = [
     "AsyncPassthroughRetrieveResponse",
+    "EndUserDetailsRequestLanguage",
     "FilesDownloadRequestMetaListRequestOrderBy",
     "FilesListRequestExpand",
     "FilesListRequestOrderBy",

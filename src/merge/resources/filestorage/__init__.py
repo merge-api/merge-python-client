@@ -5,7 +5,9 @@
 from .types import (
     AccountDetails,
     AccountDetailsAndActions,
+    AccountDetailsAndActionsCategory,
     AccountDetailsAndActionsIntegration,
+    AccountDetailsAndActionsStatus,
     AccountDetailsAndActionsStatusEnum,
     AccountIntegration,
     AccountToken,
@@ -113,6 +115,7 @@ from .types import (
     StatusFd5Enum,
     SyncStatus,
     SyncStatusLastSyncResult,
+    SyncStatusStatus,
     TypeEnum,
     User,
     ValidationProblemSource,
@@ -121,6 +124,7 @@ from .types import (
 )
 from .resources import (
     AsyncPassthroughRetrieveResponse,
+    EndUserDetailsRequestLanguage,
     FilesDownloadRequestMetaListRequestOrderBy,
     FilesListRequestExpand,
     FilesListRequestOrderBy,
@@ -156,7 +160,9 @@ from .resources import (
 __all__ = [
     "AccountDetails",
     "AccountDetailsAndActions",
+    "AccountDetailsAndActionsCategory",
     "AccountDetailsAndActionsIntegration",
+    "AccountDetailsAndActionsStatus",
     "AccountDetailsAndActionsStatusEnum",
     "AccountIntegration",
     "AccountToken",
@@ -178,6 +184,7 @@ __all__ = [
     "Drive",
     "EnabledActionsEnum",
     "EncodingEnum",
+    "EndUserDetailsRequestLanguage",
     "ErrorValidationProblem",
     "EventTypeEnum",
     "ExternalTargetFieldApi",
@@ -273,6 +280,7 @@ __all__ = [
     "StatusFd5Enum",
     "SyncStatus",
     "SyncStatusLastSyncResult",
+    "SyncStatusStatus",
     "TypeEnum",
     "User",
     "ValidationProblemSource",

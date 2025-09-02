@@ -127,7 +127,9 @@ class FilesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.files.list()
+        client.filestorage.files.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             created_after=created_after,
@@ -389,7 +391,9 @@ class FilesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.files.download_request_meta_list()
+        client.filestorage.files.download_request_meta_list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.download_request_meta_list(
             created_after=created_after,
@@ -543,7 +547,9 @@ class AsyncFilesClient:
 
 
         async def main() -> None:
-            await client.filestorage.files.list()
+            await client.filestorage.files.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
@@ -838,7 +844,9 @@ class AsyncFilesClient:
 
 
         async def main() -> None:
-            await client.filestorage.files.download_request_meta_list()
+            await client.filestorage.files.download_request_meta_list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
