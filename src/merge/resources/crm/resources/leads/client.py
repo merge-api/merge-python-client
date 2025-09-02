@@ -128,7 +128,9 @@ class LeadsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.leads.list()
+        client.crm.leads.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             converted_account_id=converted_account_id,
@@ -343,7 +345,9 @@ class LeadsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.leads.remote_field_classes_list()
+        client.crm.leads.remote_field_classes_list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.remote_field_classes_list(
             cursor=cursor,
@@ -473,7 +477,9 @@ class AsyncLeadsClient:
 
 
         async def main() -> None:
-            await client.crm.leads.list()
+            await client.crm.leads.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
@@ -720,7 +726,9 @@ class AsyncLeadsClient:
 
 
         async def main() -> None:
-            await client.crm.leads.remote_field_classes_list()
+            await client.crm.leads.remote_field_classes_list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

@@ -126,7 +126,9 @@ class TimesheetEntriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.timesheet_entries.list()
+        client.hris.timesheet_entries.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             created_after=created_after,
@@ -393,7 +395,9 @@ class AsyncTimesheetEntriesClient:
 
 
         async def main() -> None:
-            await client.hris.timesheet_entries.list()
+            await client.hris.timesheet_entries.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

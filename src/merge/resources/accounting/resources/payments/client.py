@@ -129,7 +129,9 @@ class PaymentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.payments.list()
+        client.accounting.payments.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             account_id=account_id,
@@ -364,7 +366,9 @@ class PaymentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.payments.line_items_remote_field_classes_list()
+        client.accounting.payments.line_items_remote_field_classes_list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.line_items_remote_field_classes_list(
             cursor=cursor,
@@ -490,7 +494,9 @@ class PaymentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.payments.remote_field_classes_list()
+        client.accounting.payments.remote_field_classes_list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.remote_field_classes_list(
             cursor=cursor,
@@ -619,7 +625,9 @@ class AsyncPaymentsClient:
 
 
         async def main() -> None:
-            await client.accounting.payments.list()
+            await client.accounting.payments.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
@@ -886,7 +894,9 @@ class AsyncPaymentsClient:
 
 
         async def main() -> None:
-            await client.accounting.payments.line_items_remote_field_classes_list()
+            await client.accounting.payments.line_items_remote_field_classes_list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
@@ -1038,7 +1048,9 @@ class AsyncPaymentsClient:
 
 
         async def main() -> None:
-            await client.accounting.payments.remote_field_classes_list()
+            await client.accounting.payments.remote_field_classes_list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

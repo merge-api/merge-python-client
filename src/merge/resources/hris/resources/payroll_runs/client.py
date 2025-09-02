@@ -130,7 +130,9 @@ class PayrollRunsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.payroll_runs.list()
+        client.hris.payroll_runs.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             created_after=created_after,
@@ -334,7 +336,9 @@ class AsyncPayrollRunsClient:
 
 
         async def main() -> None:
-            await client.hris.payroll_runs.list()
+            await client.hris.payroll_runs.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

@@ -127,7 +127,9 @@ class CreditNotesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.credit_notes.list()
+        client.accounting.credit_notes.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             company_id=company_id,
@@ -399,7 +401,9 @@ class AsyncCreditNotesClient:
 
 
         async def main() -> None:
-            await client.accounting.credit_notes.list()
+            await client.accounting.credit_notes.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
