@@ -106,6 +106,7 @@ class AssociationTypesClient:
         )
         client.crm.association_types.custom_object_classes_association_types_list(
             custom_object_class_id="custom_object_class_id",
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
         )
         """
         _response = self._raw_client.custom_object_classes_association_types_list(
@@ -386,6 +387,7 @@ class AsyncAssociationTypesClient:
         async def main() -> None:
             await client.crm.association_types.custom_object_classes_association_types_list(
                 custom_object_class_id="custom_object_class_id",
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             )
 
 

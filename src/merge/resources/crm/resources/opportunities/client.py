@@ -142,7 +142,9 @@ class OpportunitiesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.opportunities.list()
+        client.crm.opportunities.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             account_id=account_id,
@@ -451,7 +453,9 @@ class OpportunitiesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.opportunities.remote_field_classes_list()
+        client.crm.opportunities.remote_field_classes_list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.remote_field_classes_list(
             cursor=cursor,
@@ -593,7 +597,9 @@ class AsyncOpportunitiesClient:
 
 
         async def main() -> None:
-            await client.crm.opportunities.list()
+            await client.crm.opportunities.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
@@ -952,7 +958,9 @@ class AsyncOpportunitiesClient:
 
 
         async def main() -> None:
-            await client.crm.opportunities.remote_field_classes_list()
+            await client.crm.opportunities.remote_field_classes_list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

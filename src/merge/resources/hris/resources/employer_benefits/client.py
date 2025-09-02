@@ -91,7 +91,9 @@ class EmployerBenefitsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.employer_benefits.list()
+        client.hris.employer_benefits.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             created_after=created_after,
@@ -244,7 +246,9 @@ class AsyncEmployerBenefitsClient:
 
 
         async def main() -> None:
-            await client.hris.employer_benefits.list()
+            await client.hris.employer_benefits.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

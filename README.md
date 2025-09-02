@@ -3,7 +3,7 @@
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fmerge-api%2Fmerge-python-client)
 [![pypi](https://img.shields.io/pypi/v/MergePythonClient)](https://pypi.python.org/pypi/MergePythonClient)
 
-The Merge Python library provides convenient access to the Merge API from Python.
+The Merge Python library provides convenient access to the Merge APIs from Python.
 
 ## Documentation
 
@@ -25,15 +25,14 @@ Instantiate and use the client with the following:
 
 ```python
 from merge import Merge
-from merge.resources.ats import ActivityRequest
+from merge.resources.crm import AccountRequest
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.activities.create(
-    model=ActivityRequest(),
-    remote_user_id="remote_user_id",
+client.crm.accounts.create(
+    model=AccountRequest(),
 )
 ```
 
@@ -68,7 +67,7 @@ The SDK also exports an `async` client so that you can make non-blocking calls t
 import asyncio
 
 from merge import AsyncMerge
-from merge.resources.ats import ActivityRequest
+from merge.resources.crm import AccountRequest
 
 client = AsyncMerge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -77,9 +76,8 @@ client = AsyncMerge(
 
 
 async def main() -> None:
-    await client.ats.activities.create(
-        model=ActivityRequest(),
-        remote_user_id="remote_user_id",
+    await client.crm.accounts.create(
+        model=AccountRequest(),
     )
 
 
@@ -95,7 +93,7 @@ will be thrown.
 from merge.core.api_error import ApiError
 
 try:
-    client.ats.activities.create(...)
+    client.crm.accounts.create(...)
 except ApiError as e:
     print(e.status_code)
     print(e.body)
@@ -114,7 +112,7 @@ from merge import Merge
 client = Merge(
     ...,
 )
-response = client.ats.activities.with_raw_response.create(...)
+response = client.crm.accounts.with_raw_response.create(...)
 print(response.headers)  # access the response headers
 print(response.data)  # access the underlying object
 ```
@@ -134,7 +132,7 @@ A request is deemed retryable when any of the following HTTP status codes is ret
 Use the `max_retries` request option to configure this behavior.
 
 ```python
-client.ats.activities.create(..., request_options={
+client.crm.accounts.create(..., request_options={
     "max_retries": 1
 })
 ```
@@ -154,7 +152,7 @@ client = Merge(
 
 
 # Override timeout for a specific method
-client.ats.activities.create(..., request_options={
+client.crm.accounts.create(..., request_options={
     "timeout_in_seconds": 1
 })
 ```
@@ -228,5 +226,6 @@ while response.next is not None:
         cursor=response.next, 
         created_after="2030-01-01")
 ```
+
 
 

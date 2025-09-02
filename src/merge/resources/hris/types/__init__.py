@@ -6,6 +6,7 @@ from .account_details import AccountDetails
 from .account_details_and_actions import AccountDetailsAndActions
 from .account_details_and_actions_category import AccountDetailsAndActionsCategory
 from .account_details_and_actions_integration import AccountDetailsAndActionsIntegration
+from .account_details_and_actions_status import AccountDetailsAndActionsStatus
 from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
 from .account_details_category import AccountDetailsCategory
 from .account_integration import AccountIntegration
@@ -207,6 +208,7 @@ __all__ = [
     "AccountDetailsAndActions",
     "AccountDetailsAndActionsCategory",
     "AccountDetailsAndActionsIntegration",
+    "AccountDetailsAndActionsStatus",
     "AccountDetailsAndActionsStatusEnum",
     "AccountDetailsCategory",
     "AccountIntegration",

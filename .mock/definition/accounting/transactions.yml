@@ -4,60 +4,124 @@ types:
       - account
       - value: account,accounting_period
         name: AccountAccountingPeriod
+      - value: account,company
+        name: AccountCompany
+      - value: account,company,accounting_period
+        name: AccountCompanyAccountingPeriod
       - accounting_period
+      - company
+      - value: company,accounting_period
+        name: CompanyAccountingPeriod
       - contact
       - value: contact,account
         name: ContactAccount
       - value: contact,account,accounting_period
         name: ContactAccountAccountingPeriod
+      - value: contact,account,company
+        name: ContactAccountCompany
+      - value: contact,account,company,accounting_period
+        name: ContactAccountCompanyAccountingPeriod
       - value: contact,accounting_period
         name: ContactAccountingPeriod
+      - value: contact,company
+        name: ContactCompany
+      - value: contact,company,accounting_period
+        name: ContactCompanyAccountingPeriod
       - line_items
       - value: line_items,account
         name: LineItemsAccount
       - value: line_items,account,accounting_period
         name: LineItemsAccountAccountingPeriod
+      - value: line_items,account,company
+        name: LineItemsAccountCompany
+      - value: line_items,account,company,accounting_period
+        name: LineItemsAccountCompanyAccountingPeriod
       - value: line_items,accounting_period
         name: LineItemsAccountingPeriod
+      - value: line_items,company
+        name: LineItemsCompany
+      - value: line_items,company,accounting_period
+        name: LineItemsCompanyAccountingPeriod
       - value: line_items,contact
         name: LineItemsContact
       - value: line_items,contact,account
         name: LineItemsContactAccount
       - value: line_items,contact,account,accounting_period
         name: LineItemsContactAccountAccountingPeriod
+      - value: line_items,contact,account,company
+        name: LineItemsContactAccountCompany
+      - value: line_items,contact,account,company,accounting_period
+        name: LineItemsContactAccountCompanyAccountingPeriod
       - value: line_items,contact,accounting_period
         name: LineItemsContactAccountingPeriod
+      - value: line_items,contact,company
+        name: LineItemsContactCompany
+      - value: line_items,contact,company,accounting_period
+        name: LineItemsContactCompanyAccountingPeriod
       - value: line_items,tracking_categories
         name: LineItemsTrackingCategories
       - value: line_items,tracking_categories,account
         name: LineItemsTrackingCategoriesAccount
       - value: line_items,tracking_categories,account,accounting_period
         name: LineItemsTrackingCategoriesAccountAccountingPeriod
+      - value: line_items,tracking_categories,account,company
+        name: LineItemsTrackingCategoriesAccountCompany
+      - value: line_items,tracking_categories,account,company,accounting_period
+        name: LineItemsTrackingCategoriesAccountCompanyAccountingPeriod
       - value: line_items,tracking_categories,accounting_period
         name: LineItemsTrackingCategoriesAccountingPeriod
+      - value: line_items,tracking_categories,company
+        name: LineItemsTrackingCategoriesCompany
+      - value: line_items,tracking_categories,company,accounting_period
+        name: LineItemsTrackingCategoriesCompanyAccountingPeriod
       - value: line_items,tracking_categories,contact
         name: LineItemsTrackingCategoriesContact
       - value: line_items,tracking_categories,contact,account
         name: LineItemsTrackingCategoriesContactAccount
       - value: line_items,tracking_categories,contact,account,accounting_period
         name: LineItemsTrackingCategoriesContactAccountAccountingPeriod
+      - value: line_items,tracking_categories,contact,account,company
+        name: LineItemsTrackingCategoriesContactAccountCompany
+      - value: >-
+          line_items,tracking_categories,contact,account,company,accounting_period
+        name: LineItemsTrackingCategoriesContactAccountCompanyAccountingPeriod
       - value: line_items,tracking_categories,contact,accounting_period
         name: LineItemsTrackingCategoriesContactAccountingPeriod
+      - value: line_items,tracking_categories,contact,company
+        name: LineItemsTrackingCategoriesContactCompany
+      - value: line_items,tracking_categories,contact,company,accounting_period
+        name: LineItemsTrackingCategoriesContactCompanyAccountingPeriod
       - tracking_categories
       - value: tracking_categories,account
         name: TrackingCategoriesAccount
       - value: tracking_categories,account,accounting_period
         name: TrackingCategoriesAccountAccountingPeriod
+      - value: tracking_categories,account,company
+        name: TrackingCategoriesAccountCompany
+      - value: tracking_categories,account,company,accounting_period
+        name: TrackingCategoriesAccountCompanyAccountingPeriod
       - value: tracking_categories,accounting_period
         name: TrackingCategoriesAccountingPeriod
+      - value: tracking_categories,company
+        name: TrackingCategoriesCompany
+      - value: tracking_categories,company,accounting_period
+        name: TrackingCategoriesCompanyAccountingPeriod
       - value: tracking_categories,contact
         name: TrackingCategoriesContact
       - value: tracking_categories,contact,account
         name: TrackingCategoriesContactAccount
       - value: tracking_categories,contact,account,accounting_period
         name: TrackingCategoriesContactAccountAccountingPeriod
+      - value: tracking_categories,contact,account,company
+        name: TrackingCategoriesContactAccountCompany
+      - value: tracking_categories,contact,account,company,accounting_period
+        name: TrackingCategoriesContactAccountCompanyAccountingPeriod
       - value: tracking_categories,contact,accounting_period
         name: TrackingCategoriesContactAccountingPeriod
+      - value: tracking_categories,contact,company
+        name: TrackingCategoriesContactCompany
+      - value: tracking_categories,contact,company,accounting_period
+        name: TrackingCategoriesContactCompanyAccountingPeriod
     source:
       openapi: openapi/openapi.yml
   TransactionsRetrieveRequestExpand:
@@ -65,60 +129,124 @@ types:
       - account
       - value: account,accounting_period
         name: AccountAccountingPeriod
+      - value: account,company
+        name: AccountCompany
+      - value: account,company,accounting_period
+        name: AccountCompanyAccountingPeriod
       - accounting_period
+      - company
+      - value: company,accounting_period
+        name: CompanyAccountingPeriod
       - contact
       - value: contact,account
         name: ContactAccount
       - value: contact,account,accounting_period
         name: ContactAccountAccountingPeriod
+      - value: contact,account,company
+        name: ContactAccountCompany
+      - value: contact,account,company,accounting_period
+        name: ContactAccountCompanyAccountingPeriod
       - value: contact,accounting_period
         name: ContactAccountingPeriod
+      - value: contact,company
+        name: ContactCompany
+      - value: contact,company,accounting_period
+        name: ContactCompanyAccountingPeriod
       - line_items
       - value: line_items,account
         name: LineItemsAccount
       - value: line_items,account,accounting_period
         name: LineItemsAccountAccountingPeriod
+      - value: line_items,account,company
+        name: LineItemsAccountCompany
+      - value: line_items,account,company,accounting_period
+        name: LineItemsAccountCompanyAccountingPeriod
       - value: line_items,accounting_period
         name: LineItemsAccountingPeriod
+      - value: line_items,company
+        name: LineItemsCompany
+      - value: line_items,company,accounting_period
+        name: LineItemsCompanyAccountingPeriod
       - value: line_items,contact
         name: LineItemsContact
       - value: line_items,contact,account
         name: LineItemsContactAccount
       - value: line_items,contact,account,accounting_period
         name: LineItemsContactAccountAccountingPeriod
+      - value: line_items,contact,account,company
+        name: LineItemsContactAccountCompany
+      - value: line_items,contact,account,company,accounting_period
+        name: LineItemsContactAccountCompanyAccountingPeriod
       - value: line_items,contact,accounting_period
         name: LineItemsContactAccountingPeriod
+      - value: line_items,contact,company
+        name: LineItemsContactCompany
+      - value: line_items,contact,company,accounting_period
+        name: LineItemsContactCompanyAccountingPeriod
       - value: line_items,tracking_categories
         name: LineItemsTrackingCategories
       - value: line_items,tracking_categories,account
         name: LineItemsTrackingCategoriesAccount
       - value: line_items,tracking_categories,account,accounting_period
         name: LineItemsTrackingCategoriesAccountAccountingPeriod
+      - value: line_items,tracking_categories,account,company
+        name: LineItemsTrackingCategoriesAccountCompany
+      - value: line_items,tracking_categories,account,company,accounting_period
+        name: LineItemsTrackingCategoriesAccountCompanyAccountingPeriod
       - value: line_items,tracking_categories,accounting_period
         name: LineItemsTrackingCategoriesAccountingPeriod
+      - value: line_items,tracking_categories,company
+        name: LineItemsTrackingCategoriesCompany
+      - value: line_items,tracking_categories,company,accounting_period
+        name: LineItemsTrackingCategoriesCompanyAccountingPeriod
       - value: line_items,tracking_categories,contact
         name: LineItemsTrackingCategoriesContact
       - value: line_items,tracking_categories,contact,account
         name: LineItemsTrackingCategoriesContactAccount
       - value: line_items,tracking_categories,contact,account,accounting_period
         name: LineItemsTrackingCategoriesContactAccountAccountingPeriod
+      - value: line_items,tracking_categories,contact,account,company
+        name: LineItemsTrackingCategoriesContactAccountCompany
+      - value: >-
+          line_items,tracking_categories,contact,account,company,accounting_period
+        name: LineItemsTrackingCategoriesContactAccountCompanyAccountingPeriod
       - value: line_items,tracking_categories,contact,accounting_period
         name: LineItemsTrackingCategoriesContactAccountingPeriod
+      - value: line_items,tracking_categories,contact,company
+        name: LineItemsTrackingCategoriesContactCompany
+      - value: line_items,tracking_categories,contact,company,accounting_period
+        name: LineItemsTrackingCategoriesContactCompanyAccountingPeriod
       - tracking_categories
       - value: tracking_categories,account
         name: TrackingCategoriesAccount
       - value: tracking_categories,account,accounting_period
         name: TrackingCategoriesAccountAccountingPeriod
+      - value: tracking_categories,account,company
+        name: TrackingCategoriesAccountCompany
+      - value: tracking_categories,account,company,accounting_period
+        name: TrackingCategoriesAccountCompanyAccountingPeriod
       - value: tracking_categories,accounting_period
         name: TrackingCategoriesAccountingPeriod
+      - value: tracking_categories,company
+        name: TrackingCategoriesCompany
+      - value: tracking_categories,company,accounting_period
+        name: TrackingCategoriesCompanyAccountingPeriod
       - value: tracking_categories,contact
         name: TrackingCategoriesContact
       - value: tracking_categories,contact,account
         name: TrackingCategoriesContactAccount
       - value: tracking_categories,contact,account,accounting_period
         name: TrackingCategoriesContactAccountAccountingPeriod
+      - value: tracking_categories,contact,account,company
+        name: TrackingCategoriesContactAccountCompany
+      - value: tracking_categories,contact,account,company,accounting_period
+        name: TrackingCategoriesContactAccountCompanyAccountingPeriod
       - value: tracking_categories,contact,accounting_period
         name: TrackingCategoriesContactAccountingPeriod
+      - value: tracking_categories,contact,company
+        name: TrackingCategoriesContactCompany
+      - value: tracking_categories,contact,company,accounting_period
+        name: TrackingCategoriesContactCompanyAccountingPeriod
     source:
       openapi: openapi/openapi.yml
 imports:
@@ -205,7 +333,10 @@ service:
         type: root.PaginatedTransactionList
         status-code: 200
       examples:
-        - headers: {}
+        - query-parameters:
+            cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          headers:
+            X-Account-Token: X-Account-Token
           response:
             body:
               next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -224,7 +355,7 @@ service:
                   total_amount: total_amount
                   currency: XUA
                   exchange_rate: '2.9'
-                  company: 595c8f97-2ac4-45b7-b000-41bdf43240b5
+                  company: company
                   tracking_categories:
                     - b38c59b0-a9d7-4740-b1ee-5436c6751e3d
                     - 9b840d2-686a-465a-8a8e-7b028498f8e4
@@ -308,7 +439,8 @@ service:
       examples:
         - path-parameters:
             id: id
-          headers: {}
+          headers:
+            X-Account-Token: X-Account-Token
           response:
             body:
               id: 0048ea5b-911e-4dff-9364-92070dea62ff
@@ -324,7 +456,7 @@ service:
               total_amount: total_amount
               currency: XUA
               exchange_rate: '2.9'
-              company: 595c8f97-2ac4-45b7-b000-41bdf43240b5
+              company: company
               tracking_categories:
                 - b38c59b0-a9d7-4740-b1ee-5436c6751e3d
                 - 9b840d2-686a-465a-8a8e-7b028498f8e4
@@ -339,7 +471,6 @@ service:
                   quantity: '10.0'
                   item: 0958cbc6-6040-430a-848e-aafacbadf4ae
                   account: 2b38c085-2620-4269-b5ec-75dd9095ed2c
-                  tracking_category: tracking_category
                   tracking_categories:
                     - f1214c24-2702-4617-b74b-3ddecfc0d384
                     - 9b840d2-686a-465a-8a8e-7b028498f8e4
@@ -359,7 +490,6 @@ service:
                   quantity: '10.0'
                   item: 249c9faa-3045-4a31-953b-8f22d3613301
                   account: 3e442c5d-8f51-4103-b5c9-dcee39c30a08
-                  tracking_category: tracking_category
                   tracking_categories:
                     - f1214c24-2702-4617-b74b-3ddecfc0d384
                     - 9b840d2-686a-465a-8a8e-7b028498f8e4

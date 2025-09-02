@@ -8,10 +8,10 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .expense_report_request_accounting_period import ExpenseReportRequestAccountingPeriod
 from .expense_report_request_company import ExpenseReportRequestCompany
+from .expense_report_request_currency import ExpenseReportRequestCurrency
 from .expense_report_request_employee import ExpenseReportRequestEmployee
 from .expense_report_status_enum import ExpenseReportStatusEnum
 from .remote_field_request import RemoteFieldRequest
-from .transaction_currency_enum import TransactionCurrencyEnum
 
 
 class ExpenseReportRequest(UncheckedBaseModel):
@@ -55,7 +55,7 @@ class ExpenseReportRequest(UncheckedBaseModel):
     Total amount of the expense report
     """
 
-    currency: typing.Optional[TransactionCurrencyEnum] = pydantic.Field(default=None)
+    currency: typing.Optional[ExpenseReportRequestCurrency] = pydantic.Field(default=None)
     """
     Currency code for the expense report
     

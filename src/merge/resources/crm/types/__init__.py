@@ -42,10 +42,8 @@ from .common_model_scope_api import CommonModelScopeApi
 from .common_model_scopes_body_request import CommonModelScopesBodyRequest
 from .contact import Contact
 from .contact_account import ContactAccount
-from .contact_owner import ContactOwner
 from .contact_request import ContactRequest
 from .contact_request_account import ContactRequestAccount
-from .contact_request_owner import ContactRequestOwner
 from .country_enum import CountryEnum
 from .crm_account_response import CrmAccountResponse
 from .crm_association_type_response import CrmAssociationTypeResponse
@@ -55,6 +53,8 @@ from .custom_object import CustomObject
 from .custom_object_class import CustomObjectClass
 from .custom_object_request import CustomObjectRequest
 from .data_passthrough_request import DataPassthroughRequest
+from .data_passthrough_request_method import DataPassthroughRequestMethod
+from .data_passthrough_request_request_format import DataPassthroughRequestRequestFormat
 from .debug_mode_log import DebugModeLog
 from .debug_model_log_summary import DebugModelLogSummary
 from .direction_enum import DirectionEnum
@@ -268,10 +268,8 @@ __all__ = [
     "CommonModelScopesBodyRequest",
     "Contact",
     "ContactAccount",
-    "ContactOwner",
     "ContactRequest",
     "ContactRequestAccount",
-    "ContactRequestOwner",
     "CountryEnum",
     "CrmAccountResponse",
     "CrmAssociationTypeResponse",
@@ -281,6 +279,8 @@ __all__ = [
     "CustomObjectClass",
     "CustomObjectRequest",
     "DataPassthroughRequest",
+    "DataPassthroughRequestMethod",
+    "DataPassthroughRequestRequestFormat",
     "DebugModeLog",
     "DebugModelLogSummary",
     "DirectionEnum",

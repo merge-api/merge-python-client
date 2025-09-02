@@ -2076,17 +2076,6 @@ types:
     source:
       openapi: openapi/openapi.yml
     inline: true
-  ContactOwner:
-    discriminated: false
-    docs: The contact's owner.
-    union:
-      - type: string
-        validation:
-          format: uuid
-      - User
-    source:
-      openapi: openapi/openapi.yml
-    inline: true
   Contact:
     docs: >-
       # The Contact Object
@@ -2126,8 +2115,10 @@ types:
         type: optional<ContactAccount>
         docs: The contact's account.
       owner:
-        type: optional<ContactOwner>
+        type: optional<string>
         docs: The contact's owner.
+        validation:
+          format: uuid
       addresses: optional<list<Address>>
       email_addresses: optional<list<EmailAddress>>
       phone_numbers: optional<list<PhoneNumber>>
@@ -2168,17 +2159,6 @@ types:
     source:
       openapi: openapi/openapi.yml
     inline: true
-  ContactRequestOwner:
-    discriminated: false
-    docs: The contact's owner.
-    union:
-      - type: string
-        validation:
-          format: uuid
-      - User
-    source:
-      openapi: openapi/openapi.yml
-    inline: true
   ContactRequest:
     docs: >-
       # The Contact Object
@@ -2202,8 +2182,10 @@ types:
         type: optional<ContactRequestAccount>
         docs: The contact's account.
       owner:
-        type: optional<ContactRequestOwner>
+        type: optional<string>
         docs: The contact's owner.
+        validation:
+          format: uuid
       addresses: optional<list<AddressRequest>>
       email_addresses: optional<list<EmailAddressRequest>>
       phone_numbers: optional<list<PhoneNumberRequest>>
@@ -2821,6 +2803,22 @@ types:
         access: write-only
     source:
       openapi: openapi/openapi.yml
+  DataPassthroughRequestMethod:
+    discriminated: false
+    union:
+      - MethodEnum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
+  DataPassthroughRequestRequestFormat:
+    discriminated: false
+    union:
+      - RequestFormatEnum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   DataPassthroughRequest:
     docs: >-
       # The DataPassthrough Object
@@ -2836,7 +2834,7 @@ types:
       Create a `DataPassthrough` to get team hierarchies from your Rippling
       integration.
     properties:
-      method: MethodEnum
+      method: DataPassthroughRequestMethod
       path:
         type: string
         docs: The path of the request in the third party's platform.
@@ -2866,7 +2864,7 @@ types:
           authorization headers). `Content-Type` header is required for
           passthrough. Choose content type corresponding to expected format of
           receiving server.
-      request_format: optional<RequestFormatEnum>
+      request_format: optional<DataPassthroughRequestRequestFormat>
       normalize_response:
         type: optional<boolean>
         docs: >-
@@ -5158,6 +5156,7 @@ types:
       remote_key_name: optional<string>
       description: optional<string>
       is_custom: optional<boolean>
+      is_common_model_field: optional<boolean>
       is_required: optional<boolean>
       field_type: optional<RemoteFieldClassFieldType>
       field_format: optional<RemoteFieldClassFieldFormat>

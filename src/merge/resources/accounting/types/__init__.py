@@ -78,7 +78,9 @@ from .classification_enum import ClassificationEnum
 from .common_model_scope_api import CommonModelScopeApi
 from .common_model_scopes_body_request import CommonModelScopesBodyRequest
 from .company_info import CompanyInfo
+from .company_info_addresses_item import CompanyInfoAddressesItem
 from .company_info_currency import CompanyInfoCurrency
+from .company_info_phone_numbers_item import CompanyInfoPhoneNumbersItem
 from .component_type_enum import ComponentTypeEnum
 from .contact import Contact
 from .contact_addresses_item import ContactAddressesItem
@@ -128,6 +130,7 @@ from .credit_note_tracking_categories_item import CreditNoteTrackingCategoriesIt
 from .credit_or_debit_enum import CreditOrDebitEnum
 from .data_passthrough_request import DataPassthroughRequest
 from .data_passthrough_request_method import DataPassthroughRequestMethod
+from .data_passthrough_request_request_format import DataPassthroughRequestRequestFormat
 from .debug_mode_log import DebugModeLog
 from .debug_model_log_summary import DebugModelLogSummary
 from .employee import Employee
@@ -163,17 +166,22 @@ from .expense_line_request_tracking_category import ExpenseLineRequestTrackingCa
 from .expense_line_tracking_categories_item import ExpenseLineTrackingCategoriesItem
 from .expense_line_tracking_category import ExpenseLineTrackingCategory
 from .expense_report import ExpenseReport
+from .expense_report_accounting_period import ExpenseReportAccountingPeriod
 from .expense_report_company import ExpenseReportCompany
+from .expense_report_currency import ExpenseReportCurrency
+from .expense_report_employee import ExpenseReportEmployee
 from .expense_report_line import ExpenseReportLine
 from .expense_report_line_account import ExpenseReportLineAccount
 from .expense_report_line_company import ExpenseReportLineCompany
 from .expense_report_line_contact import ExpenseReportLineContact
+from .expense_report_line_currency import ExpenseReportLineCurrency
 from .expense_report_line_employee import ExpenseReportLineEmployee
 from .expense_report_line_project import ExpenseReportLineProject
 from .expense_report_line_request import ExpenseReportLineRequest
 from .expense_report_line_request_account import ExpenseReportLineRequestAccount
 from .expense_report_line_request_company import ExpenseReportLineRequestCompany
 from .expense_report_line_request_contact import ExpenseReportLineRequestContact
+from .expense_report_line_request_currency import ExpenseReportLineRequestCurrency
 from .expense_report_line_request_employee import ExpenseReportLineRequestEmployee
 from .expense_report_line_request_project import ExpenseReportLineRequestProject
 from .expense_report_line_request_tax_rate import ExpenseReportLineRequestTaxRate
@@ -181,6 +189,7 @@ from .expense_report_line_tax_rate import ExpenseReportLineTaxRate
 from .expense_report_request import ExpenseReportRequest
 from .expense_report_request_accounting_period import ExpenseReportRequestAccountingPeriod
 from .expense_report_request_company import ExpenseReportRequestCompany
+from .expense_report_request_currency import ExpenseReportRequestCurrency
 from .expense_report_request_employee import ExpenseReportRequestEmployee
 from .expense_report_response import ExpenseReportResponse
 from .expense_report_status import ExpenseReportStatus
@@ -268,6 +277,7 @@ from .invoice_request_company import InvoiceRequestCompany
 from .invoice_request_contact import InvoiceRequestContact
 from .invoice_request_currency import InvoiceRequestCurrency
 from .invoice_request_employee import InvoiceRequestEmployee
+from .invoice_request_line_items_item import InvoiceRequestLineItemsItem
 from .invoice_request_payment_term import InvoiceRequestPaymentTerm
 from .invoice_request_payments_item import InvoiceRequestPaymentsItem
 from .invoice_request_purchase_orders_item import InvoiceRequestPurchaseOrdersItem
@@ -313,6 +323,7 @@ from .journal_entry_posting_status import JournalEntryPostingStatus
 from .journal_entry_request import JournalEntryRequest
 from .journal_entry_request_company import JournalEntryRequestCompany
 from .journal_entry_request_currency import JournalEntryRequestCurrency
+from .journal_entry_request_lines_item import JournalEntryRequestLinesItem
 from .journal_entry_request_payments_item import JournalEntryRequestPaymentsItem
 from .journal_entry_request_posting_status import JournalEntryRequestPostingStatus
 from .journal_entry_request_tracking_categories_item import JournalEntryRequestTrackingCategoriesItem
@@ -375,6 +386,9 @@ from .paginated_tax_rate_list import PaginatedTaxRateList
 from .paginated_tracking_category_list import PaginatedTrackingCategoryList
 from .paginated_transaction_list import PaginatedTransactionList
 from .paginated_vendor_credit_list import PaginatedVendorCreditList
+from .patched_contact_endpoint_request import PatchedContactEndpointRequest
+from .patched_contact_request import PatchedContactRequest
+from .patched_contact_request_status import PatchedContactRequestStatus
 from .patched_item_request_request import PatchedItemRequestRequest
 from .patched_item_request_request_status import PatchedItemRequestRequestStatus
 from .patched_item_request_request_type import PatchedItemRequestRequestType
@@ -382,7 +396,6 @@ from .patched_payment_request import PatchedPaymentRequest
 from .patched_payment_request_account import PatchedPaymentRequestAccount
 from .patched_payment_request_accounting_period import PatchedPaymentRequestAccountingPeriod
 from .patched_payment_request_applied_to_lines_item import PatchedPaymentRequestAppliedToLinesItem
-from .patched_payment_request_company import PatchedPaymentRequestCompany
 from .patched_payment_request_contact import PatchedPaymentRequestContact
 from .patched_payment_request_currency import PatchedPaymentRequestCurrency
 from .patched_payment_request_payment_method import PatchedPaymentRequestPaymentMethod
@@ -457,6 +470,7 @@ from .remote_field_request import RemoteFieldRequest
 from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
 from .remote_key import RemoteKey
 from .remote_response import RemoteResponse
+from .remote_response_response_type import RemoteResponseResponseType
 from .report_item import ReportItem
 from .request_format_enum import RequestFormatEnum
 from .response_type_enum import ResponseTypeEnum
@@ -480,6 +494,7 @@ from .tracking_category_status import TrackingCategoryStatus
 from .transaction import Transaction
 from .transaction_account import TransactionAccount
 from .transaction_accounting_period import TransactionAccountingPeriod
+from .transaction_company import TransactionCompany
 from .transaction_contact import TransactionContact
 from .transaction_currency import TransactionCurrency
 from .transaction_currency_enum import TransactionCurrencyEnum
@@ -510,6 +525,7 @@ from .vendor_credit_line_request import VendorCreditLineRequest
 from .vendor_credit_line_request_account import VendorCreditLineRequestAccount
 from .vendor_credit_line_request_contact import VendorCreditLineRequestContact
 from .vendor_credit_line_request_project import VendorCreditLineRequestProject
+from .vendor_credit_lines_item import VendorCreditLinesItem
 from .vendor_credit_request import VendorCreditRequest
 from .vendor_credit_request_accounting_period import VendorCreditRequestAccountingPeriod
 from .vendor_credit_request_company import VendorCreditRequestCompany
@@ -599,7 +615,9 @@ __all__ = [
     "CommonModelScopeApi",
     "CommonModelScopesBodyRequest",
     "CompanyInfo",
+    "CompanyInfoAddressesItem",
     "CompanyInfoCurrency",
+    "CompanyInfoPhoneNumbersItem",
     "ComponentTypeEnum",
     "Contact",
     "ContactAddressesItem",
@@ -649,6 +667,7 @@ __all__ = [
     "CreditOrDebitEnum",
     "DataPassthroughRequest",
     "DataPassthroughRequestMethod",
+    "DataPassthroughRequestRequestFormat",
     "DebugModeLog",
     "DebugModelLogSummary",
     "Employee",
@@ -684,17 +703,22 @@ __all__ = [
     "ExpenseLineTrackingCategoriesItem",
     "ExpenseLineTrackingCategory",
     "ExpenseReport",
+    "ExpenseReportAccountingPeriod",
     "ExpenseReportCompany",
+    "ExpenseReportCurrency",
+    "ExpenseReportEmployee",
     "ExpenseReportLine",
     "ExpenseReportLineAccount",
     "ExpenseReportLineCompany",
     "ExpenseReportLineContact",
+    "ExpenseReportLineCurrency",
     "ExpenseReportLineEmployee",
     "ExpenseReportLineProject",
     "ExpenseReportLineRequest",
     "ExpenseReportLineRequestAccount",
     "ExpenseReportLineRequestCompany",
     "ExpenseReportLineRequestContact",
+    "ExpenseReportLineRequestCurrency",
     "ExpenseReportLineRequestEmployee",
     "ExpenseReportLineRequestProject",
     "ExpenseReportLineRequestTaxRate",
@@ -702,6 +726,7 @@ __all__ = [
     "ExpenseReportRequest",
     "ExpenseReportRequestAccountingPeriod",
     "ExpenseReportRequestCompany",
+    "ExpenseReportRequestCurrency",
     "ExpenseReportRequestEmployee",
     "ExpenseReportResponse",
     "ExpenseReportStatus",
@@ -785,6 +810,7 @@ __all__ = [
     "InvoiceRequestContact",
     "InvoiceRequestCurrency",
     "InvoiceRequestEmployee",
+    "InvoiceRequestLineItemsItem",
     "InvoiceRequestPaymentTerm",
     "InvoiceRequestPaymentsItem",
     "InvoiceRequestPurchaseOrdersItem",
@@ -830,6 +856,7 @@ __all__ = [
     "JournalEntryRequest",
     "JournalEntryRequestCompany",
     "JournalEntryRequestCurrency",
+    "JournalEntryRequestLinesItem",
     "JournalEntryRequestPaymentsItem",
     "JournalEntryRequestPostingStatus",
     "JournalEntryRequestTrackingCategoriesItem",
@@ -892,6 +919,9 @@ __all__ = [
     "PaginatedTrackingCategoryList",
     "PaginatedTransactionList",
     "PaginatedVendorCreditList",
+    "PatchedContactEndpointRequest",
+    "PatchedContactRequest",
+    "PatchedContactRequestStatus",
     "PatchedItemRequestRequest",
     "PatchedItemRequestRequestStatus",
     "PatchedItemRequestRequestType",
@@ -899,7 +929,6 @@ __all__ = [
     "PatchedPaymentRequestAccount",
     "PatchedPaymentRequestAccountingPeriod",
     "PatchedPaymentRequestAppliedToLinesItem",
-    "PatchedPaymentRequestCompany",
     "PatchedPaymentRequestContact",
     "PatchedPaymentRequestCurrency",
     "PatchedPaymentRequestPaymentMethod",
@@ -974,6 +1003,7 @@ __all__ = [
     "RemoteFieldRequestRemoteFieldClass",
     "RemoteKey",
     "RemoteResponse",
+    "RemoteResponseResponseType",
     "ReportItem",
     "RequestFormatEnum",
     "ResponseTypeEnum",
@@ -997,6 +1027,7 @@ __all__ = [
     "Transaction",
     "TransactionAccount",
     "TransactionAccountingPeriod",
+    "TransactionCompany",
     "TransactionContact",
     "TransactionCurrency",
     "TransactionCurrencyEnum",
@@ -1025,6 +1056,7 @@ __all__ = [
     "VendorCreditLineRequestAccount",
     "VendorCreditLineRequestContact",
     "VendorCreditLineRequestProject",
+    "VendorCreditLinesItem",
     "VendorCreditRequest",
     "VendorCreditRequestAccountingPeriod",
     "VendorCreditRequestCompany",

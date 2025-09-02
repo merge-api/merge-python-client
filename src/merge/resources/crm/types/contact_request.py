@@ -8,7 +8,6 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .address_request import AddressRequest
 from .contact_request_account import ContactRequestAccount
-from .contact_request_owner import ContactRequestOwner
 from .email_address_request import EmailAddressRequest
 from .phone_number_request import PhoneNumberRequest
 from .remote_field_request import RemoteFieldRequest
@@ -38,7 +37,7 @@ class ContactRequest(UncheckedBaseModel):
     The contact's account.
     """
 
-    owner: typing.Optional[ContactRequestOwner] = pydantic.Field(default=None)
+    owner: typing.Optional[str] = pydantic.Field(default=None)
     """
     The contact's owner.
     """

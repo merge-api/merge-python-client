@@ -2117,9 +2117,6 @@ types:
           * `COLLECTION` - COLLECTION
       tags: optional<list<optional<string>>>
       roles: optional<list<optional<string>>>
-      completed_at:
-        type: optional<datetime>
-        docs: When the ticket was completed.
       ticket_url:
         type: optional<string>
         docs: The 3rd party url of the Ticket.
@@ -2135,6 +2132,9 @@ types:
           * `HIGH` - HIGH
           * `NORMAL` - NORMAL
           * `LOW` - LOW
+      completed_at:
+        type: optional<datetime>
+        docs: When the ticket was completed.
       integration_params:
         type: optional<map<string, unknown>>
         access: write-only
@@ -2319,6 +2319,7 @@ types:
       remote_key_name: optional<string>
       description: optional<string>
       is_custom: optional<boolean>
+      is_common_model_field: optional<boolean>
       is_required: optional<boolean>
       field_type: optional<RemoteFieldClassFieldType>
       field_format: optional<RemoteFieldClassFieldFormat>
@@ -2422,8 +2423,8 @@ types:
       * `ASSIGNED_ONLY` - ASSIGNED_ONLY
       * `TEAM_ONLY` - TEAM_ONLY
     union:
-      - string
       - TicketAccessEnum
+      - string
     source:
       openapi: openapi/openapi.yml
     inline: true
@@ -2541,6 +2542,14 @@ types:
     source:
       openapi: openapi/openapi.yml
     inline: true
+  SyncStatusStatus:
+    discriminated: false
+    union:
+      - StatusFd5Enum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   SyncStatus:
     docs: >-
       # The SyncStatus Object
@@ -2562,7 +2571,7 @@ types:
       next_sync_start: optional<datetime>
       last_sync_result: optional<SyncStatusLastSyncResult>
       last_sync_finished: optional<datetime>
-      status: StatusFd5Enum
+      status: SyncStatusStatus
       is_initial_sync: boolean
       selective_sync_configurations_usage: optional<SelectiveSyncConfigurationsUsageEnum>
     source:
@@ -2894,6 +2903,21 @@ types:
           * `COLLECTION` - COLLECTION
       tags: optional<list<optional<string>>>
       roles: optional<list<optional<string>>>
+      ticket_url:
+        type: optional<string>
+        docs: The 3rd party url of the Ticket.
+        validation:
+          format: uri
+          maxLength: 2000
+      priority:
+        type: optional<TicketPriority>
+        docs: |-
+          The priority or urgency of the Ticket.
+
+          * `URGENT` - URGENT
+          * `HIGH` - HIGH
+          * `NORMAL` - NORMAL
+          * `LOW` - LOW
       remote_created_at:
         type: optional<datetime>
         docs: When the third party's ticket was created.
@@ -2912,21 +2936,6 @@ types:
           [Learn
           more](https://docs.merge.dev/integrations/hris/supported-features/).
         access: read-only
-      ticket_url:
-        type: optional<string>
-        docs: The 3rd party url of the Ticket.
-        validation:
-          format: uri
-          maxLength: 2000
-      priority:
-        type: optional<TicketPriority>
-        docs: |-
-          The priority or urgency of the Ticket.
-
-          * `URGENT` - URGENT
-          * `HIGH` - HIGH
-          * `NORMAL` - NORMAL
-          * `LOW` - LOW
       field_mappings:
         type: optional<map<string, unknown>>
         access: read-only
@@ -3194,9 +3203,6 @@ types:
           * `COLLECTION` - COLLECTION
       tags: optional<list<optional<string>>>
       roles: optional<list<optional<string>>>
-      completed_at:
-        type: optional<datetime>
-        docs: When the ticket was completed.
       ticket_url:
         type: optional<string>
         docs: The 3rd party url of the Ticket.
@@ -3212,6 +3218,9 @@ types:
           * `HIGH` - HIGH
           * `NORMAL` - NORMAL
           * `LOW` - LOW
+      completed_at:
+        type: optional<datetime>
+        docs: When the ticket was completed.
       integration_params:
         type: optional<map<string, unknown>>
         access: write-only

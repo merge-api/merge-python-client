@@ -120,7 +120,9 @@ class JournalEntriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.journal_entries.list()
+        client.accounting.journal_entries.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             company_id=company_id,
@@ -302,7 +304,9 @@ class JournalEntriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.journal_entries.lines_remote_field_classes_list()
+        client.accounting.journal_entries.lines_remote_field_classes_list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.lines_remote_field_classes_list(
             cursor=cursor,
@@ -397,7 +401,9 @@ class JournalEntriesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.journal_entries.remote_field_classes_list()
+        client.accounting.journal_entries.remote_field_classes_list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.remote_field_classes_list(
             cursor=cursor,
@@ -518,7 +524,9 @@ class AsyncJournalEntriesClient:
 
 
         async def main() -> None:
-            await client.accounting.journal_entries.list()
+            await client.accounting.journal_entries.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
@@ -724,7 +732,9 @@ class AsyncJournalEntriesClient:
 
 
         async def main() -> None:
-            await client.accounting.journal_entries.lines_remote_field_classes_list()
+            await client.accounting.journal_entries.lines_remote_field_classes_list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
@@ -835,7 +845,9 @@ class AsyncJournalEntriesClient:
 
 
         async def main() -> None:
-            await client.accounting.journal_entries.remote_field_classes_list()
+            await client.accounting.journal_entries.remote_field_classes_list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

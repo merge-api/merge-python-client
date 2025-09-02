@@ -655,7 +655,7 @@ types:
       - type: string
         validation:
           format: uuid
-      - ScreeningQuestionAnswerRequest
+      - ScreeningQuestionAnswer
     source:
       openapi: openapi/openapi.yml
     inline: true
@@ -1482,6 +1482,22 @@ types:
       disabled_fields: list<string>
     source:
       openapi: openapi/openapi.yml
+  DataPassthroughRequestMethod:
+    discriminated: false
+    union:
+      - MethodEnum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
+  DataPassthroughRequestRequestFormat:
+    discriminated: false
+    union:
+      - RequestFormatEnum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   DataPassthroughRequest:
     docs: >-
       # The DataPassthrough Object
@@ -1497,7 +1513,7 @@ types:
       Create a `DataPassthrough` to get team hierarchies from your Rippling
       integration.
     properties:
-      method: MethodEnum
+      method: DataPassthroughRequestMethod
       path:
         type: string
         docs: The path of the request in the third party's platform.
@@ -1527,7 +1543,7 @@ types:
           authorization headers). `Content-Type` header is required for
           passthrough. Choose content type corresponding to expected format of
           receiving server.
-      request_format: optional<RequestFormatEnum>
+      request_format: optional<DataPassthroughRequestRequestFormat>
       normalize_response:
         type: optional<boolean>
         docs: >-
@@ -1974,6 +1990,7 @@ types:
       - CREATED_TEST_API_KEY
       - DELETED_TEST_API_KEY
       - REGENERATED_PRODUCTION_API_KEY
+      - REGENERATED_WEBHOOK_SIGNATURE
       - INVITED_USER
       - TWO_FACTOR_AUTH_ENABLED
       - TWO_FACTOR_AUTH_DISABLED
@@ -2341,6 +2358,16 @@ types:
     source:
       openapi: openapi/openapi.yml
     inline: true
+  JobJobPostingsItem:
+    discriminated: false
+    union:
+      - type: string
+        validation:
+          format: uuid
+      - JobPosting
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   JobDepartmentsItem:
     discriminated: false
     union:
@@ -2440,7 +2467,7 @@ types:
           * `REQUISITION` - REQUISITION
           * `PROFILE` - PROFILE
       job_postings:
-        type: optional<list<optional<string>>>
+        type: optional<list<optional<JobJobPostingsItem>>>
         docs: IDs of `JobPosting` objects that serve as job postings for this `Job`.
       job_posting_urls: optional<list<Url>>
       remote_created_at:
@@ -3536,6 +3563,14 @@ types:
       field_traversal_path: list<unknown>
     source:
       openapi: openapi/openapi.yml
+  RemoteFieldApiAdvancedMetadata:
+    discriminated: false
+    union:
+      - AdvancedMetadata
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   RemoteFieldApiCoverage:
     discriminated: false
     union:
@@ -3550,7 +3585,7 @@ types:
       remote_key_name: string
       remote_endpoint_info: RemoteEndpointInfo
       example_values: optional<list<unknown>>
-      advanced_metadata: optional<AdvancedMetadata>
+      advanced_metadata: optional<RemoteFieldApiAdvancedMetadata>
       coverage:
         type: optional<RemoteFieldApiCoverage>
         access: read-only

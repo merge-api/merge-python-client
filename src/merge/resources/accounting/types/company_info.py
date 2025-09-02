@@ -6,9 +6,9 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
-from .accounting_phone_number import AccountingPhoneNumber
-from .address import Address
+from .company_info_addresses_item import CompanyInfoAddressesItem
 from .company_info_currency import CompanyInfoCurrency
+from .company_info_phone_numbers_item import CompanyInfoPhoneNumbersItem
 from .remote_data import RemoteData
 
 
@@ -385,8 +385,8 @@ class CompanyInfo(UncheckedBaseModel):
     The company's urls.
     """
 
-    addresses: typing.Optional[typing.List[Address]] = None
-    phone_numbers: typing.Optional[typing.List[AccountingPhoneNumber]] = None
+    addresses: typing.Optional[typing.List[CompanyInfoAddressesItem]] = None
+    phone_numbers: typing.Optional[typing.List[CompanyInfoPhoneNumbersItem]] = None
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).

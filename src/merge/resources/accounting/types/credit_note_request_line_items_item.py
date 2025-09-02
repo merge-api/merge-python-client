@@ -2,6 +2,6 @@
 
 import typing
 
-from .credit_note_line_item_request import CreditNoteLineItemRequest
+from .credit_note_line_item import CreditNoteLineItem
 
-CreditNoteRequestLineItemsItem = typing.Union[str, CreditNoteLineItemRequest]
+CreditNoteRequestLineItemsItem = typing.Union[str, CreditNoteLineItem]

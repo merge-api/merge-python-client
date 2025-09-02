@@ -109,7 +109,9 @@ class TransactionsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.transactions.list()
+        client.accounting.transactions.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             company_id=company_id,
@@ -287,7 +289,9 @@ class AsyncTransactionsClient:
 
 
         async def main() -> None:
-            await client.accounting.transactions.list()
+            await client.accounting.transactions.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

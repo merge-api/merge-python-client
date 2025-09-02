@@ -127,7 +127,9 @@ class InterviewsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.interviews.list()
+        client.ats.interviews.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             application_id=application_id,
@@ -412,7 +414,9 @@ class AsyncInterviewsClient:
 
 
         async def main() -> None:
-            await client.ats.interviews.list()
+            await client.ats.interviews.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

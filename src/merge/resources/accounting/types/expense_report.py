@@ -6,12 +6,14 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
+from .expense_report_accounting_period import ExpenseReportAccountingPeriod
 from .expense_report_company import ExpenseReportCompany
+from .expense_report_currency import ExpenseReportCurrency
+from .expense_report_employee import ExpenseReportEmployee
 from .expense_report_line import ExpenseReportLine
 from .expense_report_status import ExpenseReportStatus
 from .remote_data import RemoteData
 from .remote_field import RemoteField
-from .transaction_currency_enum import TransactionCurrencyEnum
 
 
 class ExpenseReport(UncheckedBaseModel):
@@ -51,7 +53,7 @@ class ExpenseReport(UncheckedBaseModel):
     Human-readable expense report identifier.
     """
 
-    employee: typing.Optional[str] = pydantic.Field(default=None)
+    employee: typing.Optional[ExpenseReportEmployee] = pydantic.Field(default=None)
     """
     Identifier for the employee who submitted or is associated with the expense report
     """
@@ -72,7 +74,7 @@ class ExpenseReport(UncheckedBaseModel):
     """
 
     lines: typing.Optional[typing.List[ExpenseReportLine]] = None
-    currency: typing.Optional[TransactionCurrencyEnum] = pydantic.Field(default=None)
+    currency: typing.Optional[ExpenseReportCurrency] = pydantic.Field(default=None)
     """
     Currency code for the expense report
     
@@ -389,7 +391,7 @@ class ExpenseReport(UncheckedBaseModel):
     A brief description or purpose for the expense report
     """
 
-    accounting_period: typing.Optional[str] = pydantic.Field(default=None)
+    accounting_period: typing.Optional[ExpenseReportAccountingPeriod] = pydantic.Field(default=None)
     """
     The accounting period the report was posted in
     """

@@ -8,7 +8,6 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .address import Address
 from .contact_account import ContactAccount
-from .contact_owner import ContactOwner
 from .email_address import EmailAddress
 from .phone_number import PhoneNumber
 from .remote_data import RemoteData
@@ -55,7 +54,7 @@ class Contact(UncheckedBaseModel):
     The contact's account.
     """
 
-    owner: typing.Optional[ContactOwner] = pydantic.Field(default=None)
+    owner: typing.Optional[str] = pydantic.Field(default=None)
     """
     The contact's owner.
     """

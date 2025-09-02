@@ -262,7 +262,10 @@ service:
         type: root.PaginatedExpenseReportList
         status-code: 200
       examples:
-        - headers: {}
+        - query-parameters:
+            cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          headers:
+            X-Account-Token: X-Account-Token
           response:
             body:
               next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -274,7 +277,7 @@ service:
                   modified_at: '2024-01-31T14:30:00Z'
                   report_date: '2024-01-31T00:00:00Z'
                   report_identifier: EXP-2024-001
-                  employee: b9a9b824-6172-4d63-9d90-1c8a86c4f3b1
+                  employee: employee
                   status: DRAFT
                   total_amount: 150
                   lines:
@@ -305,7 +308,7 @@ service:
                       remote_was_deleted: false
                   currency: XUA
                   description: January 2024 Travel Expenses
-                  accounting_period: 7d793c67-9f72-4a6b-9256-3936f237b0d9
+                  accounting_period: accounting_period
                   company: company
                   tracking_categories:
                     - a1b2c3d4-e5f6-4a5b-9c3d-2e1f0a9b8c7d
@@ -349,7 +352,8 @@ service:
         type: root.ExpenseReportResponse
         status-code: 201
       examples:
-        - headers: {}
+        - headers:
+            X-Account-Token: X-Account-Token
           request:
             model:
               tracking_categories:
@@ -364,7 +368,7 @@ service:
                 modified_at: '2024-01-31T14:30:00Z'
                 report_date: '2024-01-31T00:00:00Z'
                 report_identifier: EXP-2024-001
-                employee: b9a9b824-6172-4d63-9d90-1c8a86c4f3b1
+                employee: employee
                 status: DRAFT
                 total_amount: 150
                 lines:
@@ -395,7 +399,7 @@ service:
                     remote_was_deleted: false
                 currency: XUA
                 description: January 2024 Travel Expenses
-                accounting_period: 7d793c67-9f72-4a6b-9256-3936f237b0d9
+                accounting_period: accounting_period
                 company: company
                 tracking_categories:
                   - a1b2c3d4-e5f6-4a5b-9c3d-2e1f0a9b8c7d
@@ -487,7 +491,10 @@ service:
       examples:
         - path-parameters:
             expense_report_id: expense_report_id
-          headers: {}
+          query-parameters:
+            cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          headers:
+            X-Account-Token: X-Account-Token
           response:
             body:
               next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -559,7 +566,8 @@ service:
       examples:
         - path-parameters:
             id: id
-          headers: {}
+          headers:
+            X-Account-Token: X-Account-Token
           response:
             body:
               id: 123e4567-e89b-12d3-a456-426614174000
@@ -568,7 +576,7 @@ service:
               modified_at: '2024-01-31T14:30:00Z'
               report_date: '2024-01-31T00:00:00Z'
               report_identifier: EXP-2024-001
-              employee: b9a9b824-6172-4d63-9d90-1c8a86c4f3b1
+              employee: employee
               status: DRAFT
               total_amount: 150
               lines:
@@ -601,7 +609,7 @@ service:
                     - remote_field_class: remote_field_class
               currency: XUA
               description: January 2024 Travel Expenses
-              accounting_period: 7d793c67-9f72-4a6b-9256-3936f237b0d9
+              accounting_period: accounting_period
               company: company
               tracking_categories:
                 - a1b2c3d4-e5f6-4a5b-9c3d-2e1f0a9b8c7d
@@ -669,7 +677,10 @@ service:
         type: root.PaginatedRemoteFieldClassList
         status-code: 200
       examples:
-        - headers: {}
+        - query-parameters:
+            cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          headers:
+            X-Account-Token: X-Account-Token
           response:
             body:
               next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -680,6 +691,7 @@ service:
                   remote_key_name: remote_key_name
                   description: description
                   is_custom: true
+                  is_common_model_field: true
                   is_required: true
                   field_type: string
                   field_format: string
@@ -697,7 +709,8 @@ service:
         type: root.MetaResponse
         status-code: 200
       examples:
-        - headers: {}
+        - headers:
+            X-Account-Token: X-Account-Token
           response:
             body:
               request_schema:
@@ -918,7 +931,10 @@ service:
         type: root.PaginatedRemoteFieldClassList
         status-code: 200
       examples:
-        - headers: {}
+        - query-parameters:
+            cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          headers:
+            X-Account-Token: X-Account-Token
           response:
             body:
               next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -929,6 +945,7 @@ service:
                   remote_key_name: remote_key_name
                   description: description
                   is_custom: true
+                  is_common_model_field: true
                   is_required: true
                   field_type: string
                   field_format: string

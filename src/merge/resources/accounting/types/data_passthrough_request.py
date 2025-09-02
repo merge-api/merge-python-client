@@ -6,8 +6,8 @@ import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .data_passthrough_request_method import DataPassthroughRequestMethod
+from .data_passthrough_request_request_format import DataPassthroughRequestRequestFormat
 from .multipart_form_field_request import MultipartFormFieldRequest
-from .request_format_enum import RequestFormatEnum
 
 
 class DataPassthroughRequest(UncheckedBaseModel):
@@ -46,7 +46,7 @@ class DataPassthroughRequest(UncheckedBaseModel):
     The headers to use for the request (Merge will handle the account's authorization headers). `Content-Type` header is required for passthrough. Choose content type corresponding to expected format of receiving server.
     """
 
-    request_format: typing.Optional[RequestFormatEnum] = None
+    request_format: typing.Optional[DataPassthroughRequestRequestFormat] = None
     normalize_response: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Optional. If true, the response will always be an object of the form `{"type": T, "value": ...}` where `T` will be one of `string, boolean, number, null, array, object`.

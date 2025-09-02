@@ -2,6 +2,6 @@
 
 import typing
 
-from .screening_question_answer_request import ScreeningQuestionAnswerRequest
+from .screening_question_answer import ScreeningQuestionAnswer
 
-ApplicationRequestScreeningQuestionAnswersItem = typing.Union[str, ScreeningQuestionAnswerRequest]
+ApplicationRequestScreeningQuestionAnswersItem = typing.Union[str, ScreeningQuestionAnswer]

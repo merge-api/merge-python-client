@@ -91,7 +91,9 @@ class TeamsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.teams.list()
+        client.ticketing.teams.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             created_after=created_after,
@@ -244,7 +246,9 @@ class AsyncTeamsClient:
 
 
         async def main() -> None:
-            await client.ticketing.teams.list()
+            await client.ticketing.teams.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

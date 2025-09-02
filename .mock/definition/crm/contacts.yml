@@ -104,7 +104,10 @@ service:
         type: root.PaginatedContactList
         status-code: 200
       examples:
-        - headers: {}
+        - query-parameters:
+            cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          headers:
+            X-Account-Token: X-Account-Token
           response:
             body:
               next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -117,7 +120,7 @@ service:
                   first_name: Gil
                   last_name: Feig
                   account: account
-                  owner: owner
+                  owner: b8fbfc30-0982-420e-8c20-dab07b70b9d6
                   addresses:
                     - created_at: '2021-09-15T00:00:00Z'
                       modified_at: '2021-10-16T00:00:00Z'
@@ -179,7 +182,8 @@ service:
         type: root.CrmContactResponse
         status-code: 201
       examples:
-        - headers: {}
+        - headers:
+            X-Account-Token: X-Account-Token
           request:
             model: {}
           response:
@@ -192,7 +196,7 @@ service:
                 first_name: Gil
                 last_name: Feig
                 account: account
-                owner: owner
+                owner: b8fbfc30-0982-420e-8c20-dab07b70b9d6
                 addresses:
                   - created_at: '2021-09-15T00:00:00Z'
                     modified_at: '2021-10-16T00:00:00Z'
@@ -286,7 +290,8 @@ service:
       examples:
         - path-parameters:
             id: id
-          headers: {}
+          headers:
+            X-Account-Token: X-Account-Token
           response:
             body:
               id: 550e8400-e29b-41d4-a716-446655440000
@@ -296,7 +301,7 @@ service:
               first_name: Gil
               last_name: Feig
               account: account
-              owner: owner
+              owner: b8fbfc30-0982-420e-8c20-dab07b70b9d6
               addresses:
                 - created_at: '2021-09-15T00:00:00Z'
                   modified_at: '2021-10-16T00:00:00Z'
@@ -364,7 +369,8 @@ service:
       examples:
         - path-parameters:
             id: id
-          headers: {}
+          headers:
+            X-Account-Token: X-Account-Token
           request:
             model: {}
           response:
@@ -377,7 +383,7 @@ service:
                 first_name: Gil
                 last_name: Feig
                 account: account
-                owner: owner
+                owner: b8fbfc30-0982-420e-8c20-dab07b70b9d6
                 addresses:
                   - created_at: '2021-09-15T00:00:00Z'
                     modified_at: '2021-10-16T00:00:00Z'
@@ -451,7 +457,8 @@ service:
       examples:
         - path-parameters:
             model_id: model_id
-          headers: {}
+          headers:
+            X-Account-Token: X-Account-Token
           request:
             reason: GENERAL_CUSTOMER_REQUEST
     metaPatchRetrieve:
@@ -470,7 +477,8 @@ service:
       examples:
         - path-parameters:
             id: id
-          headers: {}
+          headers:
+            X-Account-Token: X-Account-Token
           response:
             body:
               request_schema:
@@ -654,7 +662,8 @@ service:
         type: root.MetaResponse
         status-code: 200
       examples:
-        - headers: {}
+        - headers:
+            X-Account-Token: X-Account-Token
           response:
             body:
               request_schema:
@@ -880,7 +889,10 @@ service:
         type: root.PaginatedRemoteFieldClassList
         status-code: 200
       examples:
-        - headers: {}
+        - query-parameters:
+            cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          headers:
+            X-Account-Token: X-Account-Token
           response:
             body:
               next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -891,6 +903,7 @@ service:
                   remote_key_name: remote_key_name
                   description: description
                   is_custom: true
+                  is_common_model_field: true
                   is_required: true
                   field_type: string
                   field_format: string

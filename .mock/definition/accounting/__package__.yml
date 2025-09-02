@@ -11176,6 +11176,26 @@ types:
     source:
       openapi: openapi/openapi.yml
     inline: true
+  CompanyInfoAddressesItem:
+    discriminated: false
+    union:
+      - type: string
+        validation:
+          format: uuid
+      - Address
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
+  CompanyInfoPhoneNumbersItem:
+    discriminated: false
+    union:
+      - type: string
+        validation:
+          format: uuid
+      - AccountingPhoneNumber
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   CompanyInfo:
     docs: >-
       # The CompanyInfo Object
@@ -11853,8 +11873,8 @@ types:
       urls:
         type: optional<list<optional<string>>>
         docs: The company's urls.
-      addresses: optional<list<Address>>
-      phone_numbers: optional<list<AccountingPhoneNumber>>
+      addresses: optional<list<CompanyInfoAddressesItem>>
+      phone_numbers: optional<list<CompanyInfoPhoneNumbersItem>>
       remote_was_deleted:
         type: optional<boolean>
         docs: >-
@@ -14362,7 +14382,7 @@ types:
       - type: string
         validation:
           format: uuid
-      - Contact
+      - Project
     source:
       openapi: openapi/openapi.yml
     inline: true
@@ -14485,7 +14505,7 @@ types:
       - type: string
         validation:
           format: uuid
-      - CreditNoteLineItemRequest
+      - CreditNoteLineItem
     source:
       openapi: openapi/openapi.yml
     inline: true
@@ -15891,6 +15911,14 @@ types:
     source:
       openapi: openapi/openapi.yml
     inline: true
+  DataPassthroughRequestRequestFormat:
+    discriminated: false
+    union:
+      - RequestFormatEnum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   DataPassthroughRequest:
     docs: >-
       # The DataPassthrough Object
@@ -15936,7 +15964,7 @@ types:
           authorization headers). `Content-Type` header is required for
           passthrough. Choose content type corresponding to expected format of
           receiving server.
-      request_format: optional<RequestFormatEnum>
+      request_format: optional<DataPassthroughRequestRequestFormat>
       normalize_response:
         type: optional<boolean>
         docs: >-
@@ -19738,7 +19766,7 @@ types:
       - type: string
         validation:
           format: uuid
-      - Contact
+      - Project
     source:
       openapi: openapi/openapi.yml
     inline: true
@@ -20423,6 +20451,19 @@ types:
         access: write-only
     source:
       openapi: openapi/openapi.yml
+  ExpenseReportEmployee:
+    discriminated: false
+    docs: >-
+      Identifier for the employee who submitted or is associated with the
+      expense report
+    union:
+      - type: string
+        validation:
+          format: uuid
+      - Employee
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   ExpenseReportStatus:
     discriminated: false
     docs: >-
@@ -20440,6 +20481,641 @@ types:
     union:
       - ExpenseReportStatusEnum
       - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
+  ExpenseReportCurrency:
+    discriminated: false
+    docs: >-
+      Currency code for the expense report
+
+
+      * `XUA` - ADB Unit of Account
+
+      * `AFN` - Afghan Afghani
+
+      * `AFA` - Afghan Afghani (1927–2002)
+
+      * `ALL` - Albanian Lek
+
+      * `ALK` - Albanian Lek (1946–1965)
+
+      * `DZD` - Algerian Dinar
+
+      * `ADP` - Andorran Peseta
+
+      * `AOA` - Angolan Kwanza
+
+      * `AOK` - Angolan Kwanza (1977–1991)
+
+      * `AON` - Angolan New Kwanza (1990–2000)
+
+      * `AOR` - Angolan Readjusted Kwanza (1995–1999)
+
+      * `ARA` - Argentine Austral
+
+      * `ARS` - Argentine Peso
+
+      * `ARM` - Argentine Peso (1881–1970)
+
+      * `ARP` - Argentine Peso (1983–1985)
+
+      * `ARL` - Argentine Peso Ley (1970–1983)
+
+      * `AMD` - Armenian Dram
+
+      * `AWG` - Aruban Florin
+
+      * `AUD` - Australian Dollar
+
+      * `ATS` - Austrian Schilling
+
+      * `AZN` - Azerbaijani Manat
+
+      * `AZM` - Azerbaijani Manat (1993–2006)
+
+      * `BSD` - Bahamian Dollar
+
+      * `BHD` - Bahraini Dinar
+
+      * `BDT` - Bangladeshi Taka
+
+      * `BBD` - Barbadian Dollar
+
+      * `BYN` - Belarusian Ruble
+
+      * `BYB` - Belarusian Ruble (1994–1999)
+
+      * `BYR` - Belarusian Ruble (2000–2016)
+
+      * `BEF` - Belgian Franc
+
+      * `BEC` - Belgian Franc (convertible)
+
+      * `BEL` - Belgian Franc (financial)
+
+      * `BZD` - Belize Dollar
+
+      * `BMD` - Bermudan Dollar
+
+      * `BTN` - Bhutanese Ngultrum
+
+      * `BOB` - Bolivian Boliviano
+
+      * `BOL` - Bolivian Boliviano (1863–1963)
+
+      * `BOV` - Bolivian Mvdol
+
+      * `BOP` - Bolivian Peso
+
+      * `BAM` - Bosnia-Herzegovina Convertible Mark
+
+      * `BAD` - Bosnia-Herzegovina Dinar (1992–1994)
+
+      * `BAN` - Bosnia-Herzegovina New Dinar (1994–1997)
+
+      * `BWP` - Botswanan Pula
+
+      * `BRC` - Brazilian Cruzado (1986–1989)
+
+      * `BRZ` - Brazilian Cruzeiro (1942–1967)
+
+      * `BRE` - Brazilian Cruzeiro (1990–1993)
+
+      * `BRR` - Brazilian Cruzeiro (1993–1994)
+
+      * `BRN` - Brazilian New Cruzado (1989–1990)
+
+      * `BRB` - Brazilian New Cruzeiro (1967–1986)
+
+      * `BRL` - Brazilian Real
+
+      * `GBP` - British Pound
+
+      * `BND` - Brunei Dollar
+
+      * `BGL` - Bulgarian Hard Lev
+
+      * `BGN` - Bulgarian Lev
+
+      * `BGO` - Bulgarian Lev (1879–1952)
+
+      * `BGM` - Bulgarian Socialist Lev
+
+      * `BUK` - Burmese Kyat
+
+      * `BIF` - Burundian Franc
+
+      * `XPF` - CFP Franc
+
+      * `KHR` - Cambodian Riel
+
+      * `CAD` - Canadian Dollar
+
+      * `CVE` - Cape Verdean Escudo
+
+      * `KYD` - Cayman Islands Dollar
+
+      * `XAF` - Central African CFA Franc
+
+      * `CLE` - Chilean Escudo
+
+      * `CLP` - Chilean Peso
+
+      * `CLF` - Chilean Unit of Account (UF)
+
+      * `CNX` - Chinese People’s Bank Dollar
+
+      * `CNY` - Chinese Yuan
+
+      * `CNH` - Chinese Yuan (offshore)
+
+      * `COP` - Colombian Peso
+
+      * `COU` - Colombian Real Value Unit
+
+      * `KMF` - Comorian Franc
+
+      * `CDF` - Congolese Franc
+
+      * `CRC` - Costa Rican Colón
+
+      * `HRD` - Croatian Dinar
+
+      * `HRK` - Croatian Kuna
+
+      * `CUC` - Cuban Convertible Peso
+
+      * `CUP` - Cuban Peso
+
+      * `CYP` - Cypriot Pound
+
+      * `CZK` - Czech Koruna
+
+      * `CSK` - Czechoslovak Hard Koruna
+
+      * `DKK` - Danish Krone
+
+      * `DJF` - Djiboutian Franc
+
+      * `DOP` - Dominican Peso
+
+      * `NLG` - Dutch Guilder
+
+      * `XCD` - East Caribbean Dollar
+
+      * `DDM` - East German Mark
+
+      * `ECS` - Ecuadorian Sucre
+
+      * `ECV` - Ecuadorian Unit of Constant Value
+
+      * `EGP` - Egyptian Pound
+
+      * `GQE` - Equatorial Guinean Ekwele
+
+      * `ERN` - Eritrean Nakfa
+
+      * `EEK` - Estonian Kroon
+
+      * `ETB` - Ethiopian Birr
+
+      * `EUR` - Euro
+
+      * `XBA` - European Composite Unit
+
+      * `XEU` - European Currency Unit
+
+      * `XBB` - European Monetary Unit
+
+      * `XBC` - European Unit of Account (XBC)
+
+      * `XBD` - European Unit of Account (XBD)
+
+      * `FKP` - Falkland Islands Pound
+
+      * `FJD` - Fijian Dollar
+
+      * `FIM` - Finnish Markka
+
+      * `FRF` - French Franc
+
+      * `XFO` - French Gold Franc
+
+      * `XFU` - French UIC-Franc
+
+      * `GMD` - Gambian Dalasi
+
+      * `GEK` - Georgian Kupon Larit
+
+      * `GEL` - Georgian Lari
+
+      * `DEM` - German Mark
+
+      * `GHS` - Ghanaian Cedi
+
+      * `GHC` - Ghanaian Cedi (1979–2007)
+
+      * `GIP` - Gibraltar Pound
+
+      * `XAU` - Gold
+
+      * `GRD` - Greek Drachma
+
+      * `GTQ` - Guatemalan Quetzal
+
+      * `GWP` - Guinea-Bissau Peso
+
+      * `GNF` - Guinean Franc
+
+      * `GNS` - Guinean Syli
+
+      * `GYD` - Guyanaese Dollar
+
+      * `HTG` - Haitian Gourde
+
+      * `HNL` - Honduran Lempira
+
+      * `HKD` - Hong Kong Dollar
+
+      * `HUF` - Hungarian Forint
+
+      * `IMP` - IMP
+
+      * `ISK` - Icelandic Króna
+
+      * `ISJ` - Icelandic Króna (1918–1981)
+
+      * `INR` - Indian Rupee
+
+      * `IDR` - Indonesian Rupiah
+
+      * `IRR` - Iranian Rial
+
+      * `IQD` - Iraqi Dinar
+
+      * `IEP` - Irish Pound
+
+      * `ILS` - Israeli New Shekel
+
+      * `ILP` - Israeli Pound
+
+      * `ILR` - Israeli Shekel (1980–1985)
+
+      * `ITL` - Italian Lira
+
+      * `JMD` - Jamaican Dollar
+
+      * `JPY` - Japanese Yen
+
+      * `JOD` - Jordanian Dinar
+
+      * `KZT` - Kazakhstani Tenge
+
+      * `KES` - Kenyan Shilling
+
+      * `KWD` - Kuwaiti Dinar
+
+      * `KGS` - Kyrgystani Som
+
+      * `LAK` - Laotian Kip
+
+      * `LVL` - Latvian Lats
+
+      * `LVR` - Latvian Ruble
+
+      * `LBP` - Lebanese Pound
+
+      * `LSL` - Lesotho Loti
+
+      * `LRD` - Liberian Dollar
+
+      * `LYD` - Libyan Dinar
+
+      * `LTL` - Lithuanian Litas
+
+      * `LTT` - Lithuanian Talonas
+
+      * `LUL` - Luxembourg Financial Franc
+
+      * `LUC` - Luxembourgian Convertible Franc
+
+      * `LUF` - Luxembourgian Franc
+
+      * `MOP` - Macanese Pataca
+
+      * `MKD` - Macedonian Denar
+
+      * `MKN` - Macedonian Denar (1992–1993)
+
+      * `MGA` - Malagasy Ariary
+
+      * `MGF` - Malagasy Franc
+
+      * `MWK` - Malawian Kwacha
+
+      * `MYR` - Malaysian Ringgit
+
+      * `MVR` - Maldivian Rufiyaa
+
+      * `MVP` - Maldivian Rupee (1947–1981)
+
+      * `MLF` - Malian Franc
+
+      * `MTL` - Maltese Lira
+
+      * `MTP` - Maltese Pound
+
+      * `MRU` - Mauritanian Ouguiya
+
+      * `MRO` - Mauritanian Ouguiya (1973–2017)
+
+      * `MUR` - Mauritian Rupee
+
+      * `MXV` - Mexican Investment Unit
+
+      * `MXN` - Mexican Peso
+
+      * `MXP` - Mexican Silver Peso (1861–1992)
+
+      * `MDC` - Moldovan Cupon
+
+      * `MDL` - Moldovan Leu
+
+      * `MCF` - Monegasque Franc
+
+      * `MNT` - Mongolian Tugrik
+
+      * `MAD` - Moroccan Dirham
+
+      * `MAF` - Moroccan Franc
+
+      * `MZE` - Mozambican Escudo
+
+      * `MZN` - Mozambican Metical
+
+      * `MZM` - Mozambican Metical (1980–2006)
+
+      * `MMK` - Myanmar Kyat
+
+      * `NAD` - Namibian Dollar
+
+      * `NPR` - Nepalese Rupee
+
+      * `ANG` - Netherlands Antillean Guilder
+
+      * `TWD` - New Taiwan Dollar
+
+      * `NZD` - New Zealand Dollar
+
+      * `NIO` - Nicaraguan Córdoba
+
+      * `NIC` - Nicaraguan Córdoba (1988–1991)
+
+      * `NGN` - Nigerian Naira
+
+      * `KPW` - North Korean Won
+
+      * `NOK` - Norwegian Krone
+
+      * `OMR` - Omani Rial
+
+      * `PKR` - Pakistani Rupee
+
+      * `XPD` - Palladium
+
+      * `PAB` - Panamanian Balboa
+
+      * `PGK` - Papua New Guinean Kina
+
+      * `PYG` - Paraguayan Guarani
+
+      * `PEI` - Peruvian Inti
+
+      * `PEN` - Peruvian Sol
+
+      * `PES` - Peruvian Sol (1863–1965)
+
+      * `PHP` - Philippine Peso
+
+      * `XPT` - Platinum
+
+      * `PLN` - Polish Zloty
+
+      * `PLZ` - Polish Zloty (1950–1995)
+
+      * `PTE` - Portuguese Escudo
+
+      * `GWE` - Portuguese Guinea Escudo
+
+      * `QAR` - Qatari Rial
+
+      * `XRE` - RINET Funds
+
+      * `RHD` - Rhodesian Dollar
+
+      * `RON` - Romanian Leu
+
+      * `ROL` - Romanian Leu (1952–2006)
+
+      * `RUB` - Russian Ruble
+
+      * `RUR` - Russian Ruble (1991–1998)
+
+      * `RWF` - Rwandan Franc
+
+      * `SVC` - Salvadoran Colón
+
+      * `WST` - Samoan Tala
+
+      * `SAR` - Saudi Riyal
+
+      * `RSD` - Serbian Dinar
+
+      * `CSD` - Serbian Dinar (2002–2006)
+
+      * `SCR` - Seychellois Rupee
+
+      * `SLL` - Sierra Leonean Leone
+
+      * `XAG` - Silver
+
+      * `SGD` - Singapore Dollar
+
+      * `SKK` - Slovak Koruna
+
+      * `SIT` - Slovenian Tolar
+
+      * `SBD` - Solomon Islands Dollar
+
+      * `SOS` - Somali Shilling
+
+      * `ZAR` - South African Rand
+
+      * `ZAL` - South African Rand (financial)
+
+      * `KRH` - South Korean Hwan (1953–1962)
+
+      * `KRW` - South Korean Won
+
+      * `KRO` - South Korean Won (1945–1953)
+
+      * `SSP` - South Sudanese Pound
+
+      * `SUR` - Soviet Rouble
+
+      * `ESP` - Spanish Peseta
+
+      * `ESA` - Spanish Peseta (A account)
+
+      * `ESB` - Spanish Peseta (convertible account)
+
+      * `XDR` - Special Drawing Rights
+
+      * `LKR` - Sri Lankan Rupee
+
+      * `SHP` - St. Helena Pound
+
+      * `XSU` - Sucre
+
+      * `SDD` - Sudanese Dinar (1992–2007)
+
+      * `SDG` - Sudanese Pound
+
+      * `SDP` - Sudanese Pound (1957–1998)
+
+      * `SRD` - Surinamese Dollar
+
+      * `SRG` - Surinamese Guilder
+
+      * `SZL` - Swazi Lilangeni
+
+      * `SEK` - Swedish Krona
+
+      * `CHF` - Swiss Franc
+
+      * `SYP` - Syrian Pound
+
+      * `STN` - São Tomé & Príncipe Dobra
+
+      * `STD` - São Tomé & Príncipe Dobra (1977–2017)
+
+      * `TVD` - TVD
+
+      * `TJR` - Tajikistani Ruble
+
+      * `TJS` - Tajikistani Somoni
+
+      * `TZS` - Tanzanian Shilling
+
+      * `XTS` - Testing Currency Code
+
+      * `THB` - Thai Baht
+
+      * `XXX` - The codes assigned for transactions where no currency is
+      involved
+
+      * `TPE` - Timorese Escudo
+
+      * `TOP` - Tongan Paʻanga
+
+      * `TTD` - Trinidad & Tobago Dollar
+
+      * `TND` - Tunisian Dinar
+
+      * `TRY` - Turkish Lira
+
+      * `TRL` - Turkish Lira (1922–2005)
+
+      * `TMT` - Turkmenistani Manat
+
+      * `TMM` - Turkmenistani Manat (1993–2009)
+
+      * `USD` - US Dollar
+
+      * `USN` - US Dollar (Next day)
+
+      * `USS` - US Dollar (Same day)
+
+      * `UGX` - Ugandan Shilling
+
+      * `UGS` - Ugandan Shilling (1966–1987)
+
+      * `UAH` - Ukrainian Hryvnia
+
+      * `UAK` - Ukrainian Karbovanets
+
+      * `AED` - United Arab Emirates Dirham
+
+      * `UYW` - Uruguayan Nominal Wage Index Unit
+
+      * `UYU` - Uruguayan Peso
+
+      * `UYP` - Uruguayan Peso (1975–1993)
+
+      * `UYI` - Uruguayan Peso (Indexed Units)
+
+      * `UZS` - Uzbekistani Som
+
+      * `VUV` - Vanuatu Vatu
+
+      * `VES` - Venezuelan Bolívar
+
+      * `VEB` - Venezuelan Bolívar (1871–2008)
+
+      * `VEF` - Venezuelan Bolívar (2008–2018)
+
+      * `VND` - Vietnamese Dong
+
+      * `VNN` - Vietnamese Dong (1978–1985)
+
+      * `CHE` - WIR Euro
+
+      * `CHW` - WIR Franc
+
+      * `XOF` - West African CFA Franc
+
+      * `YDD` - Yemeni Dinar
+
+      * `YER` - Yemeni Rial
+
+      * `YUN` - Yugoslavian Convertible Dinar (1990–1992)
+
+      * `YUD` - Yugoslavian Hard Dinar (1966–1990)
+
+      * `YUM` - Yugoslavian New Dinar (1994–2002)
+
+      * `YUR` - Yugoslavian Reformed Dinar (1992–1993)
+
+      * `ZWN` - ZWN
+
+      * `ZRN` - Zairean New Zaire (1993–1998)
+
+      * `ZRZ` - Zairean Zaire (1971–1993)
+
+      * `ZMW` - Zambian Kwacha
+
+      * `ZMK` - Zambian Kwacha (1968–2012)
+
+      * `ZWD` - Zimbabwean Dollar (1980–2008)
+
+      * `ZWR` - Zimbabwean Dollar (2008)
+
+      * `ZWL` - Zimbabwean Dollar (2009)
+    union:
+      - TransactionCurrencyEnum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
+  ExpenseReportAccountingPeriod:
+    discriminated: false
+    docs: The accounting period the report was posted in
+    union:
+      - type: string
+        validation:
+          format: uuid
+      - AccountingPeriod
     source:
       openapi: openapi/openapi.yml
     inline: true
@@ -20497,12 +21173,10 @@ types:
         validation:
           maxLength: 1024
       employee:
-        type: optional<string>
+        type: optional<ExpenseReportEmployee>
         docs: >-
           Identifier for the employee who submitted or is associated with the
           expense report
-        validation:
-          format: uuid
       status:
         type: optional<ExpenseReportStatus>
         docs: >-
@@ -20524,7 +21198,7 @@ types:
         type: optional<list<ExpenseReportLine>>
         access: read-only
       currency:
-        type: optional<TransactionCurrencyEnum>
+        type: optional<ExpenseReportCurrency>
         docs: >-
           Currency code for the expense report
 
@@ -21147,10 +21821,8 @@ types:
         validation:
           maxLength: 1024
       accounting_period:
-        type: optional<string>
+        type: optional<ExpenseReportAccountingPeriod>
         docs: The accounting period the report was posted in
-        validation:
-          format: uuid
       company:
         type: optional<ExpenseReportCompany>
         docs: The subsidiary that the expense report is created in
@@ -21184,6 +21856,630 @@ types:
         validation:
           format: uuid
       - Account
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
+  ExpenseReportLineCurrency:
+    discriminated: false
+    docs: >-
+      Currency of the expense line (if different from the report currency).
+
+
+      * `XUA` - ADB Unit of Account
+
+      * `AFN` - Afghan Afghani
+
+      * `AFA` - Afghan Afghani (1927–2002)
+
+      * `ALL` - Albanian Lek
+
+      * `ALK` - Albanian Lek (1946–1965)
+
+      * `DZD` - Algerian Dinar
+
+      * `ADP` - Andorran Peseta
+
+      * `AOA` - Angolan Kwanza
+
+      * `AOK` - Angolan Kwanza (1977–1991)
+
+      * `AON` - Angolan New Kwanza (1990–2000)
+
+      * `AOR` - Angolan Readjusted Kwanza (1995–1999)
+
+      * `ARA` - Argentine Austral
+
+      * `ARS` - Argentine Peso
+
+      * `ARM` - Argentine Peso (1881–1970)
+
+      * `ARP` - Argentine Peso (1983–1985)
+
+      * `ARL` - Argentine Peso Ley (1970–1983)
+
+      * `AMD` - Armenian Dram
+
+      * `AWG` - Aruban Florin
+
+      * `AUD` - Australian Dollar
+
+      * `ATS` - Austrian Schilling
+
+      * `AZN` - Azerbaijani Manat
+
+      * `AZM` - Azerbaijani Manat (1993–2006)
+
+      * `BSD` - Bahamian Dollar
+
+      * `BHD` - Bahraini Dinar
+
+      * `BDT` - Bangladeshi Taka
+
+      * `BBD` - Barbadian Dollar
+
+      * `BYN` - Belarusian Ruble
+
+      * `BYB` - Belarusian Ruble (1994–1999)
+
+      * `BYR` - Belarusian Ruble (2000–2016)
+
+      * `BEF` - Belgian Franc
+
+      * `BEC` - Belgian Franc (convertible)
+
+      * `BEL` - Belgian Franc (financial)
+
+      * `BZD` - Belize Dollar
+
+      * `BMD` - Bermudan Dollar
+
+      * `BTN` - Bhutanese Ngultrum
+
+      * `BOB` - Bolivian Boliviano
+
+      * `BOL` - Bolivian Boliviano (1863–1963)
+
+      * `BOV` - Bolivian Mvdol
+
+      * `BOP` - Bolivian Peso
+
+      * `BAM` - Bosnia-Herzegovina Convertible Mark
+
+      * `BAD` - Bosnia-Herzegovina Dinar (1992–1994)
+
+      * `BAN` - Bosnia-Herzegovina New Dinar (1994–1997)
+
+      * `BWP` - Botswanan Pula
+
+      * `BRC` - Brazilian Cruzado (1986–1989)
+
+      * `BRZ` - Brazilian Cruzeiro (1942–1967)
+
+      * `BRE` - Brazilian Cruzeiro (1990–1993)
+
+      * `BRR` - Brazilian Cruzeiro (1993–1994)
+
+      * `BRN` - Brazilian New Cruzado (1989–1990)
+
+      * `BRB` - Brazilian New Cruzeiro (1967–1986)
+
+      * `BRL` - Brazilian Real
+
+      * `GBP` - British Pound
+
+      * `BND` - Brunei Dollar
+
+      * `BGL` - Bulgarian Hard Lev
+
+      * `BGN` - Bulgarian Lev
+
+      * `BGO` - Bulgarian Lev (1879–1952)
+
+      * `BGM` - Bulgarian Socialist Lev
+
+      * `BUK` - Burmese Kyat
+
+      * `BIF` - Burundian Franc
+
+      * `XPF` - CFP Franc
+
+      * `KHR` - Cambodian Riel
+
+      * `CAD` - Canadian Dollar
+
+      * `CVE` - Cape Verdean Escudo
+
+      * `KYD` - Cayman Islands Dollar
+
+      * `XAF` - Central African CFA Franc
+
+      * `CLE` - Chilean Escudo
+
+      * `CLP` - Chilean Peso
+
+      * `CLF` - Chilean Unit of Account (UF)
+
+      * `CNX` - Chinese People’s Bank Dollar
+
+      * `CNY` - Chinese Yuan
+
+      * `CNH` - Chinese Yuan (offshore)
+
+      * `COP` - Colombian Peso
+
+      * `COU` - Colombian Real Value Unit
+
+      * `KMF` - Comorian Franc
+
+      * `CDF` - Congolese Franc
+
+      * `CRC` - Costa Rican Colón
+
+      * `HRD` - Croatian Dinar
+
+      * `HRK` - Croatian Kuna
+
+      * `CUC` - Cuban Convertible Peso
+
+      * `CUP` - Cuban Peso
+
+      * `CYP` - Cypriot Pound
+
+      * `CZK` - Czech Koruna
+
+      * `CSK` - Czechoslovak Hard Koruna
+
+      * `DKK` - Danish Krone
+
+      * `DJF` - Djiboutian Franc
+
+      * `DOP` - Dominican Peso
+
+      * `NLG` - Dutch Guilder
+
+      * `XCD` - East Caribbean Dollar
+
+      * `DDM` - East German Mark
+
+      * `ECS` - Ecuadorian Sucre
+
+      * `ECV` - Ecuadorian Unit of Constant Value
+
+      * `EGP` - Egyptian Pound
+
+      * `GQE` - Equatorial Guinean Ekwele
+
+      * `ERN` - Eritrean Nakfa
+
+      * `EEK` - Estonian Kroon
+
+      * `ETB` - Ethiopian Birr
+
+      * `EUR` - Euro
+
+      * `XBA` - European Composite Unit
+
+      * `XEU` - European Currency Unit
+
+      * `XBB` - European Monetary Unit
+
+      * `XBC` - European Unit of Account (XBC)
+
+      * `XBD` - European Unit of Account (XBD)
+
+      * `FKP` - Falkland Islands Pound
+
+      * `FJD` - Fijian Dollar
+
+      * `FIM` - Finnish Markka
+
+      * `FRF` - French Franc
+
+      * `XFO` - French Gold Franc
+
+      * `XFU` - French UIC-Franc
+
+      * `GMD` - Gambian Dalasi
+
+      * `GEK` - Georgian Kupon Larit
+
+      * `GEL` - Georgian Lari
+
+      * `DEM` - German Mark
+
+      * `GHS` - Ghanaian Cedi
+
+      * `GHC` - Ghanaian Cedi (1979–2007)
+
+      * `GIP` - Gibraltar Pound
+
+      * `XAU` - Gold
+
+      * `GRD` - Greek Drachma
+
+      * `GTQ` - Guatemalan Quetzal
+
+      * `GWP` - Guinea-Bissau Peso
+
+      * `GNF` - Guinean Franc
+
+      * `GNS` - Guinean Syli
+
+      * `GYD` - Guyanaese Dollar
+
+      * `HTG` - Haitian Gourde
+
+      * `HNL` - Honduran Lempira
+
+      * `HKD` - Hong Kong Dollar
+
+      * `HUF` - Hungarian Forint
+
+      * `IMP` - IMP
+
+      * `ISK` - Icelandic Króna
+
+      * `ISJ` - Icelandic Króna (1918–1981)
+
+      * `INR` - Indian Rupee
+
+      * `IDR` - Indonesian Rupiah
+
+      * `IRR` - Iranian Rial
+
+      * `IQD` - Iraqi Dinar
+
+      * `IEP` - Irish Pound
+
+      * `ILS` - Israeli New Shekel
+
+      * `ILP` - Israeli Pound
+
+      * `ILR` - Israeli Shekel (1980–1985)
+
+      * `ITL` - Italian Lira
+
+      * `JMD` - Jamaican Dollar
+
+      * `JPY` - Japanese Yen
+
+      * `JOD` - Jordanian Dinar
+
+      * `KZT` - Kazakhstani Tenge
+
+      * `KES` - Kenyan Shilling
+
+      * `KWD` - Kuwaiti Dinar
+
+      * `KGS` - Kyrgystani Som
+
+      * `LAK` - Laotian Kip
+
+      * `LVL` - Latvian Lats
+
+      * `LVR` - Latvian Ruble
+
+      * `LBP` - Lebanese Pound
+
+      * `LSL` - Lesotho Loti
+
+      * `LRD` - Liberian Dollar
+
+      * `LYD` - Libyan Dinar
+
+      * `LTL` - Lithuanian Litas
+
+      * `LTT` - Lithuanian Talonas
+
+      * `LUL` - Luxembourg Financial Franc
+
+      * `LUC` - Luxembourgian Convertible Franc
+
+      * `LUF` - Luxembourgian Franc
+
+      * `MOP` - Macanese Pataca
+
+      * `MKD` - Macedonian Denar
+
+      * `MKN` - Macedonian Denar (1992–1993)
+
+      * `MGA` - Malagasy Ariary
+
+      * `MGF` - Malagasy Franc
+
+      * `MWK` - Malawian Kwacha
+
+      * `MYR` - Malaysian Ringgit
+
+      * `MVR` - Maldivian Rufiyaa
+
+      * `MVP` - Maldivian Rupee (1947–1981)
+
+      * `MLF` - Malian Franc
+
+      * `MTL` - Maltese Lira
+
+      * `MTP` - Maltese Pound
+
+      * `MRU` - Mauritanian Ouguiya
+
+      * `MRO` - Mauritanian Ouguiya (1973–2017)
+
+      * `MUR` - Mauritian Rupee
+
+      * `MXV` - Mexican Investment Unit
+
+      * `MXN` - Mexican Peso
+
+      * `MXP` - Mexican Silver Peso (1861–1992)
+
+      * `MDC` - Moldovan Cupon
+
+      * `MDL` - Moldovan Leu
+
+      * `MCF` - Monegasque Franc
+
+      * `MNT` - Mongolian Tugrik
+
+      * `MAD` - Moroccan Dirham
+
+      * `MAF` - Moroccan Franc
+
+      * `MZE` - Mozambican Escudo
+
+      * `MZN` - Mozambican Metical
+
+      * `MZM` - Mozambican Metical (1980–2006)
+
+      * `MMK` - Myanmar Kyat
+
+      * `NAD` - Namibian Dollar
+
+      * `NPR` - Nepalese Rupee
+
+      * `ANG` - Netherlands Antillean Guilder
+
+      * `TWD` - New Taiwan Dollar
+
+      * `NZD` - New Zealand Dollar
+
+      * `NIO` - Nicaraguan Córdoba
+
+      * `NIC` - Nicaraguan Córdoba (1988–1991)
+
+      * `NGN` - Nigerian Naira
+
+      * `KPW` - North Korean Won
+
+      * `NOK` - Norwegian Krone
+
+      * `OMR` - Omani Rial
+
+      * `PKR` - Pakistani Rupee
+
+      * `XPD` - Palladium
+
+      * `PAB` - Panamanian Balboa
+
+      * `PGK` - Papua New Guinean Kina
+
+      * `PYG` - Paraguayan Guarani
+
+      * `PEI` - Peruvian Inti
+
+      * `PEN` - Peruvian Sol
+
+      * `PES` - Peruvian Sol (1863–1965)
+
+      * `PHP` - Philippine Peso
+
+      * `XPT` - Platinum
+
+      * `PLN` - Polish Zloty
+
+      * `PLZ` - Polish Zloty (1950–1995)
+
+      * `PTE` - Portuguese Escudo
+
+      * `GWE` - Portuguese Guinea Escudo
+
+      * `QAR` - Qatari Rial
+
+      * `XRE` - RINET Funds
+
+      * `RHD` - Rhodesian Dollar
+
+      * `RON` - Romanian Leu
+
+      * `ROL` - Romanian Leu (1952–2006)
+
+      * `RUB` - Russian Ruble
+
+      * `RUR` - Russian Ruble (1991–1998)
+
+      * `RWF` - Rwandan Franc
+
+      * `SVC` - Salvadoran Colón
+
+      * `WST` - Samoan Tala
+
+      * `SAR` - Saudi Riyal
+
+      * `RSD` - Serbian Dinar
+
+      * `CSD` - Serbian Dinar (2002–2006)
+
+      * `SCR` - Seychellois Rupee
+
+      * `SLL` - Sierra Leonean Leone
+
+      * `XAG` - Silver
+
+      * `SGD` - Singapore Dollar
+
+      * `SKK` - Slovak Koruna
+
+      * `SIT` - Slovenian Tolar
+
+      * `SBD` - Solomon Islands Dollar
+
+      * `SOS` - Somali Shilling
+
+      * `ZAR` - South African Rand
+
+      * `ZAL` - South African Rand (financial)
+
+      * `KRH` - South Korean Hwan (1953–1962)
+
+      * `KRW` - South Korean Won
+
+      * `KRO` - South Korean Won (1945–1953)
+
+      * `SSP` - South Sudanese Pound
+
+      * `SUR` - Soviet Rouble
+
+      * `ESP` - Spanish Peseta
+
+      * `ESA` - Spanish Peseta (A account)
+
+      * `ESB` - Spanish Peseta (convertible account)
+
+      * `XDR` - Special Drawing Rights
+
+      * `LKR` - Sri Lankan Rupee
+
+      * `SHP` - St. Helena Pound
+
+      * `XSU` - Sucre
+
+      * `SDD` - Sudanese Dinar (1992–2007)
+
+      * `SDG` - Sudanese Pound
+
+      * `SDP` - Sudanese Pound (1957–1998)
+
+      * `SRD` - Surinamese Dollar
+
+      * `SRG` - Surinamese Guilder
+
+      * `SZL` - Swazi Lilangeni
+
+      * `SEK` - Swedish Krona
+
+      * `CHF` - Swiss Franc
+
+      * `SYP` - Syrian Pound
+
+      * `STN` - São Tomé & Príncipe Dobra
+
+      * `STD` - São Tomé & Príncipe Dobra (1977–2017)
+
+      * `TVD` - TVD
+
+      * `TJR` - Tajikistani Ruble
+
+      * `TJS` - Tajikistani Somoni
+
+      * `TZS` - Tanzanian Shilling
+
+      * `XTS` - Testing Currency Code
+
+      * `THB` - Thai Baht
+
+      * `XXX` - The codes assigned for transactions where no currency is
+      involved
+
+      * `TPE` - Timorese Escudo
+
+      * `TOP` - Tongan Paʻanga
+
+      * `TTD` - Trinidad & Tobago Dollar
+
+      * `TND` - Tunisian Dinar
+
+      * `TRY` - Turkish Lira
+
+      * `TRL` - Turkish Lira (1922–2005)
+
+      * `TMT` - Turkmenistani Manat
+
+      * `TMM` - Turkmenistani Manat (1993–2009)
+
+      * `USD` - US Dollar
+
+      * `USN` - US Dollar (Next day)
+
+      * `USS` - US Dollar (Same day)
+
+      * `UGX` - Ugandan Shilling
+
+      * `UGS` - Ugandan Shilling (1966–1987)
+
+      * `UAH` - Ukrainian Hryvnia
+
+      * `UAK` - Ukrainian Karbovanets
+
+      * `AED` - United Arab Emirates Dirham
+
+      * `UYW` - Uruguayan Nominal Wage Index Unit
+
+      * `UYU` - Uruguayan Peso
+
+      * `UYP` - Uruguayan Peso (1975–1993)
+
+      * `UYI` - Uruguayan Peso (Indexed Units)
+
+      * `UZS` - Uzbekistani Som
+
+      * `VUV` - Vanuatu Vatu
+
+      * `VES` - Venezuelan Bolívar
+
+      * `VEB` - Venezuelan Bolívar (1871–2008)
+
+      * `VEF` - Venezuelan Bolívar (2008–2018)
+
+      * `VND` - Vietnamese Dong
+
+      * `VNN` - Vietnamese Dong (1978–1985)
+
+      * `CHE` - WIR Euro
+
+      * `CHW` - WIR Franc
+
+      * `XOF` - West African CFA Franc
+
+      * `YDD` - Yemeni Dinar
+
+      * `YER` - Yemeni Rial
+
+      * `YUN` - Yugoslavian Convertible Dinar (1990–1992)
+
+      * `YUD` - Yugoslavian Hard Dinar (1966–1990)
+
+      * `YUM` - Yugoslavian New Dinar (1994–2002)
+
+      * `YUR` - Yugoslavian Reformed Dinar (1992–1993)
+
+      * `ZWN` - ZWN
+
+      * `ZRN` - Zairean New Zaire (1993–1998)
+
+      * `ZRZ` - Zairean Zaire (1971–1993)
+
+      * `ZMW` - Zambian Kwacha
+
+      * `ZMK` - Zambian Kwacha (1968–2012)
+
+      * `ZWD` - Zimbabwean Dollar (1980–2008)
+
+      * `ZWR` - Zimbabwean Dollar (2008)
+
+      * `ZWL` - Zimbabwean Dollar (2009)
+    union:
+      - TransactionCurrencyEnum
+      - string
     source:
       openapi: openapi/openapi.yml
     inline: true
@@ -21287,7 +22583,7 @@ types:
         type: optional<double>
         docs: The amount of the expense for the line item.
       currency:
-        type: optional<TransactionCurrencyEnum>
+        type: optional<ExpenseReportLineCurrency>
         docs: >-
           Currency of the expense line (if different from the report currency).
 
@@ -21969,6 +23265,630 @@ types:
     source:
       openapi: openapi/openapi.yml
     inline: true
+  ExpenseReportLineRequestCurrency:
+    discriminated: false
+    docs: >-
+      Currency of the expense line (if different from the report currency).
+
+
+      * `XUA` - ADB Unit of Account
+
+      * `AFN` - Afghan Afghani
+
+      * `AFA` - Afghan Afghani (1927–2002)
+
+      * `ALL` - Albanian Lek
+
+      * `ALK` - Albanian Lek (1946–1965)
+
+      * `DZD` - Algerian Dinar
+
+      * `ADP` - Andorran Peseta
+
+      * `AOA` - Angolan Kwanza
+
+      * `AOK` - Angolan Kwanza (1977–1991)
+
+      * `AON` - Angolan New Kwanza (1990–2000)
+
+      * `AOR` - Angolan Readjusted Kwanza (1995–1999)
+
+      * `ARA` - Argentine Austral
+
+      * `ARS` - Argentine Peso
+
+      * `ARM` - Argentine Peso (1881–1970)
+
+      * `ARP` - Argentine Peso (1983–1985)
+
+      * `ARL` - Argentine Peso Ley (1970–1983)
+
+      * `AMD` - Armenian Dram
+
+      * `AWG` - Aruban Florin
+
+      * `AUD` - Australian Dollar
+
+      * `ATS` - Austrian Schilling
+
+      * `AZN` - Azerbaijani Manat
+
+      * `AZM` - Azerbaijani Manat (1993–2006)
+
+      * `BSD` - Bahamian Dollar
+
+      * `BHD` - Bahraini Dinar
+
+      * `BDT` - Bangladeshi Taka
+
+      * `BBD` - Barbadian Dollar
+
+      * `BYN` - Belarusian Ruble
+
+      * `BYB` - Belarusian Ruble (1994–1999)
+
+      * `BYR` - Belarusian Ruble (2000–2016)
+
+      * `BEF` - Belgian Franc
+
+      * `BEC` - Belgian Franc (convertible)
+
+      * `BEL` - Belgian Franc (financial)
+
+      * `BZD` - Belize Dollar
+
+      * `BMD` - Bermudan Dollar
+
+      * `BTN` - Bhutanese Ngultrum
+
+      * `BOB` - Bolivian Boliviano
+
+      * `BOL` - Bolivian Boliviano (1863–1963)
+
+      * `BOV` - Bolivian Mvdol
+
+      * `BOP` - Bolivian Peso
+
+      * `BAM` - Bosnia-Herzegovina Convertible Mark
+
+      * `BAD` - Bosnia-Herzegovina Dinar (1992–1994)
+
+      * `BAN` - Bosnia-Herzegovina New Dinar (1994–1997)
+
+      * `BWP` - Botswanan Pula
+
+      * `BRC` - Brazilian Cruzado (1986–1989)
+
+      * `BRZ` - Brazilian Cruzeiro (1942–1967)
+
+      * `BRE` - Brazilian Cruzeiro (1990–1993)
+
+      * `BRR` - Brazilian Cruzeiro (1993–1994)
+
+      * `BRN` - Brazilian New Cruzado (1989–1990)
+
+      * `BRB` - Brazilian New Cruzeiro (1967–1986)
+
+      * `BRL` - Brazilian Real
+
+      * `GBP` - British Pound
+
+      * `BND` - Brunei Dollar
+
+      * `BGL` - Bulgarian Hard Lev
+
+      * `BGN` - Bulgarian Lev
+
+      * `BGO` - Bulgarian Lev (1879–1952)
+
+      * `BGM` - Bulgarian Socialist Lev
+
+      * `BUK` - Burmese Kyat
+
+      * `BIF` - Burundian Franc
+
+      * `XPF` - CFP Franc
+
+      * `KHR` - Cambodian Riel
+
+      * `CAD` - Canadian Dollar
+
+      * `CVE` - Cape Verdean Escudo
+
+      * `KYD` - Cayman Islands Dollar
+
+      * `XAF` - Central African CFA Franc
+
+      * `CLE` - Chilean Escudo
+
+      * `CLP` - Chilean Peso
+
+      * `CLF` - Chilean Unit of Account (UF)
+
+      * `CNX` - Chinese People’s Bank Dollar
+
+      * `CNY` - Chinese Yuan
+
+      * `CNH` - Chinese Yuan (offshore)
+
+      * `COP` - Colombian Peso
+
+      * `COU` - Colombian Real Value Unit
+
+      * `KMF` - Comorian Franc
+
+      * `CDF` - Congolese Franc
+
+      * `CRC` - Costa Rican Colón
+
+      * `HRD` - Croatian Dinar
+
+      * `HRK` - Croatian Kuna
+
+      * `CUC` - Cuban Convertible Peso
+
+      * `CUP` - Cuban Peso
+
+      * `CYP` - Cypriot Pound
+
+      * `CZK` - Czech Koruna
+
+      * `CSK` - Czechoslovak Hard Koruna
+
+      * `DKK` - Danish Krone
+
+      * `DJF` - Djiboutian Franc
+
+      * `DOP` - Dominican Peso
+
+      * `NLG` - Dutch Guilder
+
+      * `XCD` - East Caribbean Dollar
+
+      * `DDM` - East German Mark
+
+      * `ECS` - Ecuadorian Sucre
+
+      * `ECV` - Ecuadorian Unit of Constant Value
+
+      * `EGP` - Egyptian Pound
+
+      * `GQE` - Equatorial Guinean Ekwele
+
+      * `ERN` - Eritrean Nakfa
+
+      * `EEK` - Estonian Kroon
+
+      * `ETB` - Ethiopian Birr
+
+      * `EUR` - Euro
+
+      * `XBA` - European Composite Unit
+
+      * `XEU` - European Currency Unit
+
+      * `XBB` - European Monetary Unit
+
+      * `XBC` - European Unit of Account (XBC)
+
+      * `XBD` - European Unit of Account (XBD)
+
+      * `FKP` - Falkland Islands Pound
+
+      * `FJD` - Fijian Dollar
+
+      * `FIM` - Finnish Markka
+
+      * `FRF` - French Franc
+
+      * `XFO` - French Gold Franc
+
+      * `XFU` - French UIC-Franc
+
+      * `GMD` - Gambian Dalasi
+
+      * `GEK` - Georgian Kupon Larit
+
+      * `GEL` - Georgian Lari
+
+      * `DEM` - German Mark
+
+      * `GHS` - Ghanaian Cedi
+
+      * `GHC` - Ghanaian Cedi (1979–2007)
+
+      * `GIP` - Gibraltar Pound
+
+      * `XAU` - Gold
+
+      * `GRD` - Greek Drachma
+
+      * `GTQ` - Guatemalan Quetzal
+
+      * `GWP` - Guinea-Bissau Peso
+
+      * `GNF` - Guinean Franc
+
+      * `GNS` - Guinean Syli
+
+      * `GYD` - Guyanaese Dollar
+
+      * `HTG` - Haitian Gourde
+
+      * `HNL` - Honduran Lempira
+
+      * `HKD` - Hong Kong Dollar
+
+      * `HUF` - Hungarian Forint
+
+      * `IMP` - IMP
+
+      * `ISK` - Icelandic Króna
+
+      * `ISJ` - Icelandic Króna (1918–1981)
+
+      * `INR` - Indian Rupee
+
+      * `IDR` - Indonesian Rupiah
+
+      * `IRR` - Iranian Rial
+
+      * `IQD` - Iraqi Dinar
+
+      * `IEP` - Irish Pound
+
+      * `ILS` - Israeli New Shekel
+
+      * `ILP` - Israeli Pound
+
+      * `ILR` - Israeli Shekel (1980–1985)
+
+      * `ITL` - Italian Lira
+
+      * `JMD` - Jamaican Dollar
+
+      * `JPY` - Japanese Yen
+
+      * `JOD` - Jordanian Dinar
+
+      * `KZT` - Kazakhstani Tenge
+
+      * `KES` - Kenyan Shilling
+
+      * `KWD` - Kuwaiti Dinar
+
+      * `KGS` - Kyrgystani Som
+
+      * `LAK` - Laotian Kip
+
+      * `LVL` - Latvian Lats
+
+      * `LVR` - Latvian Ruble
+
+      * `LBP` - Lebanese Pound
+
+      * `LSL` - Lesotho Loti
+
+      * `LRD` - Liberian Dollar
+
+      * `LYD` - Libyan Dinar
+
+      * `LTL` - Lithuanian Litas
+
+      * `LTT` - Lithuanian Talonas
+
+      * `LUL` - Luxembourg Financial Franc
+
+      * `LUC` - Luxembourgian Convertible Franc
+
+      * `LUF` - Luxembourgian Franc
+
+      * `MOP` - Macanese Pataca
+
+      * `MKD` - Macedonian Denar
+
+      * `MKN` - Macedonian Denar (1992–1993)
+
+      * `MGA` - Malagasy Ariary
+
+      * `MGF` - Malagasy Franc
+
+      * `MWK` - Malawian Kwacha
+
+      * `MYR` - Malaysian Ringgit
+
+      * `MVR` - Maldivian Rufiyaa
+
+      * `MVP` - Maldivian Rupee (1947–1981)
+
+      * `MLF` - Malian Franc
+
+      * `MTL` - Maltese Lira
+
+      * `MTP` - Maltese Pound
+
+      * `MRU` - Mauritanian Ouguiya
+
+      * `MRO` - Mauritanian Ouguiya (1973–2017)
+
+      * `MUR` - Mauritian Rupee
+
+      * `MXV` - Mexican Investment Unit
+
+      * `MXN` - Mexican Peso
+
+      * `MXP` - Mexican Silver Peso (1861–1992)
+
+      * `MDC` - Moldovan Cupon
+
+      * `MDL` - Moldovan Leu
+
+      * `MCF` - Monegasque Franc
+
+      * `MNT` - Mongolian Tugrik
+
+      * `MAD` - Moroccan Dirham
+
+      * `MAF` - Moroccan Franc
+
+      * `MZE` - Mozambican Escudo
+
+      * `MZN` - Mozambican Metical
+
+      * `MZM` - Mozambican Metical (1980–2006)
+
+      * `MMK` - Myanmar Kyat
+
+      * `NAD` - Namibian Dollar
+
+      * `NPR` - Nepalese Rupee
+
+      * `ANG` - Netherlands Antillean Guilder
+
+      * `TWD` - New Taiwan Dollar
+
+      * `NZD` - New Zealand Dollar
+
+      * `NIO` - Nicaraguan Córdoba
+
+      * `NIC` - Nicaraguan Córdoba (1988–1991)
+
+      * `NGN` - Nigerian Naira
+
+      * `KPW` - North Korean Won
+
+      * `NOK` - Norwegian Krone
+
+      * `OMR` - Omani Rial
+
+      * `PKR` - Pakistani Rupee
+
+      * `XPD` - Palladium
+
+      * `PAB` - Panamanian Balboa
+
+      * `PGK` - Papua New Guinean Kina
+
+      * `PYG` - Paraguayan Guarani
+
+      * `PEI` - Peruvian Inti
+
+      * `PEN` - Peruvian Sol
+
+      * `PES` - Peruvian Sol (1863–1965)
+
+      * `PHP` - Philippine Peso
+
+      * `XPT` - Platinum
+
+      * `PLN` - Polish Zloty
+
+      * `PLZ` - Polish Zloty (1950–1995)
+
+      * `PTE` - Portuguese Escudo
+
+      * `GWE` - Portuguese Guinea Escudo
+
+      * `QAR` - Qatari Rial
+
+      * `XRE` - RINET Funds
+
+      * `RHD` - Rhodesian Dollar
+
+      * `RON` - Romanian Leu
+
+      * `ROL` - Romanian Leu (1952–2006)
+
+      * `RUB` - Russian Ruble
+
+      * `RUR` - Russian Ruble (1991–1998)
+
+      * `RWF` - Rwandan Franc
+
+      * `SVC` - Salvadoran Colón
+
+      * `WST` - Samoan Tala
+
+      * `SAR` - Saudi Riyal
+
+      * `RSD` - Serbian Dinar
+
+      * `CSD` - Serbian Dinar (2002–2006)
+
+      * `SCR` - Seychellois Rupee
+
+      * `SLL` - Sierra Leonean Leone
+
+      * `XAG` - Silver
+
+      * `SGD` - Singapore Dollar
+
+      * `SKK` - Slovak Koruna
+
+      * `SIT` - Slovenian Tolar
+
+      * `SBD` - Solomon Islands Dollar
+
+      * `SOS` - Somali Shilling
+
+      * `ZAR` - South African Rand
+
+      * `ZAL` - South African Rand (financial)
+
+      * `KRH` - South Korean Hwan (1953–1962)
+
+      * `KRW` - South Korean Won
+
+      * `KRO` - South Korean Won (1945–1953)
+
+      * `SSP` - South Sudanese Pound
+
+      * `SUR` - Soviet Rouble
+
+      * `ESP` - Spanish Peseta
+
+      * `ESA` - Spanish Peseta (A account)
+
+      * `ESB` - Spanish Peseta (convertible account)
+
+      * `XDR` - Special Drawing Rights
+
+      * `LKR` - Sri Lankan Rupee
+
+      * `SHP` - St. Helena Pound
+
+      * `XSU` - Sucre
+
+      * `SDD` - Sudanese Dinar (1992–2007)
+
+      * `SDG` - Sudanese Pound
+
+      * `SDP` - Sudanese Pound (1957–1998)
+
+      * `SRD` - Surinamese Dollar
+
+      * `SRG` - Surinamese Guilder
+
+      * `SZL` - Swazi Lilangeni
+
+      * `SEK` - Swedish Krona
+
+      * `CHF` - Swiss Franc
+
+      * `SYP` - Syrian Pound
+
+      * `STN` - São Tomé & Príncipe Dobra
+
+      * `STD` - São Tomé & Príncipe Dobra (1977–2017)
+
+      * `TVD` - TVD
+
+      * `TJR` - Tajikistani Ruble
+
+      * `TJS` - Tajikistani Somoni
+
+      * `TZS` - Tanzanian Shilling
+
+      * `XTS` - Testing Currency Code
+
+      * `THB` - Thai Baht
+
+      * `XXX` - The codes assigned for transactions where no currency is
+      involved
+
+      * `TPE` - Timorese Escudo
+
+      * `TOP` - Tongan Paʻanga
+
+      * `TTD` - Trinidad & Tobago Dollar
+
+      * `TND` - Tunisian Dinar
+
+      * `TRY` - Turkish Lira
+
+      * `TRL` - Turkish Lira (1922–2005)
+
+      * `TMT` - Turkmenistani Manat
+
+      * `TMM` - Turkmenistani Manat (1993–2009)
+
+      * `USD` - US Dollar
+
+      * `USN` - US Dollar (Next day)
+
+      * `USS` - US Dollar (Same day)
+
+      * `UGX` - Ugandan Shilling
+
+      * `UGS` - Ugandan Shilling (1966–1987)
+
+      * `UAH` - Ukrainian Hryvnia
+
+      * `UAK` - Ukrainian Karbovanets
+
+      * `AED` - United Arab Emirates Dirham
+
+      * `UYW` - Uruguayan Nominal Wage Index Unit
+
+      * `UYU` - Uruguayan Peso
+
+      * `UYP` - Uruguayan Peso (1975–1993)
+
+      * `UYI` - Uruguayan Peso (Indexed Units)
+
+      * `UZS` - Uzbekistani Som
+
+      * `VUV` - Vanuatu Vatu
+
+      * `VES` - Venezuelan Bolívar
+
+      * `VEB` - Venezuelan Bolívar (1871–2008)
+
+      * `VEF` - Venezuelan Bolívar (2008–2018)
+
+      * `VND` - Vietnamese Dong
+
+      * `VNN` - Vietnamese Dong (1978–1985)
+
+      * `CHE` - WIR Euro
+
+      * `CHW` - WIR Franc
+
+      * `XOF` - West African CFA Franc
+
+      * `YDD` - Yemeni Dinar
+
+      * `YER` - Yemeni Rial
+
+      * `YUN` - Yugoslavian Convertible Dinar (1990–1992)
+
+      * `YUD` - Yugoslavian Hard Dinar (1966–1990)
+
+      * `YUM` - Yugoslavian New Dinar (1994–2002)
+
+      * `YUR` - Yugoslavian Reformed Dinar (1992–1993)
+
+      * `ZWN` - ZWN
+
+      * `ZRN` - Zairean New Zaire (1993–1998)
+
+      * `ZRZ` - Zairean Zaire (1971–1993)
+
+      * `ZMW` - Zambian Kwacha
+
+      * `ZMK` - Zambian Kwacha (1968–2012)
+
+      * `ZWD` - Zimbabwean Dollar (1980–2008)
+
+      * `ZWR` - Zimbabwean Dollar (2008)
+
+      * `ZWL` - Zimbabwean Dollar (2009)
+    union:
+      - TransactionCurrencyEnum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   ExpenseReportLineRequestEmployee:
     discriminated: false
     docs: >-
@@ -22056,7 +23976,7 @@ types:
         type: optional<double>
         docs: The amount of the expense for the line item.
       currency:
-        type: optional<TransactionCurrencyEnum>
+        type: optional<ExpenseReportLineRequestCurrency>
         docs: >-
           Currency of the expense line (if different from the report currency).
 
@@ -22738,6 +24658,630 @@ types:
     source:
       openapi: openapi/openapi.yml
     inline: true
+  ExpenseReportRequestCurrency:
+    discriminated: false
+    docs: >-
+      Currency code for the expense report
+
+
+      * `XUA` - ADB Unit of Account
+
+      * `AFN` - Afghan Afghani
+
+      * `AFA` - Afghan Afghani (1927–2002)
+
+      * `ALL` - Albanian Lek
+
+      * `ALK` - Albanian Lek (1946–1965)
+
+      * `DZD` - Algerian Dinar
+
+      * `ADP` - Andorran Peseta
+
+      * `AOA` - Angolan Kwanza
+
+      * `AOK` - Angolan Kwanza (1977–1991)
+
+      * `AON` - Angolan New Kwanza (1990–2000)
+
+      * `AOR` - Angolan Readjusted Kwanza (1995–1999)
+
+      * `ARA` - Argentine Austral
+
+      * `ARS` - Argentine Peso
+
+      * `ARM` - Argentine Peso (1881–1970)
+
+      * `ARP` - Argentine Peso (1983–1985)
+
+      * `ARL` - Argentine Peso Ley (1970–1983)
+
+      * `AMD` - Armenian Dram
+
+      * `AWG` - Aruban Florin
+
+      * `AUD` - Australian Dollar
+
+      * `ATS` - Austrian Schilling
+
+      * `AZN` - Azerbaijani Manat
+
+      * `AZM` - Azerbaijani Manat (1993–2006)
+
+      * `BSD` - Bahamian Dollar
+
+      * `BHD` - Bahraini Dinar
+
+      * `BDT` - Bangladeshi Taka
+
+      * `BBD` - Barbadian Dollar
+
+      * `BYN` - Belarusian Ruble
+
+      * `BYB` - Belarusian Ruble (1994–1999)
+
+      * `BYR` - Belarusian Ruble (2000–2016)
+
+      * `BEF` - Belgian Franc
+
+      * `BEC` - Belgian Franc (convertible)
+
+      * `BEL` - Belgian Franc (financial)
+
+      * `BZD` - Belize Dollar
+
+      * `BMD` - Bermudan Dollar
+
+      * `BTN` - Bhutanese Ngultrum
+
+      * `BOB` - Bolivian Boliviano
+
+      * `BOL` - Bolivian Boliviano (1863–1963)
+
+      * `BOV` - Bolivian Mvdol
+
+      * `BOP` - Bolivian Peso
+
+      * `BAM` - Bosnia-Herzegovina Convertible Mark
+
+      * `BAD` - Bosnia-Herzegovina Dinar (1992–1994)
+
+      * `BAN` - Bosnia-Herzegovina New Dinar (1994–1997)
+
+      * `BWP` - Botswanan Pula
+
+      * `BRC` - Brazilian Cruzado (1986–1989)
+
+      * `BRZ` - Brazilian Cruzeiro (1942–1967)
+
+      * `BRE` - Brazilian Cruzeiro (1990–1993)
+
+      * `BRR` - Brazilian Cruzeiro (1993–1994)
+
+      * `BRN` - Brazilian New Cruzado (1989–1990)
+
+      * `BRB` - Brazilian New Cruzeiro (1967–1986)
+
+      * `BRL` - Brazilian Real
+
+      * `GBP` - British Pound
+
+      * `BND` - Brunei Dollar
+
+      * `BGL` - Bulgarian Hard Lev
+
+      * `BGN` - Bulgarian Lev
+
+      * `BGO` - Bulgarian Lev (1879–1952)
+
+      * `BGM` - Bulgarian Socialist Lev
+
+      * `BUK` - Burmese Kyat
+
+      * `BIF` - Burundian Franc
+
+      * `XPF` - CFP Franc
+
+      * `KHR` - Cambodian Riel
+
+      * `CAD` - Canadian Dollar
+
+      * `CVE` - Cape Verdean Escudo
+
+      * `KYD` - Cayman Islands Dollar
+
+      * `XAF` - Central African CFA Franc
+
+      * `CLE` - Chilean Escudo
+
+      * `CLP` - Chilean Peso
+
+      * `CLF` - Chilean Unit of Account (UF)
+
+      * `CNX` - Chinese People’s Bank Dollar
+
+      * `CNY` - Chinese Yuan
+
+      * `CNH` - Chinese Yuan (offshore)
+
+      * `COP` - Colombian Peso
+
+      * `COU` - Colombian Real Value Unit
+
+      * `KMF` - Comorian Franc
+
+      * `CDF` - Congolese Franc
+
+      * `CRC` - Costa Rican Colón
+
+      * `HRD` - Croatian Dinar
+
+      * `HRK` - Croatian Kuna
+
+      * `CUC` - Cuban Convertible Peso
+
+      * `CUP` - Cuban Peso
+
+      * `CYP` - Cypriot Pound
+
+      * `CZK` - Czech Koruna
+
+      * `CSK` - Czechoslovak Hard Koruna
+
+      * `DKK` - Danish Krone
+
+      * `DJF` - Djiboutian Franc
+
+      * `DOP` - Dominican Peso
+
+      * `NLG` - Dutch Guilder
+
+      * `XCD` - East Caribbean Dollar
+
+      * `DDM` - East German Mark
+
+      * `ECS` - Ecuadorian Sucre
+
+      * `ECV` - Ecuadorian Unit of Constant Value
+
+      * `EGP` - Egyptian Pound
+
+      * `GQE` - Equatorial Guinean Ekwele
+
+      * `ERN` - Eritrean Nakfa
+
+      * `EEK` - Estonian Kroon
+
+      * `ETB` - Ethiopian Birr
+
+      * `EUR` - Euro
+
+      * `XBA` - European Composite Unit
+
+      * `XEU` - European Currency Unit
+
+      * `XBB` - European Monetary Unit
+
+      * `XBC` - European Unit of Account (XBC)
+
+      * `XBD` - European Unit of Account (XBD)
+
+      * `FKP` - Falkland Islands Pound
+
+      * `FJD` - Fijian Dollar
+
+      * `FIM` - Finnish Markka
+
+      * `FRF` - French Franc
+
+      * `XFO` - French Gold Franc
+
+      * `XFU` - French UIC-Franc
+
+      * `GMD` - Gambian Dalasi
+
+      * `GEK` - Georgian Kupon Larit
+
+      * `GEL` - Georgian Lari
+
+      * `DEM` - German Mark
+
+      * `GHS` - Ghanaian Cedi
+
+      * `GHC` - Ghanaian Cedi (1979–2007)
+
+      * `GIP` - Gibraltar Pound
+
+      * `XAU` - Gold
+
+      * `GRD` - Greek Drachma
+
+      * `GTQ` - Guatemalan Quetzal
+
+      * `GWP` - Guinea-Bissau Peso
+
+      * `GNF` - Guinean Franc
+
+      * `GNS` - Guinean Syli
+
+      * `GYD` - Guyanaese Dollar
+
+      * `HTG` - Haitian Gourde
+
+      * `HNL` - Honduran Lempira
+
+      * `HKD` - Hong Kong Dollar
+
+      * `HUF` - Hungarian Forint
+
+      * `IMP` - IMP
+
+      * `ISK` - Icelandic Króna
+
+      * `ISJ` - Icelandic Króna (1918–1981)
+
+      * `INR` - Indian Rupee
+
+      * `IDR` - Indonesian Rupiah
+
+      * `IRR` - Iranian Rial
+
+      * `IQD` - Iraqi Dinar
+
+      * `IEP` - Irish Pound
+
+      * `ILS` - Israeli New Shekel
+
+      * `ILP` - Israeli Pound
+
+      * `ILR` - Israeli Shekel (1980–1985)
+
+      * `ITL` - Italian Lira
+
+      * `JMD` - Jamaican Dollar
+
+      * `JPY` - Japanese Yen
+
+      * `JOD` - Jordanian Dinar
+
+      * `KZT` - Kazakhstani Tenge
+
+      * `KES` - Kenyan Shilling
+
+      * `KWD` - Kuwaiti Dinar
+
+      * `KGS` - Kyrgystani Som
+
+      * `LAK` - Laotian Kip
+
+      * `LVL` - Latvian Lats
+
+      * `LVR` - Latvian Ruble
+
+      * `LBP` - Lebanese Pound
+
+      * `LSL` - Lesotho Loti
+
+      * `LRD` - Liberian Dollar
+
+      * `LYD` - Libyan Dinar
+
+      * `LTL` - Lithuanian Litas
+
+      * `LTT` - Lithuanian Talonas
+
+      * `LUL` - Luxembourg Financial Franc
+
+      * `LUC` - Luxembourgian Convertible Franc
+
+      * `LUF` - Luxembourgian Franc
+
+      * `MOP` - Macanese Pataca
+
+      * `MKD` - Macedonian Denar
+
+      * `MKN` - Macedonian Denar (1992–1993)
+
+      * `MGA` - Malagasy Ariary
+
+      * `MGF` - Malagasy Franc
+
+      * `MWK` - Malawian Kwacha
+
+      * `MYR` - Malaysian Ringgit
+
+      * `MVR` - Maldivian Rufiyaa
+
+      * `MVP` - Maldivian Rupee (1947–1981)
+
+      * `MLF` - Malian Franc
+
+      * `MTL` - Maltese Lira
+
+      * `MTP` - Maltese Pound
+
+      * `MRU` - Mauritanian Ouguiya
+
+      * `MRO` - Mauritanian Ouguiya (1973–2017)
+
+      * `MUR` - Mauritian Rupee
+
+      * `MXV` - Mexican Investment Unit
+
+      * `MXN` - Mexican Peso
+
+      * `MXP` - Mexican Silver Peso (1861–1992)
+
+      * `MDC` - Moldovan Cupon
+
+      * `MDL` - Moldovan Leu
+
+      * `MCF` - Monegasque Franc
+
+      * `MNT` - Mongolian Tugrik
+
+      * `MAD` - Moroccan Dirham
+
+      * `MAF` - Moroccan Franc
+
+      * `MZE` - Mozambican Escudo
+
+      * `MZN` - Mozambican Metical
+
+      * `MZM` - Mozambican Metical (1980–2006)
+
+      * `MMK` - Myanmar Kyat
+
+      * `NAD` - Namibian Dollar
+
+      * `NPR` - Nepalese Rupee
+
+      * `ANG` - Netherlands Antillean Guilder
+
+      * `TWD` - New Taiwan Dollar
+
+      * `NZD` - New Zealand Dollar
+
+      * `NIO` - Nicaraguan Córdoba
+
+      * `NIC` - Nicaraguan Córdoba (1988–1991)
+
+      * `NGN` - Nigerian Naira
+
+      * `KPW` - North Korean Won
+
+      * `NOK` - Norwegian Krone
+
+      * `OMR` - Omani Rial
+
+      * `PKR` - Pakistani Rupee
+
+      * `XPD` - Palladium
+
+      * `PAB` - Panamanian Balboa
+
+      * `PGK` - Papua New Guinean Kina
+
+      * `PYG` - Paraguayan Guarani
+
+      * `PEI` - Peruvian Inti
+
+      * `PEN` - Peruvian Sol
+
+      * `PES` - Peruvian Sol (1863–1965)
+
+      * `PHP` - Philippine Peso
+
+      * `XPT` - Platinum
+
+      * `PLN` - Polish Zloty
+
+      * `PLZ` - Polish Zloty (1950–1995)
+
+      * `PTE` - Portuguese Escudo
+
+      * `GWE` - Portuguese Guinea Escudo
+
+      * `QAR` - Qatari Rial
+
+      * `XRE` - RINET Funds
+
+      * `RHD` - Rhodesian Dollar
+
+      * `RON` - Romanian Leu
+
+      * `ROL` - Romanian Leu (1952–2006)
+
+      * `RUB` - Russian Ruble
+
+      * `RUR` - Russian Ruble (1991–1998)
+
+      * `RWF` - Rwandan Franc
+
+      * `SVC` - Salvadoran Colón
+
+      * `WST` - Samoan Tala
+
+      * `SAR` - Saudi Riyal
+
+      * `RSD` - Serbian Dinar
+
+      * `CSD` - Serbian Dinar (2002–2006)
+
+      * `SCR` - Seychellois Rupee
+
+      * `SLL` - Sierra Leonean Leone
+
+      * `XAG` - Silver
+
+      * `SGD` - Singapore Dollar
+
+      * `SKK` - Slovak Koruna
+
+      * `SIT` - Slovenian Tolar
+
+      * `SBD` - Solomon Islands Dollar
+
+      * `SOS` - Somali Shilling
+
+      * `ZAR` - South African Rand
+
+      * `ZAL` - South African Rand (financial)
+
+      * `KRH` - South Korean Hwan (1953–1962)
+
+      * `KRW` - South Korean Won
+
+      * `KRO` - South Korean Won (1945–1953)
+
+      * `SSP` - South Sudanese Pound
+
+      * `SUR` - Soviet Rouble
+
+      * `ESP` - Spanish Peseta
+
+      * `ESA` - Spanish Peseta (A account)
+
+      * `ESB` - Spanish Peseta (convertible account)
+
+      * `XDR` - Special Drawing Rights
+
+      * `LKR` - Sri Lankan Rupee
+
+      * `SHP` - St. Helena Pound
+
+      * `XSU` - Sucre
+
+      * `SDD` - Sudanese Dinar (1992–2007)
+
+      * `SDG` - Sudanese Pound
+
+      * `SDP` - Sudanese Pound (1957–1998)
+
+      * `SRD` - Surinamese Dollar
+
+      * `SRG` - Surinamese Guilder
+
+      * `SZL` - Swazi Lilangeni
+
+      * `SEK` - Swedish Krona
+
+      * `CHF` - Swiss Franc
+
+      * `SYP` - Syrian Pound
+
+      * `STN` - São Tomé & Príncipe Dobra
+
+      * `STD` - São Tomé & Príncipe Dobra (1977–2017)
+
+      * `TVD` - TVD
+
+      * `TJR` - Tajikistani Ruble
+
+      * `TJS` - Tajikistani Somoni
+
+      * `TZS` - Tanzanian Shilling
+
+      * `XTS` - Testing Currency Code
+
+      * `THB` - Thai Baht
+
+      * `XXX` - The codes assigned for transactions where no currency is
+      involved
+
+      * `TPE` - Timorese Escudo
+
+      * `TOP` - Tongan Paʻanga
+
+      * `TTD` - Trinidad & Tobago Dollar
+
+      * `TND` - Tunisian Dinar
+
+      * `TRY` - Turkish Lira
+
+      * `TRL` - Turkish Lira (1922–2005)
+
+      * `TMT` - Turkmenistani Manat
+
+      * `TMM` - Turkmenistani Manat (1993–2009)
+
+      * `USD` - US Dollar
+
+      * `USN` - US Dollar (Next day)
+
+      * `USS` - US Dollar (Same day)
+
+      * `UGX` - Ugandan Shilling
+
+      * `UGS` - Ugandan Shilling (1966–1987)
+
+      * `UAH` - Ukrainian Hryvnia
+
+      * `UAK` - Ukrainian Karbovanets
+
+      * `AED` - United Arab Emirates Dirham
+
+      * `UYW` - Uruguayan Nominal Wage Index Unit
+
+      * `UYU` - Uruguayan Peso
+
+      * `UYP` - Uruguayan Peso (1975–1993)
+
+      * `UYI` - Uruguayan Peso (Indexed Units)
+
+      * `UZS` - Uzbekistani Som
+
+      * `VUV` - Vanuatu Vatu
+
+      * `VES` - Venezuelan Bolívar
+
+      * `VEB` - Venezuelan Bolívar (1871–2008)
+
+      * `VEF` - Venezuelan Bolívar (2008–2018)
+
+      * `VND` - Vietnamese Dong
+
+      * `VNN` - Vietnamese Dong (1978–1985)
+
+      * `CHE` - WIR Euro
+
+      * `CHW` - WIR Franc
+
+      * `XOF` - West African CFA Franc
+
+      * `YDD` - Yemeni Dinar
+
+      * `YER` - Yemeni Rial
+
+      * `YUN` - Yugoslavian Convertible Dinar (1990–1992)
+
+      * `YUD` - Yugoslavian Hard Dinar (1966–1990)
+
+      * `YUM` - Yugoslavian New Dinar (1994–2002)
+
+      * `YUR` - Yugoslavian Reformed Dinar (1992–1993)
+
+      * `ZWN` - ZWN
+
+      * `ZRN` - Zairean New Zaire (1993–1998)
+
+      * `ZRZ` - Zairean Zaire (1971–1993)
+
+      * `ZMW` - Zambian Kwacha
+
+      * `ZMK` - Zambian Kwacha (1968–2012)
+
+      * `ZWD` - Zimbabwean Dollar (1980–2008)
+
+      * `ZWR` - Zimbabwean Dollar (2008)
+
+      * `ZWL` - Zimbabwean Dollar (2009)
+    union:
+      - TransactionCurrencyEnum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   ExpenseReportRequestAccountingPeriod:
     discriminated: false
     docs: The accounting period the report was posted in
@@ -22809,7 +25353,7 @@ types:
         type: optional<double>
         docs: Total amount of the expense report
       currency:
-        type: optional<TransactionCurrencyEnum>
+        type: optional<ExpenseReportRequestCurrency>
         docs: >-
           Currency code for the expense report
 
@@ -30696,11 +33240,9 @@ types:
       applied_credit_notes:
         type: optional<list<InvoiceAppliedCreditNotesItem>>
         docs: '`CreditNoteApplyLines` applied to the Invoice.'
-        access: read-only
       applied_vendor_credits:
         type: optional<list<InvoiceAppliedVendorCreditsItem>>
         docs: '`VendorCreditApplyLines` applied to the Invoice.'
-        access: read-only
       inclusive_of_tax:
         type: optional<boolean>
         docs: >-
@@ -34235,6 +36777,16 @@ types:
     source:
       openapi: openapi/openapi.yml
     inline: true
+  InvoiceRequestLineItemsItem:
+    discriminated: false
+    union:
+      - type: string
+        validation:
+          format: uuid
+      - InvoiceLineItem
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   InvoiceRequestPurchaseOrdersItem:
     discriminated: false
     union:
@@ -34960,7 +37512,7 @@ types:
         type: optional<list<optional<InvoiceRequestPaymentsItem>>>
         docs: Array of `Payment` object IDs.
       tracking_categories: optional<list<optional<InvoiceRequestTrackingCategoriesItem>>>
-      line_items: optional<list<InvoiceLineItemRequest>>
+      line_items: optional<list<InvoiceRequestLineItemsItem>>
       purchase_orders: optional<list<optional<InvoiceRequestPurchaseOrdersItem>>>
       integration_params:
         type: optional<map<string, unknown>>
@@ -37489,6 +40041,16 @@ types:
     source:
       openapi: openapi/openapi.yml
     inline: true
+  JournalEntryRequestLinesItem:
+    discriminated: false
+    union:
+      - type: string
+        validation:
+          format: uuid
+      - JournalLine
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   JournalEntryRequestPostingStatus:
     discriminated: false
     docs: |-
@@ -38159,7 +40721,7 @@ types:
         docs: >-
           If the transaction is inclusive or exclusive of tax. `True` if
           inclusive, `False` if exclusive.
-      lines: optional<list<JournalLineRequest>>
+      lines: optional<list<JournalEntryRequestLinesItem>>
       journal_number:
         type: optional<string>
         docs: Reference number for identifying journal entries.
@@ -41304,6 +43866,91 @@ types:
       results: optional<list<VendorCredit>>
     source:
       openapi: openapi/openapi.yml
+  PatchedContactEndpointRequest:
+    properties:
+      model: PatchedContactRequest
+    source:
+      openapi: openapi/openapi.yml
+  PatchedContactRequestStatus:
+    discriminated: false
+    docs: |-
+      The contact's status
+
+      * `ACTIVE` - ACTIVE
+      * `ARCHIVED` - ARCHIVED
+    union:
+      - Status7D1Enum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
+  PatchedContactRequest:
+    docs: >-
+      # The Contact Object
+
+      ### Description
+
+      A `Contact` is an individual or business entity to which products and
+      services are sold to or purchased from. The `Contact` model contains both
+      Customers, in which products and services are sold to, and Vendors (or
+      Suppliers), in which products and services are purchased from.
+
+      * A `Contact` is a Vendor/Supplier if the `is_supplier` property is true.
+
+      * A `Contact` is a customer if the `is_customer` property is true.
+
+
+      ### Usage Example
+
+      Fetch from the `LIST Contacts` endpoint and view a company's contacts.
+    properties:
+      name:
+        type: optional<string>
+        docs: The contact's name.
+      is_supplier:
+        type: optional<boolean>
+        docs: Whether the contact is a supplier.
+      is_customer:
+        type: optional<boolean>
+        docs: Whether the contact is a customer.
+      email_address:
+        type: optional<string>
+        docs: The contact's email address.
+      tax_number:
+        type: optional<string>
+        docs: The contact's tax number.
+      status:
+        type: optional<PatchedContactRequestStatus>
+        docs: |-
+          The contact's status
+
+          * `ACTIVE` - ACTIVE
+          * `ARCHIVED` - ARCHIVED
+      currency:
+        type: optional<string>
+        docs: The currency the contact's transactions are in.
+      company:
+        type: optional<string>
+        docs: The company the contact belongs to.
+        validation:
+          format: uuid
+      addresses:
+        type: optional<list<AddressRequest>>
+        docs: '`Address` object IDs for the given `Contacts` object.'
+      phone_numbers:
+        type: optional<list<AccountingPhoneNumberRequest>>
+        docs: '`AccountingPhoneNumber` object for the given `Contacts` object.'
+      integration_params:
+        type: optional<map<string, unknown>>
+        access: write-only
+      linked_account_params:
+        type: optional<map<string, unknown>>
+        access: write-only
+      remote_fields:
+        type: optional<list<RemoteFieldRequest>>
+        access: write-only
+    source:
+      openapi: openapi/openapi.yml
   PatchedItemRequestRequestStatus:
     discriminated: false
     docs: |-
@@ -42056,17 +44703,6 @@ types:
     source:
       openapi: openapi/openapi.yml
     inline: true
-  PatchedPaymentRequestCompany:
-    discriminated: false
-    docs: The company the payment belongs to.
-    union:
-      - type: string
-        validation:
-          format: uuid
-      - CompanyInfo
-    source:
-      openapi: openapi/openapi.yml
-    inline: true
   PatchedPaymentRequestType:
     discriminated: false
     docs: |-
@@ -42761,8 +45397,10 @@ types:
         validation:
           pattern: ^-?\d{0,32}(?:\.\d{0,16})?$
       company:
-        type: optional<PatchedPaymentRequestCompany>
+        type: optional<string>
         docs: The company the payment belongs to.
+        validation:
+          format: uuid
       total_amount:
         type: optional<double>
         docs: >-
@@ -44369,7 +47007,7 @@ types:
         docs: The datetime that this object was modified by Merge.
         access: read-only
       method_type:
-        type: PaymentMethodMethodType
+        type: optional<PaymentMethodMethodType>
         docs: |-
           The type of the payment method.
 
@@ -51585,6 +54223,7 @@ types:
       CreditNote: optional<list<RemoteFieldApi>>
       Item: optional<list<RemoteFieldApi>>
       PurchaseOrder: optional<list<RemoteFieldApi>>
+      ExpenseReport: optional<list<RemoteFieldApi>>
       TrackingCategory: optional<list<RemoteFieldApi>>
       JournalEntry: optional<list<RemoteFieldApi>>
       TaxRate: optional<list<RemoteFieldApi>>
@@ -51609,6 +54248,7 @@ types:
       remote_key_name: optional<string>
       description: optional<string>
       is_custom: optional<boolean>
+      is_common_model_field: optional<boolean>
       is_required: optional<boolean>
       field_type: optional<FieldTypeEnum>
       field_format: optional<FieldFormatEnum>
@@ -51650,6 +54290,14 @@ types:
       key: string
     source:
       openapi: openapi/openapi.yml
+  RemoteResponseResponseType:
+    discriminated: false
+    union:
+      - ResponseTypeEnum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   RemoteResponse:
     docs: >-
       # The RemoteResponse Object
@@ -51669,7 +54317,7 @@ types:
       status: integer
       response: unknown
       response_headers: optional<map<string, unknown>>
-      response_type: optional<ResponseTypeEnum>
+      response_type: optional<RemoteResponseResponseType>
       headers: optional<map<string, unknown>>
     source:
       openapi: openapi/openapi.yml
@@ -52805,6 +55453,17 @@ types:
     source:
       openapi: openapi/openapi.yml
     inline: true
+  TransactionCompany:
+    discriminated: false
+    docs: The company the transaction belongs to.
+    union:
+      - type: string
+        validation:
+          format: uuid
+      - CompanyInfo
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   TransactionTrackingCategoriesItem:
     discriminated: false
     union:
@@ -53524,10 +56183,8 @@ types:
         validation:
           pattern: ^-?\d{0,32}(?:\.\d{0,16})?$
       company:
-        type: optional<string>
+        type: optional<TransactionCompany>
         docs: The company the transaction belongs to.
-        validation:
-          format: uuid
       tracking_categories: optional<list<optional<TransactionTrackingCategoriesItem>>>
       line_items:
         type: optional<list<TransactionLineItem>>
@@ -56502,6 +59159,16 @@ types:
     source:
       openapi: openapi/openapi.yml
     inline: true
+  VendorCreditLinesItem:
+    discriminated: false
+    union:
+      - type: string
+        validation:
+          format: uuid
+      - VendorCreditLine
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   VendorCreditTrackingCategoriesItem:
     discriminated: false
     union:
@@ -57202,7 +59869,7 @@ types:
         type: optional<VendorCreditCompany>
         docs: The company the vendor credit belongs to.
       lines:
-        type: optional<list<VendorCreditLine>>
+        type: optional<list<VendorCreditLinesItem>>
         access: read-only
       tracking_categories: optional<list<optional<VendorCreditTrackingCategoriesItem>>>
       applied_to_lines:

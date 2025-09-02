@@ -113,7 +113,9 @@ class OffersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.offers.list()
+        client.ats.offers.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             application_id=application_id,
@@ -306,7 +308,9 @@ class AsyncOffersClient:
 
 
         async def main() -> None:
-            await client.ats.offers.list()
+            await client.ats.offers.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

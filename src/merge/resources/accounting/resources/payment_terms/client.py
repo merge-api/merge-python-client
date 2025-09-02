@@ -74,7 +74,9 @@ class PaymentTermsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.payment_terms.list()
+        client.accounting.payment_terms.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             cursor=cursor,
@@ -212,7 +214,9 @@ class AsyncPaymentTermsClient:
 
 
         async def main() -> None:
-            await client.accounting.payment_terms.list()
+            await client.accounting.payment_terms.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

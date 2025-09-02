@@ -53,6 +53,7 @@ class TicketsClient:
         contact_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
+        creator_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
         due_after: typing.Optional[dt.datetime] = None,
         due_before: typing.Optional[dt.datetime] = None,
@@ -107,6 +108,9 @@ class TicketsClient:
 
         created_before : typing.Optional[dt.datetime]
             If provided, will only return objects created before this datetime.
+
+        creator_id : typing.Optional[str]
+            If provided, will only return tickets created by this creator_id.
 
         cursor : typing.Optional[str]
             The pagination cursor value.
@@ -201,7 +205,9 @@ class TicketsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.tickets.list()
+        client.ticketing.tickets.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             account_id=account_id,
@@ -212,6 +218,7 @@ class TicketsClient:
             contact_id=contact_id,
             created_after=created_after,
             created_before=created_before,
+            creator_id=creator_id,
             cursor=cursor,
             due_after=due_after,
             due_before=due_before,
@@ -462,6 +469,7 @@ class TicketsClient:
         )
         client.ticketing.tickets.viewers_list(
             ticket_id="ticket_id",
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
         )
         """
         _response = self._raw_client.viewers_list(
@@ -606,7 +614,9 @@ class TicketsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.tickets.remote_field_classes_list()
+        client.ticketing.tickets.remote_field_classes_list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.remote_field_classes_list(
             cursor=cursor,
@@ -648,6 +658,7 @@ class AsyncTicketsClient:
         contact_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
+        creator_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
         due_after: typing.Optional[dt.datetime] = None,
         due_before: typing.Optional[dt.datetime] = None,
@@ -702,6 +713,9 @@ class AsyncTicketsClient:
 
         created_before : typing.Optional[dt.datetime]
             If provided, will only return objects created before this datetime.
+
+        creator_id : typing.Optional[str]
+            If provided, will only return tickets created by this creator_id.
 
         cursor : typing.Optional[str]
             The pagination cursor value.
@@ -801,7 +815,9 @@ class AsyncTicketsClient:
 
 
         async def main() -> None:
-            await client.ticketing.tickets.list()
+            await client.ticketing.tickets.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
@@ -815,6 +831,7 @@ class AsyncTicketsClient:
             contact_id=contact_id,
             created_after=created_after,
             created_before=created_before,
+            creator_id=creator_id,
             cursor=cursor,
             due_after=due_after,
             due_before=due_before,
@@ -1094,6 +1111,7 @@ class AsyncTicketsClient:
         async def main() -> None:
             await client.ticketing.tickets.viewers_list(
                 ticket_id="ticket_id",
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             )
 
 
@@ -1264,7 +1282,9 @@ class AsyncTicketsClient:
 
 
         async def main() -> None:
-            await client.ticketing.tickets.remote_field_classes_list()
+            await client.ticketing.tickets.remote_field_classes_list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

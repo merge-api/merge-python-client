@@ -6,11 +6,11 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
-from .invoice_line_item_request import InvoiceLineItemRequest
 from .invoice_request_company import InvoiceRequestCompany
 from .invoice_request_contact import InvoiceRequestContact
 from .invoice_request_currency import InvoiceRequestCurrency
 from .invoice_request_employee import InvoiceRequestEmployee
+from .invoice_request_line_items_item import InvoiceRequestLineItemsItem
 from .invoice_request_payment_term import InvoiceRequestPaymentTerm
 from .invoice_request_payments_item import InvoiceRequestPaymentsItem
 from .invoice_request_purchase_orders_item import InvoiceRequestPurchaseOrdersItem
@@ -451,7 +451,7 @@ class InvoiceRequest(UncheckedBaseModel):
     """
 
     tracking_categories: typing.Optional[typing.List[typing.Optional[InvoiceRequestTrackingCategoriesItem]]] = None
-    line_items: typing.Optional[typing.List[InvoiceLineItemRequest]] = None
+    line_items: typing.Optional[typing.List[InvoiceRequestLineItemsItem]] = None
     purchase_orders: typing.Optional[typing.List[typing.Optional[InvoiceRequestPurchaseOrdersItem]]] = None
     integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
     linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None

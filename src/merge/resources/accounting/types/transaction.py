@@ -9,6 +9,7 @@ from ....core.unchecked_base_model import UncheckedBaseModel
 from .remote_data import RemoteData
 from .transaction_account import TransactionAccount
 from .transaction_accounting_period import TransactionAccountingPeriod
+from .transaction_company import TransactionCompany
 from .transaction_contact import TransactionContact
 from .transaction_currency import TransactionCurrency
 from .transaction_line_item import TransactionLineItem
@@ -400,7 +401,7 @@ class Transaction(UncheckedBaseModel):
     The transaction's exchange rate.
     """
 
-    company: typing.Optional[str] = pydantic.Field(default=None)
+    company: typing.Optional[TransactionCompany] = pydantic.Field(default=None)
     """
     The company the transaction belongs to.
     """
