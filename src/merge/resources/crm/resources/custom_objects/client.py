@@ -107,6 +107,7 @@ class CustomObjectsClient:
         )
         client.crm.custom_objects.custom_object_classes_custom_objects_list(
             custom_object_class_id="custom_object_class_id",
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
         )
         """
         _response = self._raw_client.custom_object_classes_custom_objects_list(
@@ -335,7 +336,9 @@ class CustomObjectsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.custom_objects.custom_object_classes_custom_objects_remote_field_classes_list()
+        client.crm.custom_objects.custom_object_classes_custom_objects_remote_field_classes_list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.custom_object_classes_custom_objects_remote_field_classes_list(
             cursor=cursor,
@@ -446,6 +449,7 @@ class AsyncCustomObjectsClient:
         async def main() -> None:
             await client.crm.custom_objects.custom_object_classes_custom_objects_list(
                 custom_object_class_id="custom_object_class_id",
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             )
 
 
@@ -706,7 +710,9 @@ class AsyncCustomObjectsClient:
 
 
         async def main() -> None:
-            await client.crm.custom_objects.custom_object_classes_custom_objects_remote_field_classes_list()
+            await client.crm.custom_objects.custom_object_classes_custom_objects_remote_field_classes_list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

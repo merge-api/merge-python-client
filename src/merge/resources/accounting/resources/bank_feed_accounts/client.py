@@ -76,7 +76,9 @@ class BankFeedAccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.bank_feed_accounts.list()
+        client.accounting.bank_feed_accounts.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             cursor=cursor,
@@ -278,7 +280,9 @@ class AsyncBankFeedAccountsClient:
 
 
         async def main() -> None:
-            await client.accounting.bank_feed_accounts.list()
+            await client.accounting.bank_feed_accounts.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

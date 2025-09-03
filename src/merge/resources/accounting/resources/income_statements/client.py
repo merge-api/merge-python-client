@@ -99,7 +99,9 @@ class IncomeStatementsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.income_statements.list()
+        client.accounting.income_statements.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             company_id=company_id,
@@ -267,7 +269,9 @@ class AsyncIncomeStatementsClient:
 
 
         async def main() -> None:
-            await client.accounting.income_statements.list()
+            await client.accounting.income_statements.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

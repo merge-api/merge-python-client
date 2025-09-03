@@ -124,7 +124,9 @@ class BankInfoClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.bank_info.list()
+        client.hris.bank_info.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             account_type=account_type,
@@ -330,7 +332,9 @@ class AsyncBankInfoClient:
 
 
         async def main() -> None:
-            await client.hris.bank_info.list()
+            await client.hris.bank_info.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

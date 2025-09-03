@@ -126,7 +126,9 @@ class JobsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.jobs.list()
+        client.ats.jobs.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             code=code,
@@ -268,6 +270,7 @@ class JobsClient:
         )
         client.ats.jobs.screening_questions_list(
             job_id="job_id",
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
         )
         """
         _response = self._raw_client.screening_questions_list(
@@ -399,7 +402,9 @@ class AsyncJobsClient:
 
 
         async def main() -> None:
-            await client.ats.jobs.list()
+            await client.ats.jobs.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
@@ -557,6 +562,7 @@ class AsyncJobsClient:
         async def main() -> None:
             await client.ats.jobs.screening_questions_list(
                 job_id="job_id",
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             )
 
 
