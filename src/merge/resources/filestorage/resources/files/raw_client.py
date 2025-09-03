@@ -50,6 +50,8 @@ class RawFilesClient:
         name: typing.Optional[str] = None,
         order_by: typing.Optional[FilesListRequestOrderBy] = None,
         page_size: typing.Optional[int] = None,
+        remote_created_after: typing.Optional[dt.datetime] = None,
+        remote_created_before: typing.Optional[dt.datetime] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaginatedFileList]:
@@ -103,6 +105,12 @@ class RawFilesClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
+        remote_created_after : typing.Optional[dt.datetime]
+            If provided, will only return files created in the third party platform after this datetime.
+
+        remote_created_before : typing.Optional[dt.datetime]
+            If provided, will only return files created in the third party platform before this datetime.
+
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
@@ -133,6 +141,12 @@ class RawFilesClient:
                 "name": name,
                 "order_by": order_by,
                 "page_size": page_size,
+                "remote_created_after": serialize_datetime(remote_created_after)
+                if remote_created_after is not None
+                else None,
+                "remote_created_before": serialize_datetime(remote_created_before)
+                if remote_created_before is not None
+                else None,
                 "remote_id": remote_id,
             },
             request_options=request_options,
@@ -381,6 +395,7 @@ class RawFilesClient:
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
+        ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         mime_types: typing.Optional[str] = None,
         modified_after: typing.Optional[str] = None,
@@ -402,6 +417,9 @@ class RawFilesClient:
 
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            If provided, will only return objects with the given IDs. Comma-separated list of strings.
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -436,6 +454,7 @@ class RawFilesClient:
                 "created_after": created_after,
                 "created_before": created_before,
                 "cursor": cursor,
+                "ids": ids,
                 "include_deleted_data": include_deleted_data,
                 "mime_types": mime_types,
                 "modified_after": modified_after,
@@ -519,6 +538,8 @@ class AsyncRawFilesClient:
         name: typing.Optional[str] = None,
         order_by: typing.Optional[FilesListRequestOrderBy] = None,
         page_size: typing.Optional[int] = None,
+        remote_created_after: typing.Optional[dt.datetime] = None,
+        remote_created_before: typing.Optional[dt.datetime] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaginatedFileList]:
@@ -572,6 +593,12 @@ class AsyncRawFilesClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
+        remote_created_after : typing.Optional[dt.datetime]
+            If provided, will only return files created in the third party platform after this datetime.
+
+        remote_created_before : typing.Optional[dt.datetime]
+            If provided, will only return files created in the third party platform before this datetime.
+
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
@@ -602,6 +629,12 @@ class AsyncRawFilesClient:
                 "name": name,
                 "order_by": order_by,
                 "page_size": page_size,
+                "remote_created_after": serialize_datetime(remote_created_after)
+                if remote_created_after is not None
+                else None,
+                "remote_created_before": serialize_datetime(remote_created_before)
+                if remote_created_before is not None
+                else None,
                 "remote_id": remote_id,
             },
             request_options=request_options,
@@ -851,6 +884,7 @@ class AsyncRawFilesClient:
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
+        ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         mime_types: typing.Optional[str] = None,
         modified_after: typing.Optional[str] = None,
@@ -872,6 +906,9 @@ class AsyncRawFilesClient:
 
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            If provided, will only return objects with the given IDs. Comma-separated list of strings.
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -906,6 +943,7 @@ class AsyncRawFilesClient:
                 "created_after": created_after,
                 "created_before": created_before,
                 "cursor": cursor,
+                "ids": ids,
                 "include_deleted_data": include_deleted_data,
                 "mime_types": mime_types,
                 "modified_after": modified_after,

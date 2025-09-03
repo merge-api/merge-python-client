@@ -19621,6 +19621,22 @@ client.filestorage.files.list(
 <dl>
 <dd>
 
+**remote_created_after:** `typing.Optional[dt.datetime]` — If provided, will only return files created in the third party platform after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_created_before:** `typing.Optional[dt.datetime]` — If provided, will only return files created in the third party platform before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
     
 </dd>
@@ -19971,6 +19987,14 @@ client.filestorage.files.download_request_meta_list(
 <dd>
 
 **cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — If provided, will only return objects with the given IDs. Comma-separated list of strings.
     
 </dd>
 </dl>
@@ -34913,6 +34937,14 @@ client.ticketing.tickets.list(
 <dl>
 <dd>
 
+**creator_id:** `typing.Optional[str]` — If provided, will only return tickets created by this creator_id.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **cursor:** `typing.Optional[str]` — The pagination cursor value.
     
 </dd>
@@ -39827,6 +39859,174 @@ client.accounting.contacts.retrieve(
 <dd>
 
 **show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.contacts.<a href="src/merge/resources/accounting/resources/contacts/client.py">partial_update</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a `Contact` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import PatchedContactRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.contacts.partial_update(
+    id="id",
+    model=PatchedContactRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**model:** `PatchedContactRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.contacts.<a href="src/merge/resources/accounting/resources/contacts/client.py">meta_patch_retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `Contact` PATCHs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.contacts.meta_patch_retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
     
 </dd>
 </dl>

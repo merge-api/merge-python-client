@@ -98,11 +98,6 @@ class PatchedTicketRequest(UncheckedBaseModel):
 
     tags: typing.Optional[typing.List[typing.Optional[str]]] = None
     roles: typing.Optional[typing.List[typing.Optional[str]]] = None
-    completed_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
-    """
-    When the ticket was completed.
-    """
-
     ticket_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     The 3rd party url of the Ticket.
@@ -116,6 +111,11 @@ class PatchedTicketRequest(UncheckedBaseModel):
     * `HIGH` - HIGH
     * `NORMAL` - NORMAL
     * `LOW` - LOW
+    """
+
+    completed_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
+    """
+    When the ticket was completed.
     """
 
     integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None

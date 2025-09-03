@@ -47,6 +47,7 @@ class RawTicketsClient:
         contact_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
+        creator_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
         due_after: typing.Optional[dt.datetime] = None,
         due_before: typing.Optional[dt.datetime] = None,
@@ -101,6 +102,9 @@ class RawTicketsClient:
 
         created_before : typing.Optional[dt.datetime]
             If provided, will only return objects created before this datetime.
+
+        creator_id : typing.Optional[str]
+            If provided, will only return tickets created by this creator_id.
 
         cursor : typing.Optional[str]
             The pagination cursor value.
@@ -199,6 +203,7 @@ class RawTicketsClient:
                 "contact_id": contact_id,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "creator_id": creator_id,
                 "cursor": cursor,
                 "due_after": serialize_datetime(due_after) if due_after is not None else None,
                 "due_before": serialize_datetime(due_before) if due_before is not None else None,
@@ -702,6 +707,7 @@ class AsyncRawTicketsClient:
         contact_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
+        creator_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
         due_after: typing.Optional[dt.datetime] = None,
         due_before: typing.Optional[dt.datetime] = None,
@@ -756,6 +762,9 @@ class AsyncRawTicketsClient:
 
         created_before : typing.Optional[dt.datetime]
             If provided, will only return objects created before this datetime.
+
+        creator_id : typing.Optional[str]
+            If provided, will only return tickets created by this creator_id.
 
         cursor : typing.Optional[str]
             The pagination cursor value.
@@ -854,6 +863,7 @@ class AsyncRawTicketsClient:
                 "contact_id": contact_id,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "creator_id": creator_id,
                 "cursor": cursor,
                 "due_after": serialize_datetime(due_after) if due_after is not None else None,
                 "due_before": serialize_datetime(due_before) if due_before is not None else None,
