@@ -6,8 +6,8 @@ from merge import Merge
 class TestFilestorageIntegration:
     @pytest.fixture
     def client(self):
-        account_token = os.environ["ACCOUNT_TOKEN"]
-        api_key = os.environ["API_KEY"]
+        account_token = os.environ["SDK_TESTING_FILE_STORAGE_ACCOUNT_TOKEN"]
+        api_key = os.environ["SDK_TESTING_KEY"]
         
         return Merge(
             account_token=account_token,
@@ -116,3 +116,33 @@ class TestFilestorageIntegration:
         
         assert group is not None
         assert group.id == group_id
+
+    def test_audit_trail_list(self, client):
+        response = client.filestorage.audit_trail.list()
+        
+        assert response is not None
+        assert hasattr(response, 'results')
+        assert isinstance(response.results, list)
+
+    def test_available_actions_retrieve(self, client):
+        available_actions = client.filestorage.available_actions.retrieve()
+        
+        assert available_actions is not None
+
+
+    def test_linked_accounts_list(self, client):
+        response = client.filestorage.linked_accounts.list()
+        
+        assert response is not None
+        assert hasattr(response, 'results')
+        assert isinstance(response.results, list)
+
+    def test_scopes_default_scopes_retrieve(self, client):
+        response = client.filestorage.scopes.default_scopes_retrieve()
+        
+        assert response is not None
+
+    def test_scopes_linked_account_scopes_retrieve(self, client):
+        response = client.filestorage.scopes.linked_account_scopes_retrieve()
+        
+        assert response is not None
