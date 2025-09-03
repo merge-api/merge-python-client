@@ -375,6 +375,8 @@ from .paginated_tax_rate_list import PaginatedTaxRateList
 from .paginated_tracking_category_list import PaginatedTrackingCategoryList
 from .paginated_transaction_list import PaginatedTransactionList
 from .paginated_vendor_credit_list import PaginatedVendorCreditList
+from .patched_contact_request import PatchedContactRequest
+from .patched_contact_request_addresses_item import PatchedContactRequestAddressesItem
 from .patched_item_request_request import PatchedItemRequestRequest
 from .patched_item_request_request_status import PatchedItemRequestRequestStatus
 from .patched_item_request_request_type import PatchedItemRequestRequestType
@@ -892,6 +894,8 @@ __all__ = [
     "PaginatedTrackingCategoryList",
     "PaginatedTransactionList",
     "PaginatedVendorCreditList",
+    "PatchedContactRequest",
+    "PatchedContactRequestAddressesItem",
     "PatchedItemRequestRequest",
     "PatchedItemRequestRequestStatus",
     "PatchedItemRequestRequestType",

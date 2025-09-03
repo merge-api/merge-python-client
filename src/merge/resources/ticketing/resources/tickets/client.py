@@ -53,6 +53,7 @@ class TicketsClient:
         contact_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
+        creator_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
         due_after: typing.Optional[dt.datetime] = None,
         due_before: typing.Optional[dt.datetime] = None,
@@ -107,6 +108,9 @@ class TicketsClient:
 
         created_before : typing.Optional[dt.datetime]
             If provided, will only return objects created before this datetime.
+
+        creator_id : typing.Optional[str]
+            If provided, will only return tickets created by this creator_id.
 
         cursor : typing.Optional[str]
             The pagination cursor value.
@@ -214,6 +218,7 @@ class TicketsClient:
             contact_id=contact_id,
             created_after=created_after,
             created_before=created_before,
+            creator_id=creator_id,
             cursor=cursor,
             due_after=due_after,
             due_before=due_before,
@@ -653,6 +658,7 @@ class AsyncTicketsClient:
         contact_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
+        creator_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
         due_after: typing.Optional[dt.datetime] = None,
         due_before: typing.Optional[dt.datetime] = None,
@@ -707,6 +713,9 @@ class AsyncTicketsClient:
 
         created_before : typing.Optional[dt.datetime]
             If provided, will only return objects created before this datetime.
+
+        creator_id : typing.Optional[str]
+            If provided, will only return tickets created by this creator_id.
 
         cursor : typing.Optional[str]
             The pagination cursor value.
@@ -822,6 +831,7 @@ class AsyncTicketsClient:
             contact_id=contact_id,
             created_after=created_after,
             created_before=created_before,
+            creator_id=creator_id,
             cursor=cursor,
             due_after=due_after,
             due_before=due_before,

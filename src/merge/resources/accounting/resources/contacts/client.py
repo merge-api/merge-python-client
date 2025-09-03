@@ -11,6 +11,7 @@ from ...types.contact_response import ContactResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_contact_list import PaginatedContactList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
+from ...types.patched_contact_request import PatchedContactRequest
 from .raw_client import AsyncRawContactsClient, RawContactsClient
 from .types.contacts_list_request_expand import ContactsListRequestExpand
 from .types.contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
@@ -283,6 +284,88 @@ class ContactsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
+        return _response.data
+
+    def partial_update(
+        self,
+        id: str,
+        *,
+        model: PatchedContactRequest,
+        is_debug_mode: typing.Optional[bool] = None,
+        run_async: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ContactResponse:
+        """
+        Updates a `Contact` object with the given `id`.
+
+        Parameters
+        ----------
+        id : str
+
+        model : PatchedContactRequest
+
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
+
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ContactResponse
+
+
+        Examples
+        --------
+        from merge import Merge
+        from merge.resources.accounting import PatchedContactRequest
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.contacts.partial_update(
+            id="id",
+            model=PatchedContactRequest(),
+        )
+        """
+        _response = self._raw_client.partial_update(
+            id, model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
+        )
+        return _response.data
+
+    def meta_patch_retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
+        """
+        Returns metadata for `Contact` PATCHs.
+
+        Parameters
+        ----------
+        id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
+        from merge import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.accounting.contacts.meta_patch_retrieve(
+            id="id",
+        )
+        """
+        _response = self._raw_client.meta_patch_retrieve(id, request_options=request_options)
         return _response.data
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
@@ -671,6 +754,106 @@ class AsyncContactsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
+        return _response.data
+
+    async def partial_update(
+        self,
+        id: str,
+        *,
+        model: PatchedContactRequest,
+        is_debug_mode: typing.Optional[bool] = None,
+        run_async: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ContactResponse:
+        """
+        Updates a `Contact` object with the given `id`.
+
+        Parameters
+        ----------
+        id : str
+
+        model : PatchedContactRequest
+
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
+
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ContactResponse
+
+
+        Examples
+        --------
+        import asyncio
+
+        from merge import AsyncMerge
+        from merge.resources.accounting import PatchedContactRequest
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.accounting.contacts.partial_update(
+                id="id",
+                model=PatchedContactRequest(),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.partial_update(
+            id, model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
+        )
+        return _response.data
+
+    async def meta_patch_retrieve(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> MetaResponse:
+        """
+        Returns metadata for `Contact` PATCHs.
+
+        Parameters
+        ----------
+        id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        MetaResponse
+
+
+        Examples
+        --------
+        import asyncio
+
+        from merge import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.accounting.contacts.meta_patch_retrieve(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.meta_patch_retrieve(id, request_options=request_options)
         return _response.data
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:

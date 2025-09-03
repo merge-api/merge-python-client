@@ -17,6 +17,7 @@ from ...types.contact_response import ContactResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_contact_list import PaginatedContactList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
+from ...types.patched_contact_request import PatchedContactRequest
 from .types.contacts_list_request_expand import ContactsListRequestExpand
 from .types.contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
 
@@ -292,6 +293,107 @@ class RawContactsClient:
                     Contact,
                     construct_type(
                         type_=Contact,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def partial_update(
+        self,
+        id: str,
+        *,
+        model: PatchedContactRequest,
+        is_debug_mode: typing.Optional[bool] = None,
+        run_async: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[ContactResponse]:
+        """
+        Updates a `Contact` object with the given `id`.
+
+        Parameters
+        ----------
+        id : str
+
+        model : PatchedContactRequest
+
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
+
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ContactResponse]
+
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"accounting/v1/contacts/{jsonable_encoder(id)}",
+            method="PATCH",
+            params={
+                "is_debug_mode": is_debug_mode,
+                "run_async": run_async,
+            },
+            json={
+                "model": model,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ContactResponse,
+                    construct_type(
+                        type_=ContactResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def meta_patch_retrieve(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[MetaResponse]:
+        """
+        Returns metadata for `Contact` PATCHs.
+
+        Parameters
+        ----------
+        id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[MetaResponse]
+
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"accounting/v1/contacts/meta/patch/{jsonable_encoder(id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    MetaResponse,
+                    construct_type(
+                        type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -681,6 +783,107 @@ class AsyncRawContactsClient:
                     Contact,
                     construct_type(
                         type_=Contact,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def partial_update(
+        self,
+        id: str,
+        *,
+        model: PatchedContactRequest,
+        is_debug_mode: typing.Optional[bool] = None,
+        run_async: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[ContactResponse]:
+        """
+        Updates a `Contact` object with the given `id`.
+
+        Parameters
+        ----------
+        id : str
+
+        model : PatchedContactRequest
+
+        is_debug_mode : typing.Optional[bool]
+            Whether to include debug fields (such as log file links) in the response.
+
+        run_async : typing.Optional[bool]
+            Whether or not third-party updates should be run asynchronously.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ContactResponse]
+
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"accounting/v1/contacts/{jsonable_encoder(id)}",
+            method="PATCH",
+            params={
+                "is_debug_mode": is_debug_mode,
+                "run_async": run_async,
+            },
+            json={
+                "model": model,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ContactResponse,
+                    construct_type(
+                        type_=ContactResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def meta_patch_retrieve(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[MetaResponse]:
+        """
+        Returns metadata for `Contact` PATCHs.
+
+        Parameters
+        ----------
+        id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[MetaResponse]
+
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"accounting/v1/contacts/meta/patch/{jsonable_encoder(id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    MetaResponse,
+                    construct_type(
+                        type_=MetaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
