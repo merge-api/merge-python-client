@@ -35,6 +35,9 @@ jobs:
 
       - name: Test
         run: poetry run pytest -rP .
+        env:
+          SDK_TESTING_FILE_STORAGE_ACCOUNT_TOKEN: ${{ secrets.SDK_TESTING_FILE_STORAGE_ACCOUNT_TOKEN }}
+          SDK_TESTING_KEY: ${{ secrets.SDK_TESTING_KEY }}
 
   publish:
     needs: [compile, test]
@@ -58,3 +61,4 @@ jobs:
           poetry --no-interaction -v publish --build
         env:
           PYPI_TOKEN: ${{ secrets.MERGE_PYPI_TOKEN }}
+          
