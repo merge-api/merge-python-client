@@ -73,7 +73,9 @@ class AuditTrailClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.audit_trail.list()
+        client.accounting.audit_trail.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             cursor=cursor,
@@ -157,7 +159,9 @@ class AsyncAuditTrailClient:
 
 
         async def main() -> None:
-            await client.accounting.audit_trail.list()
+            await client.accounting.audit_trail.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

@@ -109,7 +109,9 @@ class LinkedAccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.linked_accounts.list()
+        client.filestorage.linked_accounts.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             category=category,
@@ -235,7 +237,9 @@ class AsyncLinkedAccountsClient:
 
 
         async def main() -> None:
-            await client.filestorage.linked_accounts.list()
+            await client.filestorage.linked_accounts.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())

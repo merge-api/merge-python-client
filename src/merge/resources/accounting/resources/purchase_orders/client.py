@@ -128,7 +128,9 @@ class PurchaseOrdersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.purchase_orders.list()
+        client.accounting.purchase_orders.list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.list(
             company_id=company_id,
@@ -322,7 +324,9 @@ class PurchaseOrdersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.purchase_orders.line_items_remote_field_classes_list()
+        client.accounting.purchase_orders.line_items_remote_field_classes_list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.line_items_remote_field_classes_list(
             cursor=cursor,
@@ -417,7 +421,9 @@ class PurchaseOrdersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.purchase_orders.remote_field_classes_list()
+        client.accounting.purchase_orders.remote_field_classes_list(
+            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        )
         """
         _response = self._raw_client.remote_field_classes_list(
             cursor=cursor,
@@ -546,7 +552,9 @@ class AsyncPurchaseOrdersClient:
 
 
         async def main() -> None:
-            await client.accounting.purchase_orders.list()
+            await client.accounting.purchase_orders.list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
@@ -764,7 +772,9 @@ class AsyncPurchaseOrdersClient:
 
 
         async def main() -> None:
-            await client.accounting.purchase_orders.line_items_remote_field_classes_list()
+            await client.accounting.purchase_orders.line_items_remote_field_classes_list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
@@ -875,7 +885,9 @@ class AsyncPurchaseOrdersClient:
 
 
         async def main() -> None:
-            await client.accounting.purchase_orders.remote_field_classes_list()
+            await client.accounting.purchase_orders.remote_field_classes_list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
 
 
         asyncio.run(main())
