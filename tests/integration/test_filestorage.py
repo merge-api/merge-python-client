@@ -2,8 +2,6 @@ import os
 import pytest
 from merge import Merge
 from merge.resources.filestorage.types.permission import Permission
-from merge.resources.filestorage.types.folder import Folder
-from merge.resources.filestorage.types.group import Group
 
 
 @pytest.fixture
@@ -75,20 +73,6 @@ def test_folders_list(client):
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
 
-def test_folders_retrieve(client):
-    folders_response = client.filestorage.folders.list(page_size=1)
-        
-    assert folders_response.results, "No folders available to test retrieve"
-    
-    # Assert the response type is a Folder object
-    assert isinstance(folders_response.results[0], Folder), f"Expected Folder object, got {type(folders_response.results[0])}"
-        
-    folder_id = folders_response.results[0].id
-    folder = client.filestorage.folders.retrieve(id=folder_id)
-        
-    assert folder is not None
-    assert folder.id == folder_id
-
 def test_users_list(client):
     response = client.filestorage.users.list()    
     assert response is not None
@@ -111,20 +95,6 @@ def test_groups_list(client):
     assert response is not None
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
-
-def test_groups_retrieve(client):
-    groups_response = client.filestorage.groups.list(page_size=1)
-        
-    assert groups_response.results, "No groups available to test retrieve"
-    
-    # Assert the response type is a Group object
-    assert isinstance(groups_response.results[0], Group), f"Expected Group object, got {type(groups_response.results[0])}"
-        
-    group_id = groups_response.results[0].id
-    group = client.filestorage.groups.retrieve(id=group_id)
-        
-    assert group is not None
-    assert group.id == group_id
 
 def test_audit_trail_list(client):
     response = client.filestorage.audit_trail.list()

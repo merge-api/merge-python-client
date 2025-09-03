@@ -8,3 +8,5 @@ LICENSE.md
 
 # Files that avoid breaking changes due to renames.
 src/merge/resources/accounting/types/currency_enum.py
+
+tests/integration/test_filestorage.py
