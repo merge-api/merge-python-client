@@ -2,6 +2,8 @@ import os
 import pytest
 from merge import Merge
 from merge.resources.filestorage.types.permission import Permission
+from merge.resources.filestorage.types.folder import Folder
+from merge.resources.filestorage.types.group import Group
 
 
 @pytest.fixture
@@ -77,6 +79,9 @@ def test_folders_retrieve(client):
     folders_response = client.filestorage.folders.list(page_size=1)
         
     assert folders_response.results, "No folders available to test retrieve"
+    
+    # Assert the response type is a Folder object
+    assert isinstance(folders_response.results[0], Folder), f"Expected Folder object, got {type(folders_response.results[0])}"
         
     folder_id = folders_response.results[0].id
     folder = client.filestorage.folders.retrieve(id=folder_id)
@@ -111,6 +116,9 @@ def test_groups_retrieve(client):
     groups_response = client.filestorage.groups.list(page_size=1)
         
     assert groups_response.results, "No groups available to test retrieve"
+    
+    # Assert the response type is a Group object
+    assert isinstance(groups_response.results[0], Group), f"Expected Group object, got {type(groups_response.results[0])}"
         
     group_id = groups_response.results[0].id
     group = client.filestorage.groups.retrieve(id=group_id)
