@@ -2,225 +2,468 @@
 
 # isort: skip_file
 
-from .access_role_enum import AccessRoleEnum
-from .account_details import AccountDetails
-from .account_details_and_actions import AccountDetailsAndActions
-from .account_details_and_actions_category import AccountDetailsAndActionsCategory
-from .account_details_and_actions_integration import AccountDetailsAndActionsIntegration
-from .account_details_and_actions_status import AccountDetailsAndActionsStatus
-from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
-from .account_details_category import AccountDetailsCategory
-from .account_integration import AccountIntegration
-from .account_token import AccountToken
-from .activity import Activity
-from .activity_activity_type import ActivityActivityType
-from .activity_request import ActivityRequest
-from .activity_request_activity_type import ActivityRequestActivityType
-from .activity_request_user import ActivityRequestUser
-from .activity_request_visibility import ActivityRequestVisibility
-from .activity_response import ActivityResponse
-from .activity_type_enum import ActivityTypeEnum
-from .activity_user import ActivityUser
-from .activity_visibility import ActivityVisibility
-from .advanced_metadata import AdvancedMetadata
-from .application import Application
-from .application_candidate import ApplicationCandidate
-from .application_credited_to import ApplicationCreditedTo
-from .application_current_stage import ApplicationCurrentStage
-from .application_job import ApplicationJob
-from .application_offers_item import ApplicationOffersItem
-from .application_reject_reason import ApplicationRejectReason
-from .application_request import ApplicationRequest
-from .application_request_candidate import ApplicationRequestCandidate
-from .application_request_credited_to import ApplicationRequestCreditedTo
-from .application_request_current_stage import ApplicationRequestCurrentStage
-from .application_request_job import ApplicationRequestJob
-from .application_request_offers_item import ApplicationRequestOffersItem
-from .application_request_reject_reason import ApplicationRequestRejectReason
-from .application_request_screening_question_answers_item import ApplicationRequestScreeningQuestionAnswersItem
-from .application_response import ApplicationResponse
-from .application_screening_question_answers_item import ApplicationScreeningQuestionAnswersItem
-from .async_passthrough_reciept import AsyncPassthroughReciept
-from .attachment import Attachment
-from .attachment_attachment_type import AttachmentAttachmentType
-from .attachment_request import AttachmentRequest
-from .attachment_request_attachment_type import AttachmentRequestAttachmentType
-from .attachment_response import AttachmentResponse
-from .attachment_type_enum import AttachmentTypeEnum
-from .audit_log_event import AuditLogEvent
-from .audit_log_event_event_type import AuditLogEventEventType
-from .audit_log_event_role import AuditLogEventRole
-from .available_actions import AvailableActions
-from .candidate import Candidate
-from .candidate_applications_item import CandidateApplicationsItem
-from .candidate_attachments_item import CandidateAttachmentsItem
-from .candidate_request import CandidateRequest
-from .candidate_request_applications_item import CandidateRequestApplicationsItem
-from .candidate_request_attachments_item import CandidateRequestAttachmentsItem
-from .candidate_response import CandidateResponse
-from .categories_enum import CategoriesEnum
-from .category_enum import CategoryEnum
-from .common_model_scope_api import CommonModelScopeApi
-from .common_model_scopes_body_request import CommonModelScopesBodyRequest
-from .data_passthrough_request import DataPassthroughRequest
-from .debug_mode_log import DebugModeLog
-from .debug_model_log_summary import DebugModelLogSummary
-from .department import Department
-from .disability_status_enum import DisabilityStatusEnum
-from .eeoc import Eeoc
-from .eeoc_candidate import EeocCandidate
-from .eeoc_disability_status import EeocDisabilityStatus
-from .eeoc_gender import EeocGender
-from .eeoc_race import EeocRace
-from .eeoc_veteran_status import EeocVeteranStatus
-from .email_address import EmailAddress
-from .email_address_email_address_type import EmailAddressEmailAddressType
-from .email_address_request import EmailAddressRequest
-from .email_address_request_email_address_type import EmailAddressRequestEmailAddressType
-from .email_address_type_enum import EmailAddressTypeEnum
-from .enabled_actions_enum import EnabledActionsEnum
-from .encoding_enum import EncodingEnum
-from .error_validation_problem import ErrorValidationProblem
-from .event_type_enum import EventTypeEnum
-from .external_target_field_api import ExternalTargetFieldApi
-from .external_target_field_api_response import ExternalTargetFieldApiResponse
-from .field_mapping_api_instance import FieldMappingApiInstance
-from .field_mapping_api_instance_remote_field import FieldMappingApiInstanceRemoteField
-from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
-    FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo,
-)
-from .field_mapping_api_instance_response import FieldMappingApiInstanceResponse
-from .field_mapping_api_instance_target_field import FieldMappingApiInstanceTargetField
-from .field_mapping_instance_response import FieldMappingInstanceResponse
-from .field_permission_deserializer import FieldPermissionDeserializer
-from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
-from .gender_enum import GenderEnum
-from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
-from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
-from .issue import Issue
-from .issue_status import IssueStatus
-from .issue_status_enum import IssueStatusEnum
-from .job import Job
-from .job_departments_item import JobDepartmentsItem
-from .job_hiring_managers_item import JobHiringManagersItem
-from .job_interview_stage import JobInterviewStage
-from .job_interview_stage_job import JobInterviewStageJob
-from .job_offices_item import JobOfficesItem
-from .job_posting import JobPosting
-from .job_posting_job import JobPostingJob
-from .job_posting_job_posting_urls_item import JobPostingJobPostingUrlsItem
-from .job_posting_status import JobPostingStatus
-from .job_posting_status_enum import JobPostingStatusEnum
-from .job_recruiters_item import JobRecruitersItem
-from .job_status import JobStatus
-from .job_status_enum import JobStatusEnum
-from .job_type import JobType
-from .job_type_enum import JobTypeEnum
-from .language_enum import LanguageEnum
-from .last_sync_result_enum import LastSyncResultEnum
-from .link_token import LinkToken
-from .linked_account_status import LinkedAccountStatus
-from .meta_response import MetaResponse
-from .method_enum import MethodEnum
-from .model_operation import ModelOperation
-from .model_permission_deserializer import ModelPermissionDeserializer
-from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
-from .multipart_form_field_request import MultipartFormFieldRequest
-from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
-from .offer import Offer
-from .offer_application import OfferApplication
-from .offer_creator import OfferCreator
-from .offer_status import OfferStatus
-from .offer_status_enum import OfferStatusEnum
-from .office import Office
-from .overall_recommendation_enum import OverallRecommendationEnum
-from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
-from .paginated_activity_list import PaginatedActivityList
-from .paginated_application_list import PaginatedApplicationList
-from .paginated_attachment_list import PaginatedAttachmentList
-from .paginated_audit_log_event_list import PaginatedAuditLogEventList
-from .paginated_candidate_list import PaginatedCandidateList
-from .paginated_department_list import PaginatedDepartmentList
-from .paginated_eeoc_list import PaginatedEeocList
-from .paginated_issue_list import PaginatedIssueList
-from .paginated_job_interview_stage_list import PaginatedJobInterviewStageList
-from .paginated_job_list import PaginatedJobList
-from .paginated_job_posting_list import PaginatedJobPostingList
-from .paginated_offer_list import PaginatedOfferList
-from .paginated_office_list import PaginatedOfficeList
-from .paginated_reject_reason_list import PaginatedRejectReasonList
-from .paginated_remote_user_list import PaginatedRemoteUserList
-from .paginated_scheduled_interview_list import PaginatedScheduledInterviewList
-from .paginated_scorecard_list import PaginatedScorecardList
-from .paginated_screening_question_list import PaginatedScreeningQuestionList
-from .paginated_sync_status_list import PaginatedSyncStatusList
-from .paginated_tag_list import PaginatedTagList
-from .patched_candidate_request import PatchedCandidateRequest
-from .phone_number import PhoneNumber
-from .phone_number_phone_number_type import PhoneNumberPhoneNumberType
-from .phone_number_request import PhoneNumberRequest
-from .phone_number_request_phone_number_type import PhoneNumberRequestPhoneNumberType
-from .phone_number_type_enum import PhoneNumberTypeEnum
-from .race_enum import RaceEnum
-from .reason_enum import ReasonEnum
-from .reject_reason import RejectReason
-from .remote_data import RemoteData
-from .remote_endpoint_info import RemoteEndpointInfo
-from .remote_field_api import RemoteFieldApi
-from .remote_field_api_coverage import RemoteFieldApiCoverage
-from .remote_field_api_response import RemoteFieldApiResponse
-from .remote_key import RemoteKey
-from .remote_response import RemoteResponse
-from .remote_response_response_type import RemoteResponseResponseType
-from .remote_user import RemoteUser
-from .remote_user_access_role import RemoteUserAccessRole
-from .request_format_enum import RequestFormatEnum
-from .response_type_enum import ResponseTypeEnum
-from .role_enum import RoleEnum
-from .scheduled_interview import ScheduledInterview
-from .scheduled_interview_application import ScheduledInterviewApplication
-from .scheduled_interview_interviewers_item import ScheduledInterviewInterviewersItem
-from .scheduled_interview_job_interview_stage import ScheduledInterviewJobInterviewStage
-from .scheduled_interview_organizer import ScheduledInterviewOrganizer
-from .scheduled_interview_request import ScheduledInterviewRequest
-from .scheduled_interview_request_application import ScheduledInterviewRequestApplication
-from .scheduled_interview_request_interviewers_item import ScheduledInterviewRequestInterviewersItem
-from .scheduled_interview_request_job_interview_stage import ScheduledInterviewRequestJobInterviewStage
-from .scheduled_interview_request_organizer import ScheduledInterviewRequestOrganizer
-from .scheduled_interview_request_status import ScheduledInterviewRequestStatus
-from .scheduled_interview_response import ScheduledInterviewResponse
-from .scheduled_interview_status import ScheduledInterviewStatus
-from .scheduled_interview_status_enum import ScheduledInterviewStatusEnum
-from .scorecard import Scorecard
-from .scorecard_application import ScorecardApplication
-from .scorecard_interview import ScorecardInterview
-from .scorecard_interviewer import ScorecardInterviewer
-from .scorecard_overall_recommendation import ScorecardOverallRecommendation
-from .screening_question import ScreeningQuestion
-from .screening_question_answer import ScreeningQuestionAnswer
-from .screening_question_answer_question import ScreeningQuestionAnswerQuestion
-from .screening_question_answer_request import ScreeningQuestionAnswerRequest
-from .screening_question_answer_request_question import ScreeningQuestionAnswerRequestQuestion
-from .screening_question_job import ScreeningQuestionJob
-from .screening_question_option import ScreeningQuestionOption
-from .screening_question_type import ScreeningQuestionType
-from .screening_question_type_enum import ScreeningQuestionTypeEnum
-from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
-from .status_fd_5_enum import StatusFd5Enum
-from .sync_status import SyncStatus
-from .sync_status_last_sync_result import SyncStatusLastSyncResult
-from .sync_status_status import SyncStatusStatus
-from .tag import Tag
-from .url import Url
-from .url_request import UrlRequest
-from .url_request_url_type import UrlRequestUrlType
-from .url_type_enum import UrlTypeEnum
-from .url_url_type import UrlUrlType
-from .validation_problem_source import ValidationProblemSource
-from .veteran_status_enum import VeteranStatusEnum
-from .visibility_enum import VisibilityEnum
-from .warning_validation_problem import WarningValidationProblem
-from .webhook_receiver import WebhookReceiver
+import typing
+from importlib import import_module
+
+if typing.TYPE_CHECKING:
+    from .access_role_enum import AccessRoleEnum
+    from .account_details import AccountDetails
+    from .account_details_and_actions import AccountDetailsAndActions
+    from .account_details_and_actions_category import AccountDetailsAndActionsCategory
+    from .account_details_and_actions_integration import AccountDetailsAndActionsIntegration
+    from .account_details_and_actions_status import AccountDetailsAndActionsStatus
+    from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
+    from .account_details_category import AccountDetailsCategory
+    from .account_integration import AccountIntegration
+    from .account_token import AccountToken
+    from .activity import Activity
+    from .activity_activity_type import ActivityActivityType
+    from .activity_request import ActivityRequest
+    from .activity_request_activity_type import ActivityRequestActivityType
+    from .activity_request_user import ActivityRequestUser
+    from .activity_request_visibility import ActivityRequestVisibility
+    from .activity_response import ActivityResponse
+    from .activity_type_enum import ActivityTypeEnum
+    from .activity_user import ActivityUser
+    from .activity_visibility import ActivityVisibility
+    from .advanced_metadata import AdvancedMetadata
+    from .application import Application
+    from .application_candidate import ApplicationCandidate
+    from .application_credited_to import ApplicationCreditedTo
+    from .application_current_stage import ApplicationCurrentStage
+    from .application_job import ApplicationJob
+    from .application_offers_item import ApplicationOffersItem
+    from .application_reject_reason import ApplicationRejectReason
+    from .application_request import ApplicationRequest
+    from .application_request_candidate import ApplicationRequestCandidate
+    from .application_request_credited_to import ApplicationRequestCreditedTo
+    from .application_request_current_stage import ApplicationRequestCurrentStage
+    from .application_request_job import ApplicationRequestJob
+    from .application_request_offers_item import ApplicationRequestOffersItem
+    from .application_request_reject_reason import ApplicationRequestRejectReason
+    from .application_request_screening_question_answers_item import ApplicationRequestScreeningQuestionAnswersItem
+    from .application_response import ApplicationResponse
+    from .application_screening_question_answers_item import ApplicationScreeningQuestionAnswersItem
+    from .async_passthrough_reciept import AsyncPassthroughReciept
+    from .attachment import Attachment
+    from .attachment_attachment_type import AttachmentAttachmentType
+    from .attachment_request import AttachmentRequest
+    from .attachment_request_attachment_type import AttachmentRequestAttachmentType
+    from .attachment_response import AttachmentResponse
+    from .attachment_type_enum import AttachmentTypeEnum
+    from .audit_log_event import AuditLogEvent
+    from .audit_log_event_event_type import AuditLogEventEventType
+    from .audit_log_event_role import AuditLogEventRole
+    from .available_actions import AvailableActions
+    from .candidate import Candidate
+    from .candidate_applications_item import CandidateApplicationsItem
+    from .candidate_attachments_item import CandidateAttachmentsItem
+    from .candidate_request import CandidateRequest
+    from .candidate_request_applications_item import CandidateRequestApplicationsItem
+    from .candidate_request_attachments_item import CandidateRequestAttachmentsItem
+    from .candidate_response import CandidateResponse
+    from .categories_enum import CategoriesEnum
+    from .category_enum import CategoryEnum
+    from .common_model_scope_api import CommonModelScopeApi
+    from .common_model_scopes_body_request import CommonModelScopesBodyRequest
+    from .data_passthrough_request import DataPassthroughRequest
+    from .debug_mode_log import DebugModeLog
+    from .debug_model_log_summary import DebugModelLogSummary
+    from .department import Department
+    from .disability_status_enum import DisabilityStatusEnum
+    from .eeoc import Eeoc
+    from .eeoc_candidate import EeocCandidate
+    from .eeoc_disability_status import EeocDisabilityStatus
+    from .eeoc_gender import EeocGender
+    from .eeoc_race import EeocRace
+    from .eeoc_veteran_status import EeocVeteranStatus
+    from .email_address import EmailAddress
+    from .email_address_email_address_type import EmailAddressEmailAddressType
+    from .email_address_request import EmailAddressRequest
+    from .email_address_request_email_address_type import EmailAddressRequestEmailAddressType
+    from .email_address_type_enum import EmailAddressTypeEnum
+    from .enabled_actions_enum import EnabledActionsEnum
+    from .encoding_enum import EncodingEnum
+    from .error_validation_problem import ErrorValidationProblem
+    from .event_type_enum import EventTypeEnum
+    from .external_target_field_api import ExternalTargetFieldApi
+    from .external_target_field_api_response import ExternalTargetFieldApiResponse
+    from .field_mapping_api_instance import FieldMappingApiInstance
+    from .field_mapping_api_instance_remote_field import FieldMappingApiInstanceRemoteField
+    from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
+        FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo,
+    )
+    from .field_mapping_api_instance_response import FieldMappingApiInstanceResponse
+    from .field_mapping_api_instance_target_field import FieldMappingApiInstanceTargetField
+    from .field_mapping_instance_response import FieldMappingInstanceResponse
+    from .field_permission_deserializer import FieldPermissionDeserializer
+    from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
+    from .gender_enum import GenderEnum
+    from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
+    from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
+    from .issue import Issue
+    from .issue_status import IssueStatus
+    from .issue_status_enum import IssueStatusEnum
+    from .job import Job
+    from .job_departments_item import JobDepartmentsItem
+    from .job_hiring_managers_item import JobHiringManagersItem
+    from .job_interview_stage import JobInterviewStage
+    from .job_interview_stage_job import JobInterviewStageJob
+    from .job_offices_item import JobOfficesItem
+    from .job_posting import JobPosting
+    from .job_posting_job import JobPostingJob
+    from .job_posting_job_posting_urls_item import JobPostingJobPostingUrlsItem
+    from .job_posting_status import JobPostingStatus
+    from .job_posting_status_enum import JobPostingStatusEnum
+    from .job_recruiters_item import JobRecruitersItem
+    from .job_status import JobStatus
+    from .job_status_enum import JobStatusEnum
+    from .job_type import JobType
+    from .job_type_enum import JobTypeEnum
+    from .language_enum import LanguageEnum
+    from .last_sync_result_enum import LastSyncResultEnum
+    from .link_token import LinkToken
+    from .linked_account_status import LinkedAccountStatus
+    from .meta_response import MetaResponse
+    from .method_enum import MethodEnum
+    from .model_operation import ModelOperation
+    from .model_permission_deserializer import ModelPermissionDeserializer
+    from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
+    from .multipart_form_field_request import MultipartFormFieldRequest
+    from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
+    from .offer import Offer
+    from .offer_application import OfferApplication
+    from .offer_creator import OfferCreator
+    from .offer_status import OfferStatus
+    from .offer_status_enum import OfferStatusEnum
+    from .office import Office
+    from .overall_recommendation_enum import OverallRecommendationEnum
+    from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
+    from .paginated_activity_list import PaginatedActivityList
+    from .paginated_application_list import PaginatedApplicationList
+    from .paginated_attachment_list import PaginatedAttachmentList
+    from .paginated_audit_log_event_list import PaginatedAuditLogEventList
+    from .paginated_candidate_list import PaginatedCandidateList
+    from .paginated_department_list import PaginatedDepartmentList
+    from .paginated_eeoc_list import PaginatedEeocList
+    from .paginated_issue_list import PaginatedIssueList
+    from .paginated_job_interview_stage_list import PaginatedJobInterviewStageList
+    from .paginated_job_list import PaginatedJobList
+    from .paginated_job_posting_list import PaginatedJobPostingList
+    from .paginated_offer_list import PaginatedOfferList
+    from .paginated_office_list import PaginatedOfficeList
+    from .paginated_reject_reason_list import PaginatedRejectReasonList
+    from .paginated_remote_user_list import PaginatedRemoteUserList
+    from .paginated_scheduled_interview_list import PaginatedScheduledInterviewList
+    from .paginated_scorecard_list import PaginatedScorecardList
+    from .paginated_screening_question_list import PaginatedScreeningQuestionList
+    from .paginated_sync_status_list import PaginatedSyncStatusList
+    from .paginated_tag_list import PaginatedTagList
+    from .patched_candidate_request import PatchedCandidateRequest
+    from .phone_number import PhoneNumber
+    from .phone_number_phone_number_type import PhoneNumberPhoneNumberType
+    from .phone_number_request import PhoneNumberRequest
+    from .phone_number_request_phone_number_type import PhoneNumberRequestPhoneNumberType
+    from .phone_number_type_enum import PhoneNumberTypeEnum
+    from .race_enum import RaceEnum
+    from .reason_enum import ReasonEnum
+    from .reject_reason import RejectReason
+    from .remote_data import RemoteData
+    from .remote_endpoint_info import RemoteEndpointInfo
+    from .remote_field_api import RemoteFieldApi
+    from .remote_field_api_coverage import RemoteFieldApiCoverage
+    from .remote_field_api_response import RemoteFieldApiResponse
+    from .remote_key import RemoteKey
+    from .remote_response import RemoteResponse
+    from .remote_response_response_type import RemoteResponseResponseType
+    from .remote_user import RemoteUser
+    from .remote_user_access_role import RemoteUserAccessRole
+    from .request_format_enum import RequestFormatEnum
+    from .response_type_enum import ResponseTypeEnum
+    from .role_enum import RoleEnum
+    from .scheduled_interview import ScheduledInterview
+    from .scheduled_interview_application import ScheduledInterviewApplication
+    from .scheduled_interview_interviewers_item import ScheduledInterviewInterviewersItem
+    from .scheduled_interview_job_interview_stage import ScheduledInterviewJobInterviewStage
+    from .scheduled_interview_organizer import ScheduledInterviewOrganizer
+    from .scheduled_interview_request import ScheduledInterviewRequest
+    from .scheduled_interview_request_application import ScheduledInterviewRequestApplication
+    from .scheduled_interview_request_interviewers_item import ScheduledInterviewRequestInterviewersItem
+    from .scheduled_interview_request_job_interview_stage import ScheduledInterviewRequestJobInterviewStage
+    from .scheduled_interview_request_organizer import ScheduledInterviewRequestOrganizer
+    from .scheduled_interview_request_status import ScheduledInterviewRequestStatus
+    from .scheduled_interview_response import ScheduledInterviewResponse
+    from .scheduled_interview_status import ScheduledInterviewStatus
+    from .scheduled_interview_status_enum import ScheduledInterviewStatusEnum
+    from .scorecard import Scorecard
+    from .scorecard_application import ScorecardApplication
+    from .scorecard_interview import ScorecardInterview
+    from .scorecard_interviewer import ScorecardInterviewer
+    from .scorecard_overall_recommendation import ScorecardOverallRecommendation
+    from .screening_question import ScreeningQuestion
+    from .screening_question_answer import ScreeningQuestionAnswer
+    from .screening_question_answer_question import ScreeningQuestionAnswerQuestion
+    from .screening_question_answer_request import ScreeningQuestionAnswerRequest
+    from .screening_question_answer_request_question import ScreeningQuestionAnswerRequestQuestion
+    from .screening_question_job import ScreeningQuestionJob
+    from .screening_question_option import ScreeningQuestionOption
+    from .screening_question_type import ScreeningQuestionType
+    from .screening_question_type_enum import ScreeningQuestionTypeEnum
+    from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
+    from .status_fd_5_enum import StatusFd5Enum
+    from .sync_status import SyncStatus
+    from .sync_status_last_sync_result import SyncStatusLastSyncResult
+    from .sync_status_status import SyncStatusStatus
+    from .tag import Tag
+    from .url import Url
+    from .url_request import UrlRequest
+    from .url_request_url_type import UrlRequestUrlType
+    from .url_type_enum import UrlTypeEnum
+    from .url_url_type import UrlUrlType
+    from .validation_problem_source import ValidationProblemSource
+    from .veteran_status_enum import VeteranStatusEnum
+    from .visibility_enum import VisibilityEnum
+    from .warning_validation_problem import WarningValidationProblem
+    from .webhook_receiver import WebhookReceiver
+_dynamic_imports: typing.Dict[str, str] = {
+    "AccessRoleEnum": ".access_role_enum",
+    "AccountDetails": ".account_details",
+    "AccountDetailsAndActions": ".account_details_and_actions",
+    "AccountDetailsAndActionsCategory": ".account_details_and_actions_category",
+    "AccountDetailsAndActionsIntegration": ".account_details_and_actions_integration",
+    "AccountDetailsAndActionsStatus": ".account_details_and_actions_status",
+    "AccountDetailsAndActionsStatusEnum": ".account_details_and_actions_status_enum",
+    "AccountDetailsCategory": ".account_details_category",
+    "AccountIntegration": ".account_integration",
+    "AccountToken": ".account_token",
+    "Activity": ".activity",
+    "ActivityActivityType": ".activity_activity_type",
+    "ActivityRequest": ".activity_request",
+    "ActivityRequestActivityType": ".activity_request_activity_type",
+    "ActivityRequestUser": ".activity_request_user",
+    "ActivityRequestVisibility": ".activity_request_visibility",
+    "ActivityResponse": ".activity_response",
+    "ActivityTypeEnum": ".activity_type_enum",
+    "ActivityUser": ".activity_user",
+    "ActivityVisibility": ".activity_visibility",
+    "AdvancedMetadata": ".advanced_metadata",
+    "Application": ".application",
+    "ApplicationCandidate": ".application_candidate",
+    "ApplicationCreditedTo": ".application_credited_to",
+    "ApplicationCurrentStage": ".application_current_stage",
+    "ApplicationJob": ".application_job",
+    "ApplicationOffersItem": ".application_offers_item",
+    "ApplicationRejectReason": ".application_reject_reason",
+    "ApplicationRequest": ".application_request",
+    "ApplicationRequestCandidate": ".application_request_candidate",
+    "ApplicationRequestCreditedTo": ".application_request_credited_to",
+    "ApplicationRequestCurrentStage": ".application_request_current_stage",
+    "ApplicationRequestJob": ".application_request_job",
+    "ApplicationRequestOffersItem": ".application_request_offers_item",
+    "ApplicationRequestRejectReason": ".application_request_reject_reason",
+    "ApplicationRequestScreeningQuestionAnswersItem": ".application_request_screening_question_answers_item",
+    "ApplicationResponse": ".application_response",
+    "ApplicationScreeningQuestionAnswersItem": ".application_screening_question_answers_item",
+    "AsyncPassthroughReciept": ".async_passthrough_reciept",
+    "Attachment": ".attachment",
+    "AttachmentAttachmentType": ".attachment_attachment_type",
+    "AttachmentRequest": ".attachment_request",
+    "AttachmentRequestAttachmentType": ".attachment_request_attachment_type",
+    "AttachmentResponse": ".attachment_response",
+    "AttachmentTypeEnum": ".attachment_type_enum",
+    "AuditLogEvent": ".audit_log_event",
+    "AuditLogEventEventType": ".audit_log_event_event_type",
+    "AuditLogEventRole": ".audit_log_event_role",
+    "AvailableActions": ".available_actions",
+    "Candidate": ".candidate",
+    "CandidateApplicationsItem": ".candidate_applications_item",
+    "CandidateAttachmentsItem": ".candidate_attachments_item",
+    "CandidateRequest": ".candidate_request",
+    "CandidateRequestApplicationsItem": ".candidate_request_applications_item",
+    "CandidateRequestAttachmentsItem": ".candidate_request_attachments_item",
+    "CandidateResponse": ".candidate_response",
+    "CategoriesEnum": ".categories_enum",
+    "CategoryEnum": ".category_enum",
+    "CommonModelScopeApi": ".common_model_scope_api",
+    "CommonModelScopesBodyRequest": ".common_model_scopes_body_request",
+    "DataPassthroughRequest": ".data_passthrough_request",
+    "DebugModeLog": ".debug_mode_log",
+    "DebugModelLogSummary": ".debug_model_log_summary",
+    "Department": ".department",
+    "DisabilityStatusEnum": ".disability_status_enum",
+    "Eeoc": ".eeoc",
+    "EeocCandidate": ".eeoc_candidate",
+    "EeocDisabilityStatus": ".eeoc_disability_status",
+    "EeocGender": ".eeoc_gender",
+    "EeocRace": ".eeoc_race",
+    "EeocVeteranStatus": ".eeoc_veteran_status",
+    "EmailAddress": ".email_address",
+    "EmailAddressEmailAddressType": ".email_address_email_address_type",
+    "EmailAddressRequest": ".email_address_request",
+    "EmailAddressRequestEmailAddressType": ".email_address_request_email_address_type",
+    "EmailAddressTypeEnum": ".email_address_type_enum",
+    "EnabledActionsEnum": ".enabled_actions_enum",
+    "EncodingEnum": ".encoding_enum",
+    "ErrorValidationProblem": ".error_validation_problem",
+    "EventTypeEnum": ".event_type_enum",
+    "ExternalTargetFieldApi": ".external_target_field_api",
+    "ExternalTargetFieldApiResponse": ".external_target_field_api_response",
+    "FieldMappingApiInstance": ".field_mapping_api_instance",
+    "FieldMappingApiInstanceRemoteField": ".field_mapping_api_instance_remote_field",
+    "FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo": ".field_mapping_api_instance_remote_field_remote_endpoint_info",
+    "FieldMappingApiInstanceResponse": ".field_mapping_api_instance_response",
+    "FieldMappingApiInstanceTargetField": ".field_mapping_api_instance_target_field",
+    "FieldMappingInstanceResponse": ".field_mapping_instance_response",
+    "FieldPermissionDeserializer": ".field_permission_deserializer",
+    "FieldPermissionDeserializerRequest": ".field_permission_deserializer_request",
+    "GenderEnum": ".gender_enum",
+    "IndividualCommonModelScopeDeserializer": ".individual_common_model_scope_deserializer",
+    "IndividualCommonModelScopeDeserializerRequest": ".individual_common_model_scope_deserializer_request",
+    "Issue": ".issue",
+    "IssueStatus": ".issue_status",
+    "IssueStatusEnum": ".issue_status_enum",
+    "Job": ".job",
+    "JobDepartmentsItem": ".job_departments_item",
+    "JobHiringManagersItem": ".job_hiring_managers_item",
+    "JobInterviewStage": ".job_interview_stage",
+    "JobInterviewStageJob": ".job_interview_stage_job",
+    "JobOfficesItem": ".job_offices_item",
+    "JobPosting": ".job_posting",
+    "JobPostingJob": ".job_posting_job",
+    "JobPostingJobPostingUrlsItem": ".job_posting_job_posting_urls_item",
+    "JobPostingStatus": ".job_posting_status",
+    "JobPostingStatusEnum": ".job_posting_status_enum",
+    "JobRecruitersItem": ".job_recruiters_item",
+    "JobStatus": ".job_status",
+    "JobStatusEnum": ".job_status_enum",
+    "JobType": ".job_type",
+    "JobTypeEnum": ".job_type_enum",
+    "LanguageEnum": ".language_enum",
+    "LastSyncResultEnum": ".last_sync_result_enum",
+    "LinkToken": ".link_token",
+    "LinkedAccountStatus": ".linked_account_status",
+    "MetaResponse": ".meta_response",
+    "MethodEnum": ".method_enum",
+    "ModelOperation": ".model_operation",
+    "ModelPermissionDeserializer": ".model_permission_deserializer",
+    "ModelPermissionDeserializerRequest": ".model_permission_deserializer_request",
+    "MultipartFormFieldRequest": ".multipart_form_field_request",
+    "MultipartFormFieldRequestEncoding": ".multipart_form_field_request_encoding",
+    "Offer": ".offer",
+    "OfferApplication": ".offer_application",
+    "OfferCreator": ".offer_creator",
+    "OfferStatus": ".offer_status",
+    "OfferStatusEnum": ".offer_status_enum",
+    "Office": ".office",
+    "OverallRecommendationEnum": ".overall_recommendation_enum",
+    "PaginatedAccountDetailsAndActionsList": ".paginated_account_details_and_actions_list",
+    "PaginatedActivityList": ".paginated_activity_list",
+    "PaginatedApplicationList": ".paginated_application_list",
+    "PaginatedAttachmentList": ".paginated_attachment_list",
+    "PaginatedAuditLogEventList": ".paginated_audit_log_event_list",
+    "PaginatedCandidateList": ".paginated_candidate_list",
+    "PaginatedDepartmentList": ".paginated_department_list",
+    "PaginatedEeocList": ".paginated_eeoc_list",
+    "PaginatedIssueList": ".paginated_issue_list",
+    "PaginatedJobInterviewStageList": ".paginated_job_interview_stage_list",
+    "PaginatedJobList": ".paginated_job_list",
+    "PaginatedJobPostingList": ".paginated_job_posting_list",
+    "PaginatedOfferList": ".paginated_offer_list",
+    "PaginatedOfficeList": ".paginated_office_list",
+    "PaginatedRejectReasonList": ".paginated_reject_reason_list",
+    "PaginatedRemoteUserList": ".paginated_remote_user_list",
+    "PaginatedScheduledInterviewList": ".paginated_scheduled_interview_list",
+    "PaginatedScorecardList": ".paginated_scorecard_list",
+    "PaginatedScreeningQuestionList": ".paginated_screening_question_list",
+    "PaginatedSyncStatusList": ".paginated_sync_status_list",
+    "PaginatedTagList": ".paginated_tag_list",
+    "PatchedCandidateRequest": ".patched_candidate_request",
+    "PhoneNumber": ".phone_number",
+    "PhoneNumberPhoneNumberType": ".phone_number_phone_number_type",
+    "PhoneNumberRequest": ".phone_number_request",
+    "PhoneNumberRequestPhoneNumberType": ".phone_number_request_phone_number_type",
+    "PhoneNumberTypeEnum": ".phone_number_type_enum",
+    "RaceEnum": ".race_enum",
+    "ReasonEnum": ".reason_enum",
+    "RejectReason": ".reject_reason",
+    "RemoteData": ".remote_data",
+    "RemoteEndpointInfo": ".remote_endpoint_info",
+    "RemoteFieldApi": ".remote_field_api",
+    "RemoteFieldApiCoverage": ".remote_field_api_coverage",
+    "RemoteFieldApiResponse": ".remote_field_api_response",
+    "RemoteKey": ".remote_key",
+    "RemoteResponse": ".remote_response",
+    "RemoteResponseResponseType": ".remote_response_response_type",
+    "RemoteUser": ".remote_user",
+    "RemoteUserAccessRole": ".remote_user_access_role",
+    "RequestFormatEnum": ".request_format_enum",
+    "ResponseTypeEnum": ".response_type_enum",
+    "RoleEnum": ".role_enum",
+    "ScheduledInterview": ".scheduled_interview",
+    "ScheduledInterviewApplication": ".scheduled_interview_application",
+    "ScheduledInterviewInterviewersItem": ".scheduled_interview_interviewers_item",
+    "ScheduledInterviewJobInterviewStage": ".scheduled_interview_job_interview_stage",
+    "ScheduledInterviewOrganizer": ".scheduled_interview_organizer",
+    "ScheduledInterviewRequest": ".scheduled_interview_request",
+    "ScheduledInterviewRequestApplication": ".scheduled_interview_request_application",
+    "ScheduledInterviewRequestInterviewersItem": ".scheduled_interview_request_interviewers_item",
+    "ScheduledInterviewRequestJobInterviewStage": ".scheduled_interview_request_job_interview_stage",
+    "ScheduledInterviewRequestOrganizer": ".scheduled_interview_request_organizer",
+    "ScheduledInterviewRequestStatus": ".scheduled_interview_request_status",
+    "ScheduledInterviewResponse": ".scheduled_interview_response",
+    "ScheduledInterviewStatus": ".scheduled_interview_status",
+    "ScheduledInterviewStatusEnum": ".scheduled_interview_status_enum",
+    "Scorecard": ".scorecard",
+    "ScorecardApplication": ".scorecard_application",
+    "ScorecardInterview": ".scorecard_interview",
+    "ScorecardInterviewer": ".scorecard_interviewer",
+    "ScorecardOverallRecommendation": ".scorecard_overall_recommendation",
+    "ScreeningQuestion": ".screening_question",
+    "ScreeningQuestionAnswer": ".screening_question_answer",
+    "ScreeningQuestionAnswerQuestion": ".screening_question_answer_question",
+    "ScreeningQuestionAnswerRequest": ".screening_question_answer_request",
+    "ScreeningQuestionAnswerRequestQuestion": ".screening_question_answer_request_question",
+    "ScreeningQuestionJob": ".screening_question_job",
+    "ScreeningQuestionOption": ".screening_question_option",
+    "ScreeningQuestionType": ".screening_question_type",
+    "ScreeningQuestionTypeEnum": ".screening_question_type_enum",
+    "SelectiveSyncConfigurationsUsageEnum": ".selective_sync_configurations_usage_enum",
+    "StatusFd5Enum": ".status_fd_5_enum",
+    "SyncStatus": ".sync_status",
+    "SyncStatusLastSyncResult": ".sync_status_last_sync_result",
+    "SyncStatusStatus": ".sync_status_status",
+    "Tag": ".tag",
+    "Url": ".url",
+    "UrlRequest": ".url_request",
+    "UrlRequestUrlType": ".url_request_url_type",
+    "UrlTypeEnum": ".url_type_enum",
+    "UrlUrlType": ".url_url_type",
+    "ValidationProblemSource": ".validation_problem_source",
+    "VeteranStatusEnum": ".veteran_status_enum",
+    "VisibilityEnum": ".visibility_enum",
+    "WarningValidationProblem": ".warning_validation_problem",
+    "WebhookReceiver": ".webhook_receiver",
+}
+
+
+def __getattr__(attr_name: str) -> typing.Any:
+    module_name = _dynamic_imports.get(attr_name)
+    if module_name is None:
+        raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
+    try:
+        module = import_module(module_name, __package__)
+        result = getattr(module, attr_name)
+        return result
+    except ImportError as e:
+        raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
+    except AttributeError as e:
+        raise AttributeError(f"Failed to get {attr_name} from {module_name}: {e}") from e
+
+
+def __dir__():
+    lazy_attrs = list(_dynamic_imports.keys())
+    return sorted(lazy_attrs)
+
 
 __all__ = [
     "AccessRoleEnum",

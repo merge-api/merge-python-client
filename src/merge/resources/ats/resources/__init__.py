@@ -2,69 +2,156 @@
 
 # isort: skip_file
 
-from . import (
-    account_details,
-    account_token,
-    activities,
-    applications,
-    async_passthrough,
-    attachments,
-    audit_trail,
-    available_actions,
-    candidates,
-    delete_account,
-    departments,
-    eeocs,
-    field_mapping,
-    force_resync,
-    generate_key,
-    interviews,
-    issues,
-    job_interview_stages,
-    job_postings,
-    jobs,
-    link_token,
-    linked_accounts,
-    offers,
-    offices,
-    passthrough,
-    regenerate_key,
-    reject_reasons,
-    scopes,
-    scorecards,
-    sync_status,
-    tags,
-    users,
-    webhook_receivers,
-)
-from .activities import (
-    ActivitiesListRequestRemoteFields,
-    ActivitiesListRequestShowEnumOrigins,
-    ActivitiesRetrieveRequestRemoteFields,
-    ActivitiesRetrieveRequestShowEnumOrigins,
-)
-from .applications import ApplicationsListRequestExpand, ApplicationsRetrieveRequestExpand
-from .async_passthrough import AsyncPassthroughRetrieveResponse
-from .candidates import CandidatesListRequestExpand, CandidatesRetrieveRequestExpand, IgnoreCommonModelRequestReason
-from .eeocs import (
-    EeocsListRequestRemoteFields,
-    EeocsListRequestShowEnumOrigins,
-    EeocsRetrieveRequestRemoteFields,
-    EeocsRetrieveRequestShowEnumOrigins,
-)
-from .interviews import InterviewsListRequestExpand, InterviewsRetrieveRequestExpand
-from .issues import IssuesListRequestStatus
-from .job_postings import JobPostingsListRequestStatus
-from .jobs import (
-    JobsListRequestExpand,
-    JobsListRequestStatus,
-    JobsRetrieveRequestExpand,
-    JobsScreeningQuestionsListRequestExpand,
-)
-from .link_token import EndUserDetailsRequestLanguage
-from .linked_accounts import LinkedAccountsListRequestCategory
-from .offers import OffersListRequestExpand, OffersRetrieveRequestExpand
-from .scorecards import ScorecardsListRequestExpand, ScorecardsRetrieveRequestExpand
+import typing
+from importlib import import_module
+
+if typing.TYPE_CHECKING:
+    from . import (
+        account_details,
+        account_token,
+        activities,
+        applications,
+        async_passthrough,
+        attachments,
+        audit_trail,
+        available_actions,
+        candidates,
+        delete_account,
+        departments,
+        eeocs,
+        field_mapping,
+        force_resync,
+        generate_key,
+        interviews,
+        issues,
+        job_interview_stages,
+        job_postings,
+        jobs,
+        link_token,
+        linked_accounts,
+        offers,
+        offices,
+        passthrough,
+        regenerate_key,
+        reject_reasons,
+        scopes,
+        scorecards,
+        sync_status,
+        tags,
+        users,
+        webhook_receivers,
+    )
+    from .activities import (
+        ActivitiesListRequestRemoteFields,
+        ActivitiesListRequestShowEnumOrigins,
+        ActivitiesRetrieveRequestRemoteFields,
+        ActivitiesRetrieveRequestShowEnumOrigins,
+    )
+    from .applications import ApplicationsListRequestExpand, ApplicationsRetrieveRequestExpand
+    from .async_passthrough import AsyncPassthroughRetrieveResponse
+    from .candidates import CandidatesListRequestExpand, CandidatesRetrieveRequestExpand, IgnoreCommonModelRequestReason
+    from .eeocs import (
+        EeocsListRequestRemoteFields,
+        EeocsListRequestShowEnumOrigins,
+        EeocsRetrieveRequestRemoteFields,
+        EeocsRetrieveRequestShowEnumOrigins,
+    )
+    from .interviews import InterviewsListRequestExpand, InterviewsRetrieveRequestExpand
+    from .issues import IssuesListRequestStatus
+    from .job_postings import JobPostingsListRequestStatus
+    from .jobs import (
+        JobsListRequestExpand,
+        JobsListRequestStatus,
+        JobsRetrieveRequestExpand,
+        JobsScreeningQuestionsListRequestExpand,
+    )
+    from .link_token import EndUserDetailsRequestLanguage
+    from .linked_accounts import LinkedAccountsListRequestCategory
+    from .offers import OffersListRequestExpand, OffersRetrieveRequestExpand
+    from .scorecards import ScorecardsListRequestExpand, ScorecardsRetrieveRequestExpand
+_dynamic_imports: typing.Dict[str, str] = {
+    "ActivitiesListRequestRemoteFields": ".activities",
+    "ActivitiesListRequestShowEnumOrigins": ".activities",
+    "ActivitiesRetrieveRequestRemoteFields": ".activities",
+    "ActivitiesRetrieveRequestShowEnumOrigins": ".activities",
+    "ApplicationsListRequestExpand": ".applications",
+    "ApplicationsRetrieveRequestExpand": ".applications",
+    "AsyncPassthroughRetrieveResponse": ".async_passthrough",
+    "CandidatesListRequestExpand": ".candidates",
+    "CandidatesRetrieveRequestExpand": ".candidates",
+    "EeocsListRequestRemoteFields": ".eeocs",
+    "EeocsListRequestShowEnumOrigins": ".eeocs",
+    "EeocsRetrieveRequestRemoteFields": ".eeocs",
+    "EeocsRetrieveRequestShowEnumOrigins": ".eeocs",
+    "EndUserDetailsRequestLanguage": ".link_token",
+    "IgnoreCommonModelRequestReason": ".candidates",
+    "InterviewsListRequestExpand": ".interviews",
+    "InterviewsRetrieveRequestExpand": ".interviews",
+    "IssuesListRequestStatus": ".issues",
+    "JobPostingsListRequestStatus": ".job_postings",
+    "JobsListRequestExpand": ".jobs",
+    "JobsListRequestStatus": ".jobs",
+    "JobsRetrieveRequestExpand": ".jobs",
+    "JobsScreeningQuestionsListRequestExpand": ".jobs",
+    "LinkedAccountsListRequestCategory": ".linked_accounts",
+    "OffersListRequestExpand": ".offers",
+    "OffersRetrieveRequestExpand": ".offers",
+    "ScorecardsListRequestExpand": ".scorecards",
+    "ScorecardsRetrieveRequestExpand": ".scorecards",
+    "account_details": ".",
+    "account_token": ".",
+    "activities": ".",
+    "applications": ".",
+    "async_passthrough": ".",
+    "attachments": ".",
+    "audit_trail": ".",
+    "available_actions": ".",
+    "candidates": ".",
+    "delete_account": ".",
+    "departments": ".",
+    "eeocs": ".",
+    "field_mapping": ".",
+    "force_resync": ".",
+    "generate_key": ".",
+    "interviews": ".",
+    "issues": ".",
+    "job_interview_stages": ".",
+    "job_postings": ".",
+    "jobs": ".",
+    "link_token": ".",
+    "linked_accounts": ".",
+    "offers": ".",
+    "offices": ".",
+    "passthrough": ".",
+    "regenerate_key": ".",
+    "reject_reasons": ".",
+    "scopes": ".",
+    "scorecards": ".",
+    "sync_status": ".",
+    "tags": ".",
+    "users": ".",
+    "webhook_receivers": ".",
+}
+
+
+def __getattr__(attr_name: str) -> typing.Any:
+    module_name = _dynamic_imports.get(attr_name)
+    if module_name is None:
+        raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
+    try:
+        module = import_module(module_name, __package__)
+        result = getattr(module, attr_name)
+        return result
+    except ImportError as e:
+        raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
+    except AttributeError as e:
+        raise AttributeError(f"Failed to get {attr_name} from {module_name}: {e}") from e
+
+
+def __dir__():
+    lazy_attrs = list(_dynamic_imports.keys())
+    return sorted(lazy_attrs)
+
 
 __all__ = [
     "ActivitiesListRequestRemoteFields",

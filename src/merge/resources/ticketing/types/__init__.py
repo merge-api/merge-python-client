@@ -2,179 +2,376 @@
 
 # isort: skip_file
 
-from .account import Account
-from .account_details import AccountDetails
-from .account_details_and_actions import AccountDetailsAndActions
-from .account_details_and_actions_category import AccountDetailsAndActionsCategory
-from .account_details_and_actions_integration import AccountDetailsAndActionsIntegration
-from .account_details_and_actions_status import AccountDetailsAndActionsStatus
-from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
-from .account_details_category import AccountDetailsCategory
-from .account_integration import AccountIntegration
-from .account_token import AccountToken
-from .advanced_metadata import AdvancedMetadata
-from .async_passthrough_reciept import AsyncPassthroughReciept
-from .attachment import Attachment
-from .attachment_request import AttachmentRequest
-from .attachment_request_ticket import AttachmentRequestTicket
-from .attachment_ticket import AttachmentTicket
-from .audit_log_event import AuditLogEvent
-from .audit_log_event_event_type import AuditLogEventEventType
-from .audit_log_event_role import AuditLogEventRole
-from .available_actions import AvailableActions
-from .categories_enum import CategoriesEnum
-from .category_enum import CategoryEnum
-from .collection import Collection
-from .collection_access_level import CollectionAccessLevel
-from .collection_access_level_enum import CollectionAccessLevelEnum
-from .collection_collection_type import CollectionCollectionType
-from .collection_parent_collection import CollectionParentCollection
-from .collection_type_enum import CollectionTypeEnum
-from .comment import Comment
-from .comment_contact import CommentContact
-from .comment_request import CommentRequest
-from .comment_request_contact import CommentRequestContact
-from .comment_request_ticket import CommentRequestTicket
-from .comment_request_user import CommentRequestUser
-from .comment_response import CommentResponse
-from .comment_ticket import CommentTicket
-from .comment_user import CommentUser
-from .common_model_scope_api import CommonModelScopeApi
-from .common_model_scopes_body_request import CommonModelScopesBodyRequest
-from .contact import Contact
-from .contact_account import ContactAccount
-from .contact_request import ContactRequest
-from .contact_request_account import ContactRequestAccount
-from .data_passthrough_request import DataPassthroughRequest
-from .debug_mode_log import DebugModeLog
-from .debug_model_log_summary import DebugModelLogSummary
-from .enabled_actions_enum import EnabledActionsEnum
-from .encoding_enum import EncodingEnum
-from .error_validation_problem import ErrorValidationProblem
-from .event_type_enum import EventTypeEnum
-from .external_target_field_api import ExternalTargetFieldApi
-from .external_target_field_api_response import ExternalTargetFieldApiResponse
-from .field_format_enum import FieldFormatEnum
-from .field_mapping_api_instance import FieldMappingApiInstance
-from .field_mapping_api_instance_remote_field import FieldMappingApiInstanceRemoteField
-from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
-    FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo,
-)
-from .field_mapping_api_instance_response import FieldMappingApiInstanceResponse
-from .field_mapping_api_instance_target_field import FieldMappingApiInstanceTargetField
-from .field_mapping_instance_response import FieldMappingInstanceResponse
-from .field_permission_deserializer import FieldPermissionDeserializer
-from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
-from .field_type_enum import FieldTypeEnum
-from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
-from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
-from .issue import Issue
-from .issue_status import IssueStatus
-from .issue_status_enum import IssueStatusEnum
-from .item_format_enum import ItemFormatEnum
-from .item_schema import ItemSchema
-from .item_type_enum import ItemTypeEnum
-from .language_enum import LanguageEnum
-from .last_sync_result_enum import LastSyncResultEnum
-from .link_token import LinkToken
-from .linked_account_status import LinkedAccountStatus
-from .meta_response import MetaResponse
-from .method_enum import MethodEnum
-from .model_operation import ModelOperation
-from .model_permission_deserializer import ModelPermissionDeserializer
-from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
-from .multipart_form_field_request import MultipartFormFieldRequest
-from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
-from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
-from .paginated_account_list import PaginatedAccountList
-from .paginated_attachment_list import PaginatedAttachmentList
-from .paginated_audit_log_event_list import PaginatedAuditLogEventList
-from .paginated_collection_list import PaginatedCollectionList
-from .paginated_comment_list import PaginatedCommentList
-from .paginated_contact_list import PaginatedContactList
-from .paginated_issue_list import PaginatedIssueList
-from .paginated_project_list import PaginatedProjectList
-from .paginated_remote_field_class_list import PaginatedRemoteFieldClassList
-from .paginated_role_list import PaginatedRoleList
-from .paginated_sync_status_list import PaginatedSyncStatusList
-from .paginated_tag_list import PaginatedTagList
-from .paginated_team_list import PaginatedTeamList
-from .paginated_ticket_list import PaginatedTicketList
-from .paginated_user_list import PaginatedUserList
-from .paginated_viewer_list import PaginatedViewerList
-from .patched_ticket_request import PatchedTicketRequest
-from .patched_ticket_request_access_level import PatchedTicketRequestAccessLevel
-from .patched_ticket_request_priority import PatchedTicketRequestPriority
-from .patched_ticket_request_status import PatchedTicketRequestStatus
-from .priority_enum import PriorityEnum
-from .project import Project
-from .remote_data import RemoteData
-from .remote_endpoint_info import RemoteEndpointInfo
-from .remote_field import RemoteField
-from .remote_field_api import RemoteFieldApi
-from .remote_field_api_coverage import RemoteFieldApiCoverage
-from .remote_field_api_response import RemoteFieldApiResponse
-from .remote_field_class import RemoteFieldClass
-from .remote_field_class_field_choices_item import RemoteFieldClassFieldChoicesItem
-from .remote_field_class_field_format import RemoteFieldClassFieldFormat
-from .remote_field_class_field_type import RemoteFieldClassFieldType
-from .remote_field_remote_field_class import RemoteFieldRemoteFieldClass
-from .remote_field_request import RemoteFieldRequest
-from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
-from .remote_key import RemoteKey
-from .remote_response import RemoteResponse
-from .request_format_enum import RequestFormatEnum
-from .response_type_enum import ResponseTypeEnum
-from .role import Role
-from .role_enum import RoleEnum
-from .role_ticket_access import RoleTicketAccess
-from .role_ticket_actions_item import RoleTicketActionsItem
-from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
-from .status_fd_5_enum import StatusFd5Enum
-from .sync_status import SyncStatus
-from .sync_status_last_sync_result import SyncStatusLastSyncResult
-from .tag import Tag
-from .team import Team
-from .ticket import Ticket
-from .ticket_access_enum import TicketAccessEnum
-from .ticket_access_level import TicketAccessLevel
-from .ticket_access_level_enum import TicketAccessLevelEnum
-from .ticket_account import TicketAccount
-from .ticket_actions_enum import TicketActionsEnum
-from .ticket_assigned_teams_item import TicketAssignedTeamsItem
-from .ticket_assignees_item import TicketAssigneesItem
-from .ticket_attachments_item import TicketAttachmentsItem
-from .ticket_collections_item import TicketCollectionsItem
-from .ticket_contact import TicketContact
-from .ticket_creator import TicketCreator
-from .ticket_parent_ticket import TicketParentTicket
-from .ticket_priority import TicketPriority
-from .ticket_request import TicketRequest
-from .ticket_request_access_level import TicketRequestAccessLevel
-from .ticket_request_account import TicketRequestAccount
-from .ticket_request_assigned_teams_item import TicketRequestAssignedTeamsItem
-from .ticket_request_assignees_item import TicketRequestAssigneesItem
-from .ticket_request_attachments_item import TicketRequestAttachmentsItem
-from .ticket_request_collections_item import TicketRequestCollectionsItem
-from .ticket_request_contact import TicketRequestContact
-from .ticket_request_creator import TicketRequestCreator
-from .ticket_request_parent_ticket import TicketRequestParentTicket
-from .ticket_request_priority import TicketRequestPriority
-from .ticket_request_status import TicketRequestStatus
-from .ticket_response import TicketResponse
-from .ticket_status import TicketStatus
-from .ticket_status_enum import TicketStatusEnum
-from .ticketing_attachment_response import TicketingAttachmentResponse
-from .ticketing_contact_response import TicketingContactResponse
-from .user import User
-from .user_roles_item import UserRolesItem
-from .user_teams_item import UserTeamsItem
-from .validation_problem_source import ValidationProblemSource
-from .viewer import Viewer
-from .viewer_team import ViewerTeam
-from .viewer_user import ViewerUser
-from .warning_validation_problem import WarningValidationProblem
-from .webhook_receiver import WebhookReceiver
+import typing
+from importlib import import_module
+
+if typing.TYPE_CHECKING:
+    from .account import Account
+    from .account_details import AccountDetails
+    from .account_details_and_actions import AccountDetailsAndActions
+    from .account_details_and_actions_category import AccountDetailsAndActionsCategory
+    from .account_details_and_actions_integration import AccountDetailsAndActionsIntegration
+    from .account_details_and_actions_status import AccountDetailsAndActionsStatus
+    from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
+    from .account_details_category import AccountDetailsCategory
+    from .account_integration import AccountIntegration
+    from .account_token import AccountToken
+    from .advanced_metadata import AdvancedMetadata
+    from .async_passthrough_reciept import AsyncPassthroughReciept
+    from .attachment import Attachment
+    from .attachment_request import AttachmentRequest
+    from .attachment_request_ticket import AttachmentRequestTicket
+    from .attachment_ticket import AttachmentTicket
+    from .audit_log_event import AuditLogEvent
+    from .audit_log_event_event_type import AuditLogEventEventType
+    from .audit_log_event_role import AuditLogEventRole
+    from .available_actions import AvailableActions
+    from .categories_enum import CategoriesEnum
+    from .category_enum import CategoryEnum
+    from .collection import Collection
+    from .collection_access_level import CollectionAccessLevel
+    from .collection_access_level_enum import CollectionAccessLevelEnum
+    from .collection_collection_type import CollectionCollectionType
+    from .collection_parent_collection import CollectionParentCollection
+    from .collection_type_enum import CollectionTypeEnum
+    from .comment import Comment
+    from .comment_contact import CommentContact
+    from .comment_request import CommentRequest
+    from .comment_request_contact import CommentRequestContact
+    from .comment_request_ticket import CommentRequestTicket
+    from .comment_request_user import CommentRequestUser
+    from .comment_response import CommentResponse
+    from .comment_ticket import CommentTicket
+    from .comment_user import CommentUser
+    from .common_model_scope_api import CommonModelScopeApi
+    from .common_model_scopes_body_request import CommonModelScopesBodyRequest
+    from .contact import Contact
+    from .contact_account import ContactAccount
+    from .contact_request import ContactRequest
+    from .contact_request_account import ContactRequestAccount
+    from .data_passthrough_request import DataPassthroughRequest
+    from .debug_mode_log import DebugModeLog
+    from .debug_model_log_summary import DebugModelLogSummary
+    from .enabled_actions_enum import EnabledActionsEnum
+    from .encoding_enum import EncodingEnum
+    from .error_validation_problem import ErrorValidationProblem
+    from .event_type_enum import EventTypeEnum
+    from .external_target_field_api import ExternalTargetFieldApi
+    from .external_target_field_api_response import ExternalTargetFieldApiResponse
+    from .field_format_enum import FieldFormatEnum
+    from .field_mapping_api_instance import FieldMappingApiInstance
+    from .field_mapping_api_instance_remote_field import FieldMappingApiInstanceRemoteField
+    from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
+        FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo,
+    )
+    from .field_mapping_api_instance_response import FieldMappingApiInstanceResponse
+    from .field_mapping_api_instance_target_field import FieldMappingApiInstanceTargetField
+    from .field_mapping_instance_response import FieldMappingInstanceResponse
+    from .field_permission_deserializer import FieldPermissionDeserializer
+    from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
+    from .field_type_enum import FieldTypeEnum
+    from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
+    from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
+    from .issue import Issue
+    from .issue_status import IssueStatus
+    from .issue_status_enum import IssueStatusEnum
+    from .item_format_enum import ItemFormatEnum
+    from .item_schema import ItemSchema
+    from .item_type_enum import ItemTypeEnum
+    from .language_enum import LanguageEnum
+    from .last_sync_result_enum import LastSyncResultEnum
+    from .link_token import LinkToken
+    from .linked_account_status import LinkedAccountStatus
+    from .meta_response import MetaResponse
+    from .method_enum import MethodEnum
+    from .model_operation import ModelOperation
+    from .model_permission_deserializer import ModelPermissionDeserializer
+    from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
+    from .multipart_form_field_request import MultipartFormFieldRequest
+    from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
+    from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
+    from .paginated_account_list import PaginatedAccountList
+    from .paginated_attachment_list import PaginatedAttachmentList
+    from .paginated_audit_log_event_list import PaginatedAuditLogEventList
+    from .paginated_collection_list import PaginatedCollectionList
+    from .paginated_comment_list import PaginatedCommentList
+    from .paginated_contact_list import PaginatedContactList
+    from .paginated_issue_list import PaginatedIssueList
+    from .paginated_project_list import PaginatedProjectList
+    from .paginated_remote_field_class_list import PaginatedRemoteFieldClassList
+    from .paginated_role_list import PaginatedRoleList
+    from .paginated_sync_status_list import PaginatedSyncStatusList
+    from .paginated_tag_list import PaginatedTagList
+    from .paginated_team_list import PaginatedTeamList
+    from .paginated_ticket_list import PaginatedTicketList
+    from .paginated_user_list import PaginatedUserList
+    from .paginated_viewer_list import PaginatedViewerList
+    from .patched_ticket_request import PatchedTicketRequest
+    from .patched_ticket_request_access_level import PatchedTicketRequestAccessLevel
+    from .patched_ticket_request_priority import PatchedTicketRequestPriority
+    from .patched_ticket_request_status import PatchedTicketRequestStatus
+    from .priority_enum import PriorityEnum
+    from .project import Project
+    from .remote_data import RemoteData
+    from .remote_endpoint_info import RemoteEndpointInfo
+    from .remote_field import RemoteField
+    from .remote_field_api import RemoteFieldApi
+    from .remote_field_api_coverage import RemoteFieldApiCoverage
+    from .remote_field_api_response import RemoteFieldApiResponse
+    from .remote_field_class import RemoteFieldClass
+    from .remote_field_class_field_choices_item import RemoteFieldClassFieldChoicesItem
+    from .remote_field_class_field_format import RemoteFieldClassFieldFormat
+    from .remote_field_class_field_type import RemoteFieldClassFieldType
+    from .remote_field_remote_field_class import RemoteFieldRemoteFieldClass
+    from .remote_field_request import RemoteFieldRequest
+    from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
+    from .remote_key import RemoteKey
+    from .remote_response import RemoteResponse
+    from .request_format_enum import RequestFormatEnum
+    from .response_type_enum import ResponseTypeEnum
+    from .role import Role
+    from .role_enum import RoleEnum
+    from .role_ticket_access import RoleTicketAccess
+    from .role_ticket_actions_item import RoleTicketActionsItem
+    from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
+    from .status_fd_5_enum import StatusFd5Enum
+    from .sync_status import SyncStatus
+    from .sync_status_last_sync_result import SyncStatusLastSyncResult
+    from .tag import Tag
+    from .team import Team
+    from .ticket import Ticket
+    from .ticket_access_enum import TicketAccessEnum
+    from .ticket_access_level import TicketAccessLevel
+    from .ticket_access_level_enum import TicketAccessLevelEnum
+    from .ticket_account import TicketAccount
+    from .ticket_actions_enum import TicketActionsEnum
+    from .ticket_assigned_teams_item import TicketAssignedTeamsItem
+    from .ticket_assignees_item import TicketAssigneesItem
+    from .ticket_attachments_item import TicketAttachmentsItem
+    from .ticket_collections_item import TicketCollectionsItem
+    from .ticket_contact import TicketContact
+    from .ticket_creator import TicketCreator
+    from .ticket_parent_ticket import TicketParentTicket
+    from .ticket_priority import TicketPriority
+    from .ticket_request import TicketRequest
+    from .ticket_request_access_level import TicketRequestAccessLevel
+    from .ticket_request_account import TicketRequestAccount
+    from .ticket_request_assigned_teams_item import TicketRequestAssignedTeamsItem
+    from .ticket_request_assignees_item import TicketRequestAssigneesItem
+    from .ticket_request_attachments_item import TicketRequestAttachmentsItem
+    from .ticket_request_collections_item import TicketRequestCollectionsItem
+    from .ticket_request_contact import TicketRequestContact
+    from .ticket_request_creator import TicketRequestCreator
+    from .ticket_request_parent_ticket import TicketRequestParentTicket
+    from .ticket_request_priority import TicketRequestPriority
+    from .ticket_request_status import TicketRequestStatus
+    from .ticket_response import TicketResponse
+    from .ticket_status import TicketStatus
+    from .ticket_status_enum import TicketStatusEnum
+    from .ticketing_attachment_response import TicketingAttachmentResponse
+    from .ticketing_contact_response import TicketingContactResponse
+    from .user import User
+    from .user_roles_item import UserRolesItem
+    from .user_teams_item import UserTeamsItem
+    from .validation_problem_source import ValidationProblemSource
+    from .viewer import Viewer
+    from .viewer_team import ViewerTeam
+    from .viewer_user import ViewerUser
+    from .warning_validation_problem import WarningValidationProblem
+    from .webhook_receiver import WebhookReceiver
+_dynamic_imports: typing.Dict[str, str] = {
+    "Account": ".account",
+    "AccountDetails": ".account_details",
+    "AccountDetailsAndActions": ".account_details_and_actions",
+    "AccountDetailsAndActionsCategory": ".account_details_and_actions_category",
+    "AccountDetailsAndActionsIntegration": ".account_details_and_actions_integration",
+    "AccountDetailsAndActionsStatus": ".account_details_and_actions_status",
+    "AccountDetailsAndActionsStatusEnum": ".account_details_and_actions_status_enum",
+    "AccountDetailsCategory": ".account_details_category",
+    "AccountIntegration": ".account_integration",
+    "AccountToken": ".account_token",
+    "AdvancedMetadata": ".advanced_metadata",
+    "AsyncPassthroughReciept": ".async_passthrough_reciept",
+    "Attachment": ".attachment",
+    "AttachmentRequest": ".attachment_request",
+    "AttachmentRequestTicket": ".attachment_request_ticket",
+    "AttachmentTicket": ".attachment_ticket",
+    "AuditLogEvent": ".audit_log_event",
+    "AuditLogEventEventType": ".audit_log_event_event_type",
+    "AuditLogEventRole": ".audit_log_event_role",
+    "AvailableActions": ".available_actions",
+    "CategoriesEnum": ".categories_enum",
+    "CategoryEnum": ".category_enum",
+    "Collection": ".collection",
+    "CollectionAccessLevel": ".collection_access_level",
+    "CollectionAccessLevelEnum": ".collection_access_level_enum",
+    "CollectionCollectionType": ".collection_collection_type",
+    "CollectionParentCollection": ".collection_parent_collection",
+    "CollectionTypeEnum": ".collection_type_enum",
+    "Comment": ".comment",
+    "CommentContact": ".comment_contact",
+    "CommentRequest": ".comment_request",
+    "CommentRequestContact": ".comment_request_contact",
+    "CommentRequestTicket": ".comment_request_ticket",
+    "CommentRequestUser": ".comment_request_user",
+    "CommentResponse": ".comment_response",
+    "CommentTicket": ".comment_ticket",
+    "CommentUser": ".comment_user",
+    "CommonModelScopeApi": ".common_model_scope_api",
+    "CommonModelScopesBodyRequest": ".common_model_scopes_body_request",
+    "Contact": ".contact",
+    "ContactAccount": ".contact_account",
+    "ContactRequest": ".contact_request",
+    "ContactRequestAccount": ".contact_request_account",
+    "DataPassthroughRequest": ".data_passthrough_request",
+    "DebugModeLog": ".debug_mode_log",
+    "DebugModelLogSummary": ".debug_model_log_summary",
+    "EnabledActionsEnum": ".enabled_actions_enum",
+    "EncodingEnum": ".encoding_enum",
+    "ErrorValidationProblem": ".error_validation_problem",
+    "EventTypeEnum": ".event_type_enum",
+    "ExternalTargetFieldApi": ".external_target_field_api",
+    "ExternalTargetFieldApiResponse": ".external_target_field_api_response",
+    "FieldFormatEnum": ".field_format_enum",
+    "FieldMappingApiInstance": ".field_mapping_api_instance",
+    "FieldMappingApiInstanceRemoteField": ".field_mapping_api_instance_remote_field",
+    "FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo": ".field_mapping_api_instance_remote_field_remote_endpoint_info",
+    "FieldMappingApiInstanceResponse": ".field_mapping_api_instance_response",
+    "FieldMappingApiInstanceTargetField": ".field_mapping_api_instance_target_field",
+    "FieldMappingInstanceResponse": ".field_mapping_instance_response",
+    "FieldPermissionDeserializer": ".field_permission_deserializer",
+    "FieldPermissionDeserializerRequest": ".field_permission_deserializer_request",
+    "FieldTypeEnum": ".field_type_enum",
+    "IndividualCommonModelScopeDeserializer": ".individual_common_model_scope_deserializer",
+    "IndividualCommonModelScopeDeserializerRequest": ".individual_common_model_scope_deserializer_request",
+    "Issue": ".issue",
+    "IssueStatus": ".issue_status",
+    "IssueStatusEnum": ".issue_status_enum",
+    "ItemFormatEnum": ".item_format_enum",
+    "ItemSchema": ".item_schema",
+    "ItemTypeEnum": ".item_type_enum",
+    "LanguageEnum": ".language_enum",
+    "LastSyncResultEnum": ".last_sync_result_enum",
+    "LinkToken": ".link_token",
+    "LinkedAccountStatus": ".linked_account_status",
+    "MetaResponse": ".meta_response",
+    "MethodEnum": ".method_enum",
+    "ModelOperation": ".model_operation",
+    "ModelPermissionDeserializer": ".model_permission_deserializer",
+    "ModelPermissionDeserializerRequest": ".model_permission_deserializer_request",
+    "MultipartFormFieldRequest": ".multipart_form_field_request",
+    "MultipartFormFieldRequestEncoding": ".multipart_form_field_request_encoding",
+    "PaginatedAccountDetailsAndActionsList": ".paginated_account_details_and_actions_list",
+    "PaginatedAccountList": ".paginated_account_list",
+    "PaginatedAttachmentList": ".paginated_attachment_list",
+    "PaginatedAuditLogEventList": ".paginated_audit_log_event_list",
+    "PaginatedCollectionList": ".paginated_collection_list",
+    "PaginatedCommentList": ".paginated_comment_list",
+    "PaginatedContactList": ".paginated_contact_list",
+    "PaginatedIssueList": ".paginated_issue_list",
+    "PaginatedProjectList": ".paginated_project_list",
+    "PaginatedRemoteFieldClassList": ".paginated_remote_field_class_list",
+    "PaginatedRoleList": ".paginated_role_list",
+    "PaginatedSyncStatusList": ".paginated_sync_status_list",
+    "PaginatedTagList": ".paginated_tag_list",
+    "PaginatedTeamList": ".paginated_team_list",
+    "PaginatedTicketList": ".paginated_ticket_list",
+    "PaginatedUserList": ".paginated_user_list",
+    "PaginatedViewerList": ".paginated_viewer_list",
+    "PatchedTicketRequest": ".patched_ticket_request",
+    "PatchedTicketRequestAccessLevel": ".patched_ticket_request_access_level",
+    "PatchedTicketRequestPriority": ".patched_ticket_request_priority",
+    "PatchedTicketRequestStatus": ".patched_ticket_request_status",
+    "PriorityEnum": ".priority_enum",
+    "Project": ".project",
+    "RemoteData": ".remote_data",
+    "RemoteEndpointInfo": ".remote_endpoint_info",
+    "RemoteField": ".remote_field",
+    "RemoteFieldApi": ".remote_field_api",
+    "RemoteFieldApiCoverage": ".remote_field_api_coverage",
+    "RemoteFieldApiResponse": ".remote_field_api_response",
+    "RemoteFieldClass": ".remote_field_class",
+    "RemoteFieldClassFieldChoicesItem": ".remote_field_class_field_choices_item",
+    "RemoteFieldClassFieldFormat": ".remote_field_class_field_format",
+    "RemoteFieldClassFieldType": ".remote_field_class_field_type",
+    "RemoteFieldRemoteFieldClass": ".remote_field_remote_field_class",
+    "RemoteFieldRequest": ".remote_field_request",
+    "RemoteFieldRequestRemoteFieldClass": ".remote_field_request_remote_field_class",
+    "RemoteKey": ".remote_key",
+    "RemoteResponse": ".remote_response",
+    "RequestFormatEnum": ".request_format_enum",
+    "ResponseTypeEnum": ".response_type_enum",
+    "Role": ".role",
+    "RoleEnum": ".role_enum",
+    "RoleTicketAccess": ".role_ticket_access",
+    "RoleTicketActionsItem": ".role_ticket_actions_item",
+    "SelectiveSyncConfigurationsUsageEnum": ".selective_sync_configurations_usage_enum",
+    "StatusFd5Enum": ".status_fd_5_enum",
+    "SyncStatus": ".sync_status",
+    "SyncStatusLastSyncResult": ".sync_status_last_sync_result",
+    "Tag": ".tag",
+    "Team": ".team",
+    "Ticket": ".ticket",
+    "TicketAccessEnum": ".ticket_access_enum",
+    "TicketAccessLevel": ".ticket_access_level",
+    "TicketAccessLevelEnum": ".ticket_access_level_enum",
+    "TicketAccount": ".ticket_account",
+    "TicketActionsEnum": ".ticket_actions_enum",
+    "TicketAssignedTeamsItem": ".ticket_assigned_teams_item",
+    "TicketAssigneesItem": ".ticket_assignees_item",
+    "TicketAttachmentsItem": ".ticket_attachments_item",
+    "TicketCollectionsItem": ".ticket_collections_item",
+    "TicketContact": ".ticket_contact",
+    "TicketCreator": ".ticket_creator",
+    "TicketParentTicket": ".ticket_parent_ticket",
+    "TicketPriority": ".ticket_priority",
+    "TicketRequest": ".ticket_request",
+    "TicketRequestAccessLevel": ".ticket_request_access_level",
+    "TicketRequestAccount": ".ticket_request_account",
+    "TicketRequestAssignedTeamsItem": ".ticket_request_assigned_teams_item",
+    "TicketRequestAssigneesItem": ".ticket_request_assignees_item",
+    "TicketRequestAttachmentsItem": ".ticket_request_attachments_item",
+    "TicketRequestCollectionsItem": ".ticket_request_collections_item",
+    "TicketRequestContact": ".ticket_request_contact",
+    "TicketRequestCreator": ".ticket_request_creator",
+    "TicketRequestParentTicket": ".ticket_request_parent_ticket",
+    "TicketRequestPriority": ".ticket_request_priority",
+    "TicketRequestStatus": ".ticket_request_status",
+    "TicketResponse": ".ticket_response",
+    "TicketStatus": ".ticket_status",
+    "TicketStatusEnum": ".ticket_status_enum",
+    "TicketingAttachmentResponse": ".ticketing_attachment_response",
+    "TicketingContactResponse": ".ticketing_contact_response",
+    "User": ".user",
+    "UserRolesItem": ".user_roles_item",
+    "UserTeamsItem": ".user_teams_item",
+    "ValidationProblemSource": ".validation_problem_source",
+    "Viewer": ".viewer",
+    "ViewerTeam": ".viewer_team",
+    "ViewerUser": ".viewer_user",
+    "WarningValidationProblem": ".warning_validation_problem",
+    "WebhookReceiver": ".webhook_receiver",
+}
+
+
+def __getattr__(attr_name: str) -> typing.Any:
+    module_name = _dynamic_imports.get(attr_name)
+    if module_name is None:
+        raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
+    try:
+        module = import_module(module_name, __package__)
+        result = getattr(module, attr_name)
+        return result
+    except ImportError as e:
+        raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
+    except AttributeError as e:
+        raise AttributeError(f"Failed to get {attr_name} from {module_name}: {e}") from e
+
+
+def __dir__():
+    lazy_attrs = list(_dynamic_imports.keys())
+    return sorted(lazy_attrs)
+
 
 __all__ = [
     "Account",

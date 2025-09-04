@@ -2,527 +2,1074 @@
 
 # isort: skip_file
 
-from .account import Account
-from .account_account_type import AccountAccountType
-from .account_account_type_enum import AccountAccountTypeEnum
-from .account_classification import AccountClassification
-from .account_currency import AccountCurrency
-from .account_details import AccountDetails
-from .account_details_and_actions import AccountDetailsAndActions
-from .account_details_and_actions_category import AccountDetailsAndActionsCategory
-from .account_details_and_actions_integration import AccountDetailsAndActionsIntegration
-from .account_details_and_actions_status import AccountDetailsAndActionsStatus
-from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
-from .account_details_category import AccountDetailsCategory
-from .account_integration import AccountIntegration
-from .account_request import AccountRequest
-from .account_request_account_type import AccountRequestAccountType
-from .account_request_classification import AccountRequestClassification
-from .account_request_currency import AccountRequestCurrency
-from .account_request_status import AccountRequestStatus
-from .account_response import AccountResponse
-from .account_status import AccountStatus
-from .account_status_enum import AccountStatusEnum
-from .account_token import AccountToken
-from .accounting_attachment import AccountingAttachment
-from .accounting_attachment_request import AccountingAttachmentRequest
-from .accounting_attachment_response import AccountingAttachmentResponse
-from .accounting_period import AccountingPeriod
-from .accounting_period_status import AccountingPeriodStatus
-from .accounting_phone_number import AccountingPhoneNumber
-from .accounting_phone_number_request import AccountingPhoneNumberRequest
-from .address import Address
-from .address_country import AddressCountry
-from .address_request import AddressRequest
-from .address_request_country import AddressRequestCountry
-from .address_request_type import AddressRequestType
-from .address_type import AddressType
-from .address_type_enum import AddressTypeEnum
-from .advanced_metadata import AdvancedMetadata
-from .async_passthrough_reciept import AsyncPassthroughReciept
-from .async_post_task import AsyncPostTask
-from .async_post_task_result import AsyncPostTaskResult
-from .async_post_task_status import AsyncPostTaskStatus
-from .async_post_task_status_enum import AsyncPostTaskStatusEnum
-from .audit_log_event import AuditLogEvent
-from .audit_log_event_event_type import AuditLogEventEventType
-from .audit_log_event_role import AuditLogEventRole
-from .available_actions import AvailableActions
-from .balance_sheet import BalanceSheet
-from .balance_sheet_company import BalanceSheetCompany
-from .balance_sheet_currency import BalanceSheetCurrency
-from .bank_feed_account import BankFeedAccount
-from .bank_feed_account_account_type import BankFeedAccountAccountType
-from .bank_feed_account_account_type_enum import BankFeedAccountAccountTypeEnum
-from .bank_feed_account_currency import BankFeedAccountCurrency
-from .bank_feed_account_feed_status import BankFeedAccountFeedStatus
-from .bank_feed_account_request import BankFeedAccountRequest
-from .bank_feed_account_request_account_type import BankFeedAccountRequestAccountType
-from .bank_feed_account_request_currency import BankFeedAccountRequestCurrency
-from .bank_feed_account_request_feed_status import BankFeedAccountRequestFeedStatus
-from .bank_feed_account_response import BankFeedAccountResponse
-from .bank_feed_transaction import BankFeedTransaction
-from .bank_feed_transaction_bank_feed_account import BankFeedTransactionBankFeedAccount
-from .bank_feed_transaction_credit_or_debit import BankFeedTransactionCreditOrDebit
-from .bank_feed_transaction_request_request import BankFeedTransactionRequestRequest
-from .bank_feed_transaction_request_request_bank_feed_account import BankFeedTransactionRequestRequestBankFeedAccount
-from .bank_feed_transaction_request_request_credit_or_debit import BankFeedTransactionRequestRequestCreditOrDebit
-from .bank_feed_transaction_response import BankFeedTransactionResponse
-from .cash_flow_statement import CashFlowStatement
-from .cash_flow_statement_company import CashFlowStatementCompany
-from .cash_flow_statement_currency import CashFlowStatementCurrency
-from .categories_enum import CategoriesEnum
-from .category_enum import CategoryEnum
-from .category_type_enum import CategoryTypeEnum
-from .classification_enum import ClassificationEnum
-from .common_model_scope_api import CommonModelScopeApi
-from .common_model_scopes_body_request import CommonModelScopesBodyRequest
-from .company_info import CompanyInfo
-from .company_info_currency import CompanyInfoCurrency
-from .component_type_enum import ComponentTypeEnum
-from .contact import Contact
-from .contact_addresses_item import ContactAddressesItem
-from .contact_request import ContactRequest
-from .contact_request_addresses_item import ContactRequestAddressesItem
-from .contact_request_status import ContactRequestStatus
-from .contact_response import ContactResponse
-from .contact_status import ContactStatus
-from .country_enum import CountryEnum
-from .credit_note import CreditNote
-from .credit_note_accounting_period import CreditNoteAccountingPeriod
-from .credit_note_applied_payments_item import CreditNoteAppliedPaymentsItem
-from .credit_note_apply_line_for_credit_note import CreditNoteApplyLineForCreditNote
-from .credit_note_apply_line_for_credit_note_invoice import CreditNoteApplyLineForCreditNoteInvoice
-from .credit_note_apply_line_for_credit_note_request import CreditNoteApplyLineForCreditNoteRequest
-from .credit_note_apply_line_for_credit_note_request_invoice import CreditNoteApplyLineForCreditNoteRequestInvoice
-from .credit_note_apply_line_for_invoice import CreditNoteApplyLineForInvoice
-from .credit_note_apply_line_for_invoice_credit_note import CreditNoteApplyLineForInvoiceCreditNote
-from .credit_note_company import CreditNoteCompany
-from .credit_note_contact import CreditNoteContact
-from .credit_note_currency import CreditNoteCurrency
-from .credit_note_line_item import CreditNoteLineItem
-from .credit_note_line_item_company import CreditNoteLineItemCompany
-from .credit_note_line_item_contact import CreditNoteLineItemContact
-from .credit_note_line_item_item import CreditNoteLineItemItem
-from .credit_note_line_item_project import CreditNoteLineItemProject
-from .credit_note_line_item_request import CreditNoteLineItemRequest
-from .credit_note_line_item_request_company import CreditNoteLineItemRequestCompany
-from .credit_note_line_item_request_contact import CreditNoteLineItemRequestContact
-from .credit_note_line_item_request_item import CreditNoteLineItemRequestItem
-from .credit_note_line_item_request_project import CreditNoteLineItemRequestProject
-from .credit_note_payments_item import CreditNotePaymentsItem
-from .credit_note_request import CreditNoteRequest
-from .credit_note_request_accounting_period import CreditNoteRequestAccountingPeriod
-from .credit_note_request_applied_payments_item import CreditNoteRequestAppliedPaymentsItem
-from .credit_note_request_company import CreditNoteRequestCompany
-from .credit_note_request_contact import CreditNoteRequestContact
-from .credit_note_request_currency import CreditNoteRequestCurrency
-from .credit_note_request_line_items_item import CreditNoteRequestLineItemsItem
-from .credit_note_request_payments_item import CreditNoteRequestPaymentsItem
-from .credit_note_request_status import CreditNoteRequestStatus
-from .credit_note_request_tracking_categories_item import CreditNoteRequestTrackingCategoriesItem
-from .credit_note_response import CreditNoteResponse
-from .credit_note_status import CreditNoteStatus
-from .credit_note_status_enum import CreditNoteStatusEnum
-from .credit_note_tracking_categories_item import CreditNoteTrackingCategoriesItem
-from .credit_or_debit_enum import CreditOrDebitEnum
-from .data_passthrough_request import DataPassthroughRequest
-from .data_passthrough_request_method import DataPassthroughRequestMethod
-from .debug_mode_log import DebugModeLog
-from .debug_model_log_summary import DebugModelLogSummary
-from .employee import Employee
-from .employee_company import EmployeeCompany
-from .employee_status import EmployeeStatus
-from .enabled_actions_enum import EnabledActionsEnum
-from .encoding_enum import EncodingEnum
-from .error_validation_problem import ErrorValidationProblem
-from .event_type_enum import EventTypeEnum
-from .expense import Expense
-from .expense_account import ExpenseAccount
-from .expense_accounting_period import ExpenseAccountingPeriod
-from .expense_company import ExpenseCompany
-from .expense_contact import ExpenseContact
-from .expense_currency import ExpenseCurrency
-from .expense_employee import ExpenseEmployee
-from .expense_line import ExpenseLine
-from .expense_line_account import ExpenseLineAccount
-from .expense_line_contact import ExpenseLineContact
-from .expense_line_currency import ExpenseLineCurrency
-from .expense_line_employee import ExpenseLineEmployee
-from .expense_line_item import ExpenseLineItem
-from .expense_line_project import ExpenseLineProject
-from .expense_line_request import ExpenseLineRequest
-from .expense_line_request_account import ExpenseLineRequestAccount
-from .expense_line_request_contact import ExpenseLineRequestContact
-from .expense_line_request_currency import ExpenseLineRequestCurrency
-from .expense_line_request_employee import ExpenseLineRequestEmployee
-from .expense_line_request_item import ExpenseLineRequestItem
-from .expense_line_request_project import ExpenseLineRequestProject
-from .expense_line_request_tracking_categories_item import ExpenseLineRequestTrackingCategoriesItem
-from .expense_line_request_tracking_category import ExpenseLineRequestTrackingCategory
-from .expense_line_tracking_categories_item import ExpenseLineTrackingCategoriesItem
-from .expense_line_tracking_category import ExpenseLineTrackingCategory
-from .expense_report import ExpenseReport
-from .expense_report_company import ExpenseReportCompany
-from .expense_report_line import ExpenseReportLine
-from .expense_report_line_account import ExpenseReportLineAccount
-from .expense_report_line_company import ExpenseReportLineCompany
-from .expense_report_line_contact import ExpenseReportLineContact
-from .expense_report_line_employee import ExpenseReportLineEmployee
-from .expense_report_line_project import ExpenseReportLineProject
-from .expense_report_line_request import ExpenseReportLineRequest
-from .expense_report_line_request_account import ExpenseReportLineRequestAccount
-from .expense_report_line_request_company import ExpenseReportLineRequestCompany
-from .expense_report_line_request_contact import ExpenseReportLineRequestContact
-from .expense_report_line_request_employee import ExpenseReportLineRequestEmployee
-from .expense_report_line_request_project import ExpenseReportLineRequestProject
-from .expense_report_line_request_tax_rate import ExpenseReportLineRequestTaxRate
-from .expense_report_line_tax_rate import ExpenseReportLineTaxRate
-from .expense_report_request import ExpenseReportRequest
-from .expense_report_request_accounting_period import ExpenseReportRequestAccountingPeriod
-from .expense_report_request_company import ExpenseReportRequestCompany
-from .expense_report_request_employee import ExpenseReportRequestEmployee
-from .expense_report_response import ExpenseReportResponse
-from .expense_report_status import ExpenseReportStatus
-from .expense_report_status_enum import ExpenseReportStatusEnum
-from .expense_request import ExpenseRequest
-from .expense_request_account import ExpenseRequestAccount
-from .expense_request_accounting_period import ExpenseRequestAccountingPeriod
-from .expense_request_company import ExpenseRequestCompany
-from .expense_request_contact import ExpenseRequestContact
-from .expense_request_currency import ExpenseRequestCurrency
-from .expense_request_employee import ExpenseRequestEmployee
-from .expense_request_tracking_categories_item import ExpenseRequestTrackingCategoriesItem
-from .expense_response import ExpenseResponse
-from .expense_tracking_categories_item import ExpenseTrackingCategoriesItem
-from .external_target_field_api import ExternalTargetFieldApi
-from .external_target_field_api_response import ExternalTargetFieldApiResponse
-from .feed_status_enum import FeedStatusEnum
-from .field_format_enum import FieldFormatEnum
-from .field_mapping_api_instance import FieldMappingApiInstance
-from .field_mapping_api_instance_remote_field import FieldMappingApiInstanceRemoteField
-from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
-    FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo,
-)
-from .field_mapping_api_instance_response import FieldMappingApiInstanceResponse
-from .field_mapping_api_instance_target_field import FieldMappingApiInstanceTargetField
-from .field_mapping_instance_response import FieldMappingInstanceResponse
-from .field_permission_deserializer import FieldPermissionDeserializer
-from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
-from .field_type_enum import FieldTypeEnum
-from .general_ledger_transaction import GeneralLedgerTransaction
-from .general_ledger_transaction_accounting_period import GeneralLedgerTransactionAccountingPeriod
-from .general_ledger_transaction_company import GeneralLedgerTransactionCompany
-from .general_ledger_transaction_general_ledger_transaction_lines_item import (
-    GeneralLedgerTransactionGeneralLedgerTransactionLinesItem,
-)
-from .general_ledger_transaction_line import GeneralLedgerTransactionLine
-from .general_ledger_transaction_line_account import GeneralLedgerTransactionLineAccount
-from .general_ledger_transaction_line_base_currency import GeneralLedgerTransactionLineBaseCurrency
-from .general_ledger_transaction_line_company import GeneralLedgerTransactionLineCompany
-from .general_ledger_transaction_line_contact import GeneralLedgerTransactionLineContact
-from .general_ledger_transaction_line_employee import GeneralLedgerTransactionLineEmployee
-from .general_ledger_transaction_line_item import GeneralLedgerTransactionLineItem
-from .general_ledger_transaction_line_project import GeneralLedgerTransactionLineProject
-from .general_ledger_transaction_line_tracking_categories_item import GeneralLedgerTransactionLineTrackingCategoriesItem
-from .general_ledger_transaction_line_transaction_currency import GeneralLedgerTransactionLineTransactionCurrency
-from .general_ledger_transaction_tracking_categories_item import GeneralLedgerTransactionTrackingCategoriesItem
-from .general_ledger_transaction_underlying_transaction_type import GeneralLedgerTransactionUnderlyingTransactionType
-from .income_statement import IncomeStatement
-from .income_statement_company import IncomeStatementCompany
-from .income_statement_currency import IncomeStatementCurrency
-from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
-from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
-from .invoice import Invoice
-from .invoice_accounting_period import InvoiceAccountingPeriod
-from .invoice_applied_credit_notes_item import InvoiceAppliedCreditNotesItem
-from .invoice_applied_payments_item import InvoiceAppliedPaymentsItem
-from .invoice_applied_vendor_credits_item import InvoiceAppliedVendorCreditsItem
-from .invoice_company import InvoiceCompany
-from .invoice_contact import InvoiceContact
-from .invoice_currency import InvoiceCurrency
-from .invoice_employee import InvoiceEmployee
-from .invoice_line_item import InvoiceLineItem
-from .invoice_line_item_account import InvoiceLineItemAccount
-from .invoice_line_item_contact import InvoiceLineItemContact
-from .invoice_line_item_currency import InvoiceLineItemCurrency
-from .invoice_line_item_employee import InvoiceLineItemEmployee
-from .invoice_line_item_item import InvoiceLineItemItem
-from .invoice_line_item_project import InvoiceLineItemProject
-from .invoice_line_item_request import InvoiceLineItemRequest
-from .invoice_line_item_request_account import InvoiceLineItemRequestAccount
-from .invoice_line_item_request_contact import InvoiceLineItemRequestContact
-from .invoice_line_item_request_currency import InvoiceLineItemRequestCurrency
-from .invoice_line_item_request_employee import InvoiceLineItemRequestEmployee
-from .invoice_line_item_request_item import InvoiceLineItemRequestItem
-from .invoice_line_item_request_project import InvoiceLineItemRequestProject
-from .invoice_line_item_request_tracking_categories_item import InvoiceLineItemRequestTrackingCategoriesItem
-from .invoice_line_item_request_tracking_category import InvoiceLineItemRequestTrackingCategory
-from .invoice_line_item_tracking_categories_item import InvoiceLineItemTrackingCategoriesItem
-from .invoice_line_item_tracking_category import InvoiceLineItemTrackingCategory
-from .invoice_payment_term import InvoicePaymentTerm
-from .invoice_payments_item import InvoicePaymentsItem
-from .invoice_purchase_orders_item import InvoicePurchaseOrdersItem
-from .invoice_request import InvoiceRequest
-from .invoice_request_company import InvoiceRequestCompany
-from .invoice_request_contact import InvoiceRequestContact
-from .invoice_request_currency import InvoiceRequestCurrency
-from .invoice_request_employee import InvoiceRequestEmployee
-from .invoice_request_payment_term import InvoiceRequestPaymentTerm
-from .invoice_request_payments_item import InvoiceRequestPaymentsItem
-from .invoice_request_purchase_orders_item import InvoiceRequestPurchaseOrdersItem
-from .invoice_request_status import InvoiceRequestStatus
-from .invoice_request_tracking_categories_item import InvoiceRequestTrackingCategoriesItem
-from .invoice_request_type import InvoiceRequestType
-from .invoice_response import InvoiceResponse
-from .invoice_status import InvoiceStatus
-from .invoice_status_enum import InvoiceStatusEnum
-from .invoice_tracking_categories_item import InvoiceTrackingCategoriesItem
-from .invoice_type import InvoiceType
-from .invoice_type_enum import InvoiceTypeEnum
-from .issue import Issue
-from .issue_status import IssueStatus
-from .issue_status_enum import IssueStatusEnum
-from .item import Item
-from .item_company import ItemCompany
-from .item_format_enum import ItemFormatEnum
-from .item_purchase_account import ItemPurchaseAccount
-from .item_purchase_tax_rate import ItemPurchaseTaxRate
-from .item_request_request import ItemRequestRequest
-from .item_request_request_company import ItemRequestRequestCompany
-from .item_request_request_purchase_account import ItemRequestRequestPurchaseAccount
-from .item_request_request_purchase_tax_rate import ItemRequestRequestPurchaseTaxRate
-from .item_request_request_sales_account import ItemRequestRequestSalesAccount
-from .item_request_request_sales_tax_rate import ItemRequestRequestSalesTaxRate
-from .item_request_request_status import ItemRequestRequestStatus
-from .item_request_request_type import ItemRequestRequestType
-from .item_response import ItemResponse
-from .item_sales_account import ItemSalesAccount
-from .item_sales_tax_rate import ItemSalesTaxRate
-from .item_schema import ItemSchema
-from .item_status import ItemStatus
-from .item_type import ItemType
-from .item_type_enum import ItemTypeEnum
-from .journal_entry import JournalEntry
-from .journal_entry_accounting_period import JournalEntryAccountingPeriod
-from .journal_entry_applied_payments_item import JournalEntryAppliedPaymentsItem
-from .journal_entry_company import JournalEntryCompany
-from .journal_entry_currency import JournalEntryCurrency
-from .journal_entry_payments_item import JournalEntryPaymentsItem
-from .journal_entry_posting_status import JournalEntryPostingStatus
-from .journal_entry_request import JournalEntryRequest
-from .journal_entry_request_company import JournalEntryRequestCompany
-from .journal_entry_request_currency import JournalEntryRequestCurrency
-from .journal_entry_request_payments_item import JournalEntryRequestPaymentsItem
-from .journal_entry_request_posting_status import JournalEntryRequestPostingStatus
-from .journal_entry_request_tracking_categories_item import JournalEntryRequestTrackingCategoriesItem
-from .journal_entry_response import JournalEntryResponse
-from .journal_entry_tracking_categories_item import JournalEntryTrackingCategoriesItem
-from .journal_line import JournalLine
-from .journal_line_account import JournalLineAccount
-from .journal_line_currency import JournalLineCurrency
-from .journal_line_project import JournalLineProject
-from .journal_line_request import JournalLineRequest
-from .journal_line_request_account import JournalLineRequestAccount
-from .journal_line_request_currency import JournalLineRequestCurrency
-from .journal_line_request_project import JournalLineRequestProject
-from .journal_line_request_tracking_categories_item import JournalLineRequestTrackingCategoriesItem
-from .journal_line_request_tracking_category import JournalLineRequestTrackingCategory
-from .journal_line_tracking_categories_item import JournalLineTrackingCategoriesItem
-from .journal_line_tracking_category import JournalLineTrackingCategory
-from .language_enum import LanguageEnum
-from .last_sync_result_enum import LastSyncResultEnum
-from .link_token import LinkToken
-from .linked_account_status import LinkedAccountStatus
-from .meta_response import MetaResponse
-from .method_enum import MethodEnum
-from .method_type_enum import MethodTypeEnum
-from .model_operation import ModelOperation
-from .model_permission_deserializer import ModelPermissionDeserializer
-from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
-from .multipart_form_field_request import MultipartFormFieldRequest
-from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
-from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
-from .paginated_account_list import PaginatedAccountList
-from .paginated_accounting_attachment_list import PaginatedAccountingAttachmentList
-from .paginated_accounting_period_list import PaginatedAccountingPeriodList
-from .paginated_audit_log_event_list import PaginatedAuditLogEventList
-from .paginated_balance_sheet_list import PaginatedBalanceSheetList
-from .paginated_bank_feed_account_list import PaginatedBankFeedAccountList
-from .paginated_bank_feed_transaction_list import PaginatedBankFeedTransactionList
-from .paginated_cash_flow_statement_list import PaginatedCashFlowStatementList
-from .paginated_company_info_list import PaginatedCompanyInfoList
-from .paginated_contact_list import PaginatedContactList
-from .paginated_credit_note_list import PaginatedCreditNoteList
-from .paginated_employee_list import PaginatedEmployeeList
-from .paginated_expense_list import PaginatedExpenseList
-from .paginated_expense_report_line_list import PaginatedExpenseReportLineList
-from .paginated_expense_report_list import PaginatedExpenseReportList
-from .paginated_general_ledger_transaction_list import PaginatedGeneralLedgerTransactionList
-from .paginated_income_statement_list import PaginatedIncomeStatementList
-from .paginated_invoice_list import PaginatedInvoiceList
-from .paginated_issue_list import PaginatedIssueList
-from .paginated_item_list import PaginatedItemList
-from .paginated_journal_entry_list import PaginatedJournalEntryList
-from .paginated_payment_list import PaginatedPaymentList
-from .paginated_payment_method_list import PaginatedPaymentMethodList
-from .paginated_payment_term_list import PaginatedPaymentTermList
-from .paginated_project_list import PaginatedProjectList
-from .paginated_purchase_order_list import PaginatedPurchaseOrderList
-from .paginated_remote_field_class_list import PaginatedRemoteFieldClassList
-from .paginated_sync_status_list import PaginatedSyncStatusList
-from .paginated_tax_rate_list import PaginatedTaxRateList
-from .paginated_tracking_category_list import PaginatedTrackingCategoryList
-from .paginated_transaction_list import PaginatedTransactionList
-from .paginated_vendor_credit_list import PaginatedVendorCreditList
-from .patched_contact_request import PatchedContactRequest
-from .patched_contact_request_addresses_item import PatchedContactRequestAddressesItem
-from .patched_item_request_request import PatchedItemRequestRequest
-from .patched_item_request_request_status import PatchedItemRequestRequestStatus
-from .patched_item_request_request_type import PatchedItemRequestRequestType
-from .patched_payment_request import PatchedPaymentRequest
-from .patched_payment_request_account import PatchedPaymentRequestAccount
-from .patched_payment_request_accounting_period import PatchedPaymentRequestAccountingPeriod
-from .patched_payment_request_applied_to_lines_item import PatchedPaymentRequestAppliedToLinesItem
-from .patched_payment_request_company import PatchedPaymentRequestCompany
-from .patched_payment_request_contact import PatchedPaymentRequestContact
-from .patched_payment_request_currency import PatchedPaymentRequestCurrency
-from .patched_payment_request_payment_method import PatchedPaymentRequestPaymentMethod
-from .patched_payment_request_tracking_categories_item import PatchedPaymentRequestTrackingCategoriesItem
-from .patched_payment_request_type import PatchedPaymentRequestType
-from .payment import Payment
-from .payment_account import PaymentAccount
-from .payment_accounting_period import PaymentAccountingPeriod
-from .payment_applied_to_lines_item import PaymentAppliedToLinesItem
-from .payment_company import PaymentCompany
-from .payment_contact import PaymentContact
-from .payment_currency import PaymentCurrency
-from .payment_line_item import PaymentLineItem
-from .payment_line_item_request import PaymentLineItemRequest
-from .payment_method import PaymentMethod
-from .payment_method_method_type import PaymentMethodMethodType
-from .payment_payment_method import PaymentPaymentMethod
-from .payment_request import PaymentRequest
-from .payment_request_account import PaymentRequestAccount
-from .payment_request_accounting_period import PaymentRequestAccountingPeriod
-from .payment_request_applied_to_lines_item import PaymentRequestAppliedToLinesItem
-from .payment_request_company import PaymentRequestCompany
-from .payment_request_contact import PaymentRequestContact
-from .payment_request_currency import PaymentRequestCurrency
-from .payment_request_payment_method import PaymentRequestPaymentMethod
-from .payment_request_tracking_categories_item import PaymentRequestTrackingCategoriesItem
-from .payment_request_type import PaymentRequestType
-from .payment_response import PaymentResponse
-from .payment_term import PaymentTerm
-from .payment_term_company import PaymentTermCompany
-from .payment_tracking_categories_item import PaymentTrackingCategoriesItem
-from .payment_type import PaymentType
-from .payment_type_enum import PaymentTypeEnum
-from .posting_status_enum import PostingStatusEnum
-from .project import Project
-from .project_company import ProjectCompany
-from .project_contact import ProjectContact
-from .purchase_order import PurchaseOrder
-from .purchase_order_accounting_period import PurchaseOrderAccountingPeriod
-from .purchase_order_company import PurchaseOrderCompany
-from .purchase_order_currency import PurchaseOrderCurrency
-from .purchase_order_delivery_address import PurchaseOrderDeliveryAddress
-from .purchase_order_line_item import PurchaseOrderLineItem
-from .purchase_order_line_item_currency import PurchaseOrderLineItemCurrency
-from .purchase_order_line_item_item import PurchaseOrderLineItemItem
-from .purchase_order_line_item_request import PurchaseOrderLineItemRequest
-from .purchase_order_line_item_request_currency import PurchaseOrderLineItemRequestCurrency
-from .purchase_order_line_item_request_item import PurchaseOrderLineItemRequestItem
-from .purchase_order_payment_term import PurchaseOrderPaymentTerm
-from .purchase_order_request import PurchaseOrderRequest
-from .purchase_order_request_company import PurchaseOrderRequestCompany
-from .purchase_order_request_currency import PurchaseOrderRequestCurrency
-from .purchase_order_request_delivery_address import PurchaseOrderRequestDeliveryAddress
-from .purchase_order_request_payment_term import PurchaseOrderRequestPaymentTerm
-from .purchase_order_request_status import PurchaseOrderRequestStatus
-from .purchase_order_request_tracking_categories_item import PurchaseOrderRequestTrackingCategoriesItem
-from .purchase_order_request_vendor import PurchaseOrderRequestVendor
-from .purchase_order_response import PurchaseOrderResponse
-from .purchase_order_status import PurchaseOrderStatus
-from .purchase_order_status_enum import PurchaseOrderStatusEnum
-from .purchase_order_tracking_categories_item import PurchaseOrderTrackingCategoriesItem
-from .purchase_order_vendor import PurchaseOrderVendor
-from .remote_data import RemoteData
-from .remote_endpoint_info import RemoteEndpointInfo
-from .remote_field import RemoteField
-from .remote_field_api import RemoteFieldApi
-from .remote_field_api_coverage import RemoteFieldApiCoverage
-from .remote_field_api_response import RemoteFieldApiResponse
-from .remote_field_class import RemoteFieldClass
-from .remote_field_remote_field_class import RemoteFieldRemoteFieldClass
-from .remote_field_request import RemoteFieldRequest
-from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
-from .remote_key import RemoteKey
-from .remote_response import RemoteResponse
-from .report_item import ReportItem
-from .request_format_enum import RequestFormatEnum
-from .response_type_enum import ResponseTypeEnum
-from .role_enum import RoleEnum
-from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
-from .status_7_d_1_enum import Status7D1Enum
-from .status_895_enum import Status895Enum
-from .status_fd_5_enum import StatusFd5Enum
-from .sync_status import SyncStatus
-from .sync_status_status import SyncStatusStatus
-from .tax_component import TaxComponent
-from .tax_component_component_type import TaxComponentComponentType
-from .tax_rate import TaxRate
-from .tax_rate_company import TaxRateCompany
-from .tax_rate_status import TaxRateStatus
-from .tax_rate_tax_components_item import TaxRateTaxComponentsItem
-from .tracking_category import TrackingCategory
-from .tracking_category_category_type import TrackingCategoryCategoryType
-from .tracking_category_company import TrackingCategoryCompany
-from .tracking_category_status import TrackingCategoryStatus
-from .transaction import Transaction
-from .transaction_account import TransactionAccount
-from .transaction_accounting_period import TransactionAccountingPeriod
-from .transaction_contact import TransactionContact
-from .transaction_currency import TransactionCurrency
-from .transaction_currency_enum import TransactionCurrencyEnum
-from .transaction_line_item import TransactionLineItem
-from .transaction_line_item_currency import TransactionLineItemCurrency
-from .transaction_line_item_item import TransactionLineItemItem
-from .transaction_tracking_categories_item import TransactionTrackingCategoriesItem
-from .type_2_bb_enum import Type2BbEnum
-from .underlying_transaction_type_enum import UnderlyingTransactionTypeEnum
-from .validation_problem_source import ValidationProblemSource
-from .vendor_credit import VendorCredit
-from .vendor_credit_accounting_period import VendorCreditAccountingPeriod
-from .vendor_credit_apply_line_for_invoice import VendorCreditApplyLineForInvoice
-from .vendor_credit_apply_line_for_invoice_vendor_credit import VendorCreditApplyLineForInvoiceVendorCredit
-from .vendor_credit_apply_line_for_vendor_credit import VendorCreditApplyLineForVendorCredit
-from .vendor_credit_apply_line_for_vendor_credit_invoice import VendorCreditApplyLineForVendorCreditInvoice
-from .vendor_credit_apply_line_for_vendor_credit_request import VendorCreditApplyLineForVendorCreditRequest
-from .vendor_credit_apply_line_for_vendor_credit_request_invoice import (
-    VendorCreditApplyLineForVendorCreditRequestInvoice,
-)
-from .vendor_credit_company import VendorCreditCompany
-from .vendor_credit_currency import VendorCreditCurrency
-from .vendor_credit_line import VendorCreditLine
-from .vendor_credit_line_account import VendorCreditLineAccount
-from .vendor_credit_line_contact import VendorCreditLineContact
-from .vendor_credit_line_project import VendorCreditLineProject
-from .vendor_credit_line_request import VendorCreditLineRequest
-from .vendor_credit_line_request_account import VendorCreditLineRequestAccount
-from .vendor_credit_line_request_contact import VendorCreditLineRequestContact
-from .vendor_credit_line_request_project import VendorCreditLineRequestProject
-from .vendor_credit_request import VendorCreditRequest
-from .vendor_credit_request_accounting_period import VendorCreditRequestAccountingPeriod
-from .vendor_credit_request_company import VendorCreditRequestCompany
-from .vendor_credit_request_currency import VendorCreditRequestCurrency
-from .vendor_credit_request_tracking_categories_item import VendorCreditRequestTrackingCategoriesItem
-from .vendor_credit_request_vendor import VendorCreditRequestVendor
-from .vendor_credit_response import VendorCreditResponse
-from .vendor_credit_tracking_categories_item import VendorCreditTrackingCategoriesItem
-from .vendor_credit_vendor import VendorCreditVendor
-from .warning_validation_problem import WarningValidationProblem
-from .webhook_receiver import WebhookReceiver
+import typing
+from importlib import import_module
+
+if typing.TYPE_CHECKING:
+    from .account import Account
+    from .account_account_type import AccountAccountType
+    from .account_account_type_enum import AccountAccountTypeEnum
+    from .account_classification import AccountClassification
+    from .account_currency import AccountCurrency
+    from .account_details import AccountDetails
+    from .account_details_and_actions import AccountDetailsAndActions
+    from .account_details_and_actions_category import AccountDetailsAndActionsCategory
+    from .account_details_and_actions_integration import AccountDetailsAndActionsIntegration
+    from .account_details_and_actions_status import AccountDetailsAndActionsStatus
+    from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
+    from .account_details_category import AccountDetailsCategory
+    from .account_integration import AccountIntegration
+    from .account_request import AccountRequest
+    from .account_request_account_type import AccountRequestAccountType
+    from .account_request_classification import AccountRequestClassification
+    from .account_request_currency import AccountRequestCurrency
+    from .account_request_status import AccountRequestStatus
+    from .account_response import AccountResponse
+    from .account_status import AccountStatus
+    from .account_status_enum import AccountStatusEnum
+    from .account_token import AccountToken
+    from .accounting_attachment import AccountingAttachment
+    from .accounting_attachment_request import AccountingAttachmentRequest
+    from .accounting_attachment_response import AccountingAttachmentResponse
+    from .accounting_period import AccountingPeriod
+    from .accounting_period_status import AccountingPeriodStatus
+    from .accounting_phone_number import AccountingPhoneNumber
+    from .accounting_phone_number_request import AccountingPhoneNumberRequest
+    from .address import Address
+    from .address_country import AddressCountry
+    from .address_request import AddressRequest
+    from .address_request_country import AddressRequestCountry
+    from .address_request_type import AddressRequestType
+    from .address_type import AddressType
+    from .address_type_enum import AddressTypeEnum
+    from .advanced_metadata import AdvancedMetadata
+    from .async_passthrough_reciept import AsyncPassthroughReciept
+    from .async_post_task import AsyncPostTask
+    from .async_post_task_result import AsyncPostTaskResult
+    from .async_post_task_status import AsyncPostTaskStatus
+    from .async_post_task_status_enum import AsyncPostTaskStatusEnum
+    from .audit_log_event import AuditLogEvent
+    from .audit_log_event_event_type import AuditLogEventEventType
+    from .audit_log_event_role import AuditLogEventRole
+    from .available_actions import AvailableActions
+    from .balance_sheet import BalanceSheet
+    from .balance_sheet_company import BalanceSheetCompany
+    from .balance_sheet_currency import BalanceSheetCurrency
+    from .bank_feed_account import BankFeedAccount
+    from .bank_feed_account_account_type import BankFeedAccountAccountType
+    from .bank_feed_account_account_type_enum import BankFeedAccountAccountTypeEnum
+    from .bank_feed_account_currency import BankFeedAccountCurrency
+    from .bank_feed_account_feed_status import BankFeedAccountFeedStatus
+    from .bank_feed_account_request import BankFeedAccountRequest
+    from .bank_feed_account_request_account_type import BankFeedAccountRequestAccountType
+    from .bank_feed_account_request_currency import BankFeedAccountRequestCurrency
+    from .bank_feed_account_request_feed_status import BankFeedAccountRequestFeedStatus
+    from .bank_feed_account_response import BankFeedAccountResponse
+    from .bank_feed_transaction import BankFeedTransaction
+    from .bank_feed_transaction_bank_feed_account import BankFeedTransactionBankFeedAccount
+    from .bank_feed_transaction_credit_or_debit import BankFeedTransactionCreditOrDebit
+    from .bank_feed_transaction_request_request import BankFeedTransactionRequestRequest
+    from .bank_feed_transaction_request_request_bank_feed_account import (
+        BankFeedTransactionRequestRequestBankFeedAccount,
+    )
+    from .bank_feed_transaction_request_request_credit_or_debit import BankFeedTransactionRequestRequestCreditOrDebit
+    from .bank_feed_transaction_response import BankFeedTransactionResponse
+    from .cash_flow_statement import CashFlowStatement
+    from .cash_flow_statement_company import CashFlowStatementCompany
+    from .cash_flow_statement_currency import CashFlowStatementCurrency
+    from .categories_enum import CategoriesEnum
+    from .category_enum import CategoryEnum
+    from .category_type_enum import CategoryTypeEnum
+    from .classification_enum import ClassificationEnum
+    from .common_model_scope_api import CommonModelScopeApi
+    from .common_model_scopes_body_request import CommonModelScopesBodyRequest
+    from .company_info import CompanyInfo
+    from .company_info_currency import CompanyInfoCurrency
+    from .component_type_enum import ComponentTypeEnum
+    from .contact import Contact
+    from .contact_addresses_item import ContactAddressesItem
+    from .contact_request import ContactRequest
+    from .contact_request_addresses_item import ContactRequestAddressesItem
+    from .contact_request_status import ContactRequestStatus
+    from .contact_response import ContactResponse
+    from .contact_status import ContactStatus
+    from .country_enum import CountryEnum
+    from .credit_note import CreditNote
+    from .credit_note_accounting_period import CreditNoteAccountingPeriod
+    from .credit_note_applied_payments_item import CreditNoteAppliedPaymentsItem
+    from .credit_note_apply_line_for_credit_note import CreditNoteApplyLineForCreditNote
+    from .credit_note_apply_line_for_credit_note_invoice import CreditNoteApplyLineForCreditNoteInvoice
+    from .credit_note_apply_line_for_credit_note_request import CreditNoteApplyLineForCreditNoteRequest
+    from .credit_note_apply_line_for_credit_note_request_invoice import CreditNoteApplyLineForCreditNoteRequestInvoice
+    from .credit_note_apply_line_for_invoice import CreditNoteApplyLineForInvoice
+    from .credit_note_apply_line_for_invoice_credit_note import CreditNoteApplyLineForInvoiceCreditNote
+    from .credit_note_company import CreditNoteCompany
+    from .credit_note_contact import CreditNoteContact
+    from .credit_note_currency import CreditNoteCurrency
+    from .credit_note_line_item import CreditNoteLineItem
+    from .credit_note_line_item_company import CreditNoteLineItemCompany
+    from .credit_note_line_item_contact import CreditNoteLineItemContact
+    from .credit_note_line_item_item import CreditNoteLineItemItem
+    from .credit_note_line_item_project import CreditNoteLineItemProject
+    from .credit_note_line_item_request import CreditNoteLineItemRequest
+    from .credit_note_line_item_request_company import CreditNoteLineItemRequestCompany
+    from .credit_note_line_item_request_contact import CreditNoteLineItemRequestContact
+    from .credit_note_line_item_request_item import CreditNoteLineItemRequestItem
+    from .credit_note_line_item_request_project import CreditNoteLineItemRequestProject
+    from .credit_note_payments_item import CreditNotePaymentsItem
+    from .credit_note_request import CreditNoteRequest
+    from .credit_note_request_accounting_period import CreditNoteRequestAccountingPeriod
+    from .credit_note_request_applied_payments_item import CreditNoteRequestAppliedPaymentsItem
+    from .credit_note_request_company import CreditNoteRequestCompany
+    from .credit_note_request_contact import CreditNoteRequestContact
+    from .credit_note_request_currency import CreditNoteRequestCurrency
+    from .credit_note_request_line_items_item import CreditNoteRequestLineItemsItem
+    from .credit_note_request_payments_item import CreditNoteRequestPaymentsItem
+    from .credit_note_request_status import CreditNoteRequestStatus
+    from .credit_note_request_tracking_categories_item import CreditNoteRequestTrackingCategoriesItem
+    from .credit_note_response import CreditNoteResponse
+    from .credit_note_status import CreditNoteStatus
+    from .credit_note_status_enum import CreditNoteStatusEnum
+    from .credit_note_tracking_categories_item import CreditNoteTrackingCategoriesItem
+    from .credit_or_debit_enum import CreditOrDebitEnum
+    from .data_passthrough_request import DataPassthroughRequest
+    from .data_passthrough_request_method import DataPassthroughRequestMethod
+    from .debug_mode_log import DebugModeLog
+    from .debug_model_log_summary import DebugModelLogSummary
+    from .employee import Employee
+    from .employee_company import EmployeeCompany
+    from .employee_status import EmployeeStatus
+    from .enabled_actions_enum import EnabledActionsEnum
+    from .encoding_enum import EncodingEnum
+    from .error_validation_problem import ErrorValidationProblem
+    from .event_type_enum import EventTypeEnum
+    from .expense import Expense
+    from .expense_account import ExpenseAccount
+    from .expense_accounting_period import ExpenseAccountingPeriod
+    from .expense_company import ExpenseCompany
+    from .expense_contact import ExpenseContact
+    from .expense_currency import ExpenseCurrency
+    from .expense_employee import ExpenseEmployee
+    from .expense_line import ExpenseLine
+    from .expense_line_account import ExpenseLineAccount
+    from .expense_line_contact import ExpenseLineContact
+    from .expense_line_currency import ExpenseLineCurrency
+    from .expense_line_employee import ExpenseLineEmployee
+    from .expense_line_item import ExpenseLineItem
+    from .expense_line_project import ExpenseLineProject
+    from .expense_line_request import ExpenseLineRequest
+    from .expense_line_request_account import ExpenseLineRequestAccount
+    from .expense_line_request_contact import ExpenseLineRequestContact
+    from .expense_line_request_currency import ExpenseLineRequestCurrency
+    from .expense_line_request_employee import ExpenseLineRequestEmployee
+    from .expense_line_request_item import ExpenseLineRequestItem
+    from .expense_line_request_project import ExpenseLineRequestProject
+    from .expense_line_request_tracking_categories_item import ExpenseLineRequestTrackingCategoriesItem
+    from .expense_line_request_tracking_category import ExpenseLineRequestTrackingCategory
+    from .expense_line_tracking_categories_item import ExpenseLineTrackingCategoriesItem
+    from .expense_line_tracking_category import ExpenseLineTrackingCategory
+    from .expense_report import ExpenseReport
+    from .expense_report_company import ExpenseReportCompany
+    from .expense_report_line import ExpenseReportLine
+    from .expense_report_line_account import ExpenseReportLineAccount
+    from .expense_report_line_company import ExpenseReportLineCompany
+    from .expense_report_line_contact import ExpenseReportLineContact
+    from .expense_report_line_employee import ExpenseReportLineEmployee
+    from .expense_report_line_project import ExpenseReportLineProject
+    from .expense_report_line_request import ExpenseReportLineRequest
+    from .expense_report_line_request_account import ExpenseReportLineRequestAccount
+    from .expense_report_line_request_company import ExpenseReportLineRequestCompany
+    from .expense_report_line_request_contact import ExpenseReportLineRequestContact
+    from .expense_report_line_request_employee import ExpenseReportLineRequestEmployee
+    from .expense_report_line_request_project import ExpenseReportLineRequestProject
+    from .expense_report_line_request_tax_rate import ExpenseReportLineRequestTaxRate
+    from .expense_report_line_tax_rate import ExpenseReportLineTaxRate
+    from .expense_report_request import ExpenseReportRequest
+    from .expense_report_request_accounting_period import ExpenseReportRequestAccountingPeriod
+    from .expense_report_request_company import ExpenseReportRequestCompany
+    from .expense_report_request_employee import ExpenseReportRequestEmployee
+    from .expense_report_response import ExpenseReportResponse
+    from .expense_report_status import ExpenseReportStatus
+    from .expense_report_status_enum import ExpenseReportStatusEnum
+    from .expense_request import ExpenseRequest
+    from .expense_request_account import ExpenseRequestAccount
+    from .expense_request_accounting_period import ExpenseRequestAccountingPeriod
+    from .expense_request_company import ExpenseRequestCompany
+    from .expense_request_contact import ExpenseRequestContact
+    from .expense_request_currency import ExpenseRequestCurrency
+    from .expense_request_employee import ExpenseRequestEmployee
+    from .expense_request_tracking_categories_item import ExpenseRequestTrackingCategoriesItem
+    from .expense_response import ExpenseResponse
+    from .expense_tracking_categories_item import ExpenseTrackingCategoriesItem
+    from .external_target_field_api import ExternalTargetFieldApi
+    from .external_target_field_api_response import ExternalTargetFieldApiResponse
+    from .feed_status_enum import FeedStatusEnum
+    from .field_format_enum import FieldFormatEnum
+    from .field_mapping_api_instance import FieldMappingApiInstance
+    from .field_mapping_api_instance_remote_field import FieldMappingApiInstanceRemoteField
+    from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
+        FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo,
+    )
+    from .field_mapping_api_instance_response import FieldMappingApiInstanceResponse
+    from .field_mapping_api_instance_target_field import FieldMappingApiInstanceTargetField
+    from .field_mapping_instance_response import FieldMappingInstanceResponse
+    from .field_permission_deserializer import FieldPermissionDeserializer
+    from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
+    from .field_type_enum import FieldTypeEnum
+    from .general_ledger_transaction import GeneralLedgerTransaction
+    from .general_ledger_transaction_accounting_period import GeneralLedgerTransactionAccountingPeriod
+    from .general_ledger_transaction_company import GeneralLedgerTransactionCompany
+    from .general_ledger_transaction_general_ledger_transaction_lines_item import (
+        GeneralLedgerTransactionGeneralLedgerTransactionLinesItem,
+    )
+    from .general_ledger_transaction_line import GeneralLedgerTransactionLine
+    from .general_ledger_transaction_line_account import GeneralLedgerTransactionLineAccount
+    from .general_ledger_transaction_line_base_currency import GeneralLedgerTransactionLineBaseCurrency
+    from .general_ledger_transaction_line_company import GeneralLedgerTransactionLineCompany
+    from .general_ledger_transaction_line_contact import GeneralLedgerTransactionLineContact
+    from .general_ledger_transaction_line_employee import GeneralLedgerTransactionLineEmployee
+    from .general_ledger_transaction_line_item import GeneralLedgerTransactionLineItem
+    from .general_ledger_transaction_line_project import GeneralLedgerTransactionLineProject
+    from .general_ledger_transaction_line_tracking_categories_item import (
+        GeneralLedgerTransactionLineTrackingCategoriesItem,
+    )
+    from .general_ledger_transaction_line_transaction_currency import GeneralLedgerTransactionLineTransactionCurrency
+    from .general_ledger_transaction_tracking_categories_item import GeneralLedgerTransactionTrackingCategoriesItem
+    from .general_ledger_transaction_underlying_transaction_type import (
+        GeneralLedgerTransactionUnderlyingTransactionType,
+    )
+    from .income_statement import IncomeStatement
+    from .income_statement_company import IncomeStatementCompany
+    from .income_statement_currency import IncomeStatementCurrency
+    from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
+    from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
+    from .invoice import Invoice
+    from .invoice_accounting_period import InvoiceAccountingPeriod
+    from .invoice_applied_credit_notes_item import InvoiceAppliedCreditNotesItem
+    from .invoice_applied_payments_item import InvoiceAppliedPaymentsItem
+    from .invoice_applied_vendor_credits_item import InvoiceAppliedVendorCreditsItem
+    from .invoice_company import InvoiceCompany
+    from .invoice_contact import InvoiceContact
+    from .invoice_currency import InvoiceCurrency
+    from .invoice_employee import InvoiceEmployee
+    from .invoice_line_item import InvoiceLineItem
+    from .invoice_line_item_account import InvoiceLineItemAccount
+    from .invoice_line_item_contact import InvoiceLineItemContact
+    from .invoice_line_item_currency import InvoiceLineItemCurrency
+    from .invoice_line_item_employee import InvoiceLineItemEmployee
+    from .invoice_line_item_item import InvoiceLineItemItem
+    from .invoice_line_item_project import InvoiceLineItemProject
+    from .invoice_line_item_request import InvoiceLineItemRequest
+    from .invoice_line_item_request_account import InvoiceLineItemRequestAccount
+    from .invoice_line_item_request_contact import InvoiceLineItemRequestContact
+    from .invoice_line_item_request_currency import InvoiceLineItemRequestCurrency
+    from .invoice_line_item_request_employee import InvoiceLineItemRequestEmployee
+    from .invoice_line_item_request_item import InvoiceLineItemRequestItem
+    from .invoice_line_item_request_project import InvoiceLineItemRequestProject
+    from .invoice_line_item_request_tracking_categories_item import InvoiceLineItemRequestTrackingCategoriesItem
+    from .invoice_line_item_request_tracking_category import InvoiceLineItemRequestTrackingCategory
+    from .invoice_line_item_tracking_categories_item import InvoiceLineItemTrackingCategoriesItem
+    from .invoice_line_item_tracking_category import InvoiceLineItemTrackingCategory
+    from .invoice_payment_term import InvoicePaymentTerm
+    from .invoice_payments_item import InvoicePaymentsItem
+    from .invoice_purchase_orders_item import InvoicePurchaseOrdersItem
+    from .invoice_request import InvoiceRequest
+    from .invoice_request_company import InvoiceRequestCompany
+    from .invoice_request_contact import InvoiceRequestContact
+    from .invoice_request_currency import InvoiceRequestCurrency
+    from .invoice_request_employee import InvoiceRequestEmployee
+    from .invoice_request_payment_term import InvoiceRequestPaymentTerm
+    from .invoice_request_payments_item import InvoiceRequestPaymentsItem
+    from .invoice_request_purchase_orders_item import InvoiceRequestPurchaseOrdersItem
+    from .invoice_request_status import InvoiceRequestStatus
+    from .invoice_request_tracking_categories_item import InvoiceRequestTrackingCategoriesItem
+    from .invoice_request_type import InvoiceRequestType
+    from .invoice_response import InvoiceResponse
+    from .invoice_status import InvoiceStatus
+    from .invoice_status_enum import InvoiceStatusEnum
+    from .invoice_tracking_categories_item import InvoiceTrackingCategoriesItem
+    from .invoice_type import InvoiceType
+    from .invoice_type_enum import InvoiceTypeEnum
+    from .issue import Issue
+    from .issue_status import IssueStatus
+    from .issue_status_enum import IssueStatusEnum
+    from .item import Item
+    from .item_company import ItemCompany
+    from .item_format_enum import ItemFormatEnum
+    from .item_purchase_account import ItemPurchaseAccount
+    from .item_purchase_tax_rate import ItemPurchaseTaxRate
+    from .item_request_request import ItemRequestRequest
+    from .item_request_request_company import ItemRequestRequestCompany
+    from .item_request_request_purchase_account import ItemRequestRequestPurchaseAccount
+    from .item_request_request_purchase_tax_rate import ItemRequestRequestPurchaseTaxRate
+    from .item_request_request_sales_account import ItemRequestRequestSalesAccount
+    from .item_request_request_sales_tax_rate import ItemRequestRequestSalesTaxRate
+    from .item_request_request_status import ItemRequestRequestStatus
+    from .item_request_request_type import ItemRequestRequestType
+    from .item_response import ItemResponse
+    from .item_sales_account import ItemSalesAccount
+    from .item_sales_tax_rate import ItemSalesTaxRate
+    from .item_schema import ItemSchema
+    from .item_status import ItemStatus
+    from .item_type import ItemType
+    from .item_type_enum import ItemTypeEnum
+    from .journal_entry import JournalEntry
+    from .journal_entry_accounting_period import JournalEntryAccountingPeriod
+    from .journal_entry_applied_payments_item import JournalEntryAppliedPaymentsItem
+    from .journal_entry_company import JournalEntryCompany
+    from .journal_entry_currency import JournalEntryCurrency
+    from .journal_entry_payments_item import JournalEntryPaymentsItem
+    from .journal_entry_posting_status import JournalEntryPostingStatus
+    from .journal_entry_request import JournalEntryRequest
+    from .journal_entry_request_company import JournalEntryRequestCompany
+    from .journal_entry_request_currency import JournalEntryRequestCurrency
+    from .journal_entry_request_payments_item import JournalEntryRequestPaymentsItem
+    from .journal_entry_request_posting_status import JournalEntryRequestPostingStatus
+    from .journal_entry_request_tracking_categories_item import JournalEntryRequestTrackingCategoriesItem
+    from .journal_entry_response import JournalEntryResponse
+    from .journal_entry_tracking_categories_item import JournalEntryTrackingCategoriesItem
+    from .journal_line import JournalLine
+    from .journal_line_account import JournalLineAccount
+    from .journal_line_currency import JournalLineCurrency
+    from .journal_line_project import JournalLineProject
+    from .journal_line_request import JournalLineRequest
+    from .journal_line_request_account import JournalLineRequestAccount
+    from .journal_line_request_currency import JournalLineRequestCurrency
+    from .journal_line_request_project import JournalLineRequestProject
+    from .journal_line_request_tracking_categories_item import JournalLineRequestTrackingCategoriesItem
+    from .journal_line_request_tracking_category import JournalLineRequestTrackingCategory
+    from .journal_line_tracking_categories_item import JournalLineTrackingCategoriesItem
+    from .journal_line_tracking_category import JournalLineTrackingCategory
+    from .language_enum import LanguageEnum
+    from .last_sync_result_enum import LastSyncResultEnum
+    from .link_token import LinkToken
+    from .linked_account_status import LinkedAccountStatus
+    from .meta_response import MetaResponse
+    from .method_enum import MethodEnum
+    from .method_type_enum import MethodTypeEnum
+    from .model_operation import ModelOperation
+    from .model_permission_deserializer import ModelPermissionDeserializer
+    from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
+    from .multipart_form_field_request import MultipartFormFieldRequest
+    from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
+    from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
+    from .paginated_account_list import PaginatedAccountList
+    from .paginated_accounting_attachment_list import PaginatedAccountingAttachmentList
+    from .paginated_accounting_period_list import PaginatedAccountingPeriodList
+    from .paginated_audit_log_event_list import PaginatedAuditLogEventList
+    from .paginated_balance_sheet_list import PaginatedBalanceSheetList
+    from .paginated_bank_feed_account_list import PaginatedBankFeedAccountList
+    from .paginated_bank_feed_transaction_list import PaginatedBankFeedTransactionList
+    from .paginated_cash_flow_statement_list import PaginatedCashFlowStatementList
+    from .paginated_company_info_list import PaginatedCompanyInfoList
+    from .paginated_contact_list import PaginatedContactList
+    from .paginated_credit_note_list import PaginatedCreditNoteList
+    from .paginated_employee_list import PaginatedEmployeeList
+    from .paginated_expense_list import PaginatedExpenseList
+    from .paginated_expense_report_line_list import PaginatedExpenseReportLineList
+    from .paginated_expense_report_list import PaginatedExpenseReportList
+    from .paginated_general_ledger_transaction_list import PaginatedGeneralLedgerTransactionList
+    from .paginated_income_statement_list import PaginatedIncomeStatementList
+    from .paginated_invoice_list import PaginatedInvoiceList
+    from .paginated_issue_list import PaginatedIssueList
+    from .paginated_item_list import PaginatedItemList
+    from .paginated_journal_entry_list import PaginatedJournalEntryList
+    from .paginated_payment_list import PaginatedPaymentList
+    from .paginated_payment_method_list import PaginatedPaymentMethodList
+    from .paginated_payment_term_list import PaginatedPaymentTermList
+    from .paginated_project_list import PaginatedProjectList
+    from .paginated_purchase_order_list import PaginatedPurchaseOrderList
+    from .paginated_remote_field_class_list import PaginatedRemoteFieldClassList
+    from .paginated_sync_status_list import PaginatedSyncStatusList
+    from .paginated_tax_rate_list import PaginatedTaxRateList
+    from .paginated_tracking_category_list import PaginatedTrackingCategoryList
+    from .paginated_transaction_list import PaginatedTransactionList
+    from .paginated_vendor_credit_list import PaginatedVendorCreditList
+    from .patched_contact_request import PatchedContactRequest
+    from .patched_contact_request_addresses_item import PatchedContactRequestAddressesItem
+    from .patched_item_request_request import PatchedItemRequestRequest
+    from .patched_item_request_request_status import PatchedItemRequestRequestStatus
+    from .patched_item_request_request_type import PatchedItemRequestRequestType
+    from .patched_payment_request import PatchedPaymentRequest
+    from .patched_payment_request_account import PatchedPaymentRequestAccount
+    from .patched_payment_request_accounting_period import PatchedPaymentRequestAccountingPeriod
+    from .patched_payment_request_applied_to_lines_item import PatchedPaymentRequestAppliedToLinesItem
+    from .patched_payment_request_company import PatchedPaymentRequestCompany
+    from .patched_payment_request_contact import PatchedPaymentRequestContact
+    from .patched_payment_request_currency import PatchedPaymentRequestCurrency
+    from .patched_payment_request_payment_method import PatchedPaymentRequestPaymentMethod
+    from .patched_payment_request_tracking_categories_item import PatchedPaymentRequestTrackingCategoriesItem
+    from .patched_payment_request_type import PatchedPaymentRequestType
+    from .payment import Payment
+    from .payment_account import PaymentAccount
+    from .payment_accounting_period import PaymentAccountingPeriod
+    from .payment_applied_to_lines_item import PaymentAppliedToLinesItem
+    from .payment_company import PaymentCompany
+    from .payment_contact import PaymentContact
+    from .payment_currency import PaymentCurrency
+    from .payment_line_item import PaymentLineItem
+    from .payment_line_item_request import PaymentLineItemRequest
+    from .payment_method import PaymentMethod
+    from .payment_method_method_type import PaymentMethodMethodType
+    from .payment_payment_method import PaymentPaymentMethod
+    from .payment_request import PaymentRequest
+    from .payment_request_account import PaymentRequestAccount
+    from .payment_request_accounting_period import PaymentRequestAccountingPeriod
+    from .payment_request_applied_to_lines_item import PaymentRequestAppliedToLinesItem
+    from .payment_request_company import PaymentRequestCompany
+    from .payment_request_contact import PaymentRequestContact
+    from .payment_request_currency import PaymentRequestCurrency
+    from .payment_request_payment_method import PaymentRequestPaymentMethod
+    from .payment_request_tracking_categories_item import PaymentRequestTrackingCategoriesItem
+    from .payment_request_type import PaymentRequestType
+    from .payment_response import PaymentResponse
+    from .payment_term import PaymentTerm
+    from .payment_term_company import PaymentTermCompany
+    from .payment_tracking_categories_item import PaymentTrackingCategoriesItem
+    from .payment_type import PaymentType
+    from .payment_type_enum import PaymentTypeEnum
+    from .posting_status_enum import PostingStatusEnum
+    from .project import Project
+    from .project_company import ProjectCompany
+    from .project_contact import ProjectContact
+    from .purchase_order import PurchaseOrder
+    from .purchase_order_accounting_period import PurchaseOrderAccountingPeriod
+    from .purchase_order_company import PurchaseOrderCompany
+    from .purchase_order_currency import PurchaseOrderCurrency
+    from .purchase_order_delivery_address import PurchaseOrderDeliveryAddress
+    from .purchase_order_line_item import PurchaseOrderLineItem
+    from .purchase_order_line_item_currency import PurchaseOrderLineItemCurrency
+    from .purchase_order_line_item_item import PurchaseOrderLineItemItem
+    from .purchase_order_line_item_request import PurchaseOrderLineItemRequest
+    from .purchase_order_line_item_request_currency import PurchaseOrderLineItemRequestCurrency
+    from .purchase_order_line_item_request_item import PurchaseOrderLineItemRequestItem
+    from .purchase_order_payment_term import PurchaseOrderPaymentTerm
+    from .purchase_order_request import PurchaseOrderRequest
+    from .purchase_order_request_company import PurchaseOrderRequestCompany
+    from .purchase_order_request_currency import PurchaseOrderRequestCurrency
+    from .purchase_order_request_delivery_address import PurchaseOrderRequestDeliveryAddress
+    from .purchase_order_request_payment_term import PurchaseOrderRequestPaymentTerm
+    from .purchase_order_request_status import PurchaseOrderRequestStatus
+    from .purchase_order_request_tracking_categories_item import PurchaseOrderRequestTrackingCategoriesItem
+    from .purchase_order_request_vendor import PurchaseOrderRequestVendor
+    from .purchase_order_response import PurchaseOrderResponse
+    from .purchase_order_status import PurchaseOrderStatus
+    from .purchase_order_status_enum import PurchaseOrderStatusEnum
+    from .purchase_order_tracking_categories_item import PurchaseOrderTrackingCategoriesItem
+    from .purchase_order_vendor import PurchaseOrderVendor
+    from .remote_data import RemoteData
+    from .remote_endpoint_info import RemoteEndpointInfo
+    from .remote_field import RemoteField
+    from .remote_field_api import RemoteFieldApi
+    from .remote_field_api_coverage import RemoteFieldApiCoverage
+    from .remote_field_api_response import RemoteFieldApiResponse
+    from .remote_field_class import RemoteFieldClass
+    from .remote_field_remote_field_class import RemoteFieldRemoteFieldClass
+    from .remote_field_request import RemoteFieldRequest
+    from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
+    from .remote_key import RemoteKey
+    from .remote_response import RemoteResponse
+    from .report_item import ReportItem
+    from .request_format_enum import RequestFormatEnum
+    from .response_type_enum import ResponseTypeEnum
+    from .role_enum import RoleEnum
+    from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
+    from .status_7_d_1_enum import Status7D1Enum
+    from .status_895_enum import Status895Enum
+    from .status_fd_5_enum import StatusFd5Enum
+    from .sync_status import SyncStatus
+    from .sync_status_status import SyncStatusStatus
+    from .tax_component import TaxComponent
+    from .tax_component_component_type import TaxComponentComponentType
+    from .tax_rate import TaxRate
+    from .tax_rate_company import TaxRateCompany
+    from .tax_rate_status import TaxRateStatus
+    from .tax_rate_tax_components_item import TaxRateTaxComponentsItem
+    from .tracking_category import TrackingCategory
+    from .tracking_category_category_type import TrackingCategoryCategoryType
+    from .tracking_category_company import TrackingCategoryCompany
+    from .tracking_category_status import TrackingCategoryStatus
+    from .transaction import Transaction
+    from .transaction_account import TransactionAccount
+    from .transaction_accounting_period import TransactionAccountingPeriod
+    from .transaction_contact import TransactionContact
+    from .transaction_currency import TransactionCurrency
+    from .transaction_currency_enum import TransactionCurrencyEnum
+    from .transaction_line_item import TransactionLineItem
+    from .transaction_line_item_currency import TransactionLineItemCurrency
+    from .transaction_line_item_item import TransactionLineItemItem
+    from .transaction_tracking_categories_item import TransactionTrackingCategoriesItem
+    from .type_2_bb_enum import Type2BbEnum
+    from .underlying_transaction_type_enum import UnderlyingTransactionTypeEnum
+    from .validation_problem_source import ValidationProblemSource
+    from .vendor_credit import VendorCredit
+    from .vendor_credit_accounting_period import VendorCreditAccountingPeriod
+    from .vendor_credit_apply_line_for_invoice import VendorCreditApplyLineForInvoice
+    from .vendor_credit_apply_line_for_invoice_vendor_credit import VendorCreditApplyLineForInvoiceVendorCredit
+    from .vendor_credit_apply_line_for_vendor_credit import VendorCreditApplyLineForVendorCredit
+    from .vendor_credit_apply_line_for_vendor_credit_invoice import VendorCreditApplyLineForVendorCreditInvoice
+    from .vendor_credit_apply_line_for_vendor_credit_request import VendorCreditApplyLineForVendorCreditRequest
+    from .vendor_credit_apply_line_for_vendor_credit_request_invoice import (
+        VendorCreditApplyLineForVendorCreditRequestInvoice,
+    )
+    from .vendor_credit_company import VendorCreditCompany
+    from .vendor_credit_currency import VendorCreditCurrency
+    from .vendor_credit_line import VendorCreditLine
+    from .vendor_credit_line_account import VendorCreditLineAccount
+    from .vendor_credit_line_contact import VendorCreditLineContact
+    from .vendor_credit_line_project import VendorCreditLineProject
+    from .vendor_credit_line_request import VendorCreditLineRequest
+    from .vendor_credit_line_request_account import VendorCreditLineRequestAccount
+    from .vendor_credit_line_request_contact import VendorCreditLineRequestContact
+    from .vendor_credit_line_request_project import VendorCreditLineRequestProject
+    from .vendor_credit_request import VendorCreditRequest
+    from .vendor_credit_request_accounting_period import VendorCreditRequestAccountingPeriod
+    from .vendor_credit_request_company import VendorCreditRequestCompany
+    from .vendor_credit_request_currency import VendorCreditRequestCurrency
+    from .vendor_credit_request_tracking_categories_item import VendorCreditRequestTrackingCategoriesItem
+    from .vendor_credit_request_vendor import VendorCreditRequestVendor
+    from .vendor_credit_response import VendorCreditResponse
+    from .vendor_credit_tracking_categories_item import VendorCreditTrackingCategoriesItem
+    from .vendor_credit_vendor import VendorCreditVendor
+    from .warning_validation_problem import WarningValidationProblem
+    from .webhook_receiver import WebhookReceiver
+_dynamic_imports: typing.Dict[str, str] = {
+    "Account": ".account",
+    "AccountAccountType": ".account_account_type",
+    "AccountAccountTypeEnum": ".account_account_type_enum",
+    "AccountClassification": ".account_classification",
+    "AccountCurrency": ".account_currency",
+    "AccountDetails": ".account_details",
+    "AccountDetailsAndActions": ".account_details_and_actions",
+    "AccountDetailsAndActionsCategory": ".account_details_and_actions_category",
+    "AccountDetailsAndActionsIntegration": ".account_details_and_actions_integration",
+    "AccountDetailsAndActionsStatus": ".account_details_and_actions_status",
+    "AccountDetailsAndActionsStatusEnum": ".account_details_and_actions_status_enum",
+    "AccountDetailsCategory": ".account_details_category",
+    "AccountIntegration": ".account_integration",
+    "AccountRequest": ".account_request",
+    "AccountRequestAccountType": ".account_request_account_type",
+    "AccountRequestClassification": ".account_request_classification",
+    "AccountRequestCurrency": ".account_request_currency",
+    "AccountRequestStatus": ".account_request_status",
+    "AccountResponse": ".account_response",
+    "AccountStatus": ".account_status",
+    "AccountStatusEnum": ".account_status_enum",
+    "AccountToken": ".account_token",
+    "AccountingAttachment": ".accounting_attachment",
+    "AccountingAttachmentRequest": ".accounting_attachment_request",
+    "AccountingAttachmentResponse": ".accounting_attachment_response",
+    "AccountingPeriod": ".accounting_period",
+    "AccountingPeriodStatus": ".accounting_period_status",
+    "AccountingPhoneNumber": ".accounting_phone_number",
+    "AccountingPhoneNumberRequest": ".accounting_phone_number_request",
+    "Address": ".address",
+    "AddressCountry": ".address_country",
+    "AddressRequest": ".address_request",
+    "AddressRequestCountry": ".address_request_country",
+    "AddressRequestType": ".address_request_type",
+    "AddressType": ".address_type",
+    "AddressTypeEnum": ".address_type_enum",
+    "AdvancedMetadata": ".advanced_metadata",
+    "AsyncPassthroughReciept": ".async_passthrough_reciept",
+    "AsyncPostTask": ".async_post_task",
+    "AsyncPostTaskResult": ".async_post_task_result",
+    "AsyncPostTaskStatus": ".async_post_task_status",
+    "AsyncPostTaskStatusEnum": ".async_post_task_status_enum",
+    "AuditLogEvent": ".audit_log_event",
+    "AuditLogEventEventType": ".audit_log_event_event_type",
+    "AuditLogEventRole": ".audit_log_event_role",
+    "AvailableActions": ".available_actions",
+    "BalanceSheet": ".balance_sheet",
+    "BalanceSheetCompany": ".balance_sheet_company",
+    "BalanceSheetCurrency": ".balance_sheet_currency",
+    "BankFeedAccount": ".bank_feed_account",
+    "BankFeedAccountAccountType": ".bank_feed_account_account_type",
+    "BankFeedAccountAccountTypeEnum": ".bank_feed_account_account_type_enum",
+    "BankFeedAccountCurrency": ".bank_feed_account_currency",
+    "BankFeedAccountFeedStatus": ".bank_feed_account_feed_status",
+    "BankFeedAccountRequest": ".bank_feed_account_request",
+    "BankFeedAccountRequestAccountType": ".bank_feed_account_request_account_type",
+    "BankFeedAccountRequestCurrency": ".bank_feed_account_request_currency",
+    "BankFeedAccountRequestFeedStatus": ".bank_feed_account_request_feed_status",
+    "BankFeedAccountResponse": ".bank_feed_account_response",
+    "BankFeedTransaction": ".bank_feed_transaction",
+    "BankFeedTransactionBankFeedAccount": ".bank_feed_transaction_bank_feed_account",
+    "BankFeedTransactionCreditOrDebit": ".bank_feed_transaction_credit_or_debit",
+    "BankFeedTransactionRequestRequest": ".bank_feed_transaction_request_request",
+    "BankFeedTransactionRequestRequestBankFeedAccount": ".bank_feed_transaction_request_request_bank_feed_account",
+    "BankFeedTransactionRequestRequestCreditOrDebit": ".bank_feed_transaction_request_request_credit_or_debit",
+    "BankFeedTransactionResponse": ".bank_feed_transaction_response",
+    "CashFlowStatement": ".cash_flow_statement",
+    "CashFlowStatementCompany": ".cash_flow_statement_company",
+    "CashFlowStatementCurrency": ".cash_flow_statement_currency",
+    "CategoriesEnum": ".categories_enum",
+    "CategoryEnum": ".category_enum",
+    "CategoryTypeEnum": ".category_type_enum",
+    "ClassificationEnum": ".classification_enum",
+    "CommonModelScopeApi": ".common_model_scope_api",
+    "CommonModelScopesBodyRequest": ".common_model_scopes_body_request",
+    "CompanyInfo": ".company_info",
+    "CompanyInfoCurrency": ".company_info_currency",
+    "ComponentTypeEnum": ".component_type_enum",
+    "Contact": ".contact",
+    "ContactAddressesItem": ".contact_addresses_item",
+    "ContactRequest": ".contact_request",
+    "ContactRequestAddressesItem": ".contact_request_addresses_item",
+    "ContactRequestStatus": ".contact_request_status",
+    "ContactResponse": ".contact_response",
+    "ContactStatus": ".contact_status",
+    "CountryEnum": ".country_enum",
+    "CreditNote": ".credit_note",
+    "CreditNoteAccountingPeriod": ".credit_note_accounting_period",
+    "CreditNoteAppliedPaymentsItem": ".credit_note_applied_payments_item",
+    "CreditNoteApplyLineForCreditNote": ".credit_note_apply_line_for_credit_note",
+    "CreditNoteApplyLineForCreditNoteInvoice": ".credit_note_apply_line_for_credit_note_invoice",
+    "CreditNoteApplyLineForCreditNoteRequest": ".credit_note_apply_line_for_credit_note_request",
+    "CreditNoteApplyLineForCreditNoteRequestInvoice": ".credit_note_apply_line_for_credit_note_request_invoice",
+    "CreditNoteApplyLineForInvoice": ".credit_note_apply_line_for_invoice",
+    "CreditNoteApplyLineForInvoiceCreditNote": ".credit_note_apply_line_for_invoice_credit_note",
+    "CreditNoteCompany": ".credit_note_company",
+    "CreditNoteContact": ".credit_note_contact",
+    "CreditNoteCurrency": ".credit_note_currency",
+    "CreditNoteLineItem": ".credit_note_line_item",
+    "CreditNoteLineItemCompany": ".credit_note_line_item_company",
+    "CreditNoteLineItemContact": ".credit_note_line_item_contact",
+    "CreditNoteLineItemItem": ".credit_note_line_item_item",
+    "CreditNoteLineItemProject": ".credit_note_line_item_project",
+    "CreditNoteLineItemRequest": ".credit_note_line_item_request",
+    "CreditNoteLineItemRequestCompany": ".credit_note_line_item_request_company",
+    "CreditNoteLineItemRequestContact": ".credit_note_line_item_request_contact",
+    "CreditNoteLineItemRequestItem": ".credit_note_line_item_request_item",
+    "CreditNoteLineItemRequestProject": ".credit_note_line_item_request_project",
+    "CreditNotePaymentsItem": ".credit_note_payments_item",
+    "CreditNoteRequest": ".credit_note_request",
+    "CreditNoteRequestAccountingPeriod": ".credit_note_request_accounting_period",
+    "CreditNoteRequestAppliedPaymentsItem": ".credit_note_request_applied_payments_item",
+    "CreditNoteRequestCompany": ".credit_note_request_company",
+    "CreditNoteRequestContact": ".credit_note_request_contact",
+    "CreditNoteRequestCurrency": ".credit_note_request_currency",
+    "CreditNoteRequestLineItemsItem": ".credit_note_request_line_items_item",
+    "CreditNoteRequestPaymentsItem": ".credit_note_request_payments_item",
+    "CreditNoteRequestStatus": ".credit_note_request_status",
+    "CreditNoteRequestTrackingCategoriesItem": ".credit_note_request_tracking_categories_item",
+    "CreditNoteResponse": ".credit_note_response",
+    "CreditNoteStatus": ".credit_note_status",
+    "CreditNoteStatusEnum": ".credit_note_status_enum",
+    "CreditNoteTrackingCategoriesItem": ".credit_note_tracking_categories_item",
+    "CreditOrDebitEnum": ".credit_or_debit_enum",
+    "DataPassthroughRequest": ".data_passthrough_request",
+    "DataPassthroughRequestMethod": ".data_passthrough_request_method",
+    "DebugModeLog": ".debug_mode_log",
+    "DebugModelLogSummary": ".debug_model_log_summary",
+    "Employee": ".employee",
+    "EmployeeCompany": ".employee_company",
+    "EmployeeStatus": ".employee_status",
+    "EnabledActionsEnum": ".enabled_actions_enum",
+    "EncodingEnum": ".encoding_enum",
+    "ErrorValidationProblem": ".error_validation_problem",
+    "EventTypeEnum": ".event_type_enum",
+    "Expense": ".expense",
+    "ExpenseAccount": ".expense_account",
+    "ExpenseAccountingPeriod": ".expense_accounting_period",
+    "ExpenseCompany": ".expense_company",
+    "ExpenseContact": ".expense_contact",
+    "ExpenseCurrency": ".expense_currency",
+    "ExpenseEmployee": ".expense_employee",
+    "ExpenseLine": ".expense_line",
+    "ExpenseLineAccount": ".expense_line_account",
+    "ExpenseLineContact": ".expense_line_contact",
+    "ExpenseLineCurrency": ".expense_line_currency",
+    "ExpenseLineEmployee": ".expense_line_employee",
+    "ExpenseLineItem": ".expense_line_item",
+    "ExpenseLineProject": ".expense_line_project",
+    "ExpenseLineRequest": ".expense_line_request",
+    "ExpenseLineRequestAccount": ".expense_line_request_account",
+    "ExpenseLineRequestContact": ".expense_line_request_contact",
+    "ExpenseLineRequestCurrency": ".expense_line_request_currency",
+    "ExpenseLineRequestEmployee": ".expense_line_request_employee",
+    "ExpenseLineRequestItem": ".expense_line_request_item",
+    "ExpenseLineRequestProject": ".expense_line_request_project",
+    "ExpenseLineRequestTrackingCategoriesItem": ".expense_line_request_tracking_categories_item",
+    "ExpenseLineRequestTrackingCategory": ".expense_line_request_tracking_category",
+    "ExpenseLineTrackingCategoriesItem": ".expense_line_tracking_categories_item",
+    "ExpenseLineTrackingCategory": ".expense_line_tracking_category",
+    "ExpenseReport": ".expense_report",
+    "ExpenseReportCompany": ".expense_report_company",
+    "ExpenseReportLine": ".expense_report_line",
+    "ExpenseReportLineAccount": ".expense_report_line_account",
+    "ExpenseReportLineCompany": ".expense_report_line_company",
+    "ExpenseReportLineContact": ".expense_report_line_contact",
+    "ExpenseReportLineEmployee": ".expense_report_line_employee",
+    "ExpenseReportLineProject": ".expense_report_line_project",
+    "ExpenseReportLineRequest": ".expense_report_line_request",
+    "ExpenseReportLineRequestAccount": ".expense_report_line_request_account",
+    "ExpenseReportLineRequestCompany": ".expense_report_line_request_company",
+    "ExpenseReportLineRequestContact": ".expense_report_line_request_contact",
+    "ExpenseReportLineRequestEmployee": ".expense_report_line_request_employee",
+    "ExpenseReportLineRequestProject": ".expense_report_line_request_project",
+    "ExpenseReportLineRequestTaxRate": ".expense_report_line_request_tax_rate",
+    "ExpenseReportLineTaxRate": ".expense_report_line_tax_rate",
+    "ExpenseReportRequest": ".expense_report_request",
+    "ExpenseReportRequestAccountingPeriod": ".expense_report_request_accounting_period",
+    "ExpenseReportRequestCompany": ".expense_report_request_company",
+    "ExpenseReportRequestEmployee": ".expense_report_request_employee",
+    "ExpenseReportResponse": ".expense_report_response",
+    "ExpenseReportStatus": ".expense_report_status",
+    "ExpenseReportStatusEnum": ".expense_report_status_enum",
+    "ExpenseRequest": ".expense_request",
+    "ExpenseRequestAccount": ".expense_request_account",
+    "ExpenseRequestAccountingPeriod": ".expense_request_accounting_period",
+    "ExpenseRequestCompany": ".expense_request_company",
+    "ExpenseRequestContact": ".expense_request_contact",
+    "ExpenseRequestCurrency": ".expense_request_currency",
+    "ExpenseRequestEmployee": ".expense_request_employee",
+    "ExpenseRequestTrackingCategoriesItem": ".expense_request_tracking_categories_item",
+    "ExpenseResponse": ".expense_response",
+    "ExpenseTrackingCategoriesItem": ".expense_tracking_categories_item",
+    "ExternalTargetFieldApi": ".external_target_field_api",
+    "ExternalTargetFieldApiResponse": ".external_target_field_api_response",
+    "FeedStatusEnum": ".feed_status_enum",
+    "FieldFormatEnum": ".field_format_enum",
+    "FieldMappingApiInstance": ".field_mapping_api_instance",
+    "FieldMappingApiInstanceRemoteField": ".field_mapping_api_instance_remote_field",
+    "FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo": ".field_mapping_api_instance_remote_field_remote_endpoint_info",
+    "FieldMappingApiInstanceResponse": ".field_mapping_api_instance_response",
+    "FieldMappingApiInstanceTargetField": ".field_mapping_api_instance_target_field",
+    "FieldMappingInstanceResponse": ".field_mapping_instance_response",
+    "FieldPermissionDeserializer": ".field_permission_deserializer",
+    "FieldPermissionDeserializerRequest": ".field_permission_deserializer_request",
+    "FieldTypeEnum": ".field_type_enum",
+    "GeneralLedgerTransaction": ".general_ledger_transaction",
+    "GeneralLedgerTransactionAccountingPeriod": ".general_ledger_transaction_accounting_period",
+    "GeneralLedgerTransactionCompany": ".general_ledger_transaction_company",
+    "GeneralLedgerTransactionGeneralLedgerTransactionLinesItem": ".general_ledger_transaction_general_ledger_transaction_lines_item",
+    "GeneralLedgerTransactionLine": ".general_ledger_transaction_line",
+    "GeneralLedgerTransactionLineAccount": ".general_ledger_transaction_line_account",
+    "GeneralLedgerTransactionLineBaseCurrency": ".general_ledger_transaction_line_base_currency",
+    "GeneralLedgerTransactionLineCompany": ".general_ledger_transaction_line_company",
+    "GeneralLedgerTransactionLineContact": ".general_ledger_transaction_line_contact",
+    "GeneralLedgerTransactionLineEmployee": ".general_ledger_transaction_line_employee",
+    "GeneralLedgerTransactionLineItem": ".general_ledger_transaction_line_item",
+    "GeneralLedgerTransactionLineProject": ".general_ledger_transaction_line_project",
+    "GeneralLedgerTransactionLineTrackingCategoriesItem": ".general_ledger_transaction_line_tracking_categories_item",
+    "GeneralLedgerTransactionLineTransactionCurrency": ".general_ledger_transaction_line_transaction_currency",
+    "GeneralLedgerTransactionTrackingCategoriesItem": ".general_ledger_transaction_tracking_categories_item",
+    "GeneralLedgerTransactionUnderlyingTransactionType": ".general_ledger_transaction_underlying_transaction_type",
+    "IncomeStatement": ".income_statement",
+    "IncomeStatementCompany": ".income_statement_company",
+    "IncomeStatementCurrency": ".income_statement_currency",
+    "IndividualCommonModelScopeDeserializer": ".individual_common_model_scope_deserializer",
+    "IndividualCommonModelScopeDeserializerRequest": ".individual_common_model_scope_deserializer_request",
+    "Invoice": ".invoice",
+    "InvoiceAccountingPeriod": ".invoice_accounting_period",
+    "InvoiceAppliedCreditNotesItem": ".invoice_applied_credit_notes_item",
+    "InvoiceAppliedPaymentsItem": ".invoice_applied_payments_item",
+    "InvoiceAppliedVendorCreditsItem": ".invoice_applied_vendor_credits_item",
+    "InvoiceCompany": ".invoice_company",
+    "InvoiceContact": ".invoice_contact",
+    "InvoiceCurrency": ".invoice_currency",
+    "InvoiceEmployee": ".invoice_employee",
+    "InvoiceLineItem": ".invoice_line_item",
+    "InvoiceLineItemAccount": ".invoice_line_item_account",
+    "InvoiceLineItemContact": ".invoice_line_item_contact",
+    "InvoiceLineItemCurrency": ".invoice_line_item_currency",
+    "InvoiceLineItemEmployee": ".invoice_line_item_employee",
+    "InvoiceLineItemItem": ".invoice_line_item_item",
+    "InvoiceLineItemProject": ".invoice_line_item_project",
+    "InvoiceLineItemRequest": ".invoice_line_item_request",
+    "InvoiceLineItemRequestAccount": ".invoice_line_item_request_account",
+    "InvoiceLineItemRequestContact": ".invoice_line_item_request_contact",
+    "InvoiceLineItemRequestCurrency": ".invoice_line_item_request_currency",
+    "InvoiceLineItemRequestEmployee": ".invoice_line_item_request_employee",
+    "InvoiceLineItemRequestItem": ".invoice_line_item_request_item",
+    "InvoiceLineItemRequestProject": ".invoice_line_item_request_project",
+    "InvoiceLineItemRequestTrackingCategoriesItem": ".invoice_line_item_request_tracking_categories_item",
+    "InvoiceLineItemRequestTrackingCategory": ".invoice_line_item_request_tracking_category",
+    "InvoiceLineItemTrackingCategoriesItem": ".invoice_line_item_tracking_categories_item",
+    "InvoiceLineItemTrackingCategory": ".invoice_line_item_tracking_category",
+    "InvoicePaymentTerm": ".invoice_payment_term",
+    "InvoicePaymentsItem": ".invoice_payments_item",
+    "InvoicePurchaseOrdersItem": ".invoice_purchase_orders_item",
+    "InvoiceRequest": ".invoice_request",
+    "InvoiceRequestCompany": ".invoice_request_company",
+    "InvoiceRequestContact": ".invoice_request_contact",
+    "InvoiceRequestCurrency": ".invoice_request_currency",
+    "InvoiceRequestEmployee": ".invoice_request_employee",
+    "InvoiceRequestPaymentTerm": ".invoice_request_payment_term",
+    "InvoiceRequestPaymentsItem": ".invoice_request_payments_item",
+    "InvoiceRequestPurchaseOrdersItem": ".invoice_request_purchase_orders_item",
+    "InvoiceRequestStatus": ".invoice_request_status",
+    "InvoiceRequestTrackingCategoriesItem": ".invoice_request_tracking_categories_item",
+    "InvoiceRequestType": ".invoice_request_type",
+    "InvoiceResponse": ".invoice_response",
+    "InvoiceStatus": ".invoice_status",
+    "InvoiceStatusEnum": ".invoice_status_enum",
+    "InvoiceTrackingCategoriesItem": ".invoice_tracking_categories_item",
+    "InvoiceType": ".invoice_type",
+    "InvoiceTypeEnum": ".invoice_type_enum",
+    "Issue": ".issue",
+    "IssueStatus": ".issue_status",
+    "IssueStatusEnum": ".issue_status_enum",
+    "Item": ".item",
+    "ItemCompany": ".item_company",
+    "ItemFormatEnum": ".item_format_enum",
+    "ItemPurchaseAccount": ".item_purchase_account",
+    "ItemPurchaseTaxRate": ".item_purchase_tax_rate",
+    "ItemRequestRequest": ".item_request_request",
+    "ItemRequestRequestCompany": ".item_request_request_company",
+    "ItemRequestRequestPurchaseAccount": ".item_request_request_purchase_account",
+    "ItemRequestRequestPurchaseTaxRate": ".item_request_request_purchase_tax_rate",
+    "ItemRequestRequestSalesAccount": ".item_request_request_sales_account",
+    "ItemRequestRequestSalesTaxRate": ".item_request_request_sales_tax_rate",
+    "ItemRequestRequestStatus": ".item_request_request_status",
+    "ItemRequestRequestType": ".item_request_request_type",
+    "ItemResponse": ".item_response",
+    "ItemSalesAccount": ".item_sales_account",
+    "ItemSalesTaxRate": ".item_sales_tax_rate",
+    "ItemSchema": ".item_schema",
+    "ItemStatus": ".item_status",
+    "ItemType": ".item_type",
+    "ItemTypeEnum": ".item_type_enum",
+    "JournalEntry": ".journal_entry",
+    "JournalEntryAccountingPeriod": ".journal_entry_accounting_period",
+    "JournalEntryAppliedPaymentsItem": ".journal_entry_applied_payments_item",
+    "JournalEntryCompany": ".journal_entry_company",
+    "JournalEntryCurrency": ".journal_entry_currency",
+    "JournalEntryPaymentsItem": ".journal_entry_payments_item",
+    "JournalEntryPostingStatus": ".journal_entry_posting_status",
+    "JournalEntryRequest": ".journal_entry_request",
+    "JournalEntryRequestCompany": ".journal_entry_request_company",
+    "JournalEntryRequestCurrency": ".journal_entry_request_currency",
+    "JournalEntryRequestPaymentsItem": ".journal_entry_request_payments_item",
+    "JournalEntryRequestPostingStatus": ".journal_entry_request_posting_status",
+    "JournalEntryRequestTrackingCategoriesItem": ".journal_entry_request_tracking_categories_item",
+    "JournalEntryResponse": ".journal_entry_response",
+    "JournalEntryTrackingCategoriesItem": ".journal_entry_tracking_categories_item",
+    "JournalLine": ".journal_line",
+    "JournalLineAccount": ".journal_line_account",
+    "JournalLineCurrency": ".journal_line_currency",
+    "JournalLineProject": ".journal_line_project",
+    "JournalLineRequest": ".journal_line_request",
+    "JournalLineRequestAccount": ".journal_line_request_account",
+    "JournalLineRequestCurrency": ".journal_line_request_currency",
+    "JournalLineRequestProject": ".journal_line_request_project",
+    "JournalLineRequestTrackingCategoriesItem": ".journal_line_request_tracking_categories_item",
+    "JournalLineRequestTrackingCategory": ".journal_line_request_tracking_category",
+    "JournalLineTrackingCategoriesItem": ".journal_line_tracking_categories_item",
+    "JournalLineTrackingCategory": ".journal_line_tracking_category",
+    "LanguageEnum": ".language_enum",
+    "LastSyncResultEnum": ".last_sync_result_enum",
+    "LinkToken": ".link_token",
+    "LinkedAccountStatus": ".linked_account_status",
+    "MetaResponse": ".meta_response",
+    "MethodEnum": ".method_enum",
+    "MethodTypeEnum": ".method_type_enum",
+    "ModelOperation": ".model_operation",
+    "ModelPermissionDeserializer": ".model_permission_deserializer",
+    "ModelPermissionDeserializerRequest": ".model_permission_deserializer_request",
+    "MultipartFormFieldRequest": ".multipart_form_field_request",
+    "MultipartFormFieldRequestEncoding": ".multipart_form_field_request_encoding",
+    "PaginatedAccountDetailsAndActionsList": ".paginated_account_details_and_actions_list",
+    "PaginatedAccountList": ".paginated_account_list",
+    "PaginatedAccountingAttachmentList": ".paginated_accounting_attachment_list",
+    "PaginatedAccountingPeriodList": ".paginated_accounting_period_list",
+    "PaginatedAuditLogEventList": ".paginated_audit_log_event_list",
+    "PaginatedBalanceSheetList": ".paginated_balance_sheet_list",
+    "PaginatedBankFeedAccountList": ".paginated_bank_feed_account_list",
+    "PaginatedBankFeedTransactionList": ".paginated_bank_feed_transaction_list",
+    "PaginatedCashFlowStatementList": ".paginated_cash_flow_statement_list",
+    "PaginatedCompanyInfoList": ".paginated_company_info_list",
+    "PaginatedContactList": ".paginated_contact_list",
+    "PaginatedCreditNoteList": ".paginated_credit_note_list",
+    "PaginatedEmployeeList": ".paginated_employee_list",
+    "PaginatedExpenseList": ".paginated_expense_list",
+    "PaginatedExpenseReportLineList": ".paginated_expense_report_line_list",
+    "PaginatedExpenseReportList": ".paginated_expense_report_list",
+    "PaginatedGeneralLedgerTransactionList": ".paginated_general_ledger_transaction_list",
+    "PaginatedIncomeStatementList": ".paginated_income_statement_list",
+    "PaginatedInvoiceList": ".paginated_invoice_list",
+    "PaginatedIssueList": ".paginated_issue_list",
+    "PaginatedItemList": ".paginated_item_list",
+    "PaginatedJournalEntryList": ".paginated_journal_entry_list",
+    "PaginatedPaymentList": ".paginated_payment_list",
+    "PaginatedPaymentMethodList": ".paginated_payment_method_list",
+    "PaginatedPaymentTermList": ".paginated_payment_term_list",
+    "PaginatedProjectList": ".paginated_project_list",
+    "PaginatedPurchaseOrderList": ".paginated_purchase_order_list",
+    "PaginatedRemoteFieldClassList": ".paginated_remote_field_class_list",
+    "PaginatedSyncStatusList": ".paginated_sync_status_list",
+    "PaginatedTaxRateList": ".paginated_tax_rate_list",
+    "PaginatedTrackingCategoryList": ".paginated_tracking_category_list",
+    "PaginatedTransactionList": ".paginated_transaction_list",
+    "PaginatedVendorCreditList": ".paginated_vendor_credit_list",
+    "PatchedContactRequest": ".patched_contact_request",
+    "PatchedContactRequestAddressesItem": ".patched_contact_request_addresses_item",
+    "PatchedItemRequestRequest": ".patched_item_request_request",
+    "PatchedItemRequestRequestStatus": ".patched_item_request_request_status",
+    "PatchedItemRequestRequestType": ".patched_item_request_request_type",
+    "PatchedPaymentRequest": ".patched_payment_request",
+    "PatchedPaymentRequestAccount": ".patched_payment_request_account",
+    "PatchedPaymentRequestAccountingPeriod": ".patched_payment_request_accounting_period",
+    "PatchedPaymentRequestAppliedToLinesItem": ".patched_payment_request_applied_to_lines_item",
+    "PatchedPaymentRequestCompany": ".patched_payment_request_company",
+    "PatchedPaymentRequestContact": ".patched_payment_request_contact",
+    "PatchedPaymentRequestCurrency": ".patched_payment_request_currency",
+    "PatchedPaymentRequestPaymentMethod": ".patched_payment_request_payment_method",
+    "PatchedPaymentRequestTrackingCategoriesItem": ".patched_payment_request_tracking_categories_item",
+    "PatchedPaymentRequestType": ".patched_payment_request_type",
+    "Payment": ".payment",
+    "PaymentAccount": ".payment_account",
+    "PaymentAccountingPeriod": ".payment_accounting_period",
+    "PaymentAppliedToLinesItem": ".payment_applied_to_lines_item",
+    "PaymentCompany": ".payment_company",
+    "PaymentContact": ".payment_contact",
+    "PaymentCurrency": ".payment_currency",
+    "PaymentLineItem": ".payment_line_item",
+    "PaymentLineItemRequest": ".payment_line_item_request",
+    "PaymentMethod": ".payment_method",
+    "PaymentMethodMethodType": ".payment_method_method_type",
+    "PaymentPaymentMethod": ".payment_payment_method",
+    "PaymentRequest": ".payment_request",
+    "PaymentRequestAccount": ".payment_request_account",
+    "PaymentRequestAccountingPeriod": ".payment_request_accounting_period",
+    "PaymentRequestAppliedToLinesItem": ".payment_request_applied_to_lines_item",
+    "PaymentRequestCompany": ".payment_request_company",
+    "PaymentRequestContact": ".payment_request_contact",
+    "PaymentRequestCurrency": ".payment_request_currency",
+    "PaymentRequestPaymentMethod": ".payment_request_payment_method",
+    "PaymentRequestTrackingCategoriesItem": ".payment_request_tracking_categories_item",
+    "PaymentRequestType": ".payment_request_type",
+    "PaymentResponse": ".payment_response",
+    "PaymentTerm": ".payment_term",
+    "PaymentTermCompany": ".payment_term_company",
+    "PaymentTrackingCategoriesItem": ".payment_tracking_categories_item",
+    "PaymentType": ".payment_type",
+    "PaymentTypeEnum": ".payment_type_enum",
+    "PostingStatusEnum": ".posting_status_enum",
+    "Project": ".project",
+    "ProjectCompany": ".project_company",
+    "ProjectContact": ".project_contact",
+    "PurchaseOrder": ".purchase_order",
+    "PurchaseOrderAccountingPeriod": ".purchase_order_accounting_period",
+    "PurchaseOrderCompany": ".purchase_order_company",
+    "PurchaseOrderCurrency": ".purchase_order_currency",
+    "PurchaseOrderDeliveryAddress": ".purchase_order_delivery_address",
+    "PurchaseOrderLineItem": ".purchase_order_line_item",
+    "PurchaseOrderLineItemCurrency": ".purchase_order_line_item_currency",
+    "PurchaseOrderLineItemItem": ".purchase_order_line_item_item",
+    "PurchaseOrderLineItemRequest": ".purchase_order_line_item_request",
+    "PurchaseOrderLineItemRequestCurrency": ".purchase_order_line_item_request_currency",
+    "PurchaseOrderLineItemRequestItem": ".purchase_order_line_item_request_item",
+    "PurchaseOrderPaymentTerm": ".purchase_order_payment_term",
+    "PurchaseOrderRequest": ".purchase_order_request",
+    "PurchaseOrderRequestCompany": ".purchase_order_request_company",
+    "PurchaseOrderRequestCurrency": ".purchase_order_request_currency",
+    "PurchaseOrderRequestDeliveryAddress": ".purchase_order_request_delivery_address",
+    "PurchaseOrderRequestPaymentTerm": ".purchase_order_request_payment_term",
+    "PurchaseOrderRequestStatus": ".purchase_order_request_status",
+    "PurchaseOrderRequestTrackingCategoriesItem": ".purchase_order_request_tracking_categories_item",
+    "PurchaseOrderRequestVendor": ".purchase_order_request_vendor",
+    "PurchaseOrderResponse": ".purchase_order_response",
+    "PurchaseOrderStatus": ".purchase_order_status",
+    "PurchaseOrderStatusEnum": ".purchase_order_status_enum",
+    "PurchaseOrderTrackingCategoriesItem": ".purchase_order_tracking_categories_item",
+    "PurchaseOrderVendor": ".purchase_order_vendor",
+    "RemoteData": ".remote_data",
+    "RemoteEndpointInfo": ".remote_endpoint_info",
+    "RemoteField": ".remote_field",
+    "RemoteFieldApi": ".remote_field_api",
+    "RemoteFieldApiCoverage": ".remote_field_api_coverage",
+    "RemoteFieldApiResponse": ".remote_field_api_response",
+    "RemoteFieldClass": ".remote_field_class",
+    "RemoteFieldRemoteFieldClass": ".remote_field_remote_field_class",
+    "RemoteFieldRequest": ".remote_field_request",
+    "RemoteFieldRequestRemoteFieldClass": ".remote_field_request_remote_field_class",
+    "RemoteKey": ".remote_key",
+    "RemoteResponse": ".remote_response",
+    "ReportItem": ".report_item",
+    "RequestFormatEnum": ".request_format_enum",
+    "ResponseTypeEnum": ".response_type_enum",
+    "RoleEnum": ".role_enum",
+    "SelectiveSyncConfigurationsUsageEnum": ".selective_sync_configurations_usage_enum",
+    "Status7D1Enum": ".status_7_d_1_enum",
+    "Status895Enum": ".status_895_enum",
+    "StatusFd5Enum": ".status_fd_5_enum",
+    "SyncStatus": ".sync_status",
+    "SyncStatusStatus": ".sync_status_status",
+    "TaxComponent": ".tax_component",
+    "TaxComponentComponentType": ".tax_component_component_type",
+    "TaxRate": ".tax_rate",
+    "TaxRateCompany": ".tax_rate_company",
+    "TaxRateStatus": ".tax_rate_status",
+    "TaxRateTaxComponentsItem": ".tax_rate_tax_components_item",
+    "TrackingCategory": ".tracking_category",
+    "TrackingCategoryCategoryType": ".tracking_category_category_type",
+    "TrackingCategoryCompany": ".tracking_category_company",
+    "TrackingCategoryStatus": ".tracking_category_status",
+    "Transaction": ".transaction",
+    "TransactionAccount": ".transaction_account",
+    "TransactionAccountingPeriod": ".transaction_accounting_period",
+    "TransactionContact": ".transaction_contact",
+    "TransactionCurrency": ".transaction_currency",
+    "TransactionCurrencyEnum": ".transaction_currency_enum",
+    "TransactionLineItem": ".transaction_line_item",
+    "TransactionLineItemCurrency": ".transaction_line_item_currency",
+    "TransactionLineItemItem": ".transaction_line_item_item",
+    "TransactionTrackingCategoriesItem": ".transaction_tracking_categories_item",
+    "Type2BbEnum": ".type_2_bb_enum",
+    "UnderlyingTransactionTypeEnum": ".underlying_transaction_type_enum",
+    "ValidationProblemSource": ".validation_problem_source",
+    "VendorCredit": ".vendor_credit",
+    "VendorCreditAccountingPeriod": ".vendor_credit_accounting_period",
+    "VendorCreditApplyLineForInvoice": ".vendor_credit_apply_line_for_invoice",
+    "VendorCreditApplyLineForInvoiceVendorCredit": ".vendor_credit_apply_line_for_invoice_vendor_credit",
+    "VendorCreditApplyLineForVendorCredit": ".vendor_credit_apply_line_for_vendor_credit",
+    "VendorCreditApplyLineForVendorCreditInvoice": ".vendor_credit_apply_line_for_vendor_credit_invoice",
+    "VendorCreditApplyLineForVendorCreditRequest": ".vendor_credit_apply_line_for_vendor_credit_request",
+    "VendorCreditApplyLineForVendorCreditRequestInvoice": ".vendor_credit_apply_line_for_vendor_credit_request_invoice",
+    "VendorCreditCompany": ".vendor_credit_company",
+    "VendorCreditCurrency": ".vendor_credit_currency",
+    "VendorCreditLine": ".vendor_credit_line",
+    "VendorCreditLineAccount": ".vendor_credit_line_account",
+    "VendorCreditLineContact": ".vendor_credit_line_contact",
+    "VendorCreditLineProject": ".vendor_credit_line_project",
+    "VendorCreditLineRequest": ".vendor_credit_line_request",
+    "VendorCreditLineRequestAccount": ".vendor_credit_line_request_account",
+    "VendorCreditLineRequestContact": ".vendor_credit_line_request_contact",
+    "VendorCreditLineRequestProject": ".vendor_credit_line_request_project",
+    "VendorCreditRequest": ".vendor_credit_request",
+    "VendorCreditRequestAccountingPeriod": ".vendor_credit_request_accounting_period",
+    "VendorCreditRequestCompany": ".vendor_credit_request_company",
+    "VendorCreditRequestCurrency": ".vendor_credit_request_currency",
+    "VendorCreditRequestTrackingCategoriesItem": ".vendor_credit_request_tracking_categories_item",
+    "VendorCreditRequestVendor": ".vendor_credit_request_vendor",
+    "VendorCreditResponse": ".vendor_credit_response",
+    "VendorCreditTrackingCategoriesItem": ".vendor_credit_tracking_categories_item",
+    "VendorCreditVendor": ".vendor_credit_vendor",
+    "WarningValidationProblem": ".warning_validation_problem",
+    "WebhookReceiver": ".webhook_receiver",
+}
+
+
+def __getattr__(attr_name: str) -> typing.Any:
+    module_name = _dynamic_imports.get(attr_name)
+    if module_name is None:
+        raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
+    try:
+        module = import_module(module_name, __package__)
+        result = getattr(module, attr_name)
+        return result
+    except ImportError as e:
+        raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
+    except AttributeError as e:
+        raise AttributeError(f"Failed to get {attr_name} from {module_name}: {e}") from e
+
+
+def __dir__():
+    lazy_attrs = list(_dynamic_imports.keys())
+    return sorted(lazy_attrs)
+
 
 __all__ = [
     "Account",

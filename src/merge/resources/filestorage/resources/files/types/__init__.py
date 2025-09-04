@@ -2,10 +2,40 @@
 
 # isort: skip_file
 
-from .files_download_request_meta_list_request_order_by import FilesDownloadRequestMetaListRequestOrderBy
-from .files_list_request_expand import FilesListRequestExpand
-from .files_list_request_order_by import FilesListRequestOrderBy
-from .files_retrieve_request_expand import FilesRetrieveRequestExpand
+import typing
+from importlib import import_module
+
+if typing.TYPE_CHECKING:
+    from .files_download_request_meta_list_request_order_by import FilesDownloadRequestMetaListRequestOrderBy
+    from .files_list_request_expand import FilesListRequestExpand
+    from .files_list_request_order_by import FilesListRequestOrderBy
+    from .files_retrieve_request_expand import FilesRetrieveRequestExpand
+_dynamic_imports: typing.Dict[str, str] = {
+    "FilesDownloadRequestMetaListRequestOrderBy": ".files_download_request_meta_list_request_order_by",
+    "FilesListRequestExpand": ".files_list_request_expand",
+    "FilesListRequestOrderBy": ".files_list_request_order_by",
+    "FilesRetrieveRequestExpand": ".files_retrieve_request_expand",
+}
+
+
+def __getattr__(attr_name: str) -> typing.Any:
+    module_name = _dynamic_imports.get(attr_name)
+    if module_name is None:
+        raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
+    try:
+        module = import_module(module_name, __package__)
+        result = getattr(module, attr_name)
+        return result
+    except ImportError as e:
+        raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
+    except AttributeError as e:
+        raise AttributeError(f"Failed to get {attr_name} from {module_name}: {e}") from e
+
+
+def __dir__():
+    lazy_attrs = list(_dynamic_imports.keys())
+    return sorted(lazy_attrs)
+
 
 __all__ = [
     "FilesDownloadRequestMetaListRequestOrderBy",
