@@ -2,13 +2,46 @@
 
 # isort: skip_file
 
-from .employments_list_request_expand import EmploymentsListRequestExpand
-from .employments_list_request_order_by import EmploymentsListRequestOrderBy
-from .employments_list_request_remote_fields import EmploymentsListRequestRemoteFields
-from .employments_list_request_show_enum_origins import EmploymentsListRequestShowEnumOrigins
-from .employments_retrieve_request_expand import EmploymentsRetrieveRequestExpand
-from .employments_retrieve_request_remote_fields import EmploymentsRetrieveRequestRemoteFields
-from .employments_retrieve_request_show_enum_origins import EmploymentsRetrieveRequestShowEnumOrigins
+import typing
+from importlib import import_module
+
+if typing.TYPE_CHECKING:
+    from .employments_list_request_expand import EmploymentsListRequestExpand
+    from .employments_list_request_order_by import EmploymentsListRequestOrderBy
+    from .employments_list_request_remote_fields import EmploymentsListRequestRemoteFields
+    from .employments_list_request_show_enum_origins import EmploymentsListRequestShowEnumOrigins
+    from .employments_retrieve_request_expand import EmploymentsRetrieveRequestExpand
+    from .employments_retrieve_request_remote_fields import EmploymentsRetrieveRequestRemoteFields
+    from .employments_retrieve_request_show_enum_origins import EmploymentsRetrieveRequestShowEnumOrigins
+_dynamic_imports: typing.Dict[str, str] = {
+    "EmploymentsListRequestExpand": ".employments_list_request_expand",
+    "EmploymentsListRequestOrderBy": ".employments_list_request_order_by",
+    "EmploymentsListRequestRemoteFields": ".employments_list_request_remote_fields",
+    "EmploymentsListRequestShowEnumOrigins": ".employments_list_request_show_enum_origins",
+    "EmploymentsRetrieveRequestExpand": ".employments_retrieve_request_expand",
+    "EmploymentsRetrieveRequestRemoteFields": ".employments_retrieve_request_remote_fields",
+    "EmploymentsRetrieveRequestShowEnumOrigins": ".employments_retrieve_request_show_enum_origins",
+}
+
+
+def __getattr__(attr_name: str) -> typing.Any:
+    module_name = _dynamic_imports.get(attr_name)
+    if module_name is None:
+        raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
+    try:
+        module = import_module(module_name, __package__)
+        result = getattr(module, attr_name)
+        return result
+    except ImportError as e:
+        raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
+    except AttributeError as e:
+        raise AttributeError(f"Failed to get {attr_name} from {module_name}: {e}") from e
+
+
+def __dir__():
+    lazy_attrs = list(_dynamic_imports.keys())
+    return sorted(lazy_attrs)
+
 
 __all__ = [
     "EmploymentsListRequestExpand",

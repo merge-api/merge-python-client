@@ -2,92 +2,194 @@
 
 # isort: skip_file
 
-from . import (
-    account_details,
-    account_token,
-    async_passthrough,
-    audit_trail,
-    available_actions,
-    bank_info,
-    benefits,
-    companies,
-    delete_account,
-    dependents,
-    employee_payroll_runs,
-    employees,
-    employer_benefits,
-    employments,
-    field_mapping,
-    force_resync,
-    generate_key,
-    groups,
-    issues,
-    link_token,
-    linked_accounts,
-    locations,
-    passthrough,
-    pay_groups,
-    payroll_runs,
-    regenerate_key,
-    scopes,
-    sync_status,
-    teams,
-    time_off,
-    time_off_balances,
-    timesheet_entries,
-    webhook_receivers,
-)
-from .async_passthrough import AsyncPassthroughRetrieveResponse
-from .bank_info import BankInfoListRequestAccountType, BankInfoListRequestOrderBy
-from .employee_payroll_runs import EmployeePayrollRunsListRequestExpand, EmployeePayrollRunsRetrieveRequestExpand
-from .employees import (
-    EmployeesListRequestEmploymentStatus,
-    EmployeesListRequestExpand,
-    EmployeesListRequestRemoteFields,
-    EmployeesListRequestShowEnumOrigins,
-    EmployeesRetrieveRequestExpand,
-    EmployeesRetrieveRequestRemoteFields,
-    EmployeesRetrieveRequestShowEnumOrigins,
-    IgnoreCommonModelRequestReason,
-)
-from .employments import (
-    EmploymentsListRequestExpand,
-    EmploymentsListRequestOrderBy,
-    EmploymentsListRequestRemoteFields,
-    EmploymentsListRequestShowEnumOrigins,
-    EmploymentsRetrieveRequestExpand,
-    EmploymentsRetrieveRequestRemoteFields,
-    EmploymentsRetrieveRequestShowEnumOrigins,
-)
-from .issues import IssuesListRequestStatus
-from .link_token import EndUserDetailsRequestLanguage
-from .linked_accounts import LinkedAccountsListRequestCategory
-from .locations import (
-    LocationsListRequestLocationType,
-    LocationsListRequestRemoteFields,
-    LocationsListRequestShowEnumOrigins,
-    LocationsRetrieveRequestRemoteFields,
-    LocationsRetrieveRequestShowEnumOrigins,
-)
-from .payroll_runs import (
-    PayrollRunsListRequestRemoteFields,
-    PayrollRunsListRequestRunType,
-    PayrollRunsListRequestShowEnumOrigins,
-    PayrollRunsRetrieveRequestRemoteFields,
-    PayrollRunsRetrieveRequestShowEnumOrigins,
-)
-from .time_off import (
-    TimeOffListRequestExpand,
-    TimeOffListRequestRemoteFields,
-    TimeOffListRequestRequestType,
-    TimeOffListRequestShowEnumOrigins,
-    TimeOffListRequestStatus,
-    TimeOffRetrieveRequestExpand,
-    TimeOffRetrieveRequestRemoteFields,
-    TimeOffRetrieveRequestShowEnumOrigins,
-)
-from .time_off_balances import TimeOffBalancesListRequestPolicyType
-from .timesheet_entries import TimesheetEntriesListRequestOrderBy
+import typing
+from importlib import import_module
+
+if typing.TYPE_CHECKING:
+    from . import (
+        account_details,
+        account_token,
+        async_passthrough,
+        audit_trail,
+        available_actions,
+        bank_info,
+        benefits,
+        companies,
+        delete_account,
+        dependents,
+        employee_payroll_runs,
+        employees,
+        employer_benefits,
+        employments,
+        field_mapping,
+        force_resync,
+        generate_key,
+        groups,
+        issues,
+        link_token,
+        linked_accounts,
+        locations,
+        passthrough,
+        pay_groups,
+        payroll_runs,
+        regenerate_key,
+        scopes,
+        sync_status,
+        teams,
+        time_off,
+        time_off_balances,
+        timesheet_entries,
+        webhook_receivers,
+    )
+    from .async_passthrough import AsyncPassthroughRetrieveResponse
+    from .bank_info import BankInfoListRequestAccountType, BankInfoListRequestOrderBy
+    from .employee_payroll_runs import EmployeePayrollRunsListRequestExpand, EmployeePayrollRunsRetrieveRequestExpand
+    from .employees import (
+        EmployeesListRequestEmploymentStatus,
+        EmployeesListRequestExpand,
+        EmployeesListRequestRemoteFields,
+        EmployeesListRequestShowEnumOrigins,
+        EmployeesRetrieveRequestExpand,
+        EmployeesRetrieveRequestRemoteFields,
+        EmployeesRetrieveRequestShowEnumOrigins,
+        IgnoreCommonModelRequestReason,
+    )
+    from .employments import (
+        EmploymentsListRequestExpand,
+        EmploymentsListRequestOrderBy,
+        EmploymentsListRequestRemoteFields,
+        EmploymentsListRequestShowEnumOrigins,
+        EmploymentsRetrieveRequestExpand,
+        EmploymentsRetrieveRequestRemoteFields,
+        EmploymentsRetrieveRequestShowEnumOrigins,
+    )
+    from .issues import IssuesListRequestStatus
+    from .link_token import EndUserDetailsRequestLanguage
+    from .linked_accounts import LinkedAccountsListRequestCategory
+    from .locations import (
+        LocationsListRequestLocationType,
+        LocationsListRequestRemoteFields,
+        LocationsListRequestShowEnumOrigins,
+        LocationsRetrieveRequestRemoteFields,
+        LocationsRetrieveRequestShowEnumOrigins,
+    )
+    from .payroll_runs import (
+        PayrollRunsListRequestRemoteFields,
+        PayrollRunsListRequestRunType,
+        PayrollRunsListRequestShowEnumOrigins,
+        PayrollRunsRetrieveRequestRemoteFields,
+        PayrollRunsRetrieveRequestShowEnumOrigins,
+    )
+    from .time_off import (
+        TimeOffListRequestExpand,
+        TimeOffListRequestRemoteFields,
+        TimeOffListRequestRequestType,
+        TimeOffListRequestShowEnumOrigins,
+        TimeOffListRequestStatus,
+        TimeOffRetrieveRequestExpand,
+        TimeOffRetrieveRequestRemoteFields,
+        TimeOffRetrieveRequestShowEnumOrigins,
+    )
+    from .time_off_balances import TimeOffBalancesListRequestPolicyType
+    from .timesheet_entries import TimesheetEntriesListRequestOrderBy
+_dynamic_imports: typing.Dict[str, str] = {
+    "AsyncPassthroughRetrieveResponse": ".async_passthrough",
+    "BankInfoListRequestAccountType": ".bank_info",
+    "BankInfoListRequestOrderBy": ".bank_info",
+    "EmployeePayrollRunsListRequestExpand": ".employee_payroll_runs",
+    "EmployeePayrollRunsRetrieveRequestExpand": ".employee_payroll_runs",
+    "EmployeesListRequestEmploymentStatus": ".employees",
+    "EmployeesListRequestExpand": ".employees",
+    "EmployeesListRequestRemoteFields": ".employees",
+    "EmployeesListRequestShowEnumOrigins": ".employees",
+    "EmployeesRetrieveRequestExpand": ".employees",
+    "EmployeesRetrieveRequestRemoteFields": ".employees",
+    "EmployeesRetrieveRequestShowEnumOrigins": ".employees",
+    "EmploymentsListRequestExpand": ".employments",
+    "EmploymentsListRequestOrderBy": ".employments",
+    "EmploymentsListRequestRemoteFields": ".employments",
+    "EmploymentsListRequestShowEnumOrigins": ".employments",
+    "EmploymentsRetrieveRequestExpand": ".employments",
+    "EmploymentsRetrieveRequestRemoteFields": ".employments",
+    "EmploymentsRetrieveRequestShowEnumOrigins": ".employments",
+    "EndUserDetailsRequestLanguage": ".link_token",
+    "IgnoreCommonModelRequestReason": ".employees",
+    "IssuesListRequestStatus": ".issues",
+    "LinkedAccountsListRequestCategory": ".linked_accounts",
+    "LocationsListRequestLocationType": ".locations",
+    "LocationsListRequestRemoteFields": ".locations",
+    "LocationsListRequestShowEnumOrigins": ".locations",
+    "LocationsRetrieveRequestRemoteFields": ".locations",
+    "LocationsRetrieveRequestShowEnumOrigins": ".locations",
+    "PayrollRunsListRequestRemoteFields": ".payroll_runs",
+    "PayrollRunsListRequestRunType": ".payroll_runs",
+    "PayrollRunsListRequestShowEnumOrigins": ".payroll_runs",
+    "PayrollRunsRetrieveRequestRemoteFields": ".payroll_runs",
+    "PayrollRunsRetrieveRequestShowEnumOrigins": ".payroll_runs",
+    "TimeOffBalancesListRequestPolicyType": ".time_off_balances",
+    "TimeOffListRequestExpand": ".time_off",
+    "TimeOffListRequestRemoteFields": ".time_off",
+    "TimeOffListRequestRequestType": ".time_off",
+    "TimeOffListRequestShowEnumOrigins": ".time_off",
+    "TimeOffListRequestStatus": ".time_off",
+    "TimeOffRetrieveRequestExpand": ".time_off",
+    "TimeOffRetrieveRequestRemoteFields": ".time_off",
+    "TimeOffRetrieveRequestShowEnumOrigins": ".time_off",
+    "TimesheetEntriesListRequestOrderBy": ".timesheet_entries",
+    "account_details": ".",
+    "account_token": ".",
+    "async_passthrough": ".",
+    "audit_trail": ".",
+    "available_actions": ".",
+    "bank_info": ".",
+    "benefits": ".",
+    "companies": ".",
+    "delete_account": ".",
+    "dependents": ".",
+    "employee_payroll_runs": ".",
+    "employees": ".",
+    "employer_benefits": ".",
+    "employments": ".",
+    "field_mapping": ".",
+    "force_resync": ".",
+    "generate_key": ".",
+    "groups": ".",
+    "issues": ".",
+    "link_token": ".",
+    "linked_accounts": ".",
+    "locations": ".",
+    "passthrough": ".",
+    "pay_groups": ".",
+    "payroll_runs": ".",
+    "regenerate_key": ".",
+    "scopes": ".",
+    "sync_status": ".",
+    "teams": ".",
+    "time_off": ".",
+    "time_off_balances": ".",
+    "timesheet_entries": ".",
+    "webhook_receivers": ".",
+}
+
+
+def __getattr__(attr_name: str) -> typing.Any:
+    module_name = _dynamic_imports.get(attr_name)
+    if module_name is None:
+        raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
+    try:
+        module = import_module(module_name, __package__)
+        result = getattr(module, attr_name)
+        return result
+    except ImportError as e:
+        raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
+    except AttributeError as e:
+        raise AttributeError(f"Failed to get {attr_name} from {module_name}: {e}") from e
+
+
+def __dir__():
+    lazy_attrs = list(_dynamic_imports.keys())
+    return sorted(lazy_attrs)
+
 
 __all__ = [
     "AsyncPassthroughRetrieveResponse",

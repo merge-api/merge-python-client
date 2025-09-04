@@ -2,205 +2,428 @@
 
 # isort: skip_file
 
-from .account_details import AccountDetails
-from .account_details_and_actions import AccountDetailsAndActions
-from .account_details_and_actions_category import AccountDetailsAndActionsCategory
-from .account_details_and_actions_integration import AccountDetailsAndActionsIntegration
-from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
-from .account_details_category import AccountDetailsCategory
-from .account_integration import AccountIntegration
-from .account_token import AccountToken
-from .account_type_enum import AccountTypeEnum
-from .advanced_metadata import AdvancedMetadata
-from .async_passthrough_reciept import AsyncPassthroughReciept
-from .audit_log_event import AuditLogEvent
-from .audit_log_event_event_type import AuditLogEventEventType
-from .audit_log_event_role import AuditLogEventRole
-from .available_actions import AvailableActions
-from .bank_info import BankInfo
-from .bank_info_account_type import BankInfoAccountType
-from .bank_info_employee import BankInfoEmployee
-from .benefit import Benefit
-from .benefit_employee import BenefitEmployee
-from .benefit_plan_type_enum import BenefitPlanTypeEnum
-from .categories_enum import CategoriesEnum
-from .category_enum import CategoryEnum
-from .common_model_scope_api import CommonModelScopeApi
-from .common_model_scopes_body_request import CommonModelScopesBodyRequest
-from .company import Company
-from .country_enum import CountryEnum
-from .data_passthrough_request import DataPassthroughRequest
-from .debug_mode_log import DebugModeLog
-from .debug_model_log_summary import DebugModelLogSummary
-from .deduction import Deduction
-from .dependent import Dependent
-from .dependent_gender import DependentGender
-from .dependent_relationship import DependentRelationship
-from .earning import Earning
-from .earning_type import EarningType
-from .earning_type_enum import EarningTypeEnum
-from .employee import Employee
-from .employee_company import EmployeeCompany
-from .employee_employment_status import EmployeeEmploymentStatus
-from .employee_employments_item import EmployeeEmploymentsItem
-from .employee_ethnicity import EmployeeEthnicity
-from .employee_gender import EmployeeGender
-from .employee_groups_item import EmployeeGroupsItem
-from .employee_home_location import EmployeeHomeLocation
-from .employee_manager import EmployeeManager
-from .employee_marital_status import EmployeeMaritalStatus
-from .employee_pay_group import EmployeePayGroup
-from .employee_payroll_run import EmployeePayrollRun
-from .employee_payroll_run_employee import EmployeePayrollRunEmployee
-from .employee_payroll_run_payroll_run import EmployeePayrollRunPayrollRun
-from .employee_request import EmployeeRequest
-from .employee_request_company import EmployeeRequestCompany
-from .employee_request_employment_status import EmployeeRequestEmploymentStatus
-from .employee_request_employments_item import EmployeeRequestEmploymentsItem
-from .employee_request_ethnicity import EmployeeRequestEthnicity
-from .employee_request_gender import EmployeeRequestGender
-from .employee_request_groups_item import EmployeeRequestGroupsItem
-from .employee_request_home_location import EmployeeRequestHomeLocation
-from .employee_request_manager import EmployeeRequestManager
-from .employee_request_marital_status import EmployeeRequestMaritalStatus
-from .employee_request_pay_group import EmployeeRequestPayGroup
-from .employee_request_team import EmployeeRequestTeam
-from .employee_request_work_location import EmployeeRequestWorkLocation
-from .employee_response import EmployeeResponse
-from .employee_team import EmployeeTeam
-from .employee_work_location import EmployeeWorkLocation
-from .employer_benefit import EmployerBenefit
-from .employer_benefit_benefit_plan_type import EmployerBenefitBenefitPlanType
-from .employment import Employment
-from .employment_employee import EmploymentEmployee
-from .employment_employment_type import EmploymentEmploymentType
-from .employment_flsa_status import EmploymentFlsaStatus
-from .employment_pay_currency import EmploymentPayCurrency
-from .employment_pay_frequency import EmploymentPayFrequency
-from .employment_pay_group import EmploymentPayGroup
-from .employment_pay_period import EmploymentPayPeriod
-from .employment_status_enum import EmploymentStatusEnum
-from .employment_type_enum import EmploymentTypeEnum
-from .enabled_actions_enum import EnabledActionsEnum
-from .encoding_enum import EncodingEnum
-from .error_validation_problem import ErrorValidationProblem
-from .ethnicity_enum import EthnicityEnum
-from .event_type_enum import EventTypeEnum
-from .external_target_field_api import ExternalTargetFieldApi
-from .external_target_field_api_response import ExternalTargetFieldApiResponse
-from .field_mapping_api_instance import FieldMappingApiInstance
-from .field_mapping_api_instance_remote_field import FieldMappingApiInstanceRemoteField
-from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
-    FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo,
-)
-from .field_mapping_api_instance_response import FieldMappingApiInstanceResponse
-from .field_mapping_api_instance_target_field import FieldMappingApiInstanceTargetField
-from .field_mapping_instance_response import FieldMappingInstanceResponse
-from .field_permission_deserializer import FieldPermissionDeserializer
-from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
-from .flsa_status_enum import FlsaStatusEnum
-from .gender_enum import GenderEnum
-from .group import Group
-from .group_type import GroupType
-from .group_type_enum import GroupTypeEnum
-from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
-from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
-from .issue import Issue
-from .issue_status import IssueStatus
-from .issue_status_enum import IssueStatusEnum
-from .language_enum import LanguageEnum
-from .last_sync_result_enum import LastSyncResultEnum
-from .link_token import LinkToken
-from .linked_account_status import LinkedAccountStatus
-from .location import Location
-from .location_country import LocationCountry
-from .location_location_type import LocationLocationType
-from .location_type_enum import LocationTypeEnum
-from .marital_status_enum import MaritalStatusEnum
-from .meta_response import MetaResponse
-from .method_enum import MethodEnum
-from .model_operation import ModelOperation
-from .model_permission_deserializer import ModelPermissionDeserializer
-from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
-from .multipart_form_field_request import MultipartFormFieldRequest
-from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
-from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
-from .paginated_audit_log_event_list import PaginatedAuditLogEventList
-from .paginated_bank_info_list import PaginatedBankInfoList
-from .paginated_benefit_list import PaginatedBenefitList
-from .paginated_company_list import PaginatedCompanyList
-from .paginated_dependent_list import PaginatedDependentList
-from .paginated_employee_list import PaginatedEmployeeList
-from .paginated_employee_payroll_run_list import PaginatedEmployeePayrollRunList
-from .paginated_employer_benefit_list import PaginatedEmployerBenefitList
-from .paginated_employment_list import PaginatedEmploymentList
-from .paginated_group_list import PaginatedGroupList
-from .paginated_issue_list import PaginatedIssueList
-from .paginated_location_list import PaginatedLocationList
-from .paginated_pay_group_list import PaginatedPayGroupList
-from .paginated_payroll_run_list import PaginatedPayrollRunList
-from .paginated_sync_status_list import PaginatedSyncStatusList
-from .paginated_team_list import PaginatedTeamList
-from .paginated_time_off_balance_list import PaginatedTimeOffBalanceList
-from .paginated_time_off_list import PaginatedTimeOffList
-from .paginated_timesheet_entry_list import PaginatedTimesheetEntryList
-from .pay_currency_enum import PayCurrencyEnum
-from .pay_frequency_enum import PayFrequencyEnum
-from .pay_group import PayGroup
-from .pay_period_enum import PayPeriodEnum
-from .payroll_run import PayrollRun
-from .payroll_run_run_state import PayrollRunRunState
-from .payroll_run_run_type import PayrollRunRunType
-from .policy_type_enum import PolicyTypeEnum
-from .reason_enum import ReasonEnum
-from .relationship_enum import RelationshipEnum
-from .remote_data import RemoteData
-from .remote_endpoint_info import RemoteEndpointInfo
-from .remote_field_api import RemoteFieldApi
-from .remote_field_api_coverage import RemoteFieldApiCoverage
-from .remote_field_api_response import RemoteFieldApiResponse
-from .remote_key import RemoteKey
-from .remote_response import RemoteResponse
-from .remote_response_response_type import RemoteResponseResponseType
-from .request_format_enum import RequestFormatEnum
-from .request_type_enum import RequestTypeEnum
-from .response_type_enum import ResponseTypeEnum
-from .role_enum import RoleEnum
-from .run_state_enum import RunStateEnum
-from .run_type_enum import RunTypeEnum
-from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
-from .status_fd_5_enum import StatusFd5Enum
-from .sync_status import SyncStatus
-from .sync_status_last_sync_result import SyncStatusLastSyncResult
-from .tax import Tax
-from .team import Team
-from .team_parent_team import TeamParentTeam
-from .time_off import TimeOff
-from .time_off_approver import TimeOffApprover
-from .time_off_balance import TimeOffBalance
-from .time_off_balance_employee import TimeOffBalanceEmployee
-from .time_off_balance_policy_type import TimeOffBalancePolicyType
-from .time_off_employee import TimeOffEmployee
-from .time_off_request import TimeOffRequest
-from .time_off_request_approver import TimeOffRequestApprover
-from .time_off_request_employee import TimeOffRequestEmployee
-from .time_off_request_request_type import TimeOffRequestRequestType
-from .time_off_request_status import TimeOffRequestStatus
-from .time_off_request_type import TimeOffRequestType
-from .time_off_request_units import TimeOffRequestUnits
-from .time_off_response import TimeOffResponse
-from .time_off_status import TimeOffStatus
-from .time_off_status_enum import TimeOffStatusEnum
-from .time_off_units import TimeOffUnits
-from .timesheet_entry import TimesheetEntry
-from .timesheet_entry_employee import TimesheetEntryEmployee
-from .timesheet_entry_request import TimesheetEntryRequest
-from .timesheet_entry_request_employee import TimesheetEntryRequestEmployee
-from .timesheet_entry_response import TimesheetEntryResponse
-from .units_enum import UnitsEnum
-from .validation_problem_source import ValidationProblemSource
-from .warning_validation_problem import WarningValidationProblem
-from .webhook_receiver import WebhookReceiver
+import typing
+from importlib import import_module
+
+if typing.TYPE_CHECKING:
+    from .account_details import AccountDetails
+    from .account_details_and_actions import AccountDetailsAndActions
+    from .account_details_and_actions_category import AccountDetailsAndActionsCategory
+    from .account_details_and_actions_integration import AccountDetailsAndActionsIntegration
+    from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
+    from .account_details_category import AccountDetailsCategory
+    from .account_integration import AccountIntegration
+    from .account_token import AccountToken
+    from .account_type_enum import AccountTypeEnum
+    from .advanced_metadata import AdvancedMetadata
+    from .async_passthrough_reciept import AsyncPassthroughReciept
+    from .audit_log_event import AuditLogEvent
+    from .audit_log_event_event_type import AuditLogEventEventType
+    from .audit_log_event_role import AuditLogEventRole
+    from .available_actions import AvailableActions
+    from .bank_info import BankInfo
+    from .bank_info_account_type import BankInfoAccountType
+    from .bank_info_employee import BankInfoEmployee
+    from .benefit import Benefit
+    from .benefit_employee import BenefitEmployee
+    from .benefit_plan_type_enum import BenefitPlanTypeEnum
+    from .categories_enum import CategoriesEnum
+    from .category_enum import CategoryEnum
+    from .common_model_scope_api import CommonModelScopeApi
+    from .common_model_scopes_body_request import CommonModelScopesBodyRequest
+    from .company import Company
+    from .country_enum import CountryEnum
+    from .data_passthrough_request import DataPassthroughRequest
+    from .debug_mode_log import DebugModeLog
+    from .debug_model_log_summary import DebugModelLogSummary
+    from .deduction import Deduction
+    from .dependent import Dependent
+    from .dependent_gender import DependentGender
+    from .dependent_relationship import DependentRelationship
+    from .earning import Earning
+    from .earning_type import EarningType
+    from .earning_type_enum import EarningTypeEnum
+    from .employee import Employee
+    from .employee_company import EmployeeCompany
+    from .employee_employment_status import EmployeeEmploymentStatus
+    from .employee_employments_item import EmployeeEmploymentsItem
+    from .employee_ethnicity import EmployeeEthnicity
+    from .employee_gender import EmployeeGender
+    from .employee_groups_item import EmployeeGroupsItem
+    from .employee_home_location import EmployeeHomeLocation
+    from .employee_manager import EmployeeManager
+    from .employee_marital_status import EmployeeMaritalStatus
+    from .employee_pay_group import EmployeePayGroup
+    from .employee_payroll_run import EmployeePayrollRun
+    from .employee_payroll_run_employee import EmployeePayrollRunEmployee
+    from .employee_payroll_run_payroll_run import EmployeePayrollRunPayrollRun
+    from .employee_request import EmployeeRequest
+    from .employee_request_company import EmployeeRequestCompany
+    from .employee_request_employment_status import EmployeeRequestEmploymentStatus
+    from .employee_request_employments_item import EmployeeRequestEmploymentsItem
+    from .employee_request_ethnicity import EmployeeRequestEthnicity
+    from .employee_request_gender import EmployeeRequestGender
+    from .employee_request_groups_item import EmployeeRequestGroupsItem
+    from .employee_request_home_location import EmployeeRequestHomeLocation
+    from .employee_request_manager import EmployeeRequestManager
+    from .employee_request_marital_status import EmployeeRequestMaritalStatus
+    from .employee_request_pay_group import EmployeeRequestPayGroup
+    from .employee_request_team import EmployeeRequestTeam
+    from .employee_request_work_location import EmployeeRequestWorkLocation
+    from .employee_response import EmployeeResponse
+    from .employee_team import EmployeeTeam
+    from .employee_work_location import EmployeeWorkLocation
+    from .employer_benefit import EmployerBenefit
+    from .employer_benefit_benefit_plan_type import EmployerBenefitBenefitPlanType
+    from .employment import Employment
+    from .employment_employee import EmploymentEmployee
+    from .employment_employment_type import EmploymentEmploymentType
+    from .employment_flsa_status import EmploymentFlsaStatus
+    from .employment_pay_currency import EmploymentPayCurrency
+    from .employment_pay_frequency import EmploymentPayFrequency
+    from .employment_pay_group import EmploymentPayGroup
+    from .employment_pay_period import EmploymentPayPeriod
+    from .employment_status_enum import EmploymentStatusEnum
+    from .employment_type_enum import EmploymentTypeEnum
+    from .enabled_actions_enum import EnabledActionsEnum
+    from .encoding_enum import EncodingEnum
+    from .error_validation_problem import ErrorValidationProblem
+    from .ethnicity_enum import EthnicityEnum
+    from .event_type_enum import EventTypeEnum
+    from .external_target_field_api import ExternalTargetFieldApi
+    from .external_target_field_api_response import ExternalTargetFieldApiResponse
+    from .field_mapping_api_instance import FieldMappingApiInstance
+    from .field_mapping_api_instance_remote_field import FieldMappingApiInstanceRemoteField
+    from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
+        FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo,
+    )
+    from .field_mapping_api_instance_response import FieldMappingApiInstanceResponse
+    from .field_mapping_api_instance_target_field import FieldMappingApiInstanceTargetField
+    from .field_mapping_instance_response import FieldMappingInstanceResponse
+    from .field_permission_deserializer import FieldPermissionDeserializer
+    from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
+    from .flsa_status_enum import FlsaStatusEnum
+    from .gender_enum import GenderEnum
+    from .group import Group
+    from .group_type import GroupType
+    from .group_type_enum import GroupTypeEnum
+    from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
+    from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
+    from .issue import Issue
+    from .issue_status import IssueStatus
+    from .issue_status_enum import IssueStatusEnum
+    from .language_enum import LanguageEnum
+    from .last_sync_result_enum import LastSyncResultEnum
+    from .link_token import LinkToken
+    from .linked_account_status import LinkedAccountStatus
+    from .location import Location
+    from .location_country import LocationCountry
+    from .location_location_type import LocationLocationType
+    from .location_type_enum import LocationTypeEnum
+    from .marital_status_enum import MaritalStatusEnum
+    from .meta_response import MetaResponse
+    from .method_enum import MethodEnum
+    from .model_operation import ModelOperation
+    from .model_permission_deserializer import ModelPermissionDeserializer
+    from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
+    from .multipart_form_field_request import MultipartFormFieldRequest
+    from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
+    from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
+    from .paginated_audit_log_event_list import PaginatedAuditLogEventList
+    from .paginated_bank_info_list import PaginatedBankInfoList
+    from .paginated_benefit_list import PaginatedBenefitList
+    from .paginated_company_list import PaginatedCompanyList
+    from .paginated_dependent_list import PaginatedDependentList
+    from .paginated_employee_list import PaginatedEmployeeList
+    from .paginated_employee_payroll_run_list import PaginatedEmployeePayrollRunList
+    from .paginated_employer_benefit_list import PaginatedEmployerBenefitList
+    from .paginated_employment_list import PaginatedEmploymentList
+    from .paginated_group_list import PaginatedGroupList
+    from .paginated_issue_list import PaginatedIssueList
+    from .paginated_location_list import PaginatedLocationList
+    from .paginated_pay_group_list import PaginatedPayGroupList
+    from .paginated_payroll_run_list import PaginatedPayrollRunList
+    from .paginated_sync_status_list import PaginatedSyncStatusList
+    from .paginated_team_list import PaginatedTeamList
+    from .paginated_time_off_balance_list import PaginatedTimeOffBalanceList
+    from .paginated_time_off_list import PaginatedTimeOffList
+    from .paginated_timesheet_entry_list import PaginatedTimesheetEntryList
+    from .pay_currency_enum import PayCurrencyEnum
+    from .pay_frequency_enum import PayFrequencyEnum
+    from .pay_group import PayGroup
+    from .pay_period_enum import PayPeriodEnum
+    from .payroll_run import PayrollRun
+    from .payroll_run_run_state import PayrollRunRunState
+    from .payroll_run_run_type import PayrollRunRunType
+    from .policy_type_enum import PolicyTypeEnum
+    from .reason_enum import ReasonEnum
+    from .relationship_enum import RelationshipEnum
+    from .remote_data import RemoteData
+    from .remote_endpoint_info import RemoteEndpointInfo
+    from .remote_field_api import RemoteFieldApi
+    from .remote_field_api_coverage import RemoteFieldApiCoverage
+    from .remote_field_api_response import RemoteFieldApiResponse
+    from .remote_key import RemoteKey
+    from .remote_response import RemoteResponse
+    from .remote_response_response_type import RemoteResponseResponseType
+    from .request_format_enum import RequestFormatEnum
+    from .request_type_enum import RequestTypeEnum
+    from .response_type_enum import ResponseTypeEnum
+    from .role_enum import RoleEnum
+    from .run_state_enum import RunStateEnum
+    from .run_type_enum import RunTypeEnum
+    from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
+    from .status_fd_5_enum import StatusFd5Enum
+    from .sync_status import SyncStatus
+    from .sync_status_last_sync_result import SyncStatusLastSyncResult
+    from .tax import Tax
+    from .team import Team
+    from .team_parent_team import TeamParentTeam
+    from .time_off import TimeOff
+    from .time_off_approver import TimeOffApprover
+    from .time_off_balance import TimeOffBalance
+    from .time_off_balance_employee import TimeOffBalanceEmployee
+    from .time_off_balance_policy_type import TimeOffBalancePolicyType
+    from .time_off_employee import TimeOffEmployee
+    from .time_off_request import TimeOffRequest
+    from .time_off_request_approver import TimeOffRequestApprover
+    from .time_off_request_employee import TimeOffRequestEmployee
+    from .time_off_request_request_type import TimeOffRequestRequestType
+    from .time_off_request_status import TimeOffRequestStatus
+    from .time_off_request_type import TimeOffRequestType
+    from .time_off_request_units import TimeOffRequestUnits
+    from .time_off_response import TimeOffResponse
+    from .time_off_status import TimeOffStatus
+    from .time_off_status_enum import TimeOffStatusEnum
+    from .time_off_units import TimeOffUnits
+    from .timesheet_entry import TimesheetEntry
+    from .timesheet_entry_employee import TimesheetEntryEmployee
+    from .timesheet_entry_request import TimesheetEntryRequest
+    from .timesheet_entry_request_employee import TimesheetEntryRequestEmployee
+    from .timesheet_entry_response import TimesheetEntryResponse
+    from .units_enum import UnitsEnum
+    from .validation_problem_source import ValidationProblemSource
+    from .warning_validation_problem import WarningValidationProblem
+    from .webhook_receiver import WebhookReceiver
+_dynamic_imports: typing.Dict[str, str] = {
+    "AccountDetails": ".account_details",
+    "AccountDetailsAndActions": ".account_details_and_actions",
+    "AccountDetailsAndActionsCategory": ".account_details_and_actions_category",
+    "AccountDetailsAndActionsIntegration": ".account_details_and_actions_integration",
+    "AccountDetailsAndActionsStatusEnum": ".account_details_and_actions_status_enum",
+    "AccountDetailsCategory": ".account_details_category",
+    "AccountIntegration": ".account_integration",
+    "AccountToken": ".account_token",
+    "AccountTypeEnum": ".account_type_enum",
+    "AdvancedMetadata": ".advanced_metadata",
+    "AsyncPassthroughReciept": ".async_passthrough_reciept",
+    "AuditLogEvent": ".audit_log_event",
+    "AuditLogEventEventType": ".audit_log_event_event_type",
+    "AuditLogEventRole": ".audit_log_event_role",
+    "AvailableActions": ".available_actions",
+    "BankInfo": ".bank_info",
+    "BankInfoAccountType": ".bank_info_account_type",
+    "BankInfoEmployee": ".bank_info_employee",
+    "Benefit": ".benefit",
+    "BenefitEmployee": ".benefit_employee",
+    "BenefitPlanTypeEnum": ".benefit_plan_type_enum",
+    "CategoriesEnum": ".categories_enum",
+    "CategoryEnum": ".category_enum",
+    "CommonModelScopeApi": ".common_model_scope_api",
+    "CommonModelScopesBodyRequest": ".common_model_scopes_body_request",
+    "Company": ".company",
+    "CountryEnum": ".country_enum",
+    "DataPassthroughRequest": ".data_passthrough_request",
+    "DebugModeLog": ".debug_mode_log",
+    "DebugModelLogSummary": ".debug_model_log_summary",
+    "Deduction": ".deduction",
+    "Dependent": ".dependent",
+    "DependentGender": ".dependent_gender",
+    "DependentRelationship": ".dependent_relationship",
+    "Earning": ".earning",
+    "EarningType": ".earning_type",
+    "EarningTypeEnum": ".earning_type_enum",
+    "Employee": ".employee",
+    "EmployeeCompany": ".employee_company",
+    "EmployeeEmploymentStatus": ".employee_employment_status",
+    "EmployeeEmploymentsItem": ".employee_employments_item",
+    "EmployeeEthnicity": ".employee_ethnicity",
+    "EmployeeGender": ".employee_gender",
+    "EmployeeGroupsItem": ".employee_groups_item",
+    "EmployeeHomeLocation": ".employee_home_location",
+    "EmployeeManager": ".employee_manager",
+    "EmployeeMaritalStatus": ".employee_marital_status",
+    "EmployeePayGroup": ".employee_pay_group",
+    "EmployeePayrollRun": ".employee_payroll_run",
+    "EmployeePayrollRunEmployee": ".employee_payroll_run_employee",
+    "EmployeePayrollRunPayrollRun": ".employee_payroll_run_payroll_run",
+    "EmployeeRequest": ".employee_request",
+    "EmployeeRequestCompany": ".employee_request_company",
+    "EmployeeRequestEmploymentStatus": ".employee_request_employment_status",
+    "EmployeeRequestEmploymentsItem": ".employee_request_employments_item",
+    "EmployeeRequestEthnicity": ".employee_request_ethnicity",
+    "EmployeeRequestGender": ".employee_request_gender",
+    "EmployeeRequestGroupsItem": ".employee_request_groups_item",
+    "EmployeeRequestHomeLocation": ".employee_request_home_location",
+    "EmployeeRequestManager": ".employee_request_manager",
+    "EmployeeRequestMaritalStatus": ".employee_request_marital_status",
+    "EmployeeRequestPayGroup": ".employee_request_pay_group",
+    "EmployeeRequestTeam": ".employee_request_team",
+    "EmployeeRequestWorkLocation": ".employee_request_work_location",
+    "EmployeeResponse": ".employee_response",
+    "EmployeeTeam": ".employee_team",
+    "EmployeeWorkLocation": ".employee_work_location",
+    "EmployerBenefit": ".employer_benefit",
+    "EmployerBenefitBenefitPlanType": ".employer_benefit_benefit_plan_type",
+    "Employment": ".employment",
+    "EmploymentEmployee": ".employment_employee",
+    "EmploymentEmploymentType": ".employment_employment_type",
+    "EmploymentFlsaStatus": ".employment_flsa_status",
+    "EmploymentPayCurrency": ".employment_pay_currency",
+    "EmploymentPayFrequency": ".employment_pay_frequency",
+    "EmploymentPayGroup": ".employment_pay_group",
+    "EmploymentPayPeriod": ".employment_pay_period",
+    "EmploymentStatusEnum": ".employment_status_enum",
+    "EmploymentTypeEnum": ".employment_type_enum",
+    "EnabledActionsEnum": ".enabled_actions_enum",
+    "EncodingEnum": ".encoding_enum",
+    "ErrorValidationProblem": ".error_validation_problem",
+    "EthnicityEnum": ".ethnicity_enum",
+    "EventTypeEnum": ".event_type_enum",
+    "ExternalTargetFieldApi": ".external_target_field_api",
+    "ExternalTargetFieldApiResponse": ".external_target_field_api_response",
+    "FieldMappingApiInstance": ".field_mapping_api_instance",
+    "FieldMappingApiInstanceRemoteField": ".field_mapping_api_instance_remote_field",
+    "FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo": ".field_mapping_api_instance_remote_field_remote_endpoint_info",
+    "FieldMappingApiInstanceResponse": ".field_mapping_api_instance_response",
+    "FieldMappingApiInstanceTargetField": ".field_mapping_api_instance_target_field",
+    "FieldMappingInstanceResponse": ".field_mapping_instance_response",
+    "FieldPermissionDeserializer": ".field_permission_deserializer",
+    "FieldPermissionDeserializerRequest": ".field_permission_deserializer_request",
+    "FlsaStatusEnum": ".flsa_status_enum",
+    "GenderEnum": ".gender_enum",
+    "Group": ".group",
+    "GroupType": ".group_type",
+    "GroupTypeEnum": ".group_type_enum",
+    "IndividualCommonModelScopeDeserializer": ".individual_common_model_scope_deserializer",
+    "IndividualCommonModelScopeDeserializerRequest": ".individual_common_model_scope_deserializer_request",
+    "Issue": ".issue",
+    "IssueStatus": ".issue_status",
+    "IssueStatusEnum": ".issue_status_enum",
+    "LanguageEnum": ".language_enum",
+    "LastSyncResultEnum": ".last_sync_result_enum",
+    "LinkToken": ".link_token",
+    "LinkedAccountStatus": ".linked_account_status",
+    "Location": ".location",
+    "LocationCountry": ".location_country",
+    "LocationLocationType": ".location_location_type",
+    "LocationTypeEnum": ".location_type_enum",
+    "MaritalStatusEnum": ".marital_status_enum",
+    "MetaResponse": ".meta_response",
+    "MethodEnum": ".method_enum",
+    "ModelOperation": ".model_operation",
+    "ModelPermissionDeserializer": ".model_permission_deserializer",
+    "ModelPermissionDeserializerRequest": ".model_permission_deserializer_request",
+    "MultipartFormFieldRequest": ".multipart_form_field_request",
+    "MultipartFormFieldRequestEncoding": ".multipart_form_field_request_encoding",
+    "PaginatedAccountDetailsAndActionsList": ".paginated_account_details_and_actions_list",
+    "PaginatedAuditLogEventList": ".paginated_audit_log_event_list",
+    "PaginatedBankInfoList": ".paginated_bank_info_list",
+    "PaginatedBenefitList": ".paginated_benefit_list",
+    "PaginatedCompanyList": ".paginated_company_list",
+    "PaginatedDependentList": ".paginated_dependent_list",
+    "PaginatedEmployeeList": ".paginated_employee_list",
+    "PaginatedEmployeePayrollRunList": ".paginated_employee_payroll_run_list",
+    "PaginatedEmployerBenefitList": ".paginated_employer_benefit_list",
+    "PaginatedEmploymentList": ".paginated_employment_list",
+    "PaginatedGroupList": ".paginated_group_list",
+    "PaginatedIssueList": ".paginated_issue_list",
+    "PaginatedLocationList": ".paginated_location_list",
+    "PaginatedPayGroupList": ".paginated_pay_group_list",
+    "PaginatedPayrollRunList": ".paginated_payroll_run_list",
+    "PaginatedSyncStatusList": ".paginated_sync_status_list",
+    "PaginatedTeamList": ".paginated_team_list",
+    "PaginatedTimeOffBalanceList": ".paginated_time_off_balance_list",
+    "PaginatedTimeOffList": ".paginated_time_off_list",
+    "PaginatedTimesheetEntryList": ".paginated_timesheet_entry_list",
+    "PayCurrencyEnum": ".pay_currency_enum",
+    "PayFrequencyEnum": ".pay_frequency_enum",
+    "PayGroup": ".pay_group",
+    "PayPeriodEnum": ".pay_period_enum",
+    "PayrollRun": ".payroll_run",
+    "PayrollRunRunState": ".payroll_run_run_state",
+    "PayrollRunRunType": ".payroll_run_run_type",
+    "PolicyTypeEnum": ".policy_type_enum",
+    "ReasonEnum": ".reason_enum",
+    "RelationshipEnum": ".relationship_enum",
+    "RemoteData": ".remote_data",
+    "RemoteEndpointInfo": ".remote_endpoint_info",
+    "RemoteFieldApi": ".remote_field_api",
+    "RemoteFieldApiCoverage": ".remote_field_api_coverage",
+    "RemoteFieldApiResponse": ".remote_field_api_response",
+    "RemoteKey": ".remote_key",
+    "RemoteResponse": ".remote_response",
+    "RemoteResponseResponseType": ".remote_response_response_type",
+    "RequestFormatEnum": ".request_format_enum",
+    "RequestTypeEnum": ".request_type_enum",
+    "ResponseTypeEnum": ".response_type_enum",
+    "RoleEnum": ".role_enum",
+    "RunStateEnum": ".run_state_enum",
+    "RunTypeEnum": ".run_type_enum",
+    "SelectiveSyncConfigurationsUsageEnum": ".selective_sync_configurations_usage_enum",
+    "StatusFd5Enum": ".status_fd_5_enum",
+    "SyncStatus": ".sync_status",
+    "SyncStatusLastSyncResult": ".sync_status_last_sync_result",
+    "Tax": ".tax",
+    "Team": ".team",
+    "TeamParentTeam": ".team_parent_team",
+    "TimeOff": ".time_off",
+    "TimeOffApprover": ".time_off_approver",
+    "TimeOffBalance": ".time_off_balance",
+    "TimeOffBalanceEmployee": ".time_off_balance_employee",
+    "TimeOffBalancePolicyType": ".time_off_balance_policy_type",
+    "TimeOffEmployee": ".time_off_employee",
+    "TimeOffRequest": ".time_off_request",
+    "TimeOffRequestApprover": ".time_off_request_approver",
+    "TimeOffRequestEmployee": ".time_off_request_employee",
+    "TimeOffRequestRequestType": ".time_off_request_request_type",
+    "TimeOffRequestStatus": ".time_off_request_status",
+    "TimeOffRequestType": ".time_off_request_type",
+    "TimeOffRequestUnits": ".time_off_request_units",
+    "TimeOffResponse": ".time_off_response",
+    "TimeOffStatus": ".time_off_status",
+    "TimeOffStatusEnum": ".time_off_status_enum",
+    "TimeOffUnits": ".time_off_units",
+    "TimesheetEntry": ".timesheet_entry",
+    "TimesheetEntryEmployee": ".timesheet_entry_employee",
+    "TimesheetEntryRequest": ".timesheet_entry_request",
+    "TimesheetEntryRequestEmployee": ".timesheet_entry_request_employee",
+    "TimesheetEntryResponse": ".timesheet_entry_response",
+    "UnitsEnum": ".units_enum",
+    "ValidationProblemSource": ".validation_problem_source",
+    "WarningValidationProblem": ".warning_validation_problem",
+    "WebhookReceiver": ".webhook_receiver",
+}
+
+
+def __getattr__(attr_name: str) -> typing.Any:
+    module_name = _dynamic_imports.get(attr_name)
+    if module_name is None:
+        raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
+    try:
+        module = import_module(module_name, __package__)
+        result = getattr(module, attr_name)
+        return result
+    except ImportError as e:
+        raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
+    except AttributeError as e:
+        raise AttributeError(f"Failed to get {attr_name} from {module_name}: {e}") from e
+
+
+def __dir__():
+    lazy_attrs = list(_dynamic_imports.keys())
+    return sorted(lazy_attrs)
+
 
 __all__ = [
     "AccountDetails",

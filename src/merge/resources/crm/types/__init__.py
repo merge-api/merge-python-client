@@ -2,230 +2,476 @@
 
 # isort: skip_file
 
-from .account import Account
-from .account_details import AccountDetails
-from .account_details_and_actions import AccountDetailsAndActions
-from .account_details_and_actions_category import AccountDetailsAndActionsCategory
-from .account_details_and_actions_integration import AccountDetailsAndActionsIntegration
-from .account_details_and_actions_status import AccountDetailsAndActionsStatus
-from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
-from .account_details_category import AccountDetailsCategory
-from .account_integration import AccountIntegration
-from .account_owner import AccountOwner
-from .account_request import AccountRequest
-from .account_request_owner import AccountRequestOwner
-from .account_token import AccountToken
-from .activity_type_enum import ActivityTypeEnum
-from .address import Address
-from .address_address_type import AddressAddressType
-from .address_country import AddressCountry
-from .address_request import AddressRequest
-from .address_request_address_type import AddressRequestAddressType
-from .address_request_country import AddressRequestCountry
-from .address_type_enum import AddressTypeEnum
-from .advanced_metadata import AdvancedMetadata
-from .association import Association
-from .association_association_type import AssociationAssociationType
-from .association_sub_type import AssociationSubType
-from .association_type import AssociationType
-from .association_type_cardinality import AssociationTypeCardinality
-from .association_type_request_request import AssociationTypeRequestRequest
-from .async_passthrough_reciept import AsyncPassthroughReciept
-from .audit_log_event import AuditLogEvent
-from .audit_log_event_event_type import AuditLogEventEventType
-from .audit_log_event_role import AuditLogEventRole
-from .available_actions import AvailableActions
-from .cardinality_enum import CardinalityEnum
-from .categories_enum import CategoriesEnum
-from .category_enum import CategoryEnum
-from .common_model_scope_api import CommonModelScopeApi
-from .common_model_scopes_body_request import CommonModelScopesBodyRequest
-from .contact import Contact
-from .contact_account import ContactAccount
-from .contact_owner import ContactOwner
-from .contact_request import ContactRequest
-from .contact_request_account import ContactRequestAccount
-from .contact_request_owner import ContactRequestOwner
-from .country_enum import CountryEnum
-from .crm_account_response import CrmAccountResponse
-from .crm_association_type_response import CrmAssociationTypeResponse
-from .crm_contact_response import CrmContactResponse
-from .crm_custom_object_response import CrmCustomObjectResponse
-from .custom_object import CustomObject
-from .custom_object_class import CustomObjectClass
-from .custom_object_request import CustomObjectRequest
-from .data_passthrough_request import DataPassthroughRequest
-from .debug_mode_log import DebugModeLog
-from .debug_model_log_summary import DebugModelLogSummary
-from .direction_enum import DirectionEnum
-from .email_address import EmailAddress
-from .email_address_request import EmailAddressRequest
-from .enabled_actions_enum import EnabledActionsEnum
-from .encoding_enum import EncodingEnum
-from .engagement import Engagement
-from .engagement_account import EngagementAccount
-from .engagement_contacts_item import EngagementContactsItem
-from .engagement_direction import EngagementDirection
-from .engagement_engagement_type import EngagementEngagementType
-from .engagement_owner import EngagementOwner
-from .engagement_request import EngagementRequest
-from .engagement_request_account import EngagementRequestAccount
-from .engagement_request_contacts_item import EngagementRequestContactsItem
-from .engagement_request_direction import EngagementRequestDirection
-from .engagement_request_engagement_type import EngagementRequestEngagementType
-from .engagement_request_owner import EngagementRequestOwner
-from .engagement_response import EngagementResponse
-from .engagement_type import EngagementType
-from .engagement_type_activity_type import EngagementTypeActivityType
-from .error_validation_problem import ErrorValidationProblem
-from .event_type_enum import EventTypeEnum
-from .external_target_field_api import ExternalTargetFieldApi
-from .external_target_field_api_response import ExternalTargetFieldApiResponse
-from .field_format_enum import FieldFormatEnum
-from .field_mapping_api_instance import FieldMappingApiInstance
-from .field_mapping_api_instance_remote_field import FieldMappingApiInstanceRemoteField
-from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
-    FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo,
-)
-from .field_mapping_api_instance_response import FieldMappingApiInstanceResponse
-from .field_mapping_api_instance_target_field import FieldMappingApiInstanceTargetField
-from .field_mapping_instance_response import FieldMappingInstanceResponse
-from .field_permission_deserializer import FieldPermissionDeserializer
-from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
-from .field_type_enum import FieldTypeEnum
-from .ignore_common_model_request import IgnoreCommonModelRequest
-from .ignore_common_model_request_reason import IgnoreCommonModelRequestReason
-from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
-from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
-from .issue import Issue
-from .issue_status import IssueStatus
-from .issue_status_enum import IssueStatusEnum
-from .item_format_enum import ItemFormatEnum
-from .item_schema import ItemSchema
-from .item_type_enum import ItemTypeEnum
-from .language_enum import LanguageEnum
-from .last_sync_result_enum import LastSyncResultEnum
-from .lead import Lead
-from .lead_converted_account import LeadConvertedAccount
-from .lead_converted_contact import LeadConvertedContact
-from .lead_owner import LeadOwner
-from .lead_request import LeadRequest
-from .lead_request_converted_account import LeadRequestConvertedAccount
-from .lead_request_converted_contact import LeadRequestConvertedContact
-from .lead_request_owner import LeadRequestOwner
-from .lead_response import LeadResponse
-from .link_token import LinkToken
-from .linked_account_status import LinkedAccountStatus
-from .meta_response import MetaResponse
-from .method_enum import MethodEnum
-from .model_operation import ModelOperation
-from .model_permission_deserializer import ModelPermissionDeserializer
-from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
-from .multipart_form_field_request import MultipartFormFieldRequest
-from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
-from .note import Note
-from .note_account import NoteAccount
-from .note_contact import NoteContact
-from .note_opportunity import NoteOpportunity
-from .note_owner import NoteOwner
-from .note_request import NoteRequest
-from .note_request_account import NoteRequestAccount
-from .note_request_contact import NoteRequestContact
-from .note_request_opportunity import NoteRequestOpportunity
-from .note_request_owner import NoteRequestOwner
-from .note_response import NoteResponse
-from .object_class_description_request import ObjectClassDescriptionRequest
-from .opportunity import Opportunity
-from .opportunity_account import OpportunityAccount
-from .opportunity_owner import OpportunityOwner
-from .opportunity_request import OpportunityRequest
-from .opportunity_request_account import OpportunityRequestAccount
-from .opportunity_request_owner import OpportunityRequestOwner
-from .opportunity_request_stage import OpportunityRequestStage
-from .opportunity_request_status import OpportunityRequestStatus
-from .opportunity_response import OpportunityResponse
-from .opportunity_stage import OpportunityStage
-from .opportunity_status import OpportunityStatus
-from .opportunity_status_enum import OpportunityStatusEnum
-from .origin_type_enum import OriginTypeEnum
-from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
-from .paginated_account_list import PaginatedAccountList
-from .paginated_association_list import PaginatedAssociationList
-from .paginated_association_type_list import PaginatedAssociationTypeList
-from .paginated_audit_log_event_list import PaginatedAuditLogEventList
-from .paginated_contact_list import PaginatedContactList
-from .paginated_custom_object_class_list import PaginatedCustomObjectClassList
-from .paginated_custom_object_list import PaginatedCustomObjectList
-from .paginated_engagement_list import PaginatedEngagementList
-from .paginated_engagement_type_list import PaginatedEngagementTypeList
-from .paginated_issue_list import PaginatedIssueList
-from .paginated_lead_list import PaginatedLeadList
-from .paginated_note_list import PaginatedNoteList
-from .paginated_opportunity_list import PaginatedOpportunityList
-from .paginated_remote_field_class_list import PaginatedRemoteFieldClassList
-from .paginated_stage_list import PaginatedStageList
-from .paginated_sync_status_list import PaginatedSyncStatusList
-from .paginated_task_list import PaginatedTaskList
-from .paginated_user_list import PaginatedUserList
-from .patched_account_request import PatchedAccountRequest
-from .patched_contact_request import PatchedContactRequest
-from .patched_contact_request_owner import PatchedContactRequestOwner
-from .patched_engagement_request import PatchedEngagementRequest
-from .patched_engagement_request_direction import PatchedEngagementRequestDirection
-from .patched_opportunity_request import PatchedOpportunityRequest
-from .patched_opportunity_request_status import PatchedOpportunityRequestStatus
-from .patched_task_request import PatchedTaskRequest
-from .patched_task_request_status import PatchedTaskRequestStatus
-from .phone_number import PhoneNumber
-from .phone_number_request import PhoneNumberRequest
-from .reason_enum import ReasonEnum
-from .remote_data import RemoteData
-from .remote_endpoint_info import RemoteEndpointInfo
-from .remote_field import RemoteField
-from .remote_field_api import RemoteFieldApi
-from .remote_field_api_coverage import RemoteFieldApiCoverage
-from .remote_field_api_response import RemoteFieldApiResponse
-from .remote_field_class import RemoteFieldClass
-from .remote_field_class_field_choices_item import RemoteFieldClassFieldChoicesItem
-from .remote_field_class_field_format import RemoteFieldClassFieldFormat
-from .remote_field_class_field_type import RemoteFieldClassFieldType
-from .remote_field_class_for_custom_object_class import RemoteFieldClassForCustomObjectClass
-from .remote_field_class_for_custom_object_class_field_choices_item import (
-    RemoteFieldClassForCustomObjectClassFieldChoicesItem,
-)
-from .remote_field_class_for_custom_object_class_field_format import RemoteFieldClassForCustomObjectClassFieldFormat
-from .remote_field_class_for_custom_object_class_field_type import RemoteFieldClassForCustomObjectClassFieldType
-from .remote_field_class_for_custom_object_class_item_schema import RemoteFieldClassForCustomObjectClassItemSchema
-from .remote_field_remote_field_class import RemoteFieldRemoteFieldClass
-from .remote_field_request import RemoteFieldRequest
-from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
-from .remote_key import RemoteKey
-from .remote_response import RemoteResponse
-from .request_format_enum import RequestFormatEnum
-from .response_type_enum import ResponseTypeEnum
-from .role_enum import RoleEnum
-from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
-from .stage import Stage
-from .status_fd_5_enum import StatusFd5Enum
-from .sync_status import SyncStatus
-from .sync_status_last_sync_result import SyncStatusLastSyncResult
-from .sync_status_status import SyncStatusStatus
-from .task import Task
-from .task_account import TaskAccount
-from .task_opportunity import TaskOpportunity
-from .task_owner import TaskOwner
-from .task_request import TaskRequest
-from .task_request_account import TaskRequestAccount
-from .task_request_opportunity import TaskRequestOpportunity
-from .task_request_owner import TaskRequestOwner
-from .task_request_status import TaskRequestStatus
-from .task_response import TaskResponse
-from .task_status import TaskStatus
-from .task_status_enum import TaskStatusEnum
-from .user import User
-from .validation_problem_source import ValidationProblemSource
-from .warning_validation_problem import WarningValidationProblem
-from .webhook_receiver import WebhookReceiver
+import typing
+from importlib import import_module
+
+if typing.TYPE_CHECKING:
+    from .account import Account
+    from .account_details import AccountDetails
+    from .account_details_and_actions import AccountDetailsAndActions
+    from .account_details_and_actions_category import AccountDetailsAndActionsCategory
+    from .account_details_and_actions_integration import AccountDetailsAndActionsIntegration
+    from .account_details_and_actions_status import AccountDetailsAndActionsStatus
+    from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
+    from .account_details_category import AccountDetailsCategory
+    from .account_integration import AccountIntegration
+    from .account_owner import AccountOwner
+    from .account_request import AccountRequest
+    from .account_request_owner import AccountRequestOwner
+    from .account_token import AccountToken
+    from .activity_type_enum import ActivityTypeEnum
+    from .address import Address
+    from .address_address_type import AddressAddressType
+    from .address_country import AddressCountry
+    from .address_request import AddressRequest
+    from .address_request_address_type import AddressRequestAddressType
+    from .address_request_country import AddressRequestCountry
+    from .address_type_enum import AddressTypeEnum
+    from .advanced_metadata import AdvancedMetadata
+    from .association import Association
+    from .association_association_type import AssociationAssociationType
+    from .association_sub_type import AssociationSubType
+    from .association_type import AssociationType
+    from .association_type_cardinality import AssociationTypeCardinality
+    from .association_type_request_request import AssociationTypeRequestRequest
+    from .async_passthrough_reciept import AsyncPassthroughReciept
+    from .audit_log_event import AuditLogEvent
+    from .audit_log_event_event_type import AuditLogEventEventType
+    from .audit_log_event_role import AuditLogEventRole
+    from .available_actions import AvailableActions
+    from .cardinality_enum import CardinalityEnum
+    from .categories_enum import CategoriesEnum
+    from .category_enum import CategoryEnum
+    from .common_model_scope_api import CommonModelScopeApi
+    from .common_model_scopes_body_request import CommonModelScopesBodyRequest
+    from .contact import Contact
+    from .contact_account import ContactAccount
+    from .contact_owner import ContactOwner
+    from .contact_request import ContactRequest
+    from .contact_request_account import ContactRequestAccount
+    from .contact_request_owner import ContactRequestOwner
+    from .country_enum import CountryEnum
+    from .crm_account_response import CrmAccountResponse
+    from .crm_association_type_response import CrmAssociationTypeResponse
+    from .crm_contact_response import CrmContactResponse
+    from .crm_custom_object_response import CrmCustomObjectResponse
+    from .custom_object import CustomObject
+    from .custom_object_class import CustomObjectClass
+    from .custom_object_request import CustomObjectRequest
+    from .data_passthrough_request import DataPassthroughRequest
+    from .debug_mode_log import DebugModeLog
+    from .debug_model_log_summary import DebugModelLogSummary
+    from .direction_enum import DirectionEnum
+    from .email_address import EmailAddress
+    from .email_address_request import EmailAddressRequest
+    from .enabled_actions_enum import EnabledActionsEnum
+    from .encoding_enum import EncodingEnum
+    from .engagement import Engagement
+    from .engagement_account import EngagementAccount
+    from .engagement_contacts_item import EngagementContactsItem
+    from .engagement_direction import EngagementDirection
+    from .engagement_engagement_type import EngagementEngagementType
+    from .engagement_owner import EngagementOwner
+    from .engagement_request import EngagementRequest
+    from .engagement_request_account import EngagementRequestAccount
+    from .engagement_request_contacts_item import EngagementRequestContactsItem
+    from .engagement_request_direction import EngagementRequestDirection
+    from .engagement_request_engagement_type import EngagementRequestEngagementType
+    from .engagement_request_owner import EngagementRequestOwner
+    from .engagement_response import EngagementResponse
+    from .engagement_type import EngagementType
+    from .engagement_type_activity_type import EngagementTypeActivityType
+    from .error_validation_problem import ErrorValidationProblem
+    from .event_type_enum import EventTypeEnum
+    from .external_target_field_api import ExternalTargetFieldApi
+    from .external_target_field_api_response import ExternalTargetFieldApiResponse
+    from .field_format_enum import FieldFormatEnum
+    from .field_mapping_api_instance import FieldMappingApiInstance
+    from .field_mapping_api_instance_remote_field import FieldMappingApiInstanceRemoteField
+    from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
+        FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo,
+    )
+    from .field_mapping_api_instance_response import FieldMappingApiInstanceResponse
+    from .field_mapping_api_instance_target_field import FieldMappingApiInstanceTargetField
+    from .field_mapping_instance_response import FieldMappingInstanceResponse
+    from .field_permission_deserializer import FieldPermissionDeserializer
+    from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
+    from .field_type_enum import FieldTypeEnum
+    from .ignore_common_model_request import IgnoreCommonModelRequest
+    from .ignore_common_model_request_reason import IgnoreCommonModelRequestReason
+    from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
+    from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
+    from .issue import Issue
+    from .issue_status import IssueStatus
+    from .issue_status_enum import IssueStatusEnum
+    from .item_format_enum import ItemFormatEnum
+    from .item_schema import ItemSchema
+    from .item_type_enum import ItemTypeEnum
+    from .language_enum import LanguageEnum
+    from .last_sync_result_enum import LastSyncResultEnum
+    from .lead import Lead
+    from .lead_converted_account import LeadConvertedAccount
+    from .lead_converted_contact import LeadConvertedContact
+    from .lead_owner import LeadOwner
+    from .lead_request import LeadRequest
+    from .lead_request_converted_account import LeadRequestConvertedAccount
+    from .lead_request_converted_contact import LeadRequestConvertedContact
+    from .lead_request_owner import LeadRequestOwner
+    from .lead_response import LeadResponse
+    from .link_token import LinkToken
+    from .linked_account_status import LinkedAccountStatus
+    from .meta_response import MetaResponse
+    from .method_enum import MethodEnum
+    from .model_operation import ModelOperation
+    from .model_permission_deserializer import ModelPermissionDeserializer
+    from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
+    from .multipart_form_field_request import MultipartFormFieldRequest
+    from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
+    from .note import Note
+    from .note_account import NoteAccount
+    from .note_contact import NoteContact
+    from .note_opportunity import NoteOpportunity
+    from .note_owner import NoteOwner
+    from .note_request import NoteRequest
+    from .note_request_account import NoteRequestAccount
+    from .note_request_contact import NoteRequestContact
+    from .note_request_opportunity import NoteRequestOpportunity
+    from .note_request_owner import NoteRequestOwner
+    from .note_response import NoteResponse
+    from .object_class_description_request import ObjectClassDescriptionRequest
+    from .opportunity import Opportunity
+    from .opportunity_account import OpportunityAccount
+    from .opportunity_owner import OpportunityOwner
+    from .opportunity_request import OpportunityRequest
+    from .opportunity_request_account import OpportunityRequestAccount
+    from .opportunity_request_owner import OpportunityRequestOwner
+    from .opportunity_request_stage import OpportunityRequestStage
+    from .opportunity_request_status import OpportunityRequestStatus
+    from .opportunity_response import OpportunityResponse
+    from .opportunity_stage import OpportunityStage
+    from .opportunity_status import OpportunityStatus
+    from .opportunity_status_enum import OpportunityStatusEnum
+    from .origin_type_enum import OriginTypeEnum
+    from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
+    from .paginated_account_list import PaginatedAccountList
+    from .paginated_association_list import PaginatedAssociationList
+    from .paginated_association_type_list import PaginatedAssociationTypeList
+    from .paginated_audit_log_event_list import PaginatedAuditLogEventList
+    from .paginated_contact_list import PaginatedContactList
+    from .paginated_custom_object_class_list import PaginatedCustomObjectClassList
+    from .paginated_custom_object_list import PaginatedCustomObjectList
+    from .paginated_engagement_list import PaginatedEngagementList
+    from .paginated_engagement_type_list import PaginatedEngagementTypeList
+    from .paginated_issue_list import PaginatedIssueList
+    from .paginated_lead_list import PaginatedLeadList
+    from .paginated_note_list import PaginatedNoteList
+    from .paginated_opportunity_list import PaginatedOpportunityList
+    from .paginated_remote_field_class_list import PaginatedRemoteFieldClassList
+    from .paginated_stage_list import PaginatedStageList
+    from .paginated_sync_status_list import PaginatedSyncStatusList
+    from .paginated_task_list import PaginatedTaskList
+    from .paginated_user_list import PaginatedUserList
+    from .patched_account_request import PatchedAccountRequest
+    from .patched_contact_request import PatchedContactRequest
+    from .patched_contact_request_owner import PatchedContactRequestOwner
+    from .patched_engagement_request import PatchedEngagementRequest
+    from .patched_engagement_request_direction import PatchedEngagementRequestDirection
+    from .patched_opportunity_request import PatchedOpportunityRequest
+    from .patched_opportunity_request_status import PatchedOpportunityRequestStatus
+    from .patched_task_request import PatchedTaskRequest
+    from .patched_task_request_status import PatchedTaskRequestStatus
+    from .phone_number import PhoneNumber
+    from .phone_number_request import PhoneNumberRequest
+    from .reason_enum import ReasonEnum
+    from .remote_data import RemoteData
+    from .remote_endpoint_info import RemoteEndpointInfo
+    from .remote_field import RemoteField
+    from .remote_field_api import RemoteFieldApi
+    from .remote_field_api_coverage import RemoteFieldApiCoverage
+    from .remote_field_api_response import RemoteFieldApiResponse
+    from .remote_field_class import RemoteFieldClass
+    from .remote_field_class_field_choices_item import RemoteFieldClassFieldChoicesItem
+    from .remote_field_class_field_format import RemoteFieldClassFieldFormat
+    from .remote_field_class_field_type import RemoteFieldClassFieldType
+    from .remote_field_class_for_custom_object_class import RemoteFieldClassForCustomObjectClass
+    from .remote_field_class_for_custom_object_class_field_choices_item import (
+        RemoteFieldClassForCustomObjectClassFieldChoicesItem,
+    )
+    from .remote_field_class_for_custom_object_class_field_format import RemoteFieldClassForCustomObjectClassFieldFormat
+    from .remote_field_class_for_custom_object_class_field_type import RemoteFieldClassForCustomObjectClassFieldType
+    from .remote_field_class_for_custom_object_class_item_schema import RemoteFieldClassForCustomObjectClassItemSchema
+    from .remote_field_remote_field_class import RemoteFieldRemoteFieldClass
+    from .remote_field_request import RemoteFieldRequest
+    from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
+    from .remote_key import RemoteKey
+    from .remote_response import RemoteResponse
+    from .request_format_enum import RequestFormatEnum
+    from .response_type_enum import ResponseTypeEnum
+    from .role_enum import RoleEnum
+    from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
+    from .stage import Stage
+    from .status_fd_5_enum import StatusFd5Enum
+    from .sync_status import SyncStatus
+    from .sync_status_last_sync_result import SyncStatusLastSyncResult
+    from .sync_status_status import SyncStatusStatus
+    from .task import Task
+    from .task_account import TaskAccount
+    from .task_opportunity import TaskOpportunity
+    from .task_owner import TaskOwner
+    from .task_request import TaskRequest
+    from .task_request_account import TaskRequestAccount
+    from .task_request_opportunity import TaskRequestOpportunity
+    from .task_request_owner import TaskRequestOwner
+    from .task_request_status import TaskRequestStatus
+    from .task_response import TaskResponse
+    from .task_status import TaskStatus
+    from .task_status_enum import TaskStatusEnum
+    from .user import User
+    from .validation_problem_source import ValidationProblemSource
+    from .warning_validation_problem import WarningValidationProblem
+    from .webhook_receiver import WebhookReceiver
+_dynamic_imports: typing.Dict[str, str] = {
+    "Account": ".account",
+    "AccountDetails": ".account_details",
+    "AccountDetailsAndActions": ".account_details_and_actions",
+    "AccountDetailsAndActionsCategory": ".account_details_and_actions_category",
+    "AccountDetailsAndActionsIntegration": ".account_details_and_actions_integration",
+    "AccountDetailsAndActionsStatus": ".account_details_and_actions_status",
+    "AccountDetailsAndActionsStatusEnum": ".account_details_and_actions_status_enum",
+    "AccountDetailsCategory": ".account_details_category",
+    "AccountIntegration": ".account_integration",
+    "AccountOwner": ".account_owner",
+    "AccountRequest": ".account_request",
+    "AccountRequestOwner": ".account_request_owner",
+    "AccountToken": ".account_token",
+    "ActivityTypeEnum": ".activity_type_enum",
+    "Address": ".address",
+    "AddressAddressType": ".address_address_type",
+    "AddressCountry": ".address_country",
+    "AddressRequest": ".address_request",
+    "AddressRequestAddressType": ".address_request_address_type",
+    "AddressRequestCountry": ".address_request_country",
+    "AddressTypeEnum": ".address_type_enum",
+    "AdvancedMetadata": ".advanced_metadata",
+    "Association": ".association",
+    "AssociationAssociationType": ".association_association_type",
+    "AssociationSubType": ".association_sub_type",
+    "AssociationType": ".association_type",
+    "AssociationTypeCardinality": ".association_type_cardinality",
+    "AssociationTypeRequestRequest": ".association_type_request_request",
+    "AsyncPassthroughReciept": ".async_passthrough_reciept",
+    "AuditLogEvent": ".audit_log_event",
+    "AuditLogEventEventType": ".audit_log_event_event_type",
+    "AuditLogEventRole": ".audit_log_event_role",
+    "AvailableActions": ".available_actions",
+    "CardinalityEnum": ".cardinality_enum",
+    "CategoriesEnum": ".categories_enum",
+    "CategoryEnum": ".category_enum",
+    "CommonModelScopeApi": ".common_model_scope_api",
+    "CommonModelScopesBodyRequest": ".common_model_scopes_body_request",
+    "Contact": ".contact",
+    "ContactAccount": ".contact_account",
+    "ContactOwner": ".contact_owner",
+    "ContactRequest": ".contact_request",
+    "ContactRequestAccount": ".contact_request_account",
+    "ContactRequestOwner": ".contact_request_owner",
+    "CountryEnum": ".country_enum",
+    "CrmAccountResponse": ".crm_account_response",
+    "CrmAssociationTypeResponse": ".crm_association_type_response",
+    "CrmContactResponse": ".crm_contact_response",
+    "CrmCustomObjectResponse": ".crm_custom_object_response",
+    "CustomObject": ".custom_object",
+    "CustomObjectClass": ".custom_object_class",
+    "CustomObjectRequest": ".custom_object_request",
+    "DataPassthroughRequest": ".data_passthrough_request",
+    "DebugModeLog": ".debug_mode_log",
+    "DebugModelLogSummary": ".debug_model_log_summary",
+    "DirectionEnum": ".direction_enum",
+    "EmailAddress": ".email_address",
+    "EmailAddressRequest": ".email_address_request",
+    "EnabledActionsEnum": ".enabled_actions_enum",
+    "EncodingEnum": ".encoding_enum",
+    "Engagement": ".engagement",
+    "EngagementAccount": ".engagement_account",
+    "EngagementContactsItem": ".engagement_contacts_item",
+    "EngagementDirection": ".engagement_direction",
+    "EngagementEngagementType": ".engagement_engagement_type",
+    "EngagementOwner": ".engagement_owner",
+    "EngagementRequest": ".engagement_request",
+    "EngagementRequestAccount": ".engagement_request_account",
+    "EngagementRequestContactsItem": ".engagement_request_contacts_item",
+    "EngagementRequestDirection": ".engagement_request_direction",
+    "EngagementRequestEngagementType": ".engagement_request_engagement_type",
+    "EngagementRequestOwner": ".engagement_request_owner",
+    "EngagementResponse": ".engagement_response",
+    "EngagementType": ".engagement_type",
+    "EngagementTypeActivityType": ".engagement_type_activity_type",
+    "ErrorValidationProblem": ".error_validation_problem",
+    "EventTypeEnum": ".event_type_enum",
+    "ExternalTargetFieldApi": ".external_target_field_api",
+    "ExternalTargetFieldApiResponse": ".external_target_field_api_response",
+    "FieldFormatEnum": ".field_format_enum",
+    "FieldMappingApiInstance": ".field_mapping_api_instance",
+    "FieldMappingApiInstanceRemoteField": ".field_mapping_api_instance_remote_field",
+    "FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo": ".field_mapping_api_instance_remote_field_remote_endpoint_info",
+    "FieldMappingApiInstanceResponse": ".field_mapping_api_instance_response",
+    "FieldMappingApiInstanceTargetField": ".field_mapping_api_instance_target_field",
+    "FieldMappingInstanceResponse": ".field_mapping_instance_response",
+    "FieldPermissionDeserializer": ".field_permission_deserializer",
+    "FieldPermissionDeserializerRequest": ".field_permission_deserializer_request",
+    "FieldTypeEnum": ".field_type_enum",
+    "IgnoreCommonModelRequest": ".ignore_common_model_request",
+    "IgnoreCommonModelRequestReason": ".ignore_common_model_request_reason",
+    "IndividualCommonModelScopeDeserializer": ".individual_common_model_scope_deserializer",
+    "IndividualCommonModelScopeDeserializerRequest": ".individual_common_model_scope_deserializer_request",
+    "Issue": ".issue",
+    "IssueStatus": ".issue_status",
+    "IssueStatusEnum": ".issue_status_enum",
+    "ItemFormatEnum": ".item_format_enum",
+    "ItemSchema": ".item_schema",
+    "ItemTypeEnum": ".item_type_enum",
+    "LanguageEnum": ".language_enum",
+    "LastSyncResultEnum": ".last_sync_result_enum",
+    "Lead": ".lead",
+    "LeadConvertedAccount": ".lead_converted_account",
+    "LeadConvertedContact": ".lead_converted_contact",
+    "LeadOwner": ".lead_owner",
+    "LeadRequest": ".lead_request",
+    "LeadRequestConvertedAccount": ".lead_request_converted_account",
+    "LeadRequestConvertedContact": ".lead_request_converted_contact",
+    "LeadRequestOwner": ".lead_request_owner",
+    "LeadResponse": ".lead_response",
+    "LinkToken": ".link_token",
+    "LinkedAccountStatus": ".linked_account_status",
+    "MetaResponse": ".meta_response",
+    "MethodEnum": ".method_enum",
+    "ModelOperation": ".model_operation",
+    "ModelPermissionDeserializer": ".model_permission_deserializer",
+    "ModelPermissionDeserializerRequest": ".model_permission_deserializer_request",
+    "MultipartFormFieldRequest": ".multipart_form_field_request",
+    "MultipartFormFieldRequestEncoding": ".multipart_form_field_request_encoding",
+    "Note": ".note",
+    "NoteAccount": ".note_account",
+    "NoteContact": ".note_contact",
+    "NoteOpportunity": ".note_opportunity",
+    "NoteOwner": ".note_owner",
+    "NoteRequest": ".note_request",
+    "NoteRequestAccount": ".note_request_account",
+    "NoteRequestContact": ".note_request_contact",
+    "NoteRequestOpportunity": ".note_request_opportunity",
+    "NoteRequestOwner": ".note_request_owner",
+    "NoteResponse": ".note_response",
+    "ObjectClassDescriptionRequest": ".object_class_description_request",
+    "Opportunity": ".opportunity",
+    "OpportunityAccount": ".opportunity_account",
+    "OpportunityOwner": ".opportunity_owner",
+    "OpportunityRequest": ".opportunity_request",
+    "OpportunityRequestAccount": ".opportunity_request_account",
+    "OpportunityRequestOwner": ".opportunity_request_owner",
+    "OpportunityRequestStage": ".opportunity_request_stage",
+    "OpportunityRequestStatus": ".opportunity_request_status",
+    "OpportunityResponse": ".opportunity_response",
+    "OpportunityStage": ".opportunity_stage",
+    "OpportunityStatus": ".opportunity_status",
+    "OpportunityStatusEnum": ".opportunity_status_enum",
+    "OriginTypeEnum": ".origin_type_enum",
+    "PaginatedAccountDetailsAndActionsList": ".paginated_account_details_and_actions_list",
+    "PaginatedAccountList": ".paginated_account_list",
+    "PaginatedAssociationList": ".paginated_association_list",
+    "PaginatedAssociationTypeList": ".paginated_association_type_list",
+    "PaginatedAuditLogEventList": ".paginated_audit_log_event_list",
+    "PaginatedContactList": ".paginated_contact_list",
+    "PaginatedCustomObjectClassList": ".paginated_custom_object_class_list",
+    "PaginatedCustomObjectList": ".paginated_custom_object_list",
+    "PaginatedEngagementList": ".paginated_engagement_list",
+    "PaginatedEngagementTypeList": ".paginated_engagement_type_list",
+    "PaginatedIssueList": ".paginated_issue_list",
+    "PaginatedLeadList": ".paginated_lead_list",
+    "PaginatedNoteList": ".paginated_note_list",
+    "PaginatedOpportunityList": ".paginated_opportunity_list",
+    "PaginatedRemoteFieldClassList": ".paginated_remote_field_class_list",
+    "PaginatedStageList": ".paginated_stage_list",
+    "PaginatedSyncStatusList": ".paginated_sync_status_list",
+    "PaginatedTaskList": ".paginated_task_list",
+    "PaginatedUserList": ".paginated_user_list",
+    "PatchedAccountRequest": ".patched_account_request",
+    "PatchedContactRequest": ".patched_contact_request",
+    "PatchedContactRequestOwner": ".patched_contact_request_owner",
+    "PatchedEngagementRequest": ".patched_engagement_request",
+    "PatchedEngagementRequestDirection": ".patched_engagement_request_direction",
+    "PatchedOpportunityRequest": ".patched_opportunity_request",
+    "PatchedOpportunityRequestStatus": ".patched_opportunity_request_status",
+    "PatchedTaskRequest": ".patched_task_request",
+    "PatchedTaskRequestStatus": ".patched_task_request_status",
+    "PhoneNumber": ".phone_number",
+    "PhoneNumberRequest": ".phone_number_request",
+    "ReasonEnum": ".reason_enum",
+    "RemoteData": ".remote_data",
+    "RemoteEndpointInfo": ".remote_endpoint_info",
+    "RemoteField": ".remote_field",
+    "RemoteFieldApi": ".remote_field_api",
+    "RemoteFieldApiCoverage": ".remote_field_api_coverage",
+    "RemoteFieldApiResponse": ".remote_field_api_response",
+    "RemoteFieldClass": ".remote_field_class",
+    "RemoteFieldClassFieldChoicesItem": ".remote_field_class_field_choices_item",
+    "RemoteFieldClassFieldFormat": ".remote_field_class_field_format",
+    "RemoteFieldClassFieldType": ".remote_field_class_field_type",
+    "RemoteFieldClassForCustomObjectClass": ".remote_field_class_for_custom_object_class",
+    "RemoteFieldClassForCustomObjectClassFieldChoicesItem": ".remote_field_class_for_custom_object_class_field_choices_item",
+    "RemoteFieldClassForCustomObjectClassFieldFormat": ".remote_field_class_for_custom_object_class_field_format",
+    "RemoteFieldClassForCustomObjectClassFieldType": ".remote_field_class_for_custom_object_class_field_type",
+    "RemoteFieldClassForCustomObjectClassItemSchema": ".remote_field_class_for_custom_object_class_item_schema",
+    "RemoteFieldRemoteFieldClass": ".remote_field_remote_field_class",
+    "RemoteFieldRequest": ".remote_field_request",
+    "RemoteFieldRequestRemoteFieldClass": ".remote_field_request_remote_field_class",
+    "RemoteKey": ".remote_key",
+    "RemoteResponse": ".remote_response",
+    "RequestFormatEnum": ".request_format_enum",
+    "ResponseTypeEnum": ".response_type_enum",
+    "RoleEnum": ".role_enum",
+    "SelectiveSyncConfigurationsUsageEnum": ".selective_sync_configurations_usage_enum",
+    "Stage": ".stage",
+    "StatusFd5Enum": ".status_fd_5_enum",
+    "SyncStatus": ".sync_status",
+    "SyncStatusLastSyncResult": ".sync_status_last_sync_result",
+    "SyncStatusStatus": ".sync_status_status",
+    "Task": ".task",
+    "TaskAccount": ".task_account",
+    "TaskOpportunity": ".task_opportunity",
+    "TaskOwner": ".task_owner",
+    "TaskRequest": ".task_request",
+    "TaskRequestAccount": ".task_request_account",
+    "TaskRequestOpportunity": ".task_request_opportunity",
+    "TaskRequestOwner": ".task_request_owner",
+    "TaskRequestStatus": ".task_request_status",
+    "TaskResponse": ".task_response",
+    "TaskStatus": ".task_status",
+    "TaskStatusEnum": ".task_status_enum",
+    "User": ".user",
+    "ValidationProblemSource": ".validation_problem_source",
+    "WarningValidationProblem": ".warning_validation_problem",
+    "WebhookReceiver": ".webhook_receiver",
+}
+
+
+def __getattr__(attr_name: str) -> typing.Any:
+    module_name = _dynamic_imports.get(attr_name)
+    if module_name is None:
+        raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
+    try:
+        module = import_module(module_name, __package__)
+        result = getattr(module, attr_name)
+        return result
+    except ImportError as e:
+        raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
+    except AttributeError as e:
+        raise AttributeError(f"Failed to get {attr_name} from {module_name}: {e}") from e
+
+
+def __dir__():
+    lazy_attrs = list(_dynamic_imports.keys())
+    return sorted(lazy_attrs)
+
 
 __all__ = [
     "Account",

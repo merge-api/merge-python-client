@@ -2,53 +2,127 @@
 
 # isort: skip_file
 
-from . import (
-    account_details,
-    account_token,
-    accounts,
-    association_types,
-    associations,
-    async_passthrough,
-    audit_trail,
-    available_actions,
-    contacts,
-    custom_object_classes,
-    custom_objects,
-    delete_account,
-    engagement_types,
-    engagements,
-    field_mapping,
-    force_resync,
-    generate_key,
-    issues,
-    leads,
-    link_token,
-    linked_accounts,
-    notes,
-    opportunities,
-    passthrough,
-    regenerate_key,
-    scopes,
-    stages,
-    sync_status,
-    tasks,
-    users,
-    webhook_receivers,
-)
-from .async_passthrough import AsyncPassthroughRetrieveResponse
-from .contacts import ContactsListRequestExpand, ContactsRetrieveRequestExpand
-from .engagements import EngagementsListRequestExpand, EngagementsRetrieveRequestExpand
-from .issues import IssuesListRequestStatus
-from .leads import LeadsListRequestExpand, LeadsRetrieveRequestExpand
-from .link_token import EndUserDetailsRequestLanguage
-from .linked_accounts import LinkedAccountsListRequestCategory
-from .notes import NotesListRequestExpand, NotesRetrieveRequestExpand
-from .opportunities import (
-    OpportunitiesListRequestExpand,
-    OpportunitiesListRequestStatus,
-    OpportunitiesRetrieveRequestExpand,
-)
-from .tasks import TasksListRequestExpand, TasksRetrieveRequestExpand
+import typing
+from importlib import import_module
+
+if typing.TYPE_CHECKING:
+    from . import (
+        account_details,
+        account_token,
+        accounts,
+        association_types,
+        associations,
+        async_passthrough,
+        audit_trail,
+        available_actions,
+        contacts,
+        custom_object_classes,
+        custom_objects,
+        delete_account,
+        engagement_types,
+        engagements,
+        field_mapping,
+        force_resync,
+        generate_key,
+        issues,
+        leads,
+        link_token,
+        linked_accounts,
+        notes,
+        opportunities,
+        passthrough,
+        regenerate_key,
+        scopes,
+        stages,
+        sync_status,
+        tasks,
+        users,
+        webhook_receivers,
+    )
+    from .async_passthrough import AsyncPassthroughRetrieveResponse
+    from .contacts import ContactsListRequestExpand, ContactsRetrieveRequestExpand
+    from .engagements import EngagementsListRequestExpand, EngagementsRetrieveRequestExpand
+    from .issues import IssuesListRequestStatus
+    from .leads import LeadsListRequestExpand, LeadsRetrieveRequestExpand
+    from .link_token import EndUserDetailsRequestLanguage
+    from .linked_accounts import LinkedAccountsListRequestCategory
+    from .notes import NotesListRequestExpand, NotesRetrieveRequestExpand
+    from .opportunities import (
+        OpportunitiesListRequestExpand,
+        OpportunitiesListRequestStatus,
+        OpportunitiesRetrieveRequestExpand,
+    )
+    from .tasks import TasksListRequestExpand, TasksRetrieveRequestExpand
+_dynamic_imports: typing.Dict[str, str] = {
+    "AsyncPassthroughRetrieveResponse": ".async_passthrough",
+    "ContactsListRequestExpand": ".contacts",
+    "ContactsRetrieveRequestExpand": ".contacts",
+    "EndUserDetailsRequestLanguage": ".link_token",
+    "EngagementsListRequestExpand": ".engagements",
+    "EngagementsRetrieveRequestExpand": ".engagements",
+    "IssuesListRequestStatus": ".issues",
+    "LeadsListRequestExpand": ".leads",
+    "LeadsRetrieveRequestExpand": ".leads",
+    "LinkedAccountsListRequestCategory": ".linked_accounts",
+    "NotesListRequestExpand": ".notes",
+    "NotesRetrieveRequestExpand": ".notes",
+    "OpportunitiesListRequestExpand": ".opportunities",
+    "OpportunitiesListRequestStatus": ".opportunities",
+    "OpportunitiesRetrieveRequestExpand": ".opportunities",
+    "TasksListRequestExpand": ".tasks",
+    "TasksRetrieveRequestExpand": ".tasks",
+    "account_details": ".",
+    "account_token": ".",
+    "accounts": ".",
+    "association_types": ".",
+    "associations": ".",
+    "async_passthrough": ".",
+    "audit_trail": ".",
+    "available_actions": ".",
+    "contacts": ".",
+    "custom_object_classes": ".",
+    "custom_objects": ".",
+    "delete_account": ".",
+    "engagement_types": ".",
+    "engagements": ".",
+    "field_mapping": ".",
+    "force_resync": ".",
+    "generate_key": ".",
+    "issues": ".",
+    "leads": ".",
+    "link_token": ".",
+    "linked_accounts": ".",
+    "notes": ".",
+    "opportunities": ".",
+    "passthrough": ".",
+    "regenerate_key": ".",
+    "scopes": ".",
+    "stages": ".",
+    "sync_status": ".",
+    "tasks": ".",
+    "users": ".",
+    "webhook_receivers": ".",
+}
+
+
+def __getattr__(attr_name: str) -> typing.Any:
+    module_name = _dynamic_imports.get(attr_name)
+    if module_name is None:
+        raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
+    try:
+        module = import_module(module_name, __package__)
+        result = getattr(module, attr_name)
+        return result
+    except ImportError as e:
+        raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
+    except AttributeError as e:
+        raise AttributeError(f"Failed to get {attr_name} from {module_name}: {e}") from e
+
+
+def __dir__():
+    lazy_attrs = list(_dynamic_imports.keys())
+    return sorted(lazy_attrs)
+
 
 __all__ = [
     "AsyncPassthroughRetrieveResponse",
