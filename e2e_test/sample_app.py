@@ -2,22 +2,19 @@
 # of the Merge Assurance agent.
 
 from __future__ import annotations
-import typing
+
+import atexit
+import logging
 import os
 import sys
-import logging
-import atexit
 import threading
+import typing
 
 from flask import Flask, jsonify
 
-# This assumes you're running the script from the root of the project.
-# It adjusts the Python path to allow importing from the `src` directory.
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from src.merge.client import Merge
-from src.merge.remediation.agent import JsonLogFormatter, AssuranceAgent
-from src.merge.remediation.errors import RefreshFailureError
+from merge.client import Merge
+from merge.remediation.agent import AssuranceAgent, JsonLogFormatter
+from merge.remediation.errors import RefreshFailureError
 
 # --- Globals ---
 # This is a simple way to hold a reference to the agent for the shutdown hook.

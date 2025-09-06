@@ -9,13 +9,13 @@ from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .environment import MergeEnvironment
 
 if typing.TYPE_CHECKING:
+    from .remediation.client import AsyncRemediationClient, RemediationClient
     from .resources.accounting.client import AccountingClient, AsyncAccountingClient
     from .resources.ats.client import AsyncAtsClient, AtsClient
     from .resources.crm.client import AsyncCrmClient, CrmClient
     from .resources.filestorage.client import AsyncFilestorageClient, FilestorageClient
     from .resources.hris.client import AsyncHrisClient, HrisClient
     from .resources.ticketing.client import AsyncTicketingClient, TicketingClient
-    from .remediation.client import AsyncRemediationClient, RemediationClient
 
 class Merge:
     """
@@ -288,7 +288,7 @@ class AsyncMerge:
     @property
     def remediation(self) -> "AsyncRemediationClient":
         if self._remediation is None:
-            from .remediation.client import AsyncRemediationClient # noqa: E402
+            from .remediation.client import AsyncRemediationClient  # noqa: E402
             self._remediation = AsyncRemediationClient(client_wrapper=self._client_wrapper)
         return self._remediation
 
