@@ -1,90 +1,129 @@
-# A minimal Flask application to demonstrate a real-world integration
-# of the Merge Assurance agent.
+# A self-contained script to demonstrate the Assurance Agent in an E2E test.
 
 from __future__ import annotations
 
-import atexit
 import logging
 import os
+import signal
+import subprocess
 import sys
-import threading
+import time
 import typing
 
-from flask import Flask, jsonify
-
 from merge.client import Merge
-from merge.remediation.agent import AssuranceAgent, JsonLogFormatter
-from merge.remediation.errors import RefreshFailureError
+from merge.remediation.agent import AssuranceAgent
 
-# --- Globals ---
-# This is a simple way to hold a reference to the agent for the shutdown hook.
-agent_handle: typing.Optional[AssuranceAgent] = None
+# --- App Configuration ---
+MOCK_API_BASE_URL = "http://127.0.0.1:5002"
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
 
-# --- Application Setup ---
+# --- Global State ---
+agent_handle: typing.Optional[AssuranceAgent] = None
+
+
+# A custom formatter to add color to the log output for readability.
+class ColoredFormatter(logging.Formatter):
+    """A logging formatter that adds color to log messages."""
+
+    COLORS = {
+        "SUCCESS_CALLBACK": "\033[92m",  # Green
+        "FAILURE_CALLBACK": "\033[91m",  # Red
+        "ENDC": "\033[0m",
+    }
+
+    def format(self, record: logging.LogRecord) -> str:
+        log_message = super().format(record)
+        # For our specific callbacks, find and replace the keyword.
+        # This is a simple approach; a more robust one might inspect record attributes.
+        for key, color in self.COLORS.items():
+            if key in log_message:
+                log_message = log_message.replace(key, f"{color}{key}{self.COLORS['ENDC']}")
+        return log_message
+
+
+# --- Logging Setup ---
 def configure_logging() -> None:
-    """Sets up structured JSON logging for the application."""
+    """Sets up readable, colored logging for the application."""
     handler = logging.StreamHandler(sys.stdout)
-    handler.setFormatter(JsonLogFormatter())
+    # Use our new ColoredFormatter and a simpler log format
+    formatter = ColoredFormatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    handler.setFormatter(formatter)
     logging.basicConfig(level=LOG_LEVEL, handlers=[handler], force=True)
+    # Give httpx its own logger to reduce noise unless we're debugging
+    logging.getLogger("httpx").setLevel(logging.WARNING if LOG_LEVEL != "DEBUG" else logging.DEBUG)
 
-def create_app() -> Flask:
-    """Creates and configures the Flask application."""
-    configure_logging()
-    app = Flask(__name__)
 
-    @app.route("/")
-    def index() -> typing.Any: # type: ignore
-        """A simple health-check endpoint."""
-        is_running = agent_handle.is_running() if agent_handle else False
-        return jsonify({
-            "status": "running",
-            "assurance_agent_active": is_running
-        })
+# --- Merge Assurance Callbacks ---
+def on_refresh_success(account_token: str) -> None:
+    """Callback for when a token is successfully refreshed."""
+    # Log a plain string so the ColoredFormatter can process it.
+    logging.info(f"SUCCESS_CALLBACK: Token '{account_token}' was refreshed.")
 
-    return app
-    
-# --- Agent Management ---
-def handle_success(token: str) -> None:
-    """Callback for successful token refreshes."""
-    logging.info({"message": f"SUCCESS_CALLBACK: Token '{token}' was refreshed.", "component": "SampleApp"})
 
-def handle_failure(token: str, error: RefreshFailureError) -> None:
-    """Callback for failed token refreshes."""
-    logging.error({"message": f"FAILURE_CALLBACK: Token '{token}' failed.", "error": str(error), "component": "SampleApp"})
+def on_refresh_failure(account_token: str, error: Exception) -> None:
+    """Callback for when a token refresh fails."""
+    # Log a plain string so the ColoredFormatter can process it.
+    logging.error(f"FAILURE_CALLBACK: Token '{account_token}' failed. Error: {error}")
 
-def start_assurance_agent() -> None:
-    """Initializes the Merge client and enables the Assurance agent."""
-    global agent_handle
-    logging.info({"message": "Initializing Merge client for Assurance Agent.", "component": "SampleApp"})
-    
-    # In a real app, these would come from a secure config.
-    client = Merge(api_key="FAKE_API_KEY", account_token="FAKE_ACCOUNT_TOKEN")
-    
-    agent_handle = client.remediation.enable_assurance(
-        on_success=handle_success,
-        on_failure=handle_failure,
-        check_interval_seconds=10,  # Check frequently for demonstration
-        expiry_threshold_days=20
-    )
-
-def shutdown_agent() -> None:
-    """A graceful shutdown function to be called on application exit."""
-    logging.info({"message": "Application shutting down. Stopping agent...", "component": "SampleApp"})
-    if agent_handle and agent_handle.is_running():
-        agent_handle.shutdown()
-    logging.info({"message": "Agent shutdown complete.", "component": "SampleApp"})
 
 # --- Main Execution ---
 if __name__ == "__main__":
-    app = create_app()
+    configure_logging()
+    server_process = None
     
-    # Register the shutdown hook. This is CRITICAL for production readiness.
-    atexit.register(shutdown_agent)
+    # Use a context manager for the server process to ensure it's always cleaned up.
+    try:
+        logging.info("Starting mock API server...")
+        server_command = [sys.executable, "e2e_test/mock_server.py"]
+        server_process = subprocess.Popen(
+            server_command, 
+            stdout=subprocess.PIPE, 
+            stderr=subprocess.PIPE, 
+            text=True, 
+            preexec_fn=os.setsid
+        )
+        time.sleep(2) # Give the server a moment to start up
+        
+        if server_process.poll() is not None:
+             raise RuntimeError("Mock server failed to start. Is the port already in use?")
 
-    # Start the agent in a background thread so it doesn't block the web server.
-    agent_thread = threading.Thread(target=start_assurance_agent, daemon=True)
-    agent_thread.start()
+        # Initialize the Merge client
+        client = Merge(
+            api_key="YOUR_API_KEY", 
+            account_token="YOUR_ACCOUNT_TOKEN",
+            base_url=MOCK_API_BASE_URL 
+        )
 
-    logging.info({"message": "Starting Flask server on http://127.0.0.1:5001", "component": "SampleApp"})
-    app.run(host="0.0.0.0", port=5001)
+        agent_handle = client.remediation.enable_assurance(
+            on_success=on_refresh_success,
+            on_failure=on_refresh_failure,
+            check_interval_seconds=5, # Short interval for demo
+            expiry_threshold_days=30,
+        )
+
+        logging.info("--- DEMO START: Agent running for 15 seconds. ---")
+        time.sleep(15)
+        logging.info("--- DEMO END ---")
+
+    finally:
+        if agent_handle:
+            logging.info("Shutting down Assurance Agent...")
+            agent_handle.shutdown()
+        
+        if server_process:
+            logging.info("Stopping mock API server...")
+            try:
+                os.killpg(os.getpgid(server_process.pid), signal.SIGTERM)
+                server_process.wait(timeout=5)
+                logging.info("Mock API server stopped.")
+            except (ProcessLookupError, OSError) as e:
+                logging.warning(f"Could not kill mock server, it may have already exited. Error: {e}")
+                
+            stdout, stderr = server_process.communicate()
+            if stderr:
+                 # Don't log expected 'Address already in use' as an error if we catch it.
+                if "Address already in use" not in stderr:
+                    logging.error(f"Mock server stderr: {stderr.strip()}")
+
+
+    logging.info("Demonstration complete.")

@@ -10,6 +10,9 @@ import time
 import typing
 from types import TracebackType
 
+import httpx
+
+from ..core.api_error import ApiError
 from ..core.client_wrapper import SyncClientWrapper
 from .errors import RefreshFailureError
 
@@ -20,25 +23,10 @@ if typing.TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-class CredentialDetails(typing.TypedDict):
-    """Defines the shape of the mock credential data."""
-    expires_at: float
-    refreshed: bool
-
-MockCredentialStore = typing.Dict[str, CredentialDetails]
-
-# Mock data for development purposes. In a real scenario, this would involve API calls.
-MOCK_CREDENTIALS_STORE: MockCredentialStore = {
-    "token_ok_1": {"expires_at": time.time() + 86400 * 45, "refreshed": False},
-    "token_expiring_soon": {"expires_at": time.time() + 86400 * 15, "refreshed": False},
-    "token_retry_failure": {"expires_at": time.time() + 86400 * 10, "refreshed": False},
-    "token_immediate_failure": {"expires_at": time.time() + 86400 * 5, "refreshed": False},
-}
-
-
 class JsonLogFormatter(logging.Formatter):
     """Custom formatter to output logs in JSON format."""
-    def format(self, record: logging.LogRecord)-> str:
+
+    def format(self, record: logging.LogRecord) -> str:
         log_record: typing.Dict[str, typing.Any] = {
             "timestamp": self.formatTime(record, self.datefmt),
             "level": record.levelname,
@@ -48,11 +36,12 @@ class JsonLogFormatter(logging.Formatter):
             log_record.update(typing.cast(typing.Dict[str, typing.Any], record.msg))
         else:
             log_record["message"] = record.getMessage()
-        
+
         if record.exc_info:
-            log_record['exc_info'] = self.formatException(record.exc_info)
-        
+            log_record["exc_info"] = self.formatException(record.exc_info)
+
         return json.dumps(log_record)
+
 
 class AssuranceAgent:
     """
@@ -67,18 +56,24 @@ class AssuranceAgent:
         on_success: typing.Optional[OnSuccessCallback] = None,
         on_failure: typing.Optional[OnFailureCallback] = None,
         check_interval_seconds: int,
-        expiry_threshold_days: int
+        expiry_threshold_days: int,
+        # The base_url is injected for E2E testing to point to the mock server.
+        # In production, the client_wrapper's default base_url would be used.
+        base_url: typing.Optional[str] = None,
     ) -> None:
         self._client_wrapper = client_wrapper
         self._on_success = on_success
         self._on_failure = on_failure
         self._check_interval_seconds = check_interval_seconds
         self._expiry_threshold_seconds = expiry_threshold_days * 86400
+        self._base_url = base_url or self._client_wrapper.get_base_url()
 
         self._timer: typing.Optional[threading.Timer] = None
         self._stop_event = threading.Event()
         self._running = False
         self._processing_lock = threading.Lock()
+        # Add a set to track tokens that have definitively failed.
+        self._failed_tokens: typing.Set[str] = set()
 
     def is_running(self) -> bool:
         return self._running
@@ -88,7 +83,7 @@ class AssuranceAgent:
         log_data = {
             "message": "Assurance Agent starting.",
             "component": "AssuranceAgent",
-            "check_interval_seconds": self._check_interval_seconds
+            "check_interval_seconds": self._check_interval_seconds,
         }
         logger.info(log_data)
         self._running = True
@@ -107,7 +102,7 @@ class AssuranceAgent:
             if not self._stop_event.is_set():
                 logger.warning({"message": "Skipping check cycle, previous cycle still running.", "component": "AssuranceAgent"})
             return
-        
+
         try:
             logger.info({"message": "Assurance Agent running check cycle.", "component": "AssuranceAgent"})
             self._check_and_remediate_credentials()
@@ -117,12 +112,29 @@ class AssuranceAgent:
             self._processing_lock.release()
             if not self._stop_event.is_set():
                 self._schedule_next_run()
-        
+
     def _check_and_remediate_credentials(self) -> None:
-        """Fetches credentials and triggers remediation for those nearing expiry"""
+        """Fetches credentials from the (mock) API and triggers remediation."""
+        try:
+            # In a real implementation, this endpoint would provide credential expiry info.
+            # For this POC, we hit our mock server.
+            response = self._client_wrapper.httpx_client.request(
+                "/api/v1/credentials", method="GET", base_url=self._base_url
+            )
+            response.raise_for_status()
+            credentials = typing.cast(typing.Dict[str, typing.Any], response.json())
+        except ApiError as e:
+            logger.error({"message": "Failed to fetch credentials for checking.", "error": str(e), "component": "AssuranceAgent"})
+            return
+
         now = time.time()
-        for token, details in MOCK_CREDENTIALS_STORE.items():
+        for token, details in credentials.items():
             if details.get("refreshed", False):
+                continue
+
+            # Skip tokens that we've already determined are unrecoverable.
+            if token in self._failed_tokens:
+                logger.debug({"message": "Skipping token marked as failed.", "component": "AssuranceAgent", "account_token": token})
                 continue
 
             expires_at = details.get("expires_at", 0)
@@ -139,33 +151,34 @@ class AssuranceAgent:
                 threading.Thread(target=self._attempt_refresh_with_retries, args=(token,)).start()
 
     def _attempt_refresh_with_retries(self, account_token: str) -> None:
-        """
-        Attempts to refresh a token with exponential backoff and jitter.
-        """
+        """Attempts to refresh a token with exponential backoff and jitter via a real API call."""
         max_retries = 5
-        base_delay_seconds = 0.1  # Reduced for testing
+        base_delay_seconds = 2
         last_exception: typing.Optional[Exception] = None
 
         for attempt in range(max_retries):
             try:
-                self._mock_api_refresh_call(account_token)
-                
+                response = self._client_wrapper.httpx_client.request(
+                    "/api/v1/refresh-token",
+                    method="POST",
+                    json={"account_token": account_token},
+                    base_url=self._base_url,
+                )
+                response.raise_for_status()
                 logger.info({"message": "Successfully refreshed token.", "component": "AssuranceAgent", "account_token": account_token})
                 if self._on_success:
-                    try:
-                        self._on_success(account_token)
-                    except Exception as cb_exc:
-                        logger.error({"message": "on_success callback failed.", "error": str(cb_exc), "component": "AssuranceAgent"})
+                    self._on_success(account_token)
                 return
-            
-            except Exception as e:
-                if "non-retryable" in str(e):
-                    logger.error({"message": "Non-retryable error during refresh.", "component": "AssuranceAgent", "account_token": account_token, "error": str(e)})
-                    MOCK_CREDENTIALS_STORE[account_token]["refreshed"] = True
-                    break
 
+            except httpx.HTTPStatusError as e:
+                last_exception = e
+                # Non-retryable errors (e.g., 4xx client errors) should fail immediately.
+                if 400 <= e.response.status_code < 500:
+                    logger.error({"message": "Non-retryable API error during refresh.", "component": "AssuranceAgent", "account_token": account_token, "status_code": e.response.status_code, "error": str(e.response.text)})
+                    break
+                # Retryable errors (e.g., 5xx server errors, timeouts)
                 log_data = {
-                    "message": "Refresh attempt failed. Retrying.",
+                    "message": "Refresh attempt failed with retryable error. Retrying.",
                     "component": "AssuranceAgent",
                     "account_token": account_token,
                     "attempt": attempt + 1,
@@ -173,33 +186,29 @@ class AssuranceAgent:
                     "error": str(e),
                 }
                 logger.warning(log_data)
-                
-                if attempt < max_retries - 1:
-                    delay = (base_delay_seconds * (2 ** attempt)) + random.uniform(0, 0.1)
-                    time.sleep(delay)
-        
-        # If the loop finishes, it means all retries were exhausted or a non-retryable error occurred
-        final_error = RefreshFailureError(f"Failed to refresh token '{account_token}' after {max_retries} attempts.", last_exception)
-        logger.error({"message": "All refresh attempts failed for token.", "component": "AssuranceAgent", "account_token": account_token})
-        if self._on_failure:
-            try:
-                self._on_failure(account_token, final_error)
-            except Exception as cb_exc:
-                logger.error({"message": "on_failure callback failed.", "error": str(cb_exc), "component": "AssuranceAgent"})
-        
-        # Mark as refreshed so we don't try again.
-        MOCK_CREDENTIALS_STORE[account_token]["refreshed"] = True
+            except Exception as e:
+                # Catch other potential exceptions like network issues
+                last_exception = e
+                log_data = {
+                    "message": "Refresh attempt failed with unexpected error. Retrying.",
+                    "component": "AssuranceAgent",
+                    "account_token": account_token,
+                    "attempt": attempt + 1,
+                    "max_attempts": max_retries,
+                    "error": str(e),
+                }
+                logger.warning(log_data)
 
-    def _mock_api_refresh_call(self, account_token: str) -> None:
-        """A mock function to simulate the API call and its potential failures."""
-        if account_token == "token_expiring_soon":
-            MOCK_CREDENTIALS_STORE[account_token]["expires_at"] = time.time() + 86400 * 60
-            MOCK_CREDENTIALS_STORE[account_token]["refreshed"] = True
-            return
-        elif account_token == "token_retry_failure":
-            raise ConnectionError("Mock API server is unavailable (503 Service Unavailable)")
-        elif account_token == "token_immediate_failure":
-            raise ValueError("Mock API reports invalid refresh token (401 Unauthorized) - non-retryable")
+            if attempt < max_retries - 1:
+                delay = (base_delay_seconds * (2**attempt)) + random.uniform(0, 0.1)
+                time.sleep(delay)
+
+        final_error = RefreshFailureError(f"Failed to refresh token '{account_token}' after exhausting retries.", last_exception)
+        logger.error({"message": "All refresh attempts failed for token.", "component": "AssuranceAgent", "account_token": account_token})
+        # Add the token to our set of failed tokens so we don't retry it on the next cycle.
+        self._failed_tokens.add(account_token)
+        if self._on_failure:
+            self._on_failure(account_token, final_error)
 
     def shutdown(self, wait: bool = True, timeout_seconds: typing.Optional[float] = None) -> None:
         """Signals the background agent to shut down gracefully."""
@@ -207,7 +216,6 @@ class AssuranceAgent:
         self._stop_event.set()
         if self._timer:
             self._timer.cancel()
-        # Wait for the processing lock to be released for a clean shutdown
         if wait:
             if not self._processing_lock.acquire(timeout=timeout_seconds or 5.0):
                 logger.error({"message": "Agent shutdown timed out waiting for processing to complete.", "component": "AssuranceAgent"})
@@ -222,5 +230,5 @@ class AssuranceAgent:
         exc_type: typing.Optional[typing.Type[BaseException]],
         exc_val: typing.Optional[BaseException],
         exc_tb: typing.Optional[TracebackType],
-    )-> None:
+    ) -> None:
         self.shutdown()
