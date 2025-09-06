@@ -81,7 +81,10 @@ class TestAssuranceAgent(unittest.TestCase):
         self: "TestAssuranceAgent", mock_sleep: MagicMock
     ) -> None:
         """Test that a non-retryable error fails immediately without retries."""
-        with patch.object(self.agent, "_mock_api_refresh_call") as mock_api_call:
+        mock_store = {"bad_token": {"refreshed": False}}
+        with patch("merge.remediation.agent.MOCK_CREDENTIALS_STORE", mock_store), patch.object(
+            self.agent, "_mock_api_refresh_call"
+        ) as mock_api_call:
             mock_api_call.side_effect = ValueError("non-retryable error")
             self.agent._attempt_refresh_with_retries("bad_token")  # type: ignore[misc]
 
@@ -98,7 +101,10 @@ class TestAssuranceAgent(unittest.TestCase):
         self: "TestAssuranceAgent", mock_sleep: MagicMock
     ) -> None:
         """Test that a retryable error attempts to refresh 5 times before failing."""
-        with patch.object(self.agent, "_mock_api_refresh_call") as mock_api_call:
+        mock_store = {"flaky_token": {"refreshed": False}}
+        with patch("merge.remediation.agent.MOCK_CREDENTIALS_STORE", mock_store), patch.object(
+            self.agent, "_mock_api_refresh_call"
+        ) as mock_api_call:
             mock_api_call.side_effect = ConnectionError("flaky connection")
             self.agent._attempt_refresh_with_retries("flaky_token")  # type: ignore[misc]
 
