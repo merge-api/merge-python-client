@@ -2,25 +2,148 @@
 
 from __future__ import annotations
 import typing
+import threading
+import time
+import random
+import logging
 from types import TracebackType
 
+from ..core.client_wrapper import SyncClientWrapper
+from .errors import RefreshFailureError
+
+if typing.TYPE_CHECKING:
+    from .client import OnSuccessCallback, OnFailureCallback
+
+# Set up a logger for this module
+logger = logging.getLogger(__name__)
+
+# Mock data for development purposes. In a real scenario, this would involve API calls.
+MOCK_CREDENTIALS_STORE = {
+    "token_ok_1": {"expires_at": time.time() + 86400 * 45},  # Expires in 45 days
+    "token_expiring_soon": {"expires_at": time.time() + 86400 * 15},  # Expires in 15 days
+    "token_retry_failure": {"expires_at": time.time() + 86400 * 10}, # Will fail with retries
+    "token_immediate_failure": {"expires_at": time.time() + 86400 * 5}, # Will fail immediately
+}
 
 class AssuranceAgent:
     """
-    A handle to the running Merge Assurance background agent.
+    The core implementation of the Merge Assurance background agent.
+    Manages the lifecycle of monitoring and remediating credentials.
     """
+
+    def __init__(
+        self,
+        *,
+        client_wrapper: SyncClientWrapper,
+        on_success: typing.Optional[OnSuccessCallback] = None,
+        on_failure: typing.Optional[OnFailureCallback] = None,
+        check_interval_seconds: int,
+        expiry_threshold_days: int
+    ) -> None:
+        self._client_wrapper = client_wrapper
+        self._on_success = on_success
+        self._on_failure = on_failure
+        self._check_interval_seconds = check_interval_seconds
+        self._expiry_threshold_seconds = expiry_threshold_days * 86400
+
+        self._timer: typing.Optional[threading.Timer] = None
+        self._stop_event = threading.Event()
+
+    def start(self) -> None:
+        """Starts the agent's monitoring loop in a background thread."""
+        logger.info(
+            f"Assurance Agent started. Checking for expiring tokens every {self._check_interval_seconds} seconds."
+        )
+        if not self._stop_event.is_set():
+            self._schedule_next_run()
+
+    def _schedule_next_run(self) -> None:
+        """Schedules the next execution of the check cycle."""
+        self._timer = threading.Timer(self._check_interval_seconds, self._run_check_cycle)
+        self._timer.daemon = True
+        self._timer.start()
+
+    def _run_check_cycle(self) -> None:
+        """The main workhorse method, executed periodically by the timer."""
+        if self._stop_event.is_set():
+            return
+        
+        logger.info("Assurance Agent running check cycle...")
+        try:
+            self._check_and_remediate_credentials()
+        except Exception as e:
+            logger.error(f"Assurance Agent encountered an unhandled exception in check cycle: {e}")
+        finally:
+            if not self._stop_event.is_set():
+                self._schedule_next_run() # Schedule the next run
+        
+    def _check_and_remediate_credentials(self) -> None:
+        """
+        Fetches credentials and triggers remediation for those nearing expiry
+        """
+        now = time.time()
+        for token, details in MOCK_CREDENTIALS_STORE.items():
+            expires_at = details.get("expires_at", 0)
+            time_to_expiry = expires_at - now
+
+            if 0 < time_to_expiry <= self._expiry_threshold_seconds:
+                logger.warning(f"Token '{token}' is expiring in {time_to_expiry/86400:.1f} days. Attempting refresh.")
+                # We run the refresh in a separate thread to avoid blocking the main check cycle
+                # if one refresh takes a long time.
+                threading.Thread(target=self._attempt_refresh_with_retries, args=(token,)).start()
+
+    def _attempt_refresh_with_retries(self, account_token: str) -> None:
+        """
+        Attempts to refresh a token with exponential backoff and jitter.
+        """
+        max_retries = 5
+        base_delay_seconds = 1.0
+        for attempt in range(max_retries):
+            try:
+                # This is where the actual API call to refresh the token would go.
+                self._mock_api_refresh_call(account_token)
+                
+                logger.info(f"Successfully refreshed token '{account_token}'.")
+                if self._on_success is not None:
+                    self._on_success(account_token)
+                return # Success, exit the loop
+            
+            except Exception as e:
+                if "non-retryable" in str(e):
+                    logger.error(f"A non-retryable error occurred for token '{account_token}': {e}")
+                    error = RefreshFailureError(f"Non-retryable error for {account_token}", e)
+                    if self._on_failure is not None:
+                        self._on_failure(account_token, error)
+                    return
+                
+                # Calculate delay with exponential backoff and jitter
+                delay = (base_delay_seconds * (2 ** attempt)) + random.uniform(0, 1)
+                time.sleep(delay)
+
+    def _mock_api_refresh_call(self, account_token: str) -> None:
+        """A mock function to simulate the API call and its potential failures."""
+        if account_token == "token_expiring_soon":
+            # Simulate success
+            MOCK_CREDENTIALS_STORE[account_token]["expires_at"] = time.time() + 86400 * 60
+            return
+        elif account_token == "token_retry_failure":
+            # Simulate a flaky server that will always fail
+            raise ConnectionError("Mock API server is unavailable (503 Service Unavailable)")
+        elif account_token == "token_immediate_failure":
+            # Simulate an invalid credential that should not be retried
+            raise ValueError("Mock API reports invalid refresh token (401 Unauthorized) - non-retryable")
+        else:
+            return # Other tokens don't need action in this mock
 
     def shutdown(self, wait: bool = True, timeout_seconds: typing.Optional[float] = None) -> None:
         """
         Signals the background agent to shut down gracefully.
         """
-        raise NotImplementedError("Assurance Agent shutdown implementation pending.")
-    
-    async def shutdown_async(self, wait: bool = True, timeout_seconds: typing.Optional[float] = None) -> None:
-        """
-        Asynchronously signals the background agent to shut down gracefully.
-        """
-        raise NotImplementedError("Async Assurance Agent shutdown implementation pending.")
+        logger.info("Shutdown signal received. Stopping Assurance Agent...")
+        self._stop_event.set()
+        if self._timer:
+            self._timer.cancel()
+        logger.info("Assurance Agent stopped.")
 
     def __enter__(self) -> "AssuranceAgent":
         return self

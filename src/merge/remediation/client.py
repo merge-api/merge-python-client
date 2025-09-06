@@ -2,17 +2,26 @@
 
 from __future__ import annotations
 import typing
+import logging
 from ..core.client_wrapper import SyncClientWrapper, AsyncClientWrapper
 from .agent import AssuranceAgent
+from .errors import RefreshFailureError
 
-# Define the precise shapes of the callback functions.
+# Set up a logger for this module
+logger = logging.getLogger(__name__)
+
+# Define the precise shapes of the callback functions for clarity and type safety.
 OnSuccessCallback = typing.Callable[[str], None]
-OnFailureCallback = typing.Callable[[str, Exception], None]
+"""A callback function executed upon successful credential refresh."""
+
+OnFailureCallback = typing.Callable[[str, RefreshFailureError], None]
+"""A callback function executed upon final failure of a credential refresh."""
 
 
 class RemediationClient:
     """
     Client for managing Merge's native SDK remediation features.
+    Accessed via `merge_client.remediation`.
     """
 
     def __init__(self, *, client_wrapper: SyncClientWrapper) -> None:
@@ -28,9 +37,35 @@ class RemediationClient:
     )-> "AssuranceAgent":
         """
         Configures and activates the "Merge Assurance" agent.
+
+        This method initializes and starts a background agent within the
+        application's process that proactively monitors and refreshes expiring
+        credentials (account tokens) before they can cause an outage.
+
+        Parameters:
+            on_success: Optional callback executed when a token is successfully refreshed.
+            on_failure: Optional callback executed when a token refresh fails after all retries.
+            check_interval_seconds: The interval in seconds for checking token expiry. Defaults to 1 hour.
+            expiry_threshold_days: The window in days to consider a token "expiring". Defaults to 30 days.
+
+        Returns:
+            An instance of the running AssuranceAgent, which provides a `shutdown()` method
+            for graceful termination.
         """
-        # Day 1+ Implementation will go here.
-        raise NotImplementedError("Assurance Agent implementation pending.")
+        if check_interval_seconds <= 0 or expiry_threshold_days <= 0:
+            raise ValueError("Intervals and thresholds must be positive values.")
+
+        logger.info("Enabling Merge Assurance Agent.")
+        agent = AssuranceAgent(
+            client_wrapper=self._client_wrapper,
+            on_success=on_success,
+            on_failure=on_failure,
+            check_interval_seconds=check_interval_seconds,
+            expiry_threshold_days=expiry_threshold_days
+        )
+        agent.start()
+        return agent
+
 
 class AsyncRemediationClient:
     """
@@ -49,7 +84,7 @@ class AsyncRemediationClient:
         expiry_threshold_days: int = 30,
     ) -> "AssuranceAgent":
         """
-        Configures and activates the "Merge Assurance" agent.
+        Configures and activates the async "Merge Assurance" agent.
         """
-        # Day 1+ Implementation will go here.
-        raise NotImplementedError("Assurance Agent implementation pending.")
+        logger.warning("AsyncRemediationClient is a placeholder and not fully implemented.")
+        raise NotImplementedError("Async Assurance Agent is not yet implemented.")
