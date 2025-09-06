@@ -2,19 +2,30 @@
 # This is a standalone script to verify the work of Days 4-6.
 # Place this file in the root of the repository, outside the `src` directory.
 
+import os
 import typing
 import time
 import logging
 import sys
-from src.merge.client import Merge
-from src.merge.remediation.errors import RefreshFailureError
-from src.merge.remediation.agent import JsonLogFormatter
+from merge.client import Merge
+from merge.remediation.errors import RefreshFailureError
+from merge.remediation.agent import JsonLogFormatter
 
-# --- Day 4 DoD: Configure structured JSON logging ---
-# This setup ensures our agent's logs are clean and machine-readable.
+# Read log level from environment variable. Default to INFO if not set.
+LOG_LEVEL_STR = os.getenv("LOG_LEVEL", "INFO").upper()
+LOG_LEVEL_MAP = {
+    "DEBUG": logging.DEBUG,
+    "INFO": logging.INFO,
+    "WARNING": logging.WARNING,
+    "ERROR": logging.ERROR,
+}
+LOG_LEVEL = LOG_LEVEL_MAP.get(LOG_LEVEL_STR, logging.INFO)
+
+# Configure structured JSON logging with the desired level.
 handler = logging.StreamHandler(sys.stdout)
 handler.setFormatter(JsonLogFormatter())
-logging.basicConfig(level=logging.INFO, handlers=[handler], force=True)
+# `force=True` is used to override any existing logger configuration.
+logging.basicConfig(level=LOG_LEVEL, handlers=[handler], force=True)
 
 
 class FailureEvent(typing.TypedDict):
