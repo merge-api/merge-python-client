@@ -78,6 +78,7 @@ class AssuranceAgent:
         self._timer: typing.Optional[threading.Timer] = None
         self._stop_event = threading.Event()
         self._running = False
+        self._processing_lock = threading.Lock()
 
     def is_running(self) -> bool:
         return self._running
@@ -102,17 +103,20 @@ class AssuranceAgent:
 
     def _run_check_cycle(self) -> None:
         """The main workhorse method, executed periodically by the timer."""
-        if self._stop_event.is_set():
+        if self._stop_event.is_set() or not self._processing_lock.acquire(blocking=False):
+            if not self._stop_event.is_set():
+                logger.warning({"message": "Skipping check cycle, previous cycle still running.", "component": "AssuranceAgent"})
             return
         
-        logger.info({"message": "Assurance Agent running check cycle.", "component": "AssuranceAgent"})
         try:
+            logger.info({"message": "Assurance Agent running check cycle.", "component": "AssuranceAgent"})
             self._check_and_remediate_credentials()
         except Exception as e:
             logger.error({"message": "Unhandled exception in check cycle.", "error": str(e), "component": "AssuranceAgent"})
         finally:
+            self._processing_lock.release()
             if not self._stop_event.is_set():
-                self._schedule_next_run() # Schedule the next run
+                self._schedule_next_run()
         
     def _check_and_remediate_credentials(self) -> None:
         """Fetches credentials and triggers remediation for those nearing expiry"""
@@ -203,6 +207,10 @@ class AssuranceAgent:
         self._stop_event.set()
         if self._timer:
             self._timer.cancel()
+        # Wait for the processing lock to be released for a clean shutdown
+        if wait:
+            if not self._processing_lock.acquire(timeout=timeout_seconds or 5.0):
+                logger.error({"message": "Agent shutdown timed out waiting for processing to complete.", "component": "AssuranceAgent"})
         self._running = False
         logger.info({"message": "Assurance Agent stopped.", "component": "AssuranceAgent"})
 
