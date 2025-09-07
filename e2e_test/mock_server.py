@@ -51,7 +51,7 @@ app = Flask(__name__)
 @app.route("/api/v1/credentials", methods=["GET"])
 def get_credentials() -> typing.Any:
     """Returns the current state of credentials."""
-    log.info(f"Request received for GET /api/v1/credentials")
+    log.info("Request received for GET /api/v1/credentials")
     return jsonify(mock_db)
 
 @app.route("/api/v1/refresh-token", methods=["POST"])

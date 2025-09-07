@@ -11,7 +11,6 @@ import typing
 from types import TracebackType
 
 import httpx
-
 from ..core.api_error import ApiError
 from ..core.client_wrapper import SyncClientWrapper
 from .errors import RefreshFailureError
