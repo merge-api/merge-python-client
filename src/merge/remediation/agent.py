@@ -153,7 +153,7 @@ class AssuranceAgent:
     def _attempt_refresh_with_retries(self, account_token: str) -> None:
         """Attempts to refresh a token with exponential backoff and jitter via a real API call."""
         max_retries = 5
-        base_delay_seconds = 2
+        base_delay_seconds = 5
         last_exception: typing.Optional[Exception] = None
 
         for attempt in range(max_retries):

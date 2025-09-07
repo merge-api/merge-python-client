@@ -97,12 +97,12 @@ if __name__ == "__main__":
         agent_handle = client.remediation.enable_assurance(
             on_success=on_refresh_success,
             on_failure=on_refresh_failure,
-            check_interval_seconds=5, # Short interval for demo
+            check_interval_seconds=6, # Short interval for demo
             expiry_threshold_days=30,
         )
 
-        logging.info("--- DEMO START: Agent running for 15 seconds. ---")
-        time.sleep(15)
+        logging.info("--- DEMO START: Agent running for 30 seconds. ---")
+        time.sleep(30)
         logging.info("--- DEMO END ---")
 
     finally:
