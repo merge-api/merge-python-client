@@ -9,13 +9,13 @@ from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .environment import MergeEnvironment
 
 if typing.TYPE_CHECKING:
+    from .remediation.client import AsyncRemediationClient, RemediationClient
     from .resources.accounting.client import AccountingClient, AsyncAccountingClient
     from .resources.ats.client import AsyncAtsClient, AtsClient
     from .resources.crm.client import AsyncCrmClient, CrmClient
     from .resources.filestorage.client import AsyncFilestorageClient, FilestorageClient
     from .resources.hris.client import AsyncHrisClient, HrisClient
     from .resources.ticketing.client import AsyncTicketingClient, TicketingClient
-
 
 class Merge:
     """
@@ -92,6 +92,7 @@ class Merge:
         self._hris: typing.Optional[HrisClient] = None
         self._ticketing: typing.Optional[TicketingClient] = None
         self._accounting: typing.Optional[AccountingClient] = None
+        self._remediation: typing.Optional[RemediationClient] = None
 
     @property
     def ats(self):
@@ -140,6 +141,23 @@ class Merge:
 
             self._accounting = AccountingClient(client_wrapper=self._client_wrapper)
         return self._accounting
+
+    @property
+    def remediation(self) -> "RemediationClient":
+        """
+        Access the Merge Remediation client.
+
+        This client provides access to native SDK features for proactively
+        managing and remediating common integration issues, such as
+        credential lifecycle management.
+        """
+        if self._remediation is None:
+            # Note the lazy, inline import, matching their style exactly.
+            from .remediation.client import RemediationClient  # noqa: E402
+
+            self._remediation = RemediationClient(client_wrapper=self._client_wrapper)
+        return self._remediation
+
 
 
 class AsyncMerge:
@@ -217,6 +235,7 @@ class AsyncMerge:
         self._hris: typing.Optional[AsyncHrisClient] = None
         self._ticketing: typing.Optional[AsyncTicketingClient] = None
         self._accounting: typing.Optional[AsyncAccountingClient] = None
+        self._remediation: typing.Optional["AsyncRemediationClient"] = None
 
     @property
     def ats(self):
@@ -265,6 +284,13 @@ class AsyncMerge:
 
             self._accounting = AsyncAccountingClient(client_wrapper=self._client_wrapper)
         return self._accounting
+
+    @property
+    def remediation(self) -> "AsyncRemediationClient":
+        if self._remediation is None:
+            from .remediation.client import AsyncRemediationClient  # noqa: E402
+            self._remediation = AsyncRemediationClient(client_wrapper=self._client_wrapper)
+        return self._remediation
 
 
 def _get_base_url(*, base_url: typing.Optional[str] = None, environment: MergeEnvironment) -> str:

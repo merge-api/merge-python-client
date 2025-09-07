@@ -1,5 +1,7 @@
 import os
+
 import pytest
+
 from merge import Merge
 from merge.resources.filestorage.types.permission import Permission
 

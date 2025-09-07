@@ -19,6 +19,10 @@ pip install MergePythonClient
 
 A full reference for this library is available [here](https://github.com/merge-api/merge-python-client/blob/HEAD/./reference.md).
 
+### Merge Assurance
+
+Merge Assurance is a feature that proactively monitors for expiring API credentials and automatically refreshes them. You can find more information about it in the [Remediation: Merge Assurance Agent](https://github.com/merge-api/merge-python-client/blob/HEAD/./reference.md#remediation-merge-assurance-agent) section of the reference guide.
+
 ## Usage
 
 Instantiate and use the client with the following:

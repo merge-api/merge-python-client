@@ -29697,6 +29697,118 @@ client.hris.webhook_receivers.create(
 </dl>
 </details>
 
+## Remediation
+<details><summary><code>client.remediation.<a href="src/merge/resources/remediation/client.py">enable_assurance</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+Enable the Merge Assurance agent to proactively manage the lifecycle of your Merge credentials, preventing outages caused by token expiration. When enabled, this launches a lightweight background thread that periodically checks for and refreshes expiring <code>account_token</code>s.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import MergeClient
+import atexit
+import logging
+
+# Define optional callbacks for logging/monitoring
+def on_success(token: str) -> None:
+    logging.info(f"[Merge Assurance] Successfully refreshed token: {token}")
+
+def on_failure(token: str, exc: Exception) -> None:
+    logging.error(f"[Merge Assurance] Failed to refresh token: {token}. Error: {exc}")
+
+# Initialize the client
+client = MergeClient(api_key="<YOUR_API_KEY>")
+
+# Enable the agent and get the handle
+assurance_agent = client.remediation.enable_assurance(
+    on_success=on_success,
+    on_failure=on_failure,
+    check_interval_seconds=1800,
+    expiry_threshold_days=14
+)
+
+# CRITICAL: Register the shutdown hook to ensure a clean exit
+atexit.register(assurance_agent.shutdown)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+⚙️ Parameters
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+on_success: typing.Optional[typing.Callable[[str], None]] — A callback function executed upon a successful token refresh. Receives the account_token as an argument.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+on_failure: typing.Optional[typing.Callable[[str, Exception], None]] — A callback function executed after all refresh retries for a token have failed. Receives the account_token and the final Exception as arguments.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+check_interval_seconds: typing.Optional[int] — The interval, in seconds, at which the agent checks for expiring tokens. Defaults to 3600.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+expiry_threshold_days: typing.Optional[int] — The time window, in days, before expiration that a token is considered eligible for a refresh. Defaults to 30.
+
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+🔩 Agent Handle
+<dl>
+<dd>
+
+<dl>
+<dd>
+The <code>enable_assurance()</code> method returns a handle to the agent. This handle has a <code>.shutdown()</code> method that must be called during your application's exit sequence to ensure the background thread is terminated cleanly, as shown in the usage example with <code>atexit</code>.
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Ticketing AccountDetails
 <details><summary><code>client.ticketing.account_details.<a href="src/merge/resources/ticketing/resources/account_details/client.py">retrieve</a>()</code></summary>
 <dl>
