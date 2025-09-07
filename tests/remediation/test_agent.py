@@ -5,7 +5,8 @@ from __future__ import annotations
 import unittest
 from unittest.mock import ANY, MagicMock, patch
 
-from merge.core.client_wrapper import SyncClientWrapper
+import httpx
+
 from merge.remediation.agent import AssuranceAgent
 from merge.remediation.errors import RefreshFailureError
 
@@ -20,7 +21,7 @@ class TestAssuranceAgent(unittest.TestCase):
 
     def setUp(self) -> None:
         """Set up a fresh agent instance and mocks before each test."""
-        self.mock_client_wrapper = MagicMock(spec=SyncClientWrapper)
+        self.mock_client_wrapper = MagicMock()
         self.mock_on_success = MagicMock()
         self.mock_on_failure = MagicMock()
         self.agent = AssuranceAgent(
@@ -54,9 +55,12 @@ class TestAssuranceAgent(unittest.TestCase):
         expires_at = current_time + (86400 * 15)
         mock_store = {"expiring_token": {"expires_at": expires_at, "refreshed": False}}
 
-        with patch("merge.remediation.agent.MOCK_CREDENTIALS_STORE", mock_store):
-            # We call the protected method directly to isolate this unit of logic.
-            self.agent._check_and_remediate_credentials()  # type: ignore[misc]
+        mock_response = MagicMock()
+        mock_response.json.return_value = mock_store
+        self.mock_client_wrapper.httpx_client.request.return_value = mock_response
+
+        # We call the protected method directly to isolate this unit of logic.
+        self.agent._check_and_remediate_credentials()  # type: ignore[misc]
 
         # It should have detected the token and spawned a thread to remediate it.
         mock_thread_cls.assert_called_once_with(
@@ -68,11 +72,19 @@ class TestAssuranceAgent(unittest.TestCase):
         self: "TestAssuranceAgent", mock_sleep: MagicMock
     ) -> None:
         """Verify that a successful token refresh triggers the `on_success` callback."""
-        with patch.object(self.agent, "_mock_api_refresh_call") as mock_api_call:
-            # We call the protected method directly to test the refresh logic.
-            self.agent._attempt_refresh_with_retries("good_token")  # type: ignore[misc]
+        mock_response = MagicMock()
+        mock_response.raise_for_status.return_value = None
+        self.mock_client_wrapper.httpx_client.request.return_value = mock_response
 
-        mock_api_call.assert_called_once_with("good_token")
+        # We call the protected method directly to test the refresh logic.
+        self.agent._attempt_refresh_with_retries("good_token")  # type: ignore[misc]
+
+        self.mock_client_wrapper.httpx_client.request.assert_called_once_with(
+            "/api/v1/refresh-token",
+            method="POST",
+            json={"account_token": "good_token"},
+            base_url=ANY,
+        )
         self.mock_on_success.assert_called_once_with("good_token")
         self.mock_on_failure.assert_not_called()
 
@@ -81,15 +93,20 @@ class TestAssuranceAgent(unittest.TestCase):
         self: "TestAssuranceAgent", mock_sleep: MagicMock
     ) -> None:
         """Test that a non-retryable error fails immediately without retries."""
-        mock_store = {"bad_token": {"refreshed": False}}
-        with patch("merge.remediation.agent.MOCK_CREDENTIALS_STORE", mock_store), patch.object(
-            self.agent, "_mock_api_refresh_call"
-        ) as mock_api_call:
-            mock_api_call.side_effect = ValueError("non-retryable error")
-            self.agent._attempt_refresh_with_retries("bad_token")  # type: ignore[misc]
+        mock_response = httpx.Response(status_code=400, json={"error": "Invalid token"})
+        mock_error = httpx.HTTPStatusError(
+            message="Bad Request", request=httpx.Request("POST", "/api/v1/refresh-token"), response=mock_response
+        )
+        self.mock_client_wrapper.httpx_client.request.side_effect = mock_error
+        self.agent._attempt_refresh_with_retries("bad_token")  # type: ignore[misc]
 
         # The API should only be called once.
-        mock_api_call.assert_called_once_with("bad_token")
+        self.mock_client_wrapper.httpx_client.request.assert_called_once_with(
+            "/api/v1/refresh-token",
+            method="POST",
+            json={"account_token": "bad_token"},
+            base_url=ANY,
+        )
         self.mock_on_success.assert_not_called()
 
         # The failure callback should be invoked with a RefreshFailureError.
@@ -101,15 +118,11 @@ class TestAssuranceAgent(unittest.TestCase):
         self: "TestAssuranceAgent", mock_sleep: MagicMock
     ) -> None:
         """Test that a retryable error attempts to refresh 5 times before failing."""
-        mock_store = {"flaky_token": {"refreshed": False}}
-        with patch("merge.remediation.agent.MOCK_CREDENTIALS_STORE", mock_store), patch.object(
-            self.agent, "_mock_api_refresh_call"
-        ) as mock_api_call:
-            mock_api_call.side_effect = ConnectionError("flaky connection")
-            self.agent._attempt_refresh_with_retries("flaky_token")  # type: ignore[misc]
+        self.mock_client_wrapper.httpx_client.request.side_effect = ConnectionError("flaky connection")
+        self.agent._attempt_refresh_with_retries("flaky_token")  # type: ignore[misc]
 
         # It should have been called 5 times (the configured max_retries).
-        self.assertEqual(mock_api_call.call_count, 5)
+        self.assertEqual(self.mock_client_wrapper.httpx_client.request.call_count, 5)
         self.mock_on_success.assert_not_called()
         self.mock_on_failure.assert_called_once_with("flaky_token", ANY)
 
