@@ -500,9 +500,9 @@ class AsyncTicketingClient:
     @property
     def passthrough(self):
         if self._passthrough is None:
-            self._passthrough = resources_ticketing_resources_passthrough_client_AsyncPassthroughClient(
-                client_wrapper=self._client_wrapper
-            )
+            from .resources.passthrough.client import AsyncPassthroughClient  # noqa: E402
+
+            self._passthrough = AsyncPassthroughClient(client_wrapper=self._client_wrapper)
         return self._passthrough
 
     @property
