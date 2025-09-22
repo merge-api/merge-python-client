@@ -31,6 +31,7 @@ class DependentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        employee_id: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
@@ -54,6 +55,9 @@ class DependentsClient:
 
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        employee_id : typing.Optional[str]
+            If provided, will only return dependents for this employee.
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -103,6 +107,7 @@ class DependentsClient:
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
+            employee_id=employee_id,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
             include_sensitive_fields=include_sensitive_fields,
@@ -191,6 +196,7 @@ class AsyncDependentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        employee_id: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
@@ -214,6 +220,9 @@ class AsyncDependentsClient:
 
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        employee_id : typing.Optional[str]
+            If provided, will only return dependents for this employee.
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -271,6 +280,7 @@ class AsyncDependentsClient:
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
+            employee_id=employee_id,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
             include_sensitive_fields=include_sensitive_fields,
