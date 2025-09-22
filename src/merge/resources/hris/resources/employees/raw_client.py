@@ -41,6 +41,7 @@ class RawEmployeesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         display_full_name: typing.Optional[str] = None,
+        employee_number: typing.Optional[str] = None,
         employment_status: typing.Optional[EmployeesListRequestEmploymentStatus] = None,
         employment_type: typing.Optional[str] = None,
         expand: typing.Optional[EmployeesListRequestExpand] = None,
@@ -90,6 +91,9 @@ class RawEmployeesClient:
 
         display_full_name : typing.Optional[str]
             If provided, will only return employees with this display name.
+
+        employee_number : typing.Optional[str]
+            If provided, will only return employees with this employee number.
 
         employment_status : typing.Optional[EmployeesListRequestEmploymentStatus]
             If provided, will only return employees with this employment status.
@@ -196,6 +200,7 @@ class RawEmployeesClient:
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
                 "display_full_name": display_full_name,
+                "employee_number": employee_number,
                 "employment_status": employment_status,
                 "employment_type": employment_type,
                 "expand": expand,
@@ -471,6 +476,7 @@ class AsyncRawEmployeesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         display_full_name: typing.Optional[str] = None,
+        employee_number: typing.Optional[str] = None,
         employment_status: typing.Optional[EmployeesListRequestEmploymentStatus] = None,
         employment_type: typing.Optional[str] = None,
         expand: typing.Optional[EmployeesListRequestExpand] = None,
@@ -520,6 +526,9 @@ class AsyncRawEmployeesClient:
 
         display_full_name : typing.Optional[str]
             If provided, will only return employees with this display name.
+
+        employee_number : typing.Optional[str]
+            If provided, will only return employees with this employee number.
 
         employment_status : typing.Optional[EmployeesListRequestEmploymentStatus]
             If provided, will only return employees with this employment status.
@@ -626,6 +635,7 @@ class AsyncRawEmployeesClient:
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
                 "display_full_name": display_full_name,
+                "employee_number": employee_number,
                 "employment_status": employment_status,
                 "employment_type": employment_type,
                 "expand": expand,
