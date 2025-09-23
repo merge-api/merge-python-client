@@ -47,6 +47,7 @@ class EmployeesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         display_full_name: typing.Optional[str] = None,
+        employee_number: typing.Optional[str] = None,
         employment_status: typing.Optional[EmployeesListRequestEmploymentStatus] = None,
         employment_type: typing.Optional[str] = None,
         expand: typing.Optional[EmployeesListRequestExpand] = None,
@@ -96,6 +97,9 @@ class EmployeesClient:
 
         display_full_name : typing.Optional[str]
             If provided, will only return employees with this display name.
+
+        employee_number : typing.Optional[str]
+            If provided, will only return employees with this employee number.
 
         employment_status : typing.Optional[EmployeesListRequestEmploymentStatus]
             If provided, will only return employees with this employment status.
@@ -211,6 +215,7 @@ class EmployeesClient:
             created_before=created_before,
             cursor=cursor,
             display_full_name=display_full_name,
+            employee_number=employee_number,
             employment_status=employment_status,
             employment_type=employment_type,
             expand=expand,
@@ -455,6 +460,7 @@ class AsyncEmployeesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         display_full_name: typing.Optional[str] = None,
+        employee_number: typing.Optional[str] = None,
         employment_status: typing.Optional[EmployeesListRequestEmploymentStatus] = None,
         employment_type: typing.Optional[str] = None,
         expand: typing.Optional[EmployeesListRequestExpand] = None,
@@ -504,6 +510,9 @@ class AsyncEmployeesClient:
 
         display_full_name : typing.Optional[str]
             If provided, will only return employees with this display name.
+
+        employee_number : typing.Optional[str]
+            If provided, will only return employees with this employee number.
 
         employment_status : typing.Optional[EmployeesListRequestEmploymentStatus]
             If provided, will only return employees with this employment status.
@@ -627,6 +636,7 @@ class AsyncEmployeesClient:
             created_before=created_before,
             cursor=cursor,
             display_full_name=display_full_name,
+            employee_number=employee_number,
             employment_status=employment_status,
             employment_type=employment_type,
             expand=expand,

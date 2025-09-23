@@ -97,6 +97,10 @@ class FilestorageClient:
     @property
     def async_passthrough(self):
         if self._async_passthrough is None:
+            from .resources.async_passthrough.client import (
+                AsyncPassthroughClient as resources_filestorage_resources_async_passthrough_client_AsyncPassthroughClient,  # noqa: E402
+            )
+
             self._async_passthrough = resources_filestorage_resources_async_passthrough_client_AsyncPassthroughClient(
                 client_wrapper=self._client_wrapper
             )
@@ -426,9 +430,13 @@ class AsyncFilestorageClient:
     @property
     def passthrough(self):
         if self._passthrough is None:
-            from .resources.passthrough.client import AsyncPassthroughClient  # noqa: E402
+            from .resources.passthrough.client import (
+                AsyncPassthroughClient as resources_filestorage_resources_passthrough_client_AsyncPassthroughClient,  # noqa: E402
+            )
 
-            self._passthrough = AsyncPassthroughClient(client_wrapper=self._client_wrapper)
+            self._passthrough = resources_filestorage_resources_passthrough_client_AsyncPassthroughClient(
+                client_wrapper=self._client_wrapper
+            )
         return self._passthrough
 
     @property
