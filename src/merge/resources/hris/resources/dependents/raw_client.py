@@ -25,6 +25,7 @@ class RawDependentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        employee_id: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
@@ -48,6 +49,9 @@ class RawDependentsClient:
 
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        employee_id : typing.Optional[str]
+            If provided, will only return dependents for this employee.
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -88,6 +92,7 @@ class RawDependentsClient:
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
+                "employee_id": employee_id,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_sensitive_fields": include_sensitive_fields,
@@ -183,6 +188,7 @@ class AsyncRawDependentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        employee_id: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
@@ -206,6 +212,9 @@ class AsyncRawDependentsClient:
 
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        employee_id : typing.Optional[str]
+            If provided, will only return dependents for this employee.
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -246,6 +255,7 @@ class AsyncRawDependentsClient:
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
+                "employee_id": employee_id,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_sensitive_fields": include_sensitive_fields,

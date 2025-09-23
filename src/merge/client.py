@@ -89,8 +89,8 @@ class Merge:
         self._ats: typing.Optional[AtsClient] = None
         self._crm: typing.Optional[CrmClient] = None
         self._filestorage: typing.Optional[FilestorageClient] = None
-        self._hris: typing.Optional[HrisClient] = None
         self._ticketing: typing.Optional[TicketingClient] = None
+        self._hris: typing.Optional[HrisClient] = None
         self._accounting: typing.Optional[AccountingClient] = None
 
     @property
@@ -118,20 +118,20 @@ class Merge:
         return self._filestorage
 
     @property
-    def hris(self):
-        if self._hris is None:
-            from .resources.hris.client import HrisClient  # noqa: E402
-
-            self._hris = HrisClient(client_wrapper=self._client_wrapper)
-        return self._hris
-
-    @property
     def ticketing(self):
         if self._ticketing is None:
             from .resources.ticketing.client import TicketingClient  # noqa: E402
 
             self._ticketing = TicketingClient(client_wrapper=self._client_wrapper)
         return self._ticketing
+
+    @property
+    def hris(self):
+        if self._hris is None:
+            from .resources.hris.client import HrisClient  # noqa: E402
+
+            self._hris = HrisClient(client_wrapper=self._client_wrapper)
+        return self._hris
 
     @property
     def accounting(self):
@@ -214,8 +214,8 @@ class AsyncMerge:
         self._ats: typing.Optional[AsyncAtsClient] = None
         self._crm: typing.Optional[AsyncCrmClient] = None
         self._filestorage: typing.Optional[AsyncFilestorageClient] = None
-        self._hris: typing.Optional[AsyncHrisClient] = None
         self._ticketing: typing.Optional[AsyncTicketingClient] = None
+        self._hris: typing.Optional[AsyncHrisClient] = None
         self._accounting: typing.Optional[AsyncAccountingClient] = None
 
     @property
@@ -243,20 +243,20 @@ class AsyncMerge:
         return self._filestorage
 
     @property
-    def hris(self):
-        if self._hris is None:
-            from .resources.hris.client import AsyncHrisClient  # noqa: E402
-
-            self._hris = AsyncHrisClient(client_wrapper=self._client_wrapper)
-        return self._hris
-
-    @property
     def ticketing(self):
         if self._ticketing is None:
             from .resources.ticketing.client import AsyncTicketingClient  # noqa: E402
 
             self._ticketing = AsyncTicketingClient(client_wrapper=self._client_wrapper)
         return self._ticketing
+
+    @property
+    def hris(self):
+        if self._hris is None:
+            from .resources.hris.client import AsyncHrisClient  # noqa: E402
+
+            self._hris = AsyncHrisClient(client_wrapper=self._client_wrapper)
+        return self._hris
 
     @property
     def accounting(self):

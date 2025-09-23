@@ -31,6 +31,7 @@ class RawContactsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        email_address: typing.Optional[str] = None,
         expand: typing.Optional[typing.Literal["account"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
@@ -54,6 +55,9 @@ class RawContactsClient:
 
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        email_address : typing.Optional[str]
+            If provided, will only return Contacts that match this email.
 
         expand : typing.Optional[typing.Literal["account"]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
@@ -94,6 +98,7 @@ class RawContactsClient:
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
+                "email_address": email_address,
                 "expand": expand,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
@@ -285,6 +290,7 @@ class AsyncRawContactsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        email_address: typing.Optional[str] = None,
         expand: typing.Optional[typing.Literal["account"]] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
@@ -308,6 +314,9 @@ class AsyncRawContactsClient:
 
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        email_address : typing.Optional[str]
+            If provided, will only return Contacts that match this email.
 
         expand : typing.Optional[typing.Literal["account"]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
@@ -348,6 +357,7 @@ class AsyncRawContactsClient:
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
+                "email_address": email_address,
                 "expand": expand,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,

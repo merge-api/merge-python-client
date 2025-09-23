@@ -34,6 +34,7 @@ class RawCollectionsClient:
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        name: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         parent_collection_id: typing.Optional[str] = None,
         remote_fields: typing.Optional[typing.Literal["collection_type"]] = None,
@@ -76,6 +77,9 @@ class RawCollectionsClient:
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
 
+        name : typing.Optional[str]
+            If provided, will only return collections with this name.
+
         page_size : typing.Optional[int]
             Number of results to return per page.
 
@@ -113,6 +117,7 @@ class RawCollectionsClient:
                 "include_shell_data": include_shell_data,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "name": name,
                 "page_size": page_size,
                 "parent_collection_id": parent_collection_id,
                 "remote_fields": remote_fields,
@@ -295,6 +300,7 @@ class AsyncRawCollectionsClient:
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        name: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         parent_collection_id: typing.Optional[str] = None,
         remote_fields: typing.Optional[typing.Literal["collection_type"]] = None,
@@ -337,6 +343,9 @@ class AsyncRawCollectionsClient:
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
 
+        name : typing.Optional[str]
+            If provided, will only return collections with this name.
+
         page_size : typing.Optional[int]
             Number of results to return per page.
 
@@ -374,6 +383,7 @@ class AsyncRawCollectionsClient:
                 "include_shell_data": include_shell_data,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "name": name,
                 "page_size": page_size,
                 "parent_collection_id": parent_collection_id,
                 "remote_fields": remote_fields,

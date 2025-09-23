@@ -171,7 +171,7 @@ from merge import Merge
 client = Merge(
     ...,
     httpx_client=httpx.Client(
-        proxies="http://my.test.proxy.example.com",
+        proxy="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
 )
@@ -228,6 +228,7 @@ while response.next is not None:
         cursor=response.next, 
         created_after="2030-01-01")
 ```
+
 
 
 

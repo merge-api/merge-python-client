@@ -40,6 +40,7 @@ class CollectionsClient:
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        name: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         parent_collection_id: typing.Optional[str] = None,
         remote_fields: typing.Optional[typing.Literal["collection_type"]] = None,
@@ -81,6 +82,9 @@ class CollectionsClient:
 
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
+
+        name : typing.Optional[str]
+            If provided, will only return collections with this name.
 
         page_size : typing.Optional[int]
             Number of results to return per page.
@@ -128,6 +132,7 @@ class CollectionsClient:
             include_shell_data=include_shell_data,
             modified_after=modified_after,
             modified_before=modified_before,
+            name=name,
             page_size=page_size,
             parent_collection_id=parent_collection_id,
             remote_fields=remote_fields,
@@ -300,6 +305,7 @@ class AsyncCollectionsClient:
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        name: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         parent_collection_id: typing.Optional[str] = None,
         remote_fields: typing.Optional[typing.Literal["collection_type"]] = None,
@@ -341,6 +347,9 @@ class AsyncCollectionsClient:
 
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
+
+        name : typing.Optional[str]
+            If provided, will only return collections with this name.
 
         page_size : typing.Optional[int]
             Number of results to return per page.
@@ -396,6 +405,7 @@ class AsyncCollectionsClient:
             include_shell_data=include_shell_data,
             modified_after=modified_after,
             modified_before=modified_before,
+            name=name,
             page_size=page_size,
             parent_collection_id=parent_collection_id,
             remote_fields=remote_fields,
