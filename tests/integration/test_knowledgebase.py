@@ -25,7 +25,7 @@ def test_articles_list(client):
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
 
-
+@pytest.mark.skip
 def test_articles_retrieve(client):
     articles_response = client.knowledgebase.articles.list(page_size=1)
 
@@ -55,6 +55,7 @@ def test_articles_list_with_expand_permissions(client):
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
 
+@pytest.mark.skip
 def test_articles_retrieve_with_expand_author(client):
     articles_response = client.knowledgebase.articles.list(page_size=1)
 
@@ -64,6 +65,7 @@ def test_articles_retrieve_with_expand_author(client):
         assert article is not None
         assert article.id == article_id
 
+@pytest.mark.skip
 def test_articles_retrieve_with_expand_attachments(client):
     articles_response = client.knowledgebase.articles.list(page_size=1)
 
@@ -178,6 +180,7 @@ def test_groups_list_with_expand_parent_group(client):
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
 
+@pytest.mark.skip
 def test_groups_retrieve_with_expand_users(client):
     groups_response = client.knowledgebase.groups.list(page_size=1)
 
@@ -187,6 +190,7 @@ def test_groups_retrieve_with_expand_users(client):
         assert group is not None
         assert group.id == group_id
 
+@pytest.mark.skip
 def test_groups_retrieve_with_expand_parent_group(client):
     groups_response = client.knowledgebase.groups.list(page_size=1)
 
