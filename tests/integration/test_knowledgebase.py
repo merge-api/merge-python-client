@@ -25,18 +25,6 @@ def test_articles_list(client):
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
 
-@pytest.mark.skip
-def test_articles_retrieve(client):
-    articles_response = client.knowledgebase.articles.list(page_size=1)
-
-    assert articles_response.results, "No articles available to test retrieve"
-
-    article_id = articles_response.results[0].id
-    article = client.knowledgebase.articles.retrieve(id=article_id)
-
-    assert article is not None
-    assert article.id == article_id
-
 def test_articles_list_with_expand_author(client):
     response = client.knowledgebase.articles.list(expand=ArticlesListRequestExpand.AUTHOR)
     assert response is not None
@@ -54,26 +42,6 @@ def test_articles_list_with_expand_permissions(client):
     assert response is not None
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
-
-@pytest.mark.skip
-def test_articles_retrieve_with_expand_author(client):
-    articles_response = client.knowledgebase.articles.list(page_size=1)
-
-    if articles_response.results:
-        article_id = articles_response.results[0].id
-        article = client.knowledgebase.articles.retrieve(id=article_id, expand=ArticlesRetrieveRequestExpand.AUTHOR)
-        assert article is not None
-        assert article.id == article_id
-
-@pytest.mark.skip
-def test_articles_retrieve_with_expand_attachments(client):
-    articles_response = client.knowledgebase.articles.list(page_size=1)
-
-    if articles_response.results:
-        article_id = articles_response.results[0].id
-        article = client.knowledgebase.articles.retrieve(id=article_id, expand=ArticlesRetrieveRequestExpand.ATTACHMENTS)
-        assert article is not None
-        assert article.id == article_id
 
 def test_attachments_list(client):
     response = client.knowledgebase.attachments.list()
@@ -179,26 +147,6 @@ def test_groups_list_with_expand_parent_group(client):
     assert response is not None
     assert hasattr(response, 'results')
     assert isinstance(response.results, list)
-
-@pytest.mark.skip
-def test_groups_retrieve_with_expand_users(client):
-    groups_response = client.knowledgebase.groups.list(page_size=1)
-
-    if groups_response.results:
-        group_id = groups_response.results[0].id
-        group = client.knowledgebase.groups.retrieve(id=group_id, expand=GroupsRetrieveRequestExpand.USERS)
-        assert group is not None
-        assert group.id == group_id
-
-@pytest.mark.skip
-def test_groups_retrieve_with_expand_parent_group(client):
-    groups_response = client.knowledgebase.groups.list(page_size=1)
-
-    if groups_response.results:
-        group_id = groups_response.results[0].id
-        group = client.knowledgebase.groups.retrieve(id=group_id, expand=GroupsRetrieveRequestExpand.PARENT_GROUP)
-        assert group is not None
-        assert group.id == group_id
 
 def test_audit_trail_list(client):
     response = client.knowledgebase.audit_trail.list()
