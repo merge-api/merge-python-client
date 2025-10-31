@@ -98,6 +98,8 @@ class AssociationTypesClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
 
         client = Merge(
@@ -106,7 +108,24 @@ class AssociationTypesClient:
         )
         client.crm.association_types.custom_object_classes_association_types_list(
             custom_object_class_id="custom_object_class_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.custom_object_classes_association_types_list(
@@ -173,6 +192,8 @@ class AssociationTypesClient:
         )
         client.crm.association_types.custom_object_classes_association_types_create(
             custom_object_class_id="custom_object_class_id",
+            is_debug_mode=True,
+            run_async=True,
             model=AssociationTypeRequestRequest(
                 source_object_class=ObjectClassDescriptionRequest(
                     id="id",
@@ -244,6 +265,8 @@ class AssociationTypesClient:
         client.crm.association_types.custom_object_classes_association_types_retrieve(
             custom_object_class_id="custom_object_class_id",
             id="id",
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.custom_object_classes_association_types_retrieve(
@@ -375,6 +398,7 @@ class AsyncAssociationTypesClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
 
@@ -387,7 +411,24 @@ class AsyncAssociationTypesClient:
         async def main() -> None:
             await client.crm.association_types.custom_object_classes_association_types_list(
                 custom_object_class_id="custom_object_class_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_id="remote_id",
             )
 
 
@@ -462,6 +503,8 @@ class AsyncAssociationTypesClient:
         async def main() -> None:
             await client.crm.association_types.custom_object_classes_association_types_create(
                 custom_object_class_id="custom_object_class_id",
+                is_debug_mode=True,
+                run_async=True,
                 model=AssociationTypeRequestRequest(
                     source_object_class=ObjectClassDescriptionRequest(
                         id="id",
@@ -541,6 +584,8 @@ class AsyncAssociationTypesClient:
             await client.crm.association_types.custom_object_classes_association_types_retrieve(
                 custom_object_class_id="custom_object_class_id",
                 id="id",
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

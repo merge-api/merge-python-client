@@ -62,7 +62,8 @@ service:
     list:
       path: /filestorage/v1/files
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `File` objects.
       source:
         openapi: openapi/openapi.yml
@@ -161,7 +162,24 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            drive_id: drive_id
+            expand: drive
+            folder_id: folder_id
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            mime_type: mime_type
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            name: name
+            order_by: '-created_at'
+            page_size: 1
+            remote_created_after: '2024-01-15T09:30:00Z'
+            remote_created_before: '2024-01-15T09:30:00Z'
+            remote_id: remote_id
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -204,7 +222,8 @@ service:
     create:
       path: /filestorage/v1/files
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Creates a `File` object with the given values.
       source:
         openapi: openapi/openapi.yml
@@ -228,7 +247,10 @@ service:
         type: root.FileStorageFileResponse
         status-code: 201
       examples:
-        - headers:
+        - query-parameters:
+            is_debug_mode: true
+            run_async: true
+          headers:
             X-Account-Token: X-Account-Token
           request:
             model: {}
@@ -290,7 +312,8 @@ service:
     retrieve:
       path: /filestorage/v1/files/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a `File` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -321,6 +344,10 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: drive
+            include_remote_data: true
+            include_shell_data: true
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -360,7 +387,8 @@ service:
     downloadRetrieve:
       path: /filestorage/v1/files/{id}/download
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns the `File` content with the given `id` as a stream of bytes.
       source:
         openapi: openapi/openapi.yml
@@ -389,7 +417,8 @@ service:
     downloadRequestMetaRetrieve:
       path: /filestorage/v1/files/{id}/download/request-meta
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: >-
         Returns metadata to construct an authenticated file download request for
         a singular file, allowing you to download file directly from the
@@ -416,6 +445,8 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            mime_type: mime_type
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -428,7 +459,8 @@ service:
     downloadRequestMetaList:
       path: /filestorage/v1/files/download/request-meta
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: >-
         Returns metadata to construct authenticated file download requests,
         allowing you to download files directly from the third-party.
@@ -496,7 +528,15 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            created_after: created_after
+            created_before: created_before
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            include_deleted_data: true
+            mime_types: mime_types
+            modified_after: modified_after
+            modified_before: modified_before
+            order_by: '-created_at'
+            page_size: 1
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -512,7 +552,8 @@ service:
     metaPostRetrieve:
       path: /filestorage/v1/files/meta/post
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns metadata for `FileStorageFile` POSTs.
       source:
         openapi: openapi/openapi.yml

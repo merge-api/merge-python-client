@@ -123,14 +123,47 @@ class PaymentsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.accounting.resources.payments import (
+            PaymentsListRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.payments.list(
+            account_id="account_id",
+            company_id="company_id",
+            contact_id="contact_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=PaymentsListRequestExpand.ACCOUNT,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_id="remote_id",
+            transaction_date_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            transaction_date_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
         )
         """
         _response = self._raw_client.list(
@@ -194,6 +227,8 @@ class PaymentsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.payments.create(
+            is_debug_mode=True,
+            run_async=True,
             model=PaymentRequest(),
         )
         """
@@ -242,6 +277,9 @@ class PaymentsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.accounting.resources.payments import (
+            PaymentsRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -249,6 +287,10 @@ class PaymentsClient:
         )
         client.accounting.payments.retrieve(
             id="id",
+            expand=PaymentsRetrieveRequestExpand.ACCOUNT,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -304,6 +346,8 @@ class PaymentsClient:
         )
         client.accounting.payments.partial_update(
             id="id",
+            is_debug_mode=True,
+            run_async=True,
             model=PatchedPaymentRequest(),
         )
         """
@@ -368,6 +412,12 @@ class PaymentsClient:
         )
         client.accounting.payments.line_items_remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            is_common_model_field=True,
+            is_custom=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.line_items_remote_field_classes_list(
@@ -496,6 +546,12 @@ class PaymentsClient:
         )
         client.accounting.payments.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            is_common_model_field=True,
+            is_custom=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.remote_field_classes_list(
@@ -615,8 +671,12 @@ class AsyncPaymentsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.payments import (
+            PaymentsListRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -626,7 +686,35 @@ class AsyncPaymentsClient:
 
         async def main() -> None:
             await client.accounting.payments.list(
+                account_id="account_id",
+                company_id="company_id",
+                contact_id="contact_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=PaymentsListRequestExpand.ACCOUNT,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_id="remote_id",
+                transaction_date_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                transaction_date_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
             )
 
 
@@ -698,6 +786,8 @@ class AsyncPaymentsClient:
 
         async def main() -> None:
             await client.accounting.payments.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=PaymentRequest(),
             )
 
@@ -751,6 +841,9 @@ class AsyncPaymentsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.payments import (
+            PaymentsRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -761,6 +854,10 @@ class AsyncPaymentsClient:
         async def main() -> None:
             await client.accounting.payments.retrieve(
                 id="id",
+                expand=PaymentsRetrieveRequestExpand.ACCOUNT,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
             )
 
 
@@ -824,6 +921,8 @@ class AsyncPaymentsClient:
         async def main() -> None:
             await client.accounting.payments.partial_update(
                 id="id",
+                is_debug_mode=True,
+                run_async=True,
                 model=PatchedPaymentRequest(),
             )
 
@@ -896,6 +995,12 @@ class AsyncPaymentsClient:
         async def main() -> None:
             await client.accounting.payments.line_items_remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                is_common_model_field=True,
+                is_custom=True,
+                page_size=1,
             )
 
 
@@ -1050,6 +1155,12 @@ class AsyncPaymentsClient:
         async def main() -> None:
             await client.accounting.payments.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                is_common_model_field=True,
+                is_custom=True,
+                page_size=1,
             )
 
 

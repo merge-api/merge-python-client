@@ -91,7 +91,7 @@ class RawBankInfoClient:
             Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["account_type"]]
             Deprecated. Use show_enum_origins.
@@ -292,7 +292,7 @@ class AsyncRawBankInfoClient:
             Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["account_type"]]
             Deprecated. Use show_enum_origins.

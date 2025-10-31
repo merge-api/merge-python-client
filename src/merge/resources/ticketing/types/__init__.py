@@ -45,6 +45,7 @@ if typing.TYPE_CHECKING:
     from .comment_user import CommentUser
     from .common_model_scope_api import CommonModelScopeApi
     from .common_model_scopes_body_request import CommonModelScopesBodyRequest
+    from .completed_account_initial_screen_enum import CompletedAccountInitialScreenEnum
     from .contact import Contact
     from .contact_account import ContactAccount
     from .contact_request import ContactRequest
@@ -219,6 +220,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CommentUser": ".comment_user",
     "CommonModelScopeApi": ".common_model_scope_api",
     "CommonModelScopesBodyRequest": ".common_model_scopes_body_request",
+    "CompletedAccountInitialScreenEnum": ".completed_account_initial_screen_enum",
     "Contact": ".contact",
     "ContactAccount": ".contact_account",
     "ContactRequest": ".contact_request",
@@ -413,6 +415,7 @@ __all__ = [
     "CommentUser",
     "CommonModelScopeApi",
     "CommonModelScopesBodyRequest",
+    "CompletedAccountInitialScreenEnum",
     "Contact",
     "ContactAccount",
     "ContactRequest",

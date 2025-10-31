@@ -38,7 +38,8 @@ service:
     list:
       path: /ats/v1/scorecards
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `Scorecard` objects.
       source:
         openapi: openapi/openapi.yml
@@ -120,7 +121,22 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            application_id: application_id
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            expand: application
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            interview_id: interview_id
+            interviewer_id: interviewer_id
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            page_size: 1
+            remote_fields: overall_recommendation
+            remote_id: remote_id
+            show_enum_origins: overall_recommendation
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -151,7 +167,8 @@ service:
     retrieve:
       path: /ats/v1/scorecards/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a `Scorecard` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -192,6 +209,12 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: application
+            include_remote_data: true
+            include_shell_data: true
+            remote_fields: overall_recommendation
+            show_enum_origins: overall_recommendation
           headers:
             X-Account-Token: X-Account-Token
           response:

@@ -102,14 +102,38 @@ class IssuesClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.crm.resources.issues import IssuesListRequestStatus
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.crm.issues.list(
+            account_token="account_token",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            end_date="end_date",
+            end_user_organization_name="end_user_organization_name",
+            first_incident_time_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            first_incident_time_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            include_muted="include_muted",
+            integration_name="integration_name",
+            last_incident_time_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            last_incident_time_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            linked_account_id="linked_account_id",
+            page_size=1,
+            start_date="start_date",
+            status=IssuesListRequestStatus.ONGOING,
         )
         """
         _response = self._raw_client.list(
@@ -255,8 +279,10 @@ class AsyncIssuesClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.crm.resources.issues import IssuesListRequestStatus
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -266,7 +292,28 @@ class AsyncIssuesClient:
 
         async def main() -> None:
             await client.crm.issues.list(
+                account_token="account_token",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                end_date="end_date",
+                end_user_organization_name="end_user_organization_name",
+                first_incident_time_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                first_incident_time_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                include_muted="include_muted",
+                integration_name="integration_name",
+                last_incident_time_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                last_incident_time_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                linked_account_id="linked_account_id",
+                page_size=1,
+                start_date="start_date",
+                status=IssuesListRequestStatus.ONGOING,
             )
 
 

@@ -104,13 +104,28 @@ class LinkedAccountsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.filestorage.resources.linked_accounts import (
+            LinkedAccountsListRequestCategory,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.filestorage.linked_accounts.list(
+            category=LinkedAccountsListRequestCategory.ACCOUNTING,
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            end_user_email_address="end_user_email_address",
+            end_user_organization_name="end_user_organization_name",
+            end_user_origin_id="end_user_origin_id",
+            end_user_origin_ids="end_user_origin_ids",
+            id="id",
+            ids="ids",
+            include_duplicates=True,
+            integration_name="integration_name",
+            is_test_account="is_test_account",
+            page_size=1,
+            status="status",
         )
         """
         _response = self._raw_client.list(
@@ -229,6 +244,9 @@ class AsyncLinkedAccountsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.filestorage.resources.linked_accounts import (
+            LinkedAccountsListRequestCategory,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -238,7 +256,19 @@ class AsyncLinkedAccountsClient:
 
         async def main() -> None:
             await client.filestorage.linked_accounts.list(
+                category=LinkedAccountsListRequestCategory.ACCOUNTING,
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                end_user_email_address="end_user_email_address",
+                end_user_organization_name="end_user_organization_name",
+                end_user_origin_id="end_user_origin_id",
+                end_user_origin_ids="end_user_origin_ids",
+                id="id",
+                ids="ids",
+                include_duplicates=True,
+                integration_name="integration_name",
+                is_test_account="is_test_account",
+                page_size=1,
+                status="status",
             )
 
 

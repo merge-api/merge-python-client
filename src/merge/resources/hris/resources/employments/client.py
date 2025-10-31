@@ -91,7 +91,7 @@ class EmploymentsClient:
             Overrides the default ordering for this endpoint. Possible values include: effective_date, -effective_date.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[EmploymentsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -112,14 +112,44 @@ class EmploymentsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.hris.resources.employments import (
+            EmploymentsListRequestExpand,
+            EmploymentsListRequestOrderBy,
+            EmploymentsListRequestRemoteFields,
+            EmploymentsListRequestShowEnumOrigins,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.hris.employments.list(
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            employee_id="employee_id",
+            expand=EmploymentsListRequestExpand.EMPLOYEE,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            order_by=EmploymentsListRequestOrderBy.EFFECTIVE_DATE_DESCENDING,
+            page_size=1,
+            remote_fields=EmploymentsListRequestRemoteFields.EMPLOYMENT_TYPE,
+            remote_id="remote_id",
+            show_enum_origins=EmploymentsListRequestShowEnumOrigins.EMPLOYMENT_TYPE,
         )
         """
         _response = self._raw_client.list(
@@ -186,6 +216,11 @@ class EmploymentsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.hris.resources.employments import (
+            EmploymentsRetrieveRequestExpand,
+            EmploymentsRetrieveRequestRemoteFields,
+            EmploymentsRetrieveRequestShowEnumOrigins,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -193,6 +228,11 @@ class EmploymentsClient:
         )
         client.hris.employments.retrieve(
             id="id",
+            expand=EmploymentsRetrieveRequestExpand.EMPLOYEE,
+            include_remote_data=True,
+            include_shell_data=True,
+            remote_fields=EmploymentsRetrieveRequestRemoteFields.EMPLOYMENT_TYPE,
+            show_enum_origins=EmploymentsRetrieveRequestShowEnumOrigins.EMPLOYMENT_TYPE,
         )
         """
         _response = self._raw_client.retrieve(
@@ -281,7 +321,7 @@ class AsyncEmploymentsClient:
             Overrides the default ordering for this endpoint. Possible values include: effective_date, -effective_date.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[EmploymentsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -303,8 +343,15 @@ class AsyncEmploymentsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.hris.resources.employments import (
+            EmploymentsListRequestExpand,
+            EmploymentsListRequestOrderBy,
+            EmploymentsListRequestRemoteFields,
+            EmploymentsListRequestShowEnumOrigins,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -314,7 +361,29 @@ class AsyncEmploymentsClient:
 
         async def main() -> None:
             await client.hris.employments.list(
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                employee_id="employee_id",
+                expand=EmploymentsListRequestExpand.EMPLOYEE,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                order_by=EmploymentsListRequestOrderBy.EFFECTIVE_DATE_DESCENDING,
+                page_size=1,
+                remote_fields=EmploymentsListRequestRemoteFields.EMPLOYMENT_TYPE,
+                remote_id="remote_id",
+                show_enum_origins=EmploymentsListRequestShowEnumOrigins.EMPLOYMENT_TYPE,
             )
 
 
@@ -386,6 +455,11 @@ class AsyncEmploymentsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.hris.resources.employments import (
+            EmploymentsRetrieveRequestExpand,
+            EmploymentsRetrieveRequestRemoteFields,
+            EmploymentsRetrieveRequestShowEnumOrigins,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -396,6 +470,11 @@ class AsyncEmploymentsClient:
         async def main() -> None:
             await client.hris.employments.retrieve(
                 id="id",
+                expand=EmploymentsRetrieveRequestExpand.EMPLOYEE,
+                include_remote_data=True,
+                include_shell_data=True,
+                remote_fields=EmploymentsRetrieveRequestRemoteFields.EMPLOYMENT_TYPE,
+                show_enum_origins=EmploymentsRetrieveRequestShowEnumOrigins.EMPLOYMENT_TYPE,
             )
 
 

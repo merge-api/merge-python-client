@@ -7,7 +7,8 @@ service:
     retrieve:
       path: /accounting/v1/phone-numbers/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns an `AccountingPhoneNumber` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -33,6 +34,9 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            include_remote_data: true
+            include_shell_data: true
           headers:
             X-Account-Token: X-Account-Token
           response:

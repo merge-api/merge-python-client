@@ -75,7 +75,7 @@ class RawIssuesClient:
             If provided, will only include issues pertaining to the linked account passed in.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         start_date : typing.Optional[str]
             If included, will only include issues whose most recent action occurred after this time
@@ -234,7 +234,7 @@ class AsyncRawIssuesClient:
             If provided, will only include issues pertaining to the linked account passed in.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         start_date : typing.Optional[str]
             If included, will only include issues whose most recent action occurred after this time

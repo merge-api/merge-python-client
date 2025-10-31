@@ -9,6 +9,7 @@ from ...types.container import Container
 from ...types.paginated_container_list import PaginatedContainerList
 from .raw_client import AsyncRawContainersClient, RawContainersClient
 from .types.containers_list_request_expand import ContainersListRequestExpand
+from .types.containers_list_request_type import ContainersListRequestType
 from .types.containers_retrieve_request_expand import ContainersRetrieveRequestExpand
 
 
@@ -43,7 +44,7 @@ class ContainersClient:
         parent_article_id: typing.Optional[str] = None,
         parent_container_id: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
-        type: typing.Optional[str] = None,
+        type: typing.Optional[ContainersListRequestType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedContainerList:
         """
@@ -79,7 +80,7 @@ class ContainersClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_article_id : typing.Optional[str]
             If provided, will only return sub containers of the parent_article_id.
@@ -90,7 +91,7 @@ class ContainersClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        type : typing.Optional[str]
+        type : typing.Optional[ContainersListRequestType]
             If provided, will only return containers of the given type.
 
         request_options : typing.Optional[RequestOptions]
@@ -103,14 +104,41 @@ class ContainersClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.knowledgebase.resources.containers import (
+            ContainersListRequestExpand,
+            ContainersListRequestType,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.knowledgebase.containers.list(
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=ContainersListRequestExpand.PARENT_ARTICLE,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            parent_article_id="parent_article_id",
+            parent_container_id="parent_container_id",
+            remote_id="remote_id",
+            type=ContainersListRequestType.EMPTY,
         )
         """
         _response = self._raw_client.list(
@@ -168,6 +196,9 @@ class ContainersClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.knowledgebase.resources.containers import (
+            ContainersRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -175,6 +206,9 @@ class ContainersClient:
         )
         client.knowledgebase.containers.retrieve(
             id="id",
+            expand=ContainersRetrieveRequestExpand.PARENT_ARTICLE,
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -218,7 +252,7 @@ class AsyncContainersClient:
         parent_article_id: typing.Optional[str] = None,
         parent_container_id: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
-        type: typing.Optional[str] = None,
+        type: typing.Optional[ContainersListRequestType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedContainerList:
         """
@@ -254,7 +288,7 @@ class AsyncContainersClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_article_id : typing.Optional[str]
             If provided, will only return sub containers of the parent_article_id.
@@ -265,7 +299,7 @@ class AsyncContainersClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        type : typing.Optional[str]
+        type : typing.Optional[ContainersListRequestType]
             If provided, will only return containers of the given type.
 
         request_options : typing.Optional[RequestOptions]
@@ -279,8 +313,13 @@ class AsyncContainersClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.knowledgebase.resources.containers import (
+            ContainersListRequestExpand,
+            ContainersListRequestType,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -290,7 +329,28 @@ class AsyncContainersClient:
 
         async def main() -> None:
             await client.knowledgebase.containers.list(
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=ContainersListRequestExpand.PARENT_ARTICLE,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                parent_article_id="parent_article_id",
+                parent_container_id="parent_container_id",
+                remote_id="remote_id",
+                type=ContainersListRequestType.EMPTY,
             )
 
 
@@ -353,6 +413,9 @@ class AsyncContainersClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.knowledgebase.resources.containers import (
+            ContainersRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -363,6 +426,9 @@ class AsyncContainersClient:
         async def main() -> None:
             await client.knowledgebase.containers.retrieve(
                 id="id",
+                expand=ContainersRetrieveRequestExpand.PARENT_ARTICLE,
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

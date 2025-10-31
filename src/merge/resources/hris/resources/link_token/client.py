@@ -9,6 +9,9 @@ from ...types.common_model_scopes_body_request import CommonModelScopesBodyReque
 from ...types.individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
 from ...types.link_token import LinkToken
 from .raw_client import AsyncRawLinkTokenClient, RawLinkTokenClient
+from .types.end_user_details_request_completed_account_initial_screen import (
+    EndUserDetailsRequestCompletedAccountInitialScreen,
+)
 from .types.end_user_details_request_language import EndUserDetailsRequestLanguage
 
 # this is used as the default value for optional parameters
@@ -48,6 +51,7 @@ class LinkTokenClient:
         language: typing.Optional[EndUserDetailsRequestLanguage] = OMIT,
         are_syncs_disabled: typing.Optional[bool] = OMIT,
         integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        completed_account_initial_screen: typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
         """
@@ -96,6 +100,11 @@ class LinkTokenClient:
 
         integration_specific_config : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             A JSON object containing integration-specific configuration options.
+
+        completed_account_initial_screen : typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen]
+            When creating a Link token, you can specifiy the initial screen of Linking Flow for a completed Linked Account.
+
+            * `SELECTIVE_SYNC` - SELECTIVE_SYNC
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -135,6 +144,7 @@ class LinkTokenClient:
             language=language,
             are_syncs_disabled=are_syncs_disabled,
             integration_specific_config=integration_specific_config,
+            completed_account_initial_screen=completed_account_initial_screen,
             request_options=request_options,
         )
         return _response.data
@@ -173,6 +183,7 @@ class AsyncLinkTokenClient:
         language: typing.Optional[EndUserDetailsRequestLanguage] = OMIT,
         are_syncs_disabled: typing.Optional[bool] = OMIT,
         integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        completed_account_initial_screen: typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
         """
@@ -221,6 +232,11 @@ class AsyncLinkTokenClient:
 
         integration_specific_config : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             A JSON object containing integration-specific configuration options.
+
+        completed_account_initial_screen : typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen]
+            When creating a Link token, you can specifiy the initial screen of Linking Flow for a completed Linked Account.
+
+            * `SELECTIVE_SYNC` - SELECTIVE_SYNC
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -268,6 +284,7 @@ class AsyncLinkTokenClient:
             language=language,
             are_syncs_disabled=are_syncs_disabled,
             integration_specific_config=integration_specific_config,
+            completed_account_initial_screen=completed_account_initial_screen,
             request_options=request_options,
         )
         return _response.data

@@ -72,6 +72,10 @@ class PaymentMethodsClient:
         )
         client.accounting.payment_methods.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.list(
@@ -123,6 +127,8 @@ class PaymentMethodsClient:
         )
         client.accounting.payment_methods.retrieve(
             id="id",
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -202,6 +208,10 @@ class AsyncPaymentMethodsClient:
         async def main() -> None:
             await client.accounting.payment_methods.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                page_size=1,
             )
 
 
@@ -261,6 +271,8 @@ class AsyncPaymentMethodsClient:
         async def main() -> None:
             await client.accounting.payment_methods.retrieve(
                 id="id",
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

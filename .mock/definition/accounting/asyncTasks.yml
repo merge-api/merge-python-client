@@ -7,7 +7,8 @@ service:
     retrieve:
       path: /accounting/v1/async-tasks/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns an `AsyncPostTask` object with the given `id`.
       source:
         openapi: openapi/openapi.yml

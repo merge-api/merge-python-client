@@ -109,14 +109,40 @@ class FoldersClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.filestorage.resources.folders import (
+            FoldersListRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.filestorage.folders.list(
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            drive_id="drive_id",
+            expand=FoldersListRequestExpand.DRIVE,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            name="name",
+            page_size=1,
+            parent_folder_id="parent_folder_id",
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.list(
@@ -177,6 +203,8 @@ class FoldersClient:
             api_key="YOUR_API_KEY",
         )
         client.filestorage.folders.create(
+            is_debug_mode=True,
+            run_async=True,
             model=FolderRequest(),
         )
         """
@@ -221,6 +249,9 @@ class FoldersClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.filestorage.resources.folders import (
+            FoldersRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -228,6 +259,9 @@ class FoldersClient:
         )
         client.filestorage.folders.retrieve(
             id="id",
+            expand=FoldersRetrieveRequestExpand.DRIVE,
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -359,8 +393,12 @@ class AsyncFoldersClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.filestorage.resources.folders import (
+            FoldersListRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -370,7 +408,28 @@ class AsyncFoldersClient:
 
         async def main() -> None:
             await client.filestorage.folders.list(
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                drive_id="drive_id",
+                expand=FoldersListRequestExpand.DRIVE,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                name="name",
+                page_size=1,
+                parent_folder_id="parent_folder_id",
+                remote_id="remote_id",
             )
 
 
@@ -439,6 +498,8 @@ class AsyncFoldersClient:
 
         async def main() -> None:
             await client.filestorage.folders.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=FolderRequest(),
             )
 
@@ -488,6 +549,9 @@ class AsyncFoldersClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.filestorage.resources.folders import (
+            FoldersRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -498,6 +562,9 @@ class AsyncFoldersClient:
         async def main() -> None:
             await client.filestorage.folders.retrieve(
                 id="id",
+                expand=FoldersRetrieveRequestExpand.DRIVE,
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

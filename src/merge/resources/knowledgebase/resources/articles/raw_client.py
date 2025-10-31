@@ -14,6 +14,7 @@ from .....core.unchecked_base_model import construct_type
 from ...types.article import Article
 from ...types.paginated_article_list import PaginatedArticleList
 from .types.articles_list_request_expand import ArticlesListRequestExpand
+from .types.articles_list_request_type import ArticlesListRequestType
 from .types.articles_retrieve_request_expand import ArticlesRetrieveRequestExpand
 
 
@@ -37,7 +38,9 @@ class RawArticlesClient:
         parent_article_id: typing.Optional[str] = None,
         parent_container_id: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
-        type: typing.Optional[str] = None,
+        root_container_id: typing.Optional[str] = None,
+        status: typing.Optional[str] = None,
+        type: typing.Optional[ArticlesListRequestType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaginatedArticleList]:
         """
@@ -73,7 +76,7 @@ class RawArticlesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_article_id : typing.Optional[str]
             If provided, will only return sub articles of the parent_article_id.
@@ -84,7 +87,13 @@ class RawArticlesClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        type : typing.Optional[str]
+        root_container_id : typing.Optional[str]
+            If provided, will only return sub articles of the root_container_id.
+
+        status : typing.Optional[str]
+            If provided, will only return articles of the given status; multiple statuses can be separated by commas.
+
+        type : typing.Optional[ArticlesListRequestType]
             If provided, will only return articles of the given type.
 
         request_options : typing.Optional[RequestOptions]
@@ -112,6 +121,8 @@ class RawArticlesClient:
                 "parent_article_id": parent_article_id,
                 "parent_container_id": parent_container_id,
                 "remote_id": remote_id,
+                "root_container_id": root_container_id,
+                "status": status,
                 "type": type,
             },
             request_options=request_options,
@@ -210,7 +221,9 @@ class AsyncRawArticlesClient:
         parent_article_id: typing.Optional[str] = None,
         parent_container_id: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
-        type: typing.Optional[str] = None,
+        root_container_id: typing.Optional[str] = None,
+        status: typing.Optional[str] = None,
+        type: typing.Optional[ArticlesListRequestType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaginatedArticleList]:
         """
@@ -246,7 +259,7 @@ class AsyncRawArticlesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_article_id : typing.Optional[str]
             If provided, will only return sub articles of the parent_article_id.
@@ -257,7 +270,13 @@ class AsyncRawArticlesClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        type : typing.Optional[str]
+        root_container_id : typing.Optional[str]
+            If provided, will only return sub articles of the root_container_id.
+
+        status : typing.Optional[str]
+            If provided, will only return articles of the given status; multiple statuses can be separated by commas.
+
+        type : typing.Optional[ArticlesListRequestType]
             If provided, will only return articles of the given type.
 
         request_options : typing.Optional[RequestOptions]
@@ -285,6 +304,8 @@ class AsyncRawArticlesClient:
                 "parent_article_id": parent_article_id,
                 "parent_container_id": parent_container_id,
                 "remote_id": remote_id,
+                "root_container_id": root_container_id,
+                "status": status,
                 "type": type,
             },
             request_options=request_options,

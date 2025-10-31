@@ -39,7 +39,7 @@ class SyncStatusClient:
             The pagination cursor value.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -59,6 +59,7 @@ class SyncStatusClient:
         )
         client.knowledgebase.sync_status.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            page_size=1,
         )
         """
         _response = self._raw_client.list(cursor=cursor, page_size=page_size, request_options=request_options)
@@ -96,7 +97,7 @@ class AsyncSyncStatusClient:
             The pagination cursor value.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -121,6 +122,7 @@ class AsyncSyncStatusClient:
         async def main() -> None:
             await client.knowledgebase.sync_status.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                page_size=1,
             )
 
 

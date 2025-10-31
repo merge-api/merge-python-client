@@ -152,7 +152,8 @@ service:
     list:
       path: /hris/v1/employments
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `Employment` objects.
       source:
         openapi: openapi/openapi.yml
@@ -213,7 +214,7 @@ service:
               include: effective_date, -effective_date.
           page_size:
             type: optional<integer>
-            docs: Number of results to return per page.
+            docs: Number of results to return per page. The maximum limit is 100.
           remote_fields:
             type: optional<EmploymentsListRequestRemoteFields>
             docs: Deprecated. Use show_enum_origins.
@@ -233,7 +234,21 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            employee_id: employee_id
+            expand: employee
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            order_by: '-effective_date'
+            page_size: 1
+            remote_fields: employment_type
+            remote_id: remote_id
+            show_enum_origins: employment_type
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -268,7 +283,8 @@ service:
     retrieve:
       path: /hris/v1/employments/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns an `Employment` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -309,6 +325,12 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: employee
+            include_remote_data: true
+            include_shell_data: true
+            remote_fields: employment_type
+            show_enum_origins: employment_type
           headers:
             X-Account-Token: X-Account-Token
           response:

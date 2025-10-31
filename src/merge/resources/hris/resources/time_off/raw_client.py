@@ -104,7 +104,7 @@ class RawTimeOffClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[TimeOffListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -431,7 +431,7 @@ class AsyncRawTimeOffClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[TimeOffListRequestRemoteFields]
             Deprecated. Use show_enum_origins.

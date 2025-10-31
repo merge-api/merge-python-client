@@ -111,14 +111,38 @@ class ScorecardsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.ats.resources.scorecards import ScorecardsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ats.scorecards.list(
+            application_id="application_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=ScorecardsListRequestExpand.APPLICATION,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            interview_id="interview_id",
+            interviewer_id="interviewer_id",
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.list(
@@ -186,6 +210,9 @@ class ScorecardsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.ats.resources.scorecards import (
+            ScorecardsRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -193,6 +220,9 @@ class ScorecardsClient:
         )
         client.ats.scorecards.retrieve(
             id="id",
+            expand=ScorecardsRetrieveRequestExpand.APPLICATION,
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -307,8 +337,10 @@ class AsyncScorecardsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.ats.resources.scorecards import ScorecardsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -318,7 +350,28 @@ class AsyncScorecardsClient:
 
         async def main() -> None:
             await client.ats.scorecards.list(
+                application_id="application_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=ScorecardsListRequestExpand.APPLICATION,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                interview_id="interview_id",
+                interviewer_id="interviewer_id",
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_id="remote_id",
             )
 
 
@@ -391,6 +444,9 @@ class AsyncScorecardsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.ats.resources.scorecards import (
+            ScorecardsRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -401,6 +457,9 @@ class AsyncScorecardsClient:
         async def main() -> None:
             await client.ats.scorecards.retrieve(
                 id="id",
+                expand=ScorecardsRetrieveRequestExpand.APPLICATION,
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

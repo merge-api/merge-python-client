@@ -7,7 +7,8 @@ service:
     retrieve:
       path: /ticketing/v1/available-actions
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of models and actions available for an account.
       source:
         openapi: openapi/openapi.yml

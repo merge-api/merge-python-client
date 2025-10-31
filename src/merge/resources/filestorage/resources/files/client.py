@@ -129,14 +129,49 @@ class FilesClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.filestorage.resources.files import (
+            FilesListRequestExpand,
+            FilesListRequestOrderBy,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.filestorage.files.list(
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            drive_id="drive_id",
+            expand=FilesListRequestExpand.DRIVE,
+            folder_id="folder_id",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            mime_type="mime_type",
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            name="name",
+            order_by=FilesListRequestOrderBy.CREATED_AT_DESCENDING,
+            page_size=1,
+            remote_created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            remote_created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.list(
@@ -201,6 +236,8 @@ class FilesClient:
             api_key="YOUR_API_KEY",
         )
         client.filestorage.files.create(
+            is_debug_mode=True,
+            run_async=True,
             model=FileRequest(),
         )
         """
@@ -245,6 +282,9 @@ class FilesClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.filestorage.resources.files import (
+            FilesRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -252,6 +292,9 @@ class FilesClient:
         )
         client.filestorage.files.retrieve(
             id="id",
+            expand=FilesRetrieveRequestExpand.DRIVE,
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -332,6 +375,7 @@ class FilesClient:
         )
         client.filestorage.files.download_request_meta_retrieve(
             id="id",
+            mime_type="mime_type",
         )
         """
         _response = self._raw_client.download_request_meta_retrieve(
@@ -400,13 +444,24 @@ class FilesClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.filestorage.resources.files import (
+            FilesDownloadRequestMetaListRequestOrderBy,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.filestorage.files.download_request_meta_list(
+            created_after="created_after",
+            created_before="created_before",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            mime_types="mime_types",
+            modified_after="modified_after",
+            modified_before="modified_before",
+            order_by=FilesDownloadRequestMetaListRequestOrderBy.CREATED_AT_DESCENDING,
+            page_size=1,
         )
         """
         _response = self._raw_client.download_request_meta_list(
@@ -560,8 +615,13 @@ class AsyncFilesClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.filestorage.resources.files import (
+            FilesListRequestExpand,
+            FilesListRequestOrderBy,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -571,7 +631,36 @@ class AsyncFilesClient:
 
         async def main() -> None:
             await client.filestorage.files.list(
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                drive_id="drive_id",
+                expand=FilesListRequestExpand.DRIVE,
+                folder_id="folder_id",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                mime_type="mime_type",
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                name="name",
+                order_by=FilesListRequestOrderBy.CREATED_AT_DESCENDING,
+                page_size=1,
+                remote_created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                remote_created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                remote_id="remote_id",
             )
 
 
@@ -644,6 +733,8 @@ class AsyncFilesClient:
 
         async def main() -> None:
             await client.filestorage.files.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=FileRequest(),
             )
 
@@ -693,6 +784,9 @@ class AsyncFilesClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.filestorage.resources.files import (
+            FilesRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -703,6 +797,9 @@ class AsyncFilesClient:
         async def main() -> None:
             await client.filestorage.files.retrieve(
                 id="id",
+                expand=FilesRetrieveRequestExpand.DRIVE,
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 
@@ -792,6 +889,7 @@ class AsyncFilesClient:
         async def main() -> None:
             await client.filestorage.files.download_request_meta_retrieve(
                 id="id",
+                mime_type="mime_type",
             )
 
 
@@ -865,6 +963,9 @@ class AsyncFilesClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.filestorage.resources.files import (
+            FilesDownloadRequestMetaListRequestOrderBy,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -874,7 +975,15 @@ class AsyncFilesClient:
 
         async def main() -> None:
             await client.filestorage.files.download_request_meta_list(
+                created_after="created_after",
+                created_before="created_before",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                mime_types="mime_types",
+                modified_after="modified_after",
+                modified_before="modified_before",
+                order_by=FilesDownloadRequestMetaListRequestOrderBy.CREATED_AT_DESCENDING,
+                page_size=1,
             )
 
 

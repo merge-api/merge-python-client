@@ -30,19 +30,22 @@ if typing.TYPE_CHECKING:
         users,
         webhook_receivers,
     )
-    from .articles import ArticlesListRequestExpand, ArticlesRetrieveRequestExpand
+    from .articles import ArticlesListRequestExpand, ArticlesListRequestType, ArticlesRetrieveRequestExpand
     from .async_passthrough import AsyncPassthroughRetrieveResponse
-    from .containers import ContainersListRequestExpand, ContainersRetrieveRequestExpand
+    from .containers import ContainersListRequestExpand, ContainersListRequestType, ContainersRetrieveRequestExpand
     from .groups import GroupsListRequestExpand, GroupsRetrieveRequestExpand
     from .issues import IssuesListRequestStatus
-    from .link_token import EndUserDetailsRequestLanguage
+    from .link_token import EndUserDetailsRequestCompletedAccountInitialScreen, EndUserDetailsRequestLanguage
     from .linked_accounts import LinkedAccountsListRequestCategory
 _dynamic_imports: typing.Dict[str, str] = {
     "ArticlesListRequestExpand": ".articles",
+    "ArticlesListRequestType": ".articles",
     "ArticlesRetrieveRequestExpand": ".articles",
     "AsyncPassthroughRetrieveResponse": ".async_passthrough",
     "ContainersListRequestExpand": ".containers",
+    "ContainersListRequestType": ".containers",
     "ContainersRetrieveRequestExpand": ".containers",
+    "EndUserDetailsRequestCompletedAccountInitialScreen": ".link_token",
     "EndUserDetailsRequestLanguage": ".link_token",
     "GroupsListRequestExpand": ".groups",
     "GroupsRetrieveRequestExpand": ".groups",
@@ -94,10 +97,13 @@ def __dir__():
 
 __all__ = [
     "ArticlesListRequestExpand",
+    "ArticlesListRequestType",
     "ArticlesRetrieveRequestExpand",
     "AsyncPassthroughRetrieveResponse",
     "ContainersListRequestExpand",
+    "ContainersListRequestType",
     "ContainersRetrieveRequestExpand",
+    "EndUserDetailsRequestCompletedAccountInitialScreen",
     "EndUserDetailsRequestLanguage",
     "GroupsListRequestExpand",
     "GroupsRetrieveRequestExpand",

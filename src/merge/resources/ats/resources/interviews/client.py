@@ -121,14 +121,39 @@ class InterviewsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.ats.resources.interviews import InterviewsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ats.interviews.list(
+            application_id="application_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=InterviewsListRequestExpand.APPLICATION,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            job_id="job_id",
+            job_interview_stage_id="job_interview_stage_id",
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            organizer_id="organizer_id",
+            page_size=1,
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.list(
@@ -195,6 +220,8 @@ class InterviewsClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.interviews.create(
+            is_debug_mode=True,
+            run_async=True,
             model=ScheduledInterviewRequest(),
             remote_user_id="remote_user_id",
         )
@@ -252,6 +279,9 @@ class InterviewsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.ats.resources.interviews import (
+            InterviewsRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -259,6 +289,9 @@ class InterviewsClient:
         )
         client.ats.interviews.retrieve(
             id="id",
+            expand=InterviewsRetrieveRequestExpand.APPLICATION,
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -404,8 +437,10 @@ class AsyncInterviewsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.ats.resources.interviews import InterviewsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -415,7 +450,29 @@ class AsyncInterviewsClient:
 
         async def main() -> None:
             await client.ats.interviews.list(
+                application_id="application_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=InterviewsListRequestExpand.APPLICATION,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                job_id="job_id",
+                job_interview_stage_id="job_interview_stage_id",
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                organizer_id="organizer_id",
+                page_size=1,
+                remote_id="remote_id",
             )
 
 
@@ -490,6 +547,8 @@ class AsyncInterviewsClient:
 
         async def main() -> None:
             await client.ats.interviews.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=ScheduledInterviewRequest(),
                 remote_user_id="remote_user_id",
             )
@@ -552,6 +611,9 @@ class AsyncInterviewsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.ats.resources.interviews import (
+            InterviewsRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -562,6 +624,9 @@ class AsyncInterviewsClient:
         async def main() -> None:
             await client.ats.interviews.retrieve(
                 id="id",
+                expand=InterviewsRetrieveRequestExpand.APPLICATION,
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

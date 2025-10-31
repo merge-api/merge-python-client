@@ -7,7 +7,8 @@ service:
     sync_status_resync_create:
       path: /accounting/v1/sync-status/resync
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: >-
         Force re-sync of all models. This endpoint is available for monthly,
         quarterly, and highest sync frequency customers on the Professional or

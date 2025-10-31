@@ -109,14 +109,44 @@ class VendorCreditsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.accounting.resources.vendor_credits import (
+            VendorCreditsListRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.vendor_credits.list(
+            company_id="company_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=VendorCreditsListRequestExpand.ACCOUNTING_PERIOD,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_id="remote_id",
+            transaction_date_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            transaction_date_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
         )
         """
         _response = self._raw_client.list(
@@ -177,6 +207,8 @@ class VendorCreditsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.vendor_credits.create(
+            is_debug_mode=True,
+            run_async=True,
             model=VendorCreditRequest(),
         )
         """
@@ -221,6 +253,9 @@ class VendorCreditsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.accounting.resources.vendor_credits import (
+            VendorCreditsRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -228,6 +263,9 @@ class VendorCreditsClient:
         )
         client.accounting.vendor_credits.retrieve(
             id="id",
+            expand=VendorCreditsRetrieveRequestExpand.ACCOUNTING_PERIOD,
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -359,8 +397,12 @@ class AsyncVendorCreditsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.vendor_credits import (
+            VendorCreditsListRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -370,7 +412,32 @@ class AsyncVendorCreditsClient:
 
         async def main() -> None:
             await client.accounting.vendor_credits.list(
+                company_id="company_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=VendorCreditsListRequestExpand.ACCOUNTING_PERIOD,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_id="remote_id",
+                transaction_date_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                transaction_date_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
             )
 
 
@@ -439,6 +506,8 @@ class AsyncVendorCreditsClient:
 
         async def main() -> None:
             await client.accounting.vendor_credits.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=VendorCreditRequest(),
             )
 
@@ -488,6 +557,9 @@ class AsyncVendorCreditsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.vendor_credits import (
+            VendorCreditsRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -498,6 +570,9 @@ class AsyncVendorCreditsClient:
         async def main() -> None:
             await client.accounting.vendor_credits.retrieve(
                 id="id",
+                expand=VendorCreditsRetrieveRequestExpand.ACCOUNTING_PERIOD,
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

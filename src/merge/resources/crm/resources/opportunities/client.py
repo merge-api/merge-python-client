@@ -136,14 +136,46 @@ class OpportunitiesClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.crm.resources.opportunities import (
+            OpportunitiesListRequestExpand,
+            OpportunitiesListRequestStatus,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.crm.opportunities.list(
+            account_id="account_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=OpportunitiesListRequestExpand.ACCOUNT,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            owner_id="owner_id",
+            page_size=1,
+            remote_created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            remote_id="remote_id",
+            stage_id="stage_id",
+            status=OpportunitiesListRequestStatus.LOST,
         )
         """
         _response = self._raw_client.list(
@@ -209,6 +241,8 @@ class OpportunitiesClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.opportunities.create(
+            is_debug_mode=True,
+            run_async=True,
             model=OpportunityRequest(),
         )
         """
@@ -265,6 +299,9 @@ class OpportunitiesClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.crm.resources.opportunities import (
+            OpportunitiesRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -272,6 +309,10 @@ class OpportunitiesClient:
         )
         client.crm.opportunities.retrieve(
             id="id",
+            expand=OpportunitiesRetrieveRequestExpand.ACCOUNT,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -329,6 +370,8 @@ class OpportunitiesClient:
         )
         client.crm.opportunities.partial_update(
             id="id",
+            is_debug_mode=True,
+            run_async=True,
             model=PatchedOpportunityRequest(),
         )
         """
@@ -455,6 +498,13 @@ class OpportunitiesClient:
         )
         client.crm.opportunities.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            is_common_model_field=True,
+            is_custom=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.remote_field_classes_list(
@@ -587,8 +637,13 @@ class AsyncOpportunitiesClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.crm.resources.opportunities import (
+            OpportunitiesListRequestExpand,
+            OpportunitiesListRequestStatus,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -598,7 +653,33 @@ class AsyncOpportunitiesClient:
 
         async def main() -> None:
             await client.crm.opportunities.list(
+                account_id="account_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=OpportunitiesListRequestExpand.ACCOUNT,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                owner_id="owner_id",
+                page_size=1,
+                remote_created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                remote_id="remote_id",
+                stage_id="stage_id",
+                status=OpportunitiesListRequestStatus.LOST,
             )
 
 
@@ -672,6 +753,8 @@ class AsyncOpportunitiesClient:
 
         async def main() -> None:
             await client.crm.opportunities.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=OpportunityRequest(),
             )
 
@@ -733,6 +816,9 @@ class AsyncOpportunitiesClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.crm.resources.opportunities import (
+            OpportunitiesRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -743,6 +829,10 @@ class AsyncOpportunitiesClient:
         async def main() -> None:
             await client.crm.opportunities.retrieve(
                 id="id",
+                expand=OpportunitiesRetrieveRequestExpand.ACCOUNT,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
             )
 
 
@@ -808,6 +898,8 @@ class AsyncOpportunitiesClient:
         async def main() -> None:
             await client.crm.opportunities.partial_update(
                 id="id",
+                is_debug_mode=True,
+                run_async=True,
                 model=PatchedOpportunityRequest(),
             )
 
@@ -960,6 +1052,13 @@ class AsyncOpportunitiesClient:
         async def main() -> None:
             await client.crm.opportunities.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                is_common_model_field=True,
+                is_custom=True,
+                page_size=1,
             )
 
 

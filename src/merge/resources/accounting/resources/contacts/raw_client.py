@@ -19,6 +19,7 @@ from ...types.paginated_contact_list import PaginatedContactList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.patched_contact_request import PatchedContactRequest
 from .types.contacts_list_request_expand import ContactsListRequestExpand
+from .types.contacts_list_request_status import ContactsListRequestStatus
 from .types.contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
 
 # this is used as the default value for optional parameters
@@ -51,7 +52,7 @@ class RawContactsClient:
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
-        status: typing.Optional[str] = None,
+        status: typing.Optional[ContactsListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaginatedContactList]:
         """
@@ -116,7 +117,7 @@ class RawContactsClient:
         show_enum_origins : typing.Optional[typing.Literal["status"]]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[str]
+        status : typing.Optional[ContactsListRequestStatus]
             If provided, will only return Contacts that match this status.
 
         request_options : typing.Optional[RequestOptions]
@@ -541,7 +542,7 @@ class AsyncRawContactsClient:
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
-        status: typing.Optional[str] = None,
+        status: typing.Optional[ContactsListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaginatedContactList]:
         """
@@ -606,7 +607,7 @@ class AsyncRawContactsClient:
         show_enum_origins : typing.Optional[typing.Literal["status"]]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[str]
+        status : typing.Optional[ContactsListRequestStatus]
             If provided, will only return Contacts that match this status.
 
         request_options : typing.Optional[RequestOptions]

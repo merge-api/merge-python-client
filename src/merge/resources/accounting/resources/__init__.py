@@ -56,14 +56,16 @@ if typing.TYPE_CHECKING:
         webhook_receivers,
     )
     from .accounts import (
+        AccountsListRequestClassification,
         AccountsListRequestRemoteFields,
         AccountsListRequestShowEnumOrigins,
+        AccountsListRequestStatus,
         AccountsRetrieveRequestRemoteFields,
         AccountsRetrieveRequestShowEnumOrigins,
     )
     from .async_passthrough import AsyncPassthroughRetrieveResponse
     from .company_info import CompanyInfoListRequestExpand, CompanyInfoRetrieveRequestExpand
-    from .contacts import ContactsListRequestExpand, ContactsRetrieveRequestExpand
+    from .contacts import ContactsListRequestExpand, ContactsListRequestStatus, ContactsRetrieveRequestExpand
     from .credit_notes import (
         CreditNotesListRequestExpand,
         CreditNotesListRequestRemoteFields,
@@ -96,17 +98,21 @@ if typing.TYPE_CHECKING:
     from .payments import PaymentsListRequestExpand, PaymentsRetrieveRequestExpand
     from .projects import ProjectsListRequestExpand, ProjectsRetrieveRequestExpand
     from .purchase_orders import PurchaseOrdersListRequestExpand, PurchaseOrdersRetrieveRequestExpand
+    from .tracking_categories import TrackingCategoriesListRequestCategoryType, TrackingCategoriesListRequestStatus
     from .transactions import TransactionsListRequestExpand, TransactionsRetrieveRequestExpand
     from .vendor_credits import VendorCreditsListRequestExpand, VendorCreditsRetrieveRequestExpand
 _dynamic_imports: typing.Dict[str, str] = {
+    "AccountsListRequestClassification": ".accounts",
     "AccountsListRequestRemoteFields": ".accounts",
     "AccountsListRequestShowEnumOrigins": ".accounts",
+    "AccountsListRequestStatus": ".accounts",
     "AccountsRetrieveRequestRemoteFields": ".accounts",
     "AccountsRetrieveRequestShowEnumOrigins": ".accounts",
     "AsyncPassthroughRetrieveResponse": ".async_passthrough",
     "CompanyInfoListRequestExpand": ".company_info",
     "CompanyInfoRetrieveRequestExpand": ".company_info",
     "ContactsListRequestExpand": ".contacts",
+    "ContactsListRequestStatus": ".contacts",
     "ContactsRetrieveRequestExpand": ".contacts",
     "CreditNotesListRequestExpand": ".credit_notes",
     "CreditNotesListRequestRemoteFields": ".credit_notes",
@@ -138,6 +144,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ProjectsRetrieveRequestExpand": ".projects",
     "PurchaseOrdersListRequestExpand": ".purchase_orders",
     "PurchaseOrdersRetrieveRequestExpand": ".purchase_orders",
+    "TrackingCategoriesListRequestCategoryType": ".tracking_categories",
+    "TrackingCategoriesListRequestStatus": ".tracking_categories",
     "TransactionsListRequestExpand": ".transactions",
     "TransactionsRetrieveRequestExpand": ".transactions",
     "VendorCreditsListRequestExpand": ".vendor_credits",
@@ -212,14 +220,17 @@ def __dir__():
 
 
 __all__ = [
+    "AccountsListRequestClassification",
     "AccountsListRequestRemoteFields",
     "AccountsListRequestShowEnumOrigins",
+    "AccountsListRequestStatus",
     "AccountsRetrieveRequestRemoteFields",
     "AccountsRetrieveRequestShowEnumOrigins",
     "AsyncPassthroughRetrieveResponse",
     "CompanyInfoListRequestExpand",
     "CompanyInfoRetrieveRequestExpand",
     "ContactsListRequestExpand",
+    "ContactsListRequestStatus",
     "ContactsRetrieveRequestExpand",
     "CreditNotesListRequestExpand",
     "CreditNotesListRequestRemoteFields",
@@ -251,6 +262,8 @@ __all__ = [
     "ProjectsRetrieveRequestExpand",
     "PurchaseOrdersListRequestExpand",
     "PurchaseOrdersRetrieveRequestExpand",
+    "TrackingCategoriesListRequestCategoryType",
+    "TrackingCategoriesListRequestStatus",
     "TransactionsListRequestExpand",
     "TransactionsRetrieveRequestExpand",
     "VendorCreditsListRequestExpand",

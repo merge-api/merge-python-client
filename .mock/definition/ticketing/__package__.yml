@@ -719,6 +719,7 @@ types:
       - crm
       - mktg
       - filestorage
+      - knowledgebase
     docs: |-
       * `hris` - hris
       * `ats` - ats
@@ -727,6 +728,7 @@ types:
       * `crm` - crm
       * `mktg` - mktg
       * `filestorage` - filestorage
+      * `knowledgebase` - knowledgebase
     source:
       openapi: openapi/openapi.yml
   CategoryEnum:
@@ -738,6 +740,7 @@ types:
       - crm
       - mktg
       - filestorage
+      - knowledgebase
     docs: |-
       * `hris` - hris
       * `ats` - ats
@@ -746,6 +749,7 @@ types:
       * `crm` - crm
       * `mktg` - mktg
       * `filestorage` - filestorage
+      * `knowledgebase` - knowledgebase
     source:
       openapi: openapi/openapi.yml
   CollectionAccessLevel:
@@ -1106,6 +1110,9 @@ types:
       disabled_fields: list<string>
     source:
       openapi: openapi/openapi.yml
+  CompletedAccountInitialScreenEnum:
+    type: literal<"SELECTIVE_SYNC">
+    docs: '* `SELECTIVE_SYNC` - SELECTIVE_SYNC'
   ContactAccount:
     discriminated: false
     docs: The contact's account.
@@ -1554,6 +1561,9 @@ types:
         access: read-only
       remote_field:
         type: optional<FieldMappingApiInstanceRemoteField>
+        access: read-only
+      jmes_path:
+        type: optional<string>
         access: read-only
     source:
       openapi: openapi/openapi.yml

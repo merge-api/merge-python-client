@@ -8,6 +8,8 @@ from .....core.request_options import RequestOptions
 from ...types.paginated_tracking_category_list import PaginatedTrackingCategoryList
 from ...types.tracking_category import TrackingCategory
 from .raw_client import AsyncRawTrackingCategoriesClient, RawTrackingCategoriesClient
+from .types.tracking_categories_list_request_category_type import TrackingCategoriesListRequestCategoryType
+from .types.tracking_categories_list_request_status import TrackingCategoriesListRequestStatus
 
 
 class TrackingCategoriesClient:
@@ -28,7 +30,7 @@ class TrackingCategoriesClient:
     def list(
         self,
         *,
-        category_type: typing.Optional[str] = None,
+        category_type: typing.Optional[TrackingCategoriesListRequestCategoryType] = None,
         company_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
@@ -44,7 +46,7 @@ class TrackingCategoriesClient:
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
-        status: typing.Optional[str] = None,
+        status: typing.Optional[TrackingCategoriesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedTrackingCategoryList:
         """
@@ -52,7 +54,7 @@ class TrackingCategoriesClient:
 
         Parameters
         ----------
-        category_type : typing.Optional[str]
+        category_type : typing.Optional[TrackingCategoriesListRequestCategoryType]
             If provided, will only return tracking categories with this type.
 
         company_id : typing.Optional[str]
@@ -100,7 +102,7 @@ class TrackingCategoriesClient:
         show_enum_origins : typing.Optional[typing.Literal["status"]]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[str]
+        status : typing.Optional[TrackingCategoriesListRequestStatus]
             If provided, will only return tracking categories with this status.
 
         request_options : typing.Optional[RequestOptions]
@@ -113,14 +115,41 @@ class TrackingCategoriesClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.accounting.resources.tracking_categories import (
+            TrackingCategoriesListRequestCategoryType,
+            TrackingCategoriesListRequestStatus,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.tracking_categories.list(
+            category_type=TrackingCategoriesListRequestCategoryType.EMPTY,
+            company_id="company_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            name="name",
+            page_size=1,
+            remote_id="remote_id",
+            status=TrackingCategoriesListRequestStatus.EMPTY,
         )
         """
         _response = self._raw_client.list(
@@ -196,6 +225,8 @@ class TrackingCategoriesClient:
         )
         client.accounting.tracking_categories.retrieve(
             id="id",
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -228,7 +259,7 @@ class AsyncTrackingCategoriesClient:
     async def list(
         self,
         *,
-        category_type: typing.Optional[str] = None,
+        category_type: typing.Optional[TrackingCategoriesListRequestCategoryType] = None,
         company_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
@@ -244,7 +275,7 @@ class AsyncTrackingCategoriesClient:
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
-        status: typing.Optional[str] = None,
+        status: typing.Optional[TrackingCategoriesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedTrackingCategoryList:
         """
@@ -252,7 +283,7 @@ class AsyncTrackingCategoriesClient:
 
         Parameters
         ----------
-        category_type : typing.Optional[str]
+        category_type : typing.Optional[TrackingCategoriesListRequestCategoryType]
             If provided, will only return tracking categories with this type.
 
         company_id : typing.Optional[str]
@@ -300,7 +331,7 @@ class AsyncTrackingCategoriesClient:
         show_enum_origins : typing.Optional[typing.Literal["status"]]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[str]
+        status : typing.Optional[TrackingCategoriesListRequestStatus]
             If provided, will only return tracking categories with this status.
 
         request_options : typing.Optional[RequestOptions]
@@ -314,8 +345,13 @@ class AsyncTrackingCategoriesClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.tracking_categories import (
+            TrackingCategoriesListRequestCategoryType,
+            TrackingCategoriesListRequestStatus,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -325,7 +361,28 @@ class AsyncTrackingCategoriesClient:
 
         async def main() -> None:
             await client.accounting.tracking_categories.list(
+                category_type=TrackingCategoriesListRequestCategoryType.EMPTY,
+                company_id="company_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                name="name",
+                page_size=1,
+                remote_id="remote_id",
+                status=TrackingCategoriesListRequestStatus.EMPTY,
             )
 
 
@@ -409,6 +466,8 @@ class AsyncTrackingCategoriesClient:
         async def main() -> None:
             await client.accounting.tracking_categories.retrieve(
                 id="id",
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

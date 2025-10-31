@@ -105,14 +105,40 @@ class EeocsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.ats.resources.eeocs import (
+            EeocsListRequestRemoteFields,
+            EeocsListRequestShowEnumOrigins,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ats.eeocs.list(
+            candidate_id="candidate_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_fields=EeocsListRequestRemoteFields.DISABILITY_STATUS,
+            remote_id="remote_id",
+            show_enum_origins=EeocsListRequestShowEnumOrigins.DISABILITY_STATUS,
         )
         """
         _response = self._raw_client.list(
@@ -178,6 +204,10 @@ class EeocsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.ats.resources.eeocs import (
+            EeocsRetrieveRequestRemoteFields,
+            EeocsRetrieveRequestShowEnumOrigins,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -185,6 +215,10 @@ class EeocsClient:
         )
         client.ats.eeocs.retrieve(
             id="id",
+            include_remote_data=True,
+            include_shell_data=True,
+            remote_fields=EeocsRetrieveRequestRemoteFields.DISABILITY_STATUS,
+            show_enum_origins=EeocsRetrieveRequestShowEnumOrigins.DISABILITY_STATUS,
         )
         """
         _response = self._raw_client.retrieve(
@@ -291,8 +325,13 @@ class AsyncEeocsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.ats.resources.eeocs import (
+            EeocsListRequestRemoteFields,
+            EeocsListRequestShowEnumOrigins,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -302,7 +341,27 @@ class AsyncEeocsClient:
 
         async def main() -> None:
             await client.ats.eeocs.list(
+                candidate_id="candidate_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_fields=EeocsListRequestRemoteFields.DISABILITY_STATUS,
+                remote_id="remote_id",
+                show_enum_origins=EeocsListRequestShowEnumOrigins.DISABILITY_STATUS,
             )
 
 
@@ -373,6 +432,10 @@ class AsyncEeocsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.ats.resources.eeocs import (
+            EeocsRetrieveRequestRemoteFields,
+            EeocsRetrieveRequestShowEnumOrigins,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -383,6 +446,10 @@ class AsyncEeocsClient:
         async def main() -> None:
             await client.ats.eeocs.retrieve(
                 id="id",
+                include_remote_data=True,
+                include_shell_data=True,
+                remote_fields=EeocsRetrieveRequestRemoteFields.DISABILITY_STATUS,
+                show_enum_origins=EeocsRetrieveRequestShowEnumOrigins.DISABILITY_STATUS,
             )
 
 

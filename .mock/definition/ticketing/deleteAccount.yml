@@ -5,7 +5,8 @@ service:
     delete:
       path: /ticketing/v1/delete-account
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Delete a linked account.
       source:
         openapi: openapi/openapi.yml

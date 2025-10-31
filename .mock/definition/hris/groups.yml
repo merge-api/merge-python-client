@@ -7,7 +7,8 @@ service:
     list:
       path: /hris/v1/groups
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `Group` objects.
       source:
         openapi: openapi/openapi.yml
@@ -67,7 +68,7 @@ service:
               values can be separated by commas.
           page_size:
             type: optional<integer>
-            docs: Number of results to return per page.
+            docs: Number of results to return per page. The maximum limit is 100.
           remote_fields:
             type: optional<literal<"type">>
             docs: Deprecated. Use show_enum_origins.
@@ -92,7 +93,21 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            is_commonly_used_as_team: is_commonly_used_as_team
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            names: names
+            page_size: 1
+            remote_fields: type
+            remote_id: remote_id
+            show_enum_origins: type
+            types: types
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -121,7 +136,8 @@ service:
     retrieve:
       path: /hris/v1/groups/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a `Group` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -157,6 +173,11 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            include_remote_data: true
+            include_shell_data: true
+            remote_fields: type
+            show_enum_origins: type
           headers:
             X-Account-Token: X-Account-Token
           response:

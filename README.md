@@ -32,6 +32,8 @@ client = Merge(
     api_key="YOUR_API_KEY",
 )
 client.ats.activities.create(
+    is_debug_mode=True,
+    run_async=True,
     model=ActivityRequest(),
     remote_user_id="remote_user_id",
 )
@@ -78,6 +80,8 @@ client = AsyncMerge(
 
 async def main() -> None:
     await client.ats.activities.create(
+        is_debug_mode=True,
+        run_async=True,
         model=ActivityRequest(),
         remote_user_id="remote_user_id",
     )
@@ -228,6 +232,7 @@ while response.next is not None:
         cursor=response.next, 
         created_after="2030-01-01")
 ```
+
 
 
 

@@ -64,6 +64,14 @@ types:
     source:
       openapi: openapi/openapi.yml
     inline: true
+  AccountDetailsAndActionsStatus:
+    discriminated: false
+    union:
+      - AccountDetailsAndActionsStatusEnum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   AccountDetailsAndActions:
     docs: >-
       # The LinkedAccount Object
@@ -80,7 +88,7 @@ types:
     properties:
       id: string
       category: optional<AccountDetailsAndActionsCategory>
-      status: AccountDetailsAndActionsStatusEnum
+      status: AccountDetailsAndActionsStatus
       status_detail: optional<string>
       end_user_origin_id: optional<string>
       end_user_organization_name: string
@@ -838,6 +846,9 @@ types:
         access: read-only
     source:
       openapi: openapi/openapi.yml
+  CompletedAccountInitialScreenEnum:
+    type: literal<"SELECTIVE_SYNC">
+    docs: '* `SELECTIVE_SYNC` - SELECTIVE_SYNC'
   CountryEnum:
     enum:
       - AF
@@ -4366,6 +4377,9 @@ types:
         access: read-only
       remote_field:
         type: optional<FieldMappingApiInstanceRemoteField>
+        access: read-only
+      jmes_path:
+        type: optional<string>
         access: read-only
     source:
       openapi: openapi/openapi.yml

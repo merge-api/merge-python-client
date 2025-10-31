@@ -111,14 +111,44 @@ class EngagementsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.crm.resources.engagements import (
+            EngagementsListRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.crm.engagements.list(
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=EngagementsListRequestExpand.ACCOUNT,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_id="remote_id",
+            started_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            started_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
         )
         """
         _response = self._raw_client.list(
@@ -179,6 +209,8 @@ class EngagementsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.engagements.create(
+            is_debug_mode=True,
+            run_async=True,
             model=EngagementRequest(),
         )
         """
@@ -227,6 +259,9 @@ class EngagementsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.crm.resources.engagements import (
+            EngagementsRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -234,6 +269,10 @@ class EngagementsClient:
         )
         client.crm.engagements.retrieve(
             id="id",
+            expand=EngagementsRetrieveRequestExpand.ACCOUNT,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -289,6 +328,8 @@ class EngagementsClient:
         )
         client.crm.engagements.partial_update(
             id="id",
+            is_debug_mode=True,
+            run_async=True,
             model=PatchedEngagementRequest(),
         )
         """
@@ -415,6 +456,13 @@ class EngagementsClient:
         )
         client.crm.engagements.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            is_common_model_field=True,
+            is_custom=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.remote_field_classes_list(
@@ -523,8 +571,12 @@ class AsyncEngagementsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.crm.resources.engagements import (
+            EngagementsListRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -534,7 +586,32 @@ class AsyncEngagementsClient:
 
         async def main() -> None:
             await client.crm.engagements.list(
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=EngagementsListRequestExpand.ACCOUNT,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_id="remote_id",
+                started_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                started_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
             )
 
 
@@ -603,6 +680,8 @@ class AsyncEngagementsClient:
 
         async def main() -> None:
             await client.crm.engagements.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=EngagementRequest(),
             )
 
@@ -656,6 +735,9 @@ class AsyncEngagementsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.crm.resources.engagements import (
+            EngagementsRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -666,6 +748,10 @@ class AsyncEngagementsClient:
         async def main() -> None:
             await client.crm.engagements.retrieve(
                 id="id",
+                expand=EngagementsRetrieveRequestExpand.ACCOUNT,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
             )
 
 
@@ -729,6 +815,8 @@ class AsyncEngagementsClient:
         async def main() -> None:
             await client.crm.engagements.partial_update(
                 id="id",
+                is_debug_mode=True,
+                run_async=True,
                 model=PatchedEngagementRequest(),
             )
 
@@ -881,6 +969,13 @@ class AsyncEngagementsClient:
         async def main() -> None:
             await client.crm.engagements.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                is_common_model_field=True,
+                is_custom=True,
+                page_size=1,
             )
 
 

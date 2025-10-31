@@ -1,4 +1,15 @@
 types:
+  AccountsListRequestClassification:
+    enum:
+      - value: ''
+        name: EMPTY
+      - ASSET
+      - EQUITY
+      - EXPENSE
+      - LIABILITY
+      - REVENUE
+    source:
+      openapi: openapi/openapi.yml
   AccountsListRequestRemoteFields:
     enum:
       - classification
@@ -13,6 +24,15 @@ types:
       - value: classification,status
         name: ClassificationStatus
       - status
+    source:
+      openapi: openapi/openapi.yml
+  AccountsListRequestStatus:
+    enum:
+      - value: ''
+        name: EMPTY
+      - ACTIVE
+      - INACTIVE
+      - PENDING
     source:
       openapi: openapi/openapi.yml
   AccountsRetrieveRequestRemoteFields:
@@ -40,7 +60,8 @@ service:
     list:
       path: /accounting/v1/accounts
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `Account` objects.
       source:
         openapi: openapi/openapi.yml
@@ -51,7 +72,7 @@ service:
             type: optional<string>
             docs: If provided, will only return accounts with the passed in enum.
           classification:
-            type: optional<string>
+            type: optional<AccountsListRequestClassification>
             docs: If provided, will only return accounts with this classification.
           company_id:
             type: optional<string>
@@ -120,7 +141,7 @@ service:
               enum values. [Learn
               more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
           status:
-            type: optional<string>
+            type: optional<AccountsListRequestStatus>
             docs: If provided, will only return accounts with this status.
       response:
         docs: ''
@@ -128,7 +149,24 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            account_type: account_type
+            classification: ''
+            company_id: company_id
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            expand: company
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            name: name
+            page_size: 1
+            remote_fields: classification
+            remote_id: remote_id
+            show_enum_origins: classification
+            status: ''
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -164,7 +202,8 @@ service:
     create:
       path: /accounting/v1/accounts
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Creates an `Account` object with the given values.
       source:
         openapi: openapi/openapi.yml
@@ -188,7 +227,10 @@ service:
         type: root.AccountResponse
         status-code: 201
       examples:
-        - headers:
+        - query-parameters:
+            is_debug_mode: true
+            run_async: true
+          headers:
             X-Account-Token: X-Account-Token
           request:
             model: {}
@@ -243,7 +285,8 @@ service:
     retrieve:
       path: /accounting/v1/accounts/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns an `Account` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -284,6 +327,12 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: company
+            include_remote_data: true
+            include_shell_data: true
+            remote_fields: classification
+            show_enum_origins: classification
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -316,7 +365,8 @@ service:
     metaPostRetrieve:
       path: /accounting/v1/accounts/meta/post
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns metadata for `Account` POSTs.
       source:
         openapi: openapi/openapi.yml

@@ -150,14 +150,51 @@ class InvoicesClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.accounting.resources.invoices import (
+            InvoicesListRequestExpand,
+            InvoicesListRequestStatus,
+            InvoicesListRequestType,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.invoices.list(
+            company_id="company_id",
+            contact_id="contact_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=InvoicesListRequestExpand.ACCOUNTING_PERIOD,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            issue_date_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            issue_date_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            number="number",
+            page_size=1,
+            remote_id="remote_id",
+            status=InvoicesListRequestStatus.DRAFT,
+            type=InvoicesListRequestType.ACCOUNTS_PAYABLE,
         )
         """
         _response = self._raw_client.list(
@@ -227,6 +264,8 @@ class InvoicesClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.invoices.create(
+            is_debug_mode=True,
+            run_async=True,
             model=InvoiceRequest(),
         )
         """
@@ -283,6 +322,9 @@ class InvoicesClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.accounting.resources.invoices import (
+            InvoicesRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -290,6 +332,10 @@ class InvoicesClient:
         )
         client.accounting.invoices.retrieve(
             id="id",
+            expand=InvoicesRetrieveRequestExpand.ACCOUNTING_PERIOD,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -347,6 +393,8 @@ class InvoicesClient:
         )
         client.accounting.invoices.partial_update(
             id="id",
+            is_debug_mode=True,
+            run_async=True,
             model=InvoiceRequest(),
         )
         """
@@ -411,6 +459,12 @@ class InvoicesClient:
         )
         client.accounting.invoices.line_items_remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            is_common_model_field=True,
+            is_custom=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.line_items_remote_field_classes_list(
@@ -539,6 +593,12 @@ class InvoicesClient:
         )
         client.accounting.invoices.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            is_common_model_field=True,
+            is_custom=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.remote_field_classes_list(
@@ -684,8 +744,14 @@ class AsyncInvoicesClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.invoices import (
+            InvoicesListRequestExpand,
+            InvoicesListRequestStatus,
+            InvoicesListRequestType,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -695,7 +761,37 @@ class AsyncInvoicesClient:
 
         async def main() -> None:
             await client.accounting.invoices.list(
+                company_id="company_id",
+                contact_id="contact_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=InvoicesListRequestExpand.ACCOUNTING_PERIOD,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                issue_date_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                issue_date_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                number="number",
+                page_size=1,
+                remote_id="remote_id",
+                status=InvoicesListRequestStatus.DRAFT,
+                type=InvoicesListRequestType.ACCOUNTS_PAYABLE,
             )
 
 
@@ -773,6 +869,8 @@ class AsyncInvoicesClient:
 
         async def main() -> None:
             await client.accounting.invoices.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=InvoiceRequest(),
             )
 
@@ -834,6 +932,9 @@ class AsyncInvoicesClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.invoices import (
+            InvoicesRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -844,6 +945,10 @@ class AsyncInvoicesClient:
         async def main() -> None:
             await client.accounting.invoices.retrieve(
                 id="id",
+                expand=InvoicesRetrieveRequestExpand.ACCOUNTING_PERIOD,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
             )
 
 
@@ -909,6 +1014,8 @@ class AsyncInvoicesClient:
         async def main() -> None:
             await client.accounting.invoices.partial_update(
                 id="id",
+                is_debug_mode=True,
+                run_async=True,
                 model=InvoiceRequest(),
             )
 
@@ -981,6 +1088,12 @@ class AsyncInvoicesClient:
         async def main() -> None:
             await client.accounting.invoices.line_items_remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                is_common_model_field=True,
+                is_custom=True,
+                page_size=1,
             )
 
 
@@ -1135,6 +1248,12 @@ class AsyncInvoicesClient:
         async def main() -> None:
             await client.accounting.invoices.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                is_common_model_field=True,
+                is_custom=True,
+                page_size=1,
             )
 
 

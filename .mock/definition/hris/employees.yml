@@ -1159,7 +1159,8 @@ service:
     list:
       path: /hris/v1/employees
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `Employee` objects.
       source:
         openapi: openapi/openapi.yml
@@ -1202,7 +1203,7 @@ service:
             type: optional<string>
             docs: >-
               If provided, will only return employees that have an employment of
-              the specified employment_type.
+              the specified employment type.
           expand:
             type: optional<EmployeesListRequestExpand>
             docs: >-
@@ -1246,7 +1247,7 @@ service:
             type: optional<string>
             docs: >-
               If provided, will only return employees that have an employment of
-              the specified job_title.
+              the specified job title.
           last_name:
             type: optional<string>
             docs: If provided, will only return employees with this last name.
@@ -1324,7 +1325,40 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            company_id: company_id
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            display_full_name: display_full_name
+            employee_number: employee_number
+            employment_status: ACTIVE
+            employment_type: employment_type
+            expand: company
+            first_name: first_name
+            groups: groups
+            home_location_id: home_location_id
+            include_deleted_data: true
+            include_remote_data: true
+            include_sensitive_fields: true
+            include_shell_data: true
+            job_title: job_title
+            last_name: last_name
+            manager_id: manager_id
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            page_size: 1
+            pay_group_id: pay_group_id
+            personal_email: personal_email
+            remote_fields: employment_status
+            remote_id: remote_id
+            show_enum_origins: employment_status
+            started_after: '2024-01-15T09:30:00Z'
+            started_before: '2024-01-15T09:30:00Z'
+            team_id: team_id
+            terminated_after: '2024-01-15T09:30:00Z'
+            terminated_before: '2024-01-15T09:30:00Z'
+            work_email: work_email
+            work_location_id: work_location_id
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -1379,7 +1413,8 @@ service:
     create:
       path: /hris/v1/employees
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Creates an `Employee` object with the given values.
       source:
         openapi: openapi/openapi.yml
@@ -1403,7 +1438,10 @@ service:
         type: root.EmployeeResponse
         status-code: 201
       examples:
-        - headers:
+        - query-parameters:
+            is_debug_mode: true
+            run_async: true
+          headers:
             X-Account-Token: X-Account-Token
           request:
             model: {}
@@ -1477,7 +1515,8 @@ service:
     retrieve:
       path: /hris/v1/employees/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns an `Employee` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -1523,6 +1562,13 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: company
+            include_remote_data: true
+            include_sensitive_fields: true
+            include_shell_data: true
+            remote_fields: employment_status
+            show_enum_origins: employment_status
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -1574,7 +1620,8 @@ service:
     ignoreCreate:
       path: /hris/v1/employees/ignore/{model_id}
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: >-
         Ignores a specific row based on the `model_id` in the url. These records
         will have their properties set to null, and will not be updated in
@@ -1605,7 +1652,8 @@ service:
     metaPostRetrieve:
       path: /hris/v1/employees/meta/post
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns metadata for `Employee` POSTs.
       source:
         openapi: openapi/openapi.yml

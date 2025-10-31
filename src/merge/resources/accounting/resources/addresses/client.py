@@ -70,6 +70,8 @@ class AddressesClient:
         )
         client.accounting.addresses.retrieve(
             id="id",
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -150,6 +152,8 @@ class AsyncAddressesClient:
         async def main() -> None:
             await client.accounting.addresses.retrieve(
                 id="id",
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

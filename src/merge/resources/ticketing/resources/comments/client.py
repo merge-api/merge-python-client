@@ -84,7 +84,7 @@ class CommentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return Comments created in the third party platform after this datetime.
@@ -105,14 +105,41 @@ class CommentsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.ticketing.resources.comments import (
+            CommentsListRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ticketing.comments.list(
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=CommentsListRequestExpand.CONTACT,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            remote_id="remote_id",
+            ticket_id="ticket_id",
         )
         """
         _response = self._raw_client.list(
@@ -172,6 +199,8 @@ class CommentsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.comments.create(
+            is_debug_mode=True,
+            run_async=True,
             model=CommentRequest(),
         )
         """
@@ -216,6 +245,9 @@ class CommentsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.ticketing.resources.comments import (
+            CommentsRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -223,6 +255,9 @@ class CommentsClient:
         )
         client.ticketing.comments.retrieve(
             id="id",
+            expand=CommentsRetrieveRequestExpand.CONTACT,
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -328,7 +363,7 @@ class AsyncCommentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return Comments created in the third party platform after this datetime.
@@ -350,8 +385,12 @@ class AsyncCommentsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.ticketing.resources.comments import (
+            CommentsListRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -361,7 +400,29 @@ class AsyncCommentsClient:
 
         async def main() -> None:
             await client.ticketing.comments.list(
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=CommentsListRequestExpand.CONTACT,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                remote_id="remote_id",
+                ticket_id="ticket_id",
             )
 
 
@@ -429,6 +490,8 @@ class AsyncCommentsClient:
 
         async def main() -> None:
             await client.ticketing.comments.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=CommentRequest(),
             )
 
@@ -478,6 +541,9 @@ class AsyncCommentsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.ticketing.resources.comments import (
+            CommentsRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -488,6 +554,9 @@ class AsyncCommentsClient:
         async def main() -> None:
             await client.ticketing.comments.retrieve(
                 id="id",
+                expand=CommentsRetrieveRequestExpand.CONTACT,
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

@@ -9,6 +9,7 @@ from ...types.article import Article
 from ...types.paginated_article_list import PaginatedArticleList
 from .raw_client import AsyncRawArticlesClient, RawArticlesClient
 from .types.articles_list_request_expand import ArticlesListRequestExpand
+from .types.articles_list_request_type import ArticlesListRequestType
 from .types.articles_retrieve_request_expand import ArticlesRetrieveRequestExpand
 
 
@@ -43,7 +44,9 @@ class ArticlesClient:
         parent_article_id: typing.Optional[str] = None,
         parent_container_id: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
-        type: typing.Optional[str] = None,
+        root_container_id: typing.Optional[str] = None,
+        status: typing.Optional[str] = None,
+        type: typing.Optional[ArticlesListRequestType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedArticleList:
         """
@@ -79,7 +82,7 @@ class ArticlesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_article_id : typing.Optional[str]
             If provided, will only return sub articles of the parent_article_id.
@@ -90,7 +93,13 @@ class ArticlesClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        type : typing.Optional[str]
+        root_container_id : typing.Optional[str]
+            If provided, will only return sub articles of the root_container_id.
+
+        status : typing.Optional[str]
+            If provided, will only return articles of the given status; multiple statuses can be separated by commas.
+
+        type : typing.Optional[ArticlesListRequestType]
             If provided, will only return articles of the given type.
 
         request_options : typing.Optional[RequestOptions]
@@ -103,14 +112,43 @@ class ArticlesClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.knowledgebase.resources.articles import (
+            ArticlesListRequestExpand,
+            ArticlesListRequestType,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.knowledgebase.articles.list(
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=ArticlesListRequestExpand.ATTACHMENTS,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            parent_article_id="parent_article_id",
+            parent_container_id="parent_container_id",
+            remote_id="remote_id",
+            root_container_id="root_container_id",
+            status="status",
+            type=ArticlesListRequestType.EMPTY,
         )
         """
         _response = self._raw_client.list(
@@ -127,6 +165,8 @@ class ArticlesClient:
             parent_article_id=parent_article_id,
             parent_container_id=parent_container_id,
             remote_id=remote_id,
+            root_container_id=root_container_id,
+            status=status,
             type=type,
             request_options=request_options,
         )
@@ -168,6 +208,9 @@ class ArticlesClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.knowledgebase.resources.articles import (
+            ArticlesRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -175,6 +218,9 @@ class ArticlesClient:
         )
         client.knowledgebase.articles.retrieve(
             id="id",
+            expand=ArticlesRetrieveRequestExpand.ATTACHMENTS,
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -218,7 +264,9 @@ class AsyncArticlesClient:
         parent_article_id: typing.Optional[str] = None,
         parent_container_id: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
-        type: typing.Optional[str] = None,
+        root_container_id: typing.Optional[str] = None,
+        status: typing.Optional[str] = None,
+        type: typing.Optional[ArticlesListRequestType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedArticleList:
         """
@@ -254,7 +302,7 @@ class AsyncArticlesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_article_id : typing.Optional[str]
             If provided, will only return sub articles of the parent_article_id.
@@ -265,7 +313,13 @@ class AsyncArticlesClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        type : typing.Optional[str]
+        root_container_id : typing.Optional[str]
+            If provided, will only return sub articles of the root_container_id.
+
+        status : typing.Optional[str]
+            If provided, will only return articles of the given status; multiple statuses can be separated by commas.
+
+        type : typing.Optional[ArticlesListRequestType]
             If provided, will only return articles of the given type.
 
         request_options : typing.Optional[RequestOptions]
@@ -279,8 +333,13 @@ class AsyncArticlesClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.knowledgebase.resources.articles import (
+            ArticlesListRequestExpand,
+            ArticlesListRequestType,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -290,7 +349,30 @@ class AsyncArticlesClient:
 
         async def main() -> None:
             await client.knowledgebase.articles.list(
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=ArticlesListRequestExpand.ATTACHMENTS,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                parent_article_id="parent_article_id",
+                parent_container_id="parent_container_id",
+                remote_id="remote_id",
+                root_container_id="root_container_id",
+                status="status",
+                type=ArticlesListRequestType.EMPTY,
             )
 
 
@@ -310,6 +392,8 @@ class AsyncArticlesClient:
             parent_article_id=parent_article_id,
             parent_container_id=parent_container_id,
             remote_id=remote_id,
+            root_container_id=root_container_id,
+            status=status,
             type=type,
             request_options=request_options,
         )
@@ -353,6 +437,9 @@ class AsyncArticlesClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.knowledgebase.resources.articles import (
+            ArticlesRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -363,6 +450,9 @@ class AsyncArticlesClient:
         async def main() -> None:
             await client.knowledgebase.articles.retrieve(
                 id="id",
+                expand=ArticlesRetrieveRequestExpand.ATTACHMENTS,
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

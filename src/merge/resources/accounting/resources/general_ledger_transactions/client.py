@@ -103,14 +103,44 @@ class GeneralLedgerTransactionsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.accounting.resources.general_ledger_transactions import (
+            GeneralLedgerTransactionsListRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.general_ledger_transactions.list(
+            company_id="company_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=GeneralLedgerTransactionsListRequestExpand.ACCOUNTING_PERIOD,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            posted_date_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            posted_date_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.list(
@@ -168,6 +198,9 @@ class GeneralLedgerTransactionsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.accounting.resources.general_ledger_transactions import (
+            GeneralLedgerTransactionsRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -175,6 +208,9 @@ class GeneralLedgerTransactionsClient:
         )
         client.accounting.general_ledger_transactions.retrieve(
             id="id",
+            expand=GeneralLedgerTransactionsRetrieveRequestExpand.ACCOUNTING_PERIOD,
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -279,8 +315,12 @@ class AsyncGeneralLedgerTransactionsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.general_ledger_transactions import (
+            GeneralLedgerTransactionsListRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -290,7 +330,32 @@ class AsyncGeneralLedgerTransactionsClient:
 
         async def main() -> None:
             await client.accounting.general_ledger_transactions.list(
+                company_id="company_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=GeneralLedgerTransactionsListRequestExpand.ACCOUNTING_PERIOD,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                posted_date_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                posted_date_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                remote_id="remote_id",
             )
 
 
@@ -353,6 +418,9 @@ class AsyncGeneralLedgerTransactionsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.general_ledger_transactions import (
+            GeneralLedgerTransactionsRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -363,6 +431,9 @@ class AsyncGeneralLedgerTransactionsClient:
         async def main() -> None:
             await client.accounting.general_ledger_transactions.retrieve(
                 id="id",
+                expand=GeneralLedgerTransactionsRetrieveRequestExpand.ACCOUNTING_PERIOD,
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

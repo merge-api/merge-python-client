@@ -91,7 +91,7 @@ class EmployeePayrollRunsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         payroll_run_id : typing.Optional[str]
             If provided, will only return employee payroll runs for this employee.
@@ -115,14 +115,51 @@ class EmployeePayrollRunsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.hris.resources.employee_payroll_runs import (
+            EmployeePayrollRunsListRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.hris.employee_payroll_runs.list(
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            employee_id="employee_id",
+            ended_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            ended_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            expand=EmployeePayrollRunsListRequestExpand.EMPLOYEE,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            payroll_run_id="payroll_run_id",
+            remote_id="remote_id",
+            started_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            started_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
         )
         """
         _response = self._raw_client.list(
@@ -183,6 +220,9 @@ class EmployeePayrollRunsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.hris.resources.employee_payroll_runs import (
+            EmployeePayrollRunsRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -190,6 +230,9 @@ class EmployeePayrollRunsClient:
         )
         client.hris.employee_payroll_runs.retrieve(
             id="id",
+            expand=EmployeePayrollRunsRetrieveRequestExpand.EMPLOYEE,
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -281,7 +324,7 @@ class AsyncEmployeePayrollRunsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         payroll_run_id : typing.Optional[str]
             If provided, will only return employee payroll runs for this employee.
@@ -306,8 +349,12 @@ class AsyncEmployeePayrollRunsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.hris.resources.employee_payroll_runs import (
+            EmployeePayrollRunsListRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -317,7 +364,39 @@ class AsyncEmployeePayrollRunsClient:
 
         async def main() -> None:
             await client.hris.employee_payroll_runs.list(
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                employee_id="employee_id",
+                ended_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                ended_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                expand=EmployeePayrollRunsListRequestExpand.EMPLOYEE,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                payroll_run_id="payroll_run_id",
+                remote_id="remote_id",
+                started_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                started_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
             )
 
 
@@ -383,6 +462,9 @@ class AsyncEmployeePayrollRunsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.hris.resources.employee_payroll_runs import (
+            EmployeePayrollRunsRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -393,6 +475,9 @@ class AsyncEmployeePayrollRunsClient:
         async def main() -> None:
             await client.hris.employee_payroll_runs.retrieve(
                 id="id",
+                expand=EmployeePayrollRunsRetrieveRequestExpand.EMPLOYEE,
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

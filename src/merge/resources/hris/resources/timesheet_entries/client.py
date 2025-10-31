@@ -99,7 +99,7 @@ class TimesheetEntriesClient:
             Overrides the default ordering for this endpoint. Possible values include: start_time, -start_time.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -120,14 +120,50 @@ class TimesheetEntriesClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.hris.resources.timesheet_entries import (
+            TimesheetEntriesListRequestOrderBy,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.hris.timesheet_entries.list(
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            employee_id="employee_id",
+            ended_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            ended_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            order_by=TimesheetEntriesListRequestOrderBy.START_TIME_DESCENDING,
+            page_size=1,
+            remote_id="remote_id",
+            started_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            started_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
         )
         """
         _response = self._raw_client.list(
@@ -191,6 +227,8 @@ class TimesheetEntriesClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.timesheet_entries.create(
+            is_debug_mode=True,
+            run_async=True,
             model=TimesheetEntryRequest(),
         )
         """
@@ -242,6 +280,8 @@ class TimesheetEntriesClient:
         )
         client.hris.timesheet_entries.retrieve(
             id="id",
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -363,7 +403,7 @@ class AsyncTimesheetEntriesClient:
             Overrides the default ordering for this endpoint. Possible values include: start_time, -start_time.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -385,8 +425,12 @@ class AsyncTimesheetEntriesClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.hris.resources.timesheet_entries import (
+            TimesheetEntriesListRequestOrderBy,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -396,7 +440,38 @@ class AsyncTimesheetEntriesClient:
 
         async def main() -> None:
             await client.hris.timesheet_entries.list(
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                employee_id="employee_id",
+                ended_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                ended_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                order_by=TimesheetEntriesListRequestOrderBy.START_TIME_DESCENDING,
+                page_size=1,
+                remote_id="remote_id",
+                started_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                started_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
             )
 
 
@@ -468,6 +543,8 @@ class AsyncTimesheetEntriesClient:
 
         async def main() -> None:
             await client.hris.timesheet_entries.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=TimesheetEntryRequest(),
             )
 
@@ -527,6 +604,8 @@ class AsyncTimesheetEntriesClient:
         async def main() -> None:
             await client.hris.timesheet_entries.retrieve(
                 id="id",
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

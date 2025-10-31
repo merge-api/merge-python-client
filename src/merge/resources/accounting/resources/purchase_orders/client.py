@@ -122,14 +122,45 @@ class PurchaseOrdersClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.accounting.resources.purchase_orders import (
+            PurchaseOrdersListRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.purchase_orders.list(
+            company_id="company_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=PurchaseOrdersListRequestExpand.ACCOUNTING_PERIOD,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            issue_date_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            issue_date_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.list(
@@ -193,6 +224,8 @@ class PurchaseOrdersClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.purchase_orders.create(
+            is_debug_mode=True,
+            run_async=True,
             model=PurchaseOrderRequest(),
         )
         """
@@ -249,6 +282,9 @@ class PurchaseOrdersClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.accounting.resources.purchase_orders import (
+            PurchaseOrdersRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -256,6 +292,10 @@ class PurchaseOrdersClient:
         )
         client.accounting.purchase_orders.retrieve(
             id="id",
+            expand=PurchaseOrdersRetrieveRequestExpand.ACCOUNTING_PERIOD,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -326,6 +366,12 @@ class PurchaseOrdersClient:
         )
         client.accounting.purchase_orders.line_items_remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            is_common_model_field=True,
+            is_custom=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.line_items_remote_field_classes_list(
@@ -423,6 +469,12 @@ class PurchaseOrdersClient:
         )
         client.accounting.purchase_orders.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            is_common_model_field=True,
+            is_custom=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.remote_field_classes_list(
@@ -542,8 +594,12 @@ class AsyncPurchaseOrdersClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.purchase_orders import (
+            PurchaseOrdersListRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -553,7 +609,33 @@ class AsyncPurchaseOrdersClient:
 
         async def main() -> None:
             await client.accounting.purchase_orders.list(
+                company_id="company_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=PurchaseOrdersListRequestExpand.ACCOUNTING_PERIOD,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                issue_date_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                issue_date_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_id="remote_id",
             )
 
 
@@ -625,6 +707,8 @@ class AsyncPurchaseOrdersClient:
 
         async def main() -> None:
             await client.accounting.purchase_orders.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=PurchaseOrderRequest(),
             )
 
@@ -686,6 +770,9 @@ class AsyncPurchaseOrdersClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.purchase_orders import (
+            PurchaseOrdersRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -696,6 +783,10 @@ class AsyncPurchaseOrdersClient:
         async def main() -> None:
             await client.accounting.purchase_orders.retrieve(
                 id="id",
+                expand=PurchaseOrdersRetrieveRequestExpand.ACCOUNTING_PERIOD,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
             )
 
 
@@ -774,6 +865,12 @@ class AsyncPurchaseOrdersClient:
         async def main() -> None:
             await client.accounting.purchase_orders.line_items_remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                is_common_model_field=True,
+                is_custom=True,
+                page_size=1,
             )
 
 
@@ -887,6 +984,12 @@ class AsyncPurchaseOrdersClient:
         async def main() -> None:
             await client.accounting.purchase_orders.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                is_common_model_field=True,
+                is_custom=True,
+                page_size=1,
             )
 
 

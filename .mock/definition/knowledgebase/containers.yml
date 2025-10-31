@@ -14,6 +14,18 @@ types:
         name: PermissionsParentContainer
     source:
       openapi: openapi/openapi.yml
+  ContainersListRequestType:
+    enum:
+      - value: ''
+        name: EMPTY
+      - CATEGORY
+      - COLLECTION
+      - DATABASE
+      - FOLDER
+      - SECTION
+      - SPACE
+    source:
+      openapi: openapi/openapi.yml
   ContainersRetrieveRequestExpand:
     enum:
       - parent_article
@@ -38,7 +50,8 @@ service:
     list:
       path: /knowledgebase/v1/containers
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `Container` objects.
       source:
         openapi: openapi/openapi.yml
@@ -91,7 +104,7 @@ service:
               will be returned.
           page_size:
             type: optional<integer>
-            docs: Number of results to return per page.
+            docs: Number of results to return per page. The maximum limit is 100.
           parent_article_id:
             type: optional<string>
             docs: >-
@@ -110,7 +123,7 @@ service:
             type: optional<string>
             docs: The API provider's ID for the given object.
           type:
-            type: optional<string>
+            type: optional<ContainersListRequestType>
             docs: If provided, will only return containers of the given type.
       response:
         docs: ''
@@ -118,7 +131,20 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            expand: parent_article
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            page_size: 1
+            parent_article_id: parent_article_id
+            parent_container_id: parent_container_id
+            remote_id: remote_id
+            type: ''
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -164,7 +190,8 @@ service:
     retrieve:
       path: /knowledgebase/v1/containers/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a `Container` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -195,6 +222,10 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: parent_article
+            include_remote_data: true
+            include_shell_data: true
           headers:
             X-Account-Token: X-Account-Token
           response:

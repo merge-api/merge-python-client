@@ -108,14 +108,39 @@ class ExpenseReportsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.accounting.resources.expense_reports import (
+            ExpenseReportsListRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.expense_reports.list(
+            company_id="company_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=ExpenseReportsListRequestExpand.ACCOUNTING_PERIOD,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.list(
@@ -175,6 +200,8 @@ class ExpenseReportsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.expense_reports.create(
+            is_debug_mode=True,
+            run_async=True,
             model=ExpenseReportRequest(
                 tracking_categories=[
                     "a1b2c3d4-e5f6-4a5b-9c3d-2e1f0a9b8c7d",
@@ -240,6 +267,9 @@ class ExpenseReportsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.accounting.resources.expense_reports import (
+            ExpenseReportsLinesListRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -248,6 +278,12 @@ class ExpenseReportsClient:
         client.accounting.expense_reports.lines_list(
             expense_report_id="expense_report_id",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=ExpenseReportsLinesListRequestExpand.ACCOUNT,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.lines_list(
@@ -303,6 +339,9 @@ class ExpenseReportsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.accounting.resources.expense_reports import (
+            ExpenseReportsRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -310,6 +349,10 @@ class ExpenseReportsClient:
         )
         client.accounting.expense_reports.retrieve(
             id="id",
+            expand=ExpenseReportsRetrieveRequestExpand.ACCOUNTING_PERIOD,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -378,6 +421,12 @@ class ExpenseReportsClient:
         )
         client.accounting.expense_reports.lines_remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            is_common_model_field=True,
+            is_custom=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.lines_remote_field_classes_list(
@@ -475,6 +524,12 @@ class ExpenseReportsClient:
         )
         client.accounting.expense_reports.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            is_common_model_field=True,
+            is_custom=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.remote_field_classes_list(
@@ -578,8 +633,12 @@ class AsyncExpenseReportsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.expense_reports import (
+            ExpenseReportsListRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -589,7 +648,27 @@ class AsyncExpenseReportsClient:
 
         async def main() -> None:
             await client.accounting.expense_reports.list(
+                company_id="company_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=ExpenseReportsListRequestExpand.ACCOUNTING_PERIOD,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_id="remote_id",
             )
 
 
@@ -657,6 +736,8 @@ class AsyncExpenseReportsClient:
 
         async def main() -> None:
             await client.accounting.expense_reports.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=ExpenseReportRequest(
                     tracking_categories=[
                         "a1b2c3d4-e5f6-4a5b-9c3d-2e1f0a9b8c7d",
@@ -727,6 +808,9 @@ class AsyncExpenseReportsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.expense_reports import (
+            ExpenseReportsLinesListRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -738,6 +822,12 @@ class AsyncExpenseReportsClient:
             await client.accounting.expense_reports.lines_list(
                 expense_report_id="expense_report_id",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=ExpenseReportsLinesListRequestExpand.ACCOUNT,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                page_size=1,
             )
 
 
@@ -798,6 +888,9 @@ class AsyncExpenseReportsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.expense_reports import (
+            ExpenseReportsRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -808,6 +901,10 @@ class AsyncExpenseReportsClient:
         async def main() -> None:
             await client.accounting.expense_reports.retrieve(
                 id="id",
+                expand=ExpenseReportsRetrieveRequestExpand.ACCOUNTING_PERIOD,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
             )
 
 
@@ -884,6 +981,12 @@ class AsyncExpenseReportsClient:
         async def main() -> None:
             await client.accounting.expense_reports.lines_remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                is_common_model_field=True,
+                is_custom=True,
+                page_size=1,
             )
 
 
@@ -997,6 +1100,12 @@ class AsyncExpenseReportsClient:
         async def main() -> None:
             await client.accounting.expense_reports.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                is_common_model_field=True,
+                is_custom=True,
+                page_size=1,
             )
 
 

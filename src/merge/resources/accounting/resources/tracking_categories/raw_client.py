@@ -13,6 +13,8 @@ from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.paginated_tracking_category_list import PaginatedTrackingCategoryList
 from ...types.tracking_category import TrackingCategory
+from .types.tracking_categories_list_request_category_type import TrackingCategoriesListRequestCategoryType
+from .types.tracking_categories_list_request_status import TrackingCategoriesListRequestStatus
 
 
 class RawTrackingCategoriesClient:
@@ -22,7 +24,7 @@ class RawTrackingCategoriesClient:
     def list(
         self,
         *,
-        category_type: typing.Optional[str] = None,
+        category_type: typing.Optional[TrackingCategoriesListRequestCategoryType] = None,
         company_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
@@ -38,7 +40,7 @@ class RawTrackingCategoriesClient:
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
-        status: typing.Optional[str] = None,
+        status: typing.Optional[TrackingCategoriesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaginatedTrackingCategoryList]:
         """
@@ -46,7 +48,7 @@ class RawTrackingCategoriesClient:
 
         Parameters
         ----------
-        category_type : typing.Optional[str]
+        category_type : typing.Optional[TrackingCategoriesListRequestCategoryType]
             If provided, will only return tracking categories with this type.
 
         company_id : typing.Optional[str]
@@ -94,7 +96,7 @@ class RawTrackingCategoriesClient:
         show_enum_origins : typing.Optional[typing.Literal["status"]]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[str]
+        status : typing.Optional[TrackingCategoriesListRequestStatus]
             If provided, will only return tracking categories with this status.
 
         request_options : typing.Optional[RequestOptions]
@@ -220,7 +222,7 @@ class AsyncRawTrackingCategoriesClient:
     async def list(
         self,
         *,
-        category_type: typing.Optional[str] = None,
+        category_type: typing.Optional[TrackingCategoriesListRequestCategoryType] = None,
         company_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
@@ -236,7 +238,7 @@ class AsyncRawTrackingCategoriesClient:
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
-        status: typing.Optional[str] = None,
+        status: typing.Optional[TrackingCategoriesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaginatedTrackingCategoryList]:
         """
@@ -244,7 +246,7 @@ class AsyncRawTrackingCategoriesClient:
 
         Parameters
         ----------
-        category_type : typing.Optional[str]
+        category_type : typing.Optional[TrackingCategoriesListRequestCategoryType]
             If provided, will only return tracking categories with this type.
 
         company_id : typing.Optional[str]
@@ -292,7 +294,7 @@ class AsyncRawTrackingCategoriesClient:
         show_enum_origins : typing.Optional[typing.Literal["status"]]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[str]
+        status : typing.Optional[TrackingCategoriesListRequestStatus]
             If provided, will only return tracking categories with this status.
 
         request_options : typing.Optional[RequestOptions]

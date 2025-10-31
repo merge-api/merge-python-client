@@ -7,7 +7,8 @@ service:
     create:
       path: /hris/v1/generate-key
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Create a remote key.
       source:
         openapi: openapi/openapi.yml

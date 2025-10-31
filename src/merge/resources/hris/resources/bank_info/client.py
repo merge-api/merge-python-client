@@ -97,7 +97,7 @@ class BankInfoClient:
             Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["account_type"]]
             Deprecated. Use show_enum_origins.
@@ -118,14 +118,41 @@ class BankInfoClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.hris.resources.bank_info import (
+            BankInfoListRequestAccountType,
+            BankInfoListRequestOrderBy,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.hris.bank_info.list(
+            account_type=BankInfoListRequestAccountType.CHECKING,
+            bank_name="bank_name",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            employee_id="employee_id",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            order_by=BankInfoListRequestOrderBy.REMOTE_CREATED_AT_DESCENDING,
+            page_size=1,
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.list(
@@ -201,6 +228,8 @@ class BankInfoClient:
         )
         client.hris.bank_info.retrieve(
             id="id",
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -300,7 +329,7 @@ class AsyncBankInfoClient:
             Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["account_type"]]
             Deprecated. Use show_enum_origins.
@@ -322,8 +351,13 @@ class AsyncBankInfoClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.hris.resources.bank_info import (
+            BankInfoListRequestAccountType,
+            BankInfoListRequestOrderBy,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -333,7 +367,28 @@ class AsyncBankInfoClient:
 
         async def main() -> None:
             await client.hris.bank_info.list(
+                account_type=BankInfoListRequestAccountType.CHECKING,
+                bank_name="bank_name",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                employee_id="employee_id",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                order_by=BankInfoListRequestOrderBy.REMOTE_CREATED_AT_DESCENDING,
+                page_size=1,
+                remote_id="remote_id",
             )
 
 
@@ -417,6 +472,8 @@ class AsyncBankInfoClient:
         async def main() -> None:
             await client.hris.bank_info.retrieve(
                 id="id",
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

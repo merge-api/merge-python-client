@@ -37,10 +37,10 @@ if typing.TYPE_CHECKING:
         webhook_receivers,
     )
     from .async_passthrough import AsyncPassthroughRetrieveResponse
-    from .collections import CollectionsViewersListRequestExpand
+    from .collections import CollectionsListRequestCollectionType, CollectionsViewersListRequestExpand
     from .comments import CommentsListRequestExpand, CommentsRetrieveRequestExpand
     from .issues import IssuesListRequestStatus
-    from .link_token import EndUserDetailsRequestLanguage
+    from .link_token import EndUserDetailsRequestCompletedAccountInitialScreen, EndUserDetailsRequestLanguage
     from .linked_accounts import LinkedAccountsListRequestCategory
     from .projects import ProjectsUsersListRequestExpand
     from .tickets import (
@@ -48,6 +48,7 @@ if typing.TYPE_CHECKING:
         TicketsListRequestPriority,
         TicketsListRequestRemoteFields,
         TicketsListRequestShowEnumOrigins,
+        TicketsListRequestStatus,
         TicketsRetrieveRequestExpand,
         TicketsRetrieveRequestRemoteFields,
         TicketsRetrieveRequestShowEnumOrigins,
@@ -56,9 +57,11 @@ if typing.TYPE_CHECKING:
     from .users import UsersListRequestExpand, UsersRetrieveRequestExpand
 _dynamic_imports: typing.Dict[str, str] = {
     "AsyncPassthroughRetrieveResponse": ".async_passthrough",
+    "CollectionsListRequestCollectionType": ".collections",
     "CollectionsViewersListRequestExpand": ".collections",
     "CommentsListRequestExpand": ".comments",
     "CommentsRetrieveRequestExpand": ".comments",
+    "EndUserDetailsRequestCompletedAccountInitialScreen": ".link_token",
     "EndUserDetailsRequestLanguage": ".link_token",
     "IssuesListRequestStatus": ".issues",
     "LinkedAccountsListRequestCategory": ".linked_accounts",
@@ -67,6 +70,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TicketsListRequestPriority": ".tickets",
     "TicketsListRequestRemoteFields": ".tickets",
     "TicketsListRequestShowEnumOrigins": ".tickets",
+    "TicketsListRequestStatus": ".tickets",
     "TicketsRetrieveRequestExpand": ".tickets",
     "TicketsRetrieveRequestRemoteFields": ".tickets",
     "TicketsRetrieveRequestShowEnumOrigins": ".tickets",
@@ -125,9 +129,11 @@ def __dir__():
 
 __all__ = [
     "AsyncPassthroughRetrieveResponse",
+    "CollectionsListRequestCollectionType",
     "CollectionsViewersListRequestExpand",
     "CommentsListRequestExpand",
     "CommentsRetrieveRequestExpand",
+    "EndUserDetailsRequestCompletedAccountInitialScreen",
     "EndUserDetailsRequestLanguage",
     "IssuesListRequestStatus",
     "LinkedAccountsListRequestCategory",
@@ -136,6 +142,7 @@ __all__ = [
     "TicketsListRequestPriority",
     "TicketsListRequestRemoteFields",
     "TicketsListRequestShowEnumOrigins",
+    "TicketsListRequestStatus",
     "TicketsRetrieveRequestExpand",
     "TicketsRetrieveRequestRemoteFields",
     "TicketsRetrieveRequestShowEnumOrigins",

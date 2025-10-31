@@ -85,7 +85,7 @@ class RawEmploymentsClient:
             Overrides the default ordering for this endpoint. Possible values include: effective_date, -effective_date.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[EmploymentsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -273,7 +273,7 @@ class AsyncRawEmploymentsClient:
             Overrides the default ordering for this endpoint. Possible values include: effective_date, -effective_date.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[EmploymentsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.

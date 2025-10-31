@@ -17,6 +17,20 @@ types:
     source:
       openapi: openapi/openapi.yml
     inline: true
+  EndUserDetailsRequestCompletedAccountInitialScreen:
+    discriminated: false
+    docs: >-
+      When creating a Link token, you can specifiy the initial screen of Linking
+      Flow for a completed Linked Account.
+
+
+      * `SELECTIVE_SYNC` - SELECTIVE_SYNC
+    union:
+      - root.CompletedAccountInitialScreenEnum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
 service:
   auth: false
   base-path: ''
@@ -24,7 +38,8 @@ service:
     create:
       path: /knowledgebase/v1/link-token
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Creates a link token to be used when linking a new end user.
       source:
         openapi: openapi/openapi.yml
@@ -130,6 +145,14 @@ service:
               docs: >-
                 A JSON object containing integration-specific configuration
                 options.
+            completed_account_initial_screen:
+              type: optional<EndUserDetailsRequestCompletedAccountInitialScreen>
+              docs: >-
+                When creating a Link token, you can specifiy the initial screen
+                of Linking Flow for a completed Linked Account.
+
+
+                * `SELECTIVE_SYNC` - SELECTIVE_SYNC
         content-type: application/json
       response:
         docs: ''

@@ -59,6 +59,7 @@ class SyncStatusClient:
         )
         client.crm.sync_status.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            page_size=1,
         )
         """
         _response = self._raw_client.list(cursor=cursor, page_size=page_size, request_options=request_options)
@@ -121,6 +122,7 @@ class AsyncSyncStatusClient:
         async def main() -> None:
             await client.crm.sync_status.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                page_size=1,
             )
 
 
