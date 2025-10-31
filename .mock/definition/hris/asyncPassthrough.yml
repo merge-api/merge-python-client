@@ -7,7 +7,8 @@ service:
     create:
       path: /hris/v1/async-passthrough
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: >-
         Asynchronously pull data from an endpoint not currently supported by
         Merge.
@@ -32,7 +33,8 @@ service:
     retrieve:
       path: /hris/v1/async-passthrough/{async_passthrough_receipt_id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Retrieves data from earlier async-passthrough POST request
       source:
         openapi: openapi/openapi.yml

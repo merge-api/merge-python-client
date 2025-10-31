@@ -115,14 +115,39 @@ class CandidatesClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.ats.resources.candidates import CandidatesListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ats.candidates.list(
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            email_addresses="email_addresses",
+            expand=CandidatesListRequestExpand.APPLICATIONS,
+            first_name="first_name",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            last_name="last_name",
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_id="remote_id",
+            tags="tags",
         )
         """
         _response = self._raw_client.list(
@@ -187,6 +212,8 @@ class CandidatesClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.candidates.create(
+            is_debug_mode=True,
+            run_async=True,
             model=CandidateRequest(),
             remote_user_id="remote_user_id",
         )
@@ -236,6 +263,9 @@ class CandidatesClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.ats.resources.candidates import (
+            CandidatesRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -243,6 +273,9 @@ class CandidatesClient:
         )
         client.ats.candidates.retrieve(
             id="id",
+            expand=CandidatesRetrieveRequestExpand.APPLICATIONS,
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -300,6 +333,8 @@ class CandidatesClient:
         )
         client.ats.candidates.partial_update(
             id="id",
+            is_debug_mode=True,
+            run_async=True,
             model=PatchedCandidateRequest(),
             remote_user_id="remote_user_id",
         )
@@ -514,8 +549,10 @@ class AsyncCandidatesClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.ats.resources.candidates import CandidatesListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -525,7 +562,29 @@ class AsyncCandidatesClient:
 
         async def main() -> None:
             await client.ats.candidates.list(
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                email_addresses="email_addresses",
+                expand=CandidatesListRequestExpand.APPLICATIONS,
+                first_name="first_name",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                last_name="last_name",
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_id="remote_id",
+                tags="tags",
             )
 
 
@@ -598,6 +657,8 @@ class AsyncCandidatesClient:
 
         async def main() -> None:
             await client.ats.candidates.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=CandidateRequest(),
                 remote_user_id="remote_user_id",
             )
@@ -652,6 +713,9 @@ class AsyncCandidatesClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.ats.resources.candidates import (
+            CandidatesRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -662,6 +726,9 @@ class AsyncCandidatesClient:
         async def main() -> None:
             await client.ats.candidates.retrieve(
                 id="id",
+                expand=CandidatesRetrieveRequestExpand.APPLICATIONS,
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 
@@ -727,6 +794,8 @@ class AsyncCandidatesClient:
         async def main() -> None:
             await client.ats.candidates.partial_update(
                 id="id",
+                is_debug_mode=True,
+                run_async=True,
                 model=PatchedCandidateRequest(),
                 remote_user_id="remote_user_id",
             )

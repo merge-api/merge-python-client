@@ -14,6 +14,7 @@ from .....core.unchecked_base_model import construct_type
 from ...types.container import Container
 from ...types.paginated_container_list import PaginatedContainerList
 from .types.containers_list_request_expand import ContainersListRequestExpand
+from .types.containers_list_request_type import ContainersListRequestType
 from .types.containers_retrieve_request_expand import ContainersRetrieveRequestExpand
 
 
@@ -37,7 +38,7 @@ class RawContainersClient:
         parent_article_id: typing.Optional[str] = None,
         parent_container_id: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
-        type: typing.Optional[str] = None,
+        type: typing.Optional[ContainersListRequestType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaginatedContainerList]:
         """
@@ -73,7 +74,7 @@ class RawContainersClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_article_id : typing.Optional[str]
             If provided, will only return sub containers of the parent_article_id.
@@ -84,7 +85,7 @@ class RawContainersClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        type : typing.Optional[str]
+        type : typing.Optional[ContainersListRequestType]
             If provided, will only return containers of the given type.
 
         request_options : typing.Optional[RequestOptions]
@@ -210,7 +211,7 @@ class AsyncRawContainersClient:
         parent_article_id: typing.Optional[str] = None,
         parent_container_id: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
-        type: typing.Optional[str] = None,
+        type: typing.Optional[ContainersListRequestType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaginatedContainerList]:
         """
@@ -246,7 +247,7 @@ class AsyncRawContainersClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_article_id : typing.Optional[str]
             If provided, will only return sub containers of the parent_article_id.
@@ -257,7 +258,7 @@ class AsyncRawContainersClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        type : typing.Optional[str]
+        type : typing.Optional[ContainersListRequestType]
             If provided, will only return containers of the given type.
 
         request_options : typing.Optional[RequestOptions]

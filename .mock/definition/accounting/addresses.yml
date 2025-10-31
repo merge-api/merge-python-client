@@ -7,7 +7,8 @@ service:
     retrieve:
       path: /accounting/v1/addresses/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns an `Address` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -43,6 +44,11 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            include_remote_data: true
+            include_shell_data: true
+            remote_fields: type
+            show_enum_origins: type
           headers:
             X-Account-Token: X-Account-Token
           response:

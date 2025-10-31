@@ -103,7 +103,8 @@ service:
     list:
       path: /hris/v1/time-off
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `TimeOff` objects.
       source:
         openapi: openapi/openapi.yml
@@ -172,7 +173,7 @@ service:
               will be returned.
           page_size:
             type: optional<integer>
-            docs: Number of results to return per page.
+            docs: Number of results to return per page. The maximum limit is 100.
           remote_fields:
             type: optional<TimeOffListRequestRemoteFields>
             docs: Deprecated. Use show_enum_origins.
@@ -237,7 +238,27 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            approver_id: approver_id
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            employee_id: employee_id
+            ended_after: '2024-01-15T09:30:00Z'
+            ended_before: '2024-01-15T09:30:00Z'
+            expand: approver
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            page_size: 1
+            remote_fields: request_type
+            remote_id: remote_id
+            request_type: BEREAVEMENT
+            show_enum_origins: request_type
+            started_after: '2024-01-15T09:30:00Z'
+            started_before: '2024-01-15T09:30:00Z'
+            status: APPROVED
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -271,7 +292,8 @@ service:
     create:
       path: /hris/v1/time-off
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Creates a `TimeOff` object with the given values.
       source:
         openapi: openapi/openapi.yml
@@ -295,7 +317,10 @@ service:
         type: root.TimeOffResponse
         status-code: 201
       examples:
-        - headers:
+        - query-parameters:
+            is_debug_mode: true
+            run_async: true
+          headers:
             X-Account-Token: X-Account-Token
           request:
             model: {}
@@ -348,7 +373,8 @@ service:
     retrieve:
       path: /hris/v1/time-off/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a `TimeOff` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -389,6 +415,12 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: approver
+            include_remote_data: true
+            include_shell_data: true
+            remote_fields: request_type
+            show_enum_origins: request_type
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -419,7 +451,8 @@ service:
     metaPostRetrieve:
       path: /hris/v1/time-off/meta/post
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns metadata for `TimeOff` POSTs.
       source:
         openapi: openapi/openapi.yml

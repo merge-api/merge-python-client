@@ -16,8 +16,10 @@ from ...types.account_request import AccountRequest
 from ...types.account_response import AccountResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_account_list import PaginatedAccountList
+from .types.accounts_list_request_classification import AccountsListRequestClassification
 from .types.accounts_list_request_remote_fields import AccountsListRequestRemoteFields
 from .types.accounts_list_request_show_enum_origins import AccountsListRequestShowEnumOrigins
+from .types.accounts_list_request_status import AccountsListRequestStatus
 from .types.accounts_retrieve_request_remote_fields import AccountsRetrieveRequestRemoteFields
 from .types.accounts_retrieve_request_show_enum_origins import AccountsRetrieveRequestShowEnumOrigins
 
@@ -33,7 +35,7 @@ class RawAccountsClient:
         self,
         *,
         account_type: typing.Optional[str] = None,
-        classification: typing.Optional[str] = None,
+        classification: typing.Optional[AccountsListRequestClassification] = None,
         company_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
@@ -49,7 +51,7 @@ class RawAccountsClient:
         remote_fields: typing.Optional[AccountsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[AccountsListRequestShowEnumOrigins] = None,
-        status: typing.Optional[str] = None,
+        status: typing.Optional[AccountsListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaginatedAccountList]:
         """
@@ -60,7 +62,7 @@ class RawAccountsClient:
         account_type : typing.Optional[str]
             If provided, will only return accounts with the passed in enum.
 
-        classification : typing.Optional[str]
+        classification : typing.Optional[AccountsListRequestClassification]
             If provided, will only return accounts with this classification.
 
         company_id : typing.Optional[str]
@@ -108,7 +110,7 @@ class RawAccountsClient:
         show_enum_origins : typing.Optional[AccountsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[str]
+        status : typing.Optional[AccountsListRequestStatus]
             If provided, will only return accounts with this status.
 
         request_options : typing.Optional[RequestOptions]
@@ -332,7 +334,7 @@ class AsyncRawAccountsClient:
         self,
         *,
         account_type: typing.Optional[str] = None,
-        classification: typing.Optional[str] = None,
+        classification: typing.Optional[AccountsListRequestClassification] = None,
         company_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
@@ -348,7 +350,7 @@ class AsyncRawAccountsClient:
         remote_fields: typing.Optional[AccountsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[AccountsListRequestShowEnumOrigins] = None,
-        status: typing.Optional[str] = None,
+        status: typing.Optional[AccountsListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaginatedAccountList]:
         """
@@ -359,7 +361,7 @@ class AsyncRawAccountsClient:
         account_type : typing.Optional[str]
             If provided, will only return accounts with the passed in enum.
 
-        classification : typing.Optional[str]
+        classification : typing.Optional[AccountsListRequestClassification]
             If provided, will only return accounts with this classification.
 
         company_id : typing.Optional[str]
@@ -407,7 +409,7 @@ class AsyncRawAccountsClient:
         show_enum_origins : typing.Optional[AccountsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[str]
+        status : typing.Optional[AccountsListRequestStatus]
             If provided, will only return accounts with this status.
 
         request_options : typing.Optional[RequestOptions]

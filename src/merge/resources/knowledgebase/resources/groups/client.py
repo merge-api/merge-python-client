@@ -76,7 +76,7 @@ class GroupsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -91,14 +91,37 @@ class GroupsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.knowledgebase.resources.groups import (
+            GroupsListRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.knowledgebase.groups.list(
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=GroupsListRequestExpand.PARENT_GROUP,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.list(
@@ -153,6 +176,9 @@ class GroupsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.knowledgebase.resources.groups import (
+            GroupsRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -160,6 +186,9 @@ class GroupsClient:
         )
         client.knowledgebase.groups.retrieve(
             id="id",
+            expand=GroupsRetrieveRequestExpand.PARENT_GROUP,
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -236,7 +265,7 @@ class AsyncGroupsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -252,8 +281,12 @@ class AsyncGroupsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.knowledgebase.resources.groups import (
+            GroupsListRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -263,7 +296,25 @@ class AsyncGroupsClient:
 
         async def main() -> None:
             await client.knowledgebase.groups.list(
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=GroupsListRequestExpand.PARENT_GROUP,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_id="remote_id",
             )
 
 
@@ -323,6 +374,9 @@ class AsyncGroupsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.knowledgebase.resources.groups import (
+            GroupsRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -333,6 +387,9 @@ class AsyncGroupsClient:
         async def main() -> None:
             await client.knowledgebase.groups.retrieve(
                 id="id",
+                expand=GroupsRetrieveRequestExpand.PARENT_GROUP,
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

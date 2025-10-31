@@ -7,7 +7,8 @@ service:
     list:
       path: /ticketing/v1/teams
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `Team` objects.
       source:
         openapi: openapi/openapi.yml
@@ -55,7 +56,7 @@ service:
               will be returned.
           page_size:
             type: optional<integer>
-            docs: Number of results to return per page.
+            docs: Number of results to return per page. The maximum limit is 100.
           remote_id:
             type: optional<string>
             docs: The API provider's ID for the given object.
@@ -65,7 +66,16 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            page_size: 1
+            remote_id: remote_id
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -90,7 +100,8 @@ service:
     retrieve:
       path: /ticketing/v1/teams/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a `Team` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -116,6 +127,9 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            include_remote_data: true
+            include_shell_data: true
           headers:
             X-Account-Token: X-Account-Token
           response:

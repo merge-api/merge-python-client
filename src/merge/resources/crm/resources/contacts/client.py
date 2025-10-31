@@ -116,14 +116,39 @@ class ContactsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.crm.resources.contacts import ContactsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.crm.contacts.list(
+            account_id="account_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            email_addresses="email_addresses",
+            expand=ContactsListRequestExpand.ACCOUNT,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            phone_numbers="phone_numbers",
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.list(
@@ -185,6 +210,8 @@ class ContactsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.contacts.create(
+            is_debug_mode=True,
+            run_async=True,
             model=ContactRequest(),
         )
         """
@@ -233,6 +260,7 @@ class ContactsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.crm.resources.contacts import ContactsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -240,6 +268,10 @@ class ContactsClient:
         )
         client.crm.contacts.retrieve(
             id="id",
+            expand=ContactsRetrieveRequestExpand.ACCOUNT,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -295,6 +327,8 @@ class ContactsClient:
         )
         client.crm.contacts.partial_update(
             id="id",
+            is_debug_mode=True,
+            run_async=True,
             model=PatchedContactRequest(),
         )
         """
@@ -463,6 +497,13 @@ class ContactsClient:
         )
         client.crm.contacts.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            is_common_model_field=True,
+            is_custom=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.remote_field_classes_list(
@@ -575,8 +616,10 @@ class AsyncContactsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.crm.resources.contacts import ContactsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -586,7 +629,29 @@ class AsyncContactsClient:
 
         async def main() -> None:
             await client.crm.contacts.list(
+                account_id="account_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                email_addresses="email_addresses",
+                expand=ContactsListRequestExpand.ACCOUNT,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                phone_numbers="phone_numbers",
+                remote_id="remote_id",
             )
 
 
@@ -656,6 +721,8 @@ class AsyncContactsClient:
 
         async def main() -> None:
             await client.crm.contacts.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=ContactRequest(),
             )
 
@@ -709,6 +776,7 @@ class AsyncContactsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.crm.resources.contacts import ContactsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -719,6 +787,10 @@ class AsyncContactsClient:
         async def main() -> None:
             await client.crm.contacts.retrieve(
                 id="id",
+                expand=ContactsRetrieveRequestExpand.ACCOUNT,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
             )
 
 
@@ -782,6 +854,8 @@ class AsyncContactsClient:
         async def main() -> None:
             await client.crm.contacts.partial_update(
                 id="id",
+                is_debug_mode=True,
+                run_async=True,
                 model=PatchedContactRequest(),
             )
 
@@ -984,6 +1058,13 @@ class AsyncContactsClient:
         async def main() -> None:
             await client.crm.contacts.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                is_common_model_field=True,
+                is_custom=True,
+                page_size=1,
             )
 
 

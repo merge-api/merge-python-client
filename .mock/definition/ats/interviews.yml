@@ -68,7 +68,8 @@ service:
     list:
       path: /ats/v1/interviews
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `ScheduledInterview` objects.
       source:
         openapi: openapi/openapi.yml
@@ -153,7 +154,23 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            application_id: application_id
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            expand: application
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            job_id: job_id
+            job_interview_stage_id: job_interview_stage_id
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            organizer_id: organizer_id
+            page_size: 1
+            remote_fields: status
+            remote_id: remote_id
+            show_enum_origins: status
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -190,7 +207,8 @@ service:
     create:
       path: /ats/v1/interviews
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Creates a `ScheduledInterview` object with the given values.
       source:
         openapi: openapi/openapi.yml
@@ -215,7 +233,10 @@ service:
         type: root.ScheduledInterviewResponse
         status-code: 201
       examples:
-        - headers:
+        - query-parameters:
+            is_debug_mode: true
+            run_async: true
+          headers:
             X-Account-Token: X-Account-Token
           request:
             model: {}
@@ -272,7 +293,8 @@ service:
     retrieve:
       path: /ats/v1/interviews/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a `ScheduledInterview` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -313,6 +335,12 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: application
+            include_remote_data: true
+            include_shell_data: true
+            remote_fields: status
+            show_enum_origins: status
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -346,7 +374,8 @@ service:
     metaPostRetrieve:
       path: /ats/v1/interviews/meta/post
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns metadata for `ScheduledInterview` POSTs.
       source:
         openapi: openapi/openapi.yml

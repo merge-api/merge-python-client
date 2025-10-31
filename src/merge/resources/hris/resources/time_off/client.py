@@ -110,7 +110,7 @@ class TimeOffClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[TimeOffListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -156,14 +156,59 @@ class TimeOffClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.hris.resources.time_off import (
+            TimeOffListRequestExpand,
+            TimeOffListRequestRemoteFields,
+            TimeOffListRequestRequestType,
+            TimeOffListRequestShowEnumOrigins,
+            TimeOffListRequestStatus,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.hris.time_off.list(
+            approver_id="approver_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            employee_id="employee_id",
+            ended_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            ended_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            expand=TimeOffListRequestExpand.APPROVER,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_fields=TimeOffListRequestRemoteFields.REQUEST_TYPE,
+            remote_id="remote_id",
+            request_type=TimeOffListRequestRequestType.BEREAVEMENT,
+            show_enum_origins=TimeOffListRequestShowEnumOrigins.REQUEST_TYPE,
+            started_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            started_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            status=TimeOffListRequestStatus.APPROVED,
         )
         """
         _response = self._raw_client.list(
@@ -231,6 +276,8 @@ class TimeOffClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.time_off.create(
+            is_debug_mode=True,
+            run_async=True,
             model=TimeOffRequest(),
         )
         """
@@ -283,6 +330,11 @@ class TimeOffClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.hris.resources.time_off import (
+            TimeOffRetrieveRequestExpand,
+            TimeOffRetrieveRequestRemoteFields,
+            TimeOffRetrieveRequestShowEnumOrigins,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -290,6 +342,11 @@ class TimeOffClient:
         )
         client.hris.time_off.retrieve(
             id="id",
+            expand=TimeOffRetrieveRequestExpand.APPROVER,
+            include_remote_data=True,
+            include_shell_data=True,
+            remote_fields=TimeOffRetrieveRequestRemoteFields.REQUEST_TYPE,
+            show_enum_origins=TimeOffRetrieveRequestShowEnumOrigins.REQUEST_TYPE,
         )
         """
         _response = self._raw_client.retrieve(
@@ -417,7 +474,7 @@ class AsyncTimeOffClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[TimeOffListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -464,8 +521,16 @@ class AsyncTimeOffClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.hris.resources.time_off import (
+            TimeOffListRequestExpand,
+            TimeOffListRequestRemoteFields,
+            TimeOffListRequestRequestType,
+            TimeOffListRequestShowEnumOrigins,
+            TimeOffListRequestStatus,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -475,7 +540,43 @@ class AsyncTimeOffClient:
 
         async def main() -> None:
             await client.hris.time_off.list(
+                approver_id="approver_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                employee_id="employee_id",
+                ended_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                ended_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                expand=TimeOffListRequestExpand.APPROVER,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_fields=TimeOffListRequestRemoteFields.REQUEST_TYPE,
+                remote_id="remote_id",
+                request_type=TimeOffListRequestRequestType.BEREAVEMENT,
+                show_enum_origins=TimeOffListRequestShowEnumOrigins.REQUEST_TYPE,
+                started_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                started_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                status=TimeOffListRequestStatus.APPROVED,
             )
 
 
@@ -551,6 +652,8 @@ class AsyncTimeOffClient:
 
         async def main() -> None:
             await client.hris.time_off.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=TimeOffRequest(),
             )
 
@@ -608,6 +711,11 @@ class AsyncTimeOffClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.hris.resources.time_off import (
+            TimeOffRetrieveRequestExpand,
+            TimeOffRetrieveRequestRemoteFields,
+            TimeOffRetrieveRequestShowEnumOrigins,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -618,6 +726,11 @@ class AsyncTimeOffClient:
         async def main() -> None:
             await client.hris.time_off.retrieve(
                 id="id",
+                expand=TimeOffRetrieveRequestExpand.APPROVER,
+                include_remote_data=True,
+                include_shell_data=True,
+                remote_fields=TimeOffRetrieveRequestRemoteFields.REQUEST_TYPE,
+                show_enum_origins=TimeOffRetrieveRequestShowEnumOrigins.REQUEST_TYPE,
             )
 
 

@@ -75,6 +75,11 @@ class AuditTrailClient:
         )
         client.accounting.audit_trail.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            end_date="end_date",
+            event_type="event_type",
+            page_size=1,
+            start_date="start_date",
+            user_email="user_email",
         )
         """
         _response = self._raw_client.list(
@@ -161,6 +166,11 @@ class AsyncAuditTrailClient:
         async def main() -> None:
             await client.accounting.audit_trail.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                end_date="end_date",
+                event_type="event_type",
+                page_size=1,
+                start_date="start_date",
+                user_email="user_email",
             )
 
 

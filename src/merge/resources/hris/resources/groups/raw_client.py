@@ -75,7 +75,7 @@ class RawGroupsClient:
             If provided, will only return groups with these names. Multiple values can be separated by commas.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["type"]]
             Deprecated. Use show_enum_origins.
@@ -258,7 +258,7 @@ class AsyncRawGroupsClient:
             If provided, will only return groups with these names. Multiple values can be separated by commas.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["type"]]
             Deprecated. Use show_enum_origins.

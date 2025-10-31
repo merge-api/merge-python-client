@@ -88,7 +88,7 @@ class LinkedAccountsClient:
             If included, will only include test linked accounts. If not included, will only include non-test linked accounts.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         status : typing.Optional[str]
             Filter by status. Options: `COMPLETE`, `IDLE`, `INCOMPLETE`, `RELINK_NEEDED`
@@ -104,13 +104,28 @@ class LinkedAccountsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.hris.resources.linked_accounts import (
+            LinkedAccountsListRequestCategory,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.hris.linked_accounts.list(
+            category=LinkedAccountsListRequestCategory.ACCOUNTING,
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            end_user_email_address="end_user_email_address",
+            end_user_organization_name="end_user_organization_name",
+            end_user_origin_id="end_user_origin_id",
+            end_user_origin_ids="end_user_origin_ids",
+            id="id",
+            ids="ids",
+            include_duplicates=True,
+            integration_name="integration_name",
+            is_test_account="is_test_account",
+            page_size=1,
+            status="status",
         )
         """
         _response = self._raw_client.list(
@@ -211,7 +226,7 @@ class AsyncLinkedAccountsClient:
             If included, will only include test linked accounts. If not included, will only include non-test linked accounts.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         status : typing.Optional[str]
             Filter by status. Options: `COMPLETE`, `IDLE`, `INCOMPLETE`, `RELINK_NEEDED`
@@ -229,6 +244,9 @@ class AsyncLinkedAccountsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.hris.resources.linked_accounts import (
+            LinkedAccountsListRequestCategory,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -238,7 +256,19 @@ class AsyncLinkedAccountsClient:
 
         async def main() -> None:
             await client.hris.linked_accounts.list(
+                category=LinkedAccountsListRequestCategory.ACCOUNTING,
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                end_user_email_address="end_user_email_address",
+                end_user_organization_name="end_user_organization_name",
+                end_user_origin_id="end_user_origin_id",
+                end_user_origin_ids="end_user_origin_ids",
+                id="id",
+                ids="ids",
+                include_duplicates=True,
+                integration_name="integration_name",
+                is_test_account="is_test_account",
+                page_size=1,
+                status="status",
             )
 
 

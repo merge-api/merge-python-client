@@ -31,7 +31,7 @@ class RawSyncStatusClient:
             The pagination cursor value.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -86,7 +86,7 @@ class AsyncRawSyncStatusClient:
             The pagination cursor value.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

@@ -121,14 +121,43 @@ class ApplicationsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.ats.resources.applications import (
+            ApplicationsListRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ats.applications.list(
+            candidate_id="candidate_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            credited_to_id="credited_to_id",
+            current_stage_id="current_stage_id",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=ApplicationsListRequestExpand.CANDIDATE,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            job_id="job_id",
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            reject_reason_id="reject_reason_id",
+            remote_id="remote_id",
+            source="source",
         )
         """
         _response = self._raw_client.list(
@@ -198,6 +227,8 @@ class ApplicationsClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.applications.create(
+            is_debug_mode=True,
+            run_async=True,
             model=ApplicationRequest(),
             remote_user_id="remote_user_id",
         )
@@ -247,6 +278,9 @@ class ApplicationsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.ats.resources.applications import (
+            ApplicationsRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -254,6 +288,9 @@ class ApplicationsClient:
         )
         client.ats.applications.retrieve(
             id="id",
+            expand=ApplicationsRetrieveRequestExpand.CANDIDATE,
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -311,6 +348,8 @@ class ApplicationsClient:
         )
         client.ats.applications.change_stage_create(
             id="id",
+            is_debug_mode=True,
+            run_async=True,
         )
         """
         _response = self._raw_client.change_stage_create(
@@ -353,7 +392,9 @@ class ApplicationsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.applications.meta_post_retrieve()
+        client.ats.applications.meta_post_retrieve(
+            application_remote_template_id="application_remote_template_id",
+        )
         """
         _response = self._raw_client.meta_post_retrieve(
             application_remote_template_id=application_remote_template_id, request_options=request_options
@@ -465,8 +506,12 @@ class AsyncApplicationsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.ats.resources.applications import (
+            ApplicationsListRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -476,7 +521,31 @@ class AsyncApplicationsClient:
 
         async def main() -> None:
             await client.ats.applications.list(
+                candidate_id="candidate_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                credited_to_id="credited_to_id",
+                current_stage_id="current_stage_id",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=ApplicationsListRequestExpand.CANDIDATE,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                job_id="job_id",
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                reject_reason_id="reject_reason_id",
+                remote_id="remote_id",
+                source="source",
             )
 
 
@@ -554,6 +623,8 @@ class AsyncApplicationsClient:
 
         async def main() -> None:
             await client.ats.applications.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=ApplicationRequest(),
                 remote_user_id="remote_user_id",
             )
@@ -608,6 +679,9 @@ class AsyncApplicationsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.ats.resources.applications import (
+            ApplicationsRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -618,6 +692,9 @@ class AsyncApplicationsClient:
         async def main() -> None:
             await client.ats.applications.retrieve(
                 id="id",
+                expand=ApplicationsRetrieveRequestExpand.CANDIDATE,
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 
@@ -683,6 +760,8 @@ class AsyncApplicationsClient:
         async def main() -> None:
             await client.ats.applications.change_stage_create(
                 id="id",
+                is_debug_mode=True,
+                run_async=True,
             )
 
 
@@ -733,7 +812,9 @@ class AsyncApplicationsClient:
 
 
         async def main() -> None:
-            await client.ats.applications.meta_post_retrieve()
+            await client.ats.applications.meta_post_retrieve(
+                application_remote_template_id="application_remote_template_id",
+            )
 
 
         asyncio.run(main())

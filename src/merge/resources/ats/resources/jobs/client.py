@@ -120,14 +120,41 @@ class JobsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.ats.resources.jobs import (
+            JobsListRequestExpand,
+            JobsListRequestStatus,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ats.jobs.list(
+            code="code",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=JobsListRequestExpand.DEPARTMENTS,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            offices="offices",
+            page_size=1,
+            remote_id="remote_id",
+            status=JobsListRequestStatus.ARCHIVED,
         )
         """
         _response = self._raw_client.list(
@@ -195,6 +222,7 @@ class JobsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.ats.resources.jobs import JobsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -202,6 +230,9 @@ class JobsClient:
         )
         client.ats.jobs.retrieve(
             id="id",
+            expand=JobsRetrieveRequestExpand.DEPARTMENTS,
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -263,6 +294,9 @@ class JobsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.ats.resources.jobs import (
+            JobsScreeningQuestionsListRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -271,6 +305,11 @@ class JobsClient:
         client.ats.jobs.screening_questions_list(
             job_id="job_id",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=JobsScreeningQuestionsListRequestExpand.JOB,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.screening_questions_list(
@@ -392,8 +431,13 @@ class AsyncJobsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.ats.resources.jobs import (
+            JobsListRequestExpand,
+            JobsListRequestStatus,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -403,7 +447,28 @@ class AsyncJobsClient:
 
         async def main() -> None:
             await client.ats.jobs.list(
+                code="code",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=JobsListRequestExpand.DEPARTMENTS,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                offices="offices",
+                page_size=1,
+                remote_id="remote_id",
+                status=JobsListRequestStatus.ARCHIVED,
             )
 
 
@@ -476,6 +541,7 @@ class AsyncJobsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.ats.resources.jobs import JobsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -486,6 +552,9 @@ class AsyncJobsClient:
         async def main() -> None:
             await client.ats.jobs.retrieve(
                 id="id",
+                expand=JobsRetrieveRequestExpand.DEPARTMENTS,
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 
@@ -552,6 +621,9 @@ class AsyncJobsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.ats.resources.jobs import (
+            JobsScreeningQuestionsListRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -563,6 +635,11 @@ class AsyncJobsClient:
             await client.ats.jobs.screening_questions_list(
                 job_id="job_id",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=JobsScreeningQuestionsListRequestExpand.JOB,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                page_size=1,
             )
 
 

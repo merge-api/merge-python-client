@@ -127,11 +127,11 @@ class RawAssociationsClient:
 
     def custom_object_classes_custom_objects_associations_update(
         self,
-        association_type_id: str,
         source_class_id: str,
         source_object_id: str,
         target_class_id: str,
         target_object_id: str,
+        association_type_id: str,
         *,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
@@ -142,8 +142,6 @@ class RawAssociationsClient:
 
         Parameters
         ----------
-        association_type_id : str
-
         source_class_id : str
 
         source_object_id : str
@@ -151,6 +149,8 @@ class RawAssociationsClient:
         target_class_id : str
 
         target_object_id : str
+
+        association_type_id : str
 
         is_debug_mode : typing.Optional[bool]
             Whether to include debug fields (such as log file links) in the response.
@@ -303,11 +303,11 @@ class AsyncRawAssociationsClient:
 
     async def custom_object_classes_custom_objects_associations_update(
         self,
-        association_type_id: str,
         source_class_id: str,
         source_object_id: str,
         target_class_id: str,
         target_object_id: str,
+        association_type_id: str,
         *,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
@@ -318,8 +318,6 @@ class AsyncRawAssociationsClient:
 
         Parameters
         ----------
-        association_type_id : str
-
         source_class_id : str
 
         source_object_id : str
@@ -327,6 +325,8 @@ class AsyncRawAssociationsClient:
         target_class_id : str
 
         target_object_id : str
+
+        association_type_id : str
 
         is_debug_mode : typing.Optional[bool]
             Whether to include debug fields (such as log file links) in the response.

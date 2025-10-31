@@ -18,6 +18,7 @@ from .types.tickets_list_request_expand import TicketsListRequestExpand
 from .types.tickets_list_request_priority import TicketsListRequestPriority
 from .types.tickets_list_request_remote_fields import TicketsListRequestRemoteFields
 from .types.tickets_list_request_show_enum_origins import TicketsListRequestShowEnumOrigins
+from .types.tickets_list_request_status import TicketsListRequestStatus
 from .types.tickets_retrieve_request_expand import TicketsRetrieveRequestExpand
 from .types.tickets_retrieve_request_remote_fields import TicketsRetrieveRequestRemoteFields
 from .types.tickets_retrieve_request_show_enum_origins import TicketsRetrieveRequestShowEnumOrigins
@@ -54,6 +55,7 @@ class TicketsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         creator_id: typing.Optional[str] = None,
+        creator_ids: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
         due_after: typing.Optional[dt.datetime] = None,
         due_before: typing.Optional[dt.datetime] = None,
@@ -75,7 +77,7 @@ class TicketsClient:
         remote_updated_after: typing.Optional[dt.datetime] = None,
         remote_updated_before: typing.Optional[dt.datetime] = None,
         show_enum_origins: typing.Optional[TicketsListRequestShowEnumOrigins] = None,
-        status: typing.Optional[str] = None,
+        status: typing.Optional[TicketsListRequestStatus] = None,
         tags: typing.Optional[str] = None,
         ticket_type: typing.Optional[str] = None,
         ticket_url: typing.Optional[str] = None,
@@ -113,6 +115,9 @@ class TicketsClient:
         creator_id : typing.Optional[str]
             If provided, will only return tickets created by this creator_id.
 
+        creator_ids : typing.Optional[str]
+            If provided, will only return tickets created by the creator_ids; multiple creator_ids can be separated by commas.
+
         cursor : typing.Optional[str]
             The pagination cursor value.
 
@@ -147,7 +152,7 @@ class TicketsClient:
             If provided, will only return tickets with this name.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_ticket_id : typing.Optional[str]
             If provided, will only return sub tickets of the parent_ticket_id.
@@ -181,7 +186,7 @@ class TicketsClient:
         show_enum_origins : typing.Optional[TicketsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[str]
+        status : typing.Optional[TicketsListRequestStatus]
             If provided, will only return tickets of this status.
 
         tags : typing.Optional[str]
@@ -203,14 +208,81 @@ class TicketsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.ticketing.resources.tickets import (
+            TicketsListRequestExpand,
+            TicketsListRequestPriority,
+            TicketsListRequestRemoteFields,
+            TicketsListRequestShowEnumOrigins,
+            TicketsListRequestStatus,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ticketing.tickets.list(
+            account_id="account_id",
+            assignee_ids="assignee_ids",
+            collection_ids="collection_ids",
+            completed_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            completed_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            contact_id="contact_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            creator_id="creator_id",
+            creator_ids="creator_ids",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            due_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            due_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            expand=TicketsListRequestExpand.ACCOUNT,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            name="name",
+            page_size=1,
+            parent_ticket_id="parent_ticket_id",
+            priority=TicketsListRequestPriority.HIGH,
+            remote_created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            remote_created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            remote_fields=TicketsListRequestRemoteFields.PRIORITY,
+            remote_id="remote_id",
+            remote_updated_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            remote_updated_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            show_enum_origins=TicketsListRequestShowEnumOrigins.PRIORITY,
+            status=TicketsListRequestStatus.EMPTY,
+            tags="tags",
+            ticket_type="ticket_type",
+            ticket_url="ticket_url",
         )
         """
         _response = self._raw_client.list(
@@ -223,6 +295,7 @@ class TicketsClient:
             created_after=created_after,
             created_before=created_before,
             creator_id=creator_id,
+            creator_ids=creator_ids,
             cursor=cursor,
             due_after=due_after,
             due_before=due_before,
@@ -291,6 +364,8 @@ class TicketsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.tickets.create(
+            is_debug_mode=True,
+            run_async=True,
             model=TicketRequest(),
         )
         """
@@ -347,6 +422,11 @@ class TicketsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.ticketing.resources.tickets import (
+            TicketsRetrieveRequestExpand,
+            TicketsRetrieveRequestRemoteFields,
+            TicketsRetrieveRequestShowEnumOrigins,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -354,6 +434,12 @@ class TicketsClient:
         )
         client.ticketing.tickets.retrieve(
             id="id",
+            expand=TicketsRetrieveRequestExpand.ACCOUNT,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            remote_fields=TicketsRetrieveRequestRemoteFields.PRIORITY,
+            show_enum_origins=TicketsRetrieveRequestShowEnumOrigins.PRIORITY,
         )
         """
         _response = self._raw_client.retrieve(
@@ -411,6 +497,8 @@ class TicketsClient:
         )
         client.ticketing.tickets.partial_update(
             id="id",
+            is_debug_mode=True,
+            run_async=True,
             model=PatchedTicketRequest(),
         )
         """
@@ -454,7 +542,7 @@ class TicketsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -467,6 +555,9 @@ class TicketsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.ticketing.resources.tickets import (
+            TicketsViewersListRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -475,6 +566,11 @@ class TicketsClient:
         client.ticketing.tickets.viewers_list(
             ticket_id="ticket_id",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=TicketsViewersListRequestExpand.TEAM,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.viewers_list(
@@ -554,7 +650,10 @@ class TicketsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.tickets.meta_post_retrieve()
+        client.ticketing.tickets.meta_post_retrieve(
+            collection_id="collection_id",
+            ticket_type="ticket_type",
+        )
         """
         _response = self._raw_client.meta_post_retrieve(
             collection_id=collection_id, ticket_type=ticket_type, request_options=request_options
@@ -601,7 +700,7 @@ class TicketsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -621,6 +720,13 @@ class TicketsClient:
         )
         client.ticketing.tickets.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            ids="ids",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            is_common_model_field=True,
+            is_custom=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.remote_field_classes_list(
@@ -664,6 +770,7 @@ class AsyncTicketsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         creator_id: typing.Optional[str] = None,
+        creator_ids: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
         due_after: typing.Optional[dt.datetime] = None,
         due_before: typing.Optional[dt.datetime] = None,
@@ -685,7 +792,7 @@ class AsyncTicketsClient:
         remote_updated_after: typing.Optional[dt.datetime] = None,
         remote_updated_before: typing.Optional[dt.datetime] = None,
         show_enum_origins: typing.Optional[TicketsListRequestShowEnumOrigins] = None,
-        status: typing.Optional[str] = None,
+        status: typing.Optional[TicketsListRequestStatus] = None,
         tags: typing.Optional[str] = None,
         ticket_type: typing.Optional[str] = None,
         ticket_url: typing.Optional[str] = None,
@@ -723,6 +830,9 @@ class AsyncTicketsClient:
         creator_id : typing.Optional[str]
             If provided, will only return tickets created by this creator_id.
 
+        creator_ids : typing.Optional[str]
+            If provided, will only return tickets created by the creator_ids; multiple creator_ids can be separated by commas.
+
         cursor : typing.Optional[str]
             The pagination cursor value.
 
@@ -757,7 +867,7 @@ class AsyncTicketsClient:
             If provided, will only return tickets with this name.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_ticket_id : typing.Optional[str]
             If provided, will only return sub tickets of the parent_ticket_id.
@@ -791,7 +901,7 @@ class AsyncTicketsClient:
         show_enum_origins : typing.Optional[TicketsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[str]
+        status : typing.Optional[TicketsListRequestStatus]
             If provided, will only return tickets of this status.
 
         tags : typing.Optional[str]
@@ -814,8 +924,16 @@ class AsyncTicketsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.ticketing.resources.tickets import (
+            TicketsListRequestExpand,
+            TicketsListRequestPriority,
+            TicketsListRequestRemoteFields,
+            TicketsListRequestShowEnumOrigins,
+            TicketsListRequestStatus,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -825,7 +943,65 @@ class AsyncTicketsClient:
 
         async def main() -> None:
             await client.ticketing.tickets.list(
+                account_id="account_id",
+                assignee_ids="assignee_ids",
+                collection_ids="collection_ids",
+                completed_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                completed_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                contact_id="contact_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                creator_id="creator_id",
+                creator_ids="creator_ids",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                due_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                due_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                expand=TicketsListRequestExpand.ACCOUNT,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                name="name",
+                page_size=1,
+                parent_ticket_id="parent_ticket_id",
+                priority=TicketsListRequestPriority.HIGH,
+                remote_created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                remote_created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                remote_fields=TicketsListRequestRemoteFields.PRIORITY,
+                remote_id="remote_id",
+                remote_updated_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                remote_updated_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                show_enum_origins=TicketsListRequestShowEnumOrigins.PRIORITY,
+                status=TicketsListRequestStatus.EMPTY,
+                tags="tags",
+                ticket_type="ticket_type",
+                ticket_url="ticket_url",
             )
 
 
@@ -841,6 +1017,7 @@ class AsyncTicketsClient:
             created_after=created_after,
             created_before=created_before,
             creator_id=creator_id,
+            creator_ids=creator_ids,
             cursor=cursor,
             due_after=due_after,
             due_before=due_before,
@@ -914,6 +1091,8 @@ class AsyncTicketsClient:
 
         async def main() -> None:
             await client.ticketing.tickets.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=TicketRequest(),
             )
 
@@ -975,6 +1154,11 @@ class AsyncTicketsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.ticketing.resources.tickets import (
+            TicketsRetrieveRequestExpand,
+            TicketsRetrieveRequestRemoteFields,
+            TicketsRetrieveRequestShowEnumOrigins,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -985,6 +1169,12 @@ class AsyncTicketsClient:
         async def main() -> None:
             await client.ticketing.tickets.retrieve(
                 id="id",
+                expand=TicketsRetrieveRequestExpand.ACCOUNT,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                remote_fields=TicketsRetrieveRequestRemoteFields.PRIORITY,
+                show_enum_origins=TicketsRetrieveRequestShowEnumOrigins.PRIORITY,
             )
 
 
@@ -1050,6 +1240,8 @@ class AsyncTicketsClient:
         async def main() -> None:
             await client.ticketing.tickets.partial_update(
                 id="id",
+                is_debug_mode=True,
+                run_async=True,
                 model=PatchedTicketRequest(),
             )
 
@@ -1096,7 +1288,7 @@ class AsyncTicketsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1111,6 +1303,9 @@ class AsyncTicketsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.ticketing.resources.tickets import (
+            TicketsViewersListRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -1122,6 +1317,11 @@ class AsyncTicketsClient:
             await client.ticketing.tickets.viewers_list(
                 ticket_id="ticket_id",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=TicketsViewersListRequestExpand.TEAM,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                page_size=1,
             )
 
 
@@ -1219,7 +1419,10 @@ class AsyncTicketsClient:
 
 
         async def main() -> None:
-            await client.ticketing.tickets.meta_post_retrieve()
+            await client.ticketing.tickets.meta_post_retrieve(
+                collection_id="collection_id",
+                ticket_type="ticket_type",
+            )
 
 
         asyncio.run(main())
@@ -1269,7 +1472,7 @@ class AsyncTicketsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1294,6 +1497,13 @@ class AsyncTicketsClient:
         async def main() -> None:
             await client.ticketing.tickets.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                ids="ids",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                is_common_model_field=True,
+                is_custom=True,
+                page_size=1,
             )
 
 

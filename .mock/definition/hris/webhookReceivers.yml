@@ -7,7 +7,8 @@ service:
     list:
       path: /hris/v1/webhook-receivers
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `WebhookReceiver` objects.
       source:
         openapi: openapi/openapi.yml
@@ -26,7 +27,8 @@ service:
     create:
       path: /hris/v1/webhook-receivers
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Creates a `WebhookReceiver` object with the given values.
       source:
         openapi: openapi/openapi.yml

@@ -14,6 +14,7 @@ from .....core.unchecked_base_model import construct_type
 from ...types.collection import Collection
 from ...types.paginated_collection_list import PaginatedCollectionList
 from ...types.paginated_viewer_list import PaginatedViewerList
+from .types.collections_list_request_collection_type import CollectionsListRequestCollectionType
 from .types.collections_viewers_list_request_expand import CollectionsViewersListRequestExpand
 
 
@@ -24,7 +25,7 @@ class RawCollectionsClient:
     def list(
         self,
         *,
-        collection_type: typing.Optional[str] = None,
+        collection_type: typing.Optional[CollectionsListRequestCollectionType] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
@@ -47,7 +48,7 @@ class RawCollectionsClient:
 
         Parameters
         ----------
-        collection_type : typing.Optional[str]
+        collection_type : typing.Optional[CollectionsListRequestCollectionType]
             If provided, will only return collections of the given type.
 
         created_after : typing.Optional[dt.datetime]
@@ -81,7 +82,7 @@ class RawCollectionsClient:
             If provided, will only return collections with this name.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_collection_id : typing.Optional[str]
             If provided, will only return collections whose parent collection matches the given id.
@@ -290,7 +291,7 @@ class AsyncRawCollectionsClient:
     async def list(
         self,
         *,
-        collection_type: typing.Optional[str] = None,
+        collection_type: typing.Optional[CollectionsListRequestCollectionType] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
@@ -313,7 +314,7 @@ class AsyncRawCollectionsClient:
 
         Parameters
         ----------
-        collection_type : typing.Optional[str]
+        collection_type : typing.Optional[CollectionsListRequestCollectionType]
             If provided, will only return collections of the given type.
 
         created_after : typing.Optional[dt.datetime]
@@ -347,7 +348,7 @@ class AsyncRawCollectionsClient:
             If provided, will only return collections with this name.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_collection_id : typing.Optional[str]
             If provided, will only return collections whose parent collection matches the given id.

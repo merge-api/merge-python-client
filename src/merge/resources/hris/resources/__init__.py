@@ -64,7 +64,7 @@ if typing.TYPE_CHECKING:
         EmploymentsRetrieveRequestShowEnumOrigins,
     )
     from .issues import IssuesListRequestStatus
-    from .link_token import EndUserDetailsRequestLanguage
+    from .link_token import EndUserDetailsRequestCompletedAccountInitialScreen, EndUserDetailsRequestLanguage
     from .linked_accounts import LinkedAccountsListRequestCategory
     from .locations import (
         LocationsListRequestLocationType,
@@ -112,6 +112,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EmploymentsRetrieveRequestExpand": ".employments",
     "EmploymentsRetrieveRequestRemoteFields": ".employments",
     "EmploymentsRetrieveRequestShowEnumOrigins": ".employments",
+    "EndUserDetailsRequestCompletedAccountInitialScreen": ".link_token",
     "EndUserDetailsRequestLanguage": ".link_token",
     "IgnoreCommonModelRequestReason": ".employees",
     "IssuesListRequestStatus": ".issues",
@@ -211,6 +212,7 @@ __all__ = [
     "EmploymentsRetrieveRequestExpand",
     "EmploymentsRetrieveRequestRemoteFields",
     "EmploymentsRetrieveRequestShowEnumOrigins",
+    "EndUserDetailsRequestCompletedAccountInitialScreen",
     "EndUserDetailsRequestLanguage",
     "IgnoreCommonModelRequestReason",
     "IssuesListRequestStatus",

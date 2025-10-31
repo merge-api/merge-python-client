@@ -38,7 +38,8 @@ service:
     list:
       path: /filestorage/v1/folders
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `Folder` objects.
       source:
         openapi: openapi/openapi.yml
@@ -114,7 +115,20 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            drive_id: drive_id
+            expand: drive
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            name: name
+            page_size: 1
+            parent_folder_id: parent_folder_id
+            remote_id: remote_id
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -148,7 +162,8 @@ service:
     create:
       path: /filestorage/v1/folders
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Creates a `Folder` object with the given values.
       source:
         openapi: openapi/openapi.yml
@@ -172,7 +187,10 @@ service:
         type: root.FileStorageFolderResponse
         status-code: 201
       examples:
-        - headers:
+        - query-parameters:
+            is_debug_mode: true
+            run_async: true
+          headers:
             X-Account-Token: X-Account-Token
           request:
             model: {}
@@ -225,7 +243,8 @@ service:
     retrieve:
       path: /filestorage/v1/folders/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a `Folder` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -256,6 +275,10 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: drive
+            include_remote_data: true
+            include_shell_data: true
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -286,7 +309,8 @@ service:
     metaPostRetrieve:
       path: /filestorage/v1/folders/meta/post
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns metadata for `FileStorageFolder` POSTs.
       source:
         openapi: openapi/openapi.yml

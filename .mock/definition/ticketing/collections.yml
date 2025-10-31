@@ -1,3 +1,20 @@
+types:
+  CollectionsListRequestCollectionType:
+    enum:
+      - value: ''
+        name: EMPTY
+      - LIST
+      - PROJECT
+    source:
+      openapi: openapi/openapi.yml
+  CollectionsViewersListRequestExpand:
+    enum:
+      - team
+      - user
+      - value: user,team
+        name: UserTeam
+    source:
+      openapi: openapi/openapi.yml
 imports:
   root: __package__.yml
 service:
@@ -7,7 +24,8 @@ service:
     list:
       path: /ticketing/v1/collections
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `Collection` objects.
       source:
         openapi: openapi/openapi.yml
@@ -15,7 +33,7 @@ service:
         name: CollectionsListRequest
         query-parameters:
           collection_type:
-            type: optional<string>
+            type: optional<CollectionsListRequestCollectionType>
             docs: If provided, will only return collections of the given type.
           created_after:
             type: optional<datetime>
@@ -66,7 +84,7 @@ service:
             docs: If provided, will only return collections with this name.
           page_size:
             type: optional<integer>
-            docs: Number of results to return per page.
+            docs: Number of results to return per page. The maximum limit is 100.
           parent_collection_id:
             type: optional<string>
             docs: >-
@@ -91,7 +109,22 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            collection_type: ''
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            expand: parent_collection
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            name: name
+            page_size: 1
+            parent_collection_id: parent_collection_id
+            remote_fields: collection_type
+            remote_id: remote_id
+            show_enum_origins: collection_type
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -122,7 +155,8 @@ service:
     viewersList:
       path: /ticketing/v1/collections/{collection_id}/viewers
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: >-
         Returns a list of `Viewer` objects that point to a User id or Team id
         that is either an assignee or viewer on a `Collection` with the given
@@ -173,6 +207,11 @@ service:
             collection_id: collection_id
           query-parameters:
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            expand: team
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            page_size: 1
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -189,7 +228,8 @@ service:
     retrieve:
       path: /ticketing/v1/collections/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a `Collection` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -230,6 +270,12 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: parent_collection
+            include_remote_data: true
+            include_shell_data: true
+            remote_fields: collection_type
+            show_enum_origins: collection_type
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -258,12 +304,3 @@ service:
                     key: value
   source:
     openapi: openapi/openapi.yml
-types:
-  CollectionsViewersListRequestExpand:
-    enum:
-      - team
-      - user
-      - value: user,team
-        name: UserTeam
-    source:
-      openapi: openapi/openapi.yml

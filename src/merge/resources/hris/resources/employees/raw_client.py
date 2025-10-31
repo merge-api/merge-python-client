@@ -103,7 +103,7 @@ class RawEmployeesClient:
             * `INACTIVE` - INACTIVE
 
         employment_type : typing.Optional[str]
-            If provided, will only return employees that have an employment of the specified employment_type.
+            If provided, will only return employees that have an employment of the specified employment type.
 
         expand : typing.Optional[EmployeesListRequestExpand]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
@@ -130,7 +130,7 @@ class RawEmployeesClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         job_title : typing.Optional[str]
-            If provided, will only return employees that have an employment of the specified job_title.
+            If provided, will only return employees that have an employment of the specified job title.
 
         last_name : typing.Optional[str]
             If provided, will only return employees with this last name.
@@ -538,7 +538,7 @@ class AsyncRawEmployeesClient:
             * `INACTIVE` - INACTIVE
 
         employment_type : typing.Optional[str]
-            If provided, will only return employees that have an employment of the specified employment_type.
+            If provided, will only return employees that have an employment of the specified employment type.
 
         expand : typing.Optional[EmployeesListRequestExpand]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
@@ -565,7 +565,7 @@ class AsyncRawEmployeesClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         job_title : typing.Optional[str]
-            If provided, will only return employees that have an employment of the specified job_title.
+            If provided, will only return employees that have an employment of the specified job title.
 
         last_name : typing.Optional[str]
             If provided, will only return employees with this last name.

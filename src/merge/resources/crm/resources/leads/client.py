@@ -122,14 +122,41 @@ class LeadsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.crm.resources.leads import LeadsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.crm.leads.list(
+            converted_account_id="converted_account_id",
+            converted_contact_id="converted_contact_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            email_addresses="email_addresses",
+            expand=LeadsListRequestExpand.CONVERTED_ACCOUNT,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            owner_id="owner_id",
+            page_size=1,
+            phone_numbers="phone_numbers",
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.list(
@@ -193,6 +220,8 @@ class LeadsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.leads.create(
+            is_debug_mode=True,
+            run_async=True,
             model=LeadRequest(),
         )
         """
@@ -241,6 +270,7 @@ class LeadsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.crm.resources.leads import LeadsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -248,6 +278,10 @@ class LeadsClient:
         )
         client.crm.leads.retrieve(
             id="id",
+            expand=LeadsRetrieveRequestExpand.CONVERTED_ACCOUNT,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -347,6 +381,13 @@ class LeadsClient:
         )
         client.crm.leads.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            is_common_model_field=True,
+            is_custom=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.remote_field_classes_list(
@@ -467,8 +508,10 @@ class AsyncLeadsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.crm.resources.leads import LeadsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -478,7 +521,31 @@ class AsyncLeadsClient:
 
         async def main() -> None:
             await client.crm.leads.list(
+                converted_account_id="converted_account_id",
+                converted_contact_id="converted_contact_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                email_addresses="email_addresses",
+                expand=LeadsListRequestExpand.CONVERTED_ACCOUNT,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                owner_id="owner_id",
+                page_size=1,
+                phone_numbers="phone_numbers",
+                remote_id="remote_id",
             )
 
 
@@ -550,6 +617,8 @@ class AsyncLeadsClient:
 
         async def main() -> None:
             await client.crm.leads.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=LeadRequest(),
             )
 
@@ -603,6 +672,7 @@ class AsyncLeadsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.crm.resources.leads import LeadsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -613,6 +683,10 @@ class AsyncLeadsClient:
         async def main() -> None:
             await client.crm.leads.retrieve(
                 id="id",
+                expand=LeadsRetrieveRequestExpand.CONVERTED_ACCOUNT,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
             )
 
 
@@ -728,6 +802,13 @@ class AsyncLeadsClient:
         async def main() -> None:
             await client.crm.leads.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                is_common_model_field=True,
+                is_custom=True,
+                page_size=1,
             )
 
 

@@ -103,14 +103,36 @@ class TasksClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.crm.resources.tasks import TasksListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.crm.tasks.list(
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=TasksListRequestExpand.ACCOUNT,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.list(
@@ -169,6 +191,8 @@ class TasksClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.tasks.create(
+            is_debug_mode=True,
+            run_async=True,
             model=TaskRequest(),
         )
         """
@@ -217,6 +241,7 @@ class TasksClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.crm.resources.tasks import TasksRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -224,6 +249,10 @@ class TasksClient:
         )
         client.crm.tasks.retrieve(
             id="id",
+            expand=TasksRetrieveRequestExpand.ACCOUNT,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -279,6 +308,8 @@ class TasksClient:
         )
         client.crm.tasks.partial_update(
             id="id",
+            is_debug_mode=True,
+            run_async=True,
             model=PatchedTaskRequest(),
         )
         """
@@ -405,6 +436,13 @@ class TasksClient:
         )
         client.crm.tasks.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            is_common_model_field=True,
+            is_custom=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.remote_field_classes_list(
@@ -505,8 +543,10 @@ class AsyncTasksClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.crm.resources.tasks import TasksListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -516,7 +556,26 @@ class AsyncTasksClient:
 
         async def main() -> None:
             await client.crm.tasks.list(
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=TasksListRequestExpand.ACCOUNT,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_id="remote_id",
             )
 
 
@@ -583,6 +642,8 @@ class AsyncTasksClient:
 
         async def main() -> None:
             await client.crm.tasks.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=TaskRequest(),
             )
 
@@ -636,6 +697,7 @@ class AsyncTasksClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.crm.resources.tasks import TasksRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -646,6 +708,10 @@ class AsyncTasksClient:
         async def main() -> None:
             await client.crm.tasks.retrieve(
                 id="id",
+                expand=TasksRetrieveRequestExpand.ACCOUNT,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
             )
 
 
@@ -709,6 +775,8 @@ class AsyncTasksClient:
         async def main() -> None:
             await client.crm.tasks.partial_update(
                 id="id",
+                is_debug_mode=True,
+                run_async=True,
                 model=PatchedTaskRequest(),
             )
 
@@ -861,6 +929,13 @@ class AsyncTasksClient:
         async def main() -> None:
             await client.crm.tasks.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                is_common_model_field=True,
+                is_custom=True,
+                page_size=1,
             )
 
 

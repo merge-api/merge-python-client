@@ -81,7 +81,7 @@ class IssuesClient:
             If provided, will only include issues pertaining to the linked account passed in.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         start_date : typing.Optional[str]
             If included, will only include issues whose most recent action occurred after this time
@@ -102,14 +102,38 @@ class IssuesClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.hris.resources.issues import IssuesListRequestStatus
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.hris.issues.list(
+            account_token="account_token",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            end_date="end_date",
+            end_user_organization_name="end_user_organization_name",
+            first_incident_time_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            first_incident_time_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            include_muted="include_muted",
+            integration_name="integration_name",
+            last_incident_time_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            last_incident_time_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            linked_account_id="linked_account_id",
+            page_size=1,
+            start_date="start_date",
+            status=IssuesListRequestStatus.ONGOING,
         )
         """
         _response = self._raw_client.list(
@@ -233,7 +257,7 @@ class AsyncIssuesClient:
             If provided, will only include issues pertaining to the linked account passed in.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         start_date : typing.Optional[str]
             If included, will only include issues whose most recent action occurred after this time
@@ -255,8 +279,10 @@ class AsyncIssuesClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.hris.resources.issues import IssuesListRequestStatus
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -266,7 +292,28 @@ class AsyncIssuesClient:
 
         async def main() -> None:
             await client.hris.issues.list(
+                account_token="account_token",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                end_date="end_date",
+                end_user_organization_name="end_user_organization_name",
+                first_incident_time_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                first_incident_time_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                include_muted="include_muted",
+                integration_name="integration_name",
+                last_incident_time_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                last_incident_time_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                linked_account_id="linked_account_id",
+                page_size=1,
+                start_date="start_date",
+                status=IssuesListRequestStatus.ONGOING,
             )
 
 

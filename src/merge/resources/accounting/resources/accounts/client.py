@@ -11,8 +11,10 @@ from ...types.account_response import AccountResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_account_list import PaginatedAccountList
 from .raw_client import AsyncRawAccountsClient, RawAccountsClient
+from .types.accounts_list_request_classification import AccountsListRequestClassification
 from .types.accounts_list_request_remote_fields import AccountsListRequestRemoteFields
 from .types.accounts_list_request_show_enum_origins import AccountsListRequestShowEnumOrigins
+from .types.accounts_list_request_status import AccountsListRequestStatus
 from .types.accounts_retrieve_request_remote_fields import AccountsRetrieveRequestRemoteFields
 from .types.accounts_retrieve_request_show_enum_origins import AccountsRetrieveRequestShowEnumOrigins
 
@@ -39,7 +41,7 @@ class AccountsClient:
         self,
         *,
         account_type: typing.Optional[str] = None,
-        classification: typing.Optional[str] = None,
+        classification: typing.Optional[AccountsListRequestClassification] = None,
         company_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
@@ -55,7 +57,7 @@ class AccountsClient:
         remote_fields: typing.Optional[AccountsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[AccountsListRequestShowEnumOrigins] = None,
-        status: typing.Optional[str] = None,
+        status: typing.Optional[AccountsListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedAccountList:
         """
@@ -66,7 +68,7 @@ class AccountsClient:
         account_type : typing.Optional[str]
             If provided, will only return accounts with the passed in enum.
 
-        classification : typing.Optional[str]
+        classification : typing.Optional[AccountsListRequestClassification]
             If provided, will only return accounts with this classification.
 
         company_id : typing.Optional[str]
@@ -114,7 +116,7 @@ class AccountsClient:
         show_enum_origins : typing.Optional[AccountsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[str]
+        status : typing.Optional[AccountsListRequestStatus]
             If provided, will only return accounts with this status.
 
         request_options : typing.Optional[RequestOptions]
@@ -127,14 +129,46 @@ class AccountsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.accounting.resources.accounts import (
+            AccountsListRequestClassification,
+            AccountsListRequestRemoteFields,
+            AccountsListRequestShowEnumOrigins,
+            AccountsListRequestStatus,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.accounts.list(
+            account_type="account_type",
+            classification=AccountsListRequestClassification.EMPTY,
+            company_id="company_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            name="name",
+            page_size=1,
+            remote_fields=AccountsListRequestRemoteFields.CLASSIFICATION,
+            remote_id="remote_id",
+            show_enum_origins=AccountsListRequestShowEnumOrigins.CLASSIFICATION,
+            status=AccountsListRequestStatus.EMPTY,
         )
         """
         _response = self._raw_client.list(
@@ -199,6 +233,8 @@ class AccountsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.accounts.create(
+            is_debug_mode=True,
+            run_async=True,
             model=AccountRequest(),
         )
         """
@@ -251,6 +287,10 @@ class AccountsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.accounting.resources.accounts import (
+            AccountsRetrieveRequestRemoteFields,
+            AccountsRetrieveRequestShowEnumOrigins,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -258,6 +298,10 @@ class AccountsClient:
         )
         client.accounting.accounts.retrieve(
             id="id",
+            include_remote_data=True,
+            include_shell_data=True,
+            remote_fields=AccountsRetrieveRequestRemoteFields.CLASSIFICATION,
+            show_enum_origins=AccountsRetrieveRequestShowEnumOrigins.CLASSIFICATION,
         )
         """
         _response = self._raw_client.retrieve(
@@ -318,7 +362,7 @@ class AsyncAccountsClient:
         self,
         *,
         account_type: typing.Optional[str] = None,
-        classification: typing.Optional[str] = None,
+        classification: typing.Optional[AccountsListRequestClassification] = None,
         company_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
@@ -334,7 +378,7 @@ class AsyncAccountsClient:
         remote_fields: typing.Optional[AccountsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[AccountsListRequestShowEnumOrigins] = None,
-        status: typing.Optional[str] = None,
+        status: typing.Optional[AccountsListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedAccountList:
         """
@@ -345,7 +389,7 @@ class AsyncAccountsClient:
         account_type : typing.Optional[str]
             If provided, will only return accounts with the passed in enum.
 
-        classification : typing.Optional[str]
+        classification : typing.Optional[AccountsListRequestClassification]
             If provided, will only return accounts with this classification.
 
         company_id : typing.Optional[str]
@@ -393,7 +437,7 @@ class AsyncAccountsClient:
         show_enum_origins : typing.Optional[AccountsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[str]
+        status : typing.Optional[AccountsListRequestStatus]
             If provided, will only return accounts with this status.
 
         request_options : typing.Optional[RequestOptions]
@@ -407,8 +451,15 @@ class AsyncAccountsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.accounts import (
+            AccountsListRequestClassification,
+            AccountsListRequestRemoteFields,
+            AccountsListRequestShowEnumOrigins,
+            AccountsListRequestStatus,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -418,7 +469,31 @@ class AsyncAccountsClient:
 
         async def main() -> None:
             await client.accounting.accounts.list(
+                account_type="account_type",
+                classification=AccountsListRequestClassification.EMPTY,
+                company_id="company_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                name="name",
+                page_size=1,
+                remote_fields=AccountsListRequestRemoteFields.CLASSIFICATION,
+                remote_id="remote_id",
+                show_enum_origins=AccountsListRequestShowEnumOrigins.CLASSIFICATION,
+                status=AccountsListRequestStatus.EMPTY,
             )
 
 
@@ -491,6 +566,8 @@ class AsyncAccountsClient:
 
         async def main() -> None:
             await client.accounting.accounts.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=AccountRequest(),
             )
 
@@ -548,6 +625,10 @@ class AsyncAccountsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.accounts import (
+            AccountsRetrieveRequestRemoteFields,
+            AccountsRetrieveRequestShowEnumOrigins,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -558,6 +639,10 @@ class AsyncAccountsClient:
         async def main() -> None:
             await client.accounting.accounts.retrieve(
                 id="id",
+                include_remote_data=True,
+                include_shell_data=True,
+                remote_fields=AccountsRetrieveRequestRemoteFields.CLASSIFICATION,
+                show_enum_origins=AccountsRetrieveRequestShowEnumOrigins.CLASSIFICATION,
             )
 
 

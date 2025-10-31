@@ -14,6 +14,14 @@ types:
         name: PhoneNumbersCompany
     source:
       openapi: openapi/openapi.yml
+  ContactsListRequestStatus:
+    enum:
+      - value: ''
+        name: EMPTY
+      - ACTIVE
+      - ARCHIVED
+    source:
+      openapi: openapi/openapi.yml
   ContactsRetrieveRequestExpand:
     enum:
       - addresses
@@ -38,7 +46,8 @@ service:
     list:
       path: /accounting/v1/contacts
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `Contact` objects.
       source:
         openapi: openapi/openapi.yml
@@ -130,7 +139,7 @@ service:
               enum values. [Learn
               more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
           status:
-            type: optional<string>
+            type: optional<ContactsListRequestStatus>
             docs: If provided, will only return Contacts that match this status.
       response:
         docs: ''
@@ -138,7 +147,26 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            company_id: company_id
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            email_address: email_address
+            expand: addresses
+            include_deleted_data: true
+            include_remote_data: true
+            include_remote_fields: true
+            include_shell_data: true
+            is_customer: is_customer
+            is_supplier: is_supplier
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            name: name
+            page_size: 1
+            remote_fields: status
+            remote_id: remote_id
+            show_enum_origins: status
+            status: ''
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -182,7 +210,8 @@ service:
     create:
       path: /accounting/v1/contacts
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Creates a `Contact` object with the given values.
       source:
         openapi: openapi/openapi.yml
@@ -206,7 +235,10 @@ service:
         type: root.ContactResponse
         status-code: 201
       examples:
-        - headers:
+        - query-parameters:
+            is_debug_mode: true
+            run_async: true
+          headers:
             X-Account-Token: X-Account-Token
           request:
             model: {}
@@ -269,7 +301,8 @@ service:
     retrieve:
       path: /accounting/v1/contacts/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a `Contact` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -315,6 +348,13 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: addresses
+            include_remote_data: true
+            include_remote_fields: true
+            include_shell_data: true
+            remote_fields: status
+            show_enum_origins: status
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -357,7 +397,8 @@ service:
     partialUpdate:
       path: /accounting/v1/contacts/{id}
       method: PATCH
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Updates a `Contact` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -385,6 +426,9 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            is_debug_mode: true
+            run_async: true
           headers:
             X-Account-Token: X-Account-Token
           request:
@@ -448,7 +492,8 @@ service:
     metaPatchRetrieve:
       path: /accounting/v1/contacts/meta/patch/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns metadata for `Contact` PATCHs.
       source:
         openapi: openapi/openapi.yml
@@ -637,7 +682,8 @@ service:
     metaPostRetrieve:
       path: /accounting/v1/contacts/meta/post
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns metadata for `Contact` POSTs.
       source:
         openapi: openapi/openapi.yml
@@ -822,7 +868,8 @@ service:
     remoteFieldClassesList:
       path: /accounting/v1/contacts/remote-field-classes
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `RemoteFieldClass` objects.
       source:
         openapi: openapi/openapi.yml
@@ -870,6 +917,12 @@ service:
       examples:
         - query-parameters:
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            is_common_model_field: true
+            is_custom: true
+            page_size: 1
           headers:
             X-Account-Token: X-Account-Token
           response:

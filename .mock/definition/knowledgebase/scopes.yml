@@ -7,7 +7,8 @@ service:
     default_scopes_retrieve:
       path: /knowledgebase/v1/default-scopes
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: >-
         Get the default permissions for Merge Common Models and fields across
         all Linked Accounts of a given category. [Learn
@@ -50,7 +51,8 @@ service:
     linked_account_scopes_retrieve:
       path: /knowledgebase/v1/linked-account-scopes
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: >-
         Get all available permissions for Merge Common Models and fields for a
         single Linked Account. [Learn
@@ -93,7 +95,8 @@ service:
     linked_account_scopes_create:
       path: /knowledgebase/v1/linked-account-scopes
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: >-
         Update permissions for any Common Model or field for a single Linked
         Account. Any Scopes not set in this POST request will inherit the

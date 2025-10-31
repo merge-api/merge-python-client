@@ -107,14 +107,37 @@ class OffersClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.ats.resources.offers import OffersListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ats.offers.list(
+            application_id="application_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            creator_id="creator_id",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=OffersListRequestExpand.APPLICATION,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.list(
@@ -181,6 +204,7 @@ class OffersClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.ats.resources.offers import OffersRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -188,6 +212,9 @@ class OffersClient:
         )
         client.ats.offers.retrieve(
             id="id",
+            expand=OffersRetrieveRequestExpand.APPLICATION,
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -298,8 +325,10 @@ class AsyncOffersClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.ats.resources.offers import OffersListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -309,7 +338,27 @@ class AsyncOffersClient:
 
         async def main() -> None:
             await client.ats.offers.list(
+                application_id="application_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                creator_id="creator_id",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=OffersListRequestExpand.APPLICATION,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_id="remote_id",
             )
 
 
@@ -381,6 +430,7 @@ class AsyncOffersClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.ats.resources.offers import OffersRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -391,6 +441,9 @@ class AsyncOffersClient:
         async def main() -> None:
             await client.ats.offers.retrieve(
                 id="id",
+                expand=OffersRetrieveRequestExpand.APPLICATION,
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

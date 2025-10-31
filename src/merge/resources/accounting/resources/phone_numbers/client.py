@@ -62,6 +62,8 @@ class PhoneNumbersClient:
         )
         client.accounting.phone_numbers.retrieve(
             id="id",
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -132,6 +134,8 @@ class AsyncPhoneNumbersClient:
         async def main() -> None:
             await client.accounting.phone_numbers.retrieve(
                 id="id",
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

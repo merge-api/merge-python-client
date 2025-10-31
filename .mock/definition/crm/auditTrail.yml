@@ -7,7 +7,8 @@ service:
     list:
       path: /crm/v1/audit-trail
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Gets a list of audit trail events.
       source:
         openapi: openapi/openapi.yml
@@ -77,6 +78,11 @@ service:
       examples:
         - query-parameters:
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            end_date: end_date
+            event_type: event_type
+            page_size: 1
+            start_date: start_date
+            user_email: user_email
           headers:
             X-Account-Token: '[object Object]'
           response:

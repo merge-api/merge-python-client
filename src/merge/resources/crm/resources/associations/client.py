@@ -99,6 +99,8 @@ class AssociationsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
 
         client = Merge(
@@ -108,7 +110,25 @@ class AssociationsClient:
         client.crm.associations.custom_object_classes_custom_objects_associations_list(
             custom_object_class_id="custom_object_class_id",
             object_id="object_id",
+            association_type_id="association_type_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.custom_object_classes_custom_objects_associations_list(
@@ -132,11 +152,11 @@ class AssociationsClient:
 
     def custom_object_classes_custom_objects_associations_update(
         self,
-        association_type_id: str,
         source_class_id: str,
         source_object_id: str,
         target_class_id: str,
         target_object_id: str,
+        association_type_id: str,
         *,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
@@ -147,8 +167,6 @@ class AssociationsClient:
 
         Parameters
         ----------
-        association_type_id : str
-
         source_class_id : str
 
         source_object_id : str
@@ -156,6 +174,8 @@ class AssociationsClient:
         target_class_id : str
 
         target_object_id : str
+
+        association_type_id : str
 
         is_debug_mode : typing.Optional[bool]
             Whether to include debug fields (such as log file links) in the response.
@@ -180,19 +200,21 @@ class AssociationsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.associations.custom_object_classes_custom_objects_associations_update(
-            association_type_id="association_type_id",
             source_class_id="source_class_id",
             source_object_id="source_object_id",
             target_class_id="target_class_id",
             target_object_id="target_object_id",
+            association_type_id="association_type_id",
+            is_debug_mode=True,
+            run_async=True,
         )
         """
         _response = self._raw_client.custom_object_classes_custom_objects_associations_update(
-            association_type_id,
             source_class_id,
             source_object_id,
             target_class_id,
             target_object_id,
+            association_type_id,
             is_debug_mode=is_debug_mode,
             run_async=run_async,
             request_options=request_options,
@@ -290,6 +312,7 @@ class AsyncAssociationsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
 
@@ -303,7 +326,25 @@ class AsyncAssociationsClient:
             await client.crm.associations.custom_object_classes_custom_objects_associations_list(
                 custom_object_class_id="custom_object_class_id",
                 object_id="object_id",
+                association_type_id="association_type_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_id="remote_id",
             )
 
 
@@ -330,11 +371,11 @@ class AsyncAssociationsClient:
 
     async def custom_object_classes_custom_objects_associations_update(
         self,
-        association_type_id: str,
         source_class_id: str,
         source_object_id: str,
         target_class_id: str,
         target_object_id: str,
+        association_type_id: str,
         *,
         is_debug_mode: typing.Optional[bool] = None,
         run_async: typing.Optional[bool] = None,
@@ -345,8 +386,6 @@ class AsyncAssociationsClient:
 
         Parameters
         ----------
-        association_type_id : str
-
         source_class_id : str
 
         source_object_id : str
@@ -354,6 +393,8 @@ class AsyncAssociationsClient:
         target_class_id : str
 
         target_object_id : str
+
+        association_type_id : str
 
         is_debug_mode : typing.Optional[bool]
             Whether to include debug fields (such as log file links) in the response.
@@ -383,22 +424,24 @@ class AsyncAssociationsClient:
 
         async def main() -> None:
             await client.crm.associations.custom_object_classes_custom_objects_associations_update(
-                association_type_id="association_type_id",
                 source_class_id="source_class_id",
                 source_object_id="source_object_id",
                 target_class_id="target_class_id",
                 target_object_id="target_object_id",
+                association_type_id="association_type_id",
+                is_debug_mode=True,
+                run_async=True,
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.custom_object_classes_custom_objects_associations_update(
-            association_type_id,
             source_class_id,
             source_object_id,
             target_class_id,
             target_object_id,
+            association_type_id,
             is_debug_mode=is_debug_mode,
             run_async=run_async,
             request_options=request_options,

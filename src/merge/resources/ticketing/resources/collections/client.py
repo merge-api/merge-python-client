@@ -9,6 +9,7 @@ from ...types.collection import Collection
 from ...types.paginated_collection_list import PaginatedCollectionList
 from ...types.paginated_viewer_list import PaginatedViewerList
 from .raw_client import AsyncRawCollectionsClient, RawCollectionsClient
+from .types.collections_list_request_collection_type import CollectionsListRequestCollectionType
 from .types.collections_viewers_list_request_expand import CollectionsViewersListRequestExpand
 
 
@@ -30,7 +31,7 @@ class CollectionsClient:
     def list(
         self,
         *,
-        collection_type: typing.Optional[str] = None,
+        collection_type: typing.Optional[CollectionsListRequestCollectionType] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
@@ -53,7 +54,7 @@ class CollectionsClient:
 
         Parameters
         ----------
-        collection_type : typing.Optional[str]
+        collection_type : typing.Optional[CollectionsListRequestCollectionType]
             If provided, will only return collections of the given type.
 
         created_after : typing.Optional[dt.datetime]
@@ -87,7 +88,7 @@ class CollectionsClient:
             If provided, will only return collections with this name.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_collection_id : typing.Optional[str]
             If provided, will only return collections whose parent collection matches the given id.
@@ -111,14 +112,39 @@ class CollectionsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.ticketing.resources.collections import (
+            CollectionsListRequestCollectionType,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ticketing.collections.list(
+            collection_type=CollectionsListRequestCollectionType.EMPTY,
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            name="name",
+            page_size=1,
+            parent_collection_id="parent_collection_id",
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.list(
@@ -190,6 +216,9 @@ class CollectionsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.ticketing.resources.collections import (
+            CollectionsViewersListRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -198,6 +227,11 @@ class CollectionsClient:
         client.ticketing.collections.viewers_list(
             collection_id="collection_id",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=CollectionsViewersListRequestExpand.TEAM,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.viewers_list(
@@ -263,6 +297,8 @@ class CollectionsClient:
         )
         client.ticketing.collections.retrieve(
             id="id",
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -295,7 +331,7 @@ class AsyncCollectionsClient:
     async def list(
         self,
         *,
-        collection_type: typing.Optional[str] = None,
+        collection_type: typing.Optional[CollectionsListRequestCollectionType] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
@@ -318,7 +354,7 @@ class AsyncCollectionsClient:
 
         Parameters
         ----------
-        collection_type : typing.Optional[str]
+        collection_type : typing.Optional[CollectionsListRequestCollectionType]
             If provided, will only return collections of the given type.
 
         created_after : typing.Optional[dt.datetime]
@@ -352,7 +388,7 @@ class AsyncCollectionsClient:
             If provided, will only return collections with this name.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_collection_id : typing.Optional[str]
             If provided, will only return collections whose parent collection matches the given id.
@@ -377,8 +413,12 @@ class AsyncCollectionsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.ticketing.resources.collections import (
+            CollectionsListRequestCollectionType,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -388,7 +428,27 @@ class AsyncCollectionsClient:
 
         async def main() -> None:
             await client.ticketing.collections.list(
+                collection_type=CollectionsListRequestCollectionType.EMPTY,
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                name="name",
+                page_size=1,
+                parent_collection_id="parent_collection_id",
+                remote_id="remote_id",
             )
 
 
@@ -465,6 +525,9 @@ class AsyncCollectionsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.ticketing.resources.collections import (
+            CollectionsViewersListRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -476,6 +539,11 @@ class AsyncCollectionsClient:
             await client.ticketing.collections.viewers_list(
                 collection_id="collection_id",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=CollectionsViewersListRequestExpand.TEAM,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                page_size=1,
             )
 
 
@@ -549,6 +617,8 @@ class AsyncCollectionsClient:
         async def main() -> None:
             await client.ticketing.collections.retrieve(
                 id="id",
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

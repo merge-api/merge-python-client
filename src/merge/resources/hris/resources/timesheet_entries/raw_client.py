@@ -93,7 +93,7 @@ class RawTimesheetEntriesClient:
             Overrides the default ordering for this endpoint. Possible values include: start_time, -start_time.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -377,7 +377,7 @@ class AsyncRawTimesheetEntriesClient:
             Overrides the default ordering for this endpoint. Possible values include: start_time, -start_time.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.

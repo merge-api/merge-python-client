@@ -1,3 +1,20 @@
+types:
+  TrackingCategoriesListRequestCategoryType:
+    enum:
+      - value: ''
+        name: EMPTY
+      - CLASS
+      - DEPARTMENT
+    source:
+      openapi: openapi/openapi.yml
+  TrackingCategoriesListRequestStatus:
+    enum:
+      - value: ''
+        name: EMPTY
+      - ACTIVE
+      - ARCHIVED
+    source:
+      openapi: openapi/openapi.yml
 imports:
   root: __package__.yml
 service:
@@ -7,7 +24,8 @@ service:
     list:
       path: /accounting/v1/tracking-categories
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `TrackingCategory` objects.
       source:
         openapi: openapi/openapi.yml
@@ -15,7 +33,7 @@ service:
         name: TrackingCategoriesListRequest
         query-parameters:
           category_type:
-            type: optional<string>
+            type: optional<TrackingCategoriesListRequestCategoryType>
             docs: If provided, will only return tracking categories with this type.
           company_id:
             type: optional<string>
@@ -86,7 +104,7 @@ service:
               enum values. [Learn
               more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
           status:
-            type: optional<string>
+            type: optional<TrackingCategoriesListRequestStatus>
             docs: >-
               If provided, will only return tracking categories with this
               status.
@@ -96,7 +114,23 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            category_type: ''
+            company_id: company_id
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            expand: company
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            name: name
+            page_size: 1
+            remote_fields: status
+            remote_id: remote_id
+            show_enum_origins: status
+            status: ''
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -122,7 +156,8 @@ service:
     retrieve:
       path: /accounting/v1/tracking-categories/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a `TrackingCategory` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -163,6 +198,12 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: company
+            include_remote_data: true
+            include_shell_data: true
+            remote_fields: status
+            show_enum_origins: status
           headers:
             X-Account-Token: X-Account-Token
           response:

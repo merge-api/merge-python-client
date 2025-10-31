@@ -99,6 +99,8 @@ class CustomObjectsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
 
         client = Merge(
@@ -107,7 +109,25 @@ class CustomObjectsClient:
         )
         client.crm.custom_objects.custom_object_classes_custom_objects_list(
             custom_object_class_id="custom_object_class_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.custom_object_classes_custom_objects_list(
@@ -170,6 +190,8 @@ class CustomObjectsClient:
         )
         client.crm.custom_objects.custom_object_classes_custom_objects_create(
             custom_object_class_id="custom_object_class_id",
+            is_debug_mode=True,
+            run_async=True,
             model=CustomObjectRequest(
                 fields={"test_field": "hello"},
             ),
@@ -231,6 +253,9 @@ class CustomObjectsClient:
         client.crm.custom_objects.custom_object_classes_custom_objects_retrieve(
             custom_object_class_id="custom_object_class_id",
             id="id",
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.custom_object_classes_custom_objects_retrieve(
@@ -338,6 +363,13 @@ class CustomObjectsClient:
         )
         client.crm.custom_objects.custom_object_classes_custom_objects_remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            is_common_model_field=True,
+            is_custom=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.custom_object_classes_custom_objects_remote_field_classes_list(
@@ -437,6 +469,7 @@ class AsyncCustomObjectsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
 
@@ -449,7 +482,25 @@ class AsyncCustomObjectsClient:
         async def main() -> None:
             await client.crm.custom_objects.custom_object_classes_custom_objects_list(
                 custom_object_class_id="custom_object_class_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_id="remote_id",
             )
 
 
@@ -520,6 +571,8 @@ class AsyncCustomObjectsClient:
         async def main() -> None:
             await client.crm.custom_objects.custom_object_classes_custom_objects_create(
                 custom_object_class_id="custom_object_class_id",
+                is_debug_mode=True,
+                run_async=True,
                 model=CustomObjectRequest(
                     fields={"test_field": "hello"},
                 ),
@@ -589,6 +642,9 @@ class AsyncCustomObjectsClient:
             await client.crm.custom_objects.custom_object_classes_custom_objects_retrieve(
                 custom_object_class_id="custom_object_class_id",
                 id="id",
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
             )
 
 
@@ -712,6 +768,13 @@ class AsyncCustomObjectsClient:
         async def main() -> None:
             await client.crm.custom_objects.custom_object_classes_custom_objects_remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                is_common_model_field=True,
+                is_custom=True,
+                page_size=1,
             )
 
 

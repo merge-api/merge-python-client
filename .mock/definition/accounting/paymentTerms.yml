@@ -7,7 +7,8 @@ service:
     list:
       path: /accounting/v1/payment-terms
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `PaymentTerm` objects.
       source:
         openapi: openapi/openapi.yml
@@ -50,6 +51,11 @@ service:
       examples:
         - query-parameters:
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            expand: company
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            page_size: 1
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -79,7 +85,8 @@ service:
     retrieve:
       path: /accounting/v1/payment-terms/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a `PaymentTerm` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -110,6 +117,10 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: company
+            include_remote_data: true
+            include_shell_data: true
           headers:
             X-Account-Token: X-Account-Token
           response:

@@ -82,7 +82,7 @@ class AttachmentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return attachments created in the third party platform after this datetime.
@@ -103,6 +103,8 @@ class AttachmentsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
 
         client = Merge(
@@ -110,7 +112,28 @@ class AttachmentsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.attachments.list(
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            remote_id="remote_id",
+            ticket_id="ticket_id",
         )
         """
         _response = self._raw_client.list(
@@ -170,6 +193,8 @@ class AttachmentsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.attachments.create(
+            is_debug_mode=True,
+            run_async=True,
             model=AttachmentRequest(),
         )
         """
@@ -221,6 +246,8 @@ class AttachmentsClient:
         )
         client.ticketing.attachments.retrieve(
             id="id",
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -360,7 +387,7 @@ class AsyncAttachmentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return attachments created in the third party platform after this datetime.
@@ -382,6 +409,7 @@ class AsyncAttachmentsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
 
@@ -393,7 +421,28 @@ class AsyncAttachmentsClient:
 
         async def main() -> None:
             await client.ticketing.attachments.list(
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                remote_id="remote_id",
+                ticket_id="ticket_id",
             )
 
 
@@ -461,6 +510,8 @@ class AsyncAttachmentsClient:
 
         async def main() -> None:
             await client.ticketing.attachments.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=AttachmentRequest(),
             )
 
@@ -520,6 +571,8 @@ class AsyncAttachmentsClient:
         async def main() -> None:
             await client.ticketing.attachments.retrieve(
                 id="id",
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

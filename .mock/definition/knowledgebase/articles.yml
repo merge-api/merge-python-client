@@ -262,6 +262,15 @@ types:
       - root_container
     source:
       openapi: openapi/openapi.yml
+  ArticlesListRequestType:
+    enum:
+      - value: ''
+        name: EMPTY
+      - BLOG_POST
+      - PAGE
+      - SMART_LINK
+    source:
+      openapi: openapi/openapi.yml
   ArticlesRetrieveRequestExpand:
     enum:
       - attachments
@@ -534,7 +543,8 @@ service:
     list:
       path: /knowledgebase/v1/articles
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `Article` objects.
       source:
         openapi: openapi/openapi.yml
@@ -587,7 +597,7 @@ service:
               will be returned.
           page_size:
             type: optional<integer>
-            docs: Number of results to return per page.
+            docs: Number of results to return per page. The maximum limit is 100.
           parent_article_id:
             type: optional<string>
             docs: >-
@@ -605,8 +615,18 @@ service:
           remote_id:
             type: optional<string>
             docs: The API provider's ID for the given object.
-          type:
+          root_container_id:
             type: optional<string>
+            docs: >-
+              If provided, will only return sub articles of the
+              root_container_id.
+          status:
+            type: optional<string>
+            docs: >-
+              If provided, will only return articles of the given status;
+              multiple statuses can be separated by commas.
+          type:
+            type: optional<ArticlesListRequestType>
             docs: If provided, will only return articles of the given type.
       response:
         docs: ''
@@ -614,7 +634,22 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            expand: attachments
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            page_size: 1
+            parent_article_id: parent_article_id
+            parent_container_id: parent_container_id
+            remote_id: remote_id
+            root_container_id: root_container_id
+            status: status
+            type: ''
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -669,7 +704,8 @@ service:
     retrieve:
       path: /knowledgebase/v1/articles/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns an `Article` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -700,6 +736,10 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: attachments
+            include_remote_data: true
+            include_shell_data: true
           headers:
             X-Account-Token: X-Account-Token
           response:

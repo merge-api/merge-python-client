@@ -110,14 +110,36 @@ class ItemsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.accounting.resources.items import ItemsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.items.list(
+            company_id="company_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=ItemsListRequestExpand.COMPANY,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.list(
@@ -178,6 +200,8 @@ class ItemsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.items.create(
+            is_debug_mode=True,
+            run_async=True,
             model=ItemRequestRequest(),
         )
         """
@@ -230,6 +254,9 @@ class ItemsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.accounting.resources.items import (
+            ItemsRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -237,6 +264,9 @@ class ItemsClient:
         )
         client.accounting.items.retrieve(
             id="id",
+            expand=ItemsRetrieveRequestExpand.COMPANY,
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -293,6 +323,8 @@ class ItemsClient:
         )
         client.accounting.items.partial_update(
             id="id",
+            is_debug_mode=True,
+            run_async=True,
             model=PatchedItemRequestRequest(),
         )
         """
@@ -452,8 +484,10 @@ class AsyncItemsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.items import ItemsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -463,7 +497,26 @@ class AsyncItemsClient:
 
         async def main() -> None:
             await client.accounting.items.list(
+                company_id="company_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=ItemsListRequestExpand.COMPANY,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_id="remote_id",
             )
 
 
@@ -532,6 +585,8 @@ class AsyncItemsClient:
 
         async def main() -> None:
             await client.accounting.items.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=ItemRequestRequest(),
             )
 
@@ -589,6 +644,9 @@ class AsyncItemsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.items import (
+            ItemsRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -599,6 +657,9 @@ class AsyncItemsClient:
         async def main() -> None:
             await client.accounting.items.retrieve(
                 id="id",
+                expand=ItemsRetrieveRequestExpand.COMPANY,
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 
@@ -663,6 +724,8 @@ class AsyncItemsClient:
         async def main() -> None:
             await client.accounting.items.partial_update(
                 id="id",
+                is_debug_mode=True,
+                run_async=True,
                 model=PatchedItemRequestRequest(),
             )
 

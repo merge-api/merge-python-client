@@ -84,7 +84,7 @@ class ContactsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -99,6 +99,8 @@ class ContactsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
 
         client = Merge(
@@ -106,7 +108,25 @@ class ContactsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.contacts.list(
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            email_address="email_address",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.list(
@@ -165,6 +185,8 @@ class ContactsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.contacts.create(
+            is_debug_mode=True,
+            run_async=True,
             model=ContactRequest(),
         )
         """
@@ -216,6 +238,8 @@ class ContactsClient:
         )
         client.ticketing.contacts.retrieve(
             id="id",
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -323,7 +347,7 @@ class AsyncContactsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -339,6 +363,7 @@ class AsyncContactsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
 
@@ -350,7 +375,25 @@ class AsyncContactsClient:
 
         async def main() -> None:
             await client.ticketing.contacts.list(
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                email_address="email_address",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_id="remote_id",
             )
 
 
@@ -417,6 +460,8 @@ class AsyncContactsClient:
 
         async def main() -> None:
             await client.ticketing.contacts.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=ContactRequest(),
             )
 
@@ -476,6 +521,8 @@ class AsyncContactsClient:
         async def main() -> None:
             await client.ticketing.contacts.retrieve(
                 id="id",
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

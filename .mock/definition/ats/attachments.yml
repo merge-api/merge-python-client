@@ -7,7 +7,8 @@ service:
     list:
       path: /ats/v1/attachments
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `Attachment` objects.
       source:
         openapi: openapi/openapi.yml
@@ -83,7 +84,20 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            candidate_id: candidate_id
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            expand: candidate
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            page_size: 1
+            remote_fields: attachment_type
+            remote_id: remote_id
+            show_enum_origins: attachment_type
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -112,7 +126,8 @@ service:
     create:
       path: /ats/v1/attachments
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Creates an `Attachment` object with the given values.
       source:
         openapi: openapi/openapi.yml
@@ -137,7 +152,10 @@ service:
         type: root.AttachmentResponse
         status-code: 201
       examples:
-        - headers:
+        - query-parameters:
+            is_debug_mode: true
+            run_async: true
+          headers:
             X-Account-Token: X-Account-Token
           request:
             model: {}
@@ -186,7 +204,8 @@ service:
     retrieve:
       path: /ats/v1/attachments/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns an `Attachment` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -227,6 +246,12 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: candidate
+            include_remote_data: true
+            include_shell_data: true
+            remote_fields: attachment_type
+            show_enum_origins: attachment_type
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -252,7 +277,8 @@ service:
     metaPostRetrieve:
       path: /ats/v1/attachments/meta/post
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns metadata for `Attachment` POSTs.
       source:
         openapi: openapi/openapi.yml

@@ -59,7 +59,9 @@ class FieldMappingClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.field_mapping.field_mappings_retrieve()
+        client.ats.field_mapping.field_mappings_retrieve(
+            exclude_remote_field_metadata=True,
+        )
         """
         _response = self._raw_client.field_mappings_retrieve(
             exclude_remote_field_metadata=exclude_remote_field_metadata, request_options=request_options
@@ -121,6 +123,7 @@ class FieldMappingClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.field_mapping.field_mappings_create(
+            exclude_remote_field_metadata=True,
             target_field_name="example_target_field_name",
             target_field_description="this is a example description of the target field",
             remote_field_traversal_path=["example_remote_field"],
@@ -262,7 +265,10 @@ class FieldMappingClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.field_mapping.remote_fields_retrieve()
+        client.ats.field_mapping.remote_fields_retrieve(
+            common_models="common_models",
+            include_example_values="include_example_values",
+        )
         """
         _response = self._raw_client.remote_fields_retrieve(
             common_models=common_models, include_example_values=include_example_values, request_options=request_options
@@ -349,7 +355,9 @@ class AsyncFieldMappingClient:
 
 
         async def main() -> None:
-            await client.ats.field_mapping.field_mappings_retrieve()
+            await client.ats.field_mapping.field_mappings_retrieve(
+                exclude_remote_field_metadata=True,
+            )
 
 
         asyncio.run(main())
@@ -419,6 +427,7 @@ class AsyncFieldMappingClient:
 
         async def main() -> None:
             await client.ats.field_mapping.field_mappings_create(
+                exclude_remote_field_metadata=True,
                 target_field_name="example_target_field_name",
                 target_field_description="this is a example description of the target field",
                 remote_field_traversal_path=["example_remote_field"],
@@ -584,7 +593,10 @@ class AsyncFieldMappingClient:
 
 
         async def main() -> None:
-            await client.ats.field_mapping.remote_fields_retrieve()
+            await client.ats.field_mapping.remote_fields_retrieve(
+                common_models="common_models",
+                include_example_values="include_example_values",
+            )
 
 
         asyncio.run(main())

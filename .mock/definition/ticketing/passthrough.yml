@@ -7,7 +7,8 @@ service:
     create:
       path: /ticketing/v1/passthrough
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Pull data from an endpoint not currently supported by Merge.
       source:
         openapi: openapi/openapi.yml

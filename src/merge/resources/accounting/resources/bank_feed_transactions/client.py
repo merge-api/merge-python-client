@@ -99,6 +99,8 @@ class BankFeedTransactionsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
 
         client = Merge(
@@ -106,7 +108,25 @@ class BankFeedTransactionsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.bank_feed_transactions.list(
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            is_processed=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.list(
@@ -165,6 +185,8 @@ class BankFeedTransactionsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.bank_feed_transactions.create(
+            is_debug_mode=True,
+            run_async=True,
             model=BankFeedTransactionRequestRequest(),
         )
         """
@@ -216,6 +238,8 @@ class BankFeedTransactionsClient:
         )
         client.accounting.bank_feed_transactions.retrieve(
             id="id",
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -339,6 +363,7 @@ class AsyncBankFeedTransactionsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
 
@@ -350,7 +375,25 @@ class AsyncBankFeedTransactionsClient:
 
         async def main() -> None:
             await client.accounting.bank_feed_transactions.list(
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                is_processed=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_id="remote_id",
             )
 
 
@@ -417,6 +460,8 @@ class AsyncBankFeedTransactionsClient:
 
         async def main() -> None:
             await client.accounting.bank_feed_transactions.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=BankFeedTransactionRequestRequest(),
             )
 
@@ -476,6 +521,8 @@ class AsyncBankFeedTransactionsClient:
         async def main() -> None:
             await client.accounting.bank_feed_transactions.retrieve(
                 id="id",
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

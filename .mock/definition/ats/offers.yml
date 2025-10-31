@@ -24,7 +24,8 @@ service:
     list:
       path: /ats/v1/offers
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `Offer` objects.
       source:
         openapi: openapi/openapi.yml
@@ -103,7 +104,21 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            application_id: application_id
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
+            creator_id: creator_id
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            expand: application
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            page_size: 1
+            remote_fields: status
+            remote_id: remote_id
+            show_enum_origins: status
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -135,7 +150,8 @@ service:
     retrieve:
       path: /ats/v1/offers/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns an `Offer` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -176,6 +192,12 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: application
+            include_remote_data: true
+            include_shell_data: true
+            remote_fields: status
+            show_enum_origins: status
           headers:
             X-Account-Token: X-Account-Token
           response:

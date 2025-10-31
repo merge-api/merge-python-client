@@ -88,7 +88,7 @@ class PayrollRunsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[PayrollRunsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -124,14 +124,53 @@ class PayrollRunsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.hris.resources.payroll_runs import (
+            PayrollRunsListRequestRemoteFields,
+            PayrollRunsListRequestRunType,
+            PayrollRunsListRequestShowEnumOrigins,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.hris.payroll_runs.list(
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            ended_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            ended_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_fields=PayrollRunsListRequestRemoteFields.RUN_STATE,
+            remote_id="remote_id",
+            run_type=PayrollRunsListRequestRunType.CORRECTION,
+            show_enum_origins=PayrollRunsListRequestShowEnumOrigins.RUN_STATE,
+            started_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            started_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
         )
         """
         _response = self._raw_client.list(
@@ -196,6 +235,10 @@ class PayrollRunsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.hris.resources.payroll_runs import (
+            PayrollRunsRetrieveRequestRemoteFields,
+            PayrollRunsRetrieveRequestShowEnumOrigins,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -203,6 +246,10 @@ class PayrollRunsClient:
         )
         client.hris.payroll_runs.retrieve(
             id="id",
+            include_remote_data=True,
+            include_shell_data=True,
+            remote_fields=PayrollRunsRetrieveRequestRemoteFields.RUN_STATE,
+            show_enum_origins=PayrollRunsRetrieveRequestShowEnumOrigins.RUN_STATE,
         )
         """
         _response = self._raw_client.retrieve(
@@ -289,7 +336,7 @@ class AsyncPayrollRunsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[PayrollRunsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -326,8 +373,14 @@ class AsyncPayrollRunsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.hris.resources.payroll_runs import (
+            PayrollRunsListRequestRemoteFields,
+            PayrollRunsListRequestRunType,
+            PayrollRunsListRequestShowEnumOrigins,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -337,7 +390,39 @@ class AsyncPayrollRunsClient:
 
         async def main() -> None:
             await client.hris.payroll_runs.list(
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                ended_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                ended_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_fields=PayrollRunsListRequestRemoteFields.RUN_STATE,
+                remote_id="remote_id",
+                run_type=PayrollRunsListRequestRunType.CORRECTION,
+                show_enum_origins=PayrollRunsListRequestShowEnumOrigins.RUN_STATE,
+                started_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                started_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
             )
 
 
@@ -407,6 +492,10 @@ class AsyncPayrollRunsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.hris.resources.payroll_runs import (
+            PayrollRunsRetrieveRequestRemoteFields,
+            PayrollRunsRetrieveRequestShowEnumOrigins,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -417,6 +506,10 @@ class AsyncPayrollRunsClient:
         async def main() -> None:
             await client.hris.payroll_runs.retrieve(
                 id="id",
+                include_remote_data=True,
+                include_shell_data=True,
+                remote_fields=PayrollRunsRetrieveRequestRemoteFields.RUN_STATE,
+                show_enum_origins=PayrollRunsRetrieveRequestShowEnumOrigins.RUN_STATE,
             )
 
 

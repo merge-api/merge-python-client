@@ -103,14 +103,44 @@ class TransactionsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.accounting.resources.transactions import (
+            TransactionsListRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.transactions.list(
+            company_id="company_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            expand=TransactionsListRequestExpand.ACCOUNT,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_id="remote_id",
+            transaction_date_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            transaction_date_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
         )
         """
         _response = self._raw_client.list(
@@ -168,6 +198,9 @@ class TransactionsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.accounting.resources.transactions import (
+            TransactionsRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -175,6 +208,9 @@ class TransactionsClient:
         )
         client.accounting.transactions.retrieve(
             id="id",
+            expand=TransactionsRetrieveRequestExpand.ACCOUNT,
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -279,8 +315,12 @@ class AsyncTransactionsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.transactions import (
+            TransactionsListRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -290,7 +330,32 @@ class AsyncTransactionsClient:
 
         async def main() -> None:
             await client.accounting.transactions.list(
+                company_id="company_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                expand=TransactionsListRequestExpand.ACCOUNT,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_id="remote_id",
+                transaction_date_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                transaction_date_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
             )
 
 
@@ -353,6 +418,9 @@ class AsyncTransactionsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.transactions import (
+            TransactionsRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -363,6 +431,9 @@ class AsyncTransactionsClient:
         async def main() -> None:
             await client.accounting.transactions.retrieve(
                 id="id",
+                expand=TransactionsRetrieveRequestExpand.ACCOUNT,
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

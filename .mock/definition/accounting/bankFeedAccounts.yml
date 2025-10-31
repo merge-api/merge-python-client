@@ -7,7 +7,8 @@ service:
     list:
       path: /accounting/v1/bank-feed-accounts
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `BankFeedAccount` objects.
       source:
         openapi: openapi/openapi.yml
@@ -45,6 +46,10 @@ service:
       examples:
         - query-parameters:
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            page_size: 1
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -72,10 +77,13 @@ service:
                       custom_key: custom_value
                     linked_account_defined_targets:
                       custom_key: custom_value
+                  remote_data:
+                    - null
     create:
       path: /accounting/v1/bank-feed-accounts
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Creates a `BankFeedAccount` object with the given values.
       source:
         openapi: openapi/openapi.yml
@@ -99,7 +107,10 @@ service:
         type: root.BankFeedAccountResponse
         status-code: 201
       examples:
-        - headers:
+        - query-parameters:
+            is_debug_mode: true
+            run_async: true
+          headers:
             X-Account-Token: X-Account-Token
           request:
             model: {}
@@ -151,7 +162,8 @@ service:
     retrieve:
       path: /accounting/v1/bank-feed-accounts/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a `BankFeedAccount` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -177,6 +189,9 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            include_remote_data: true
+            include_shell_data: true
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -206,7 +221,8 @@ service:
     metaPostRetrieve:
       path: /accounting/v1/bank-feed-accounts/meta/post
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns metadata for `BankFeedAccount` POSTs.
       source:
         openapi: openapi/openapi.yml

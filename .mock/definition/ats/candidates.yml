@@ -32,7 +32,8 @@ service:
     list:
       path: /ats/v1/candidates
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `Candidate` objects.
       source:
         openapi: openapi/openapi.yml
@@ -111,7 +112,21 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            email_addresses: email_addresses
+            expand: applications
+            first_name: first_name
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            last_name: last_name
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            page_size: 1
+            remote_id: remote_id
+            tags: tags
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -172,7 +187,8 @@ service:
     create:
       path: /ats/v1/candidates
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Creates a `Candidate` object with the given values.
       source:
         openapi: openapi/openapi.yml
@@ -197,7 +213,10 @@ service:
         type: root.CandidateResponse
         status-code: 201
       examples:
-        - headers:
+        - query-parameters:
+            is_debug_mode: true
+            run_async: true
+          headers:
             X-Account-Token: X-Account-Token
           request:
             model: {}
@@ -278,7 +297,8 @@ service:
     retrieve:
       path: /ats/v1/candidates/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a `Candidate` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -309,6 +329,10 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: applications
+            include_remote_data: true
+            include_shell_data: true
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -369,7 +393,8 @@ service:
     partialUpdate:
       path: /ats/v1/candidates/{id}
       method: PATCH
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Updates a `Candidate` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -398,6 +423,9 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            is_debug_mode: true
+            run_async: true
           headers:
             X-Account-Token: X-Account-Token
           request:
@@ -479,7 +507,8 @@ service:
     ignoreCreate:
       path: /ats/v1/candidates/ignore/{model_id}
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: >-
         Ignores a specific row based on the `model_id` in the url. These records
         will have their properties set to null, and will not be updated in
@@ -510,7 +539,8 @@ service:
     metaPatchRetrieve:
       path: /ats/v1/candidates/meta/patch/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns metadata for `Candidate` PATCHs.
       source:
         openapi: openapi/openapi.yml
@@ -699,7 +729,8 @@ service:
     metaPostRetrieve:
       path: /ats/v1/candidates/meta/post
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns metadata for `Candidate` POSTs.
       source:
         openapi: openapi/openapi.yml

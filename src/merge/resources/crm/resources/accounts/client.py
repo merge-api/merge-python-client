@@ -109,6 +109,8 @@ class AccountsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
 
         client = Merge(
@@ -116,7 +118,27 @@ class AccountsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.accounts.list(
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            name="name",
+            owner_id="owner_id",
+            page_size=1,
+            remote_id="remote_id",
         )
         """
         _response = self._raw_client.list(
@@ -177,6 +199,8 @@ class AccountsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.accounts.create(
+            is_debug_mode=True,
+            run_async=True,
             model=AccountRequest(),
         )
         """
@@ -232,6 +256,9 @@ class AccountsClient:
         )
         client.crm.accounts.retrieve(
             id="id",
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -287,6 +314,8 @@ class AccountsClient:
         )
         client.crm.accounts.partial_update(
             id="id",
+            is_debug_mode=True,
+            run_async=True,
             model=PatchedAccountRequest(),
         )
         """
@@ -413,6 +442,13 @@ class AccountsClient:
         )
         client.crm.accounts.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            is_common_model_field=True,
+            is_custom=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.remote_field_classes_list(
@@ -521,6 +557,7 @@ class AsyncAccountsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
 
@@ -532,7 +569,27 @@ class AsyncAccountsClient:
 
         async def main() -> None:
             await client.crm.accounts.list(
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                name="name",
+                owner_id="owner_id",
+                page_size=1,
+                remote_id="remote_id",
             )
 
 
@@ -601,6 +658,8 @@ class AsyncAccountsClient:
 
         async def main() -> None:
             await client.crm.accounts.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=AccountRequest(),
             )
 
@@ -664,6 +723,9 @@ class AsyncAccountsClient:
         async def main() -> None:
             await client.crm.accounts.retrieve(
                 id="id",
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
             )
 
 
@@ -727,6 +789,8 @@ class AsyncAccountsClient:
         async def main() -> None:
             await client.crm.accounts.partial_update(
                 id="id",
+                is_debug_mode=True,
+                run_async=True,
                 model=PatchedAccountRequest(),
             )
 
@@ -879,6 +943,13 @@ class AsyncAccountsClient:
         async def main() -> None:
             await client.crm.accounts.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                is_common_model_field=True,
+                is_custom=True,
+                page_size=1,
             )
 
 

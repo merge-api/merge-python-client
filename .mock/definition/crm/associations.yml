@@ -8,7 +8,8 @@ service:
       path: >-
         /crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/{object_id}/associations
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `Association` objects.
       source:
         openapi: openapi/openapi.yml
@@ -82,7 +83,18 @@ service:
             custom_object_class_id: custom_object_class_id
             object_id: object_id
           query-parameters:
+            association_type_id: association_type_id
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            expand: association_type
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            page_size: 1
+            remote_id: remote_id
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -99,18 +111,19 @@ service:
       path: >-
         /crm/v1/custom-object-classes/{source_class_id}/custom-objects/{source_object_id}/associations/{target_class_id}/{target_object_id}/{association_type_id}
       method: PUT
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: >-
         Creates an Association between `source_object_id` and `target_object_id`
         of type `association_type_id`.
       source:
         openapi: openapi/openapi.yml
       path-parameters:
-        association_type_id: string
         source_class_id: string
         source_object_id: string
         target_class_id: string
         target_object_id: string
+        association_type_id: string
       request:
         name: CustomObjectClassesCustomObjectsAssociationsUpdateRequest
         query-parameters:
@@ -128,11 +141,14 @@ service:
         status-code: 200
       examples:
         - path-parameters:
-            association_type_id: association_type_id
             source_class_id: source_class_id
             source_object_id: source_object_id
             target_class_id: target_class_id
             target_object_id: target_object_id
+            association_type_id: association_type_id
+          query-parameters:
+            is_debug_mode: true
+            run_async: true
           headers:
             X-Account-Token: X-Account-Token
           response:

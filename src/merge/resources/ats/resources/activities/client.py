@@ -111,14 +111,40 @@ class ActivitiesClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.ats.resources.activities import (
+            ActivitiesListRequestRemoteFields,
+            ActivitiesListRequestShowEnumOrigins,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.ats.activities.list(
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            remote_fields=ActivitiesListRequestRemoteFields.ACTIVITY_TYPE,
+            remote_id="remote_id",
+            show_enum_origins=ActivitiesListRequestShowEnumOrigins.ACTIVITY_TYPE,
+            user_id="user_id",
         )
         """
         _response = self._raw_client.list(
@@ -182,6 +208,8 @@ class ActivitiesClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.activities.create(
+            is_debug_mode=True,
+            run_async=True,
             model=ActivityRequest(),
             remote_user_id="remote_user_id",
         )
@@ -239,6 +267,10 @@ class ActivitiesClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.ats.resources.activities import (
+            ActivitiesRetrieveRequestRemoteFields,
+            ActivitiesRetrieveRequestShowEnumOrigins,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -246,6 +278,10 @@ class ActivitiesClient:
         )
         client.ats.activities.retrieve(
             id="id",
+            include_remote_data=True,
+            include_shell_data=True,
+            remote_fields=ActivitiesRetrieveRequestRemoteFields.ACTIVITY_TYPE,
+            show_enum_origins=ActivitiesRetrieveRequestShowEnumOrigins.ACTIVITY_TYPE,
         )
         """
         _response = self._raw_client.retrieve(
@@ -379,8 +415,13 @@ class AsyncActivitiesClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.ats.resources.activities import (
+            ActivitiesListRequestRemoteFields,
+            ActivitiesListRequestShowEnumOrigins,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -390,7 +431,27 @@ class AsyncActivitiesClient:
 
         async def main() -> None:
             await client.ats.activities.list(
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_fields=ActivitiesListRequestRemoteFields.ACTIVITY_TYPE,
+                remote_id="remote_id",
+                show_enum_origins=ActivitiesListRequestShowEnumOrigins.ACTIVITY_TYPE,
+                user_id="user_id",
             )
 
 
@@ -462,6 +523,8 @@ class AsyncActivitiesClient:
 
         async def main() -> None:
             await client.ats.activities.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=ActivityRequest(),
                 remote_user_id="remote_user_id",
             )
@@ -524,6 +587,10 @@ class AsyncActivitiesClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.ats.resources.activities import (
+            ActivitiesRetrieveRequestRemoteFields,
+            ActivitiesRetrieveRequestShowEnumOrigins,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -534,6 +601,10 @@ class AsyncActivitiesClient:
         async def main() -> None:
             await client.ats.activities.retrieve(
                 id="id",
+                include_remote_data=True,
+                include_shell_data=True,
+                remote_fields=ActivitiesRetrieveRequestRemoteFields.ACTIVITY_TYPE,
+                show_enum_origins=ActivitiesRetrieveRequestShowEnumOrigins.ACTIVITY_TYPE,
             )
 
 

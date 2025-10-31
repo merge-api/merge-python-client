@@ -76,6 +76,10 @@ class PaymentTermsClient:
         )
         client.accounting.payment_terms.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.list(
@@ -132,6 +136,8 @@ class PaymentTermsClient:
         )
         client.accounting.payment_terms.retrieve(
             id="id",
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -216,6 +222,10 @@ class AsyncPaymentTermsClient:
         async def main() -> None:
             await client.accounting.payment_terms.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                page_size=1,
             )
 
 
@@ -280,6 +290,8 @@ class AsyncPaymentTermsClient:
         async def main() -> None:
             await client.accounting.payment_terms.retrieve(
                 id="id",
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

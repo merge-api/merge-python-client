@@ -132,7 +132,8 @@ service:
     list:
       path: /accounting/v1/items
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `Item` objects.
       source:
         openapi: openapi/openapi.yml
@@ -208,7 +209,20 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            company_id: company_id
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            expand: company
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            page_size: 1
+            remote_fields: status
+            remote_id: remote_id
+            show_enum_origins: status
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -244,7 +258,8 @@ service:
     create:
       path: /accounting/v1/items
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Creates an `Item` object with the given values.
       source:
         openapi: openapi/openapi.yml
@@ -268,7 +283,10 @@ service:
         type: root.ItemResponse
         status-code: 201
       examples:
-        - headers:
+        - query-parameters:
+            is_debug_mode: true
+            run_async: true
+          headers:
             X-Account-Token: X-Account-Token
           request:
             model: {}
@@ -323,7 +341,8 @@ service:
     retrieve:
       path: /accounting/v1/items/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns an `Item` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -364,6 +383,12 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: company
+            include_remote_data: true
+            include_shell_data: true
+            remote_fields: status
+            show_enum_origins: status
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -396,7 +421,8 @@ service:
     partialUpdate:
       path: /accounting/v1/items/{id}
       method: PATCH
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Updates an `Item` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -424,6 +450,9 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            is_debug_mode: true
+            run_async: true
           headers:
             X-Account-Token: X-Account-Token
           request:
@@ -479,7 +508,8 @@ service:
     metaPatchRetrieve:
       path: /accounting/v1/items/meta/patch/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns metadata for `Item` PATCHs.
       source:
         openapi: openapi/openapi.yml
@@ -668,7 +698,8 @@ service:
     metaPostRetrieve:
       path: /accounting/v1/items/meta/post
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns metadata for `Item` POSTs.
       source:
         openapi: openapi/openapi.yml

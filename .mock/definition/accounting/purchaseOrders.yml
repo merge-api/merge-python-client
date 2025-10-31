@@ -546,7 +546,8 @@ service:
     list:
       path: /accounting/v1/purchase-orders
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `PurchaseOrder` objects.
       source:
         openapi: openapi/openapi.yml
@@ -635,7 +636,23 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            company_id: company_id
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            expand: accounting_period
+            include_deleted_data: true
+            include_remote_data: true
+            include_remote_fields: true
+            include_shell_data: true
+            issue_date_after: '2024-01-15T09:30:00Z'
+            issue_date_before: '2024-01-15T09:30:00Z'
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            page_size: 1
+            remote_fields: status
+            remote_id: remote_id
+            show_enum_origins: status
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -716,7 +733,8 @@ service:
     create:
       path: /accounting/v1/purchase-orders
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Creates a `PurchaseOrder` object with the given values.
       source:
         openapi: openapi/openapi.yml
@@ -740,7 +758,10 @@ service:
         type: root.PurchaseOrderResponse
         status-code: 201
       examples:
-        - headers:
+        - query-parameters:
+            is_debug_mode: true
+            run_async: true
+          headers:
             X-Account-Token: X-Account-Token
           request:
             model: {}
@@ -840,7 +861,8 @@ service:
     retrieve:
       path: /accounting/v1/purchase-orders/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a `PurchaseOrder` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -886,6 +908,13 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: accounting_period
+            include_remote_data: true
+            include_remote_fields: true
+            include_shell_data: true
+            remote_fields: status
+            show_enum_origins: status
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -977,7 +1006,8 @@ service:
     lineItemsRemoteFieldClassesList:
       path: /accounting/v1/purchase-orders/line-items/remote-field-classes
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `RemoteFieldClass` objects.
       source:
         openapi: openapi/openapi.yml
@@ -1025,6 +1055,12 @@ service:
       examples:
         - query-parameters:
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            is_common_model_field: true
+            is_custom: true
+            page_size: 1
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -1046,7 +1082,8 @@ service:
     metaPostRetrieve:
       path: /accounting/v1/purchase-orders/meta/post
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns metadata for `PurchaseOrder` POSTs.
       source:
         openapi: openapi/openapi.yml
@@ -1231,7 +1268,8 @@ service:
     remoteFieldClassesList:
       path: /accounting/v1/purchase-orders/remote-field-classes
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `RemoteFieldClass` objects.
       source:
         openapi: openapi/openapi.yml
@@ -1279,6 +1317,12 @@ service:
       examples:
         - query-parameters:
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            is_common_model_field: true
+            is_custom: true
+            page_size: 1
           headers:
             X-Account-Token: X-Account-Token
           response:

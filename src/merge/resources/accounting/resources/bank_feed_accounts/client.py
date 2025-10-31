@@ -78,6 +78,10 @@ class BankFeedAccountsClient:
         )
         client.accounting.bank_feed_accounts.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.list(
@@ -129,6 +133,8 @@ class BankFeedAccountsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.bank_feed_accounts.create(
+            is_debug_mode=True,
+            run_async=True,
             model=BankFeedAccountRequest(),
         )
         """
@@ -176,6 +182,8 @@ class BankFeedAccountsClient:
         )
         client.accounting.bank_feed_accounts.retrieve(
             id="id",
+            include_remote_data=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -282,6 +290,10 @@ class AsyncBankFeedAccountsClient:
         async def main() -> None:
             await client.accounting.bank_feed_accounts.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                page_size=1,
             )
 
 
@@ -341,6 +353,8 @@ class AsyncBankFeedAccountsClient:
 
         async def main() -> None:
             await client.accounting.bank_feed_accounts.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=BankFeedAccountRequest(),
             )
 
@@ -396,6 +410,8 @@ class AsyncBankFeedAccountsClient:
         async def main() -> None:
             await client.accounting.bank_feed_accounts.retrieve(
                 id="id",
+                include_remote_data=True,
+                include_shell_data=True,
             )
 
 

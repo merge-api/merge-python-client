@@ -24,7 +24,8 @@ service:
     create:
       path: /accounting/v1/link-token
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Creates a link token to be used when linking a new end user.
       source:
         openapi: openapi/openapi.yml

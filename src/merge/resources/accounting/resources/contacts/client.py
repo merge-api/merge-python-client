@@ -14,6 +14,7 @@ from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClass
 from ...types.patched_contact_request import PatchedContactRequest
 from .raw_client import AsyncRawContactsClient, RawContactsClient
 from .types.contacts_list_request_expand import ContactsListRequestExpand
+from .types.contacts_list_request_status import ContactsListRequestStatus
 from .types.contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
 
 # this is used as the default value for optional parameters
@@ -57,7 +58,7 @@ class ContactsClient:
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
-        status: typing.Optional[str] = None,
+        status: typing.Optional[ContactsListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedContactList:
         """
@@ -122,7 +123,7 @@ class ContactsClient:
         show_enum_origins : typing.Optional[typing.Literal["status"]]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[str]
+        status : typing.Optional[ContactsListRequestStatus]
             If provided, will only return Contacts that match this status.
 
         request_options : typing.Optional[RequestOptions]
@@ -135,14 +136,45 @@ class ContactsClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.accounting.resources.contacts import (
+            ContactsListRequestExpand,
+            ContactsListRequestStatus,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.accounting.contacts.list(
+            company_id="company_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            email_address="email_address",
+            expand=ContactsListRequestExpand.ADDRESSES,
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
+            is_customer="is_customer",
+            is_supplier="is_supplier",
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            name="name",
+            page_size=1,
+            remote_id="remote_id",
+            status=ContactsListRequestStatus.EMPTY,
         )
         """
         _response = self._raw_client.list(
@@ -209,6 +241,8 @@ class ContactsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.contacts.create(
+            is_debug_mode=True,
+            run_async=True,
             model=ContactRequest(),
         )
         """
@@ -265,6 +299,9 @@ class ContactsClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.accounting.resources.contacts import (
+            ContactsRetrieveRequestExpand,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -272,6 +309,10 @@ class ContactsClient:
         )
         client.accounting.contacts.retrieve(
             id="id",
+            expand=ContactsRetrieveRequestExpand.ADDRESSES,
+            include_remote_data=True,
+            include_remote_fields=True,
+            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -329,6 +370,8 @@ class ContactsClient:
         )
         client.accounting.contacts.partial_update(
             id="id",
+            is_debug_mode=True,
+            run_async=True,
             model=PatchedContactRequest(),
         )
         """
@@ -451,6 +494,12 @@ class ContactsClient:
         )
         client.accounting.contacts.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_shell_data=True,
+            is_common_model_field=True,
+            is_custom=True,
+            page_size=1,
         )
         """
         _response = self._raw_client.remote_field_classes_list(
@@ -503,7 +552,7 @@ class AsyncContactsClient:
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
-        status: typing.Optional[str] = None,
+        status: typing.Optional[ContactsListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedContactList:
         """
@@ -568,7 +617,7 @@ class AsyncContactsClient:
         show_enum_origins : typing.Optional[typing.Literal["status"]]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[str]
+        status : typing.Optional[ContactsListRequestStatus]
             If provided, will only return Contacts that match this status.
 
         request_options : typing.Optional[RequestOptions]
@@ -582,8 +631,13 @@ class AsyncContactsClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.contacts import (
+            ContactsListRequestExpand,
+            ContactsListRequestStatus,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -593,7 +647,32 @@ class AsyncContactsClient:
 
         async def main() -> None:
             await client.accounting.contacts.list(
+                company_id="company_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                email_address="email_address",
+                expand=ContactsListRequestExpand.ADDRESSES,
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
+                is_customer="is_customer",
+                is_supplier="is_supplier",
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                name="name",
+                page_size=1,
+                remote_id="remote_id",
+                status=ContactsListRequestStatus.EMPTY,
             )
 
 
@@ -668,6 +747,8 @@ class AsyncContactsClient:
 
         async def main() -> None:
             await client.accounting.contacts.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=ContactRequest(),
             )
 
@@ -729,6 +810,9 @@ class AsyncContactsClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.accounting.resources.contacts import (
+            ContactsRetrieveRequestExpand,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -739,6 +823,10 @@ class AsyncContactsClient:
         async def main() -> None:
             await client.accounting.contacts.retrieve(
                 id="id",
+                expand=ContactsRetrieveRequestExpand.ADDRESSES,
+                include_remote_data=True,
+                include_remote_fields=True,
+                include_shell_data=True,
             )
 
 
@@ -804,6 +892,8 @@ class AsyncContactsClient:
         async def main() -> None:
             await client.accounting.contacts.partial_update(
                 id="id",
+                is_debug_mode=True,
+                run_async=True,
                 model=PatchedContactRequest(),
             )
 
@@ -952,6 +1042,12 @@ class AsyncContactsClient:
         async def main() -> None:
             await client.accounting.contacts.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                is_common_model_field=True,
+                is_custom=True,
+                page_size=1,
             )
 
 

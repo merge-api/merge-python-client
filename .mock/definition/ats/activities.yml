@@ -40,7 +40,8 @@ service:
     list:
       path: /ats/v1/activities
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `Activity` objects.
       source:
         openapi: openapi/openapi.yml
@@ -116,7 +117,20 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            expand: user
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            page_size: 1
+            remote_fields: activity_type
+            remote_id: remote_id
+            show_enum_origins: activity_type
+            user_id: user_id
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -148,7 +162,8 @@ service:
     create:
       path: /ats/v1/activities
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Creates an `Activity` object with the given values.
       source:
         openapi: openapi/openapi.yml
@@ -173,7 +188,10 @@ service:
         type: root.ActivityResponse
         status-code: 201
       examples:
-        - headers:
+        - query-parameters:
+            is_debug_mode: true
+            run_async: true
+          headers:
             X-Account-Token: X-Account-Token
           request:
             model: {}
@@ -225,7 +243,8 @@ service:
     retrieve:
       path: /ats/v1/activities/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns an `Activity` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -266,6 +285,12 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: user
+            include_remote_data: true
+            include_shell_data: true
+            remote_fields: activity_type
+            show_enum_origins: activity_type
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -294,7 +319,8 @@ service:
     metaPostRetrieve:
       path: /ats/v1/activities/meta/post
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns metadata for `Activity` POSTs.
       source:
         openapi: openapi/openapi.yml

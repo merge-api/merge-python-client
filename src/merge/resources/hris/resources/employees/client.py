@@ -109,7 +109,7 @@ class EmployeesClient:
             * `INACTIVE` - INACTIVE
 
         employment_type : typing.Optional[str]
-            If provided, will only return employees that have an employment of the specified employment_type.
+            If provided, will only return employees that have an employment of the specified employment type.
 
         expand : typing.Optional[EmployeesListRequestExpand]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
@@ -136,7 +136,7 @@ class EmployeesClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         job_title : typing.Optional[str]
-            If provided, will only return employees that have an employment of the specified job_title.
+            If provided, will only return employees that have an employment of the specified job title.
 
         last_name : typing.Optional[str]
             If provided, will only return employees with this last name.
@@ -199,14 +199,71 @@ class EmployeesClient:
 
         Examples
         --------
+        import datetime
+
         from merge import Merge
+        from merge.resources.hris.resources.employees import (
+            EmployeesListRequestEmploymentStatus,
+            EmployeesListRequestExpand,
+            EmployeesListRequestRemoteFields,
+            EmployeesListRequestShowEnumOrigins,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
         client.hris.employees.list(
+            company_id="company_id",
+            created_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            created_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            display_full_name="display_full_name",
+            employee_number="employee_number",
+            employment_status=EmployeesListRequestEmploymentStatus.ACTIVE,
+            employment_type="employment_type",
+            expand=EmployeesListRequestExpand.COMPANY,
+            first_name="first_name",
+            groups="groups",
+            home_location_id="home_location_id",
+            include_deleted_data=True,
+            include_remote_data=True,
+            include_sensitive_fields=True,
+            include_shell_data=True,
+            job_title="job_title",
+            last_name="last_name",
+            manager_id="manager_id",
+            modified_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            modified_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            page_size=1,
+            pay_group_id="pay_group_id",
+            personal_email="personal_email",
+            remote_fields=EmployeesListRequestRemoteFields.EMPLOYMENT_STATUS,
+            remote_id="remote_id",
+            show_enum_origins=EmployeesListRequestShowEnumOrigins.EMPLOYMENT_STATUS,
+            started_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            started_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            team_id="team_id",
+            terminated_after=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            terminated_before=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            work_email="work_email",
+            work_location_id="work_location_id",
         )
         """
         _response = self._raw_client.list(
@@ -287,6 +344,8 @@ class EmployeesClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.employees.create(
+            is_debug_mode=True,
+            run_async=True,
             model=EmployeeRequest(),
         )
         """
@@ -343,6 +402,11 @@ class EmployeesClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.hris.resources.employees import (
+            EmployeesRetrieveRequestExpand,
+            EmployeesRetrieveRequestRemoteFields,
+            EmployeesRetrieveRequestShowEnumOrigins,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -350,6 +414,12 @@ class EmployeesClient:
         )
         client.hris.employees.retrieve(
             id="id",
+            expand=EmployeesRetrieveRequestExpand.COMPANY,
+            include_remote_data=True,
+            include_sensitive_fields=True,
+            include_shell_data=True,
+            remote_fields=EmployeesRetrieveRequestRemoteFields.EMPLOYMENT_STATUS,
+            show_enum_origins=EmployeesRetrieveRequestShowEnumOrigins.EMPLOYMENT_STATUS,
         )
         """
         _response = self._raw_client.retrieve(
@@ -522,7 +592,7 @@ class AsyncEmployeesClient:
             * `INACTIVE` - INACTIVE
 
         employment_type : typing.Optional[str]
-            If provided, will only return employees that have an employment of the specified employment_type.
+            If provided, will only return employees that have an employment of the specified employment type.
 
         expand : typing.Optional[EmployeesListRequestExpand]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
@@ -549,7 +619,7 @@ class AsyncEmployeesClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         job_title : typing.Optional[str]
-            If provided, will only return employees that have an employment of the specified job_title.
+            If provided, will only return employees that have an employment of the specified job title.
 
         last_name : typing.Optional[str]
             If provided, will only return employees with this last name.
@@ -613,8 +683,15 @@ class AsyncEmployeesClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from merge import AsyncMerge
+        from merge.resources.hris.resources.employees import (
+            EmployeesListRequestEmploymentStatus,
+            EmployeesListRequestExpand,
+            EmployeesListRequestRemoteFields,
+            EmployeesListRequestShowEnumOrigins,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -624,7 +701,56 @@ class AsyncEmployeesClient:
 
         async def main() -> None:
             await client.hris.employees.list(
+                company_id="company_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                display_full_name="display_full_name",
+                employee_number="employee_number",
+                employment_status=EmployeesListRequestEmploymentStatus.ACTIVE,
+                employment_type="employment_type",
+                expand=EmployeesListRequestExpand.COMPANY,
+                first_name="first_name",
+                groups="groups",
+                home_location_id="home_location_id",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_sensitive_fields=True,
+                include_shell_data=True,
+                job_title="job_title",
+                last_name="last_name",
+                manager_id="manager_id",
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                pay_group_id="pay_group_id",
+                personal_email="personal_email",
+                remote_fields=EmployeesListRequestRemoteFields.EMPLOYMENT_STATUS,
+                remote_id="remote_id",
+                show_enum_origins=EmployeesListRequestShowEnumOrigins.EMPLOYMENT_STATUS,
+                started_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                started_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                team_id="team_id",
+                terminated_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                terminated_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                work_email="work_email",
+                work_location_id="work_location_id",
             )
 
 
@@ -713,6 +839,8 @@ class AsyncEmployeesClient:
 
         async def main() -> None:
             await client.hris.employees.create(
+                is_debug_mode=True,
+                run_async=True,
                 model=EmployeeRequest(),
             )
 
@@ -774,6 +902,11 @@ class AsyncEmployeesClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.hris.resources.employees import (
+            EmployeesRetrieveRequestExpand,
+            EmployeesRetrieveRequestRemoteFields,
+            EmployeesRetrieveRequestShowEnumOrigins,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -784,6 +917,12 @@ class AsyncEmployeesClient:
         async def main() -> None:
             await client.hris.employees.retrieve(
                 id="id",
+                expand=EmployeesRetrieveRequestExpand.COMPANY,
+                include_remote_data=True,
+                include_sensitive_fields=True,
+                include_shell_data=True,
+                remote_fields=EmployeesRetrieveRequestRemoteFields.EMPLOYMENT_STATUS,
+                show_enum_origins=EmployeesRetrieveRequestShowEnumOrigins.EMPLOYMENT_STATUS,
             )
 
 

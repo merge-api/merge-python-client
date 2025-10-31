@@ -23,6 +23,7 @@ from .types.tickets_list_request_expand import TicketsListRequestExpand
 from .types.tickets_list_request_priority import TicketsListRequestPriority
 from .types.tickets_list_request_remote_fields import TicketsListRequestRemoteFields
 from .types.tickets_list_request_show_enum_origins import TicketsListRequestShowEnumOrigins
+from .types.tickets_list_request_status import TicketsListRequestStatus
 from .types.tickets_retrieve_request_expand import TicketsRetrieveRequestExpand
 from .types.tickets_retrieve_request_remote_fields import TicketsRetrieveRequestRemoteFields
 from .types.tickets_retrieve_request_show_enum_origins import TicketsRetrieveRequestShowEnumOrigins
@@ -48,6 +49,7 @@ class RawTicketsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         creator_id: typing.Optional[str] = None,
+        creator_ids: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
         due_after: typing.Optional[dt.datetime] = None,
         due_before: typing.Optional[dt.datetime] = None,
@@ -69,7 +71,7 @@ class RawTicketsClient:
         remote_updated_after: typing.Optional[dt.datetime] = None,
         remote_updated_before: typing.Optional[dt.datetime] = None,
         show_enum_origins: typing.Optional[TicketsListRequestShowEnumOrigins] = None,
-        status: typing.Optional[str] = None,
+        status: typing.Optional[TicketsListRequestStatus] = None,
         tags: typing.Optional[str] = None,
         ticket_type: typing.Optional[str] = None,
         ticket_url: typing.Optional[str] = None,
@@ -107,6 +109,9 @@ class RawTicketsClient:
         creator_id : typing.Optional[str]
             If provided, will only return tickets created by this creator_id.
 
+        creator_ids : typing.Optional[str]
+            If provided, will only return tickets created by the creator_ids; multiple creator_ids can be separated by commas.
+
         cursor : typing.Optional[str]
             The pagination cursor value.
 
@@ -141,7 +146,7 @@ class RawTicketsClient:
             If provided, will only return tickets with this name.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_ticket_id : typing.Optional[str]
             If provided, will only return sub tickets of the parent_ticket_id.
@@ -175,7 +180,7 @@ class RawTicketsClient:
         show_enum_origins : typing.Optional[TicketsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[str]
+        status : typing.Optional[TicketsListRequestStatus]
             If provided, will only return tickets of this status.
 
         tags : typing.Optional[str]
@@ -208,6 +213,7 @@ class RawTicketsClient:
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "creator_id": creator_id,
+                "creator_ids": creator_ids,
                 "cursor": cursor,
                 "due_after": serialize_datetime(due_after) if due_after is not None else None,
                 "due_before": serialize_datetime(due_before) if due_before is not None else None,
@@ -490,7 +496,7 @@ class RawTicketsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -656,7 +662,7 @@ class RawTicketsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -713,6 +719,7 @@ class AsyncRawTicketsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         creator_id: typing.Optional[str] = None,
+        creator_ids: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
         due_after: typing.Optional[dt.datetime] = None,
         due_before: typing.Optional[dt.datetime] = None,
@@ -734,7 +741,7 @@ class AsyncRawTicketsClient:
         remote_updated_after: typing.Optional[dt.datetime] = None,
         remote_updated_before: typing.Optional[dt.datetime] = None,
         show_enum_origins: typing.Optional[TicketsListRequestShowEnumOrigins] = None,
-        status: typing.Optional[str] = None,
+        status: typing.Optional[TicketsListRequestStatus] = None,
         tags: typing.Optional[str] = None,
         ticket_type: typing.Optional[str] = None,
         ticket_url: typing.Optional[str] = None,
@@ -772,6 +779,9 @@ class AsyncRawTicketsClient:
         creator_id : typing.Optional[str]
             If provided, will only return tickets created by this creator_id.
 
+        creator_ids : typing.Optional[str]
+            If provided, will only return tickets created by the creator_ids; multiple creator_ids can be separated by commas.
+
         cursor : typing.Optional[str]
             The pagination cursor value.
 
@@ -806,7 +816,7 @@ class AsyncRawTicketsClient:
             If provided, will only return tickets with this name.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_ticket_id : typing.Optional[str]
             If provided, will only return sub tickets of the parent_ticket_id.
@@ -840,7 +850,7 @@ class AsyncRawTicketsClient:
         show_enum_origins : typing.Optional[TicketsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[str]
+        status : typing.Optional[TicketsListRequestStatus]
             If provided, will only return tickets of this status.
 
         tags : typing.Optional[str]
@@ -873,6 +883,7 @@ class AsyncRawTicketsClient:
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "creator_id": creator_id,
+                "creator_ids": creator_ids,
                 "cursor": cursor,
                 "due_after": serialize_datetime(due_after) if due_after is not None else None,
                 "due_before": serialize_datetime(due_before) if due_before is not None else None,
@@ -1155,7 +1166,7 @@ class AsyncRawTicketsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1321,7 +1332,7 @@ class AsyncRawTicketsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

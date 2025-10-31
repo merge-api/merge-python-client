@@ -256,7 +256,8 @@ service:
     list:
       path: /accounting/v1/expenses
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `Expense` objects.
       source:
         openapi: openapi/openapi.yml
@@ -335,7 +336,21 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            company_id: company_id
+            created_after: '2024-01-15T09:30:00Z'
+            created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            expand: account
+            include_deleted_data: true
+            include_remote_data: true
+            include_remote_fields: true
+            include_shell_data: true
+            modified_after: '2024-01-15T09:30:00Z'
+            modified_before: '2024-01-15T09:30:00Z'
+            page_size: 1
+            remote_id: remote_id
+            transaction_date_after: '2024-01-15T09:30:00Z'
+            transaction_date_before: '2024-01-15T09:30:00Z'
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -412,7 +427,8 @@ service:
     create:
       path: /accounting/v1/expenses
       method: POST
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Creates an `Expense` object with the given values.
       source:
         openapi: openapi/openapi.yml
@@ -436,7 +452,10 @@ service:
         type: root.ExpenseResponse
         status-code: 201
       examples:
-        - headers:
+        - query-parameters:
+            is_debug_mode: true
+            run_async: true
+          headers:
             X-Account-Token: X-Account-Token
           request:
             model: {}
@@ -532,7 +551,8 @@ service:
     retrieve:
       path: /accounting/v1/expenses/{id}
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns an `Expense` object with the given `id`.
       source:
         openapi: openapi/openapi.yml
@@ -568,6 +588,11 @@ service:
       examples:
         - path-parameters:
             id: id
+          query-parameters:
+            expand: account
+            include_remote_data: true
+            include_remote_fields: true
+            include_shell_data: true
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -652,7 +677,8 @@ service:
     linesRemoteFieldClassesList:
       path: /accounting/v1/expenses/lines/remote-field-classes
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `RemoteFieldClass` objects.
       source:
         openapi: openapi/openapi.yml
@@ -700,6 +726,12 @@ service:
       examples:
         - query-parameters:
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            is_common_model_field: true
+            is_custom: true
+            page_size: 1
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -721,7 +753,8 @@ service:
     metaPostRetrieve:
       path: /accounting/v1/expenses/meta/post
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns metadata for `Expense` POSTs.
       source:
         openapi: openapi/openapi.yml
@@ -906,7 +939,8 @@ service:
     remoteFieldClassesList:
       path: /accounting/v1/expenses/remote-field-classes
       method: GET
-      auth: true
+      auth:
+        - tokenAuth: []
       docs: Returns a list of `RemoteFieldClass` objects.
       source:
         openapi: openapi/openapi.yml
@@ -954,6 +988,12 @@ service:
       examples:
         - query-parameters:
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            include_deleted_data: true
+            include_remote_data: true
+            include_shell_data: true
+            is_common_model_field: true
+            is_custom: true
+            page_size: 1
           headers:
             X-Account-Token: X-Account-Token
           response:
