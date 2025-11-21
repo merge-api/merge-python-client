@@ -6,10 +6,11 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .types import MessagesListRequestOrderBy, MessagesRepliesListRequestOrderBy
+    from .messages_list_request_order_by import MessagesListRequestOrderBy
+    from .messages_replies_list_request_order_by import MessagesRepliesListRequestOrderBy
 _dynamic_imports: typing.Dict[str, str] = {
-    "MessagesListRequestOrderBy": ".types",
-    "MessagesRepliesListRequestOrderBy": ".types",
+    "MessagesListRequestOrderBy": ".messages_list_request_order_by",
+    "MessagesRepliesListRequestOrderBy": ".messages_replies_list_request_order_by",
 }
 
 

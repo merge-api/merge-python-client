@@ -5,6 +5,25 @@
 
 The Merge Python library provides convenient access to the Merge APIs from Python.
 
+## Table of Contents
+
+- [Documentation](#documentation)
+- [Installation](#installation)
+- [Reference](#reference)
+- [Usage](#usage)
+- [Instantiation](#instantiation)
+- [Categories](#categories)
+- [Async Client](#async-client)
+- [Exception Handling](#exception-handling)
+- [Advanced](#advanced)
+  - [Access Raw Response Data](#access-raw-response-data)
+  - [Retries](#retries)
+  - [Timeouts](#timeouts)
+  - [Custom Client](#custom-client)
+- [Contributing](#contributing)
+- [File Download](#file-download)
+- [Pagination](#pagination)
+
 ## Documentation
 
 API reference documentation is available [here](https://docs.merge.dev/).
@@ -232,6 +251,7 @@ while response.next is not None:
         cursor=response.next, 
         created_after="2030-01-01")
 ```
+
 
 
 

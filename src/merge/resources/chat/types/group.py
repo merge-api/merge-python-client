@@ -39,6 +39,16 @@ class Group(UncheckedBaseModel):
     The name of the Group
     """
 
+    remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
+    """
+    When the third party's group was created.
+    """
+
+    remote_updated_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
+    """
+    When the third party's group was updated.
+    """
+
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).

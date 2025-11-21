@@ -1,3 +1,20 @@
+types:
+  MessagesListRequestOrderBy:
+    enum:
+      - value: '-remote_created_at'
+        name: RemoteCreatedAtDescending
+      - value: remote_created_at
+        name: RemoteCreatedAtAscending
+    source:
+      openapi: openapi/openapi.yml
+  MessagesRepliesListRequestOrderBy:
+    enum:
+      - value: '-remote_created_at'
+        name: RemoteCreatedAtDescending
+      - value: remote_created_at
+        name: RemoteCreatedAtAscending
+    source:
+      openapi: openapi/openapi.yml
 imports:
   root: __package__.yml
 service:
@@ -54,12 +71,22 @@ service:
             docs: >-
               If provided, only objects synced by Merge before this date time
               will be returned.
+          order_by:
+            type: optional<MessagesListRequestOrderBy>
+            docs: >-
+              Overrides the default ordering for this endpoint. Possible values
+              include: remote_created_at, -remote_created_at.
           page_size:
             type: optional<integer>
             docs: Number of results to return per page. The maximum limit is 100.
           remote_id:
             type: optional<string>
             docs: The API provider's ID for the given object.
+          root_message:
+            type: optional<string>
+            docs: >-
+              If provided as 'true', will only return root messages (messages
+              without a parent message).
       response:
         docs: ''
         type: root.PaginatedMessageList
@@ -74,8 +101,10 @@ service:
             include_shell_data: true
             modified_after: '2024-01-15T09:30:00Z'
             modified_before: '2024-01-15T09:30:00Z'
+            order_by: '-remote_created_at'
             page_size: 1
             remote_id: remote_id
+            root_message: root_message
           headers:
             X-Account-Token: X-Account-Token
           response:
@@ -93,6 +122,8 @@ service:
                   subject_line: Hello World
                   root_message_id: a1234567-89ab-cdef-0123-456789abcdef
                   url: https://example.com/messages/mem-001
+                  remote_created_at: '2021-09-15T00:00:00Z'
+                  remote_updated_at: '2021-09-16T00:00:00Z'
                   remote_was_deleted: true
     retrieve:
       path: /chat/v1/messages/{id}
@@ -141,6 +172,8 @@ service:
               subject_line: Hello World
               root_message_id: a1234567-89ab-cdef-0123-456789abcdef
               url: https://example.com/messages/mem-001
+              remote_created_at: '2021-09-15T00:00:00Z'
+              remote_updated_at: '2021-09-16T00:00:00Z'
               remote_was_deleted: true
     repliesList:
       path: /chat/v1/messages/{message_id}/replies
@@ -176,6 +209,11 @@ service:
             docs: >-
               Whether to include shell records. Shell records are empty records
               (they may contain some metadata but all other fields are null).
+          order_by:
+            type: optional<MessagesRepliesListRequestOrderBy>
+            docs: >-
+              Overrides the default ordering for this endpoint. Possible values
+              include: remote_created_at, -remote_created_at.
           page_size:
             type: optional<integer>
             docs: Number of results to return per page. The maximum limit is 100.
@@ -191,6 +229,7 @@ service:
             include_deleted_data: true
             include_remote_data: true
             include_shell_data: true
+            order_by: '-remote_created_at'
             page_size: 1
           headers:
             X-Account-Token: X-Account-Token
@@ -209,6 +248,8 @@ service:
                   subject_line: Hello World
                   root_message_id: a1234567-89ab-cdef-0123-456789abcdef
                   url: https://example.com/messages/mem-001
+                  remote_created_at: '2021-09-15T00:00:00Z'
+                  remote_updated_at: '2021-09-16T00:00:00Z'
                   remote_was_deleted: true
   source:
     openapi: openapi/openapi.yml
