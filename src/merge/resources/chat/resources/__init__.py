@@ -34,6 +34,7 @@ if typing.TYPE_CHECKING:
     from .issues import IssuesListRequestStatus
     from .link_token import EndUserDetailsRequestCompletedAccountInitialScreen, EndUserDetailsRequestLanguage
     from .linked_accounts import LinkedAccountsListRequestCategory
+    from .messages import MessagesListRequestOrderBy, MessagesRepliesListRequestOrderBy
 _dynamic_imports: typing.Dict[str, str] = {
     "AsyncPassthroughRetrieveResponse": ".async_passthrough",
     "ConversationsMembersListRequestExpand": ".conversations",
@@ -41,6 +42,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EndUserDetailsRequestLanguage": ".link_token",
     "IssuesListRequestStatus": ".issues",
     "LinkedAccountsListRequestCategory": ".linked_accounts",
+    "MessagesListRequestOrderBy": ".messages",
+    "MessagesRepliesListRequestOrderBy": ".messages",
     "account_details": ".",
     "account_token": ".",
     "async_passthrough": ".",
@@ -91,6 +94,8 @@ __all__ = [
     "EndUserDetailsRequestLanguage",
     "IssuesListRequestStatus",
     "LinkedAccountsListRequestCategory",
+    "MessagesListRequestOrderBy",
+    "MessagesRepliesListRequestOrderBy",
     "account_details",
     "account_token",
     "async_passthrough",

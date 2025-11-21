@@ -13,6 +13,8 @@ from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.message import Message
 from ...types.paginated_message_list import PaginatedMessageList
+from .types.messages_list_request_order_by import MessagesListRequestOrderBy
+from .types.messages_replies_list_request_order_by import MessagesRepliesListRequestOrderBy
 
 
 class RawMessagesClient:
@@ -30,8 +32,10 @@ class RawMessagesClient:
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        order_by: typing.Optional[MessagesListRequestOrderBy] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
+        root_message: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaginatedMessageList]:
         """
@@ -63,11 +67,17 @@ class RawMessagesClient:
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
 
+        order_by : typing.Optional[MessagesListRequestOrderBy]
+            Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
+
         page_size : typing.Optional[int]
             Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
+
+        root_message : typing.Optional[str]
+            If provided as 'true', will only return root messages (messages without a parent message).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -89,8 +99,10 @@ class RawMessagesClient:
                 "include_shell_data": include_shell_data,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "order_by": order_by,
                 "page_size": page_size,
                 "remote_id": remote_id,
+                "root_message": root_message,
             },
             request_options=request_options,
         )
@@ -170,6 +182,7 @@ class RawMessagesClient:
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
+        order_by: typing.Optional[MessagesRepliesListRequestOrderBy] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaginatedMessageList]:
@@ -192,6 +205,9 @@ class RawMessagesClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
+        order_by : typing.Optional[MessagesRepliesListRequestOrderBy]
+            Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
+
         page_size : typing.Optional[int]
             Number of results to return per page. The maximum limit is 100.
 
@@ -211,6 +227,7 @@ class RawMessagesClient:
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_shell_data": include_shell_data,
+                "order_by": order_by,
                 "page_size": page_size,
             },
             request_options=request_options,
@@ -246,8 +263,10 @@ class AsyncRawMessagesClient:
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        order_by: typing.Optional[MessagesListRequestOrderBy] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
+        root_message: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaginatedMessageList]:
         """
@@ -279,11 +298,17 @@ class AsyncRawMessagesClient:
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
 
+        order_by : typing.Optional[MessagesListRequestOrderBy]
+            Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
+
         page_size : typing.Optional[int]
             Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
+
+        root_message : typing.Optional[str]
+            If provided as 'true', will only return root messages (messages without a parent message).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -305,8 +330,10 @@ class AsyncRawMessagesClient:
                 "include_shell_data": include_shell_data,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "order_by": order_by,
                 "page_size": page_size,
                 "remote_id": remote_id,
+                "root_message": root_message,
             },
             request_options=request_options,
         )
@@ -386,6 +413,7 @@ class AsyncRawMessagesClient:
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
+        order_by: typing.Optional[MessagesRepliesListRequestOrderBy] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaginatedMessageList]:
@@ -408,6 +436,9 @@ class AsyncRawMessagesClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
+        order_by : typing.Optional[MessagesRepliesListRequestOrderBy]
+            Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
+
         page_size : typing.Optional[int]
             Number of results to return per page. The maximum limit is 100.
 
@@ -427,6 +458,7 @@ class AsyncRawMessagesClient:
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_shell_data": include_shell_data,
+                "order_by": order_by,
                 "page_size": page_size,
             },
             request_options=request_options,

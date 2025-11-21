@@ -660,6 +660,12 @@ types:
           * `PUBLIC_INTERNAL` - PUBLIC_INTERNAL
           * `PUBLIC_EXTERNAL` - PUBLIC_EXTERNAL
       members: optional<list<optional<string>>>
+      remote_created_at:
+        type: optional<datetime>
+        docs: When the third party's conversation was created.
+      remote_updated_at:
+        type: optional<datetime>
+        docs: When the third party's conversation was updated.
       remote_was_deleted:
         type: optional<boolean>
         docs: >-
@@ -1060,6 +1066,12 @@ types:
         docs: The name of the Group
         validation:
           maxLength: 254
+      remote_created_at:
+        type: optional<datetime>
+        docs: When the third party's group was created.
+      remote_updated_at:
+        type: optional<datetime>
+        docs: When the third party's group was updated.
       remote_was_deleted:
         type: optional<boolean>
         docs: >-
@@ -1216,6 +1228,12 @@ types:
           member is a group.
         validation:
           format: uuid
+      remote_created_at:
+        type: optional<datetime>
+        docs: When the third party's conversation was created.
+      remote_updated_at:
+        type: optional<datetime>
+        docs: When the third party's conversation was updated.
       remote_was_deleted:
         type: optional<boolean>
         docs: >-
@@ -1290,6 +1308,12 @@ types:
         validation:
           format: uri
           maxLength: 500
+      remote_created_at:
+        type: optional<datetime>
+        docs: When the third party's conversation was created.
+      remote_updated_at:
+        type: optional<datetime>
+        docs: When the third party's conversation was updated.
       remote_was_deleted:
         type: optional<boolean>
         docs: >-
@@ -1298,6 +1322,7 @@ types:
           Native deletion detection is offered for free with limited coverage.
           [Learn
           more](https://docs.merge.dev/integrations/hris/supported-features/).
+        access: read-only
     source:
       openapi: openapi/openapi.yml
   MethodEnum:
@@ -1757,6 +1782,12 @@ types:
         validation:
           format: uri
           maxLength: 2000
+      remote_created_at:
+        type: optional<datetime>
+        docs: When the third party's user was created.
+      remote_updated_at:
+        type: optional<datetime>
+        docs: When the third party's user was updated.
       remote_was_deleted:
         type: optional<boolean>
         docs: >-

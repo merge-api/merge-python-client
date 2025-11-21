@@ -8,6 +8,8 @@ from .....core.request_options import RequestOptions
 from ...types.message import Message
 from ...types.paginated_message_list import PaginatedMessageList
 from .raw_client import AsyncRawMessagesClient, RawMessagesClient
+from .types.messages_list_request_order_by import MessagesListRequestOrderBy
+from .types.messages_replies_list_request_order_by import MessagesRepliesListRequestOrderBy
 
 
 class MessagesClient:
@@ -36,8 +38,10 @@ class MessagesClient:
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        order_by: typing.Optional[MessagesListRequestOrderBy] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
+        root_message: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedMessageList:
         """
@@ -69,11 +73,17 @@ class MessagesClient:
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
 
+        order_by : typing.Optional[MessagesListRequestOrderBy]
+            Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
+
         page_size : typing.Optional[int]
             Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
+
+        root_message : typing.Optional[str]
+            If provided as 'true', will only return root messages (messages without a parent message).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -88,6 +98,7 @@ class MessagesClient:
         import datetime
 
         from merge import Merge
+        from merge.resources.chat.resources.messages import MessagesListRequestOrderBy
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -110,8 +121,10 @@ class MessagesClient:
             modified_before=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
+            order_by=MessagesListRequestOrderBy.REMOTE_CREATED_AT_DESCENDING,
             page_size=1,
             remote_id="remote_id",
+            root_message="root_message",
         )
         """
         _response = self._raw_client.list(
@@ -123,8 +136,10 @@ class MessagesClient:
             include_shell_data=include_shell_data,
             modified_after=modified_after,
             modified_before=modified_before,
+            order_by=order_by,
             page_size=page_size,
             remote_id=remote_id,
+            root_message=root_message,
             request_options=request_options,
         )
         return _response.data
@@ -188,6 +203,7 @@ class MessagesClient:
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
+        order_by: typing.Optional[MessagesRepliesListRequestOrderBy] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedMessageList:
@@ -210,6 +226,9 @@ class MessagesClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
+        order_by : typing.Optional[MessagesRepliesListRequestOrderBy]
+            Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
+
         page_size : typing.Optional[int]
             Number of results to return per page. The maximum limit is 100.
 
@@ -224,6 +243,9 @@ class MessagesClient:
         Examples
         --------
         from merge import Merge
+        from merge.resources.chat.resources.messages import (
+            MessagesRepliesListRequestOrderBy,
+        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -235,6 +257,7 @@ class MessagesClient:
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
+            order_by=MessagesRepliesListRequestOrderBy.REMOTE_CREATED_AT_DESCENDING,
             page_size=1,
         )
         """
@@ -244,6 +267,7 @@ class MessagesClient:
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
             include_shell_data=include_shell_data,
+            order_by=order_by,
             page_size=page_size,
             request_options=request_options,
         )
@@ -276,8 +300,10 @@ class AsyncMessagesClient:
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        order_by: typing.Optional[MessagesListRequestOrderBy] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
+        root_message: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedMessageList:
         """
@@ -309,11 +335,17 @@ class AsyncMessagesClient:
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
 
+        order_by : typing.Optional[MessagesListRequestOrderBy]
+            Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
+
         page_size : typing.Optional[int]
             Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
+
+        root_message : typing.Optional[str]
+            If provided as 'true', will only return root messages (messages without a parent message).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -329,6 +361,7 @@ class AsyncMessagesClient:
         import datetime
 
         from merge import AsyncMerge
+        from merge.resources.chat.resources.messages import MessagesListRequestOrderBy
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -354,8 +387,10 @@ class AsyncMessagesClient:
                 modified_before=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
+                order_by=MessagesListRequestOrderBy.REMOTE_CREATED_AT_DESCENDING,
                 page_size=1,
                 remote_id="remote_id",
+                root_message="root_message",
             )
 
 
@@ -370,8 +405,10 @@ class AsyncMessagesClient:
             include_shell_data=include_shell_data,
             modified_after=modified_after,
             modified_before=modified_before,
+            order_by=order_by,
             page_size=page_size,
             remote_id=remote_id,
+            root_message=root_message,
             request_options=request_options,
         )
         return _response.data
@@ -443,6 +480,7 @@ class AsyncMessagesClient:
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
+        order_by: typing.Optional[MessagesRepliesListRequestOrderBy] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedMessageList:
@@ -465,6 +503,9 @@ class AsyncMessagesClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
+        order_by : typing.Optional[MessagesRepliesListRequestOrderBy]
+            Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
+
         page_size : typing.Optional[int]
             Number of results to return per page. The maximum limit is 100.
 
@@ -481,6 +522,9 @@ class AsyncMessagesClient:
         import asyncio
 
         from merge import AsyncMerge
+        from merge.resources.chat.resources.messages import (
+            MessagesRepliesListRequestOrderBy,
+        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -495,6 +539,7 @@ class AsyncMessagesClient:
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
+                order_by=MessagesRepliesListRequestOrderBy.REMOTE_CREATED_AT_DESCENDING,
                 page_size=1,
             )
 
@@ -507,6 +552,7 @@ class AsyncMessagesClient:
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
             include_shell_data=include_shell_data,
+            order_by=order_by,
             page_size=page_size,
             request_options=request_options,
         )
