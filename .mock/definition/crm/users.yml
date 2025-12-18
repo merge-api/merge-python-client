@@ -112,6 +112,7 @@ service:
                         - Varies by platform
                   remote_fields:
                     - remote_field_class: remote_field_class
+                      value: string
     retrieve:
       path: /crm/v1/users/{id}
       method: GET
@@ -174,8 +175,7 @@ service:
                     - Varies by platform
               remote_fields:
                 - remote_field_class: remote_field_class
-                  value:
-                    key: value
+                  value: string
     ignoreCreate:
       path: /crm/v1/users/ignore/{model_id}
       method: POST

@@ -97,6 +97,7 @@ service:
                   name: First Call
                   remote_fields:
                     - remote_field_class: remote_field_class
+                      value: string
     retrieve:
       path: /crm/v1/engagement-types/{id}
       method: GET
@@ -148,8 +149,7 @@ service:
               name: First Call
               remote_fields:
                 - remote_field_class: remote_field_class
-                  value:
-                    key: value
+                  value: string
     remoteFieldClassesList:
       path: /crm/v1/engagement-types/remote-field-classes
       method: GET

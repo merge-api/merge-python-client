@@ -24,6 +24,7 @@ class RawMessagesClient:
     def list(
         self,
         *,
+        conversation_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
@@ -43,6 +44,9 @@ class RawMessagesClient:
 
         Parameters
         ----------
+        conversation_id : typing.Optional[str]
+            Filter messages by conversation ID.
+
         created_after : typing.Optional[dt.datetime]
             If provided, will only return objects created after this datetime.
 
@@ -91,6 +95,7 @@ class RawMessagesClient:
             "chat/v1/messages",
             method="GET",
             params={
+                "conversation_id": conversation_id,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
@@ -255,6 +260,7 @@ class AsyncRawMessagesClient:
     async def list(
         self,
         *,
+        conversation_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
@@ -274,6 +280,9 @@ class AsyncRawMessagesClient:
 
         Parameters
         ----------
+        conversation_id : typing.Optional[str]
+            Filter messages by conversation ID.
+
         created_after : typing.Optional[dt.datetime]
             If provided, will only return objects created after this datetime.
 
@@ -322,6 +331,7 @@ class AsyncRawMessagesClient:
             "chat/v1/messages",
             method="GET",
             params={
+                "conversation_id": conversation_id,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,

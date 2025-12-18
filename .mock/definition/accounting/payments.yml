@@ -698,6 +698,7 @@ service:
                         - Varies by platform
                   remote_fields:
                     - remote_field_class: remote_field_class
+                      value: string
     create:
       path: /accounting/v1/payments
       method: POST
@@ -784,6 +785,7 @@ service:
                       - Varies by platform
                 remote_fields:
                   - remote_field_class: remote_field_class
+                    value: string
               warnings:
                 - source:
                     pointer: pointer
@@ -901,8 +903,7 @@ service:
                     - Varies by platform
               remote_fields:
                 - remote_field_class: remote_field_class
-                  value:
-                    key: value
+                  value: string
     partialUpdate:
       path: /accounting/v1/payments/{id}
       method: PATCH
@@ -993,6 +994,7 @@ service:
                       - Varies by platform
                 remote_fields:
                   - remote_field_class: remote_field_class
+                    value: string
               warnings:
                 - source:
                     pointer: pointer

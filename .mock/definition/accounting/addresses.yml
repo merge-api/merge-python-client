@@ -59,8 +59,7 @@ service:
               street_1: 2920 Broadway
               street_2: 2nd Floor
               city: New York
-              state:
-                key: value
+              state: NY
               country_subdivision: NY
               country: AF
               zip_code: '10027'

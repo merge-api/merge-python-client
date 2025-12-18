@@ -31,7 +31,11 @@ service:
               path: /scooters
               status: 200
               response:
-                key: value
+                scooters:
+                  - company: Lime
+                    model: Gen 2.5
+                  - company: Bird
+                    model: Bird Zero
               response_headers:
                 X-Page-Token: value
               response_type: JSON

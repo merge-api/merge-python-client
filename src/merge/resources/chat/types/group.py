@@ -39,6 +39,7 @@ class Group(UncheckedBaseModel):
     The name of the Group
     """
 
+    users: typing.Optional[typing.List[typing.Optional[str]]] = None
     remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the third party's group was created.

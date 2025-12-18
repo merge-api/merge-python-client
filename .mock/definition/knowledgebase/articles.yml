@@ -689,6 +689,11 @@ service:
                       type: USER
                       roles:
                         - OWNER
+                      field_mappings:
+                        organization_defined_targets:
+                          custom_key: custom_value
+                        linked_account_defined_targets:
+                          custom_key: custom_value
                   attachments:
                     - 640b80b-fac9-409f-aa19-1f9221aec445
                   remote_was_deleted: true
@@ -772,6 +777,7 @@ service:
                   created_at: '2020-03-31T00:00:00Z'
                   modified_at: '2020-06-20T00:00:00Z'
                   user: 21ce474c-asdf-34a2-754r-629f799f7d12
+                  group: group
                   type: USER
                   roles:
                     - OWNER

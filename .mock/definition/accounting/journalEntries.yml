@@ -401,6 +401,16 @@ service:
                       modified_at: '2021-10-16T00:00:00Z'
                       account: f963f34d-3d2f-4f77-b557-cf36bc7e6498
                       net_amount: 10
+                      tracking_categories:
+                        - d25d609b-945f-4762-b55a-1c8fb220c43c
+                        - 9b840d2-686a-465a-8a8e-7b028498f8e4
+                        - a47e11b6-c73b-4a0c-be31-130fc48177fa
+                      company: 595c8f97-2ac4-45b7-b000-41bdf43240b5
+                      employee: 123c8r35-5kf5-12x5-r833-99bwf35210b5
+                      contact: d2d5ea3c-b032-11ec-b909-0242ac120002
+                      tax_rate: a12e7c20-1922-9df7-s75n-edfeewnn7384
+                      description: Cash payment for lunch
+                      exchange_rate: '2.9'
                   journal_number: '42'
                   tracking_categories:
                     - b38c59b0-a9d7-4740-b1ee-5436c6751e3d
@@ -422,6 +432,7 @@ service:
                         - Varies by platform
                   remote_fields:
                     - remote_field_class: remote_field_class
+                      value: string
     create:
       path: /accounting/v1/journal-entries
       method: POST
@@ -499,6 +510,16 @@ service:
                     modified_at: '2021-10-16T00:00:00Z'
                     account: f963f34d-3d2f-4f77-b557-cf36bc7e6498
                     net_amount: 10
+                    tracking_categories:
+                      - d25d609b-945f-4762-b55a-1c8fb220c43c
+                      - 9b840d2-686a-465a-8a8e-7b028498f8e4
+                      - a47e11b6-c73b-4a0c-be31-130fc48177fa
+                    company: 595c8f97-2ac4-45b7-b000-41bdf43240b5
+                    employee: 123c8r35-5kf5-12x5-r833-99bwf35210b5
+                    contact: d2d5ea3c-b032-11ec-b909-0242ac120002
+                    tax_rate: a12e7c20-1922-9df7-s75n-edfeewnn7384
+                    description: Cash payment for lunch
+                    exchange_rate: '2.9'
                 journal_number: '42'
                 tracking_categories:
                   - b38c59b0-a9d7-4740-b1ee-5436c6751e3d
@@ -520,6 +541,7 @@ service:
                       - Varies by platform
                 remote_fields:
                   - remote_field_class: remote_field_class
+                    value: string
               warnings:
                 - source:
                     pointer: pointer
@@ -625,6 +647,7 @@ service:
                   remote_was_deleted: false
                   remote_fields:
                     - remote_field_class: remote_field_class
+                      value: string
                 - id: ecbe05ac-62a3-46c5-ab31-4b478b37d1b4
                   remote_id: '121223'
                   created_at: '2021-09-15T00:00:00Z'
@@ -646,6 +669,7 @@ service:
                   remote_was_deleted: true
                   remote_fields:
                     - remote_field_class: remote_field_class
+                      value: string
               journal_number: '42'
               tracking_categories:
                 - b38c59b0-a9d7-4740-b1ee-5436c6751e3d
@@ -667,8 +691,7 @@ service:
                     - Varies by platform
               remote_fields:
                 - remote_field_class: remote_field_class
-                  value:
-                    key: value
+                  value: string
     linesRemoteFieldClassesList:
       path: /accounting/v1/journal-entries/lines/remote-field-classes
       method: GET

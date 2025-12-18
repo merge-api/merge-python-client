@@ -155,33 +155,61 @@ service:
                   check_date: '2020-11-10T00:00:00Z'
                   earnings:
                     - id: babbced6-3a81-4775-8da2-490dc6385259
+                      remote_id: '52802'
                       created_at: '2021-09-15T00:00:00Z'
                       modified_at: '2021-10-16T00:00:00Z'
                       employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
                       amount: 1002.34
                       type: SALARY
+                      field_mappings:
+                        organization_defined_targets:
+                          custom_key: custom_value
+                        linked_account_defined_targets:
+                          custom_key: custom_value
                     - id: babbced6-3a81-4775-8da2-490dc6385259
+                      remote_id: '52802'
                       created_at: '2021-09-15T00:00:00Z'
                       modified_at: '2021-10-16T00:00:00Z'
                       employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
                       amount: 8342.34
                       type: OVERTIME
+                      field_mappings:
+                        organization_defined_targets:
+                          custom_key: custom_value
+                        linked_account_defined_targets:
+                          custom_key: custom_value
                   deductions:
                     - id: 5fd439fc-1b64-4755-b275-64918936c365
+                      remote_id: '93478612'
                       created_at: '2021-09-15T00:00:00Z'
                       modified_at: '2021-10-16T00:00:00Z'
                       employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
                       name: Social Security
                       employee_deduction: 34.54
                       company_deduction: 78.78
+                      field_mappings:
+                        organization_defined_targets:
+                          custom_key: custom_value
+                        linked_account_defined_targets:
+                          custom_key: custom_value
+                      remote_data:
+                        - path: /payroll-deduction
+                          data:
+                            - Varies by platform
                   taxes:
                     - id: e3a825fd-c38d-4095-a717-df98c4cb9ebc
+                      remote_id: '26806834'
                       created_at: '2021-09-15T00:00:00Z'
                       modified_at: '2021-10-16T00:00:00Z'
                       employee_payroll_run: 35347df1-95e7-46e2-93cc-66f1191edca5
                       name: California State Income Tax
                       amount: 100.25
                       employer_tax: true
+                      field_mappings:
+                        organization_defined_targets:
+                          custom_key: custom_value
+                        linked_account_defined_targets:
+                          custom_key: custom_value
                   remote_was_deleted: true
                   field_mappings:
                     organization_defined_targets:
@@ -262,6 +290,8 @@ service:
                       custom_key: custom_value
                   remote_data:
                     - path: /platform-endpoint
+                      data:
+                        - Varies by platform
                 - id: babbced6-3a81-4775-8da2-490dc6385259
                   remote_id: '52802'
                   created_at: '2021-09-15T00:00:00Z'
@@ -277,6 +307,8 @@ service:
                       custom_key: custom_value
                   remote_data:
                     - path: /platform-endpoint
+                      data:
+                        - Varies by platform
               deductions:
                 - id: 5fd439fc-1b64-4755-b275-64918936c365
                   remote_id: '93478612'
@@ -313,6 +345,8 @@ service:
                       custom_key: custom_value
                   remote_data:
                     - path: /platform-endpoint
+                      data:
+                        - Varies by platform
               remote_was_deleted: true
               field_mappings:
                 organization_defined_targets:

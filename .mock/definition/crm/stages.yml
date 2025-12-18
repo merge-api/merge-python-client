@@ -106,6 +106,7 @@ service:
                         - Varies by platform
                   remote_fields:
                     - remote_field_class: remote_field_class
+                      value: string
     retrieve:
       path: /crm/v1/stages/{id}
       method: GET
@@ -166,8 +167,7 @@ service:
                     - Varies by platform
               remote_fields:
                 - remote_field_class: remote_field_class
-                  value:
-                    key: value
+                  value: string
     remoteFieldClassesList:
       path: /crm/v1/stages/remote-field-classes
       method: GET

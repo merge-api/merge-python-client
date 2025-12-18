@@ -153,6 +153,8 @@ service:
                       custom_key: custom_value
                   remote_data:
                     - path: /platform-endpoint
+                      data:
+                        - Varies by platform
     create:
       path: /ticketing/v1/comments
       method: POST
@@ -214,6 +216,8 @@ service:
                     custom_key: custom_value
                 remote_data:
                   - path: /platform-endpoint
+                    data:
+                      - Varies by platform
               warnings:
                 - source:
                     pointer: pointer
@@ -299,7 +303,7 @@ service:
               remote_data:
                 - path: /platform-endpoint
                   data:
-                    key: value
+                    - Varies by platform
     metaPostRetrieve:
       path: /ticketing/v1/comments/meta/post
       method: GET

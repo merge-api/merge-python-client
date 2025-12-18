@@ -338,6 +338,7 @@ service:
                         - Varies by platform
                   remote_fields:
                     - remote_field_class: remote_field_class
+                      value: string
     create:
       path: /accounting/v1/expense-reports
       method: POST
@@ -433,6 +434,7 @@ service:
                       - Varies by platform
                 remote_fields:
                   - remote_field_class: remote_field_class
+                    value: string
               warnings:
                 - source:
                     pointer: pointer
@@ -551,6 +553,7 @@ service:
                   remote_was_deleted: true
                   remote_fields:
                     - remote_field_class: remote_field_class
+                      value: string
     retrieve:
       path: /accounting/v1/expense-reports/{id}
       method: GET
@@ -637,6 +640,7 @@ service:
                   remote_was_deleted: false
                   remote_fields:
                     - remote_field_class: remote_field_class
+                      value: string
               currency: XUA
               description: January 2024 Travel Expenses
               accounting_period: 7d793c67-9f72-4a6b-9256-3936f237b0d9
@@ -656,8 +660,7 @@ service:
                     - Varies by platform
               remote_fields:
                 - remote_field_class: remote_field_class
-                  value:
-                    key: value
+                  value: string
     linesRemoteFieldClassesList:
       path: /accounting/v1/expense-reports/lines/remote-field-classes
       method: GET

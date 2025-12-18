@@ -203,6 +203,11 @@ service:
                       foreign_debit_amount: foreign_debit_amount
                       foreign_credit_amount: foreign_credit_amount
                       remote_was_deleted: false
+                      field_mappings:
+                        organization_defined_targets:
+                          custom_key: custom_value
+                        linked_account_defined_targets:
+                          custom_key: custom_value
                   remote_was_deleted: true
                   field_mappings:
                     organization_defined_targets:
@@ -211,6 +216,8 @@ service:
                       custom_key: custom_value
                   remote_data:
                     - path: /platform-endpoint
+                      data:
+                        - Varies by platform
     retrieve:
       path: /accounting/v1/general-ledger-transactions/{id}
       method: GET
@@ -307,6 +314,6 @@ service:
               remote_data:
                 - path: /platform-endpoint
                   data:
-                    key: value
+                    - Varies by platform
   source:
     openapi: openapi/openapi.yml

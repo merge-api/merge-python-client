@@ -104,6 +104,7 @@ service:
                     customer_type: Returning
                   remote_fields:
                     - remote_field_class: remote_field_class
+                      value: string
     custom_object_classes_custom_objects_create:
       path: /crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects
       method: POST
@@ -159,6 +160,7 @@ service:
                   customer_type: Returning
                 remote_fields:
                   - remote_field_class: remote_field_class
+                    value: string
               warnings:
                 - source:
                     pointer: pointer
@@ -236,8 +238,7 @@ service:
                 customer_type: Returning
               remote_fields:
                 - remote_field_class: remote_field_class
-                  value:
-                    key: value
+                  value: string
     custom_object_classes_custom_objects_meta_post_retrieve:
       path: >-
         /crm/v1/custom-object-classes/{custom_object_class_id}/custom-objects/meta/post
