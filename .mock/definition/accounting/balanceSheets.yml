@@ -115,6 +115,7 @@ service:
                         - remote_id: '10301'
                           name: Revenue - New York
                           value: 500
+                      company: 595c8f97-2ac4-45b7-b000-41bdf43240b5
                   liabilities:
                     - remote_id: '10011'
                       created_at: '2021-09-15T00:00:00Z'
@@ -128,6 +129,7 @@ service:
                         - remote_id: '10301'
                           name: Revenue - New York
                           value: 500
+                      company: 595c8f97-2ac4-45b7-b000-41bdf43240b5
                   equity:
                     - remote_id: '10012'
                       created_at: '2021-09-15T00:00:00Z'
@@ -141,6 +143,7 @@ service:
                         - remote_id: '10301'
                           name: Revenue - New York
                           value: 500
+                      company: 595c8f97-2ac4-45b7-b000-41bdf43240b5
                   remote_generated_at: '2021-10-01T00:00:00Z'
                   remote_was_deleted: true
                   field_mappings:
@@ -150,6 +153,8 @@ service:
                       custom_key: custom_value
                   remote_data:
                     - path: /platform-endpoint
+                      data:
+                        - Varies by platform
     retrieve:
       path: /accounting/v1/balance-sheets/{id}
       method: GET
@@ -257,6 +262,6 @@ service:
               remote_data:
                 - path: /platform-endpoint
                   data:
-                    key: value
+                    - Varies by platform
   source:
     openapi: openapi/openapi.yml

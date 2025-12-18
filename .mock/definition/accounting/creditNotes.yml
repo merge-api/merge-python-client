@@ -732,7 +732,8 @@ service:
                     - a9a94a75-19c1-41fe-90d8-d9ba959c38e5
                   accounting_period: accounting_period
                   applied_to_lines:
-                    - created_at: '2021-09-15T00:00:00Z'
+                    - remote_id: '088899'
+                      created_at: '2021-09-15T00:00:00Z'
                       modified_at: '2021-10-16T00:00:00Z'
                       invoice: 5b3c1341-a20f-4e51-b72c-f3830a16c97b
                       applied_date: '2020-03-31T00:00:00Z'
@@ -833,7 +834,8 @@ service:
                   - a9a94a75-19c1-41fe-90d8-d9ba959c38e5
                 accounting_period: accounting_period
                 applied_to_lines:
-                  - created_at: '2021-09-15T00:00:00Z'
+                  - remote_id: '088899'
+                    created_at: '2021-09-15T00:00:00Z'
                     modified_at: '2021-10-16T00:00:00Z'
                     invoice: 5b3c1341-a20f-4e51-b72c-f3830a16c97b
                     applied_date: '2020-03-31T00:00:00Z'

@@ -26,6 +26,11 @@ service:
           cursor:
             type: optional<string>
             docs: The pagination cursor value.
+          expand:
+            type: optional<literal<"users">>
+            docs: >-
+              Which relations should be returned in expanded form. Multiple
+              relation names should be comma separated without spaces.
           include_deleted_data:
             type: optional<boolean>
             docs: >-
@@ -69,6 +74,7 @@ service:
             created_after: '2024-01-15T09:30:00Z'
             created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+            expand: users
             include_deleted_data: true
             include_remote_data: true
             include_shell_data: true
@@ -88,6 +94,8 @@ service:
                   created_at: '2021-09-15T00:00:00Z'
                   modified_at: '2021-10-16T00:00:00Z'
                   name: Engineering
+                  users:
+                    - users
                   remote_created_at: '2021-09-15T00:00:00Z'
                   remote_updated_at: '2021-09-16T00:00:00Z'
                   remote_was_deleted: true
@@ -113,6 +121,11 @@ service:
       request:
         name: GroupsRetrieveRequest
         query-parameters:
+          expand:
+            type: optional<literal<"users">>
+            docs: >-
+              Which relations should be returned in expanded form. Multiple
+              relation names should be comma separated without spaces.
           include_remote_data:
             type: optional<boolean>
             docs: >-
@@ -131,6 +144,7 @@ service:
         - path-parameters:
             id: id
           query-parameters:
+            expand: users
             include_remote_data: true
             include_shell_data: true
           headers:
@@ -142,6 +156,8 @@ service:
               created_at: '2021-09-15T00:00:00Z'
               modified_at: '2021-10-16T00:00:00Z'
               name: Engineering
+              users:
+                - users
               remote_created_at: '2021-09-15T00:00:00Z'
               remote_updated_at: '2021-09-16T00:00:00Z'
               remote_was_deleted: true

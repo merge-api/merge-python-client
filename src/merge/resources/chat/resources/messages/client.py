@@ -30,6 +30,7 @@ class MessagesClient:
     def list(
         self,
         *,
+        conversation_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
@@ -49,6 +50,9 @@ class MessagesClient:
 
         Parameters
         ----------
+        conversation_id : typing.Optional[str]
+            Filter messages by conversation ID.
+
         created_after : typing.Optional[dt.datetime]
             If provided, will only return objects created after this datetime.
 
@@ -105,6 +109,7 @@ class MessagesClient:
             api_key="YOUR_API_KEY",
         )
         client.chat.messages.list(
+            conversation_id="conversation_id",
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
@@ -128,6 +133,7 @@ class MessagesClient:
         )
         """
         _response = self._raw_client.list(
+            conversation_id=conversation_id,
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -292,6 +298,7 @@ class AsyncMessagesClient:
     async def list(
         self,
         *,
+        conversation_id: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
@@ -311,6 +318,9 @@ class AsyncMessagesClient:
 
         Parameters
         ----------
+        conversation_id : typing.Optional[str]
+            Filter messages by conversation ID.
+
         created_after : typing.Optional[dt.datetime]
             If provided, will only return objects created after this datetime.
 
@@ -371,6 +381,7 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             await client.chat.messages.list(
+                conversation_id="conversation_id",
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
@@ -397,6 +408,7 @@ class AsyncMessagesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.list(
+            conversation_id=conversation_id,
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,

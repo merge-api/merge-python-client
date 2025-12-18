@@ -405,8 +405,11 @@ service:
                         - b38c59b0-a9d7-4740-b1ee-5436c6751e3d
                         - 9b840d2-686a-465a-8a8e-7b028498f8e4
                         - a47e11b6-c73b-4a0c-be31-130fc48177fa
+                      company: 595c8f97-2ac4-45b7-b000-41bdf43240b5
                       account: 2a56344a-a491-11ec-b909-0242ac120002
                       description: Desk Lamp
+                      exchange_rate: '2.9'
+                      tax_rate: a12e7c20-1922-9df7-s75n-edfeewnn7384
                   tracking_categories:
                     - b38c59b0-a9d7-4740-b1ee-5436c6751e3d
                     - 9b840d2-686a-465a-8a8e-7b028498f8e4
@@ -424,6 +427,7 @@ service:
                         - Varies by platform
                   remote_fields:
                     - remote_field_class: remote_field_class
+                      value: string
     create:
       path: /accounting/v1/expenses
       method: POST
@@ -509,8 +513,11 @@ service:
                       - b38c59b0-a9d7-4740-b1ee-5436c6751e3d
                       - 9b840d2-686a-465a-8a8e-7b028498f8e4
                       - a47e11b6-c73b-4a0c-be31-130fc48177fa
+                    company: 595c8f97-2ac4-45b7-b000-41bdf43240b5
                     account: 2a56344a-a491-11ec-b909-0242ac120002
                     description: Desk Lamp
+                    exchange_rate: '2.9'
+                    tax_rate: a12e7c20-1922-9df7-s75n-edfeewnn7384
                 tracking_categories:
                   - b38c59b0-a9d7-4740-b1ee-5436c6751e3d
                   - 9b840d2-686a-465a-8a8e-7b028498f8e4
@@ -528,6 +535,7 @@ service:
                       - Varies by platform
                 remote_fields:
                   - remote_field_class: remote_field_class
+                    value: string
               warnings:
                 - source:
                     pointer: pointer
@@ -672,8 +680,7 @@ service:
                     - Varies by platform
               remote_fields:
                 - remote_field_class: remote_field_class
-                  value:
-                    key: value
+                  value: string
     linesRemoteFieldClassesList:
       path: /accounting/v1/expenses/lines/remote-field-classes
       method: GET

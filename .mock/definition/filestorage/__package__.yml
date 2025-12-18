@@ -2081,6 +2081,9 @@ types:
         docs: The third-party API path that is being called.
       data:
         type: optional<unknown>
+        docs: >-
+          The data returned from the third-party for this object in its
+          original, unnormalized format.
         access: read-only
     source:
       openapi: openapi/openapi.yml

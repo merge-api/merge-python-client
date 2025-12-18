@@ -698,6 +698,7 @@ service:
                       company: 595c8f97-2ac4-45b7-b000-41bdf43240b5
                       remote_was_deleted: false
                     - id: ecbe05ac-62a3-46c5-ab31-4b478b37d1b4
+                      remote_id: '121222'
                       created_at: '2021-09-15T00:00:00Z'
                       modified_at: '2021-10-16T00:00:00Z'
                       description: Pickleball Balls
@@ -710,6 +711,9 @@ service:
                         - a47e11b6-c73b-4a0c-be31-130fc48177fa
                       tax_amount: tax_amount
                       total_line_amount: total_line_amount
+                      tax_rate: a12e7c20-1922-9df7-s75n-edfeewnn7384
+                      exchange_rate: '2.9'
+                      company: 595c8f97-2ac4-45b7-b000-41bdf43240b5
                   inclusive_of_tax: true
                   tracking_categories:
                     - b38c59b0-a9d7-4740-b1ee-5436c6751e3d
@@ -730,6 +734,7 @@ service:
                         - Varies by platform
                   remote_fields:
                     - remote_field_class: remote_field_class
+                      value: string
     create:
       path: /accounting/v1/purchase-orders
       method: POST
@@ -806,6 +811,7 @@ service:
                     company: 595c8f97-2ac4-45b7-b000-41bdf43240b5
                     remote_was_deleted: false
                   - id: ecbe05ac-62a3-46c5-ab31-4b478b37d1b4
+                    remote_id: '121222'
                     created_at: '2021-09-15T00:00:00Z'
                     modified_at: '2021-10-16T00:00:00Z'
                     description: Pickleball Balls
@@ -818,6 +824,9 @@ service:
                       - a47e11b6-c73b-4a0c-be31-130fc48177fa
                     tax_amount: tax_amount
                     total_line_amount: total_line_amount
+                    tax_rate: a12e7c20-1922-9df7-s75n-edfeewnn7384
+                    exchange_rate: '2.9'
+                    company: 595c8f97-2ac4-45b7-b000-41bdf43240b5
                 inclusive_of_tax: true
                 tracking_categories:
                   - b38c59b0-a9d7-4740-b1ee-5436c6751e3d
@@ -838,6 +847,7 @@ service:
                       - Varies by platform
                 remote_fields:
                   - remote_field_class: remote_field_class
+                    value: string
               warnings:
                 - source:
                     pointer: pointer
@@ -959,6 +969,7 @@ service:
                   remote_was_deleted: false
                   remote_fields:
                     - remote_field_class: remote_field_class
+                      value: string
                 - id: ecbe05ac-62a3-46c5-ab31-4b478b37d1b4
                   remote_id: '121222'
                   created_at: '2021-09-15T00:00:00Z'
@@ -981,6 +992,7 @@ service:
                   remote_was_deleted: true
                   remote_fields:
                     - remote_field_class: remote_field_class
+                      value: string
               inclusive_of_tax: true
               tracking_categories:
                 - b38c59b0-a9d7-4740-b1ee-5436c6751e3d
@@ -1001,8 +1013,7 @@ service:
                     - Varies by platform
               remote_fields:
                 - remote_field_class: remote_field_class
-                  value:
-                    key: value
+                  value: string
     lineItemsRemoteFieldClassesList:
       path: /accounting/v1/purchase-orders/line-items/remote-field-classes
       method: GET

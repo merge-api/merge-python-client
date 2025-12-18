@@ -152,6 +152,8 @@ service:
                       custom_key: custom_value
                   remote_data:
                     - path: /platform-endpoint
+                      data:
+                        - Varies by platform
     viewersList:
       path: /ticketing/v1/collections/{collection_id}/viewers
       method: GET
@@ -301,6 +303,6 @@ service:
               remote_data:
                 - path: /platform-endpoint
                   data:
-                    key: value
+                    - Varies by platform
   source:
     openapi: openapi/openapi.yml

@@ -97,6 +97,8 @@ service:
                       custom_key: custom_value
                   remote_data:
                     - path: /platform-endpoint
+                      data:
+                        - Varies by platform
     retrieve:
       path: /ticketing/v1/projects/{id}
       method: GET
@@ -149,7 +151,7 @@ service:
               remote_data:
                 - path: /platform-endpoint
                   data:
-                    key: value
+                    - Varies by platform
     usersList:
       path: /ticketing/v1/projects/{parent_id}/users
       method: GET
@@ -234,6 +236,8 @@ service:
                       custom_key: custom_value
                   remote_data:
                     - path: /platform-endpoint
+                      data:
+                        - Varies by platform
   source:
     openapi: openapi/openapi.yml
 types:

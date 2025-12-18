@@ -32,6 +32,11 @@ service:
       request:
         name: MessagesListRequest
         query-parameters:
+          conversation_id:
+            type: optional<string>
+            docs: Filter messages by conversation ID.
+            validation:
+              format: uuid
           created_after:
             type: optional<datetime>
             docs: If provided, will only return objects created after this datetime.
@@ -93,6 +98,7 @@ service:
         status-code: 200
       examples:
         - query-parameters:
+            conversation_id: conversation_id
             created_after: '2024-01-15T09:30:00Z'
             created_before: '2024-01-15T09:30:00Z'
             cursor: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw

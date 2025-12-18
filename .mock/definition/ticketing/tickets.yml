@@ -1385,8 +1385,11 @@ service:
                       custom_key: custom_value
                   remote_data:
                     - path: /platform-endpoint
+                      data:
+                        - Varies by platform
                   remote_fields:
                     - remote_field_class: remote_field_class
+                      value: string
     create:
       path: /ticketing/v1/tickets
       method: POST
@@ -1469,8 +1472,11 @@ service:
                     custom_key: custom_value
                 remote_data:
                   - path: /platform-endpoint
+                    data:
+                      - Varies by platform
                 remote_fields:
                   - remote_field_class: remote_field_class
+                    value: string
               warnings:
                 - source:
                     pointer: pointer
@@ -1597,11 +1603,10 @@ service:
               remote_data:
                 - path: /platform-endpoint
                   data:
-                    key: value
+                    - Varies by platform
               remote_fields:
                 - remote_field_class: remote_field_class
-                  value:
-                    key: value
+                  value: string
     partialUpdate:
       path: /ticketing/v1/tickets/{id}
       method: PATCH
@@ -1688,8 +1693,11 @@ service:
                     custom_key: custom_value
                 remote_data:
                   - path: /platform-endpoint
+                    data:
+                      - Varies by platform
                 remote_fields:
                   - remote_field_class: remote_field_class
+                    value: string
               warnings:
                 - source:
                     pointer: pointer

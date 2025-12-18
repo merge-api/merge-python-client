@@ -47,7 +47,7 @@ class RawLinkTokenClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[LinkToken]:
         """
-        Creates a link token to be used when linking a new end user.
+        Creates a link token to be used when linking a new end user. The link token expires after single use.
 
         Parameters
         ----------
@@ -173,7 +173,7 @@ class AsyncRawLinkTokenClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[LinkToken]:
         """
-        Creates a link token to be used when linking a new end user.
+        Creates a link token to be used when linking a new end user. The link token expires after single use.
 
         Parameters
         ----------

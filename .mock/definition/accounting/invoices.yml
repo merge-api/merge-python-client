@@ -27164,14 +27164,21 @@ service:
                         - 9b840d2-686a-465a-8a8e-7b028498f8e4
                         - a47e11b6-c73b-4a0c-be31-130fc48177fa
                       company: 595c8f97-2ac4-45b7-b000-41bdf43240b5
+                      field_mappings:
+                        organization_defined_targets:
+                          custom_key: custom_value
+                        linked_account_defined_targets:
+                          custom_key: custom_value
                   applied_credit_notes:
-                    - created_at: '2021-09-15T00:00:00Z'
+                    - remote_id: '088899'
+                      created_at: '2021-09-15T00:00:00Z'
                       modified_at: '2021-10-16T00:00:00Z'
                       credit_note: 5b3c1341-a20f-4e51-b72c-f3830a16c97b
                       applied_date: '2020-03-31T00:00:00Z'
                       applied_amount: '2.9'
                   applied_vendor_credits:
-                    - created_at: '2021-09-15T00:00:00Z'
+                    - remote_id: '088899'
+                      created_at: '2021-09-15T00:00:00Z'
                       modified_at: '2021-10-16T00:00:00Z'
                       vendor_credit: 5b3c1341-a20f-4e51-b72c-f3830a16c97b
                       applied_date: '2020-03-31T00:00:00Z'
@@ -27189,6 +27196,7 @@ service:
                         - Varies by platform
                   remote_fields:
                     - remote_field_class: remote_field_class
+                      value: string
     create:
       path: /accounting/v1/invoices
       method: POST
@@ -27288,14 +27296,21 @@ service:
                       - 9b840d2-686a-465a-8a8e-7b028498f8e4
                       - a47e11b6-c73b-4a0c-be31-130fc48177fa
                     company: 595c8f97-2ac4-45b7-b000-41bdf43240b5
+                    field_mappings:
+                      organization_defined_targets:
+                        custom_key: custom_value
+                      linked_account_defined_targets:
+                        custom_key: custom_value
                 applied_credit_notes:
-                  - created_at: '2021-09-15T00:00:00Z'
+                  - remote_id: '088899'
+                    created_at: '2021-09-15T00:00:00Z'
                     modified_at: '2021-10-16T00:00:00Z'
                     credit_note: 5b3c1341-a20f-4e51-b72c-f3830a16c97b
                     applied_date: '2020-03-31T00:00:00Z'
                     applied_amount: '2.9'
                 applied_vendor_credits:
-                  - created_at: '2021-09-15T00:00:00Z'
+                  - remote_id: '088899'
+                    created_at: '2021-09-15T00:00:00Z'
                     modified_at: '2021-10-16T00:00:00Z'
                     vendor_credit: 5b3c1341-a20f-4e51-b72c-f3830a16c97b
                     applied_date: '2020-03-31T00:00:00Z'
@@ -27313,6 +27328,7 @@ service:
                       - Varies by platform
                 remote_fields:
                   - remote_field_class: remote_field_class
+                    value: string
               warnings:
                 - source:
                     pointer: pointer
@@ -27460,6 +27476,7 @@ service:
                       custom_key: custom_value
                   remote_fields:
                     - remote_field_class: remote_field_class
+                      value: string
               applied_credit_notes:
                 - remote_id: '088899'
                   created_at: '2021-09-15T00:00:00Z'
@@ -27489,8 +27506,7 @@ service:
                     - Varies by platform
               remote_fields:
                 - remote_field_class: remote_field_class
-                  value:
-                    key: value
+                  value: string
     partialUpdate:
       path: /accounting/v1/invoices/{id}
       method: PATCH
@@ -27591,14 +27607,21 @@ service:
                       - 9b840d2-686a-465a-8a8e-7b028498f8e4
                       - a47e11b6-c73b-4a0c-be31-130fc48177fa
                     company: 595c8f97-2ac4-45b7-b000-41bdf43240b5
+                    field_mappings:
+                      organization_defined_targets:
+                        custom_key: custom_value
+                      linked_account_defined_targets:
+                        custom_key: custom_value
                 applied_credit_notes:
-                  - created_at: '2021-09-15T00:00:00Z'
+                  - remote_id: '088899'
+                    created_at: '2021-09-15T00:00:00Z'
                     modified_at: '2021-10-16T00:00:00Z'
                     credit_note: 5b3c1341-a20f-4e51-b72c-f3830a16c97b
                     applied_date: '2020-03-31T00:00:00Z'
                     applied_amount: '2.9'
                 applied_vendor_credits:
-                  - created_at: '2021-09-15T00:00:00Z'
+                  - remote_id: '088899'
+                    created_at: '2021-09-15T00:00:00Z'
                     modified_at: '2021-10-16T00:00:00Z'
                     vendor_credit: 5b3c1341-a20f-4e51-b72c-f3830a16c97b
                     applied_date: '2020-03-31T00:00:00Z'
@@ -27616,6 +27639,7 @@ service:
                       - Varies by platform
                 remote_fields:
                   - remote_field_class: remote_field_class
+                    value: string
               warnings:
                 - source:
                     pointer: pointer

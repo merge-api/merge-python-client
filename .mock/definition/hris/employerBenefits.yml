@@ -99,6 +99,8 @@ service:
                       custom_key: custom_value
                   remote_data:
                     - path: /platform-endpoint
+                      data:
+                        - Varies by platform
     retrieve:
       path: /hris/v1/employer-benefits/{id}
       method: GET
@@ -153,6 +155,6 @@ service:
               remote_data:
                 - path: /platform-endpoint
                   data:
-                    key: value
+                    - Varies by platform
   source:
     openapi: openapi/openapi.yml

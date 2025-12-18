@@ -226,6 +226,10 @@ service:
                   field_choices:
                     - {}
                     - {}
+                  item_schema:
+                    item_type: null
+                    item_format: null
+                    item_choices: null
               association_types:
                 - key: value
   source:
