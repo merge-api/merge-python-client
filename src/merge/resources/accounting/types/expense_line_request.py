@@ -397,8 +397,8 @@ class ExpenseLineRequest(UncheckedBaseModel):
     The tax rate that applies to this line item.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    integration_params: typing.Optional[typing.Dict[str, typing.Any]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Any]] = None
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None
 
     if IS_PYDANTIC_V2:

@@ -33,7 +33,6 @@ if typing.TYPE_CHECKING:
     from .common_model_scope_api import CommonModelScopeApi
     from .common_model_scopes_body_request import CommonModelScopesBodyRequest
     from .company import Company
-    from .completed_account_initial_screen_enum import CompletedAccountInitialScreenEnum
     from .country_enum import CountryEnum
     from .data_passthrough_request import DataPassthroughRequest
     from .debug_mode_log import DebugModeLog
@@ -109,6 +108,8 @@ if typing.TYPE_CHECKING:
     from .group import Group
     from .group_type import GroupType
     from .group_type_enum import GroupTypeEnum
+    from .ignore_common_model_request import IgnoreCommonModelRequest
+    from .ignore_common_model_request_reason import IgnoreCommonModelRequestReason
     from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
     from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
     from .issue import Issue
@@ -129,7 +130,6 @@ if typing.TYPE_CHECKING:
     from .model_permission_deserializer import ModelPermissionDeserializer
     from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
     from .multipart_form_field_request import MultipartFormFieldRequest
-    from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
     from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
     from .paginated_audit_log_event_list import PaginatedAuditLogEventList
     from .paginated_bank_info_list import PaginatedBankInfoList
@@ -175,9 +175,10 @@ if typing.TYPE_CHECKING:
     from .run_state_enum import RunStateEnum
     from .run_type_enum import RunTypeEnum
     from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
-    from .status_fd_5_enum import StatusFd5Enum
+    from .status_fd5enum import StatusFd5Enum
     from .sync_status import SyncStatus
     from .sync_status_last_sync_result import SyncStatusLastSyncResult
+    from .sync_status_status import SyncStatusStatus
     from .tax import Tax
     from .team import Team
     from .team_parent_team import TeamParentTeam
@@ -235,7 +236,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CommonModelScopeApi": ".common_model_scope_api",
     "CommonModelScopesBodyRequest": ".common_model_scopes_body_request",
     "Company": ".company",
-    "CompletedAccountInitialScreenEnum": ".completed_account_initial_screen_enum",
     "CountryEnum": ".country_enum",
     "DataPassthroughRequest": ".data_passthrough_request",
     "DebugModeLog": ".debug_mode_log",
@@ -309,6 +309,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Group": ".group",
     "GroupType": ".group_type",
     "GroupTypeEnum": ".group_type_enum",
+    "IgnoreCommonModelRequest": ".ignore_common_model_request",
+    "IgnoreCommonModelRequestReason": ".ignore_common_model_request_reason",
     "IndividualCommonModelScopeDeserializer": ".individual_common_model_scope_deserializer",
     "IndividualCommonModelScopeDeserializerRequest": ".individual_common_model_scope_deserializer_request",
     "Issue": ".issue",
@@ -329,7 +331,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ModelPermissionDeserializer": ".model_permission_deserializer",
     "ModelPermissionDeserializerRequest": ".model_permission_deserializer_request",
     "MultipartFormFieldRequest": ".multipart_form_field_request",
-    "MultipartFormFieldRequestEncoding": ".multipart_form_field_request_encoding",
     "PaginatedAccountDetailsAndActionsList": ".paginated_account_details_and_actions_list",
     "PaginatedAuditLogEventList": ".paginated_audit_log_event_list",
     "PaginatedBankInfoList": ".paginated_bank_info_list",
@@ -375,9 +376,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RunStateEnum": ".run_state_enum",
     "RunTypeEnum": ".run_type_enum",
     "SelectiveSyncConfigurationsUsageEnum": ".selective_sync_configurations_usage_enum",
-    "StatusFd5Enum": ".status_fd_5_enum",
+    "StatusFd5Enum": ".status_fd5enum",
     "SyncStatus": ".sync_status",
     "SyncStatusLastSyncResult": ".sync_status_last_sync_result",
+    "SyncStatusStatus": ".sync_status_status",
     "Tax": ".tax",
     "Team": ".team",
     "TeamParentTeam": ".team_parent_team",
@@ -416,8 +418,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -457,7 +461,6 @@ __all__ = [
     "CommonModelScopeApi",
     "CommonModelScopesBodyRequest",
     "Company",
-    "CompletedAccountInitialScreenEnum",
     "CountryEnum",
     "DataPassthroughRequest",
     "DebugModeLog",
@@ -531,6 +534,8 @@ __all__ = [
     "Group",
     "GroupType",
     "GroupTypeEnum",
+    "IgnoreCommonModelRequest",
+    "IgnoreCommonModelRequestReason",
     "IndividualCommonModelScopeDeserializer",
     "IndividualCommonModelScopeDeserializerRequest",
     "Issue",
@@ -551,7 +556,6 @@ __all__ = [
     "ModelPermissionDeserializer",
     "ModelPermissionDeserializerRequest",
     "MultipartFormFieldRequest",
-    "MultipartFormFieldRequestEncoding",
     "PaginatedAccountDetailsAndActionsList",
     "PaginatedAuditLogEventList",
     "PaginatedBankInfoList",
@@ -600,6 +604,7 @@ __all__ = [
     "StatusFd5Enum",
     "SyncStatus",
     "SyncStatusLastSyncResult",
+    "SyncStatusStatus",
     "Tax",
     "Team",
     "TeamParentTeam",

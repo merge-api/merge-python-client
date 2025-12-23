@@ -4,10 +4,12 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.ignore_common_model_request import IgnoreCommonModelRequest
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.paginated_user_list import PaginatedUserList
+from ...types.remote_field_class import RemoteFieldClass
 from ...types.user import User
 from .raw_client import AsyncRawUsersClient, RawUsersClient
 
@@ -46,7 +48,7 @@ class UsersClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedUserList:
+    ) -> SyncPager[User, PaginatedUserList]:
         """
         Returns a list of `User` objects.
 
@@ -93,43 +95,27 @@ class UsersClient:
 
         Returns
         -------
-        PaginatedUserList
+        SyncPager[User, PaginatedUserList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.users.list(
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.crm.users.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            email="email",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_remote_fields=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -144,7 +130,6 @@ class UsersClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -189,9 +174,6 @@ class UsersClient:
         )
         client.crm.users.retrieve(
             id="id",
-            include_remote_data=True,
-            include_remote_fields=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -257,7 +239,7 @@ class UsersClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -292,7 +274,7 @@ class UsersClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
 
         Examples
@@ -303,18 +285,16 @@ class UsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.users.remote_field_classes_list(
+        response = client.crm.users.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_remote_fields=True,
-            include_shell_data=True,
-            is_common_model_field=True,
-            is_custom=True,
-            page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.remote_field_classes_list(
+        return self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -325,7 +305,6 @@ class UsersClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncUsersClient:
@@ -359,7 +338,7 @@ class AsyncUsersClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedUserList:
+    ) -> AsyncPager[User, PaginatedUserList]:
         """
         Returns a list of `User` objects.
 
@@ -406,13 +385,12 @@ class AsyncUsersClient:
 
         Returns
         -------
-        PaginatedUserList
+        AsyncPager[User, PaginatedUserList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
 
@@ -423,33 +401,20 @@ class AsyncUsersClient:
 
 
         async def main() -> None:
-            await client.crm.users.list(
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.crm.users.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                email="email",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_remote_fields=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -464,7 +429,6 @@ class AsyncUsersClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
@@ -514,9 +478,6 @@ class AsyncUsersClient:
         async def main() -> None:
             await client.crm.users.retrieve(
                 id="id",
-                include_remote_data=True,
-                include_remote_fields=True,
-                include_shell_data=True,
             )
 
 
@@ -593,7 +554,7 @@ class AsyncUsersClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -628,7 +589,7 @@ class AsyncUsersClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
 
         Examples
@@ -644,21 +605,20 @@ class AsyncUsersClient:
 
 
         async def main() -> None:
-            await client.crm.users.remote_field_classes_list(
+            response = await client.crm.users.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_remote_fields=True,
-                include_shell_data=True,
-                is_common_model_field=True,
-                is_custom=True,
-                page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.remote_field_classes_list(
+        return await self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -669,4 +629,3 @@ class AsyncUsersClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data

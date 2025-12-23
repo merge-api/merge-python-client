@@ -7,26 +7,26 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
-        TicketsListRequestExpand,
+        TicketsListRequestExpandItem,
         TicketsListRequestPriority,
         TicketsListRequestRemoteFields,
         TicketsListRequestShowEnumOrigins,
         TicketsListRequestStatus,
-        TicketsRetrieveRequestExpand,
+        TicketsRetrieveRequestExpandItem,
         TicketsRetrieveRequestRemoteFields,
         TicketsRetrieveRequestShowEnumOrigins,
-        TicketsViewersListRequestExpand,
+        TicketsViewersListRequestExpandItem,
     )
 _dynamic_imports: typing.Dict[str, str] = {
-    "TicketsListRequestExpand": ".types",
+    "TicketsListRequestExpandItem": ".types",
     "TicketsListRequestPriority": ".types",
     "TicketsListRequestRemoteFields": ".types",
     "TicketsListRequestShowEnumOrigins": ".types",
     "TicketsListRequestStatus": ".types",
-    "TicketsRetrieveRequestExpand": ".types",
+    "TicketsRetrieveRequestExpandItem": ".types",
     "TicketsRetrieveRequestRemoteFields": ".types",
     "TicketsRetrieveRequestShowEnumOrigins": ".types",
-    "TicketsViewersListRequestExpand": ".types",
+    "TicketsViewersListRequestExpandItem": ".types",
 }
 
 
@@ -36,8 +36,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -50,13 +52,13 @@ def __dir__():
 
 
 __all__ = [
-    "TicketsListRequestExpand",
+    "TicketsListRequestExpandItem",
     "TicketsListRequestPriority",
     "TicketsListRequestRemoteFields",
     "TicketsListRequestShowEnumOrigins",
     "TicketsListRequestStatus",
-    "TicketsRetrieveRequestExpand",
+    "TicketsRetrieveRequestExpandItem",
     "TicketsRetrieveRequestRemoteFields",
     "TicketsRetrieveRequestShowEnumOrigins",
-    "TicketsViewersListRequestExpand",
+    "TicketsViewersListRequestExpandItem",
 ]

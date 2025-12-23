@@ -9,8 +9,8 @@ from .linked_account_status import LinkedAccountStatus
 
 
 class MetaResponse(UncheckedBaseModel):
-    request_schema: typing.Dict[str, typing.Optional[typing.Any]]
-    remote_field_classes: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    request_schema: typing.Dict[str, typing.Any]
+    remote_field_classes: typing.Optional[typing.Dict[str, typing.Any]] = None
     status: typing.Optional[LinkedAccountStatus] = None
     has_conditional_params: bool
     has_required_linked_account_params: bool

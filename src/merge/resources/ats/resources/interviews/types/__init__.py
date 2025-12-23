@@ -6,11 +6,19 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .interviews_list_request_expand import InterviewsListRequestExpand
-    from .interviews_retrieve_request_expand import InterviewsRetrieveRequestExpand
+    from .interviews_list_request_expand_item import InterviewsListRequestExpandItem
+    from .interviews_list_request_remote_fields import InterviewsListRequestRemoteFields
+    from .interviews_list_request_show_enum_origins import InterviewsListRequestShowEnumOrigins
+    from .interviews_retrieve_request_expand_item import InterviewsRetrieveRequestExpandItem
+    from .interviews_retrieve_request_remote_fields import InterviewsRetrieveRequestRemoteFields
+    from .interviews_retrieve_request_show_enum_origins import InterviewsRetrieveRequestShowEnumOrigins
 _dynamic_imports: typing.Dict[str, str] = {
-    "InterviewsListRequestExpand": ".interviews_list_request_expand",
-    "InterviewsRetrieveRequestExpand": ".interviews_retrieve_request_expand",
+    "InterviewsListRequestExpandItem": ".interviews_list_request_expand_item",
+    "InterviewsListRequestRemoteFields": ".interviews_list_request_remote_fields",
+    "InterviewsListRequestShowEnumOrigins": ".interviews_list_request_show_enum_origins",
+    "InterviewsRetrieveRequestExpandItem": ".interviews_retrieve_request_expand_item",
+    "InterviewsRetrieveRequestRemoteFields": ".interviews_retrieve_request_remote_fields",
+    "InterviewsRetrieveRequestShowEnumOrigins": ".interviews_retrieve_request_show_enum_origins",
 }
 
 
@@ -20,8 +28,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -33,4 +43,11 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["InterviewsListRequestExpand", "InterviewsRetrieveRequestExpand"]
+__all__ = [
+    "InterviewsListRequestExpandItem",
+    "InterviewsListRequestRemoteFields",
+    "InterviewsListRequestShowEnumOrigins",
+    "InterviewsRetrieveRequestExpandItem",
+    "InterviewsRetrieveRequestRemoteFields",
+    "InterviewsRetrieveRequestShowEnumOrigins",
+]

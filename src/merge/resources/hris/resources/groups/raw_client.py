@@ -9,10 +9,15 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.group import Group
 from ...types.paginated_group_list import PaginatedGroupList
+from .types.groups_list_request_remote_fields import GroupsListRequestRemoteFields
+from .types.groups_list_request_show_enum_origins import GroupsListRequestShowEnumOrigins
+from .types.groups_retrieve_request_remote_fields import GroupsRetrieveRequestRemoteFields
+from .types.groups_retrieve_request_show_enum_origins import GroupsRetrieveRequestShowEnumOrigins
 
 
 class RawGroupsClient:
@@ -33,12 +38,12 @@ class RawGroupsClient:
         modified_before: typing.Optional[dt.datetime] = None,
         names: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["type"]] = None,
+        remote_fields: typing.Optional[GroupsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
+        show_enum_origins: typing.Optional[GroupsListRequestShowEnumOrigins] = None,
         types: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedGroupList]:
+    ) -> SyncPager[Group, PaginatedGroupList]:
         """
         Returns a list of `Group` objects.
 
@@ -75,15 +80,15 @@ class RawGroupsClient:
             If provided, will only return groups with these names. Multiple values can be separated by commas.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["type"]]
+        remote_fields : typing.Optional[GroupsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["type"]]
+        show_enum_origins : typing.Optional[GroupsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         types : typing.Optional[str]
@@ -94,7 +99,7 @@ class RawGroupsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedGroupList]
+        SyncPager[Group, PaginatedGroupList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -121,14 +126,35 @@ class RawGroupsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedGroupList,
                     construct_type(
                         type_=PaginatedGroupList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    is_commonly_used_as_team=is_commonly_used_as_team,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    names=names,
+                    page_size=page_size,
+                    remote_fields=remote_fields,
+                    remote_id=remote_id,
+                    show_enum_origins=show_enum_origins,
+                    types=types,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -140,8 +166,8 @@ class RawGroupsClient:
         *,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["type"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
+        remote_fields: typing.Optional[GroupsRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[GroupsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Group]:
         """
@@ -157,10 +183,10 @@ class RawGroupsClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["type"]]
+        remote_fields : typing.Optional[GroupsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["type"]]
+        show_enum_origins : typing.Optional[GroupsRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -216,12 +242,12 @@ class AsyncRawGroupsClient:
         modified_before: typing.Optional[dt.datetime] = None,
         names: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["type"]] = None,
+        remote_fields: typing.Optional[GroupsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
+        show_enum_origins: typing.Optional[GroupsListRequestShowEnumOrigins] = None,
         types: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedGroupList]:
+    ) -> AsyncPager[Group, PaginatedGroupList]:
         """
         Returns a list of `Group` objects.
 
@@ -258,15 +284,15 @@ class AsyncRawGroupsClient:
             If provided, will only return groups with these names. Multiple values can be separated by commas.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["type"]]
+        remote_fields : typing.Optional[GroupsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["type"]]
+        show_enum_origins : typing.Optional[GroupsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         types : typing.Optional[str]
@@ -277,7 +303,7 @@ class AsyncRawGroupsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedGroupList]
+        AsyncPager[Group, PaginatedGroupList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -304,14 +330,38 @@ class AsyncRawGroupsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedGroupList,
                     construct_type(
                         type_=PaginatedGroupList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        is_commonly_used_as_team=is_commonly_used_as_team,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        names=names,
+                        page_size=page_size,
+                        remote_fields=remote_fields,
+                        remote_id=remote_id,
+                        show_enum_origins=show_enum_origins,
+                        types=types,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -323,8 +373,8 @@ class AsyncRawGroupsClient:
         *,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["type"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
+        remote_fields: typing.Optional[GroupsRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[GroupsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Group]:
         """
@@ -340,10 +390,10 @@ class AsyncRawGroupsClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["type"]]
+        remote_fields : typing.Optional[GroupsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["type"]]
+        show_enum_origins : typing.Optional[GroupsRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]

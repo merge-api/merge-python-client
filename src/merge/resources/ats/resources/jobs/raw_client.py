@@ -9,15 +9,21 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.job import Job
 from ...types.paginated_job_list import PaginatedJobList
 from ...types.paginated_screening_question_list import PaginatedScreeningQuestionList
-from .types.jobs_list_request_expand import JobsListRequestExpand
+from ...types.screening_question import ScreeningQuestion
+from .types.jobs_list_request_expand_item import JobsListRequestExpandItem
+from .types.jobs_list_request_remote_fields import JobsListRequestRemoteFields
+from .types.jobs_list_request_show_enum_origins import JobsListRequestShowEnumOrigins
 from .types.jobs_list_request_status import JobsListRequestStatus
-from .types.jobs_retrieve_request_expand import JobsRetrieveRequestExpand
-from .types.jobs_screening_questions_list_request_expand import JobsScreeningQuestionsListRequestExpand
+from .types.jobs_retrieve_request_expand_item import JobsRetrieveRequestExpandItem
+from .types.jobs_retrieve_request_remote_fields import JobsRetrieveRequestRemoteFields
+from .types.jobs_retrieve_request_show_enum_origins import JobsRetrieveRequestShowEnumOrigins
+from .types.jobs_screening_questions_list_request_expand_item import JobsScreeningQuestionsListRequestExpandItem
 
 
 class RawJobsClient:
@@ -31,7 +37,9 @@ class RawJobsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JobsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JobsListRequestExpandItem, typing.Sequence[JobsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -39,12 +47,12 @@ class RawJobsClient:
         modified_before: typing.Optional[dt.datetime] = None,
         offices: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[JobsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[JobsListRequestShowEnumOrigins] = None,
         status: typing.Optional[JobsListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedJobList]:
+    ) -> SyncPager[Job, PaginatedJobList]:
         """
         Returns a list of `Job` objects.
 
@@ -62,7 +70,7 @@ class RawJobsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JobsListRequestExpand]
+        expand : typing.Optional[typing.Union[JobsListRequestExpandItem, typing.Sequence[JobsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -86,13 +94,13 @@ class RawJobsClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[JobsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[JobsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         status : typing.Optional[JobsListRequestStatus]
@@ -109,7 +117,7 @@ class RawJobsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedJobList]
+        SyncPager[Job, PaginatedJobList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -137,14 +145,36 @@ class RawJobsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedJobList,
                     construct_type(
                         type_=PaginatedJobList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    code=code,
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    offices=offices,
+                    page_size=page_size,
+                    remote_fields=remote_fields,
+                    remote_id=remote_id,
+                    show_enum_origins=show_enum_origins,
+                    status=status,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -154,11 +184,13 @@ class RawJobsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[JobsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JobsRetrieveRequestExpandItem, typing.Sequence[JobsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[JobsRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[JobsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Job]:
         """
@@ -168,7 +200,7 @@ class RawJobsClient:
         ----------
         id : str
 
-        expand : typing.Optional[JobsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[JobsRetrieveRequestExpandItem, typing.Sequence[JobsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -177,10 +209,10 @@ class RawJobsClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[JobsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[JobsRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -223,13 +255,18 @@ class RawJobsClient:
         job_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JobsScreeningQuestionsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                JobsScreeningQuestionsListRequestExpandItem,
+                typing.Sequence[JobsScreeningQuestionsListRequestExpandItem],
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedScreeningQuestionList]:
+    ) -> SyncPager[ScreeningQuestion, PaginatedScreeningQuestionList]:
         """
         Returns a list of `ScreeningQuestion` objects.
 
@@ -240,7 +277,7 @@ class RawJobsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JobsScreeningQuestionsListRequestExpand]
+        expand : typing.Optional[typing.Union[JobsScreeningQuestionsListRequestExpandItem, typing.Sequence[JobsScreeningQuestionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -260,7 +297,7 @@ class RawJobsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedScreeningQuestionList]
+        SyncPager[ScreeningQuestion, PaginatedScreeningQuestionList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -278,14 +315,27 @@ class RawJobsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedScreeningQuestionList,
                     construct_type(
                         type_=PaginatedScreeningQuestionList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.screening_questions_list(
+                    job_id,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    page_size=page_size,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -303,7 +353,9 @@ class AsyncRawJobsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JobsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JobsListRequestExpandItem, typing.Sequence[JobsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -311,12 +363,12 @@ class AsyncRawJobsClient:
         modified_before: typing.Optional[dt.datetime] = None,
         offices: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[JobsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[JobsListRequestShowEnumOrigins] = None,
         status: typing.Optional[JobsListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedJobList]:
+    ) -> AsyncPager[Job, PaginatedJobList]:
         """
         Returns a list of `Job` objects.
 
@@ -334,7 +386,7 @@ class AsyncRawJobsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JobsListRequestExpand]
+        expand : typing.Optional[typing.Union[JobsListRequestExpandItem, typing.Sequence[JobsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -358,13 +410,13 @@ class AsyncRawJobsClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[JobsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[JobsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         status : typing.Optional[JobsListRequestStatus]
@@ -381,7 +433,7 @@ class AsyncRawJobsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedJobList]
+        AsyncPager[Job, PaginatedJobList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -409,14 +461,39 @@ class AsyncRawJobsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedJobList,
                     construct_type(
                         type_=PaginatedJobList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        code=code,
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        offices=offices,
+                        page_size=page_size,
+                        remote_fields=remote_fields,
+                        remote_id=remote_id,
+                        show_enum_origins=show_enum_origins,
+                        status=status,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -426,11 +503,13 @@ class AsyncRawJobsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[JobsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JobsRetrieveRequestExpandItem, typing.Sequence[JobsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[JobsRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[JobsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Job]:
         """
@@ -440,7 +519,7 @@ class AsyncRawJobsClient:
         ----------
         id : str
 
-        expand : typing.Optional[JobsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[JobsRetrieveRequestExpandItem, typing.Sequence[JobsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -449,10 +528,10 @@ class AsyncRawJobsClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[JobsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[JobsRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -495,13 +574,18 @@ class AsyncRawJobsClient:
         job_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JobsScreeningQuestionsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                JobsScreeningQuestionsListRequestExpandItem,
+                typing.Sequence[JobsScreeningQuestionsListRequestExpandItem],
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedScreeningQuestionList]:
+    ) -> AsyncPager[ScreeningQuestion, PaginatedScreeningQuestionList]:
         """
         Returns a list of `ScreeningQuestion` objects.
 
@@ -512,7 +596,7 @@ class AsyncRawJobsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JobsScreeningQuestionsListRequestExpand]
+        expand : typing.Optional[typing.Union[JobsScreeningQuestionsListRequestExpandItem, typing.Sequence[JobsScreeningQuestionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -532,7 +616,7 @@ class AsyncRawJobsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedScreeningQuestionList]
+        AsyncPager[ScreeningQuestion, PaginatedScreeningQuestionList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -550,14 +634,30 @@ class AsyncRawJobsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedScreeningQuestionList,
                     construct_type(
                         type_=PaginatedScreeningQuestionList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.screening_questions_list(
+                        job_id,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        page_size=page_size,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)

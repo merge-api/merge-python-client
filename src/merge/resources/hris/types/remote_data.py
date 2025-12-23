@@ -22,7 +22,7 @@ class RemoteData(UncheckedBaseModel):
     The third-party API path that is being called.
     """
 
-    data: typing.Optional[typing.Optional[typing.Any]] = pydantic.Field(default=None)
+    data: typing.Optional[typing.Any] = pydantic.Field(default=None)
     """
     The data returned from the third-party for this object in its original, unnormalized format.
     """

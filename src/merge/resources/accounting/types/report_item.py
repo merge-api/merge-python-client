@@ -43,7 +43,7 @@ class ReportItem(UncheckedBaseModel):
     The report item's value.
     """
 
-    sub_items: typing.Optional[typing.List[typing.Dict[str, typing.Optional[typing.Any]]]] = None
+    sub_items: typing.Optional[typing.List[typing.Dict[str, typing.Any]]] = None
     company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company the report item belongs to.

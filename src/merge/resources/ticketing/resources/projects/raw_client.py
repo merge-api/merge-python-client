@@ -9,12 +9,14 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.paginated_project_list import PaginatedProjectList
 from ...types.paginated_user_list import PaginatedUserList
 from ...types.project import Project
-from .types.projects_users_list_request_expand import ProjectsUsersListRequestExpand
+from ...types.user import User
+from .types.projects_users_list_request_expand_item import ProjectsUsersListRequestExpandItem
 
 
 class RawProjectsClient:
@@ -35,7 +37,7 @@ class RawProjectsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedProjectList]:
+    ) -> SyncPager[Project, PaginatedProjectList]:
         """
         Returns a list of `Project` objects.
 
@@ -66,7 +68,7 @@ class RawProjectsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -76,7 +78,7 @@ class RawProjectsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedProjectList]
+        SyncPager[Project, PaginatedProjectList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -98,14 +100,30 @@ class RawProjectsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedProjectList,
                     construct_type(
                         type_=PaginatedProjectList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    remote_id=remote_id,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -169,13 +187,15 @@ class RawProjectsClient:
         parent_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ProjectsUsersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ProjectsUsersListRequestExpandItem, typing.Sequence[ProjectsUsersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedUserList]:
+    ) -> SyncPager[User, PaginatedUserList]:
         """
         Returns a list of `User` objects.
 
@@ -186,7 +206,7 @@ class RawProjectsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ProjectsUsersListRequestExpand]
+        expand : typing.Optional[typing.Union[ProjectsUsersListRequestExpandItem, typing.Sequence[ProjectsUsersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -199,14 +219,14 @@ class RawProjectsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[PaginatedUserList]
+        SyncPager[User, PaginatedUserList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -224,14 +244,27 @@ class RawProjectsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedUserList,
                     construct_type(
                         type_=PaginatedUserList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.users_list(
+                    parent_id,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    page_size=page_size,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -256,7 +289,7 @@ class AsyncRawProjectsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedProjectList]:
+    ) -> AsyncPager[Project, PaginatedProjectList]:
         """
         Returns a list of `Project` objects.
 
@@ -287,7 +320,7 @@ class AsyncRawProjectsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -297,7 +330,7 @@ class AsyncRawProjectsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedProjectList]
+        AsyncPager[Project, PaginatedProjectList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -319,14 +352,33 @@ class AsyncRawProjectsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedProjectList,
                     construct_type(
                         type_=PaginatedProjectList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        remote_id=remote_id,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -390,13 +442,15 @@ class AsyncRawProjectsClient:
         parent_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ProjectsUsersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ProjectsUsersListRequestExpandItem, typing.Sequence[ProjectsUsersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedUserList]:
+    ) -> AsyncPager[User, PaginatedUserList]:
         """
         Returns a list of `User` objects.
 
@@ -407,7 +461,7 @@ class AsyncRawProjectsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ProjectsUsersListRequestExpand]
+        expand : typing.Optional[typing.Union[ProjectsUsersListRequestExpandItem, typing.Sequence[ProjectsUsersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -420,14 +474,14 @@ class AsyncRawProjectsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedUserList]
+        AsyncPager[User, PaginatedUserList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -445,14 +499,30 @@ class AsyncRawProjectsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedUserList,
                     construct_type(
                         type_=PaginatedUserList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.users_list(
+                        parent_id,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        page_size=page_size,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
