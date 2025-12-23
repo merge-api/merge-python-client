@@ -89,7 +89,7 @@ class Application(UncheckedBaseModel):
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    field_mappings: typing.Optional[typing.Dict[str, typing.Any]] = None
     remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
@@ -102,9 +102,9 @@ class Application(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .candidate import Candidate  # noqa: E402, F401, I001
-from .offer import Offer  # noqa: E402, F401, I001
-from .application_candidate import ApplicationCandidate  # noqa: E402, F401, I001
-from .application_offers_item import ApplicationOffersItem  # noqa: E402, F401, I001
+from .candidate import Candidate  # noqa: E402, I001
+from .offer import Offer  # noqa: E402, I001
+from .application_candidate import ApplicationCandidate  # noqa: E402, I001
+from .application_offers_item import ApplicationOffersItem  # noqa: E402, I001
 
-update_forward_refs(Application)
+update_forward_refs(Application, Offer=Offer, Candidate=Candidate)

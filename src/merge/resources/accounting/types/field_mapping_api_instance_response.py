@@ -33,9 +33,6 @@ class FieldMappingApiInstanceResponse(UncheckedBaseModel):
     purchase_order: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
         alias="PurchaseOrder", default=None
     )
-    expense_report: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
-        alias="ExpenseReport", default=None
-    )
     tracking_category: typing.Optional[typing.List[FieldMappingApiInstance]] = pydantic.Field(
         alias="TrackingCategory", default=None
     )

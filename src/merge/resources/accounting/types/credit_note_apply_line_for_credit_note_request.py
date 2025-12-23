@@ -37,8 +37,8 @@ class CreditNoteApplyLineForCreditNoteRequest(UncheckedBaseModel):
     The amount of the Credit Note applied to the invoice.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    integration_params: typing.Optional[typing.Dict[str, typing.Any]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Any]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
@@ -49,13 +49,5 @@ class CreditNoteApplyLineForCreditNoteRequest(UncheckedBaseModel):
             smart_union = True
             extra = pydantic.Extra.allow
 
-
-from .credit_note import CreditNote  # noqa: E402, F401, I001
-from .credit_note_apply_line_for_credit_note import CreditNoteApplyLineForCreditNote  # noqa: E402, F401, I001
-from .credit_note_apply_line_for_invoice import CreditNoteApplyLineForInvoice  # noqa: E402, F401, I001
-from .invoice import Invoice  # noqa: E402, F401, I001
-from .vendor_credit import VendorCredit  # noqa: E402, F401, I001
-from .vendor_credit_apply_line_for_invoice import VendorCreditApplyLineForInvoice  # noqa: E402, F401, I001
-from .vendor_credit_apply_line_for_vendor_credit import VendorCreditApplyLineForVendorCredit  # noqa: E402, F401, I001
 
 update_forward_refs(CreditNoteApplyLineForCreditNoteRequest)

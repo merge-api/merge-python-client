@@ -19,7 +19,6 @@ if typing.TYPE_CHECKING:
     from .activity import Activity
     from .activity_activity_type import ActivityActivityType
     from .activity_request import ActivityRequest
-    from .activity_request_activity_type import ActivityRequestActivityType
     from .activity_request_user import ActivityRequestUser
     from .activity_request_visibility import ActivityRequestVisibility
     from .activity_response import ActivityResponse
@@ -99,6 +98,8 @@ if typing.TYPE_CHECKING:
     from .field_permission_deserializer import FieldPermissionDeserializer
     from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
     from .gender_enum import GenderEnum
+    from .ignore_common_model_request import IgnoreCommonModelRequest
+    from .ignore_common_model_request_reason import IgnoreCommonModelRequestReason
     from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
     from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
     from .issue import Issue
@@ -210,7 +211,7 @@ if typing.TYPE_CHECKING:
     from .screening_question_type import ScreeningQuestionType
     from .screening_question_type_enum import ScreeningQuestionTypeEnum
     from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
-    from .status_fd_5_enum import StatusFd5Enum
+    from .status_fd5enum import StatusFd5Enum
     from .sync_status import SyncStatus
     from .sync_status_last_sync_result import SyncStatusLastSyncResult
     from .sync_status_status import SyncStatusStatus
@@ -239,7 +240,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Activity": ".activity",
     "ActivityActivityType": ".activity_activity_type",
     "ActivityRequest": ".activity_request",
-    "ActivityRequestActivityType": ".activity_request_activity_type",
     "ActivityRequestUser": ".activity_request_user",
     "ActivityRequestVisibility": ".activity_request_visibility",
     "ActivityResponse": ".activity_response",
@@ -317,6 +317,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FieldPermissionDeserializer": ".field_permission_deserializer",
     "FieldPermissionDeserializerRequest": ".field_permission_deserializer_request",
     "GenderEnum": ".gender_enum",
+    "IgnoreCommonModelRequest": ".ignore_common_model_request",
+    "IgnoreCommonModelRequestReason": ".ignore_common_model_request_reason",
     "IndividualCommonModelScopeDeserializer": ".individual_common_model_scope_deserializer",
     "IndividualCommonModelScopeDeserializerRequest": ".individual_common_model_scope_deserializer_request",
     "Issue": ".issue",
@@ -428,7 +430,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ScreeningQuestionType": ".screening_question_type",
     "ScreeningQuestionTypeEnum": ".screening_question_type_enum",
     "SelectiveSyncConfigurationsUsageEnum": ".selective_sync_configurations_usage_enum",
-    "StatusFd5Enum": ".status_fd_5_enum",
+    "StatusFd5Enum": ".status_fd5enum",
     "SyncStatus": ".sync_status",
     "SyncStatusLastSyncResult": ".sync_status_last_sync_result",
     "SyncStatusStatus": ".sync_status_status",
@@ -452,8 +454,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -479,7 +483,6 @@ __all__ = [
     "Activity",
     "ActivityActivityType",
     "ActivityRequest",
-    "ActivityRequestActivityType",
     "ActivityRequestUser",
     "ActivityRequestVisibility",
     "ActivityResponse",
@@ -557,6 +560,8 @@ __all__ = [
     "FieldPermissionDeserializer",
     "FieldPermissionDeserializerRequest",
     "GenderEnum",
+    "IgnoreCommonModelRequest",
+    "IgnoreCommonModelRequestReason",
     "IndividualCommonModelScopeDeserializer",
     "IndividualCommonModelScopeDeserializerRequest",
     "Issue",

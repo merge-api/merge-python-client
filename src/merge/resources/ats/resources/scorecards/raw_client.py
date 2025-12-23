@@ -9,12 +9,17 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.paginated_scorecard_list import PaginatedScorecardList
 from ...types.scorecard import Scorecard
-from .types.scorecards_list_request_expand import ScorecardsListRequestExpand
-from .types.scorecards_retrieve_request_expand import ScorecardsRetrieveRequestExpand
+from .types.scorecards_list_request_expand_item import ScorecardsListRequestExpandItem
+from .types.scorecards_list_request_remote_fields import ScorecardsListRequestRemoteFields
+from .types.scorecards_list_request_show_enum_origins import ScorecardsListRequestShowEnumOrigins
+from .types.scorecards_retrieve_request_expand_item import ScorecardsRetrieveRequestExpandItem
+from .types.scorecards_retrieve_request_remote_fields import ScorecardsRetrieveRequestRemoteFields
+from .types.scorecards_retrieve_request_show_enum_origins import ScorecardsRetrieveRequestShowEnumOrigins
 
 
 class RawScorecardsClient:
@@ -28,7 +33,9 @@ class RawScorecardsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ScorecardsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ScorecardsListRequestExpandItem, typing.Sequence[ScorecardsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -37,11 +44,11 @@ class RawScorecardsClient:
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["overall_recommendation"]] = None,
+        remote_fields: typing.Optional[ScorecardsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["overall_recommendation"]] = None,
+        show_enum_origins: typing.Optional[ScorecardsListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedScorecardList]:
+    ) -> SyncPager[Scorecard, PaginatedScorecardList]:
         """
         Returns a list of `Scorecard` objects.
 
@@ -59,7 +66,7 @@ class RawScorecardsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ScorecardsListRequestExpand]
+        expand : typing.Optional[typing.Union[ScorecardsListRequestExpandItem, typing.Sequence[ScorecardsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -86,13 +93,13 @@ class RawScorecardsClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["overall_recommendation"]]
+        remote_fields : typing.Optional[ScorecardsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["overall_recommendation"]]
+        show_enum_origins : typing.Optional[ScorecardsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -100,7 +107,7 @@ class RawScorecardsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedScorecardList]
+        SyncPager[Scorecard, PaginatedScorecardList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -128,14 +135,36 @@ class RawScorecardsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedScorecardList,
                     construct_type(
                         type_=PaginatedScorecardList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    application_id=application_id,
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    interview_id=interview_id,
+                    interviewer_id=interviewer_id,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    remote_fields=remote_fields,
+                    remote_id=remote_id,
+                    show_enum_origins=show_enum_origins,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -145,11 +174,13 @@ class RawScorecardsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ScorecardsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ScorecardsRetrieveRequestExpandItem, typing.Sequence[ScorecardsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["overall_recommendation"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["overall_recommendation"]] = None,
+        remote_fields: typing.Optional[ScorecardsRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[ScorecardsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Scorecard]:
         """
@@ -159,7 +190,7 @@ class RawScorecardsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ScorecardsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ScorecardsRetrieveRequestExpandItem, typing.Sequence[ScorecardsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -168,10 +199,10 @@ class RawScorecardsClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["overall_recommendation"]]
+        remote_fields : typing.Optional[ScorecardsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["overall_recommendation"]]
+        show_enum_origins : typing.Optional[ScorecardsRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -221,7 +252,9 @@ class AsyncRawScorecardsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ScorecardsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ScorecardsListRequestExpandItem, typing.Sequence[ScorecardsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -230,11 +263,11 @@ class AsyncRawScorecardsClient:
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["overall_recommendation"]] = None,
+        remote_fields: typing.Optional[ScorecardsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["overall_recommendation"]] = None,
+        show_enum_origins: typing.Optional[ScorecardsListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedScorecardList]:
+    ) -> AsyncPager[Scorecard, PaginatedScorecardList]:
         """
         Returns a list of `Scorecard` objects.
 
@@ -252,7 +285,7 @@ class AsyncRawScorecardsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ScorecardsListRequestExpand]
+        expand : typing.Optional[typing.Union[ScorecardsListRequestExpandItem, typing.Sequence[ScorecardsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -279,13 +312,13 @@ class AsyncRawScorecardsClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["overall_recommendation"]]
+        remote_fields : typing.Optional[ScorecardsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["overall_recommendation"]]
+        show_enum_origins : typing.Optional[ScorecardsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -293,7 +326,7 @@ class AsyncRawScorecardsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedScorecardList]
+        AsyncPager[Scorecard, PaginatedScorecardList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -321,14 +354,39 @@ class AsyncRawScorecardsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedScorecardList,
                     construct_type(
                         type_=PaginatedScorecardList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        application_id=application_id,
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        interview_id=interview_id,
+                        interviewer_id=interviewer_id,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        remote_fields=remote_fields,
+                        remote_id=remote_id,
+                        show_enum_origins=show_enum_origins,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -338,11 +396,13 @@ class AsyncRawScorecardsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ScorecardsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ScorecardsRetrieveRequestExpandItem, typing.Sequence[ScorecardsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["overall_recommendation"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["overall_recommendation"]] = None,
+        remote_fields: typing.Optional[ScorecardsRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[ScorecardsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Scorecard]:
         """
@@ -352,7 +412,7 @@ class AsyncRawScorecardsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ScorecardsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ScorecardsRetrieveRequestExpandItem, typing.Sequence[ScorecardsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -361,10 +421,10 @@ class AsyncRawScorecardsClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["overall_recommendation"]]
+        remote_fields : typing.Optional[ScorecardsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["overall_recommendation"]]
+        show_enum_origins : typing.Optional[ScorecardsRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]

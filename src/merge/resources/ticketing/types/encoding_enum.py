@@ -14,18 +14,18 @@ class EncodingEnum(str, enum.Enum):
     """
 
     RAW = "RAW"
-    BASE_64 = "BASE64"
-    GZIP_BASE_64 = "GZIP_BASE64"
+    BASE64 = "BASE64"
+    GZIP_BASE64 = "GZIP_BASE64"
 
     def visit(
         self,
         raw: typing.Callable[[], T_Result],
-        base_64: typing.Callable[[], T_Result],
-        gzip_base_64: typing.Callable[[], T_Result],
+        base64: typing.Callable[[], T_Result],
+        gzip_base64: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is EncodingEnum.RAW:
             return raw()
-        if self is EncodingEnum.BASE_64:
-            return base_64()
-        if self is EncodingEnum.GZIP_BASE_64:
-            return gzip_base_64()
+        if self is EncodingEnum.BASE64:
+            return base64()
+        if self is EncodingEnum.GZIP_BASE64:
+            return gzip_base64()

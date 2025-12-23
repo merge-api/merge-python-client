@@ -5,7 +5,7 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
-from .response_type_enum import ResponseTypeEnum
+from .remote_response_response_type import RemoteResponseResponseType
 
 
 class RemoteResponse(UncheckedBaseModel):
@@ -21,10 +21,10 @@ class RemoteResponse(UncheckedBaseModel):
     method: str
     path: str
     status: int
-    response: typing.Optional[typing.Any] = None
-    response_headers: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
-    response_type: typing.Optional[ResponseTypeEnum] = None
-    headers: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    response: typing.Any
+    response_headers: typing.Optional[typing.Dict[str, typing.Any]] = None
+    response_type: typing.Optional[RemoteResponseResponseType] = None
+    headers: typing.Optional[typing.Dict[str, typing.Any]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

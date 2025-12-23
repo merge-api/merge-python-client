@@ -9,11 +9,18 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.paginated_time_off_balance_list import PaginatedTimeOffBalanceList
 from ...types.time_off_balance import TimeOffBalance
+from .types.time_off_balances_list_request_expand_item import TimeOffBalancesListRequestExpandItem
 from .types.time_off_balances_list_request_policy_type import TimeOffBalancesListRequestPolicyType
+from .types.time_off_balances_list_request_remote_fields import TimeOffBalancesListRequestRemoteFields
+from .types.time_off_balances_list_request_show_enum_origins import TimeOffBalancesListRequestShowEnumOrigins
+from .types.time_off_balances_retrieve_request_expand_item import TimeOffBalancesRetrieveRequestExpandItem
+from .types.time_off_balances_retrieve_request_remote_fields import TimeOffBalancesRetrieveRequestRemoteFields
+from .types.time_off_balances_retrieve_request_show_enum_origins import TimeOffBalancesRetrieveRequestShowEnumOrigins
 
 
 class RawTimeOffBalancesClient:
@@ -27,7 +34,9 @@ class RawTimeOffBalancesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[TimeOffBalancesListRequestExpandItem, typing.Sequence[TimeOffBalancesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -35,11 +44,11 @@ class RawTimeOffBalancesClient:
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
         policy_type: typing.Optional[TimeOffBalancesListRequestPolicyType] = None,
-        remote_fields: typing.Optional[typing.Literal["policy_type"]] = None,
+        remote_fields: typing.Optional[TimeOffBalancesListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["policy_type"]] = None,
+        show_enum_origins: typing.Optional[TimeOffBalancesListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedTimeOffBalanceList]:
+    ) -> SyncPager[TimeOffBalance, PaginatedTimeOffBalanceList]:
         """
         Returns a list of `TimeOffBalance` objects.
 
@@ -57,7 +66,7 @@ class RawTimeOffBalancesClient:
         employee_id : typing.Optional[str]
             If provided, will only return time off balances for this employee.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[TimeOffBalancesListRequestExpandItem, typing.Sequence[TimeOffBalancesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -76,7 +85,7 @@ class RawTimeOffBalancesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         policy_type : typing.Optional[TimeOffBalancesListRequestPolicyType]
             If provided, will only return TimeOffBalance with this policy type. Options: ('VACATION', 'SICK', 'PERSONAL', 'JURY_DUTY', 'VOLUNTEER', 'BEREAVEMENT')
@@ -88,13 +97,13 @@ class RawTimeOffBalancesClient:
             * `VOLUNTEER` - VOLUNTEER
             * `BEREAVEMENT` - BEREAVEMENT
 
-        remote_fields : typing.Optional[typing.Literal["policy_type"]]
+        remote_fields : typing.Optional[TimeOffBalancesListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["policy_type"]]
+        show_enum_origins : typing.Optional[TimeOffBalancesListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -102,7 +111,7 @@ class RawTimeOffBalancesClient:
 
         Returns
         -------
-        HttpResponse[PaginatedTimeOffBalanceList]
+        SyncPager[TimeOffBalance, PaginatedTimeOffBalanceList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -129,14 +138,35 @@ class RawTimeOffBalancesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedTimeOffBalanceList,
                     construct_type(
                         type_=PaginatedTimeOffBalanceList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    employee_id=employee_id,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    policy_type=policy_type,
+                    remote_fields=remote_fields,
+                    remote_id=remote_id,
+                    show_enum_origins=show_enum_origins,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -146,11 +176,15 @@ class RawTimeOffBalancesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                TimeOffBalancesRetrieveRequestExpandItem, typing.Sequence[TimeOffBalancesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["policy_type"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["policy_type"]] = None,
+        remote_fields: typing.Optional[TimeOffBalancesRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[TimeOffBalancesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[TimeOffBalance]:
         """
@@ -160,7 +194,7 @@ class RawTimeOffBalancesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[TimeOffBalancesRetrieveRequestExpandItem, typing.Sequence[TimeOffBalancesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -169,10 +203,10 @@ class RawTimeOffBalancesClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["policy_type"]]
+        remote_fields : typing.Optional[TimeOffBalancesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["policy_type"]]
+        show_enum_origins : typing.Optional[TimeOffBalancesRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -222,7 +256,9 @@ class AsyncRawTimeOffBalancesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[TimeOffBalancesListRequestExpandItem, typing.Sequence[TimeOffBalancesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -230,11 +266,11 @@ class AsyncRawTimeOffBalancesClient:
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
         policy_type: typing.Optional[TimeOffBalancesListRequestPolicyType] = None,
-        remote_fields: typing.Optional[typing.Literal["policy_type"]] = None,
+        remote_fields: typing.Optional[TimeOffBalancesListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["policy_type"]] = None,
+        show_enum_origins: typing.Optional[TimeOffBalancesListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedTimeOffBalanceList]:
+    ) -> AsyncPager[TimeOffBalance, PaginatedTimeOffBalanceList]:
         """
         Returns a list of `TimeOffBalance` objects.
 
@@ -252,7 +288,7 @@ class AsyncRawTimeOffBalancesClient:
         employee_id : typing.Optional[str]
             If provided, will only return time off balances for this employee.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[TimeOffBalancesListRequestExpandItem, typing.Sequence[TimeOffBalancesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -271,7 +307,7 @@ class AsyncRawTimeOffBalancesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         policy_type : typing.Optional[TimeOffBalancesListRequestPolicyType]
             If provided, will only return TimeOffBalance with this policy type. Options: ('VACATION', 'SICK', 'PERSONAL', 'JURY_DUTY', 'VOLUNTEER', 'BEREAVEMENT')
@@ -283,13 +319,13 @@ class AsyncRawTimeOffBalancesClient:
             * `VOLUNTEER` - VOLUNTEER
             * `BEREAVEMENT` - BEREAVEMENT
 
-        remote_fields : typing.Optional[typing.Literal["policy_type"]]
+        remote_fields : typing.Optional[TimeOffBalancesListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["policy_type"]]
+        show_enum_origins : typing.Optional[TimeOffBalancesListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -297,7 +333,7 @@ class AsyncRawTimeOffBalancesClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedTimeOffBalanceList]
+        AsyncPager[TimeOffBalance, PaginatedTimeOffBalanceList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -324,14 +360,38 @@ class AsyncRawTimeOffBalancesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedTimeOffBalanceList,
                     construct_type(
                         type_=PaginatedTimeOffBalanceList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        employee_id=employee_id,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        policy_type=policy_type,
+                        remote_fields=remote_fields,
+                        remote_id=remote_id,
+                        show_enum_origins=show_enum_origins,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -341,11 +401,15 @@ class AsyncRawTimeOffBalancesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                TimeOffBalancesRetrieveRequestExpandItem, typing.Sequence[TimeOffBalancesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["policy_type"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["policy_type"]] = None,
+        remote_fields: typing.Optional[TimeOffBalancesRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[TimeOffBalancesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[TimeOffBalance]:
         """
@@ -355,7 +419,7 @@ class AsyncRawTimeOffBalancesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[TimeOffBalancesRetrieveRequestExpandItem, typing.Sequence[TimeOffBalancesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -364,10 +428,10 @@ class AsyncRawTimeOffBalancesClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["policy_type"]]
+        remote_fields : typing.Optional[TimeOffBalancesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["policy_type"]]
+        show_enum_origins : typing.Optional[TimeOffBalancesRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]

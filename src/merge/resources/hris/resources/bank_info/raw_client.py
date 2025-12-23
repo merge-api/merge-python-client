@@ -9,12 +9,19 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.bank_info import BankInfo
 from ...types.paginated_bank_info_list import PaginatedBankInfoList
 from .types.bank_info_list_request_account_type import BankInfoListRequestAccountType
+from .types.bank_info_list_request_expand_item import BankInfoListRequestExpandItem
 from .types.bank_info_list_request_order_by import BankInfoListRequestOrderBy
+from .types.bank_info_list_request_remote_fields import BankInfoListRequestRemoteFields
+from .types.bank_info_list_request_show_enum_origins import BankInfoListRequestShowEnumOrigins
+from .types.bank_info_retrieve_request_expand_item import BankInfoRetrieveRequestExpandItem
+from .types.bank_info_retrieve_request_remote_fields import BankInfoRetrieveRequestRemoteFields
+from .types.bank_info_retrieve_request_show_enum_origins import BankInfoRetrieveRequestShowEnumOrigins
 
 
 class RawBankInfoClient:
@@ -30,7 +37,9 @@ class RawBankInfoClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[BankInfoListRequestExpandItem, typing.Sequence[BankInfoListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -38,11 +47,11 @@ class RawBankInfoClient:
         modified_before: typing.Optional[dt.datetime] = None,
         order_by: typing.Optional[BankInfoListRequestOrderBy] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["account_type"]] = None,
+        remote_fields: typing.Optional[BankInfoListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["account_type"]] = None,
+        show_enum_origins: typing.Optional[BankInfoListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedBankInfoList]:
+    ) -> SyncPager[BankInfo, PaginatedBankInfoList]:
         """
         Returns a list of `BankInfo` objects.
 
@@ -69,7 +78,7 @@ class RawBankInfoClient:
         employee_id : typing.Optional[str]
             If provided, will only return bank accounts for this employee.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[BankInfoListRequestExpandItem, typing.Sequence[BankInfoListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -91,15 +100,15 @@ class RawBankInfoClient:
             Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["account_type"]]
+        remote_fields : typing.Optional[BankInfoListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["account_type"]]
+        show_enum_origins : typing.Optional[BankInfoListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -107,7 +116,7 @@ class RawBankInfoClient:
 
         Returns
         -------
-        HttpResponse[PaginatedBankInfoList]
+        SyncPager[BankInfo, PaginatedBankInfoList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -136,14 +145,37 @@ class RawBankInfoClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedBankInfoList,
                     construct_type(
                         type_=PaginatedBankInfoList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    account_type=account_type,
+                    bank_name=bank_name,
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    employee_id=employee_id,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    order_by=order_by,
+                    page_size=page_size,
+                    remote_fields=remote_fields,
+                    remote_id=remote_id,
+                    show_enum_origins=show_enum_origins,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -153,11 +185,13 @@ class RawBankInfoClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[BankInfoRetrieveRequestExpandItem, typing.Sequence[BankInfoRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["account_type"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["account_type"]] = None,
+        remote_fields: typing.Optional[BankInfoRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[BankInfoRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[BankInfo]:
         """
@@ -167,7 +201,7 @@ class RawBankInfoClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[BankInfoRetrieveRequestExpandItem, typing.Sequence[BankInfoRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -176,10 +210,10 @@ class RawBankInfoClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["account_type"]]
+        remote_fields : typing.Optional[BankInfoRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["account_type"]]
+        show_enum_origins : typing.Optional[BankInfoRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -231,7 +265,9 @@ class AsyncRawBankInfoClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[BankInfoListRequestExpandItem, typing.Sequence[BankInfoListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -239,11 +275,11 @@ class AsyncRawBankInfoClient:
         modified_before: typing.Optional[dt.datetime] = None,
         order_by: typing.Optional[BankInfoListRequestOrderBy] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["account_type"]] = None,
+        remote_fields: typing.Optional[BankInfoListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["account_type"]] = None,
+        show_enum_origins: typing.Optional[BankInfoListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedBankInfoList]:
+    ) -> AsyncPager[BankInfo, PaginatedBankInfoList]:
         """
         Returns a list of `BankInfo` objects.
 
@@ -270,7 +306,7 @@ class AsyncRawBankInfoClient:
         employee_id : typing.Optional[str]
             If provided, will only return bank accounts for this employee.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[BankInfoListRequestExpandItem, typing.Sequence[BankInfoListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -292,15 +328,15 @@ class AsyncRawBankInfoClient:
             Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["account_type"]]
+        remote_fields : typing.Optional[BankInfoListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["account_type"]]
+        show_enum_origins : typing.Optional[BankInfoListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -308,7 +344,7 @@ class AsyncRawBankInfoClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedBankInfoList]
+        AsyncPager[BankInfo, PaginatedBankInfoList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -337,14 +373,40 @@ class AsyncRawBankInfoClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedBankInfoList,
                     construct_type(
                         type_=PaginatedBankInfoList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        account_type=account_type,
+                        bank_name=bank_name,
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        employee_id=employee_id,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        order_by=order_by,
+                        page_size=page_size,
+                        remote_fields=remote_fields,
+                        remote_id=remote_id,
+                        show_enum_origins=show_enum_origins,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -354,11 +416,13 @@ class AsyncRawBankInfoClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[BankInfoRetrieveRequestExpandItem, typing.Sequence[BankInfoRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["account_type"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["account_type"]] = None,
+        remote_fields: typing.Optional[BankInfoRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[BankInfoRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[BankInfo]:
         """
@@ -368,7 +432,7 @@ class AsyncRawBankInfoClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[BankInfoRetrieveRequestExpandItem, typing.Sequence[BankInfoRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -377,10 +441,10 @@ class AsyncRawBankInfoClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["account_type"]]
+        remote_fields : typing.Optional[BankInfoRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["account_type"]]
+        show_enum_origins : typing.Optional[BankInfoRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]

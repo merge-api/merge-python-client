@@ -8,7 +8,6 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .accounting_phone_number import AccountingPhoneNumber
 from .address import Address
-from .company_info_currency import CompanyInfoCurrency
 from .remote_data import RemoteData
 
 
@@ -63,7 +62,7 @@ class CompanyInfo(UncheckedBaseModel):
     The company's fiscal year end day.
     """
 
-    currency: typing.Optional[CompanyInfoCurrency] = pydantic.Field(default=None)
+    currency: typing.Optional[typing.Any] = pydantic.Field(default=None)
     """
     The currency set in the company's accounting platform.
     
@@ -392,7 +391,7 @@ class CompanyInfo(UncheckedBaseModel):
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    field_mappings: typing.Optional[typing.Dict[str, typing.Any]] = None
     remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:

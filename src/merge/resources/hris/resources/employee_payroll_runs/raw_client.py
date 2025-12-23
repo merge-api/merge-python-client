@@ -9,12 +9,13 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.employee_payroll_run import EmployeePayrollRun
 from ...types.paginated_employee_payroll_run_list import PaginatedEmployeePayrollRunList
-from .types.employee_payroll_runs_list_request_expand import EmployeePayrollRunsListRequestExpand
-from .types.employee_payroll_runs_retrieve_request_expand import EmployeePayrollRunsRetrieveRequestExpand
+from .types.employee_payroll_runs_list_request_expand_item import EmployeePayrollRunsListRequestExpandItem
+from .types.employee_payroll_runs_retrieve_request_expand_item import EmployeePayrollRunsRetrieveRequestExpandItem
 
 
 class RawEmployeePayrollRunsClient:
@@ -30,7 +31,11 @@ class RawEmployeePayrollRunsClient:
         employee_id: typing.Optional[str] = None,
         ended_after: typing.Optional[dt.datetime] = None,
         ended_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[EmployeePayrollRunsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                EmployeePayrollRunsListRequestExpandItem, typing.Sequence[EmployeePayrollRunsListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -42,7 +47,7 @@ class RawEmployeePayrollRunsClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedEmployeePayrollRunList]:
+    ) -> SyncPager[EmployeePayrollRun, PaginatedEmployeePayrollRunList]:
         """
         Returns a list of `EmployeePayrollRun` objects.
 
@@ -66,7 +71,7 @@ class RawEmployeePayrollRunsClient:
         ended_before : typing.Optional[dt.datetime]
             If provided, will only return employee payroll runs ended before this datetime.
 
-        expand : typing.Optional[EmployeePayrollRunsListRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeePayrollRunsListRequestExpandItem, typing.Sequence[EmployeePayrollRunsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -85,7 +90,7 @@ class RawEmployeePayrollRunsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         payroll_run_id : typing.Optional[str]
             If provided, will only return employee payroll runs for this employee.
@@ -104,7 +109,7 @@ class RawEmployeePayrollRunsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedEmployeePayrollRunList]
+        SyncPager[EmployeePayrollRun, PaginatedEmployeePayrollRunList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -133,14 +138,37 @@ class RawEmployeePayrollRunsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedEmployeePayrollRunList,
                     construct_type(
                         type_=PaginatedEmployeePayrollRunList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    employee_id=employee_id,
+                    ended_after=ended_after,
+                    ended_before=ended_before,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    payroll_run_id=payroll_run_id,
+                    remote_id=remote_id,
+                    started_after=started_after,
+                    started_before=started_before,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -150,7 +178,12 @@ class RawEmployeePayrollRunsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[EmployeePayrollRunsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                EmployeePayrollRunsRetrieveRequestExpandItem,
+                typing.Sequence[EmployeePayrollRunsRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -162,7 +195,7 @@ class RawEmployeePayrollRunsClient:
         ----------
         id : str
 
-        expand : typing.Optional[EmployeePayrollRunsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeePayrollRunsRetrieveRequestExpandItem, typing.Sequence[EmployeePayrollRunsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -218,7 +251,11 @@ class AsyncRawEmployeePayrollRunsClient:
         employee_id: typing.Optional[str] = None,
         ended_after: typing.Optional[dt.datetime] = None,
         ended_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[EmployeePayrollRunsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                EmployeePayrollRunsListRequestExpandItem, typing.Sequence[EmployeePayrollRunsListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -230,7 +267,7 @@ class AsyncRawEmployeePayrollRunsClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedEmployeePayrollRunList]:
+    ) -> AsyncPager[EmployeePayrollRun, PaginatedEmployeePayrollRunList]:
         """
         Returns a list of `EmployeePayrollRun` objects.
 
@@ -254,7 +291,7 @@ class AsyncRawEmployeePayrollRunsClient:
         ended_before : typing.Optional[dt.datetime]
             If provided, will only return employee payroll runs ended before this datetime.
 
-        expand : typing.Optional[EmployeePayrollRunsListRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeePayrollRunsListRequestExpandItem, typing.Sequence[EmployeePayrollRunsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -273,7 +310,7 @@ class AsyncRawEmployeePayrollRunsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         payroll_run_id : typing.Optional[str]
             If provided, will only return employee payroll runs for this employee.
@@ -292,7 +329,7 @@ class AsyncRawEmployeePayrollRunsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedEmployeePayrollRunList]
+        AsyncPager[EmployeePayrollRun, PaginatedEmployeePayrollRunList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -321,14 +358,40 @@ class AsyncRawEmployeePayrollRunsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedEmployeePayrollRunList,
                     construct_type(
                         type_=PaginatedEmployeePayrollRunList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        employee_id=employee_id,
+                        ended_after=ended_after,
+                        ended_before=ended_before,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        payroll_run_id=payroll_run_id,
+                        remote_id=remote_id,
+                        started_after=started_after,
+                        started_before=started_before,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -338,7 +401,12 @@ class AsyncRawEmployeePayrollRunsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[EmployeePayrollRunsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                EmployeePayrollRunsRetrieveRequestExpandItem,
+                typing.Sequence[EmployeePayrollRunsRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -350,7 +418,7 @@ class AsyncRawEmployeePayrollRunsClient:
         ----------
         id : str
 
-        expand : typing.Optional[EmployeePayrollRunsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeePayrollRunsRetrieveRequestExpandItem, typing.Sequence[EmployeePayrollRunsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

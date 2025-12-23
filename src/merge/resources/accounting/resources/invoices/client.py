@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.invoice import Invoice
 from ...types.invoice_request import InvoiceRequest
@@ -11,11 +12,16 @@ from ...types.invoice_response import InvoiceResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_invoice_list import PaginatedInvoiceList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
+from ...types.remote_field_class import RemoteFieldClass
 from .raw_client import AsyncRawInvoicesClient, RawInvoicesClient
-from .types.invoices_list_request_expand import InvoicesListRequestExpand
+from .types.invoices_list_request_expand_item import InvoicesListRequestExpandItem
+from .types.invoices_list_request_remote_fields import InvoicesListRequestRemoteFields
+from .types.invoices_list_request_show_enum_origins import InvoicesListRequestShowEnumOrigins
 from .types.invoices_list_request_status import InvoicesListRequestStatus
 from .types.invoices_list_request_type import InvoicesListRequestType
-from .types.invoices_retrieve_request_expand import InvoicesRetrieveRequestExpand
+from .types.invoices_retrieve_request_expand_item import InvoicesRetrieveRequestExpandItem
+from .types.invoices_retrieve_request_remote_fields import InvoicesRetrieveRequestRemoteFields
+from .types.invoices_retrieve_request_show_enum_origins import InvoicesRetrieveRequestShowEnumOrigins
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -44,7 +50,9 @@ class InvoicesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[InvoicesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InvoicesListRequestExpandItem, typing.Sequence[InvoicesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -55,13 +63,13 @@ class InvoicesClient:
         modified_before: typing.Optional[dt.datetime] = None,
         number: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["type"]] = None,
+        remote_fields: typing.Optional[InvoicesListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
+        show_enum_origins: typing.Optional[InvoicesListRequestShowEnumOrigins] = None,
         status: typing.Optional[InvoicesListRequestStatus] = None,
         type: typing.Optional[InvoicesListRequestType] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedInvoiceList:
+    ) -> SyncPager[Invoice, PaginatedInvoiceList]:
         """
         Returns a list of `Invoice` objects.
 
@@ -82,7 +90,7 @@ class InvoicesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[InvoicesListRequestExpand]
+        expand : typing.Optional[typing.Union[InvoicesListRequestExpandItem, typing.Sequence[InvoicesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -115,13 +123,13 @@ class InvoicesClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["type"]]
+        remote_fields : typing.Optional[InvoicesListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["type"]]
+        show_enum_origins : typing.Optional[InvoicesListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         status : typing.Optional[InvoicesListRequestStatus]
@@ -145,59 +153,27 @@ class InvoicesClient:
 
         Returns
         -------
-        PaginatedInvoiceList
+        SyncPager[Invoice, PaginatedInvoiceList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
-        from merge.resources.accounting.resources.invoices import (
-            InvoicesListRequestExpand,
-            InvoicesListRequestStatus,
-            InvoicesListRequestType,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.invoices.list(
-            company_id="company_id",
-            contact_id="contact_id",
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.accounting.invoices.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=InvoicesListRequestExpand.ACCOUNTING_PERIOD,
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_remote_fields=True,
-            include_shell_data=True,
-            issue_date_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            issue_date_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            number="number",
-            page_size=1,
-            remote_id="remote_id",
-            status=InvoicesListRequestStatus.DRAFT,
-            type=InvoicesListRequestType.ACCOUNTS_PAYABLE,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             company_id=company_id,
             contact_id=contact_id,
             created_after=created_after,
@@ -221,7 +197,6 @@ class InvoicesClient:
             type=type,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -264,8 +239,6 @@ class InvoicesClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.invoices.create(
-            is_debug_mode=True,
-            run_async=True,
             model=InvoiceRequest(),
         )
         """
@@ -278,12 +251,14 @@ class InvoicesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[InvoicesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InvoicesRetrieveRequestExpandItem, typing.Sequence[InvoicesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["type"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
+        remote_fields: typing.Optional[InvoicesRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[InvoicesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -293,7 +268,7 @@ class InvoicesClient:
         ----------
         id : str
 
-        expand : typing.Optional[InvoicesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[InvoicesRetrieveRequestExpandItem, typing.Sequence[InvoicesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -305,10 +280,10 @@ class InvoicesClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["type"]]
+        remote_fields : typing.Optional[InvoicesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["type"]]
+        show_enum_origins : typing.Optional[InvoicesRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -322,9 +297,6 @@ class InvoicesClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.accounting.resources.invoices import (
-            InvoicesRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -332,10 +304,6 @@ class InvoicesClient:
         )
         client.accounting.invoices.retrieve(
             id="id",
-            expand=InvoicesRetrieveRequestExpand.ACCOUNTING_PERIOD,
-            include_remote_data=True,
-            include_remote_fields=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -393,8 +361,6 @@ class InvoicesClient:
         )
         client.accounting.invoices.partial_update(
             id="id",
-            is_debug_mode=True,
-            run_async=True,
             model=InvoiceRequest(),
         )
         """
@@ -414,7 +380,7 @@ class InvoicesClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -446,7 +412,7 @@ class InvoicesClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
 
         Examples
@@ -457,17 +423,16 @@ class InvoicesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.invoices.line_items_remote_field_classes_list(
+        response = client.accounting.invoices.line_items_remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            is_common_model_field=True,
-            is_custom=True,
-            page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.line_items_remote_field_classes_list(
+        return self._raw_client.line_items_remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -477,7 +442,6 @@ class InvoicesClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     def meta_patch_retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -548,7 +512,7 @@ class InvoicesClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -580,7 +544,7 @@ class InvoicesClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
 
         Examples
@@ -591,17 +555,16 @@ class InvoicesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.invoices.remote_field_classes_list(
+        response = client.accounting.invoices.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            is_common_model_field=True,
-            is_custom=True,
-            page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.remote_field_classes_list(
+        return self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -611,7 +574,6 @@ class InvoicesClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncInvoicesClient:
@@ -637,7 +599,9 @@ class AsyncInvoicesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[InvoicesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InvoicesListRequestExpandItem, typing.Sequence[InvoicesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -648,13 +612,13 @@ class AsyncInvoicesClient:
         modified_before: typing.Optional[dt.datetime] = None,
         number: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["type"]] = None,
+        remote_fields: typing.Optional[InvoicesListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
+        show_enum_origins: typing.Optional[InvoicesListRequestShowEnumOrigins] = None,
         status: typing.Optional[InvoicesListRequestStatus] = None,
         type: typing.Optional[InvoicesListRequestType] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedInvoiceList:
+    ) -> AsyncPager[Invoice, PaginatedInvoiceList]:
         """
         Returns a list of `Invoice` objects.
 
@@ -675,7 +639,7 @@ class AsyncInvoicesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[InvoicesListRequestExpand]
+        expand : typing.Optional[typing.Union[InvoicesListRequestExpandItem, typing.Sequence[InvoicesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -708,13 +672,13 @@ class AsyncInvoicesClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["type"]]
+        remote_fields : typing.Optional[InvoicesListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["type"]]
+        show_enum_origins : typing.Optional[InvoicesListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         status : typing.Optional[InvoicesListRequestStatus]
@@ -738,20 +702,14 @@ class AsyncInvoicesClient:
 
         Returns
         -------
-        PaginatedInvoiceList
+        AsyncPager[Invoice, PaginatedInvoiceList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.invoices import (
-            InvoicesListRequestExpand,
-            InvoicesListRequestStatus,
-            InvoicesListRequestType,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -760,44 +718,20 @@ class AsyncInvoicesClient:
 
 
         async def main() -> None:
-            await client.accounting.invoices.list(
-                company_id="company_id",
-                contact_id="contact_id",
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.accounting.invoices.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=InvoicesListRequestExpand.ACCOUNTING_PERIOD,
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_remote_fields=True,
-                include_shell_data=True,
-                issue_date_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                issue_date_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                number="number",
-                page_size=1,
-                remote_id="remote_id",
-                status=InvoicesListRequestStatus.DRAFT,
-                type=InvoicesListRequestType.ACCOUNTS_PAYABLE,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             company_id=company_id,
             contact_id=contact_id,
             created_after=created_after,
@@ -821,7 +755,6 @@ class AsyncInvoicesClient:
             type=type,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -869,8 +802,6 @@ class AsyncInvoicesClient:
 
         async def main() -> None:
             await client.accounting.invoices.create(
-                is_debug_mode=True,
-                run_async=True,
                 model=InvoiceRequest(),
             )
 
@@ -886,12 +817,14 @@ class AsyncInvoicesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[InvoicesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InvoicesRetrieveRequestExpandItem, typing.Sequence[InvoicesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["type"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
+        remote_fields: typing.Optional[InvoicesRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[InvoicesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -901,7 +834,7 @@ class AsyncInvoicesClient:
         ----------
         id : str
 
-        expand : typing.Optional[InvoicesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[InvoicesRetrieveRequestExpandItem, typing.Sequence[InvoicesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -913,10 +846,10 @@ class AsyncInvoicesClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["type"]]
+        remote_fields : typing.Optional[InvoicesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["type"]]
+        show_enum_origins : typing.Optional[InvoicesRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -932,9 +865,6 @@ class AsyncInvoicesClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.invoices import (
-            InvoicesRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -945,10 +875,6 @@ class AsyncInvoicesClient:
         async def main() -> None:
             await client.accounting.invoices.retrieve(
                 id="id",
-                expand=InvoicesRetrieveRequestExpand.ACCOUNTING_PERIOD,
-                include_remote_data=True,
-                include_remote_fields=True,
-                include_shell_data=True,
             )
 
 
@@ -1014,8 +940,6 @@ class AsyncInvoicesClient:
         async def main() -> None:
             await client.accounting.invoices.partial_update(
                 id="id",
-                is_debug_mode=True,
-                run_async=True,
                 model=InvoiceRequest(),
             )
 
@@ -1038,7 +962,7 @@ class AsyncInvoicesClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -1070,7 +994,7 @@ class AsyncInvoicesClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
 
         Examples
@@ -1086,20 +1010,22 @@ class AsyncInvoicesClient:
 
 
         async def main() -> None:
-            await client.accounting.invoices.line_items_remote_field_classes_list(
-                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                is_common_model_field=True,
-                is_custom=True,
-                page_size=1,
+            response = (
+                await client.accounting.invoices.line_items_remote_field_classes_list(
+                    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                )
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.line_items_remote_field_classes_list(
+        return await self._raw_client.line_items_remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -1109,7 +1035,6 @@ class AsyncInvoicesClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     async def meta_patch_retrieve(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -1198,7 +1123,7 @@ class AsyncInvoicesClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -1230,7 +1155,7 @@ class AsyncInvoicesClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
 
         Examples
@@ -1246,20 +1171,20 @@ class AsyncInvoicesClient:
 
 
         async def main() -> None:
-            await client.accounting.invoices.remote_field_classes_list(
+            response = await client.accounting.invoices.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                is_common_model_field=True,
-                is_custom=True,
-                page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.remote_field_classes_list(
+        return await self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -1269,4 +1194,3 @@ class AsyncInvoicesClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data

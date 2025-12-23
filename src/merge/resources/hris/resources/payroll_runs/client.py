@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.paginated_payroll_run_list import PaginatedPayrollRunList
 from ...types.payroll_run import PayrollRun
@@ -51,7 +52,7 @@ class PayrollRunsClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedPayrollRunList:
+    ) -> SyncPager[PayrollRun, PaginatedPayrollRunList]:
         """
         Returns a list of `PayrollRun` objects.
 
@@ -88,7 +89,7 @@ class PayrollRunsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_fields : typing.Optional[PayrollRunsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -119,61 +120,27 @@ class PayrollRunsClient:
 
         Returns
         -------
-        PaginatedPayrollRunList
+        SyncPager[PayrollRun, PaginatedPayrollRunList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
-        from merge.resources.hris.resources.payroll_runs import (
-            PayrollRunsListRequestRemoteFields,
-            PayrollRunsListRequestRunType,
-            PayrollRunsListRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.payroll_runs.list(
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.hris.payroll_runs.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            ended_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            ended_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            remote_fields=PayrollRunsListRequestRemoteFields.RUN_STATE,
-            remote_id="remote_id",
-            run_type=PayrollRunsListRequestRunType.CORRECTION,
-            show_enum_origins=PayrollRunsListRequestShowEnumOrigins.RUN_STATE,
-            started_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            started_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -193,7 +160,6 @@ class PayrollRunsClient:
             started_before=started_before,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -235,10 +201,6 @@ class PayrollRunsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.hris.resources.payroll_runs import (
-            PayrollRunsRetrieveRequestRemoteFields,
-            PayrollRunsRetrieveRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -246,10 +208,6 @@ class PayrollRunsClient:
         )
         client.hris.payroll_runs.retrieve(
             id="id",
-            include_remote_data=True,
-            include_shell_data=True,
-            remote_fields=PayrollRunsRetrieveRequestRemoteFields.RUN_STATE,
-            show_enum_origins=PayrollRunsRetrieveRequestShowEnumOrigins.RUN_STATE,
         )
         """
         _response = self._raw_client.retrieve(
@@ -299,7 +257,7 @@ class AsyncPayrollRunsClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedPayrollRunList:
+    ) -> AsyncPager[PayrollRun, PaginatedPayrollRunList]:
         """
         Returns a list of `PayrollRun` objects.
 
@@ -336,7 +294,7 @@ class AsyncPayrollRunsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_fields : typing.Optional[PayrollRunsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -367,20 +325,14 @@ class AsyncPayrollRunsClient:
 
         Returns
         -------
-        PaginatedPayrollRunList
+        AsyncPager[PayrollRun, PaginatedPayrollRunList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
-        from merge.resources.hris.resources.payroll_runs import (
-            PayrollRunsListRequestRemoteFields,
-            PayrollRunsListRequestRunType,
-            PayrollRunsListRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -389,46 +341,20 @@ class AsyncPayrollRunsClient:
 
 
         async def main() -> None:
-            await client.hris.payroll_runs.list(
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.hris.payroll_runs.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                ended_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                ended_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                remote_fields=PayrollRunsListRequestRemoteFields.RUN_STATE,
-                remote_id="remote_id",
-                run_type=PayrollRunsListRequestRunType.CORRECTION,
-                show_enum_origins=PayrollRunsListRequestShowEnumOrigins.RUN_STATE,
-                started_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                started_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -448,7 +374,6 @@ class AsyncPayrollRunsClient:
             started_before=started_before,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
@@ -492,10 +417,6 @@ class AsyncPayrollRunsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.hris.resources.payroll_runs import (
-            PayrollRunsRetrieveRequestRemoteFields,
-            PayrollRunsRetrieveRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -506,10 +427,6 @@ class AsyncPayrollRunsClient:
         async def main() -> None:
             await client.hris.payroll_runs.retrieve(
                 id="id",
-                include_remote_data=True,
-                include_shell_data=True,
-                remote_fields=PayrollRunsRetrieveRequestRemoteFields.RUN_STATE,
-                show_enum_origins=PayrollRunsRetrieveRequestShowEnumOrigins.RUN_STATE,
             )
 
 

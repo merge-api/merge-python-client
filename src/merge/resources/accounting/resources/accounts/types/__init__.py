@@ -7,16 +7,20 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .accounts_list_request_classification import AccountsListRequestClassification
+    from .accounts_list_request_expand_item import AccountsListRequestExpandItem
     from .accounts_list_request_remote_fields import AccountsListRequestRemoteFields
     from .accounts_list_request_show_enum_origins import AccountsListRequestShowEnumOrigins
     from .accounts_list_request_status import AccountsListRequestStatus
+    from .accounts_retrieve_request_expand_item import AccountsRetrieveRequestExpandItem
     from .accounts_retrieve_request_remote_fields import AccountsRetrieveRequestRemoteFields
     from .accounts_retrieve_request_show_enum_origins import AccountsRetrieveRequestShowEnumOrigins
 _dynamic_imports: typing.Dict[str, str] = {
     "AccountsListRequestClassification": ".accounts_list_request_classification",
+    "AccountsListRequestExpandItem": ".accounts_list_request_expand_item",
     "AccountsListRequestRemoteFields": ".accounts_list_request_remote_fields",
     "AccountsListRequestShowEnumOrigins": ".accounts_list_request_show_enum_origins",
     "AccountsListRequestStatus": ".accounts_list_request_status",
+    "AccountsRetrieveRequestExpandItem": ".accounts_retrieve_request_expand_item",
     "AccountsRetrieveRequestRemoteFields": ".accounts_retrieve_request_remote_fields",
     "AccountsRetrieveRequestShowEnumOrigins": ".accounts_retrieve_request_show_enum_origins",
 }
@@ -28,8 +32,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -43,9 +49,11 @@ def __dir__():
 
 __all__ = [
     "AccountsListRequestClassification",
+    "AccountsListRequestExpandItem",
     "AccountsListRequestRemoteFields",
     "AccountsListRequestShowEnumOrigins",
     "AccountsListRequestStatus",
+    "AccountsRetrieveRequestExpandItem",
     "AccountsRetrieveRequestRemoteFields",
     "AccountsRetrieveRequestShowEnumOrigins",
 ]

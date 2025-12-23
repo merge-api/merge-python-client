@@ -16,7 +16,6 @@ class RemoteFieldClass(UncheckedBaseModel):
     remote_key_name: typing.Optional[str] = None
     description: typing.Optional[str] = None
     is_custom: typing.Optional[bool] = None
-    is_common_model_field: typing.Optional[bool] = None
     is_required: typing.Optional[bool] = None
     field_type: typing.Optional[FieldTypeEnum] = None
     field_format: typing.Optional[FieldFormatEnum] = None

@@ -9,6 +9,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.crm_custom_object_response import CrmCustomObjectResponse
@@ -17,6 +18,7 @@ from ...types.custom_object_request import CustomObjectRequest
 from ...types.meta_response import MetaResponse
 from ...types.paginated_custom_object_list import PaginatedCustomObjectList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
+from ...types.remote_field_class import RemoteFieldClass
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -42,7 +44,7 @@ class RawCustomObjectsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedCustomObjectList]:
+    ) -> SyncPager[CustomObject, PaginatedCustomObjectList]:
         """
         Returns a list of `CustomObject` objects.
 
@@ -88,7 +90,7 @@ class RawCustomObjectsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedCustomObjectList]
+        SyncPager[CustomObject, PaginatedCustomObjectList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -111,14 +113,32 @@ class RawCustomObjectsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedCustomObjectList,
                     construct_type(
                         type_=PaginatedCustomObjectList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.custom_object_classes_custom_objects_list(
+                    custom_object_class_id,
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_remote_fields=include_remote_fields,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    remote_id=remote_id,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -298,7 +318,7 @@ class RawCustomObjectsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedRemoteFieldClassList]:
+    ) -> SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -333,7 +353,7 @@ class RawCustomObjectsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedRemoteFieldClassList]
+        SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -353,14 +373,28 @@ class RawCustomObjectsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedRemoteFieldClassList,
                     construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.custom_object_classes_custom_objects_remote_field_classes_list(
+                    cursor=_parsed_next,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_remote_fields=include_remote_fields,
+                    include_shell_data=include_shell_data,
+                    is_common_model_field=is_common_model_field,
+                    is_custom=is_custom,
+                    page_size=page_size,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -387,7 +421,7 @@ class AsyncRawCustomObjectsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedCustomObjectList]:
+    ) -> AsyncPager[CustomObject, PaginatedCustomObjectList]:
         """
         Returns a list of `CustomObject` objects.
 
@@ -433,7 +467,7 @@ class AsyncRawCustomObjectsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedCustomObjectList]
+        AsyncPager[CustomObject, PaginatedCustomObjectList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -456,14 +490,35 @@ class AsyncRawCustomObjectsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedCustomObjectList,
                     construct_type(
                         type_=PaginatedCustomObjectList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.custom_object_classes_custom_objects_list(
+                        custom_object_class_id,
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_remote_fields=include_remote_fields,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        remote_id=remote_id,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -643,7 +698,7 @@ class AsyncRawCustomObjectsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedRemoteFieldClassList]:
+    ) -> AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -678,7 +733,7 @@ class AsyncRawCustomObjectsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedRemoteFieldClassList]
+        AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -698,14 +753,31 @@ class AsyncRawCustomObjectsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedRemoteFieldClassList,
                     construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.custom_object_classes_custom_objects_remote_field_classes_list(
+                        cursor=_parsed_next,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_remote_fields=include_remote_fields,
+                        include_shell_data=include_shell_data,
+                        is_common_model_field=is_common_model_field,
+                        is_custom=is_custom,
+                        page_size=page_size,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
