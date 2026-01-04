@@ -256,6 +256,19 @@ types:
       id: string
     source:
       openapi: openapi/openapi.yml
+  ActionsEnum:
+    enum:
+      - VIEW
+      - CREATE
+      - EDIT
+      - DELETE
+    docs: |-
+      * `VIEW` - VIEW
+      * `CREATE` - CREATE
+      * `EDIT` - EDIT
+      * `DELETE` - DELETE
+    source:
+      openapi: openapi/openapi.yml
   AdvancedMetadata:
     properties:
       id:
@@ -791,6 +804,16 @@ types:
     source:
       openapi: openapi/openapi.yml
     inline: true
+  CollectionPermissionsItem:
+    discriminated: false
+    union:
+      - type: string
+        validation:
+          format: uuid
+      - Permission
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   Collection:
     docs: >-
       # The Collection Object
@@ -847,6 +870,9 @@ types:
       parent_collection:
         type: optional<CollectionParentCollection>
         docs: The parent collection for this collection.
+      permissions:
+        type: optional<list<CollectionPermissionsItem>>
+        access: read-only
       collection_url:
         type: optional<string>
         docs: The 3rd party url of the Collection.
@@ -1300,6 +1326,17 @@ types:
       url: string
       method: string
       status_code: integer
+    source:
+      openapi: openapi/openapi.yml
+  EffectEnum:
+    enum:
+      - ALLOWED
+      - DENIED
+      - INHERITED
+    docs: |-
+      * `ALLOWED` - ALLOWED
+      * `DENIED` - DENIED
+      * `INHERITED` - INHERITED
     source:
       openapi: openapi/openapi.yml
   EnabledActionsEnum:
@@ -2168,6 +2205,139 @@ types:
         access: write-only
     source:
       openapi: openapi/openapi.yml
+  PermissionEffect:
+    discriminated: false
+    docs: |-
+      Outcome of this permission rule for matching users.
+
+      * `ALLOWED` - ALLOWED
+      * `DENIED` - DENIED
+      * `INHERITED` - INHERITED
+    union:
+      - EffectEnum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
+  Permission:
+    docs: >-
+      # The Permission Object
+
+      ### Description
+
+      The `Permission` object is used to represent permissions that can be
+      applied to users, roles, teams, collections, and tickets.
+
+
+      ### Usage Example
+
+      TODO
+    properties:
+      id:
+        type: optional<string>
+        validation:
+          format: uuid
+        access: read-only
+      remote_id:
+        type: optional<string>
+        docs: The third-party API ID of the matching object.
+      created_at:
+        type: optional<datetime>
+        docs: The datetime that this object was created by Merge.
+        access: read-only
+      modified_at:
+        type: optional<datetime>
+        docs: The datetime that this object was modified by Merge.
+        access: read-only
+      effect:
+        type: optional<PermissionEffect>
+        docs: |-
+          Outcome of this permission rule for matching users.
+
+          * `ALLOWED` - ALLOWED
+          * `DENIED` - DENIED
+          * `INHERITED` - INHERITED
+      actions:
+        type: optional<list<optional<ActionsEnum>>>
+        docs: >-
+          Operations that this permission applies to. If the entity inherits
+          permission from a parent entity, then this should be an empty array.
+          In that case, the entity would inherit the parent entity’s actions.
+      applied_to_users: optional<list<optional<string>>>
+      applied_to_roles: optional<list<optional<string>>>
+      applied_to_teams: optional<list<optional<string>>>
+      applied_to_collections: optional<list<optional<string>>>
+      remote_was_deleted:
+        type: optional<boolean>
+        docs: >-
+          Indicates whether or not this object has been deleted in the third
+          party platform. Full coverage deletion detection is a premium add-on.
+          Native deletion detection is offered for free with limited coverage.
+          [Learn
+          more](https://docs.merge.dev/integrations/hris/supported-features/).
+        access: read-only
+      field_mappings:
+        type: optional<map<string, unknown>>
+        access: read-only
+    source:
+      openapi: openapi/openapi.yml
+  PermissionRequestEffect:
+    discriminated: false
+    docs: |-
+      Outcome of this permission rule for matching users.
+
+      * `ALLOWED` - ALLOWED
+      * `DENIED` - DENIED
+      * `INHERITED` - INHERITED
+    union:
+      - EffectEnum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
+  PermissionRequest:
+    docs: >-
+      # The Permission Object
+
+      ### Description
+
+      The `Permission` object is used to represent permissions that can be
+      applied to users, roles, teams, collections, and tickets.
+
+
+      ### Usage Example
+
+      TODO
+    properties:
+      remote_id:
+        type: optional<string>
+        docs: The third-party API ID of the matching object.
+      effect:
+        type: optional<PermissionRequestEffect>
+        docs: |-
+          Outcome of this permission rule for matching users.
+
+          * `ALLOWED` - ALLOWED
+          * `DENIED` - DENIED
+          * `INHERITED` - INHERITED
+      actions:
+        type: optional<list<optional<ActionsEnum>>>
+        docs: >-
+          Operations that this permission applies to. If the entity inherits
+          permission from a parent entity, then this should be an empty array.
+          In that case, the entity would inherit the parent entity’s actions.
+      applied_to_users: optional<list<optional<string>>>
+      applied_to_roles: optional<list<optional<string>>>
+      applied_to_teams: optional<list<optional<string>>>
+      applied_to_collections: optional<list<optional<string>>>
+      integration_params:
+        type: optional<map<string, unknown>>
+        access: write-only
+      linked_account_params:
+        type: optional<map<string, unknown>>
+        access: write-only
+    source:
+      openapi: openapi/openapi.yml
   PriorityEnum:
     enum:
       - URGENT
@@ -2231,6 +2401,24 @@ types:
       remote_data:
         type: optional<list<RemoteData>>
         access: read-only
+    source:
+      openapi: openapi/openapi.yml
+  RegenerateAccountToken:
+    docs: >-
+      # The RegenerateAccountToken Object
+
+      ### Description
+
+      The `RegenerateAccountToken` object is used to exchange an old account
+      token for a new one.
+
+
+      ### Usage Example
+
+      Post to receive a new `RegenerateAccountToken`.
+    properties:
+      linked_account_id: string
+      account_token: string
     source:
       openapi: openapi/openapi.yml
   RemoteData:
@@ -2524,6 +2712,7 @@ types:
       - API
       - SYSTEM
       - MERGE_TEAM
+      - SUPPORT
     docs: |-
       * `ADMIN` - ADMIN
       * `DEVELOPER` - DEVELOPER
@@ -2531,6 +2720,7 @@ types:
       * `API` - API
       * `SYSTEM` - SYSTEM
       * `MERGE_TEAM` - MERGE_TEAM
+      * `SUPPORT` - SUPPORT
     source:
       openapi: openapi/openapi.yml
   SelectiveSyncConfigurationsUsageEnum:
@@ -2567,6 +2757,14 @@ types:
     source:
       openapi: openapi/openapi.yml
     inline: true
+  SyncStatusStatus:
+    discriminated: false
+    union:
+      - StatusFd5Enum
+      - string
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   SyncStatus:
     docs: >-
       # The SyncStatus Object
@@ -2588,7 +2786,7 @@ types:
       next_sync_start: optional<datetime>
       last_sync_result: optional<SyncStatusLastSyncResult>
       last_sync_finished: optional<datetime>
-      status: StatusFd5Enum
+      status: SyncStatusStatus
       is_initial_sync: boolean
       selective_sync_configurations_usage: optional<SelectiveSyncConfigurationsUsageEnum>
     source:
@@ -2808,6 +3006,16 @@ types:
     source:
       openapi: openapi/openapi.yml
     inline: true
+  TicketPermissionsItem:
+    discriminated: false
+    union:
+      - type: string
+        validation:
+          format: uuid
+      - Permission
+    source:
+      openapi: openapi/openapi.yml
+    inline: true
   TicketPriority:
     discriminated: false
     docs: |-
@@ -2918,6 +3126,9 @@ types:
           * `PRIVATE` - PRIVATE
 
           * `COLLECTION` - COLLECTION
+      permissions:
+        type: optional<list<TicketPermissionsItem>>
+        access: read-only
       tags: optional<list<optional<string>>>
       roles: optional<list<optional<string>>>
       remote_created_at:

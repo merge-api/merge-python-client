@@ -17,6 +17,7 @@ from .ticket_assignees_item import TicketAssigneesItem
 from .ticket_collections_item import TicketCollectionsItem
 from .ticket_contact import TicketContact
 from .ticket_creator import TicketCreator
+from .ticket_permissions_item import TicketPermissionsItem
 from .ticket_priority import TicketPriority
 from .ticket_status import TicketStatus
 
@@ -124,6 +125,7 @@ class Ticket(UncheckedBaseModel):
     * `COLLECTION` - COLLECTION
     """
 
+    permissions: typing.Optional[typing.List[TicketPermissionsItem]] = None
     tags: typing.Optional[typing.List[typing.Optional[str]]] = None
     roles: typing.Optional[typing.List[typing.Optional[str]]] = None
     remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)

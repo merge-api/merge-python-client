@@ -40,7 +40,9 @@ service:
       method: POST
       auth:
         - tokenAuth: []
-      docs: Creates a link token to be used when linking a new end user.
+      docs: >-
+        Creates a link token to be used when linking a new end user. The link
+        token expires after single use.
       source:
         openapi: openapi/openapi.yml
       request:

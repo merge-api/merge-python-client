@@ -56,7 +56,7 @@ service:
               will be returned.
           page_size:
             type: optional<integer>
-            docs: Number of results to return per page.
+            docs: Number of results to return per page. The maximum limit is 100.
           remote_id:
             type: optional<string>
             docs: The API provider's ID for the given object.

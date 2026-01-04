@@ -245,6 +245,11 @@ service:
               mapping instance (i.e. `remote_fields.remote_key_name` and
               `remote_fields.schema` will be null). This will increase the speed
               of the request since these fields require some calculations.
+          remote_data_iteration_count:
+            type: optional<integer>
+            docs: >-
+              Number of common model instances to iterate through when fetching
+              remote data for field mappings. Defaults to 250 if not provided.
         body:
           properties:
             target_field_name:
@@ -302,6 +307,7 @@ service:
       examples:
         - query-parameters:
             exclude_remote_field_metadata: true
+            remote_data_iteration_count: 1
           headers:
             X-Account-Token: X-Account-Token
           request:
@@ -428,6 +434,12 @@ service:
         field_mapping_id: string
       request:
         name: PatchedEditFieldMappingRequest
+        query-parameters:
+          remote_data_iteration_count:
+            type: optional<integer>
+            docs: >-
+              Number of common model instances to iterate through when fetching
+              remote data for field mappings. Defaults to 250 if not provided.
         body:
           properties:
             remote_field_traversal_path:
@@ -464,6 +476,8 @@ service:
       examples:
         - path-parameters:
             field_mapping_id: field_mapping_id
+          query-parameters:
+            remote_data_iteration_count: 1
           headers:
             X-Account-Token: X-Account-Token
           request: {}

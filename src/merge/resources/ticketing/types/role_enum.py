@@ -14,6 +14,7 @@ class RoleEnum(str, enum.Enum):
     * `API` - API
     * `SYSTEM` - SYSTEM
     * `MERGE_TEAM` - MERGE_TEAM
+    * `SUPPORT` - SUPPORT
     """
 
     ADMIN = "ADMIN"
@@ -22,6 +23,7 @@ class RoleEnum(str, enum.Enum):
     API = "API"
     SYSTEM = "SYSTEM"
     MERGE_TEAM = "MERGE_TEAM"
+    SUPPORT = "SUPPORT"
 
     def visit(
         self,
@@ -31,6 +33,7 @@ class RoleEnum(str, enum.Enum):
         api: typing.Callable[[], T_Result],
         system: typing.Callable[[], T_Result],
         merge_team: typing.Callable[[], T_Result],
+        support: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is RoleEnum.ADMIN:
             return admin()
@@ -44,3 +47,5 @@ class RoleEnum(str, enum.Enum):
             return system()
         if self is RoleEnum.MERGE_TEAM:
             return merge_team()
+        if self is RoleEnum.SUPPORT:
+            return support()

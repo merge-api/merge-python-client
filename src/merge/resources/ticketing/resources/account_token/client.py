@@ -5,6 +5,7 @@ import typing
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.request_options import RequestOptions
 from ...types.account_token import AccountToken
+from ...types.regenerate_account_token import RegenerateAccountToken
 from .raw_client import AsyncRawAccountTokenClient, RawAccountTokenClient
 
 
@@ -52,6 +53,33 @@ class AccountTokenClient:
         )
         """
         _response = self._raw_client.retrieve(public_token, request_options=request_options)
+        return _response.data
+
+    def regenerate_create(self, *, request_options: typing.Optional[RequestOptions] = None) -> RegenerateAccountToken:
+        """
+        Exchange Linked Account account tokens.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RegenerateAccountToken
+
+
+        Examples
+        --------
+        from merge import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        client.ticketing.account_token.regenerate_create()
+        """
+        _response = self._raw_client.regenerate_create(request_options=request_options)
         return _response.data
 
 
@@ -109,4 +137,41 @@ class AsyncAccountTokenClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.retrieve(public_token, request_options=request_options)
+        return _response.data
+
+    async def regenerate_create(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> RegenerateAccountToken:
+        """
+        Exchange Linked Account account tokens.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RegenerateAccountToken
+
+
+        Examples
+        --------
+        import asyncio
+
+        from merge import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.ticketing.account_token.regenerate_create()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.regenerate_create(request_options=request_options)
         return _response.data

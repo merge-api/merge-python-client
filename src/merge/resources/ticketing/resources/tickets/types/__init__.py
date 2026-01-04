@@ -10,7 +10,8 @@ if typing.TYPE_CHECKING:
     from .tickets_list_request_priority import TicketsListRequestPriority
     from .tickets_list_request_remote_fields import TicketsListRequestRemoteFields
     from .tickets_list_request_show_enum_origins import TicketsListRequestShowEnumOrigins
-    from .tickets_list_request_status import TicketsListRequestStatus
+    from .tickets_live_search_retrieve_request_remote_fields import TicketsLiveSearchRetrieveRequestRemoteFields
+    from .tickets_live_search_retrieve_request_show_enum_origins import TicketsLiveSearchRetrieveRequestShowEnumOrigins
     from .tickets_retrieve_request_expand import TicketsRetrieveRequestExpand
     from .tickets_retrieve_request_remote_fields import TicketsRetrieveRequestRemoteFields
     from .tickets_retrieve_request_show_enum_origins import TicketsRetrieveRequestShowEnumOrigins
@@ -20,7 +21,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TicketsListRequestPriority": ".tickets_list_request_priority",
     "TicketsListRequestRemoteFields": ".tickets_list_request_remote_fields",
     "TicketsListRequestShowEnumOrigins": ".tickets_list_request_show_enum_origins",
-    "TicketsListRequestStatus": ".tickets_list_request_status",
+    "TicketsLiveSearchRetrieveRequestRemoteFields": ".tickets_live_search_retrieve_request_remote_fields",
+    "TicketsLiveSearchRetrieveRequestShowEnumOrigins": ".tickets_live_search_retrieve_request_show_enum_origins",
     "TicketsRetrieveRequestExpand": ".tickets_retrieve_request_expand",
     "TicketsRetrieveRequestRemoteFields": ".tickets_retrieve_request_remote_fields",
     "TicketsRetrieveRequestShowEnumOrigins": ".tickets_retrieve_request_show_enum_origins",
@@ -52,7 +54,8 @@ __all__ = [
     "TicketsListRequestPriority",
     "TicketsListRequestRemoteFields",
     "TicketsListRequestShowEnumOrigins",
-    "TicketsListRequestStatus",
+    "TicketsLiveSearchRetrieveRequestRemoteFields",
+    "TicketsLiveSearchRetrieveRequestShowEnumOrigins",
     "TicketsRetrieveRequestExpand",
     "TicketsRetrieveRequestRemoteFields",
     "TicketsRetrieveRequestShowEnumOrigins",

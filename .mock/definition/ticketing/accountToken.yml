@@ -43,5 +43,24 @@ service:
                 category_beta_status:
                   key: value
               id: 0496d4c2-42e6-4072-80b3-7b69bfdc76fd
+    regenerateCreate:
+      path: /ticketing/v1/account-token/regenerate
+      method: POST
+      auth:
+        - tokenAuth: []
+      docs: Exchange Linked Account account tokens.
+      source:
+        openapi: openapi/openapi.yml
+      response:
+        docs: ''
+        type: root.RegenerateAccountToken
+        status-code: 200
+      examples:
+        - headers:
+            X-Account-Token: X-Account-Token
+          response:
+            body:
+              linked_account_id: e59b1821-f85c-4e28-a6b3-1804156f3563
+              account_token: hXY57W0g0WkdRHjCaPvwijK63fwfN-o_Wh7f30SLTq_uPCOLo-WFcA
   source:
     openapi: openapi/openapi.yml

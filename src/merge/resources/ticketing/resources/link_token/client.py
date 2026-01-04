@@ -55,7 +55,7 @@ class LinkTokenClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
         """
-        Creates a link token to be used when linking a new end user.
+        Creates a link token to be used when linking a new end user. The link token expires after single use.
 
         Parameters
         ----------
@@ -187,7 +187,7 @@ class AsyncLinkTokenClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
         """
-        Creates a link token to be used when linking a new end user.
+        Creates a link token to be used when linking a new end user. The link token expires after single use.
 
         Parameters
         ----------
