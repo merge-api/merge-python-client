@@ -24,6 +24,7 @@ class RawUsersClient:
     def list(
         self,
         *,
+        collections: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
@@ -36,7 +37,9 @@ class RawUsersClient:
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
+        roles: typing.Optional[str] = None,
         team: typing.Optional[str] = None,
+        teams: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaginatedUserList]:
         """
@@ -44,6 +47,9 @@ class RawUsersClient:
 
         Parameters
         ----------
+        collections : typing.Optional[str]
+            If provided, will only return users involved with at least one of these collections.
+
         created_after : typing.Optional[dt.datetime]
             If provided, will only return objects created after this datetime.
 
@@ -80,8 +86,14 @@ class RawUsersClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
+        roles : typing.Optional[str]
+            If provided, will only return users with at least one of these roles.
+
         team : typing.Optional[str]
             If provided, will only return users matching in this team.
+
+        teams : typing.Optional[str]
+            If provided, will only return users with at least one of these teams.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -95,6 +107,7 @@ class RawUsersClient:
             "ticketing/v1/users",
             method="GET",
             params={
+                "collections": collections,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
@@ -107,7 +120,9 @@ class RawUsersClient:
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                 "page_size": page_size,
                 "remote_id": remote_id,
+                "roles": roles,
                 "team": team,
+                "teams": teams,
             },
             request_options=request_options,
         )
@@ -192,6 +207,7 @@ class AsyncRawUsersClient:
     async def list(
         self,
         *,
+        collections: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
@@ -204,7 +220,9 @@ class AsyncRawUsersClient:
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
+        roles: typing.Optional[str] = None,
         team: typing.Optional[str] = None,
+        teams: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaginatedUserList]:
         """
@@ -212,6 +230,9 @@ class AsyncRawUsersClient:
 
         Parameters
         ----------
+        collections : typing.Optional[str]
+            If provided, will only return users involved with at least one of these collections.
+
         created_after : typing.Optional[dt.datetime]
             If provided, will only return objects created after this datetime.
 
@@ -248,8 +269,14 @@ class AsyncRawUsersClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
+        roles : typing.Optional[str]
+            If provided, will only return users with at least one of these roles.
+
         team : typing.Optional[str]
             If provided, will only return users matching in this team.
+
+        teams : typing.Optional[str]
+            If provided, will only return users with at least one of these teams.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -263,6 +290,7 @@ class AsyncRawUsersClient:
             "ticketing/v1/users",
             method="GET",
             params={
+                "collections": collections,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
@@ -275,7 +303,9 @@ class AsyncRawUsersClient:
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                 "page_size": page_size,
                 "remote_id": remote_id,
+                "roles": roles,
                 "team": team,
+                "teams": teams,
             },
             request_options=request_options,
         )

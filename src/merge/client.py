@@ -89,9 +89,9 @@ class Merge:
             timeout=_defaulted_timeout,
         )
         self._ats: typing.Optional[AtsClient] = None
-        self._chat: typing.Optional[ChatClient] = None
         self._crm: typing.Optional[CrmClient] = None
         self._filestorage: typing.Optional[FilestorageClient] = None
+        self._chat: typing.Optional[ChatClient] = None
         self._hris: typing.Optional[HrisClient] = None
         self._knowledgebase: typing.Optional[KnowledgebaseClient] = None
         self._ticketing: typing.Optional[TicketingClient] = None
@@ -104,14 +104,6 @@ class Merge:
 
             self._ats = AtsClient(client_wrapper=self._client_wrapper)
         return self._ats
-
-    @property
-    def chat(self):
-        if self._chat is None:
-            from .resources.chat.client import ChatClient  # noqa: E402
-
-            self._chat = ChatClient(client_wrapper=self._client_wrapper)
-        return self._chat
 
     @property
     def crm(self):
@@ -128,6 +120,14 @@ class Merge:
 
             self._filestorage = FilestorageClient(client_wrapper=self._client_wrapper)
         return self._filestorage
+
+    @property
+    def chat(self):
+        if self._chat is None:
+            from .resources.chat.client import ChatClient  # noqa: E402
+
+            self._chat = ChatClient(client_wrapper=self._client_wrapper)
+        return self._chat
 
     @property
     def hris(self):
@@ -232,9 +232,9 @@ class AsyncMerge:
             timeout=_defaulted_timeout,
         )
         self._ats: typing.Optional[AsyncAtsClient] = None
-        self._chat: typing.Optional[AsyncChatClient] = None
         self._crm: typing.Optional[AsyncCrmClient] = None
         self._filestorage: typing.Optional[AsyncFilestorageClient] = None
+        self._chat: typing.Optional[AsyncChatClient] = None
         self._hris: typing.Optional[AsyncHrisClient] = None
         self._knowledgebase: typing.Optional[AsyncKnowledgebaseClient] = None
         self._ticketing: typing.Optional[AsyncTicketingClient] = None
@@ -247,14 +247,6 @@ class AsyncMerge:
 
             self._ats = AsyncAtsClient(client_wrapper=self._client_wrapper)
         return self._ats
-
-    @property
-    def chat(self):
-        if self._chat is None:
-            from .resources.chat.client import AsyncChatClient  # noqa: E402
-
-            self._chat = AsyncChatClient(client_wrapper=self._client_wrapper)
-        return self._chat
 
     @property
     def crm(self):
@@ -271,6 +263,14 @@ class AsyncMerge:
 
             self._filestorage = AsyncFilestorageClient(client_wrapper=self._client_wrapper)
         return self._filestorage
+
+    @property
+    def chat(self):
+        if self._chat is None:
+            from .resources.chat.client import AsyncChatClient  # noqa: E402
+
+            self._chat = AsyncChatClient(client_wrapper=self._client_wrapper)
+        return self._chat
 
     @property
     def hris(self):

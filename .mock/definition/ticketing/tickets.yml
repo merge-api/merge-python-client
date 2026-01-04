@@ -553,16 +553,6 @@ types:
       - ticket_type
     source:
       openapi: openapi/openapi.yml
-  TicketsListRequestStatus:
-    enum:
-      - value: ''
-        name: EMPTY
-      - CLOSED
-      - IN_PROGRESS
-      - ON_HOLD
-      - OPEN
-    source:
-      openapi: openapi/openapi.yml
   TicketsRetrieveRequestExpand:
     enum:
       - account
@@ -1117,6 +1107,36 @@ types:
         name: UserTeam
     source:
       openapi: openapi/openapi.yml
+  TicketsLiveSearchRetrieveRequestRemoteFields:
+    enum:
+      - priority
+      - value: priority,status
+        name: PriorityStatus
+      - value: priority,status,ticket_type
+        name: PriorityStatusTicketType
+      - value: priority,ticket_type
+        name: PriorityTicketType
+      - status
+      - value: status,ticket_type
+        name: StatusTicketType
+      - ticket_type
+    source:
+      openapi: openapi/openapi.yml
+  TicketsLiveSearchRetrieveRequestShowEnumOrigins:
+    enum:
+      - priority
+      - value: priority,status
+        name: PriorityStatus
+      - value: priority,status,ticket_type
+        name: PriorityStatusTicketType
+      - value: priority,ticket_type
+        name: PriorityTicketType
+      - status
+      - value: status,ticket_type
+        name: StatusTicketType
+      - ticket_type
+    source:
+      openapi: openapi/openapi.yml
 imports:
   root: __package__.yml
 service:
@@ -1258,6 +1278,11 @@ service:
           remote_id:
             type: optional<string>
             docs: The API provider's ID for the given object.
+          remote_ids:
+            type: optional<string>
+            docs: >-
+              If provided, will only return tickets with these remote IDs
+              (comma-separated).
           remote_updated_after:
             type: optional<datetime>
             docs: >-
@@ -1276,7 +1301,7 @@ service:
               enum values. [Learn
               more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
           status:
-            type: optional<TicketsListRequestStatus>
+            type: optional<string>
             docs: If provided, will only return tickets of this status.
           tags:
             type: optional<string>
@@ -1327,10 +1352,11 @@ service:
             remote_created_before: '2024-01-15T09:30:00Z'
             remote_fields: priority
             remote_id: remote_id
+            remote_ids: remote_ids
             remote_updated_after: '2024-01-15T09:30:00Z'
             remote_updated_before: '2024-01-15T09:30:00Z'
             show_enum_origins: priority
-            status: ''
+            status: status
             tags: tags
             ticket_type: ticket_type
             ticket_url: ticket_url
@@ -1366,6 +1392,8 @@ service:
                     - 42747df1-95e7-46e2-93cc-66f1191edca5
                     - 92f972d0-2526-434b-9409-4c3b468e08f0
                   access_level: COMPANY
+                  permissions:
+                    - 17a54124-287f-494d-965e-3c5b330c9a68
                   tags:
                     - enterprise
                     - other-tag
@@ -1453,6 +1481,8 @@ service:
                   - 42747df1-95e7-46e2-93cc-66f1191edca5
                   - 92f972d0-2526-434b-9409-4c3b468e08f0
                 access_level: COMPANY
+                permissions:
+                  - 17a54124-287f-494d-965e-3c5b330c9a68
                 tags:
                   - enterprise
                   - other-tag
@@ -1583,6 +1613,8 @@ service:
                 - 42747df1-95e7-46e2-93cc-66f1191edca5
                 - 92f972d0-2526-434b-9409-4c3b468e08f0
               access_level: COMPANY
+              permissions:
+                - 17a54124-287f-494d-965e-3c5b330c9a68
               tags:
                 - enterprise
                 - other-tag
@@ -1674,6 +1706,8 @@ service:
                   - 42747df1-95e7-46e2-93cc-66f1191edca5
                   - 92f972d0-2526-434b-9409-4c3b468e08f0
                 access_level: COMPANY
+                permissions:
+                  - 17a54124-287f-494d-965e-3c5b330c9a68
                 tags:
                   - enterprise
                   - other-tag
@@ -1791,6 +1825,73 @@ service:
                   modified_at: '2021-10-16T00:00:00Z'
                   team: team
                   user: user
+    liveSearchRetrieve:
+      path: /ticketing/v1/tickets/live-search
+      method: GET
+      auth:
+        - tokenAuth: []
+      docs: Returns a list of `Ticket` objects.
+      source:
+        openapi: openapi/openapi.yml
+      request:
+        name: TicketsLiveSearchRetrieveRequest
+        query-parameters:
+          assignee_ids:
+            type: optional<string>
+            docs: Filter tickets by assignee IDs (comma-separated)
+          assignees:
+            type: optional<string>
+            docs: Filter tickets by assignee names (comma-separated)
+          collection_ids:
+            type: optional<string>
+            docs: Filter tickets by collection IDs (comma-separated)
+          collections:
+            type: optional<string>
+            docs: Filter tickets by collection names (comma-separated)
+          include_deleted_data:
+            type: optional<boolean>
+            docs: >-
+              Indicates whether or not this object has been deleted in the third
+              party platform. Full coverage deletion detection is a premium
+              add-on. Native deletion detection is offered for free with limited
+              coverage. [Learn
+              more](https://docs.merge.dev/integrations/hris/supported-features/).
+          include_remote_fields:
+            type: optional<boolean>
+            docs: >-
+              Whether to include all remote fields, including fields that Merge
+              did not map to common models, in a normalized format.
+          include_shell_data:
+            type: optional<boolean>
+            docs: >-
+              Whether to include shell records. Shell records are empty records
+              (they may contain some metadata but all other fields are null).
+          name:
+            type: optional<string>
+            docs: Filter tickets by name/title
+          remote_cursor:
+            type: optional<string>
+            docs: Pagination cursor for remote data
+          remote_fields:
+            type: optional<TicketsLiveSearchRetrieveRequestRemoteFields>
+            docs: Deprecated. Use show_enum_origins.
+          show_enum_origins:
+            type: optional<TicketsLiveSearchRetrieveRequestShowEnumOrigins>
+            docs: >-
+              A comma separated list of enum field names for which you'd like
+              the original values to be returned, instead of Merge's normalized
+              enum values. [Learn
+              more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+          status:
+            type: optional<string>
+            docs: Filter tickets by status
+          ticket_url:
+            type: optional<string>
+            docs: Filter tickets by URL
+      response:
+        docs: ''
+        type: file
+        status-code: 200
     metaPatchRetrieve:
       path: /ticketing/v1/tickets/meta/patch/{id}
       method: GET

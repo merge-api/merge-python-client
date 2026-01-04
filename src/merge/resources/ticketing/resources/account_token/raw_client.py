@@ -10,6 +10,7 @@ from .....core.jsonable_encoder import jsonable_encoder
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.account_token import AccountToken
+from ...types.regenerate_account_token import RegenerateAccountToken
 
 
 class RawAccountTokenClient:
@@ -54,6 +55,42 @@ class RawAccountTokenClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def regenerate_create(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[RegenerateAccountToken]:
+        """
+        Exchange Linked Account account tokens.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[RegenerateAccountToken]
+
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "ticketing/v1/account-token/regenerate",
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    RegenerateAccountToken,
+                    construct_type(
+                        type_=RegenerateAccountToken,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawAccountTokenClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -88,6 +125,42 @@ class AsyncRawAccountTokenClient:
                     AccountToken,
                     construct_type(
                         type_=AccountToken,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def regenerate_create(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[RegenerateAccountToken]:
+        """
+        Exchange Linked Account account tokens.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[RegenerateAccountToken]
+
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "ticketing/v1/account-token/regenerate",
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    RegenerateAccountToken,
+                    construct_type(
+                        type_=RegenerateAccountToken,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

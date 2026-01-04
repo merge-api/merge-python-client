@@ -30,6 +30,7 @@ class UsersClient:
     def list(
         self,
         *,
+        collections: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
@@ -42,7 +43,9 @@ class UsersClient:
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
+        roles: typing.Optional[str] = None,
         team: typing.Optional[str] = None,
+        teams: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedUserList:
         """
@@ -50,6 +53,9 @@ class UsersClient:
 
         Parameters
         ----------
+        collections : typing.Optional[str]
+            If provided, will only return users involved with at least one of these collections.
+
         created_after : typing.Optional[dt.datetime]
             If provided, will only return objects created after this datetime.
 
@@ -86,8 +92,14 @@ class UsersClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
+        roles : typing.Optional[str]
+            If provided, will only return users with at least one of these roles.
+
         team : typing.Optional[str]
             If provided, will only return users matching in this team.
+
+        teams : typing.Optional[str]
+            If provided, will only return users with at least one of these teams.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -109,6 +121,7 @@ class UsersClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.users.list(
+            collections="collections",
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
@@ -129,10 +142,13 @@ class UsersClient:
             ),
             page_size=1,
             remote_id="remote_id",
+            roles="roles",
             team="team",
+            teams="teams",
         )
         """
         _response = self._raw_client.list(
+            collections=collections,
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -145,7 +161,9 @@ class UsersClient:
             modified_before=modified_before,
             page_size=page_size,
             remote_id=remote_id,
+            roles=roles,
             team=team,
+            teams=teams,
             request_options=request_options,
         )
         return _response.data
@@ -227,6 +245,7 @@ class AsyncUsersClient:
     async def list(
         self,
         *,
+        collections: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
@@ -239,7 +258,9 @@ class AsyncUsersClient:
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
+        roles: typing.Optional[str] = None,
         team: typing.Optional[str] = None,
+        teams: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaginatedUserList:
         """
@@ -247,6 +268,9 @@ class AsyncUsersClient:
 
         Parameters
         ----------
+        collections : typing.Optional[str]
+            If provided, will only return users involved with at least one of these collections.
+
         created_after : typing.Optional[dt.datetime]
             If provided, will only return objects created after this datetime.
 
@@ -283,8 +307,14 @@ class AsyncUsersClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
+        roles : typing.Optional[str]
+            If provided, will only return users with at least one of these roles.
+
         team : typing.Optional[str]
             If provided, will only return users matching in this team.
+
+        teams : typing.Optional[str]
+            If provided, will only return users with at least one of these teams.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -310,6 +340,7 @@ class AsyncUsersClient:
 
         async def main() -> None:
             await client.ticketing.users.list(
+                collections="collections",
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
@@ -330,13 +361,16 @@ class AsyncUsersClient:
                 ),
                 page_size=1,
                 remote_id="remote_id",
+                roles="roles",
                 team="team",
+                teams="teams",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.list(
+            collections=collections,
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -349,7 +383,9 @@ class AsyncUsersClient:
             modified_before=modified_before,
             page_size=page_size,
             remote_id=remote_id,
+            roles=roles,
             team=team,
+            teams=teams,
             request_options=request_options,
         )
         return _response.data

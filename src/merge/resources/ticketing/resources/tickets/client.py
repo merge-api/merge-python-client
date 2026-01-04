@@ -18,7 +18,10 @@ from .types.tickets_list_request_expand import TicketsListRequestExpand
 from .types.tickets_list_request_priority import TicketsListRequestPriority
 from .types.tickets_list_request_remote_fields import TicketsListRequestRemoteFields
 from .types.tickets_list_request_show_enum_origins import TicketsListRequestShowEnumOrigins
-from .types.tickets_list_request_status import TicketsListRequestStatus
+from .types.tickets_live_search_retrieve_request_remote_fields import TicketsLiveSearchRetrieveRequestRemoteFields
+from .types.tickets_live_search_retrieve_request_show_enum_origins import (
+    TicketsLiveSearchRetrieveRequestShowEnumOrigins,
+)
 from .types.tickets_retrieve_request_expand import TicketsRetrieveRequestExpand
 from .types.tickets_retrieve_request_remote_fields import TicketsRetrieveRequestRemoteFields
 from .types.tickets_retrieve_request_show_enum_origins import TicketsRetrieveRequestShowEnumOrigins
@@ -74,10 +77,11 @@ class TicketsClient:
         remote_created_before: typing.Optional[dt.datetime] = None,
         remote_fields: typing.Optional[TicketsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
+        remote_ids: typing.Optional[str] = None,
         remote_updated_after: typing.Optional[dt.datetime] = None,
         remote_updated_before: typing.Optional[dt.datetime] = None,
         show_enum_origins: typing.Optional[TicketsListRequestShowEnumOrigins] = None,
-        status: typing.Optional[TicketsListRequestStatus] = None,
+        status: typing.Optional[str] = None,
         tags: typing.Optional[str] = None,
         ticket_type: typing.Optional[str] = None,
         ticket_url: typing.Optional[str] = None,
@@ -177,6 +181,9 @@ class TicketsClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
+        remote_ids : typing.Optional[str]
+            If provided, will only return tickets with these remote IDs (comma-separated).
+
         remote_updated_after : typing.Optional[dt.datetime]
             If provided, will only return tickets updated in the third party platform after this datetime.
 
@@ -186,7 +193,7 @@ class TicketsClient:
         show_enum_origins : typing.Optional[TicketsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[TicketsListRequestStatus]
+        status : typing.Optional[str]
             If provided, will only return tickets of this status.
 
         tags : typing.Optional[str]
@@ -216,7 +223,6 @@ class TicketsClient:
             TicketsListRequestPriority,
             TicketsListRequestRemoteFields,
             TicketsListRequestShowEnumOrigins,
-            TicketsListRequestStatus,
         )
 
         client = Merge(
@@ -272,6 +278,7 @@ class TicketsClient:
             ),
             remote_fields=TicketsListRequestRemoteFields.PRIORITY,
             remote_id="remote_id",
+            remote_ids="remote_ids",
             remote_updated_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
@@ -279,7 +286,7 @@ class TicketsClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             show_enum_origins=TicketsListRequestShowEnumOrigins.PRIORITY,
-            status=TicketsListRequestStatus.EMPTY,
+            status="status",
             tags="tags",
             ticket_type="ticket_type",
             ticket_url="ticket_url",
@@ -314,6 +321,7 @@ class TicketsClient:
             remote_created_before=remote_created_before,
             remote_fields=remote_fields,
             remote_id=remote_id,
+            remote_ids=remote_ids,
             remote_updated_after=remote_updated_after,
             remote_updated_before=remote_updated_before,
             show_enum_origins=show_enum_origins,
@@ -585,6 +593,94 @@ class TicketsClient:
         )
         return _response.data
 
+    def live_search_retrieve(
+        self,
+        *,
+        assignee_ids: typing.Optional[str] = None,
+        assignees: typing.Optional[str] = None,
+        collection_ids: typing.Optional[str] = None,
+        collections: typing.Optional[str] = None,
+        include_deleted_data: typing.Optional[bool] = None,
+        include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
+        name: typing.Optional[str] = None,
+        remote_cursor: typing.Optional[str] = None,
+        remote_fields: typing.Optional[TicketsLiveSearchRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[TicketsLiveSearchRetrieveRequestShowEnumOrigins] = None,
+        status: typing.Optional[str] = None,
+        ticket_url: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Iterator[bytes]:
+        """
+        Returns a list of `Ticket` objects.
+
+        Parameters
+        ----------
+        assignee_ids : typing.Optional[str]
+            Filter tickets by assignee IDs (comma-separated)
+
+        assignees : typing.Optional[str]
+            Filter tickets by assignee names (comma-separated)
+
+        collection_ids : typing.Optional[str]
+            Filter tickets by collection IDs (comma-separated)
+
+        collections : typing.Optional[str]
+            Filter tickets by collection names (comma-separated)
+
+        include_deleted_data : typing.Optional[bool]
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+
+        name : typing.Optional[str]
+            Filter tickets by name/title
+
+        remote_cursor : typing.Optional[str]
+            Pagination cursor for remote data
+
+        remote_fields : typing.Optional[TicketsLiveSearchRetrieveRequestRemoteFields]
+            Deprecated. Use show_enum_origins.
+
+        show_enum_origins : typing.Optional[TicketsLiveSearchRetrieveRequestShowEnumOrigins]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+
+        status : typing.Optional[str]
+            Filter tickets by status
+
+        ticket_url : typing.Optional[str]
+            Filter tickets by URL
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration. You can pass in configuration such as `chunk_size`, and more to customize the request and response.
+
+        Returns
+        -------
+        typing.Iterator[bytes]
+
+        """
+        with self._raw_client.live_search_retrieve(
+            assignee_ids=assignee_ids,
+            assignees=assignees,
+            collection_ids=collection_ids,
+            collections=collections,
+            include_deleted_data=include_deleted_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            name=name,
+            remote_cursor=remote_cursor,
+            remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
+            status=status,
+            ticket_url=ticket_url,
+            request_options=request_options,
+        ) as r:
+            yield from r.data
+
     def meta_patch_retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
         Returns metadata for `Ticket` PATCHs.
@@ -789,10 +885,11 @@ class AsyncTicketsClient:
         remote_created_before: typing.Optional[dt.datetime] = None,
         remote_fields: typing.Optional[TicketsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
+        remote_ids: typing.Optional[str] = None,
         remote_updated_after: typing.Optional[dt.datetime] = None,
         remote_updated_before: typing.Optional[dt.datetime] = None,
         show_enum_origins: typing.Optional[TicketsListRequestShowEnumOrigins] = None,
-        status: typing.Optional[TicketsListRequestStatus] = None,
+        status: typing.Optional[str] = None,
         tags: typing.Optional[str] = None,
         ticket_type: typing.Optional[str] = None,
         ticket_url: typing.Optional[str] = None,
@@ -892,6 +989,9 @@ class AsyncTicketsClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
+        remote_ids : typing.Optional[str]
+            If provided, will only return tickets with these remote IDs (comma-separated).
+
         remote_updated_after : typing.Optional[dt.datetime]
             If provided, will only return tickets updated in the third party platform after this datetime.
 
@@ -901,7 +1001,7 @@ class AsyncTicketsClient:
         show_enum_origins : typing.Optional[TicketsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
-        status : typing.Optional[TicketsListRequestStatus]
+        status : typing.Optional[str]
             If provided, will only return tickets of this status.
 
         tags : typing.Optional[str]
@@ -932,7 +1032,6 @@ class AsyncTicketsClient:
             TicketsListRequestPriority,
             TicketsListRequestRemoteFields,
             TicketsListRequestShowEnumOrigins,
-            TicketsListRequestStatus,
         )
 
         client = AsyncMerge(
@@ -991,6 +1090,7 @@ class AsyncTicketsClient:
                 ),
                 remote_fields=TicketsListRequestRemoteFields.PRIORITY,
                 remote_id="remote_id",
+                remote_ids="remote_ids",
                 remote_updated_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
@@ -998,7 +1098,7 @@ class AsyncTicketsClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 show_enum_origins=TicketsListRequestShowEnumOrigins.PRIORITY,
-                status=TicketsListRequestStatus.EMPTY,
+                status="status",
                 tags="tags",
                 ticket_type="ticket_type",
                 ticket_url="ticket_url",
@@ -1036,6 +1136,7 @@ class AsyncTicketsClient:
             remote_created_before=remote_created_before,
             remote_fields=remote_fields,
             remote_id=remote_id,
+            remote_ids=remote_ids,
             remote_updated_after=remote_updated_after,
             remote_updated_before=remote_updated_before,
             show_enum_origins=show_enum_origins,
@@ -1338,6 +1439,95 @@ class AsyncTicketsClient:
             request_options=request_options,
         )
         return _response.data
+
+    async def live_search_retrieve(
+        self,
+        *,
+        assignee_ids: typing.Optional[str] = None,
+        assignees: typing.Optional[str] = None,
+        collection_ids: typing.Optional[str] = None,
+        collections: typing.Optional[str] = None,
+        include_deleted_data: typing.Optional[bool] = None,
+        include_remote_fields: typing.Optional[bool] = None,
+        include_shell_data: typing.Optional[bool] = None,
+        name: typing.Optional[str] = None,
+        remote_cursor: typing.Optional[str] = None,
+        remote_fields: typing.Optional[TicketsLiveSearchRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[TicketsLiveSearchRetrieveRequestShowEnumOrigins] = None,
+        status: typing.Optional[str] = None,
+        ticket_url: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.AsyncIterator[bytes]:
+        """
+        Returns a list of `Ticket` objects.
+
+        Parameters
+        ----------
+        assignee_ids : typing.Optional[str]
+            Filter tickets by assignee IDs (comma-separated)
+
+        assignees : typing.Optional[str]
+            Filter tickets by assignee names (comma-separated)
+
+        collection_ids : typing.Optional[str]
+            Filter tickets by collection IDs (comma-separated)
+
+        collections : typing.Optional[str]
+            Filter tickets by collection names (comma-separated)
+
+        include_deleted_data : typing.Optional[bool]
+            Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+
+        include_remote_fields : typing.Optional[bool]
+            Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+
+        include_shell_data : typing.Optional[bool]
+            Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+
+        name : typing.Optional[str]
+            Filter tickets by name/title
+
+        remote_cursor : typing.Optional[str]
+            Pagination cursor for remote data
+
+        remote_fields : typing.Optional[TicketsLiveSearchRetrieveRequestRemoteFields]
+            Deprecated. Use show_enum_origins.
+
+        show_enum_origins : typing.Optional[TicketsLiveSearchRetrieveRequestShowEnumOrigins]
+            A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+
+        status : typing.Optional[str]
+            Filter tickets by status
+
+        ticket_url : typing.Optional[str]
+            Filter tickets by URL
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration. You can pass in configuration such as `chunk_size`, and more to customize the request and response.
+
+        Returns
+        -------
+        typing.AsyncIterator[bytes]
+
+        """
+        async with self._raw_client.live_search_retrieve(
+            assignee_ids=assignee_ids,
+            assignees=assignees,
+            collection_ids=collection_ids,
+            collections=collections,
+            include_deleted_data=include_deleted_data,
+            include_remote_fields=include_remote_fields,
+            include_shell_data=include_shell_data,
+            name=name,
+            remote_cursor=remote_cursor,
+            remote_fields=remote_fields,
+            show_enum_origins=show_enum_origins,
+            status=status,
+            ticket_url=ticket_url,
+            request_options=request_options,
+        ) as r:
+            async for _chunk in r.data:
+                yield _chunk
 
     async def meta_patch_retrieve(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None

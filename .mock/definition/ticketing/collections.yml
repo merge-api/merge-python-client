@@ -141,6 +141,8 @@ service:
                   access_level: PRIVATE
                   collection_type: LIST
                   parent_collection: parent_collection
+                  permissions:
+                    - 17a54124-287f-494d-965e-3c5b330c9a68
                   collection_url: https://example.com
                   remote_created_at: '2022-01-01T00:00:00Z'
                   remote_updated_at: '2022-01-01T00:00:00Z'
@@ -291,6 +293,8 @@ service:
               access_level: PRIVATE
               collection_type: LIST
               parent_collection: parent_collection
+              permissions:
+                - 17a54124-287f-494d-965e-3c5b330c9a68
               collection_url: https://example.com
               remote_created_at: '2022-01-01T00:00:00Z'
               remote_updated_at: '2022-01-01T00:00:00Z'
