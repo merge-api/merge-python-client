@@ -7,10 +7,22 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .tracking_categories_list_request_category_type import TrackingCategoriesListRequestCategoryType
+    from .tracking_categories_list_request_expand_item import TrackingCategoriesListRequestExpandItem
+    from .tracking_categories_list_request_remote_fields import TrackingCategoriesListRequestRemoteFields
+    from .tracking_categories_list_request_show_enum_origins import TrackingCategoriesListRequestShowEnumOrigins
     from .tracking_categories_list_request_status import TrackingCategoriesListRequestStatus
+    from .tracking_categories_retrieve_request_expand_item import TrackingCategoriesRetrieveRequestExpandItem
+    from .tracking_categories_retrieve_request_remote_fields import TrackingCategoriesRetrieveRequestRemoteFields
+    from .tracking_categories_retrieve_request_show_enum_origins import TrackingCategoriesRetrieveRequestShowEnumOrigins
 _dynamic_imports: typing.Dict[str, str] = {
     "TrackingCategoriesListRequestCategoryType": ".tracking_categories_list_request_category_type",
+    "TrackingCategoriesListRequestExpandItem": ".tracking_categories_list_request_expand_item",
+    "TrackingCategoriesListRequestRemoteFields": ".tracking_categories_list_request_remote_fields",
+    "TrackingCategoriesListRequestShowEnumOrigins": ".tracking_categories_list_request_show_enum_origins",
     "TrackingCategoriesListRequestStatus": ".tracking_categories_list_request_status",
+    "TrackingCategoriesRetrieveRequestExpandItem": ".tracking_categories_retrieve_request_expand_item",
+    "TrackingCategoriesRetrieveRequestRemoteFields": ".tracking_categories_retrieve_request_remote_fields",
+    "TrackingCategoriesRetrieveRequestShowEnumOrigins": ".tracking_categories_retrieve_request_show_enum_origins",
 }
 
 
@@ -20,8 +32,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -33,4 +47,13 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["TrackingCategoriesListRequestCategoryType", "TrackingCategoriesListRequestStatus"]
+__all__ = [
+    "TrackingCategoriesListRequestCategoryType",
+    "TrackingCategoriesListRequestExpandItem",
+    "TrackingCategoriesListRequestRemoteFields",
+    "TrackingCategoriesListRequestShowEnumOrigins",
+    "TrackingCategoriesListRequestStatus",
+    "TrackingCategoriesRetrieveRequestExpandItem",
+    "TrackingCategoriesRetrieveRequestRemoteFields",
+    "TrackingCategoriesRetrieveRequestShowEnumOrigins",
+]

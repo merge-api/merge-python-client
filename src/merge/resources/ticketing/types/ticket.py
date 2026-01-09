@@ -126,6 +126,21 @@ class Ticket(UncheckedBaseModel):
 
     tags: typing.Optional[typing.List[typing.Optional[str]]] = None
     roles: typing.Optional[typing.List[typing.Optional[str]]] = None
+    ticket_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The 3rd party url of the Ticket.
+    """
+
+    priority: typing.Optional[TicketPriority] = pydantic.Field(default=None)
+    """
+    The priority or urgency of the Ticket.
+    
+    * `URGENT` - URGENT
+    * `HIGH` - HIGH
+    * `NORMAL` - NORMAL
+    * `LOW` - LOW
+    """
+
     remote_created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the third party's ticket was created.
@@ -146,22 +161,7 @@ class Ticket(UncheckedBaseModel):
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    ticket_url: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The 3rd party url of the Ticket.
-    """
-
-    priority: typing.Optional[TicketPriority] = pydantic.Field(default=None)
-    """
-    The priority or urgency of the Ticket.
-    
-    * `URGENT` - URGENT
-    * `HIGH` - HIGH
-    * `NORMAL` - NORMAL
-    * `LOW` - LOW
-    """
-
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    field_mappings: typing.Optional[typing.Dict[str, typing.Any]] = None
     remote_data: typing.Optional[typing.List[RemoteData]] = None
     remote_fields: typing.Optional[typing.List[RemoteField]] = None
 
@@ -175,9 +175,8 @@ class Ticket(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .collection import Collection  # noqa: E402, F401, I001
-from .attachment import Attachment  # noqa: E402, F401, I001
-from .ticket_parent_ticket import TicketParentTicket  # noqa: E402, F401, I001
-from .ticket_attachments_item import TicketAttachmentsItem  # noqa: E402, F401, I001
+from .attachment import Attachment  # noqa: E402, I001
+from .ticket_parent_ticket import TicketParentTicket  # noqa: E402, I001
+from .ticket_attachments_item import TicketAttachmentsItem  # noqa: E402, I001
 
-update_forward_refs(Ticket)
+update_forward_refs(Ticket, Attachment=Attachment)

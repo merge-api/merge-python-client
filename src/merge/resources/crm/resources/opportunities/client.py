@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.meta_response import MetaResponse
 from ...types.opportunity import Opportunity
@@ -12,10 +13,15 @@ from ...types.opportunity_response import OpportunityResponse
 from ...types.paginated_opportunity_list import PaginatedOpportunityList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.patched_opportunity_request import PatchedOpportunityRequest
+from ...types.remote_field_class import RemoteFieldClass
 from .raw_client import AsyncRawOpportunitiesClient, RawOpportunitiesClient
-from .types.opportunities_list_request_expand import OpportunitiesListRequestExpand
+from .types.opportunities_list_request_expand_item import OpportunitiesListRequestExpandItem
+from .types.opportunities_list_request_remote_fields import OpportunitiesListRequestRemoteFields
+from .types.opportunities_list_request_show_enum_origins import OpportunitiesListRequestShowEnumOrigins
 from .types.opportunities_list_request_status import OpportunitiesListRequestStatus
-from .types.opportunities_retrieve_request_expand import OpportunitiesRetrieveRequestExpand
+from .types.opportunities_retrieve_request_expand_item import OpportunitiesRetrieveRequestExpandItem
+from .types.opportunities_retrieve_request_remote_fields import OpportunitiesRetrieveRequestRemoteFields
+from .types.opportunities_retrieve_request_show_enum_origins import OpportunitiesRetrieveRequestShowEnumOrigins
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -43,7 +49,9 @@ class OpportunitiesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[OpportunitiesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -53,13 +61,13 @@ class OpportunitiesClient:
         owner_id: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         remote_created_after: typing.Optional[dt.datetime] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[OpportunitiesListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[OpportunitiesListRequestShowEnumOrigins] = None,
         stage_id: typing.Optional[str] = None,
         status: typing.Optional[OpportunitiesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedOpportunityList:
+    ) -> SyncPager[Opportunity, PaginatedOpportunityList]:
         """
         Returns a list of `Opportunity` objects.
 
@@ -77,7 +85,7 @@ class OpportunitiesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[OpportunitiesListRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -107,13 +115,13 @@ class OpportunitiesClient:
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return opportunities created in the third party platform after this datetime.
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[OpportunitiesListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[OpportunitiesListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         stage_id : typing.Optional[str]
@@ -131,54 +139,27 @@ class OpportunitiesClient:
 
         Returns
         -------
-        PaginatedOpportunityList
+        SyncPager[Opportunity, PaginatedOpportunityList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
-        from merge.resources.crm.resources.opportunities import (
-            OpportunitiesListRequestExpand,
-            OpportunitiesListRequestStatus,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.opportunities.list(
-            account_id="account_id",
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.crm.opportunities.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=OpportunitiesListRequestExpand.ACCOUNT,
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_remote_fields=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            owner_id="owner_id",
-            page_size=1,
-            remote_created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            remote_id="remote_id",
-            stage_id="stage_id",
-            status=OpportunitiesListRequestStatus.LOST,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             account_id=account_id,
             created_after=created_after,
             created_before=created_before,
@@ -200,7 +181,6 @@ class OpportunitiesClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -241,8 +221,6 @@ class OpportunitiesClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.opportunities.create(
-            is_debug_mode=True,
-            run_async=True,
             model=OpportunityRequest(),
         )
         """
@@ -255,12 +233,16 @@ class OpportunitiesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[OpportunitiesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[OpportunitiesRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[OpportunitiesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Opportunity:
         """
@@ -270,7 +252,7 @@ class OpportunitiesClient:
         ----------
         id : str
 
-        expand : typing.Optional[OpportunitiesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -282,10 +264,10 @@ class OpportunitiesClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[OpportunitiesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[OpportunitiesRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -299,9 +281,6 @@ class OpportunitiesClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.crm.resources.opportunities import (
-            OpportunitiesRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -309,10 +288,6 @@ class OpportunitiesClient:
         )
         client.crm.opportunities.retrieve(
             id="id",
-            expand=OpportunitiesRetrieveRequestExpand.ACCOUNT,
-            include_remote_data=True,
-            include_remote_fields=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -370,8 +345,6 @@ class OpportunitiesClient:
         )
         client.crm.opportunities.partial_update(
             id="id",
-            is_debug_mode=True,
-            run_async=True,
             model=PatchedOpportunityRequest(),
         )
         """
@@ -450,7 +423,7 @@ class OpportunitiesClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -485,7 +458,7 @@ class OpportunitiesClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
 
         Examples
@@ -496,18 +469,16 @@ class OpportunitiesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.opportunities.remote_field_classes_list(
+        response = client.crm.opportunities.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_remote_fields=True,
-            include_shell_data=True,
-            is_common_model_field=True,
-            is_custom=True,
-            page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.remote_field_classes_list(
+        return self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -518,7 +489,6 @@ class OpportunitiesClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncOpportunitiesClient:
@@ -543,7 +513,9 @@ class AsyncOpportunitiesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[OpportunitiesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -553,13 +525,13 @@ class AsyncOpportunitiesClient:
         owner_id: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         remote_created_after: typing.Optional[dt.datetime] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[OpportunitiesListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[OpportunitiesListRequestShowEnumOrigins] = None,
         stage_id: typing.Optional[str] = None,
         status: typing.Optional[OpportunitiesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedOpportunityList:
+    ) -> AsyncPager[Opportunity, PaginatedOpportunityList]:
         """
         Returns a list of `Opportunity` objects.
 
@@ -577,7 +549,7 @@ class AsyncOpportunitiesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[OpportunitiesListRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesListRequestExpandItem, typing.Sequence[OpportunitiesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -607,13 +579,13 @@ class AsyncOpportunitiesClient:
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return opportunities created in the third party platform after this datetime.
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[OpportunitiesListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[OpportunitiesListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         stage_id : typing.Optional[str]
@@ -631,19 +603,14 @@ class AsyncOpportunitiesClient:
 
         Returns
         -------
-        PaginatedOpportunityList
+        AsyncPager[Opportunity, PaginatedOpportunityList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
-        from merge.resources.crm.resources.opportunities import (
-            OpportunitiesListRequestExpand,
-            OpportunitiesListRequestStatus,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -652,40 +619,20 @@ class AsyncOpportunitiesClient:
 
 
         async def main() -> None:
-            await client.crm.opportunities.list(
-                account_id="account_id",
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.crm.opportunities.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=OpportunitiesListRequestExpand.ACCOUNT,
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_remote_fields=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                owner_id="owner_id",
-                page_size=1,
-                remote_created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                remote_id="remote_id",
-                stage_id="stage_id",
-                status=OpportunitiesListRequestStatus.LOST,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             account_id=account_id,
             created_after=created_after,
             created_before=created_before,
@@ -707,7 +654,6 @@ class AsyncOpportunitiesClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -753,8 +699,6 @@ class AsyncOpportunitiesClient:
 
         async def main() -> None:
             await client.crm.opportunities.create(
-                is_debug_mode=True,
-                run_async=True,
                 model=OpportunityRequest(),
             )
 
@@ -770,12 +714,16 @@ class AsyncOpportunitiesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[OpportunitiesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[OpportunitiesRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[OpportunitiesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Opportunity:
         """
@@ -785,7 +733,7 @@ class AsyncOpportunitiesClient:
         ----------
         id : str
 
-        expand : typing.Optional[OpportunitiesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[OpportunitiesRetrieveRequestExpandItem, typing.Sequence[OpportunitiesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -797,10 +745,10 @@ class AsyncOpportunitiesClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[OpportunitiesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[OpportunitiesRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -816,9 +764,6 @@ class AsyncOpportunitiesClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.crm.resources.opportunities import (
-            OpportunitiesRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -829,10 +774,6 @@ class AsyncOpportunitiesClient:
         async def main() -> None:
             await client.crm.opportunities.retrieve(
                 id="id",
-                expand=OpportunitiesRetrieveRequestExpand.ACCOUNT,
-                include_remote_data=True,
-                include_remote_fields=True,
-                include_shell_data=True,
             )
 
 
@@ -898,8 +839,6 @@ class AsyncOpportunitiesClient:
         async def main() -> None:
             await client.crm.opportunities.partial_update(
                 id="id",
-                is_debug_mode=True,
-                run_async=True,
                 model=PatchedOpportunityRequest(),
             )
 
@@ -999,7 +938,7 @@ class AsyncOpportunitiesClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -1034,7 +973,7 @@ class AsyncOpportunitiesClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
 
         Examples
@@ -1050,21 +989,20 @@ class AsyncOpportunitiesClient:
 
 
         async def main() -> None:
-            await client.crm.opportunities.remote_field_classes_list(
+            response = await client.crm.opportunities.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_remote_fields=True,
-                include_shell_data=True,
-                is_common_model_field=True,
-                is_custom=True,
-                page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.remote_field_classes_list(
+        return await self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -1075,4 +1013,3 @@ class AsyncOpportunitiesClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data

@@ -3,7 +3,9 @@
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
+from ...types.audit_log_event import AuditLogEvent
 from ...types.paginated_audit_log_event_list import PaginatedAuditLogEventList
 from .raw_client import AsyncRawAuditTrailClient, RawAuditTrailClient
 
@@ -33,7 +35,7 @@ class AuditTrailClient:
         start_date: typing.Optional[str] = None,
         user_email: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAuditLogEventList:
+    ) -> SyncPager[AuditLogEvent, PaginatedAuditLogEventList]:
         """
         Gets a list of audit trail events.
 
@@ -62,7 +64,7 @@ class AuditTrailClient:
 
         Returns
         -------
-        PaginatedAuditLogEventList
+        SyncPager[AuditLogEvent, PaginatedAuditLogEventList]
 
 
         Examples
@@ -73,16 +75,16 @@ class AuditTrailClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.audit_trail.list(
+        response = client.accounting.audit_trail.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            end_date="end_date",
-            event_type="event_type",
-            page_size=1,
-            start_date="start_date",
-            user_email="user_email",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             cursor=cursor,
             end_date=end_date,
             event_type=event_type,
@@ -91,7 +93,6 @@ class AuditTrailClient:
             user_email=user_email,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncAuditTrailClient:
@@ -119,7 +120,7 @@ class AsyncAuditTrailClient:
         start_date: typing.Optional[str] = None,
         user_email: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAuditLogEventList:
+    ) -> AsyncPager[AuditLogEvent, PaginatedAuditLogEventList]:
         """
         Gets a list of audit trail events.
 
@@ -148,7 +149,7 @@ class AsyncAuditTrailClient:
 
         Returns
         -------
-        PaginatedAuditLogEventList
+        AsyncPager[AuditLogEvent, PaginatedAuditLogEventList]
 
 
         Examples
@@ -164,19 +165,20 @@ class AsyncAuditTrailClient:
 
 
         async def main() -> None:
-            await client.accounting.audit_trail.list(
+            response = await client.accounting.audit_trail.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                end_date="end_date",
-                event_type="event_type",
-                page_size=1,
-                start_date="start_date",
-                user_email="user_email",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             cursor=cursor,
             end_date=end_date,
             event_type=event_type,
@@ -185,4 +187,3 @@ class AsyncAuditTrailClient:
             user_email=user_email,
             request_options=request_options,
         )
-        return _response.data

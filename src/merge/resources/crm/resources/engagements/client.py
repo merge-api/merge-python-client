@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.engagement import Engagement
 from ...types.engagement_request import EngagementRequest
@@ -12,9 +13,10 @@ from ...types.meta_response import MetaResponse
 from ...types.paginated_engagement_list import PaginatedEngagementList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.patched_engagement_request import PatchedEngagementRequest
+from ...types.remote_field_class import RemoteFieldClass
 from .raw_client import AsyncRawEngagementsClient, RawEngagementsClient
-from .types.engagements_list_request_expand import EngagementsListRequestExpand
-from .types.engagements_retrieve_request_expand import EngagementsRetrieveRequestExpand
+from .types.engagements_list_request_expand_item import EngagementsListRequestExpandItem
+from .types.engagements_retrieve_request_expand_item import EngagementsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -41,7 +43,9 @@ class EngagementsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[EngagementsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EngagementsListRequestExpandItem, typing.Sequence[EngagementsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -53,7 +57,7 @@ class EngagementsClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedEngagementList:
+    ) -> SyncPager[Engagement, PaginatedEngagementList]:
         """
         Returns a list of `Engagement` objects.
 
@@ -68,7 +72,7 @@ class EngagementsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[EngagementsListRequestExpand]
+        expand : typing.Optional[typing.Union[EngagementsListRequestExpandItem, typing.Sequence[EngagementsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -106,52 +110,27 @@ class EngagementsClient:
 
         Returns
         -------
-        PaginatedEngagementList
+        SyncPager[Engagement, PaginatedEngagementList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
-        from merge.resources.crm.resources.engagements import (
-            EngagementsListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.engagements.list(
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.crm.engagements.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=EngagementsListRequestExpand.ACCOUNT,
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_remote_fields=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            remote_id="remote_id",
-            started_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            started_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -168,7 +147,6 @@ class EngagementsClient:
             started_before=started_before,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -209,8 +187,6 @@ class EngagementsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.engagements.create(
-            is_debug_mode=True,
-            run_async=True,
             model=EngagementRequest(),
         )
         """
@@ -223,7 +199,9 @@ class EngagementsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[EngagementsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EngagementsRetrieveRequestExpandItem, typing.Sequence[EngagementsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -236,7 +214,7 @@ class EngagementsClient:
         ----------
         id : str
 
-        expand : typing.Optional[EngagementsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EngagementsRetrieveRequestExpandItem, typing.Sequence[EngagementsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -259,9 +237,6 @@ class EngagementsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.crm.resources.engagements import (
-            EngagementsRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -269,10 +244,6 @@ class EngagementsClient:
         )
         client.crm.engagements.retrieve(
             id="id",
-            expand=EngagementsRetrieveRequestExpand.ACCOUNT,
-            include_remote_data=True,
-            include_remote_fields=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -328,8 +299,6 @@ class EngagementsClient:
         )
         client.crm.engagements.partial_update(
             id="id",
-            is_debug_mode=True,
-            run_async=True,
             model=PatchedEngagementRequest(),
         )
         """
@@ -408,7 +377,7 @@ class EngagementsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -443,7 +412,7 @@ class EngagementsClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
 
         Examples
@@ -454,18 +423,16 @@ class EngagementsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.engagements.remote_field_classes_list(
+        response = client.crm.engagements.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_remote_fields=True,
-            include_shell_data=True,
-            is_common_model_field=True,
-            is_custom=True,
-            page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.remote_field_classes_list(
+        return self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -476,7 +443,6 @@ class EngagementsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncEngagementsClient:
@@ -500,7 +466,9 @@ class AsyncEngagementsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[EngagementsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EngagementsListRequestExpandItem, typing.Sequence[EngagementsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -512,7 +480,7 @@ class AsyncEngagementsClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedEngagementList:
+    ) -> AsyncPager[Engagement, PaginatedEngagementList]:
         """
         Returns a list of `Engagement` objects.
 
@@ -527,7 +495,7 @@ class AsyncEngagementsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[EngagementsListRequestExpand]
+        expand : typing.Optional[typing.Union[EngagementsListRequestExpandItem, typing.Sequence[EngagementsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -565,18 +533,14 @@ class AsyncEngagementsClient:
 
         Returns
         -------
-        PaginatedEngagementList
+        AsyncPager[Engagement, PaginatedEngagementList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
-        from merge.resources.crm.resources.engagements import (
-            EngagementsListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -585,39 +549,20 @@ class AsyncEngagementsClient:
 
 
         async def main() -> None:
-            await client.crm.engagements.list(
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.crm.engagements.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=EngagementsListRequestExpand.ACCOUNT,
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_remote_fields=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                remote_id="remote_id",
-                started_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                started_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -634,7 +579,6 @@ class AsyncEngagementsClient:
             started_before=started_before,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -680,8 +624,6 @@ class AsyncEngagementsClient:
 
         async def main() -> None:
             await client.crm.engagements.create(
-                is_debug_mode=True,
-                run_async=True,
                 model=EngagementRequest(),
             )
 
@@ -697,7 +639,9 @@ class AsyncEngagementsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[EngagementsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EngagementsRetrieveRequestExpandItem, typing.Sequence[EngagementsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -710,7 +654,7 @@ class AsyncEngagementsClient:
         ----------
         id : str
 
-        expand : typing.Optional[EngagementsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EngagementsRetrieveRequestExpandItem, typing.Sequence[EngagementsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -735,9 +679,6 @@ class AsyncEngagementsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.crm.resources.engagements import (
-            EngagementsRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -748,10 +689,6 @@ class AsyncEngagementsClient:
         async def main() -> None:
             await client.crm.engagements.retrieve(
                 id="id",
-                expand=EngagementsRetrieveRequestExpand.ACCOUNT,
-                include_remote_data=True,
-                include_remote_fields=True,
-                include_shell_data=True,
             )
 
 
@@ -815,8 +752,6 @@ class AsyncEngagementsClient:
         async def main() -> None:
             await client.crm.engagements.partial_update(
                 id="id",
-                is_debug_mode=True,
-                run_async=True,
                 model=PatchedEngagementRequest(),
             )
 
@@ -916,7 +851,7 @@ class AsyncEngagementsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -951,7 +886,7 @@ class AsyncEngagementsClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
 
         Examples
@@ -967,21 +902,20 @@ class AsyncEngagementsClient:
 
 
         async def main() -> None:
-            await client.crm.engagements.remote_field_classes_list(
+            response = await client.crm.engagements.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_remote_fields=True,
-                include_shell_data=True,
-                is_common_model_field=True,
-                is_custom=True,
-                page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.remote_field_classes_list(
+        return await self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -992,4 +926,3 @@ class AsyncEngagementsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data

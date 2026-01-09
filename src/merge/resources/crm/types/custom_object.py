@@ -39,7 +39,7 @@ class CustomObject(UncheckedBaseModel):
     The custom object class the custom object record belongs to.
     """
 
-    fields: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
+    fields: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
     The fields and values contained within the custom object record.
     """

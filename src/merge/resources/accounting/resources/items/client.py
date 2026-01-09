@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.item import Item
 from ...types.item_request_request import ItemRequestRequest
@@ -12,8 +13,12 @@ from ...types.meta_response import MetaResponse
 from ...types.paginated_item_list import PaginatedItemList
 from ...types.patched_item_request_request import PatchedItemRequestRequest
 from .raw_client import AsyncRawItemsClient, RawItemsClient
-from .types.items_list_request_expand import ItemsListRequestExpand
-from .types.items_retrieve_request_expand import ItemsRetrieveRequestExpand
+from .types.items_list_request_expand_item import ItemsListRequestExpandItem
+from .types.items_list_request_remote_fields import ItemsListRequestRemoteFields
+from .types.items_list_request_show_enum_origins import ItemsListRequestShowEnumOrigins
+from .types.items_retrieve_request_expand_item import ItemsRetrieveRequestExpandItem
+from .types.items_retrieve_request_remote_fields import ItemsRetrieveRequestRemoteFields
+from .types.items_retrieve_request_show_enum_origins import ItemsRetrieveRequestShowEnumOrigins
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -41,18 +46,20 @@ class ItemsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ItemsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ItemsListRequestExpandItem, typing.Sequence[ItemsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[ItemsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[ItemsListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedItemList:
+    ) -> SyncPager[Item, PaginatedItemList]:
         """
         Returns a list of `Item` objects.
 
@@ -70,7 +77,7 @@ class ItemsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ItemsListRequestExpand]
+        expand : typing.Optional[typing.Union[ItemsListRequestExpandItem, typing.Sequence[ItemsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -91,13 +98,13 @@ class ItemsClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[ItemsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[ItemsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -105,44 +112,27 @@ class ItemsClient:
 
         Returns
         -------
-        PaginatedItemList
+        SyncPager[Item, PaginatedItemList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
-        from merge.resources.accounting.resources.items import ItemsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.items.list(
-            company_id="company_id",
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.accounting.items.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=ItemsListRequestExpand.COMPANY,
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -159,7 +149,6 @@ class ItemsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -200,8 +189,6 @@ class ItemsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.items.create(
-            is_debug_mode=True,
-            run_async=True,
             model=ItemRequestRequest(),
         )
         """
@@ -214,11 +201,13 @@ class ItemsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ItemsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ItemsRetrieveRequestExpandItem, typing.Sequence[ItemsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[ItemsRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[ItemsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Item:
         """
@@ -228,7 +217,7 @@ class ItemsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ItemsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ItemsRetrieveRequestExpandItem, typing.Sequence[ItemsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -237,10 +226,10 @@ class ItemsClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[ItemsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[ItemsRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -254,9 +243,6 @@ class ItemsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.accounting.resources.items import (
-            ItemsRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -264,9 +250,6 @@ class ItemsClient:
         )
         client.accounting.items.retrieve(
             id="id",
-            expand=ItemsRetrieveRequestExpand.COMPANY,
-            include_remote_data=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -323,8 +306,6 @@ class ItemsClient:
         )
         client.accounting.items.partial_update(
             id="id",
-            is_debug_mode=True,
-            run_async=True,
             model=PatchedItemRequestRequest(),
         )
         """
@@ -414,18 +395,20 @@ class AsyncItemsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ItemsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ItemsListRequestExpandItem, typing.Sequence[ItemsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[ItemsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[ItemsListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedItemList:
+    ) -> AsyncPager[Item, PaginatedItemList]:
         """
         Returns a list of `Item` objects.
 
@@ -443,7 +426,7 @@ class AsyncItemsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ItemsListRequestExpand]
+        expand : typing.Optional[typing.Union[ItemsListRequestExpandItem, typing.Sequence[ItemsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -464,13 +447,13 @@ class AsyncItemsClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[ItemsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[ItemsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -478,16 +461,14 @@ class AsyncItemsClient:
 
         Returns
         -------
-        PaginatedItemList
+        AsyncPager[Item, PaginatedItemList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.items import ItemsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -496,33 +477,20 @@ class AsyncItemsClient:
 
 
         async def main() -> None:
-            await client.accounting.items.list(
-                company_id="company_id",
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.accounting.items.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=ItemsListRequestExpand.COMPANY,
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -539,7 +507,6 @@ class AsyncItemsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -585,8 +552,6 @@ class AsyncItemsClient:
 
         async def main() -> None:
             await client.accounting.items.create(
-                is_debug_mode=True,
-                run_async=True,
                 model=ItemRequestRequest(),
             )
 
@@ -602,11 +567,13 @@ class AsyncItemsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ItemsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ItemsRetrieveRequestExpandItem, typing.Sequence[ItemsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[ItemsRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[ItemsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Item:
         """
@@ -616,7 +583,7 @@ class AsyncItemsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ItemsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ItemsRetrieveRequestExpandItem, typing.Sequence[ItemsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -625,10 +592,10 @@ class AsyncItemsClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[ItemsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[ItemsRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -644,9 +611,6 @@ class AsyncItemsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.items import (
-            ItemsRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -657,9 +621,6 @@ class AsyncItemsClient:
         async def main() -> None:
             await client.accounting.items.retrieve(
                 id="id",
-                expand=ItemsRetrieveRequestExpand.COMPANY,
-                include_remote_data=True,
-                include_shell_data=True,
             )
 
 
@@ -724,8 +685,6 @@ class AsyncItemsClient:
         async def main() -> None:
             await client.accounting.items.partial_update(
                 id="id",
-                is_debug_mode=True,
-                run_async=True,
                 model=PatchedItemRequestRequest(),
             )
 

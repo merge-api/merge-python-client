@@ -3,8 +3,10 @@
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.paginated_sync_status_list import PaginatedSyncStatusList
+from ...types.sync_status import SyncStatus
 from .raw_client import AsyncRawSyncStatusClient, RawSyncStatusClient
 
 
@@ -29,7 +31,7 @@ class SyncStatusClient:
         cursor: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedSyncStatusList:
+    ) -> SyncPager[SyncStatus, PaginatedSyncStatusList]:
         """
         Get sync status for the current sync and the most recently finished sync. `last_sync_start` represents the most recent time any sync began. `last_sync_finished` represents the most recent time any sync completed. These timestamps may correspond to different sync instances which may result in a sync start time being later than a separate sync completed time. To ensure you are retrieving the latest available data reference the `last_sync_finished` timestamp where `last_sync_result` is `DONE`. Possible values for `status` and `last_sync_result` are `DISABLED`, `DONE`, `FAILED`, `PARTIALLY_SYNCED`, `PAUSED`, `SYNCING`. Learn more about sync status in our [Help Center](https://help.merge.dev/en/articles/8184193-merge-sync-statuses).
 
@@ -39,14 +41,14 @@ class SyncStatusClient:
             The pagination cursor value.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaginatedSyncStatusList
+        SyncPager[SyncStatus, PaginatedSyncStatusList]
 
 
         Examples
@@ -57,13 +59,16 @@ class SyncStatusClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.sync_status.list(
+        response = client.hris.sync_status.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(cursor=cursor, page_size=page_size, request_options=request_options)
-        return _response.data
+        return self._raw_client.list(cursor=cursor, page_size=page_size, request_options=request_options)
 
 
 class AsyncSyncStatusClient:
@@ -87,7 +92,7 @@ class AsyncSyncStatusClient:
         cursor: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedSyncStatusList:
+    ) -> AsyncPager[SyncStatus, PaginatedSyncStatusList]:
         """
         Get sync status for the current sync and the most recently finished sync. `last_sync_start` represents the most recent time any sync began. `last_sync_finished` represents the most recent time any sync completed. These timestamps may correspond to different sync instances which may result in a sync start time being later than a separate sync completed time. To ensure you are retrieving the latest available data reference the `last_sync_finished` timestamp where `last_sync_result` is `DONE`. Possible values for `status` and `last_sync_result` are `DISABLED`, `DONE`, `FAILED`, `PARTIALLY_SYNCED`, `PAUSED`, `SYNCING`. Learn more about sync status in our [Help Center](https://help.merge.dev/en/articles/8184193-merge-sync-statuses).
 
@@ -97,14 +102,14 @@ class AsyncSyncStatusClient:
             The pagination cursor value.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaginatedSyncStatusList
+        AsyncPager[SyncStatus, PaginatedSyncStatusList]
 
 
         Examples
@@ -120,13 +125,17 @@ class AsyncSyncStatusClient:
 
 
         async def main() -> None:
-            await client.hris.sync_status.list(
+            response = await client.hris.sync_status.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(cursor=cursor, page_size=page_size, request_options=request_options)
-        return _response.data
+        return await self._raw_client.list(cursor=cursor, page_size=page_size, request_options=request_options)

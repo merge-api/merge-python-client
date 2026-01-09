@@ -45,8 +45,8 @@ class AttachmentRequest(UncheckedBaseModel):
     The user who uploaded the attachment.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    integration_params: typing.Optional[typing.Dict[str, typing.Any]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Any]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
@@ -57,9 +57,5 @@ class AttachmentRequest(UncheckedBaseModel):
             smart_union = True
             extra = pydantic.Extra.allow
 
-
-from .attachment import Attachment  # noqa: E402, F401, I001
-from .collection import Collection  # noqa: E402, F401, I001
-from .ticket import Ticket  # noqa: E402, F401, I001
 
 update_forward_refs(AttachmentRequest)

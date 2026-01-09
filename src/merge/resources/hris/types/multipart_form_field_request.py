@@ -5,7 +5,7 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
-from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
+from .encoding_enum import EncodingEnum
 
 
 class MultipartFormFieldRequest(UncheckedBaseModel):
@@ -28,7 +28,7 @@ class MultipartFormFieldRequest(UncheckedBaseModel):
     The data for the form field.
     """
 
-    encoding: typing.Optional[MultipartFormFieldRequestEncoding] = pydantic.Field(default=None)
+    encoding: typing.Optional[EncodingEnum] = pydantic.Field(default=None)
     """
     The encoding of the value of `data`. Defaults to `RAW` if not defined.
     

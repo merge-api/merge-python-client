@@ -31,7 +31,6 @@ if typing.TYPE_CHECKING:
     from .collection import Collection
     from .collection_access_level import CollectionAccessLevel
     from .collection_access_level_enum import CollectionAccessLevelEnum
-    from .collection_collection_type import CollectionCollectionType
     from .collection_parent_collection import CollectionParentCollection
     from .collection_type_enum import CollectionTypeEnum
     from .comment import Comment
@@ -45,7 +44,6 @@ if typing.TYPE_CHECKING:
     from .comment_user import CommentUser
     from .common_model_scope_api import CommonModelScopeApi
     from .common_model_scopes_body_request import CommonModelScopesBodyRequest
-    from .completed_account_initial_screen_enum import CompletedAccountInitialScreenEnum
     from .contact import Contact
     from .contact_account import ContactAccount
     from .contact_request import ContactRequest
@@ -109,7 +107,6 @@ if typing.TYPE_CHECKING:
     from .paginated_viewer_list import PaginatedViewerList
     from .patched_ticket_request import PatchedTicketRequest
     from .patched_ticket_request_access_level import PatchedTicketRequestAccessLevel
-    from .patched_ticket_request_priority import PatchedTicketRequestPriority
     from .patched_ticket_request_status import PatchedTicketRequestStatus
     from .priority_enum import PriorityEnum
     from .project import Project
@@ -121,13 +118,12 @@ if typing.TYPE_CHECKING:
     from .remote_field_api_response import RemoteFieldApiResponse
     from .remote_field_class import RemoteFieldClass
     from .remote_field_class_field_choices_item import RemoteFieldClassFieldChoicesItem
-    from .remote_field_class_field_format import RemoteFieldClassFieldFormat
-    from .remote_field_class_field_type import RemoteFieldClassFieldType
     from .remote_field_remote_field_class import RemoteFieldRemoteFieldClass
     from .remote_field_request import RemoteFieldRequest
     from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
     from .remote_key import RemoteKey
     from .remote_response import RemoteResponse
+    from .remote_response_response_type import RemoteResponseResponseType
     from .request_format_enum import RequestFormatEnum
     from .response_type_enum import ResponseTypeEnum
     from .role import Role
@@ -135,9 +131,10 @@ if typing.TYPE_CHECKING:
     from .role_ticket_access import RoleTicketAccess
     from .role_ticket_actions_item import RoleTicketActionsItem
     from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
-    from .status_fd_5_enum import StatusFd5Enum
+    from .status_fd5enum import StatusFd5Enum
     from .sync_status import SyncStatus
     from .sync_status_last_sync_result import SyncStatusLastSyncResult
+    from .sync_status_status import SyncStatusStatus
     from .tag import Tag
     from .team import Team
     from .ticket import Ticket
@@ -206,7 +203,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Collection": ".collection",
     "CollectionAccessLevel": ".collection_access_level",
     "CollectionAccessLevelEnum": ".collection_access_level_enum",
-    "CollectionCollectionType": ".collection_collection_type",
     "CollectionParentCollection": ".collection_parent_collection",
     "CollectionTypeEnum": ".collection_type_enum",
     "Comment": ".comment",
@@ -220,7 +216,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CommentUser": ".comment_user",
     "CommonModelScopeApi": ".common_model_scope_api",
     "CommonModelScopesBodyRequest": ".common_model_scopes_body_request",
-    "CompletedAccountInitialScreenEnum": ".completed_account_initial_screen_enum",
     "Contact": ".contact",
     "ContactAccount": ".contact_account",
     "ContactRequest": ".contact_request",
@@ -282,7 +277,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaginatedViewerList": ".paginated_viewer_list",
     "PatchedTicketRequest": ".patched_ticket_request",
     "PatchedTicketRequestAccessLevel": ".patched_ticket_request_access_level",
-    "PatchedTicketRequestPriority": ".patched_ticket_request_priority",
     "PatchedTicketRequestStatus": ".patched_ticket_request_status",
     "PriorityEnum": ".priority_enum",
     "Project": ".project",
@@ -294,13 +288,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RemoteFieldApiResponse": ".remote_field_api_response",
     "RemoteFieldClass": ".remote_field_class",
     "RemoteFieldClassFieldChoicesItem": ".remote_field_class_field_choices_item",
-    "RemoteFieldClassFieldFormat": ".remote_field_class_field_format",
-    "RemoteFieldClassFieldType": ".remote_field_class_field_type",
     "RemoteFieldRemoteFieldClass": ".remote_field_remote_field_class",
     "RemoteFieldRequest": ".remote_field_request",
     "RemoteFieldRequestRemoteFieldClass": ".remote_field_request_remote_field_class",
     "RemoteKey": ".remote_key",
     "RemoteResponse": ".remote_response",
+    "RemoteResponseResponseType": ".remote_response_response_type",
     "RequestFormatEnum": ".request_format_enum",
     "ResponseTypeEnum": ".response_type_enum",
     "Role": ".role",
@@ -308,9 +301,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RoleTicketAccess": ".role_ticket_access",
     "RoleTicketActionsItem": ".role_ticket_actions_item",
     "SelectiveSyncConfigurationsUsageEnum": ".selective_sync_configurations_usage_enum",
-    "StatusFd5Enum": ".status_fd_5_enum",
+    "StatusFd5Enum": ".status_fd5enum",
     "SyncStatus": ".sync_status",
     "SyncStatusLastSyncResult": ".sync_status_last_sync_result",
+    "SyncStatusStatus": ".sync_status_status",
     "Tag": ".tag",
     "Team": ".team",
     "Ticket": ".ticket",
@@ -362,8 +356,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -401,7 +397,6 @@ __all__ = [
     "Collection",
     "CollectionAccessLevel",
     "CollectionAccessLevelEnum",
-    "CollectionCollectionType",
     "CollectionParentCollection",
     "CollectionTypeEnum",
     "Comment",
@@ -415,7 +410,6 @@ __all__ = [
     "CommentUser",
     "CommonModelScopeApi",
     "CommonModelScopesBodyRequest",
-    "CompletedAccountInitialScreenEnum",
     "Contact",
     "ContactAccount",
     "ContactRequest",
@@ -477,7 +471,6 @@ __all__ = [
     "PaginatedViewerList",
     "PatchedTicketRequest",
     "PatchedTicketRequestAccessLevel",
-    "PatchedTicketRequestPriority",
     "PatchedTicketRequestStatus",
     "PriorityEnum",
     "Project",
@@ -489,13 +482,12 @@ __all__ = [
     "RemoteFieldApiResponse",
     "RemoteFieldClass",
     "RemoteFieldClassFieldChoicesItem",
-    "RemoteFieldClassFieldFormat",
-    "RemoteFieldClassFieldType",
     "RemoteFieldRemoteFieldClass",
     "RemoteFieldRequest",
     "RemoteFieldRequestRemoteFieldClass",
     "RemoteKey",
     "RemoteResponse",
+    "RemoteResponseResponseType",
     "RequestFormatEnum",
     "ResponseTypeEnum",
     "Role",
@@ -506,6 +498,7 @@ __all__ = [
     "StatusFd5Enum",
     "SyncStatus",
     "SyncStatusLastSyncResult",
+    "SyncStatusStatus",
     "Tag",
     "Team",
     "Ticket",

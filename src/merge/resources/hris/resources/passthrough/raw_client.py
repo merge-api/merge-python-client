@@ -38,7 +38,7 @@ class RawPassthroughClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/passthrough",
+            "passthrough",
             method="POST",
             json=request,
             headers={
@@ -86,7 +86,7 @@ class AsyncRawPassthroughClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/passthrough",
+            "passthrough",
             method="POST",
             json=request,
             headers={

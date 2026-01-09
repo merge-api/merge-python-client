@@ -13,7 +13,7 @@ class AdvancedMetadata(UncheckedBaseModel):
     description: typing.Optional[str] = None
     is_required: typing.Optional[bool] = None
     is_custom: typing.Optional[bool] = None
-    field_choices: typing.Optional[typing.List[typing.Optional[typing.Any]]] = None
+    field_choices: typing.Optional[typing.List[typing.Any]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

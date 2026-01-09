@@ -417,7 +417,7 @@ class Transaction(UncheckedBaseModel):
     The accounting period that the Transaction was generated in.
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    field_mappings: typing.Optional[typing.Dict[str, typing.Any]] = None
     remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:

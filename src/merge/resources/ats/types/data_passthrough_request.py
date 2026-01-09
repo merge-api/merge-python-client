@@ -41,7 +41,7 @@ class DataPassthroughRequest(UncheckedBaseModel):
     Pass an array of `MultipartFormField` objects in here instead of using the `data` param if `request_format` is set to `MULTIPART`.
     """
 
-    headers: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
+    headers: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
     The headers to use for the request (Merge will handle the account's authorization headers). `Content-Type` header is required for passthrough. Choose content type corresponding to expected format of receiving server.
     """

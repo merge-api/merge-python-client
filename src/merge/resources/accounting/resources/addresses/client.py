@@ -6,6 +6,8 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.request_options import RequestOptions
 from ...types.address import Address
 from .raw_client import AsyncRawAddressesClient, RawAddressesClient
+from .types.addresses_retrieve_request_remote_fields import AddressesRetrieveRequestRemoteFields
+from .types.addresses_retrieve_request_show_enum_origins import AddressesRetrieveRequestShowEnumOrigins
 
 
 class AddressesClient:
@@ -29,8 +31,8 @@ class AddressesClient:
         *,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["type"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
+        remote_fields: typing.Optional[AddressesRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[AddressesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Address:
         """
@@ -46,10 +48,10 @@ class AddressesClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["type"]]
+        remote_fields : typing.Optional[AddressesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["type"]]
+        show_enum_origins : typing.Optional[AddressesRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -70,8 +72,6 @@ class AddressesClient:
         )
         client.accounting.addresses.retrieve(
             id="id",
-            include_remote_data=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -106,8 +106,8 @@ class AsyncAddressesClient:
         *,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["type"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
+        remote_fields: typing.Optional[AddressesRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[AddressesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Address:
         """
@@ -123,10 +123,10 @@ class AsyncAddressesClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["type"]]
+        remote_fields : typing.Optional[AddressesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["type"]]
+        show_enum_origins : typing.Optional[AddressesRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -152,8 +152,6 @@ class AsyncAddressesClient:
         async def main() -> None:
             await client.accounting.addresses.retrieve(
                 id="id",
-                include_remote_data=True,
-                include_shell_data=True,
             )
 
 

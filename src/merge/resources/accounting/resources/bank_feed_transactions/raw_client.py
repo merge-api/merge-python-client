@@ -9,6 +9,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.bank_feed_transaction import BankFeedTransaction
@@ -16,6 +17,8 @@ from ...types.bank_feed_transaction_request_request import BankFeedTransactionRe
 from ...types.bank_feed_transaction_response import BankFeedTransactionResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_bank_feed_transaction_list import PaginatedBankFeedTransactionList
+from .types.bank_feed_transactions_list_request_expand_item import BankFeedTransactionsListRequestExpandItem
+from .types.bank_feed_transactions_retrieve_request_expand_item import BankFeedTransactionsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -31,7 +34,11 @@ class RawBankFeedTransactionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["bank_feed_account"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                BankFeedTransactionsListRequestExpandItem, typing.Sequence[BankFeedTransactionsListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -41,7 +48,7 @@ class RawBankFeedTransactionsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedBankFeedTransactionList]:
+    ) -> SyncPager[BankFeedTransaction, PaginatedBankFeedTransactionList]:
         """
         Returns a list of `BankFeedTransaction` objects.
 
@@ -56,7 +63,7 @@ class RawBankFeedTransactionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["bank_feed_account"]]
+        expand : typing.Optional[typing.Union[BankFeedTransactionsListRequestExpandItem, typing.Sequence[BankFeedTransactionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -88,7 +95,7 @@ class RawBankFeedTransactionsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedBankFeedTransactionList]
+        SyncPager[BankFeedTransaction, PaginatedBankFeedTransactionList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -112,14 +119,32 @@ class RawBankFeedTransactionsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedBankFeedTransactionList,
                     construct_type(
                         type_=PaginatedBankFeedTransactionList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    is_processed=is_processed,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    remote_id=remote_id,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -189,7 +214,12 @@ class RawBankFeedTransactionsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["bank_feed_account"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                BankFeedTransactionsRetrieveRequestExpandItem,
+                typing.Sequence[BankFeedTransactionsRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -201,7 +231,7 @@ class RawBankFeedTransactionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["bank_feed_account"]]
+        expand : typing.Optional[typing.Union[BankFeedTransactionsRetrieveRequestExpandItem, typing.Sequence[BankFeedTransactionsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -290,7 +320,11 @@ class AsyncRawBankFeedTransactionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["bank_feed_account"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                BankFeedTransactionsListRequestExpandItem, typing.Sequence[BankFeedTransactionsListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -300,7 +334,7 @@ class AsyncRawBankFeedTransactionsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedBankFeedTransactionList]:
+    ) -> AsyncPager[BankFeedTransaction, PaginatedBankFeedTransactionList]:
         """
         Returns a list of `BankFeedTransaction` objects.
 
@@ -315,7 +349,7 @@ class AsyncRawBankFeedTransactionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["bank_feed_account"]]
+        expand : typing.Optional[typing.Union[BankFeedTransactionsListRequestExpandItem, typing.Sequence[BankFeedTransactionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -347,7 +381,7 @@ class AsyncRawBankFeedTransactionsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedBankFeedTransactionList]
+        AsyncPager[BankFeedTransaction, PaginatedBankFeedTransactionList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -371,14 +405,35 @@ class AsyncRawBankFeedTransactionsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedBankFeedTransactionList,
                     construct_type(
                         type_=PaginatedBankFeedTransactionList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        is_processed=is_processed,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        remote_id=remote_id,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -448,7 +503,12 @@ class AsyncRawBankFeedTransactionsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["bank_feed_account"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                BankFeedTransactionsRetrieveRequestExpandItem,
+                typing.Sequence[BankFeedTransactionsRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -460,7 +520,7 @@ class AsyncRawBankFeedTransactionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["bank_feed_account"]]
+        expand : typing.Optional[typing.Union[BankFeedTransactionsRetrieveRequestExpandItem, typing.Sequence[BankFeedTransactionsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

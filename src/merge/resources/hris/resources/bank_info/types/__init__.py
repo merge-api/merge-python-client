@@ -7,10 +7,22 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .bank_info_list_request_account_type import BankInfoListRequestAccountType
+    from .bank_info_list_request_expand_item import BankInfoListRequestExpandItem
     from .bank_info_list_request_order_by import BankInfoListRequestOrderBy
+    from .bank_info_list_request_remote_fields import BankInfoListRequestRemoteFields
+    from .bank_info_list_request_show_enum_origins import BankInfoListRequestShowEnumOrigins
+    from .bank_info_retrieve_request_expand_item import BankInfoRetrieveRequestExpandItem
+    from .bank_info_retrieve_request_remote_fields import BankInfoRetrieveRequestRemoteFields
+    from .bank_info_retrieve_request_show_enum_origins import BankInfoRetrieveRequestShowEnumOrigins
 _dynamic_imports: typing.Dict[str, str] = {
     "BankInfoListRequestAccountType": ".bank_info_list_request_account_type",
+    "BankInfoListRequestExpandItem": ".bank_info_list_request_expand_item",
     "BankInfoListRequestOrderBy": ".bank_info_list_request_order_by",
+    "BankInfoListRequestRemoteFields": ".bank_info_list_request_remote_fields",
+    "BankInfoListRequestShowEnumOrigins": ".bank_info_list_request_show_enum_origins",
+    "BankInfoRetrieveRequestExpandItem": ".bank_info_retrieve_request_expand_item",
+    "BankInfoRetrieveRequestRemoteFields": ".bank_info_retrieve_request_remote_fields",
+    "BankInfoRetrieveRequestShowEnumOrigins": ".bank_info_retrieve_request_show_enum_origins",
 }
 
 
@@ -20,8 +32,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -33,4 +47,13 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["BankInfoListRequestAccountType", "BankInfoListRequestOrderBy"]
+__all__ = [
+    "BankInfoListRequestAccountType",
+    "BankInfoListRequestExpandItem",
+    "BankInfoListRequestOrderBy",
+    "BankInfoListRequestRemoteFields",
+    "BankInfoListRequestShowEnumOrigins",
+    "BankInfoRetrieveRequestExpandItem",
+    "BankInfoRetrieveRequestRemoteFields",
+    "BankInfoRetrieveRequestShowEnumOrigins",
+]

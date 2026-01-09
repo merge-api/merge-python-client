@@ -4,15 +4,16 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.employment import Employment
 from ...types.paginated_employment_list import PaginatedEmploymentList
 from .raw_client import AsyncRawEmploymentsClient, RawEmploymentsClient
-from .types.employments_list_request_expand import EmploymentsListRequestExpand
+from .types.employments_list_request_expand_item import EmploymentsListRequestExpandItem
 from .types.employments_list_request_order_by import EmploymentsListRequestOrderBy
 from .types.employments_list_request_remote_fields import EmploymentsListRequestRemoteFields
 from .types.employments_list_request_show_enum_origins import EmploymentsListRequestShowEnumOrigins
-from .types.employments_retrieve_request_expand import EmploymentsRetrieveRequestExpand
+from .types.employments_retrieve_request_expand_item import EmploymentsRetrieveRequestExpandItem
 from .types.employments_retrieve_request_remote_fields import EmploymentsRetrieveRequestRemoteFields
 from .types.employments_retrieve_request_show_enum_origins import EmploymentsRetrieveRequestShowEnumOrigins
 
@@ -39,7 +40,9 @@ class EmploymentsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[EmploymentsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmploymentsListRequestExpandItem, typing.Sequence[EmploymentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -51,7 +54,7 @@ class EmploymentsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[EmploymentsListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedEmploymentList:
+    ) -> SyncPager[Employment, PaginatedEmploymentList]:
         """
         Returns a list of `Employment` objects.
 
@@ -69,7 +72,7 @@ class EmploymentsClient:
         employee_id : typing.Optional[str]
             If provided, will only return employments for this employee.
 
-        expand : typing.Optional[EmploymentsListRequestExpand]
+        expand : typing.Optional[typing.Union[EmploymentsListRequestExpandItem, typing.Sequence[EmploymentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -91,7 +94,7 @@ class EmploymentsClient:
             Overrides the default ordering for this endpoint. Possible values include: effective_date, -effective_date.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_fields : typing.Optional[EmploymentsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -107,52 +110,27 @@ class EmploymentsClient:
 
         Returns
         -------
-        PaginatedEmploymentList
+        SyncPager[Employment, PaginatedEmploymentList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
-        from merge.resources.hris.resources.employments import (
-            EmploymentsListRequestExpand,
-            EmploymentsListRequestOrderBy,
-            EmploymentsListRequestRemoteFields,
-            EmploymentsListRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.employments.list(
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.hris.employments.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            employee_id="employee_id",
-            expand=EmploymentsListRequestExpand.EMPLOYEE,
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            order_by=EmploymentsListRequestOrderBy.EFFECTIVE_DATE_DESCENDING,
-            page_size=1,
-            remote_fields=EmploymentsListRequestRemoteFields.EMPLOYMENT_TYPE,
-            remote_id="remote_id",
-            show_enum_origins=EmploymentsListRequestShowEnumOrigins.EMPLOYMENT_TYPE,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -170,13 +148,14 @@ class EmploymentsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[EmploymentsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmploymentsRetrieveRequestExpandItem, typing.Sequence[EmploymentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EmploymentsRetrieveRequestRemoteFields] = None,
@@ -190,7 +169,7 @@ class EmploymentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[EmploymentsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EmploymentsRetrieveRequestExpandItem, typing.Sequence[EmploymentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -216,11 +195,6 @@ class EmploymentsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.hris.resources.employments import (
-            EmploymentsRetrieveRequestExpand,
-            EmploymentsRetrieveRequestRemoteFields,
-            EmploymentsRetrieveRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -228,11 +202,6 @@ class EmploymentsClient:
         )
         client.hris.employments.retrieve(
             id="id",
-            expand=EmploymentsRetrieveRequestExpand.EMPLOYEE,
-            include_remote_data=True,
-            include_shell_data=True,
-            remote_fields=EmploymentsRetrieveRequestRemoteFields.EMPLOYMENT_TYPE,
-            show_enum_origins=EmploymentsRetrieveRequestShowEnumOrigins.EMPLOYMENT_TYPE,
         )
         """
         _response = self._raw_client.retrieve(
@@ -269,7 +238,9 @@ class AsyncEmploymentsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[EmploymentsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmploymentsListRequestExpandItem, typing.Sequence[EmploymentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -281,7 +252,7 @@ class AsyncEmploymentsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[EmploymentsListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedEmploymentList:
+    ) -> AsyncPager[Employment, PaginatedEmploymentList]:
         """
         Returns a list of `Employment` objects.
 
@@ -299,7 +270,7 @@ class AsyncEmploymentsClient:
         employee_id : typing.Optional[str]
             If provided, will only return employments for this employee.
 
-        expand : typing.Optional[EmploymentsListRequestExpand]
+        expand : typing.Optional[typing.Union[EmploymentsListRequestExpandItem, typing.Sequence[EmploymentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -321,7 +292,7 @@ class AsyncEmploymentsClient:
             Overrides the default ordering for this endpoint. Possible values include: effective_date, -effective_date.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_fields : typing.Optional[EmploymentsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -337,21 +308,14 @@ class AsyncEmploymentsClient:
 
         Returns
         -------
-        PaginatedEmploymentList
+        AsyncPager[Employment, PaginatedEmploymentList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
-        from merge.resources.hris.resources.employments import (
-            EmploymentsListRequestExpand,
-            EmploymentsListRequestOrderBy,
-            EmploymentsListRequestRemoteFields,
-            EmploymentsListRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -360,36 +324,20 @@ class AsyncEmploymentsClient:
 
 
         async def main() -> None:
-            await client.hris.employments.list(
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.hris.employments.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                employee_id="employee_id",
-                expand=EmploymentsListRequestExpand.EMPLOYEE,
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                order_by=EmploymentsListRequestOrderBy.EFFECTIVE_DATE_DESCENDING,
-                page_size=1,
-                remote_fields=EmploymentsListRequestRemoteFields.EMPLOYMENT_TYPE,
-                remote_id="remote_id",
-                show_enum_origins=EmploymentsListRequestShowEnumOrigins.EMPLOYMENT_TYPE,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -407,13 +355,14 @@ class AsyncEmploymentsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[EmploymentsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmploymentsRetrieveRequestExpandItem, typing.Sequence[EmploymentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EmploymentsRetrieveRequestRemoteFields] = None,
@@ -427,7 +376,7 @@ class AsyncEmploymentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[EmploymentsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EmploymentsRetrieveRequestExpandItem, typing.Sequence[EmploymentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -455,11 +404,6 @@ class AsyncEmploymentsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.hris.resources.employments import (
-            EmploymentsRetrieveRequestExpand,
-            EmploymentsRetrieveRequestRemoteFields,
-            EmploymentsRetrieveRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -470,11 +414,6 @@ class AsyncEmploymentsClient:
         async def main() -> None:
             await client.hris.employments.retrieve(
                 id="id",
-                expand=EmploymentsRetrieveRequestExpand.EMPLOYEE,
-                include_remote_data=True,
-                include_shell_data=True,
-                remote_fields=EmploymentsRetrieveRequestRemoteFields.EMPLOYMENT_TYPE,
-                show_enum_origins=EmploymentsRetrieveRequestShowEnumOrigins.EMPLOYMENT_TYPE,
             )
 
 

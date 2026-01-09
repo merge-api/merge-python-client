@@ -9,10 +9,13 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.benefit import Benefit
 from ...types.paginated_benefit_list import PaginatedBenefitList
+from .types.benefits_list_request_expand_item import BenefitsListRequestExpandItem
+from .types.benefits_retrieve_request_expand_item import BenefitsRetrieveRequestExpandItem
 
 
 class RawBenefitsClient:
@@ -26,7 +29,9 @@ class RawBenefitsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[BenefitsListRequestExpandItem, typing.Sequence[BenefitsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -35,7 +40,7 @@ class RawBenefitsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedBenefitList]:
+    ) -> SyncPager[Benefit, PaginatedBenefitList]:
         """
         Returns a list of `Benefit` objects.
 
@@ -53,7 +58,7 @@ class RawBenefitsClient:
         employee_id : typing.Optional[str]
             If provided, will return the benefits associated with the employee.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[BenefitsListRequestExpandItem, typing.Sequence[BenefitsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -72,7 +77,7 @@ class RawBenefitsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -82,11 +87,11 @@ class RawBenefitsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedBenefitList]
+        SyncPager[Benefit, PaginatedBenefitList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/benefits",
+            "benefits",
             method="GET",
             params={
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -106,14 +111,32 @@ class RawBenefitsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedBenefitList,
                     construct_type(
                         type_=PaginatedBenefitList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    employee_id=employee_id,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    remote_id=remote_id,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -123,7 +146,9 @@ class RawBenefitsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[BenefitsRetrieveRequestExpandItem, typing.Sequence[BenefitsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -135,7 +160,7 @@ class RawBenefitsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[BenefitsRetrieveRequestExpandItem, typing.Sequence[BenefitsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -153,7 +178,7 @@ class RawBenefitsClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"hris/v1/benefits/{jsonable_encoder(id)}",
+            f"benefits/{jsonable_encoder(id)}",
             method="GET",
             params={
                 "expand": expand,
@@ -189,7 +214,9 @@ class AsyncRawBenefitsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[BenefitsListRequestExpandItem, typing.Sequence[BenefitsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -198,7 +225,7 @@ class AsyncRawBenefitsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedBenefitList]:
+    ) -> AsyncPager[Benefit, PaginatedBenefitList]:
         """
         Returns a list of `Benefit` objects.
 
@@ -216,7 +243,7 @@ class AsyncRawBenefitsClient:
         employee_id : typing.Optional[str]
             If provided, will return the benefits associated with the employee.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[BenefitsListRequestExpandItem, typing.Sequence[BenefitsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -235,7 +262,7 @@ class AsyncRawBenefitsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -245,11 +272,11 @@ class AsyncRawBenefitsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedBenefitList]
+        AsyncPager[Benefit, PaginatedBenefitList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/benefits",
+            "benefits",
             method="GET",
             params={
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -269,14 +296,35 @@ class AsyncRawBenefitsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedBenefitList,
                     construct_type(
                         type_=PaginatedBenefitList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        employee_id=employee_id,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        remote_id=remote_id,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -286,7 +334,9 @@ class AsyncRawBenefitsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[BenefitsRetrieveRequestExpandItem, typing.Sequence[BenefitsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -298,7 +348,7 @@ class AsyncRawBenefitsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[BenefitsRetrieveRequestExpandItem, typing.Sequence[BenefitsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -316,7 +366,7 @@ class AsyncRawBenefitsClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"hris/v1/benefits/{jsonable_encoder(id)}",
+            f"benefits/{jsonable_encoder(id)}",
             method="GET",
             params={
                 "expand": expand,

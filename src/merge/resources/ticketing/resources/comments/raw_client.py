@@ -9,6 +9,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.comment import Comment
@@ -16,8 +17,8 @@ from ...types.comment_request import CommentRequest
 from ...types.comment_response import CommentResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_comment_list import PaginatedCommentList
-from .types.comments_list_request_expand import CommentsListRequestExpand
-from .types.comments_retrieve_request_expand import CommentsRetrieveRequestExpand
+from .types.comments_list_request_expand_item import CommentsListRequestExpandItem
+from .types.comments_retrieve_request_expand_item import CommentsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -33,7 +34,9 @@ class RawCommentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CommentsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CommentsListRequestExpandItem, typing.Sequence[CommentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -44,7 +47,7 @@ class RawCommentsClient:
         remote_id: typing.Optional[str] = None,
         ticket_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedCommentList]:
+    ) -> SyncPager[Comment, PaginatedCommentList]:
         """
         Returns a list of `Comment` objects.
 
@@ -59,7 +62,7 @@ class RawCommentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CommentsListRequestExpand]
+        expand : typing.Optional[typing.Union[CommentsListRequestExpandItem, typing.Sequence[CommentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -78,7 +81,7 @@ class RawCommentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return Comments created in the third party platform after this datetime.
@@ -94,7 +97,7 @@ class RawCommentsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedCommentList]
+        SyncPager[Comment, PaginatedCommentList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -121,14 +124,33 @@ class RawCommentsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedCommentList,
                     construct_type(
                         type_=PaginatedCommentList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    remote_created_after=remote_created_after,
+                    remote_id=remote_id,
+                    ticket_id=ticket_id,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -198,7 +220,9 @@ class RawCommentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CommentsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CommentsRetrieveRequestExpandItem, typing.Sequence[CommentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -210,7 +234,7 @@ class RawCommentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[CommentsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CommentsRetrieveRequestExpandItem, typing.Sequence[CommentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -299,7 +323,9 @@ class AsyncRawCommentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CommentsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CommentsListRequestExpandItem, typing.Sequence[CommentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -310,7 +336,7 @@ class AsyncRawCommentsClient:
         remote_id: typing.Optional[str] = None,
         ticket_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedCommentList]:
+    ) -> AsyncPager[Comment, PaginatedCommentList]:
         """
         Returns a list of `Comment` objects.
 
@@ -325,7 +351,7 @@ class AsyncRawCommentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CommentsListRequestExpand]
+        expand : typing.Optional[typing.Union[CommentsListRequestExpandItem, typing.Sequence[CommentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -344,7 +370,7 @@ class AsyncRawCommentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return Comments created in the third party platform after this datetime.
@@ -360,7 +386,7 @@ class AsyncRawCommentsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedCommentList]
+        AsyncPager[Comment, PaginatedCommentList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -387,14 +413,36 @@ class AsyncRawCommentsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedCommentList,
                     construct_type(
                         type_=PaginatedCommentList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        remote_created_after=remote_created_after,
+                        remote_id=remote_id,
+                        ticket_id=ticket_id,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -464,7 +512,9 @@ class AsyncRawCommentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CommentsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CommentsRetrieveRequestExpandItem, typing.Sequence[CommentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -476,7 +526,7 @@ class AsyncRawCommentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[CommentsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CommentsRetrieveRequestExpandItem, typing.Sequence[CommentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

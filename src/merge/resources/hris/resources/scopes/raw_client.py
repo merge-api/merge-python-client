@@ -36,7 +36,7 @@ class RawScopesClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/default-scopes",
+            "default-scopes",
             method="GET",
             request_options=request_options,
         )
@@ -72,7 +72,7 @@ class RawScopesClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/linked-account-scopes",
+            "linked-account-scopes",
             method="GET",
             request_options=request_options,
         )
@@ -114,7 +114,7 @@ class RawScopesClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/linked-account-scopes",
+            "linked-account-scopes",
             method="POST",
             json={
                 "common_models": common_models,
@@ -162,7 +162,7 @@ class AsyncRawScopesClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/default-scopes",
+            "default-scopes",
             method="GET",
             request_options=request_options,
         )
@@ -198,7 +198,7 @@ class AsyncRawScopesClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/linked-account-scopes",
+            "linked-account-scopes",
             method="GET",
             request_options=request_options,
         )
@@ -240,7 +240,7 @@ class AsyncRawScopesClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/linked-account-scopes",
+            "linked-account-scopes",
             method="POST",
             json={
                 "common_models": common_models,
