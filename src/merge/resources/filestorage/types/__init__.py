@@ -47,24 +47,24 @@ if typing.TYPE_CHECKING:
     from .file_drive import FileDrive
     from .file_folder import FileFolder
     from .file_permissions import FilePermissions
-    from .file_permissions_item import FilePermissionsItem
+    from .file_permissions_two_item import FilePermissionsTwoItem
     from .file_request import FileRequest
     from .file_request_drive import FileRequestDrive
     from .file_request_folder import FileRequestFolder
     from .file_request_permissions import FileRequestPermissions
-    from .file_request_permissions_item import FileRequestPermissionsItem
+    from .file_request_permissions_two_item import FileRequestPermissionsTwoItem
     from .file_storage_file_response import FileStorageFileResponse
     from .file_storage_folder_response import FileStorageFolderResponse
     from .folder import Folder
     from .folder_drive import FolderDrive
     from .folder_parent_folder import FolderParentFolder
     from .folder_permissions import FolderPermissions
-    from .folder_permissions_item import FolderPermissionsItem
+    from .folder_permissions_two_item import FolderPermissionsTwoItem
     from .folder_request import FolderRequest
     from .folder_request_drive import FolderRequestDrive
     from .folder_request_parent_folder import FolderRequestParentFolder
     from .folder_request_permissions import FolderRequestPermissions
-    from .folder_request_permissions_item import FolderRequestPermissionsItem
+    from .folder_request_permissions_two_item import FolderRequestPermissionsTwoItem
     from .group import Group
     from .group_child_groups_item import GroupChildGroupsItem
     from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
@@ -163,24 +163,24 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FileDrive": ".file_drive",
     "FileFolder": ".file_folder",
     "FilePermissions": ".file_permissions",
-    "FilePermissionsItem": ".file_permissions_item",
+    "FilePermissionsTwoItem": ".file_permissions_two_item",
     "FileRequest": ".file_request",
     "FileRequestDrive": ".file_request_drive",
     "FileRequestFolder": ".file_request_folder",
     "FileRequestPermissions": ".file_request_permissions",
-    "FileRequestPermissionsItem": ".file_request_permissions_item",
+    "FileRequestPermissionsTwoItem": ".file_request_permissions_two_item",
     "FileStorageFileResponse": ".file_storage_file_response",
     "FileStorageFolderResponse": ".file_storage_folder_response",
     "Folder": ".folder",
     "FolderDrive": ".folder_drive",
     "FolderParentFolder": ".folder_parent_folder",
     "FolderPermissions": ".folder_permissions",
-    "FolderPermissionsItem": ".folder_permissions_item",
+    "FolderPermissionsTwoItem": ".folder_permissions_two_item",
     "FolderRequest": ".folder_request",
     "FolderRequestDrive": ".folder_request_drive",
     "FolderRequestParentFolder": ".folder_request_parent_folder",
     "FolderRequestPermissions": ".folder_request_permissions",
-    "FolderRequestPermissionsItem": ".folder_request_permissions_item",
+    "FolderRequestPermissionsTwoItem": ".folder_request_permissions_two_item",
     "Group": ".group",
     "GroupChildGroupsItem": ".group_child_groups_item",
     "IndividualCommonModelScopeDeserializer": ".individual_common_model_scope_deserializer",
@@ -301,24 +301,24 @@ __all__ = [
     "FileDrive",
     "FileFolder",
     "FilePermissions",
-    "FilePermissionsItem",
+    "FilePermissionsTwoItem",
     "FileRequest",
     "FileRequestDrive",
     "FileRequestFolder",
     "FileRequestPermissions",
-    "FileRequestPermissionsItem",
+    "FileRequestPermissionsTwoItem",
     "FileStorageFileResponse",
     "FileStorageFolderResponse",
     "Folder",
     "FolderDrive",
     "FolderParentFolder",
     "FolderPermissions",
-    "FolderPermissionsItem",
+    "FolderPermissionsTwoItem",
     "FolderRequest",
     "FolderRequestDrive",
     "FolderRequestParentFolder",
     "FolderRequestPermissions",
-    "FolderRequestPermissionsItem",
+    "FolderRequestPermissionsTwoItem",
     "Group",
     "GroupChildGroupsItem",
     "IndividualCommonModelScopeDeserializer",

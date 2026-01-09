@@ -2,7 +2,7 @@
 
 import typing
 
-from .folder_permissions_item import FolderPermissionsItem
+from .folder_permissions_two_item import FolderPermissionsTwoItem
 from .permission import Permission
 
-FolderPermissions = typing.Union[str, Permission, typing.List[FolderPermissionsItem]]
+FolderPermissions = typing.Union[str, Permission, typing.List[FolderPermissionsTwoItem]]
