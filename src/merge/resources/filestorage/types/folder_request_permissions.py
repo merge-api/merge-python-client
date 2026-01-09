@@ -2,7 +2,7 @@
 
 import typing
 
-from .folder_request_permissions_item import FolderRequestPermissionsItem
+from .folder_request_permissions_two_item import FolderRequestPermissionsTwoItem
 from .permission_request import PermissionRequest
 
-FolderRequestPermissions = typing.Union[str, PermissionRequest, typing.List[FolderRequestPermissionsItem]]
+FolderRequestPermissions = typing.Union[str, PermissionRequest, typing.List[FolderRequestPermissionsTwoItem]]
