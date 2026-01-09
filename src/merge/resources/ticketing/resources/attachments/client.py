@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.attachment import Attachment
 from ...types.attachment_request import AttachmentRequest
@@ -11,6 +12,8 @@ from ...types.meta_response import MetaResponse
 from ...types.paginated_attachment_list import PaginatedAttachmentList
 from ...types.ticketing_attachment_response import TicketingAttachmentResponse
 from .raw_client import AsyncRawAttachmentsClient, RawAttachmentsClient
+from .types.attachments_list_request_expand_item import AttachmentsListRequestExpandItem
+from .types.attachments_retrieve_request_expand_item import AttachmentsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -37,7 +40,9 @@ class AttachmentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["ticket"]] = None,
+        expand: typing.Optional[
+            typing.Union[AttachmentsListRequestExpandItem, typing.Sequence[AttachmentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -48,7 +53,7 @@ class AttachmentsClient:
         remote_id: typing.Optional[str] = None,
         ticket_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAttachmentList:
+    ) -> SyncPager[Attachment, PaginatedAttachmentList]:
         """
         Returns a list of `Attachment` objects.
 
@@ -63,7 +68,7 @@ class AttachmentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["ticket"]]
+        expand : typing.Optional[typing.Union[AttachmentsListRequestExpandItem, typing.Sequence[AttachmentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -82,7 +87,7 @@ class AttachmentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return attachments created in the third party platform after this datetime.
@@ -98,45 +103,27 @@ class AttachmentsClient:
 
         Returns
         -------
-        PaginatedAttachmentList
+        SyncPager[Attachment, PaginatedAttachmentList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.attachments.list(
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.ticketing.attachments.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            remote_created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            remote_id="remote_id",
-            ticket_id="ticket_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -152,7 +139,6 @@ class AttachmentsClient:
             ticket_id=ticket_id,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -193,8 +179,6 @@ class AttachmentsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.attachments.create(
-            is_debug_mode=True,
-            run_async=True,
             model=AttachmentRequest(),
         )
         """
@@ -207,7 +191,9 @@ class AttachmentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["ticket"]] = None,
+        expand: typing.Optional[
+            typing.Union[AttachmentsRetrieveRequestExpandItem, typing.Sequence[AttachmentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -219,7 +205,7 @@ class AttachmentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["ticket"]]
+        expand : typing.Optional[typing.Union[AttachmentsRetrieveRequestExpandItem, typing.Sequence[AttachmentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -246,8 +232,6 @@ class AttachmentsClient:
         )
         client.ticketing.attachments.retrieve(
             id="id",
-            include_remote_data=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -342,7 +326,9 @@ class AsyncAttachmentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["ticket"]] = None,
+        expand: typing.Optional[
+            typing.Union[AttachmentsListRequestExpandItem, typing.Sequence[AttachmentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -353,7 +339,7 @@ class AsyncAttachmentsClient:
         remote_id: typing.Optional[str] = None,
         ticket_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAttachmentList:
+    ) -> AsyncPager[Attachment, PaginatedAttachmentList]:
         """
         Returns a list of `Attachment` objects.
 
@@ -368,7 +354,7 @@ class AsyncAttachmentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["ticket"]]
+        expand : typing.Optional[typing.Union[AttachmentsListRequestExpandItem, typing.Sequence[AttachmentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -387,7 +373,7 @@ class AsyncAttachmentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return attachments created in the third party platform after this datetime.
@@ -403,13 +389,12 @@ class AsyncAttachmentsClient:
 
         Returns
         -------
-        PaginatedAttachmentList
+        AsyncPager[Attachment, PaginatedAttachmentList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
 
@@ -420,35 +405,20 @@ class AsyncAttachmentsClient:
 
 
         async def main() -> None:
-            await client.ticketing.attachments.list(
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.ticketing.attachments.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                remote_created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                remote_id="remote_id",
-                ticket_id="ticket_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -464,7 +434,6 @@ class AsyncAttachmentsClient:
             ticket_id=ticket_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -510,8 +479,6 @@ class AsyncAttachmentsClient:
 
         async def main() -> None:
             await client.ticketing.attachments.create(
-                is_debug_mode=True,
-                run_async=True,
                 model=AttachmentRequest(),
             )
 
@@ -527,7 +494,9 @@ class AsyncAttachmentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["ticket"]] = None,
+        expand: typing.Optional[
+            typing.Union[AttachmentsRetrieveRequestExpandItem, typing.Sequence[AttachmentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -539,7 +508,7 @@ class AsyncAttachmentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["ticket"]]
+        expand : typing.Optional[typing.Union[AttachmentsRetrieveRequestExpandItem, typing.Sequence[AttachmentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -571,8 +540,6 @@ class AsyncAttachmentsClient:
         async def main() -> None:
             await client.ticketing.attachments.retrieve(
                 id="id",
-                include_remote_data=True,
-                include_shell_data=True,
             )
 
 

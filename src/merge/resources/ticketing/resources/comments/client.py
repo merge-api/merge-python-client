@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.comment import Comment
 from ...types.comment_request import CommentRequest
@@ -11,8 +12,8 @@ from ...types.comment_response import CommentResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_comment_list import PaginatedCommentList
 from .raw_client import AsyncRawCommentsClient, RawCommentsClient
-from .types.comments_list_request_expand import CommentsListRequestExpand
-from .types.comments_retrieve_request_expand import CommentsRetrieveRequestExpand
+from .types.comments_list_request_expand_item import CommentsListRequestExpandItem
+from .types.comments_retrieve_request_expand_item import CommentsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -39,7 +40,9 @@ class CommentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CommentsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CommentsListRequestExpandItem, typing.Sequence[CommentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -50,7 +53,7 @@ class CommentsClient:
         remote_id: typing.Optional[str] = None,
         ticket_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedCommentList:
+    ) -> SyncPager[Comment, PaginatedCommentList]:
         """
         Returns a list of `Comment` objects.
 
@@ -65,7 +68,7 @@ class CommentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CommentsListRequestExpand]
+        expand : typing.Optional[typing.Union[CommentsListRequestExpandItem, typing.Sequence[CommentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -84,7 +87,7 @@ class CommentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return Comments created in the third party platform after this datetime.
@@ -100,49 +103,27 @@ class CommentsClient:
 
         Returns
         -------
-        PaginatedCommentList
+        SyncPager[Comment, PaginatedCommentList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
-        from merge.resources.ticketing.resources.comments import (
-            CommentsListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.comments.list(
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.ticketing.comments.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=CommentsListRequestExpand.CONTACT,
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            remote_created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            remote_id="remote_id",
-            ticket_id="ticket_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -158,7 +139,6 @@ class CommentsClient:
             ticket_id=ticket_id,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -199,8 +179,6 @@ class CommentsClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.comments.create(
-            is_debug_mode=True,
-            run_async=True,
             model=CommentRequest(),
         )
         """
@@ -213,7 +191,9 @@ class CommentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CommentsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CommentsRetrieveRequestExpandItem, typing.Sequence[CommentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -225,7 +205,7 @@ class CommentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[CommentsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CommentsRetrieveRequestExpandItem, typing.Sequence[CommentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -245,9 +225,6 @@ class CommentsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.ticketing.resources.comments import (
-            CommentsRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -255,9 +232,6 @@ class CommentsClient:
         )
         client.ticketing.comments.retrieve(
             id="id",
-            expand=CommentsRetrieveRequestExpand.CONTACT,
-            include_remote_data=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -318,7 +292,9 @@ class AsyncCommentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CommentsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CommentsListRequestExpandItem, typing.Sequence[CommentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -329,7 +305,7 @@ class AsyncCommentsClient:
         remote_id: typing.Optional[str] = None,
         ticket_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedCommentList:
+    ) -> AsyncPager[Comment, PaginatedCommentList]:
         """
         Returns a list of `Comment` objects.
 
@@ -344,7 +320,7 @@ class AsyncCommentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CommentsListRequestExpand]
+        expand : typing.Optional[typing.Union[CommentsListRequestExpandItem, typing.Sequence[CommentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -363,7 +339,7 @@ class AsyncCommentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return Comments created in the third party platform after this datetime.
@@ -379,18 +355,14 @@ class AsyncCommentsClient:
 
         Returns
         -------
-        PaginatedCommentList
+        AsyncPager[Comment, PaginatedCommentList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
-        from merge.resources.ticketing.resources.comments import (
-            CommentsListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -399,36 +371,20 @@ class AsyncCommentsClient:
 
 
         async def main() -> None:
-            await client.ticketing.comments.list(
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.ticketing.comments.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=CommentsListRequestExpand.CONTACT,
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                remote_created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                remote_id="remote_id",
-                ticket_id="ticket_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -444,7 +400,6 @@ class AsyncCommentsClient:
             ticket_id=ticket_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -490,8 +445,6 @@ class AsyncCommentsClient:
 
         async def main() -> None:
             await client.ticketing.comments.create(
-                is_debug_mode=True,
-                run_async=True,
                 model=CommentRequest(),
             )
 
@@ -507,7 +460,9 @@ class AsyncCommentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CommentsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CommentsRetrieveRequestExpandItem, typing.Sequence[CommentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -519,7 +474,7 @@ class AsyncCommentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[CommentsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CommentsRetrieveRequestExpandItem, typing.Sequence[CommentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -541,9 +496,6 @@ class AsyncCommentsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.ticketing.resources.comments import (
-            CommentsRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -554,9 +506,6 @@ class AsyncCommentsClient:
         async def main() -> None:
             await client.ticketing.comments.retrieve(
                 id="id",
-                expand=CommentsRetrieveRequestExpand.CONTACT,
-                include_remote_data=True,
-                include_shell_data=True,
             )
 
 

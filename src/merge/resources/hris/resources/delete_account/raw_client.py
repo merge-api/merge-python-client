@@ -27,7 +27,7 @@ class RawDeleteAccountClient:
         HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/delete-account",
+            "delete-account",
             method="POST",
             request_options=request_options,
         )
@@ -58,7 +58,7 @@ class AsyncRawDeleteAccountClient:
         AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/delete-account",
+            "delete-account",
             method="POST",
             request_options=request_options,
         )

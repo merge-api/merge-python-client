@@ -36,7 +36,7 @@ class RawGenerateKeyClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/generate-key",
+            "generate-key",
             method="POST",
             json={
                 "name": name,
@@ -87,7 +87,7 @@ class AsyncRawGenerateKeyClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/generate-key",
+            "generate-key",
             method="POST",
             json={
                 "name": name,

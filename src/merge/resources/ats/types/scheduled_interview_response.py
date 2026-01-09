@@ -29,8 +29,4 @@ class ScheduledInterviewResponse(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .application import Application  # noqa: E402, F401, I001
-from .candidate import Candidate  # noqa: E402, F401, I001
-from .offer import Offer  # noqa: E402, F401, I001
-
 update_forward_refs(ScheduledInterviewResponse)

@@ -35,7 +35,7 @@ class RawAccountTokenClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"hris/v1/account-token/{jsonable_encoder(public_token)}",
+            f"account-token/{jsonable_encoder(public_token)}",
             method="GET",
             request_options=request_options,
         )
@@ -78,7 +78,7 @@ class AsyncRawAccountTokenClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"hris/v1/account-token/{jsonable_encoder(public_token)}",
+            f"account-token/{jsonable_encoder(public_token)}",
             method="GET",
             request_options=request_options,
         )

@@ -6,15 +6,23 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .invoices_list_request_expand import InvoicesListRequestExpand
+    from .invoices_list_request_expand_item import InvoicesListRequestExpandItem
+    from .invoices_list_request_remote_fields import InvoicesListRequestRemoteFields
+    from .invoices_list_request_show_enum_origins import InvoicesListRequestShowEnumOrigins
     from .invoices_list_request_status import InvoicesListRequestStatus
     from .invoices_list_request_type import InvoicesListRequestType
-    from .invoices_retrieve_request_expand import InvoicesRetrieveRequestExpand
+    from .invoices_retrieve_request_expand_item import InvoicesRetrieveRequestExpandItem
+    from .invoices_retrieve_request_remote_fields import InvoicesRetrieveRequestRemoteFields
+    from .invoices_retrieve_request_show_enum_origins import InvoicesRetrieveRequestShowEnumOrigins
 _dynamic_imports: typing.Dict[str, str] = {
-    "InvoicesListRequestExpand": ".invoices_list_request_expand",
+    "InvoicesListRequestExpandItem": ".invoices_list_request_expand_item",
+    "InvoicesListRequestRemoteFields": ".invoices_list_request_remote_fields",
+    "InvoicesListRequestShowEnumOrigins": ".invoices_list_request_show_enum_origins",
     "InvoicesListRequestStatus": ".invoices_list_request_status",
     "InvoicesListRequestType": ".invoices_list_request_type",
-    "InvoicesRetrieveRequestExpand": ".invoices_retrieve_request_expand",
+    "InvoicesRetrieveRequestExpandItem": ".invoices_retrieve_request_expand_item",
+    "InvoicesRetrieveRequestRemoteFields": ".invoices_retrieve_request_remote_fields",
+    "InvoicesRetrieveRequestShowEnumOrigins": ".invoices_retrieve_request_show_enum_origins",
 }
 
 
@@ -24,8 +32,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -38,8 +48,12 @@ def __dir__():
 
 
 __all__ = [
-    "InvoicesListRequestExpand",
+    "InvoicesListRequestExpandItem",
+    "InvoicesListRequestRemoteFields",
+    "InvoicesListRequestShowEnumOrigins",
     "InvoicesListRequestStatus",
     "InvoicesListRequestType",
-    "InvoicesRetrieveRequestExpand",
+    "InvoicesRetrieveRequestExpandItem",
+    "InvoicesRetrieveRequestRemoteFields",
+    "InvoicesRetrieveRequestShowEnumOrigins",
 ]

@@ -9,6 +9,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.issue import Issue
@@ -38,7 +39,7 @@ class RawIssuesClient:
         start_date: typing.Optional[str] = None,
         status: typing.Optional[IssuesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedIssueList]:
+    ) -> SyncPager[Issue, PaginatedIssueList]:
         """
         Gets all issues for Organization.
 
@@ -75,7 +76,7 @@ class RawIssuesClient:
             If provided, will only include issues pertaining to the linked account passed in.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         start_date : typing.Optional[str]
             If included, will only include issues whose most recent action occurred after this time
@@ -91,11 +92,11 @@ class RawIssuesClient:
 
         Returns
         -------
-        HttpResponse[PaginatedIssueList]
+        SyncPager[Issue, PaginatedIssueList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/issues",
+            "issues",
             method="GET",
             params={
                 "account_token": account_token,
@@ -125,14 +126,34 @@ class RawIssuesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedIssueList,
                     construct_type(
                         type_=PaginatedIssueList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    account_token=account_token,
+                    cursor=_parsed_next,
+                    end_date=end_date,
+                    end_user_organization_name=end_user_organization_name,
+                    first_incident_time_after=first_incident_time_after,
+                    first_incident_time_before=first_incident_time_before,
+                    include_muted=include_muted,
+                    integration_name=integration_name,
+                    last_incident_time_after=last_incident_time_after,
+                    last_incident_time_before=last_incident_time_before,
+                    linked_account_id=linked_account_id,
+                    page_size=page_size,
+                    start_date=start_date,
+                    status=status,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -155,7 +176,7 @@ class RawIssuesClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"hris/v1/issues/{jsonable_encoder(id)}",
+            f"issues/{jsonable_encoder(id)}",
             method="GET",
             request_options=request_options,
         )
@@ -197,7 +218,7 @@ class AsyncRawIssuesClient:
         start_date: typing.Optional[str] = None,
         status: typing.Optional[IssuesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedIssueList]:
+    ) -> AsyncPager[Issue, PaginatedIssueList]:
         """
         Gets all issues for Organization.
 
@@ -234,7 +255,7 @@ class AsyncRawIssuesClient:
             If provided, will only include issues pertaining to the linked account passed in.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         start_date : typing.Optional[str]
             If included, will only include issues whose most recent action occurred after this time
@@ -250,11 +271,11 @@ class AsyncRawIssuesClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedIssueList]
+        AsyncPager[Issue, PaginatedIssueList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/issues",
+            "issues",
             method="GET",
             params={
                 "account_token": account_token,
@@ -284,14 +305,37 @@ class AsyncRawIssuesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedIssueList,
                     construct_type(
                         type_=PaginatedIssueList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        account_token=account_token,
+                        cursor=_parsed_next,
+                        end_date=end_date,
+                        end_user_organization_name=end_user_organization_name,
+                        first_incident_time_after=first_incident_time_after,
+                        first_incident_time_before=first_incident_time_before,
+                        include_muted=include_muted,
+                        integration_name=integration_name,
+                        last_incident_time_after=last_incident_time_after,
+                        last_incident_time_before=last_incident_time_before,
+                        linked_account_id=linked_account_id,
+                        page_size=page_size,
+                        start_date=start_date,
+                        status=status,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -316,7 +360,7 @@ class AsyncRawIssuesClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"hris/v1/issues/{jsonable_encoder(id)}",
+            f"issues/{jsonable_encoder(id)}",
             method="GET",
             request_options=request_options,
         )

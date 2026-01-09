@@ -4,4 +4,4 @@ import typing
 
 from .ticket_access_enum import TicketAccessEnum
 
-RoleTicketAccess = typing.Union[str, TicketAccessEnum]
+RoleTicketAccess = typing.Union[TicketAccessEnum, str]

@@ -30,7 +30,7 @@ class RawAvailableActionsClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/available-actions",
+            "available-actions",
             method="GET",
             request_options=request_options,
         )
@@ -71,7 +71,7 @@ class AsyncRawAvailableActionsClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/available-actions",
+            "available-actions",
             method="GET",
             request_options=request_options,
         )

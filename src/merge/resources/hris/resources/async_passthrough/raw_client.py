@@ -40,7 +40,7 @@ class RawAsyncPassthroughClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/async-passthrough",
+            "async-passthrough",
             method="POST",
             json=request,
             headers={
@@ -83,7 +83,7 @@ class RawAsyncPassthroughClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"hris/v1/async-passthrough/{jsonable_encoder(async_passthrough_receipt_id)}",
+            f"async-passthrough/{jsonable_encoder(async_passthrough_receipt_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -126,7 +126,7 @@ class AsyncRawAsyncPassthroughClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/async-passthrough",
+            "async-passthrough",
             method="POST",
             json=request,
             headers={
@@ -169,7 +169,7 @@ class AsyncRawAsyncPassthroughClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"hris/v1/async-passthrough/{jsonable_encoder(async_passthrough_receipt_id)}",
+            f"async-passthrough/{jsonable_encoder(async_passthrough_receipt_id)}",
             method="GET",
             request_options=request_options,
         )

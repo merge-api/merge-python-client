@@ -7,8 +7,8 @@ import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .patched_ticket_request_access_level import PatchedTicketRequestAccessLevel
-from .patched_ticket_request_priority import PatchedTicketRequestPriority
 from .patched_ticket_request_status import PatchedTicketRequestStatus
+from .priority_enum import PriorityEnum
 from .remote_field_request import RemoteFieldRequest
 
 
@@ -98,12 +98,17 @@ class PatchedTicketRequest(UncheckedBaseModel):
 
     tags: typing.Optional[typing.List[typing.Optional[str]]] = None
     roles: typing.Optional[typing.List[typing.Optional[str]]] = None
+    completed_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
+    """
+    When the ticket was completed.
+    """
+
     ticket_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     The 3rd party url of the Ticket.
     """
 
-    priority: typing.Optional[PatchedTicketRequestPriority] = pydantic.Field(default=None)
+    priority: typing.Optional[PriorityEnum] = pydantic.Field(default=None)
     """
     The priority or urgency of the Ticket.
     
@@ -113,13 +118,8 @@ class PatchedTicketRequest(UncheckedBaseModel):
     * `LOW` - LOW
     """
 
-    completed_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
-    """
-    When the ticket was completed.
-    """
-
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    integration_params: typing.Optional[typing.Dict[str, typing.Any]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Any]] = None
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None
 
     if IS_PYDANTIC_V2:

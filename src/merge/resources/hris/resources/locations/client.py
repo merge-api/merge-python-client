@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.location import Location
 from ...types.paginated_location_list import PaginatedLocationList
@@ -47,7 +48,7 @@ class LocationsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[LocationsListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedLocationList:
+    ) -> SyncPager[Location, PaginatedLocationList]:
         """
         Returns a list of `Location` objects.
 
@@ -72,7 +73,7 @@ class LocationsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         location_type : typing.Optional[LocationsListRequestLocationType]
-            If provided, will only return locations with this location type
+            If provided, will only return locations with this location_type
 
             * `HOME` - HOME
             * `WORK` - WORK
@@ -84,7 +85,7 @@ class LocationsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_fields : typing.Optional[LocationsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -100,49 +101,27 @@ class LocationsClient:
 
         Returns
         -------
-        PaginatedLocationList
+        SyncPager[Location, PaginatedLocationList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
-        from merge.resources.hris.resources.locations import (
-            LocationsListRequestLocationType,
-            LocationsListRequestRemoteFields,
-            LocationsListRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.locations.list(
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.hris.locations.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            location_type=LocationsListRequestLocationType.HOME,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            remote_fields=LocationsListRequestRemoteFields.COUNTRY,
-            remote_id="remote_id",
-            show_enum_origins=LocationsListRequestShowEnumOrigins.COUNTRY,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -158,7 +137,6 @@ class LocationsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -200,10 +178,6 @@ class LocationsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.hris.resources.locations import (
-            LocationsRetrieveRequestRemoteFields,
-            LocationsRetrieveRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -211,10 +185,6 @@ class LocationsClient:
         )
         client.hris.locations.retrieve(
             id="id",
-            include_remote_data=True,
-            include_shell_data=True,
-            remote_fields=LocationsRetrieveRequestRemoteFields.COUNTRY,
-            show_enum_origins=LocationsRetrieveRequestShowEnumOrigins.COUNTRY,
         )
         """
         _response = self._raw_client.retrieve(
@@ -260,7 +230,7 @@ class AsyncLocationsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[LocationsListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedLocationList:
+    ) -> AsyncPager[Location, PaginatedLocationList]:
         """
         Returns a list of `Location` objects.
 
@@ -285,7 +255,7 @@ class AsyncLocationsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         location_type : typing.Optional[LocationsListRequestLocationType]
-            If provided, will only return locations with this location type
+            If provided, will only return locations with this location_type
 
             * `HOME` - HOME
             * `WORK` - WORK
@@ -297,7 +267,7 @@ class AsyncLocationsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_fields : typing.Optional[LocationsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -313,20 +283,14 @@ class AsyncLocationsClient:
 
         Returns
         -------
-        PaginatedLocationList
+        AsyncPager[Location, PaginatedLocationList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
-        from merge.resources.hris.resources.locations import (
-            LocationsListRequestLocationType,
-            LocationsListRequestRemoteFields,
-            LocationsListRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -335,34 +299,20 @@ class AsyncLocationsClient:
 
 
         async def main() -> None:
-            await client.hris.locations.list(
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.hris.locations.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                location_type=LocationsListRequestLocationType.HOME,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                remote_fields=LocationsListRequestRemoteFields.COUNTRY,
-                remote_id="remote_id",
-                show_enum_origins=LocationsListRequestShowEnumOrigins.COUNTRY,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -378,7 +328,6 @@ class AsyncLocationsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
@@ -422,10 +371,6 @@ class AsyncLocationsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.hris.resources.locations import (
-            LocationsRetrieveRequestRemoteFields,
-            LocationsRetrieveRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -436,10 +381,6 @@ class AsyncLocationsClient:
         async def main() -> None:
             await client.hris.locations.retrieve(
                 id="id",
-                include_remote_data=True,
-                include_shell_data=True,
-                remote_fields=LocationsRetrieveRequestRemoteFields.COUNTRY,
-                show_enum_origins=LocationsRetrieveRequestShowEnumOrigins.COUNTRY,
             )
 
 

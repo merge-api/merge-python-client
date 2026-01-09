@@ -6,11 +6,13 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .general_ledger_transactions_list_request_expand import GeneralLedgerTransactionsListRequestExpand
-    from .general_ledger_transactions_retrieve_request_expand import GeneralLedgerTransactionsRetrieveRequestExpand
+    from .general_ledger_transactions_list_request_expand_item import GeneralLedgerTransactionsListRequestExpandItem
+    from .general_ledger_transactions_retrieve_request_expand_item import (
+        GeneralLedgerTransactionsRetrieveRequestExpandItem,
+    )
 _dynamic_imports: typing.Dict[str, str] = {
-    "GeneralLedgerTransactionsListRequestExpand": ".general_ledger_transactions_list_request_expand",
-    "GeneralLedgerTransactionsRetrieveRequestExpand": ".general_ledger_transactions_retrieve_request_expand",
+    "GeneralLedgerTransactionsListRequestExpandItem": ".general_ledger_transactions_list_request_expand_item",
+    "GeneralLedgerTransactionsRetrieveRequestExpandItem": ".general_ledger_transactions_retrieve_request_expand_item",
 }
 
 
@@ -20,8 +22,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -33,4 +37,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["GeneralLedgerTransactionsListRequestExpand", "GeneralLedgerTransactionsRetrieveRequestExpand"]
+__all__ = ["GeneralLedgerTransactionsListRequestExpandItem", "GeneralLedgerTransactionsRetrieveRequestExpandItem"]

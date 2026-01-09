@@ -47,12 +47,12 @@ class Location(UncheckedBaseModel):
     The location's phone number.
     """
 
-    street_1: typing.Optional[str] = pydantic.Field(default=None)
+    street1: typing.Optional[str] = pydantic.Field(alias="street_1", default=None)
     """
     Line 1 of the location's street address.
     """
 
-    street_2: typing.Optional[str] = pydantic.Field(default=None)
+    street2: typing.Optional[str] = pydantic.Field(alias="street_2", default=None)
     """
     Line 2 of the location's street address.
     """
@@ -340,7 +340,7 @@ class Location(UncheckedBaseModel):
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    field_mappings: typing.Optional[typing.Dict[str, typing.Any]] = None
     remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:

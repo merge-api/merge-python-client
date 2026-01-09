@@ -7,10 +7,13 @@ from .....core.api_error import ApiError
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.paginated_payment_term_list import PaginatedPaymentTermList
 from ...types.payment_term import PaymentTerm
+from .types.payment_terms_list_request_expand_item import PaymentTermsListRequestExpandItem
+from .types.payment_terms_retrieve_request_expand_item import PaymentTermsRetrieveRequestExpandItem
 
 
 class RawPaymentTermsClient:
@@ -21,13 +24,15 @@ class RawPaymentTermsClient:
         self,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[PaymentTermsListRequestExpandItem, typing.Sequence[PaymentTermsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedPaymentTermList]:
+    ) -> SyncPager[PaymentTerm, PaginatedPaymentTermList]:
         """
         Returns a list of `PaymentTerm` objects.
 
@@ -36,7 +41,7 @@ class RawPaymentTermsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[PaymentTermsListRequestExpandItem, typing.Sequence[PaymentTermsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -56,7 +61,7 @@ class RawPaymentTermsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedPaymentTermList]
+        SyncPager[PaymentTerm, PaginatedPaymentTermList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -74,14 +79,26 @@ class RawPaymentTermsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedPaymentTermList,
                     construct_type(
                         type_=PaginatedPaymentTermList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    page_size=page_size,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -91,7 +108,9 @@ class RawPaymentTermsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[PaymentTermsRetrieveRequestExpandItem, typing.Sequence[PaymentTermsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -103,7 +122,7 @@ class RawPaymentTermsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[PaymentTermsRetrieveRequestExpandItem, typing.Sequence[PaymentTermsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -154,13 +173,15 @@ class AsyncRawPaymentTermsClient:
         self,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[PaymentTermsListRequestExpandItem, typing.Sequence[PaymentTermsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedPaymentTermList]:
+    ) -> AsyncPager[PaymentTerm, PaginatedPaymentTermList]:
         """
         Returns a list of `PaymentTerm` objects.
 
@@ -169,7 +190,7 @@ class AsyncRawPaymentTermsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[PaymentTermsListRequestExpandItem, typing.Sequence[PaymentTermsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -189,7 +210,7 @@ class AsyncRawPaymentTermsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedPaymentTermList]
+        AsyncPager[PaymentTerm, PaginatedPaymentTermList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -207,14 +228,29 @@ class AsyncRawPaymentTermsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedPaymentTermList,
                     construct_type(
                         type_=PaginatedPaymentTermList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        page_size=page_size,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -224,7 +260,9 @@ class AsyncRawPaymentTermsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[PaymentTermsRetrieveRequestExpandItem, typing.Sequence[PaymentTermsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -236,7 +274,7 @@ class AsyncRawPaymentTermsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[PaymentTermsRetrieveRequestExpandItem, typing.Sequence[PaymentTermsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

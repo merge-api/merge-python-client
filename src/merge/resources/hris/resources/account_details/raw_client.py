@@ -30,7 +30,7 @@ class RawAccountDetailsClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/account-details",
+            "account-details",
             method="GET",
             request_options=request_options,
         )
@@ -71,7 +71,7 @@ class AsyncRawAccountDetailsClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/account-details",
+            "account-details",
             method="GET",
             request_options=request_options,
         )

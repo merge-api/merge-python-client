@@ -7,7 +7,6 @@ import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .general_ledger_transaction_line_account import GeneralLedgerTransactionLineAccount
-from .general_ledger_transaction_line_base_currency import GeneralLedgerTransactionLineBaseCurrency
 from .general_ledger_transaction_line_company import GeneralLedgerTransactionLineCompany
 from .general_ledger_transaction_line_contact import GeneralLedgerTransactionLineContact
 from .general_ledger_transaction_line_employee import GeneralLedgerTransactionLineEmployee
@@ -15,6 +14,7 @@ from .general_ledger_transaction_line_item import GeneralLedgerTransactionLineIt
 from .general_ledger_transaction_line_project import GeneralLedgerTransactionLineProject
 from .general_ledger_transaction_line_tracking_categories_item import GeneralLedgerTransactionLineTrackingCategoriesItem
 from .general_ledger_transaction_line_transaction_currency import GeneralLedgerTransactionLineTransactionCurrency
+from .transaction_currency_enum import TransactionCurrencyEnum
 
 
 class GeneralLedgerTransactionLine(UncheckedBaseModel):
@@ -52,7 +52,7 @@ class GeneralLedgerTransactionLine(UncheckedBaseModel):
     employee: typing.Optional[GeneralLedgerTransactionLineEmployee] = None
     contact: typing.Optional[GeneralLedgerTransactionLineContact] = None
     project: typing.Optional[GeneralLedgerTransactionLineProject] = None
-    base_currency: typing.Optional[GeneralLedgerTransactionLineBaseCurrency] = pydantic.Field(default=None)
+    base_currency: typing.Optional[TransactionCurrencyEnum] = pydantic.Field(default=None)
     """
     The base currency of the transaction
     
@@ -699,7 +699,7 @@ class GeneralLedgerTransactionLine(UncheckedBaseModel):
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    field_mappings: typing.Optional[typing.Dict[str, typing.Any]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

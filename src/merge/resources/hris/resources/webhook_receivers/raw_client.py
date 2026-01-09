@@ -35,7 +35,7 @@ class RawWebhookReceiversClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/webhook-receivers",
+            "webhook-receivers",
             method="GET",
             request_options=request_options,
         )
@@ -82,7 +82,7 @@ class RawWebhookReceiversClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/webhook-receivers",
+            "webhook-receivers",
             method="POST",
             json={
                 "event": event,
@@ -132,7 +132,7 @@ class AsyncRawWebhookReceiversClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/webhook-receivers",
+            "webhook-receivers",
             method="GET",
             request_options=request_options,
         )
@@ -179,7 +179,7 @@ class AsyncRawWebhookReceiversClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/webhook-receivers",
+            "webhook-receivers",
             method="POST",
             json={
                 "event": event,

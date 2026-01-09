@@ -39,69 +39,94 @@ if typing.TYPE_CHECKING:
         users,
         webhook_receivers,
     )
+    from .accounts import AccountsListRequestExpandItem, AccountsRetrieveRequestExpandItem
+    from .association_types import (
+        CustomObjectClassesAssociationTypesListRequestExpandItem,
+        CustomObjectClassesAssociationTypesRetrieveRequestExpandItem,
+    )
+    from .associations import CustomObjectClassesCustomObjectsAssociationsListRequestExpandItem
     from .async_passthrough import AsyncPassthroughRetrieveResponse
-    from .contacts import ContactsListRequestExpand, ContactsRetrieveRequestExpand
-    from .engagements import EngagementsListRequestExpand, EngagementsRetrieveRequestExpand
+    from .contacts import ContactsListRequestExpandItem, ContactsRetrieveRequestExpandItem
+    from .custom_object_classes import (
+        CustomObjectClassesListRequestExpandItem,
+        CustomObjectClassesRetrieveRequestExpandItem,
+    )
+    from .engagements import EngagementsListRequestExpandItem, EngagementsRetrieveRequestExpandItem
     from .issues import IssuesListRequestStatus
-    from .leads import LeadsListRequestExpand, LeadsRetrieveRequestExpand
+    from .leads import LeadsListRequestExpandItem, LeadsRetrieveRequestExpandItem
     from .link_token import EndUserDetailsRequestLanguage
     from .linked_accounts import LinkedAccountsListRequestCategory
-    from .notes import NotesListRequestExpand, NotesRetrieveRequestExpand
+    from .notes import NotesListRequestExpandItem, NotesRetrieveRequestExpandItem
     from .opportunities import (
-        OpportunitiesListRequestExpand,
+        OpportunitiesListRequestExpandItem,
+        OpportunitiesListRequestRemoteFields,
+        OpportunitiesListRequestShowEnumOrigins,
         OpportunitiesListRequestStatus,
-        OpportunitiesRetrieveRequestExpand,
+        OpportunitiesRetrieveRequestExpandItem,
+        OpportunitiesRetrieveRequestRemoteFields,
+        OpportunitiesRetrieveRequestShowEnumOrigins,
     )
-    from .tasks import TasksListRequestExpand, TasksRetrieveRequestExpand
+    from .tasks import TasksListRequestExpandItem, TasksRetrieveRequestExpandItem
 _dynamic_imports: typing.Dict[str, str] = {
+    "AccountsListRequestExpandItem": ".accounts",
+    "AccountsRetrieveRequestExpandItem": ".accounts",
     "AsyncPassthroughRetrieveResponse": ".async_passthrough",
-    "ContactsListRequestExpand": ".contacts",
-    "ContactsRetrieveRequestExpand": ".contacts",
+    "ContactsListRequestExpandItem": ".contacts",
+    "ContactsRetrieveRequestExpandItem": ".contacts",
+    "CustomObjectClassesAssociationTypesListRequestExpandItem": ".association_types",
+    "CustomObjectClassesAssociationTypesRetrieveRequestExpandItem": ".association_types",
+    "CustomObjectClassesCustomObjectsAssociationsListRequestExpandItem": ".associations",
+    "CustomObjectClassesListRequestExpandItem": ".custom_object_classes",
+    "CustomObjectClassesRetrieveRequestExpandItem": ".custom_object_classes",
     "EndUserDetailsRequestLanguage": ".link_token",
-    "EngagementsListRequestExpand": ".engagements",
-    "EngagementsRetrieveRequestExpand": ".engagements",
+    "EngagementsListRequestExpandItem": ".engagements",
+    "EngagementsRetrieveRequestExpandItem": ".engagements",
     "IssuesListRequestStatus": ".issues",
-    "LeadsListRequestExpand": ".leads",
-    "LeadsRetrieveRequestExpand": ".leads",
+    "LeadsListRequestExpandItem": ".leads",
+    "LeadsRetrieveRequestExpandItem": ".leads",
     "LinkedAccountsListRequestCategory": ".linked_accounts",
-    "NotesListRequestExpand": ".notes",
-    "NotesRetrieveRequestExpand": ".notes",
-    "OpportunitiesListRequestExpand": ".opportunities",
+    "NotesListRequestExpandItem": ".notes",
+    "NotesRetrieveRequestExpandItem": ".notes",
+    "OpportunitiesListRequestExpandItem": ".opportunities",
+    "OpportunitiesListRequestRemoteFields": ".opportunities",
+    "OpportunitiesListRequestShowEnumOrigins": ".opportunities",
     "OpportunitiesListRequestStatus": ".opportunities",
-    "OpportunitiesRetrieveRequestExpand": ".opportunities",
-    "TasksListRequestExpand": ".tasks",
-    "TasksRetrieveRequestExpand": ".tasks",
-    "account_details": ".",
-    "account_token": ".",
-    "accounts": ".",
-    "association_types": ".",
-    "associations": ".",
-    "async_passthrough": ".",
-    "audit_trail": ".",
-    "available_actions": ".",
-    "contacts": ".",
-    "custom_object_classes": ".",
-    "custom_objects": ".",
-    "delete_account": ".",
-    "engagement_types": ".",
-    "engagements": ".",
-    "field_mapping": ".",
-    "force_resync": ".",
-    "generate_key": ".",
-    "issues": ".",
-    "leads": ".",
-    "link_token": ".",
-    "linked_accounts": ".",
-    "notes": ".",
-    "opportunities": ".",
-    "passthrough": ".",
-    "regenerate_key": ".",
-    "scopes": ".",
-    "stages": ".",
-    "sync_status": ".",
-    "tasks": ".",
-    "users": ".",
-    "webhook_receivers": ".",
+    "OpportunitiesRetrieveRequestExpandItem": ".opportunities",
+    "OpportunitiesRetrieveRequestRemoteFields": ".opportunities",
+    "OpportunitiesRetrieveRequestShowEnumOrigins": ".opportunities",
+    "TasksListRequestExpandItem": ".tasks",
+    "TasksRetrieveRequestExpandItem": ".tasks",
+    "account_details": ".account_details",
+    "account_token": ".account_token",
+    "accounts": ".accounts",
+    "association_types": ".association_types",
+    "associations": ".associations",
+    "async_passthrough": ".async_passthrough",
+    "audit_trail": ".audit_trail",
+    "available_actions": ".available_actions",
+    "contacts": ".contacts",
+    "custom_object_classes": ".custom_object_classes",
+    "custom_objects": ".custom_objects",
+    "delete_account": ".delete_account",
+    "engagement_types": ".engagement_types",
+    "engagements": ".engagements",
+    "field_mapping": ".field_mapping",
+    "force_resync": ".force_resync",
+    "generate_key": ".generate_key",
+    "issues": ".issues",
+    "leads": ".leads",
+    "link_token": ".link_token",
+    "linked_accounts": ".linked_accounts",
+    "notes": ".notes",
+    "opportunities": ".opportunities",
+    "passthrough": ".passthrough",
+    "regenerate_key": ".regenerate_key",
+    "scopes": ".scopes",
+    "stages": ".stages",
+    "sync_status": ".sync_status",
+    "tasks": ".tasks",
+    "users": ".users",
+    "webhook_receivers": ".webhook_receivers",
 }
 
 
@@ -111,8 +136,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -125,23 +152,34 @@ def __dir__():
 
 
 __all__ = [
+    "AccountsListRequestExpandItem",
+    "AccountsRetrieveRequestExpandItem",
     "AsyncPassthroughRetrieveResponse",
-    "ContactsListRequestExpand",
-    "ContactsRetrieveRequestExpand",
+    "ContactsListRequestExpandItem",
+    "ContactsRetrieveRequestExpandItem",
+    "CustomObjectClassesAssociationTypesListRequestExpandItem",
+    "CustomObjectClassesAssociationTypesRetrieveRequestExpandItem",
+    "CustomObjectClassesCustomObjectsAssociationsListRequestExpandItem",
+    "CustomObjectClassesListRequestExpandItem",
+    "CustomObjectClassesRetrieveRequestExpandItem",
     "EndUserDetailsRequestLanguage",
-    "EngagementsListRequestExpand",
-    "EngagementsRetrieveRequestExpand",
+    "EngagementsListRequestExpandItem",
+    "EngagementsRetrieveRequestExpandItem",
     "IssuesListRequestStatus",
-    "LeadsListRequestExpand",
-    "LeadsRetrieveRequestExpand",
+    "LeadsListRequestExpandItem",
+    "LeadsRetrieveRequestExpandItem",
     "LinkedAccountsListRequestCategory",
-    "NotesListRequestExpand",
-    "NotesRetrieveRequestExpand",
-    "OpportunitiesListRequestExpand",
+    "NotesListRequestExpandItem",
+    "NotesRetrieveRequestExpandItem",
+    "OpportunitiesListRequestExpandItem",
+    "OpportunitiesListRequestRemoteFields",
+    "OpportunitiesListRequestShowEnumOrigins",
     "OpportunitiesListRequestStatus",
-    "OpportunitiesRetrieveRequestExpand",
-    "TasksListRequestExpand",
-    "TasksRetrieveRequestExpand",
+    "OpportunitiesRetrieveRequestExpandItem",
+    "OpportunitiesRetrieveRequestRemoteFields",
+    "OpportunitiesRetrieveRequestShowEnumOrigins",
+    "TasksListRequestExpandItem",
+    "TasksRetrieveRequestExpandItem",
     "account_details",
     "account_token",
     "accounts",
