@@ -40,9 +40,7 @@ class AccountIntegration(UncheckedBaseModel):
     """
 
     slug: typing.Optional[str] = None
-    api_endpoints_to_documentation_urls: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = (
-        pydantic.Field(default=None)
-    )
+    api_endpoints_to_documentation_urls: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
     Mapping of API endpoints to documentation urls for support. Example: {'GET': [['/common-model-scopes', 'https://docs.merge.dev/accounting/common-model-scopes/#common_model_scopes_retrieve'],['/common-model-actions', 'https://docs.merge.dev/accounting/common-model-actions/#common_model_actions_retrieve']], 'POST': []}
     """
@@ -52,7 +50,7 @@ class AccountIntegration(UncheckedBaseModel):
     Setup guide URL for third party webhook creation. Exposed in Merge Docs.
     """
 
-    category_beta_status: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
+    category_beta_status: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
     Category or categories this integration is in beta status for.
     """

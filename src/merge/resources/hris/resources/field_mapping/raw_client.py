@@ -45,7 +45,7 @@ class RawFieldMappingClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/field-mappings",
+            "field-mappings",
             method="GET",
             params={
                 "exclude_remote_field_metadata": exclude_remote_field_metadata,
@@ -72,12 +72,11 @@ class RawFieldMappingClient:
         *,
         target_field_name: str,
         target_field_description: str,
-        remote_field_traversal_path: typing.Sequence[typing.Optional[typing.Any]],
+        remote_field_traversal_path: typing.Sequence[typing.Any],
         remote_method: str,
         remote_url_path: str,
         common_model_name: str,
         exclude_remote_field_metadata: typing.Optional[bool] = None,
-        jmes_path: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[FieldMappingInstanceResponse]:
         """
@@ -91,7 +90,7 @@ class RawFieldMappingClient:
         target_field_description : str
             The description of the target field you want this remote field to map to.
 
-        remote_field_traversal_path : typing.Sequence[typing.Optional[typing.Any]]
+        remote_field_traversal_path : typing.Sequence[typing.Any]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : str
@@ -106,9 +105,6 @@ class RawFieldMappingClient:
         exclude_remote_field_metadata : typing.Optional[bool]
             If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
 
-        jmes_path : typing.Optional[str]
-            JMES path to specify json query expression to be used on field mapping.
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -118,7 +114,7 @@ class RawFieldMappingClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/field-mappings",
+            "field-mappings",
             method="POST",
             params={
                 "exclude_remote_field_metadata": exclude_remote_field_metadata,
@@ -130,7 +126,6 @@ class RawFieldMappingClient:
                 "remote_method": remote_method,
                 "remote_url_path": remote_url_path,
                 "common_model_name": common_model_name,
-                "jmes_path": jmes_path,
             },
             headers={
                 "content-type": "application/json",
@@ -172,7 +167,7 @@ class RawFieldMappingClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"hris/v1/field-mappings/{jsonable_encoder(field_mapping_id)}",
+            f"field-mappings/{jsonable_encoder(field_mapping_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -195,10 +190,9 @@ class RawFieldMappingClient:
         self,
         field_mapping_id: str,
         *,
-        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
+        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
-        jmes_path: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[FieldMappingInstanceResponse]:
         """
@@ -208,7 +202,7 @@ class RawFieldMappingClient:
         ----------
         field_mapping_id : str
 
-        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]
+        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Any]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : typing.Optional[str]
@@ -216,9 +210,6 @@ class RawFieldMappingClient:
 
         remote_url_path : typing.Optional[str]
             The path of the remote endpoint where the remote field is coming from.
-
-        jmes_path : typing.Optional[str]
-            JMES path to specify json query expression to be used on field mapping.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -229,13 +220,12 @@ class RawFieldMappingClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"hris/v1/field-mappings/{jsonable_encoder(field_mapping_id)}",
+            f"field-mappings/{jsonable_encoder(field_mapping_id)}",
             method="PATCH",
             json={
                 "remote_field_traversal_path": remote_field_traversal_path,
                 "remote_method": remote_method,
                 "remote_url_path": remote_url_path,
-                "jmes_path": jmes_path,
             },
             headers={
                 "content-type": "application/json",
@@ -285,7 +275,7 @@ class RawFieldMappingClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/remote-fields",
+            "remote-fields",
             method="GET",
             params={
                 "common_models": common_models,
@@ -325,7 +315,7 @@ class RawFieldMappingClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/target-fields",
+            "target-fields",
             method="GET",
             request_options=request_options,
         )
@@ -372,7 +362,7 @@ class AsyncRawFieldMappingClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/field-mappings",
+            "field-mappings",
             method="GET",
             params={
                 "exclude_remote_field_metadata": exclude_remote_field_metadata,
@@ -399,12 +389,11 @@ class AsyncRawFieldMappingClient:
         *,
         target_field_name: str,
         target_field_description: str,
-        remote_field_traversal_path: typing.Sequence[typing.Optional[typing.Any]],
+        remote_field_traversal_path: typing.Sequence[typing.Any],
         remote_method: str,
         remote_url_path: str,
         common_model_name: str,
         exclude_remote_field_metadata: typing.Optional[bool] = None,
-        jmes_path: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[FieldMappingInstanceResponse]:
         """
@@ -418,7 +407,7 @@ class AsyncRawFieldMappingClient:
         target_field_description : str
             The description of the target field you want this remote field to map to.
 
-        remote_field_traversal_path : typing.Sequence[typing.Optional[typing.Any]]
+        remote_field_traversal_path : typing.Sequence[typing.Any]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : str
@@ -433,9 +422,6 @@ class AsyncRawFieldMappingClient:
         exclude_remote_field_metadata : typing.Optional[bool]
             If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
 
-        jmes_path : typing.Optional[str]
-            JMES path to specify json query expression to be used on field mapping.
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -445,7 +431,7 @@ class AsyncRawFieldMappingClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/field-mappings",
+            "field-mappings",
             method="POST",
             params={
                 "exclude_remote_field_metadata": exclude_remote_field_metadata,
@@ -457,7 +443,6 @@ class AsyncRawFieldMappingClient:
                 "remote_method": remote_method,
                 "remote_url_path": remote_url_path,
                 "common_model_name": common_model_name,
-                "jmes_path": jmes_path,
             },
             headers={
                 "content-type": "application/json",
@@ -499,7 +484,7 @@ class AsyncRawFieldMappingClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"hris/v1/field-mappings/{jsonable_encoder(field_mapping_id)}",
+            f"field-mappings/{jsonable_encoder(field_mapping_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -522,10 +507,9 @@ class AsyncRawFieldMappingClient:
         self,
         field_mapping_id: str,
         *,
-        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
+        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
-        jmes_path: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[FieldMappingInstanceResponse]:
         """
@@ -535,7 +519,7 @@ class AsyncRawFieldMappingClient:
         ----------
         field_mapping_id : str
 
-        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]
+        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Any]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : typing.Optional[str]
@@ -543,9 +527,6 @@ class AsyncRawFieldMappingClient:
 
         remote_url_path : typing.Optional[str]
             The path of the remote endpoint where the remote field is coming from.
-
-        jmes_path : typing.Optional[str]
-            JMES path to specify json query expression to be used on field mapping.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -556,13 +537,12 @@ class AsyncRawFieldMappingClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"hris/v1/field-mappings/{jsonable_encoder(field_mapping_id)}",
+            f"field-mappings/{jsonable_encoder(field_mapping_id)}",
             method="PATCH",
             json={
                 "remote_field_traversal_path": remote_field_traversal_path,
                 "remote_method": remote_method,
                 "remote_url_path": remote_url_path,
-                "jmes_path": jmes_path,
             },
             headers={
                 "content-type": "application/json",
@@ -612,7 +592,7 @@ class AsyncRawFieldMappingClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/remote-fields",
+            "remote-fields",
             method="GET",
             params={
                 "common_models": common_models,
@@ -652,7 +632,7 @@ class AsyncRawFieldMappingClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/target-fields",
+            "target-fields",
             method="GET",
             request_options=request_options,
         )

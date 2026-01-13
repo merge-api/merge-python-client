@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.application import Application
 from ...types.application_request import ApplicationRequest
@@ -11,8 +12,8 @@ from ...types.application_response import ApplicationResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_application_list import PaginatedApplicationList
 from .raw_client import AsyncRawApplicationsClient, RawApplicationsClient
-from .types.applications_list_request_expand import ApplicationsListRequestExpand
-from .types.applications_retrieve_request_expand import ApplicationsRetrieveRequestExpand
+from .types.applications_list_request_expand_item import ApplicationsListRequestExpandItem
+from .types.applications_retrieve_request_expand_item import ApplicationsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -42,7 +43,9 @@ class ApplicationsClient:
         credited_to_id: typing.Optional[str] = None,
         current_stage_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ApplicationsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ApplicationsListRequestExpandItem, typing.Sequence[ApplicationsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -54,7 +57,7 @@ class ApplicationsClient:
         remote_id: typing.Optional[str] = None,
         source: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedApplicationList:
+    ) -> SyncPager[Application, PaginatedApplicationList]:
         """
         Returns a list of `Application` objects.
 
@@ -78,7 +81,7 @@ class ApplicationsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ApplicationsListRequestExpand]
+        expand : typing.Optional[typing.Union[ApplicationsListRequestExpandItem, typing.Sequence[ApplicationsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -116,51 +119,27 @@ class ApplicationsClient:
 
         Returns
         -------
-        PaginatedApplicationList
+        SyncPager[Application, PaginatedApplicationList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
-        from merge.resources.ats.resources.applications import (
-            ApplicationsListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.applications.list(
-            candidate_id="candidate_id",
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            credited_to_id="credited_to_id",
-            current_stage_id="current_stage_id",
+        response = client.ats.applications.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=ApplicationsListRequestExpand.CANDIDATE,
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            job_id="job_id",
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            reject_reason_id="reject_reason_id",
-            remote_id="remote_id",
-            source="source",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             candidate_id=candidate_id,
             created_after=created_after,
             created_before=created_before,
@@ -180,7 +159,6 @@ class ApplicationsClient:
             source=source,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -227,8 +205,6 @@ class ApplicationsClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.applications.create(
-            is_debug_mode=True,
-            run_async=True,
             model=ApplicationRequest(),
             remote_user_id="remote_user_id",
         )
@@ -246,7 +222,9 @@ class ApplicationsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ApplicationsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ApplicationsRetrieveRequestExpandItem, typing.Sequence[ApplicationsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -258,7 +236,7 @@ class ApplicationsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ApplicationsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ApplicationsRetrieveRequestExpandItem, typing.Sequence[ApplicationsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -278,9 +256,6 @@ class ApplicationsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.ats.resources.applications import (
-            ApplicationsRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -288,9 +263,6 @@ class ApplicationsClient:
         )
         client.ats.applications.retrieve(
             id="id",
-            expand=ApplicationsRetrieveRequestExpand.CANDIDATE,
-            include_remote_data=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -348,8 +320,6 @@ class ApplicationsClient:
         )
         client.ats.applications.change_stage_create(
             id="id",
-            is_debug_mode=True,
-            run_async=True,
         )
         """
         _response = self._raw_client.change_stage_create(
@@ -392,9 +362,7 @@ class ApplicationsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.applications.meta_post_retrieve(
-            application_remote_template_id="application_remote_template_id",
-        )
+        client.ats.applications.meta_post_retrieve()
         """
         _response = self._raw_client.meta_post_retrieve(
             application_remote_template_id=application_remote_template_id, request_options=request_options
@@ -426,7 +394,9 @@ class AsyncApplicationsClient:
         credited_to_id: typing.Optional[str] = None,
         current_stage_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ApplicationsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ApplicationsListRequestExpandItem, typing.Sequence[ApplicationsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -438,7 +408,7 @@ class AsyncApplicationsClient:
         remote_id: typing.Optional[str] = None,
         source: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedApplicationList:
+    ) -> AsyncPager[Application, PaginatedApplicationList]:
         """
         Returns a list of `Application` objects.
 
@@ -462,7 +432,7 @@ class AsyncApplicationsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ApplicationsListRequestExpand]
+        expand : typing.Optional[typing.Union[ApplicationsListRequestExpandItem, typing.Sequence[ApplicationsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -500,18 +470,14 @@ class AsyncApplicationsClient:
 
         Returns
         -------
-        PaginatedApplicationList
+        AsyncPager[Application, PaginatedApplicationList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
-        from merge.resources.ats.resources.applications import (
-            ApplicationsListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -520,38 +486,20 @@ class AsyncApplicationsClient:
 
 
         async def main() -> None:
-            await client.ats.applications.list(
-                candidate_id="candidate_id",
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                credited_to_id="credited_to_id",
-                current_stage_id="current_stage_id",
+            response = await client.ats.applications.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=ApplicationsListRequestExpand.CANDIDATE,
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                job_id="job_id",
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                reject_reason_id="reject_reason_id",
-                remote_id="remote_id",
-                source="source",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             candidate_id=candidate_id,
             created_after=created_after,
             created_before=created_before,
@@ -571,7 +519,6 @@ class AsyncApplicationsClient:
             source=source,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -623,8 +570,6 @@ class AsyncApplicationsClient:
 
         async def main() -> None:
             await client.ats.applications.create(
-                is_debug_mode=True,
-                run_async=True,
                 model=ApplicationRequest(),
                 remote_user_id="remote_user_id",
             )
@@ -645,7 +590,9 @@ class AsyncApplicationsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ApplicationsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ApplicationsRetrieveRequestExpandItem, typing.Sequence[ApplicationsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -657,7 +604,7 @@ class AsyncApplicationsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ApplicationsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ApplicationsRetrieveRequestExpandItem, typing.Sequence[ApplicationsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -679,9 +626,6 @@ class AsyncApplicationsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.ats.resources.applications import (
-            ApplicationsRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -692,9 +636,6 @@ class AsyncApplicationsClient:
         async def main() -> None:
             await client.ats.applications.retrieve(
                 id="id",
-                expand=ApplicationsRetrieveRequestExpand.CANDIDATE,
-                include_remote_data=True,
-                include_shell_data=True,
             )
 
 
@@ -760,8 +701,6 @@ class AsyncApplicationsClient:
         async def main() -> None:
             await client.ats.applications.change_stage_create(
                 id="id",
-                is_debug_mode=True,
-                run_async=True,
             )
 
 
@@ -812,9 +751,7 @@ class AsyncApplicationsClient:
 
 
         async def main() -> None:
-            await client.ats.applications.meta_post_retrieve(
-                application_remote_template_id="application_remote_template_id",
-            )
+            await client.ats.applications.meta_post_retrieve()
 
 
         asyncio.run(main())

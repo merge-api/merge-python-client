@@ -6,19 +6,19 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .employments_list_request_expand import EmploymentsListRequestExpand
+    from .employments_list_request_expand_item import EmploymentsListRequestExpandItem
     from .employments_list_request_order_by import EmploymentsListRequestOrderBy
     from .employments_list_request_remote_fields import EmploymentsListRequestRemoteFields
     from .employments_list_request_show_enum_origins import EmploymentsListRequestShowEnumOrigins
-    from .employments_retrieve_request_expand import EmploymentsRetrieveRequestExpand
+    from .employments_retrieve_request_expand_item import EmploymentsRetrieveRequestExpandItem
     from .employments_retrieve_request_remote_fields import EmploymentsRetrieveRequestRemoteFields
     from .employments_retrieve_request_show_enum_origins import EmploymentsRetrieveRequestShowEnumOrigins
 _dynamic_imports: typing.Dict[str, str] = {
-    "EmploymentsListRequestExpand": ".employments_list_request_expand",
+    "EmploymentsListRequestExpandItem": ".employments_list_request_expand_item",
     "EmploymentsListRequestOrderBy": ".employments_list_request_order_by",
     "EmploymentsListRequestRemoteFields": ".employments_list_request_remote_fields",
     "EmploymentsListRequestShowEnumOrigins": ".employments_list_request_show_enum_origins",
-    "EmploymentsRetrieveRequestExpand": ".employments_retrieve_request_expand",
+    "EmploymentsRetrieveRequestExpandItem": ".employments_retrieve_request_expand_item",
     "EmploymentsRetrieveRequestRemoteFields": ".employments_retrieve_request_remote_fields",
     "EmploymentsRetrieveRequestShowEnumOrigins": ".employments_retrieve_request_show_enum_origins",
 }
@@ -30,8 +30,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -44,11 +46,11 @@ def __dir__():
 
 
 __all__ = [
-    "EmploymentsListRequestExpand",
+    "EmploymentsListRequestExpandItem",
     "EmploymentsListRequestOrderBy",
     "EmploymentsListRequestRemoteFields",
     "EmploymentsListRequestShowEnumOrigins",
-    "EmploymentsRetrieveRequestExpand",
+    "EmploymentsRetrieveRequestExpandItem",
     "EmploymentsRetrieveRequestRemoteFields",
     "EmploymentsRetrieveRequestShowEnumOrigins",
 ]

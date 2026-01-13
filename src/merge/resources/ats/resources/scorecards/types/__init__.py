@@ -6,11 +6,19 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .scorecards_list_request_expand import ScorecardsListRequestExpand
-    from .scorecards_retrieve_request_expand import ScorecardsRetrieveRequestExpand
+    from .scorecards_list_request_expand_item import ScorecardsListRequestExpandItem
+    from .scorecards_list_request_remote_fields import ScorecardsListRequestRemoteFields
+    from .scorecards_list_request_show_enum_origins import ScorecardsListRequestShowEnumOrigins
+    from .scorecards_retrieve_request_expand_item import ScorecardsRetrieveRequestExpandItem
+    from .scorecards_retrieve_request_remote_fields import ScorecardsRetrieveRequestRemoteFields
+    from .scorecards_retrieve_request_show_enum_origins import ScorecardsRetrieveRequestShowEnumOrigins
 _dynamic_imports: typing.Dict[str, str] = {
-    "ScorecardsListRequestExpand": ".scorecards_list_request_expand",
-    "ScorecardsRetrieveRequestExpand": ".scorecards_retrieve_request_expand",
+    "ScorecardsListRequestExpandItem": ".scorecards_list_request_expand_item",
+    "ScorecardsListRequestRemoteFields": ".scorecards_list_request_remote_fields",
+    "ScorecardsListRequestShowEnumOrigins": ".scorecards_list_request_show_enum_origins",
+    "ScorecardsRetrieveRequestExpandItem": ".scorecards_retrieve_request_expand_item",
+    "ScorecardsRetrieveRequestRemoteFields": ".scorecards_retrieve_request_remote_fields",
+    "ScorecardsRetrieveRequestShowEnumOrigins": ".scorecards_retrieve_request_show_enum_origins",
 }
 
 
@@ -20,8 +28,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -33,4 +43,11 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["ScorecardsListRequestExpand", "ScorecardsRetrieveRequestExpand"]
+__all__ = [
+    "ScorecardsListRequestExpandItem",
+    "ScorecardsListRequestRemoteFields",
+    "ScorecardsListRequestShowEnumOrigins",
+    "ScorecardsRetrieveRequestExpandItem",
+    "ScorecardsRetrieveRequestRemoteFields",
+    "ScorecardsRetrieveRequestShowEnumOrigins",
+]
