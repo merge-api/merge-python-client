@@ -4,10 +4,13 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.cash_flow_statement import CashFlowStatement
 from ...types.paginated_cash_flow_statement_list import PaginatedCashFlowStatementList
 from .raw_client import AsyncRawCashFlowStatementsClient, RawCashFlowStatementsClient
+from .types.cash_flow_statements_list_request_expand_item import CashFlowStatementsListRequestExpandItem
+from .types.cash_flow_statements_retrieve_request_expand_item import CashFlowStatementsRetrieveRequestExpandItem
 
 
 class CashFlowStatementsClient:
@@ -32,7 +35,11 @@ class CashFlowStatementsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                CashFlowStatementsListRequestExpandItem, typing.Sequence[CashFlowStatementsListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -41,7 +48,7 @@ class CashFlowStatementsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedCashFlowStatementList:
+    ) -> SyncPager[CashFlowStatement, PaginatedCashFlowStatementList]:
         """
         Returns a list of `CashFlowStatement` objects.
 
@@ -59,7 +66,7 @@ class CashFlowStatementsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[CashFlowStatementsListRequestExpandItem, typing.Sequence[CashFlowStatementsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -88,42 +95,27 @@ class CashFlowStatementsClient:
 
         Returns
         -------
-        PaginatedCashFlowStatementList
+        SyncPager[CashFlowStatement, PaginatedCashFlowStatementList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.cash_flow_statements.list(
-            company_id="company_id",
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.accounting.cash_flow_statements.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -138,13 +130,17 @@ class CashFlowStatementsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                CashFlowStatementsRetrieveRequestExpandItem,
+                typing.Sequence[CashFlowStatementsRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -156,7 +152,7 @@ class CashFlowStatementsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[CashFlowStatementsRetrieveRequestExpandItem, typing.Sequence[CashFlowStatementsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -183,8 +179,6 @@ class CashFlowStatementsClient:
         )
         client.accounting.cash_flow_statements.retrieve(
             id="id",
-            include_remote_data=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -219,7 +213,11 @@ class AsyncCashFlowStatementsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                CashFlowStatementsListRequestExpandItem, typing.Sequence[CashFlowStatementsListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -228,7 +226,7 @@ class AsyncCashFlowStatementsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedCashFlowStatementList:
+    ) -> AsyncPager[CashFlowStatement, PaginatedCashFlowStatementList]:
         """
         Returns a list of `CashFlowStatement` objects.
 
@@ -246,7 +244,7 @@ class AsyncCashFlowStatementsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[CashFlowStatementsListRequestExpandItem, typing.Sequence[CashFlowStatementsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -275,13 +273,12 @@ class AsyncCashFlowStatementsClient:
 
         Returns
         -------
-        PaginatedCashFlowStatementList
+        AsyncPager[CashFlowStatement, PaginatedCashFlowStatementList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
 
@@ -292,32 +289,20 @@ class AsyncCashFlowStatementsClient:
 
 
         async def main() -> None:
-            await client.accounting.cash_flow_statements.list(
-                company_id="company_id",
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.accounting.cash_flow_statements.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -332,13 +317,17 @@ class AsyncCashFlowStatementsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                CashFlowStatementsRetrieveRequestExpandItem,
+                typing.Sequence[CashFlowStatementsRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -350,7 +339,7 @@ class AsyncCashFlowStatementsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[CashFlowStatementsRetrieveRequestExpandItem, typing.Sequence[CashFlowStatementsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -382,8 +371,6 @@ class AsyncCashFlowStatementsClient:
         async def main() -> None:
             await client.accounting.cash_flow_statements.retrieve(
                 id="id",
-                include_remote_data=True,
-                include_shell_data=True,
             )
 
 

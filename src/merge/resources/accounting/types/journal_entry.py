@@ -432,7 +432,7 @@ class JournalEntry(UncheckedBaseModel):
     When the third party's journal entry was updated.
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    field_mappings: typing.Optional[typing.Dict[str, typing.Any]] = None
     remote_data: typing.Optional[typing.List[RemoteData]] = None
     remote_fields: typing.Optional[typing.List[RemoteField]] = None
 

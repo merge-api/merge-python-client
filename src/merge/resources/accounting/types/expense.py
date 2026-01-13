@@ -430,7 +430,7 @@ class Expense(UncheckedBaseModel):
     The accounting period that the Expense was generated in.
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    field_mappings: typing.Optional[typing.Dict[str, typing.Any]] = None
     remote_data: typing.Optional[typing.List[RemoteData]] = None
     remote_fields: typing.Optional[typing.List[RemoteField]] = None
 
