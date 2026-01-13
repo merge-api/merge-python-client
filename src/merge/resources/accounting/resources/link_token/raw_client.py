@@ -39,7 +39,7 @@ class RawLinkTokenClient:
         ] = OMIT,
         language: typing.Optional[EndUserDetailsRequestLanguage] = OMIT,
         are_syncs_disabled: typing.Optional[bool] = OMIT,
-        integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        integration_specific_config: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[LinkToken]:
         """
@@ -86,7 +86,7 @@ class RawLinkTokenClient:
         are_syncs_disabled : typing.Optional[bool]
             The boolean that indicates whether initial, periodic, and force syncs will be disabled.
 
-        integration_specific_config : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+        integration_specific_config : typing.Optional[typing.Dict[str, typing.Any]]
             A JSON object containing integration-specific configuration options.
 
         request_options : typing.Optional[RequestOptions]
@@ -158,7 +158,7 @@ class AsyncRawLinkTokenClient:
         ] = OMIT,
         language: typing.Optional[EndUserDetailsRequestLanguage] = OMIT,
         are_syncs_disabled: typing.Optional[bool] = OMIT,
-        integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        integration_specific_config: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[LinkToken]:
         """
@@ -205,7 +205,7 @@ class AsyncRawLinkTokenClient:
         are_syncs_disabled : typing.Optional[bool]
             The boolean that indicates whether initial, periodic, and force syncs will be disabled.
 
-        integration_specific_config : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+        integration_specific_config : typing.Optional[typing.Dict[str, typing.Any]]
             A JSON object containing integration-specific configuration options.
 
         request_options : typing.Optional[RequestOptions]

@@ -6,11 +6,19 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .items_list_request_expand import ItemsListRequestExpand
-    from .items_retrieve_request_expand import ItemsRetrieveRequestExpand
+    from .items_list_request_expand_item import ItemsListRequestExpandItem
+    from .items_list_request_remote_fields import ItemsListRequestRemoteFields
+    from .items_list_request_show_enum_origins import ItemsListRequestShowEnumOrigins
+    from .items_retrieve_request_expand_item import ItemsRetrieveRequestExpandItem
+    from .items_retrieve_request_remote_fields import ItemsRetrieveRequestRemoteFields
+    from .items_retrieve_request_show_enum_origins import ItemsRetrieveRequestShowEnumOrigins
 _dynamic_imports: typing.Dict[str, str] = {
-    "ItemsListRequestExpand": ".items_list_request_expand",
-    "ItemsRetrieveRequestExpand": ".items_retrieve_request_expand",
+    "ItemsListRequestExpandItem": ".items_list_request_expand_item",
+    "ItemsListRequestRemoteFields": ".items_list_request_remote_fields",
+    "ItemsListRequestShowEnumOrigins": ".items_list_request_show_enum_origins",
+    "ItemsRetrieveRequestExpandItem": ".items_retrieve_request_expand_item",
+    "ItemsRetrieveRequestRemoteFields": ".items_retrieve_request_remote_fields",
+    "ItemsRetrieveRequestShowEnumOrigins": ".items_retrieve_request_show_enum_origins",
 }
 
 
@@ -20,8 +28,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -33,4 +43,11 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["ItemsListRequestExpand", "ItemsRetrieveRequestExpand"]
+__all__ = [
+    "ItemsListRequestExpandItem",
+    "ItemsListRequestRemoteFields",
+    "ItemsListRequestShowEnumOrigins",
+    "ItemsRetrieveRequestExpandItem",
+    "ItemsRetrieveRequestRemoteFields",
+    "ItemsRetrieveRequestShowEnumOrigins",
+]
