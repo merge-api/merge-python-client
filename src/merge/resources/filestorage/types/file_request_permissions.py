@@ -3,6 +3,5 @@
 import typing
 
 from .file_request_permissions_item import FileRequestPermissionsItem
-from .permission_request import PermissionRequest
 
-FileRequestPermissions = typing.Union[str, PermissionRequest, typing.List[FileRequestPermissionsItem]]
+FileRequestPermissions = typing.Union[FileRequestPermissionsItem, typing.List[FileRequestPermissionsItem]]
