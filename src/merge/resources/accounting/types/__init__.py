@@ -17,7 +17,6 @@ if typing.TYPE_CHECKING:
     from .account_details_and_actions_integration import AccountDetailsAndActionsIntegration
     from .account_details_and_actions_status import AccountDetailsAndActionsStatus
     from .account_details_and_actions_status_enum import AccountDetailsAndActionsStatusEnum
-    from .account_details_category import AccountDetailsCategory
     from .account_integration import AccountIntegration
     from .account_request import AccountRequest
     from .account_request_account_type import AccountRequestAccountType
@@ -84,7 +83,6 @@ if typing.TYPE_CHECKING:
     from .common_model_scope_api import CommonModelScopeApi
     from .common_model_scopes_body_request import CommonModelScopesBodyRequest
     from .company_info import CompanyInfo
-    from .company_info_currency import CompanyInfoCurrency
     from .component_type_enum import ComponentTypeEnum
     from .contact import Contact
     from .contact_addresses_item import ContactAddressesItem
@@ -133,7 +131,6 @@ if typing.TYPE_CHECKING:
     from .credit_note_tracking_categories_item import CreditNoteTrackingCategoriesItem
     from .credit_or_debit_enum import CreditOrDebitEnum
     from .data_passthrough_request import DataPassthroughRequest
-    from .data_passthrough_request_method import DataPassthroughRequestMethod
     from .debug_mode_log import DebugModeLog
     from .debug_model_log_summary import DebugModelLogSummary
     from .employee import Employee
@@ -153,7 +150,6 @@ if typing.TYPE_CHECKING:
     from .expense_line import ExpenseLine
     from .expense_line_account import ExpenseLineAccount
     from .expense_line_contact import ExpenseLineContact
-    from .expense_line_currency import ExpenseLineCurrency
     from .expense_line_employee import ExpenseLineEmployee
     from .expense_line_item import ExpenseLineItem
     from .expense_line_project import ExpenseLineProject
@@ -168,35 +164,11 @@ if typing.TYPE_CHECKING:
     from .expense_line_request_tracking_category import ExpenseLineRequestTrackingCategory
     from .expense_line_tracking_categories_item import ExpenseLineTrackingCategoriesItem
     from .expense_line_tracking_category import ExpenseLineTrackingCategory
-    from .expense_report import ExpenseReport
-    from .expense_report_company import ExpenseReportCompany
-    from .expense_report_line import ExpenseReportLine
-    from .expense_report_line_account import ExpenseReportLineAccount
-    from .expense_report_line_company import ExpenseReportLineCompany
-    from .expense_report_line_contact import ExpenseReportLineContact
-    from .expense_report_line_employee import ExpenseReportLineEmployee
-    from .expense_report_line_project import ExpenseReportLineProject
-    from .expense_report_line_request import ExpenseReportLineRequest
-    from .expense_report_line_request_account import ExpenseReportLineRequestAccount
-    from .expense_report_line_request_company import ExpenseReportLineRequestCompany
-    from .expense_report_line_request_contact import ExpenseReportLineRequestContact
-    from .expense_report_line_request_employee import ExpenseReportLineRequestEmployee
-    from .expense_report_line_request_project import ExpenseReportLineRequestProject
-    from .expense_report_line_request_tax_rate import ExpenseReportLineRequestTaxRate
-    from .expense_report_line_tax_rate import ExpenseReportLineTaxRate
-    from .expense_report_request import ExpenseReportRequest
-    from .expense_report_request_accounting_period import ExpenseReportRequestAccountingPeriod
-    from .expense_report_request_company import ExpenseReportRequestCompany
-    from .expense_report_request_employee import ExpenseReportRequestEmployee
-    from .expense_report_response import ExpenseReportResponse
-    from .expense_report_status import ExpenseReportStatus
-    from .expense_report_status_enum import ExpenseReportStatusEnum
     from .expense_request import ExpenseRequest
     from .expense_request_account import ExpenseRequestAccount
     from .expense_request_accounting_period import ExpenseRequestAccountingPeriod
     from .expense_request_company import ExpenseRequestCompany
     from .expense_request_contact import ExpenseRequestContact
-    from .expense_request_currency import ExpenseRequestCurrency
     from .expense_request_employee import ExpenseRequestEmployee
     from .expense_request_tracking_categories_item import ExpenseRequestTrackingCategoriesItem
     from .expense_response import ExpenseResponse
@@ -224,7 +196,6 @@ if typing.TYPE_CHECKING:
     )
     from .general_ledger_transaction_line import GeneralLedgerTransactionLine
     from .general_ledger_transaction_line_account import GeneralLedgerTransactionLineAccount
-    from .general_ledger_transaction_line_base_currency import GeneralLedgerTransactionLineBaseCurrency
     from .general_ledger_transaction_line_company import GeneralLedgerTransactionLineCompany
     from .general_ledger_transaction_line_contact import GeneralLedgerTransactionLineContact
     from .general_ledger_transaction_line_employee import GeneralLedgerTransactionLineEmployee
@@ -288,7 +259,6 @@ if typing.TYPE_CHECKING:
     from .invoice_status import InvoiceStatus
     from .invoice_status_enum import InvoiceStatusEnum
     from .invoice_tracking_categories_item import InvoiceTrackingCategoriesItem
-    from .invoice_type import InvoiceType
     from .invoice_type_enum import InvoiceTypeEnum
     from .issue import Issue
     from .issue_status import IssueStatus
@@ -351,7 +321,6 @@ if typing.TYPE_CHECKING:
     from .model_permission_deserializer import ModelPermissionDeserializer
     from .model_permission_deserializer_request import ModelPermissionDeserializerRequest
     from .multipart_form_field_request import MultipartFormFieldRequest
-    from .multipart_form_field_request_encoding import MultipartFormFieldRequestEncoding
     from .paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
     from .paginated_account_list import PaginatedAccountList
     from .paginated_accounting_attachment_list import PaginatedAccountingAttachmentList
@@ -366,8 +335,6 @@ if typing.TYPE_CHECKING:
     from .paginated_credit_note_list import PaginatedCreditNoteList
     from .paginated_employee_list import PaginatedEmployeeList
     from .paginated_expense_list import PaginatedExpenseList
-    from .paginated_expense_report_line_list import PaginatedExpenseReportLineList
-    from .paginated_expense_report_list import PaginatedExpenseReportList
     from .paginated_general_ledger_transaction_list import PaginatedGeneralLedgerTransactionList
     from .paginated_income_statement_list import PaginatedIncomeStatementList
     from .paginated_invoice_list import PaginatedInvoiceList
@@ -385,8 +352,6 @@ if typing.TYPE_CHECKING:
     from .paginated_tracking_category_list import PaginatedTrackingCategoryList
     from .paginated_transaction_list import PaginatedTransactionList
     from .paginated_vendor_credit_list import PaginatedVendorCreditList
-    from .patched_contact_request import PatchedContactRequest
-    from .patched_contact_request_addresses_item import PatchedContactRequestAddressesItem
     from .patched_item_request_request import PatchedItemRequestRequest
     from .patched_item_request_request_status import PatchedItemRequestRequestStatus
     from .patched_item_request_request_type import PatchedItemRequestRequestType
@@ -474,10 +439,11 @@ if typing.TYPE_CHECKING:
     from .response_type_enum import ResponseTypeEnum
     from .role_enum import RoleEnum
     from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
-    from .status_7_d_1_enum import Status7D1Enum
-    from .status_895_enum import Status895Enum
-    from .status_fd_5_enum import StatusFd5Enum
+    from .status7d1enum import Status7D1Enum
+    from .status895enum import Status895Enum
+    from .status_fd5enum import StatusFd5Enum
     from .sync_status import SyncStatus
+    from .sync_status_last_sync_result import SyncStatusLastSyncResult
     from .sync_status_status import SyncStatusStatus
     from .tax_component import TaxComponent
     from .tax_component_component_type import TaxComponentComponentType
@@ -499,7 +465,7 @@ if typing.TYPE_CHECKING:
     from .transaction_line_item_currency import TransactionLineItemCurrency
     from .transaction_line_item_item import TransactionLineItemItem
     from .transaction_tracking_categories_item import TransactionTrackingCategoriesItem
-    from .type_2_bb_enum import Type2BbEnum
+    from .type2bb_enum import Type2BbEnum
     from .underlying_transaction_type_enum import UnderlyingTransactionTypeEnum
     from .validation_problem_source import ValidationProblemSource
     from .vendor_credit import VendorCredit
@@ -545,7 +511,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountDetailsAndActionsIntegration": ".account_details_and_actions_integration",
     "AccountDetailsAndActionsStatus": ".account_details_and_actions_status",
     "AccountDetailsAndActionsStatusEnum": ".account_details_and_actions_status_enum",
-    "AccountDetailsCategory": ".account_details_category",
     "AccountIntegration": ".account_integration",
     "AccountRequest": ".account_request",
     "AccountRequestAccountType": ".account_request_account_type",
@@ -610,7 +575,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CommonModelScopeApi": ".common_model_scope_api",
     "CommonModelScopesBodyRequest": ".common_model_scopes_body_request",
     "CompanyInfo": ".company_info",
-    "CompanyInfoCurrency": ".company_info_currency",
     "ComponentTypeEnum": ".component_type_enum",
     "Contact": ".contact",
     "ContactAddressesItem": ".contact_addresses_item",
@@ -659,7 +623,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreditNoteTrackingCategoriesItem": ".credit_note_tracking_categories_item",
     "CreditOrDebitEnum": ".credit_or_debit_enum",
     "DataPassthroughRequest": ".data_passthrough_request",
-    "DataPassthroughRequestMethod": ".data_passthrough_request_method",
     "DebugModeLog": ".debug_mode_log",
     "DebugModelLogSummary": ".debug_model_log_summary",
     "Employee": ".employee",
@@ -679,7 +642,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExpenseLine": ".expense_line",
     "ExpenseLineAccount": ".expense_line_account",
     "ExpenseLineContact": ".expense_line_contact",
-    "ExpenseLineCurrency": ".expense_line_currency",
     "ExpenseLineEmployee": ".expense_line_employee",
     "ExpenseLineItem": ".expense_line_item",
     "ExpenseLineProject": ".expense_line_project",
@@ -694,35 +656,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExpenseLineRequestTrackingCategory": ".expense_line_request_tracking_category",
     "ExpenseLineTrackingCategoriesItem": ".expense_line_tracking_categories_item",
     "ExpenseLineTrackingCategory": ".expense_line_tracking_category",
-    "ExpenseReport": ".expense_report",
-    "ExpenseReportCompany": ".expense_report_company",
-    "ExpenseReportLine": ".expense_report_line",
-    "ExpenseReportLineAccount": ".expense_report_line_account",
-    "ExpenseReportLineCompany": ".expense_report_line_company",
-    "ExpenseReportLineContact": ".expense_report_line_contact",
-    "ExpenseReportLineEmployee": ".expense_report_line_employee",
-    "ExpenseReportLineProject": ".expense_report_line_project",
-    "ExpenseReportLineRequest": ".expense_report_line_request",
-    "ExpenseReportLineRequestAccount": ".expense_report_line_request_account",
-    "ExpenseReportLineRequestCompany": ".expense_report_line_request_company",
-    "ExpenseReportLineRequestContact": ".expense_report_line_request_contact",
-    "ExpenseReportLineRequestEmployee": ".expense_report_line_request_employee",
-    "ExpenseReportLineRequestProject": ".expense_report_line_request_project",
-    "ExpenseReportLineRequestTaxRate": ".expense_report_line_request_tax_rate",
-    "ExpenseReportLineTaxRate": ".expense_report_line_tax_rate",
-    "ExpenseReportRequest": ".expense_report_request",
-    "ExpenseReportRequestAccountingPeriod": ".expense_report_request_accounting_period",
-    "ExpenseReportRequestCompany": ".expense_report_request_company",
-    "ExpenseReportRequestEmployee": ".expense_report_request_employee",
-    "ExpenseReportResponse": ".expense_report_response",
-    "ExpenseReportStatus": ".expense_report_status",
-    "ExpenseReportStatusEnum": ".expense_report_status_enum",
     "ExpenseRequest": ".expense_request",
     "ExpenseRequestAccount": ".expense_request_account",
     "ExpenseRequestAccountingPeriod": ".expense_request_accounting_period",
     "ExpenseRequestCompany": ".expense_request_company",
     "ExpenseRequestContact": ".expense_request_contact",
-    "ExpenseRequestCurrency": ".expense_request_currency",
     "ExpenseRequestEmployee": ".expense_request_employee",
     "ExpenseRequestTrackingCategoriesItem": ".expense_request_tracking_categories_item",
     "ExpenseResponse": ".expense_response",
@@ -746,7 +684,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "GeneralLedgerTransactionGeneralLedgerTransactionLinesItem": ".general_ledger_transaction_general_ledger_transaction_lines_item",
     "GeneralLedgerTransactionLine": ".general_ledger_transaction_line",
     "GeneralLedgerTransactionLineAccount": ".general_ledger_transaction_line_account",
-    "GeneralLedgerTransactionLineBaseCurrency": ".general_ledger_transaction_line_base_currency",
     "GeneralLedgerTransactionLineCompany": ".general_ledger_transaction_line_company",
     "GeneralLedgerTransactionLineContact": ".general_ledger_transaction_line_contact",
     "GeneralLedgerTransactionLineEmployee": ".general_ledger_transaction_line_employee",
@@ -806,7 +743,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "InvoiceStatus": ".invoice_status",
     "InvoiceStatusEnum": ".invoice_status_enum",
     "InvoiceTrackingCategoriesItem": ".invoice_tracking_categories_item",
-    "InvoiceType": ".invoice_type",
     "InvoiceTypeEnum": ".invoice_type_enum",
     "Issue": ".issue",
     "IssueStatus": ".issue_status",
@@ -869,7 +805,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ModelPermissionDeserializer": ".model_permission_deserializer",
     "ModelPermissionDeserializerRequest": ".model_permission_deserializer_request",
     "MultipartFormFieldRequest": ".multipart_form_field_request",
-    "MultipartFormFieldRequestEncoding": ".multipart_form_field_request_encoding",
     "PaginatedAccountDetailsAndActionsList": ".paginated_account_details_and_actions_list",
     "PaginatedAccountList": ".paginated_account_list",
     "PaginatedAccountingAttachmentList": ".paginated_accounting_attachment_list",
@@ -884,8 +819,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaginatedCreditNoteList": ".paginated_credit_note_list",
     "PaginatedEmployeeList": ".paginated_employee_list",
     "PaginatedExpenseList": ".paginated_expense_list",
-    "PaginatedExpenseReportLineList": ".paginated_expense_report_line_list",
-    "PaginatedExpenseReportList": ".paginated_expense_report_list",
     "PaginatedGeneralLedgerTransactionList": ".paginated_general_ledger_transaction_list",
     "PaginatedIncomeStatementList": ".paginated_income_statement_list",
     "PaginatedInvoiceList": ".paginated_invoice_list",
@@ -903,8 +836,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaginatedTrackingCategoryList": ".paginated_tracking_category_list",
     "PaginatedTransactionList": ".paginated_transaction_list",
     "PaginatedVendorCreditList": ".paginated_vendor_credit_list",
-    "PatchedContactRequest": ".patched_contact_request",
-    "PatchedContactRequestAddressesItem": ".patched_contact_request_addresses_item",
     "PatchedItemRequestRequest": ".patched_item_request_request",
     "PatchedItemRequestRequestStatus": ".patched_item_request_request_status",
     "PatchedItemRequestRequestType": ".patched_item_request_request_type",
@@ -992,10 +923,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResponseTypeEnum": ".response_type_enum",
     "RoleEnum": ".role_enum",
     "SelectiveSyncConfigurationsUsageEnum": ".selective_sync_configurations_usage_enum",
-    "Status7D1Enum": ".status_7_d_1_enum",
-    "Status895Enum": ".status_895_enum",
-    "StatusFd5Enum": ".status_fd_5_enum",
+    "Status7D1Enum": ".status7d1enum",
+    "Status895Enum": ".status895enum",
+    "StatusFd5Enum": ".status_fd5enum",
     "SyncStatus": ".sync_status",
+    "SyncStatusLastSyncResult": ".sync_status_last_sync_result",
     "SyncStatusStatus": ".sync_status_status",
     "TaxComponent": ".tax_component",
     "TaxComponentComponentType": ".tax_component_component_type",
@@ -1017,7 +949,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TransactionLineItemCurrency": ".transaction_line_item_currency",
     "TransactionLineItemItem": ".transaction_line_item_item",
     "TransactionTrackingCategoriesItem": ".transaction_tracking_categories_item",
-    "Type2BbEnum": ".type_2_bb_enum",
+    "Type2BbEnum": ".type2bb_enum",
     "UnderlyingTransactionTypeEnum": ".underlying_transaction_type_enum",
     "ValidationProblemSource": ".validation_problem_source",
     "VendorCredit": ".vendor_credit",
@@ -1058,8 +990,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -1083,7 +1017,6 @@ __all__ = [
     "AccountDetailsAndActionsIntegration",
     "AccountDetailsAndActionsStatus",
     "AccountDetailsAndActionsStatusEnum",
-    "AccountDetailsCategory",
     "AccountIntegration",
     "AccountRequest",
     "AccountRequestAccountType",
@@ -1148,7 +1081,6 @@ __all__ = [
     "CommonModelScopeApi",
     "CommonModelScopesBodyRequest",
     "CompanyInfo",
-    "CompanyInfoCurrency",
     "ComponentTypeEnum",
     "Contact",
     "ContactAddressesItem",
@@ -1197,7 +1129,6 @@ __all__ = [
     "CreditNoteTrackingCategoriesItem",
     "CreditOrDebitEnum",
     "DataPassthroughRequest",
-    "DataPassthroughRequestMethod",
     "DebugModeLog",
     "DebugModelLogSummary",
     "Employee",
@@ -1217,7 +1148,6 @@ __all__ = [
     "ExpenseLine",
     "ExpenseLineAccount",
     "ExpenseLineContact",
-    "ExpenseLineCurrency",
     "ExpenseLineEmployee",
     "ExpenseLineItem",
     "ExpenseLineProject",
@@ -1232,35 +1162,11 @@ __all__ = [
     "ExpenseLineRequestTrackingCategory",
     "ExpenseLineTrackingCategoriesItem",
     "ExpenseLineTrackingCategory",
-    "ExpenseReport",
-    "ExpenseReportCompany",
-    "ExpenseReportLine",
-    "ExpenseReportLineAccount",
-    "ExpenseReportLineCompany",
-    "ExpenseReportLineContact",
-    "ExpenseReportLineEmployee",
-    "ExpenseReportLineProject",
-    "ExpenseReportLineRequest",
-    "ExpenseReportLineRequestAccount",
-    "ExpenseReportLineRequestCompany",
-    "ExpenseReportLineRequestContact",
-    "ExpenseReportLineRequestEmployee",
-    "ExpenseReportLineRequestProject",
-    "ExpenseReportLineRequestTaxRate",
-    "ExpenseReportLineTaxRate",
-    "ExpenseReportRequest",
-    "ExpenseReportRequestAccountingPeriod",
-    "ExpenseReportRequestCompany",
-    "ExpenseReportRequestEmployee",
-    "ExpenseReportResponse",
-    "ExpenseReportStatus",
-    "ExpenseReportStatusEnum",
     "ExpenseRequest",
     "ExpenseRequestAccount",
     "ExpenseRequestAccountingPeriod",
     "ExpenseRequestCompany",
     "ExpenseRequestContact",
-    "ExpenseRequestCurrency",
     "ExpenseRequestEmployee",
     "ExpenseRequestTrackingCategoriesItem",
     "ExpenseResponse",
@@ -1284,7 +1190,6 @@ __all__ = [
     "GeneralLedgerTransactionGeneralLedgerTransactionLinesItem",
     "GeneralLedgerTransactionLine",
     "GeneralLedgerTransactionLineAccount",
-    "GeneralLedgerTransactionLineBaseCurrency",
     "GeneralLedgerTransactionLineCompany",
     "GeneralLedgerTransactionLineContact",
     "GeneralLedgerTransactionLineEmployee",
@@ -1344,7 +1249,6 @@ __all__ = [
     "InvoiceStatus",
     "InvoiceStatusEnum",
     "InvoiceTrackingCategoriesItem",
-    "InvoiceType",
     "InvoiceTypeEnum",
     "Issue",
     "IssueStatus",
@@ -1407,7 +1311,6 @@ __all__ = [
     "ModelPermissionDeserializer",
     "ModelPermissionDeserializerRequest",
     "MultipartFormFieldRequest",
-    "MultipartFormFieldRequestEncoding",
     "PaginatedAccountDetailsAndActionsList",
     "PaginatedAccountList",
     "PaginatedAccountingAttachmentList",
@@ -1422,8 +1325,6 @@ __all__ = [
     "PaginatedCreditNoteList",
     "PaginatedEmployeeList",
     "PaginatedExpenseList",
-    "PaginatedExpenseReportLineList",
-    "PaginatedExpenseReportList",
     "PaginatedGeneralLedgerTransactionList",
     "PaginatedIncomeStatementList",
     "PaginatedInvoiceList",
@@ -1441,8 +1342,6 @@ __all__ = [
     "PaginatedTrackingCategoryList",
     "PaginatedTransactionList",
     "PaginatedVendorCreditList",
-    "PatchedContactRequest",
-    "PatchedContactRequestAddressesItem",
     "PatchedItemRequestRequest",
     "PatchedItemRequestRequestStatus",
     "PatchedItemRequestRequestType",
@@ -1534,6 +1433,7 @@ __all__ = [
     "Status895Enum",
     "StatusFd5Enum",
     "SyncStatus",
+    "SyncStatusLastSyncResult",
     "SyncStatusStatus",
     "TaxComponent",
     "TaxComponentComponentType",

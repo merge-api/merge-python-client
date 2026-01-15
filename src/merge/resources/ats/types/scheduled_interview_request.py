@@ -70,8 +70,8 @@ class ScheduledInterviewRequest(UncheckedBaseModel):
     * `COMPLETE` - COMPLETE
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    integration_params: typing.Optional[typing.Dict[str, typing.Any]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Any]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
@@ -82,9 +82,5 @@ class ScheduledInterviewRequest(UncheckedBaseModel):
             smart_union = True
             extra = pydantic.Extra.allow
 
-
-from .application import Application  # noqa: E402, F401, I001
-from .candidate import Candidate  # noqa: E402, F401, I001
-from .offer import Offer  # noqa: E402, F401, I001
 
 update_forward_refs(ScheduledInterviewRequest)

@@ -10,6 +10,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.attachment import Attachment
@@ -17,6 +18,8 @@ from ...types.attachment_request import AttachmentRequest
 from ...types.meta_response import MetaResponse
 from ...types.paginated_attachment_list import PaginatedAttachmentList
 from ...types.ticketing_attachment_response import TicketingAttachmentResponse
+from .types.attachments_list_request_expand_item import AttachmentsListRequestExpandItem
+from .types.attachments_retrieve_request_expand_item import AttachmentsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -32,7 +35,9 @@ class RawAttachmentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["ticket"]] = None,
+        expand: typing.Optional[
+            typing.Union[AttachmentsListRequestExpandItem, typing.Sequence[AttachmentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -43,7 +48,7 @@ class RawAttachmentsClient:
         remote_id: typing.Optional[str] = None,
         ticket_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedAttachmentList]:
+    ) -> SyncPager[Attachment, PaginatedAttachmentList]:
         """
         Returns a list of `Attachment` objects.
 
@@ -58,7 +63,7 @@ class RawAttachmentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["ticket"]]
+        expand : typing.Optional[typing.Union[AttachmentsListRequestExpandItem, typing.Sequence[AttachmentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -77,7 +82,7 @@ class RawAttachmentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return attachments created in the third party platform after this datetime.
@@ -93,7 +98,7 @@ class RawAttachmentsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedAttachmentList]
+        SyncPager[Attachment, PaginatedAttachmentList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -120,14 +125,33 @@ class RawAttachmentsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedAttachmentList,
                     construct_type(
                         type_=PaginatedAttachmentList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    remote_created_after=remote_created_after,
+                    remote_id=remote_id,
+                    ticket_id=ticket_id,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -197,7 +221,9 @@ class RawAttachmentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["ticket"]] = None,
+        expand: typing.Optional[
+            typing.Union[AttachmentsRetrieveRequestExpandItem, typing.Sequence[AttachmentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -209,7 +235,7 @@ class RawAttachmentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["ticket"]]
+        expand : typing.Optional[typing.Union[AttachmentsRetrieveRequestExpandItem, typing.Sequence[AttachmentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -355,7 +381,9 @@ class AsyncRawAttachmentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["ticket"]] = None,
+        expand: typing.Optional[
+            typing.Union[AttachmentsListRequestExpandItem, typing.Sequence[AttachmentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -366,7 +394,7 @@ class AsyncRawAttachmentsClient:
         remote_id: typing.Optional[str] = None,
         ticket_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedAttachmentList]:
+    ) -> AsyncPager[Attachment, PaginatedAttachmentList]:
         """
         Returns a list of `Attachment` objects.
 
@@ -381,7 +409,7 @@ class AsyncRawAttachmentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["ticket"]]
+        expand : typing.Optional[typing.Union[AttachmentsListRequestExpandItem, typing.Sequence[AttachmentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -400,7 +428,7 @@ class AsyncRawAttachmentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return attachments created in the third party platform after this datetime.
@@ -416,7 +444,7 @@ class AsyncRawAttachmentsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedAttachmentList]
+        AsyncPager[Attachment, PaginatedAttachmentList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -443,14 +471,36 @@ class AsyncRawAttachmentsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedAttachmentList,
                     construct_type(
                         type_=PaginatedAttachmentList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        remote_created_after=remote_created_after,
+                        remote_id=remote_id,
+                        ticket_id=ticket_id,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -520,7 +570,9 @@ class AsyncRawAttachmentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["ticket"]] = None,
+        expand: typing.Optional[
+            typing.Union[AttachmentsRetrieveRequestExpandItem, typing.Sequence[AttachmentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -532,7 +584,7 @@ class AsyncRawAttachmentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["ticket"]]
+        expand : typing.Optional[typing.Union[AttachmentsRetrieveRequestExpandItem, typing.Sequence[AttachmentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

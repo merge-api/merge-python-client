@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.meta_response import MetaResponse
 from ...types.paginated_purchase_order_list import PaginatedPurchaseOrderList
@@ -11,9 +12,14 @@ from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClass
 from ...types.purchase_order import PurchaseOrder
 from ...types.purchase_order_request import PurchaseOrderRequest
 from ...types.purchase_order_response import PurchaseOrderResponse
+from ...types.remote_field_class import RemoteFieldClass
 from .raw_client import AsyncRawPurchaseOrdersClient, RawPurchaseOrdersClient
-from .types.purchase_orders_list_request_expand import PurchaseOrdersListRequestExpand
-from .types.purchase_orders_retrieve_request_expand import PurchaseOrdersRetrieveRequestExpand
+from .types.purchase_orders_list_request_expand_item import PurchaseOrdersListRequestExpandItem
+from .types.purchase_orders_list_request_remote_fields import PurchaseOrdersListRequestRemoteFields
+from .types.purchase_orders_list_request_show_enum_origins import PurchaseOrdersListRequestShowEnumOrigins
+from .types.purchase_orders_retrieve_request_expand_item import PurchaseOrdersRetrieveRequestExpandItem
+from .types.purchase_orders_retrieve_request_remote_fields import PurchaseOrdersRetrieveRequestRemoteFields
+from .types.purchase_orders_retrieve_request_show_enum_origins import PurchaseOrdersRetrieveRequestShowEnumOrigins
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -41,7 +47,9 @@ class PurchaseOrdersClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[PurchaseOrdersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[PurchaseOrdersListRequestExpandItem, typing.Sequence[PurchaseOrdersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -51,11 +59,11 @@ class PurchaseOrdersClient:
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[PurchaseOrdersListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[PurchaseOrdersListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedPurchaseOrderList:
+    ) -> SyncPager[PurchaseOrder, PaginatedPurchaseOrderList]:
         """
         Returns a list of `PurchaseOrder` objects.
 
@@ -73,7 +81,7 @@ class PurchaseOrdersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[PurchaseOrdersListRequestExpand]
+        expand : typing.Optional[typing.Union[PurchaseOrdersListRequestExpandItem, typing.Sequence[PurchaseOrdersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -103,13 +111,13 @@ class PurchaseOrdersClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[PurchaseOrdersListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[PurchaseOrdersListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -117,53 +125,27 @@ class PurchaseOrdersClient:
 
         Returns
         -------
-        PaginatedPurchaseOrderList
+        SyncPager[PurchaseOrder, PaginatedPurchaseOrderList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
-        from merge.resources.accounting.resources.purchase_orders import (
-            PurchaseOrdersListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.purchase_orders.list(
-            company_id="company_id",
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.accounting.purchase_orders.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=PurchaseOrdersListRequestExpand.ACCOUNTING_PERIOD,
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_remote_fields=True,
-            include_shell_data=True,
-            issue_date_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            issue_date_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -183,7 +165,6 @@ class PurchaseOrdersClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -224,8 +205,6 @@ class PurchaseOrdersClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.purchase_orders.create(
-            is_debug_mode=True,
-            run_async=True,
             model=PurchaseOrderRequest(),
         )
         """
@@ -238,12 +217,16 @@ class PurchaseOrdersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[PurchaseOrdersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                PurchaseOrdersRetrieveRequestExpandItem, typing.Sequence[PurchaseOrdersRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[PurchaseOrdersRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[PurchaseOrdersRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PurchaseOrder:
         """
@@ -253,7 +236,7 @@ class PurchaseOrdersClient:
         ----------
         id : str
 
-        expand : typing.Optional[PurchaseOrdersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[PurchaseOrdersRetrieveRequestExpandItem, typing.Sequence[PurchaseOrdersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -265,10 +248,10 @@ class PurchaseOrdersClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[PurchaseOrdersRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[PurchaseOrdersRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -282,9 +265,6 @@ class PurchaseOrdersClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.accounting.resources.purchase_orders import (
-            PurchaseOrdersRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -292,10 +272,6 @@ class PurchaseOrdersClient:
         )
         client.accounting.purchase_orders.retrieve(
             id="id",
-            expand=PurchaseOrdersRetrieveRequestExpand.ACCOUNTING_PERIOD,
-            include_remote_data=True,
-            include_remote_fields=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -321,7 +297,7 @@ class PurchaseOrdersClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -353,7 +329,7 @@ class PurchaseOrdersClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
 
         Examples
@@ -364,17 +340,18 @@ class PurchaseOrdersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.purchase_orders.line_items_remote_field_classes_list(
-            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            is_common_model_field=True,
-            is_custom=True,
-            page_size=1,
+        response = (
+            client.accounting.purchase_orders.line_items_remote_field_classes_list(
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            )
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.line_items_remote_field_classes_list(
+        return self._raw_client.line_items_remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -384,7 +361,6 @@ class PurchaseOrdersClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -424,7 +400,7 @@ class PurchaseOrdersClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -456,7 +432,7 @@ class PurchaseOrdersClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
 
         Examples
@@ -467,17 +443,16 @@ class PurchaseOrdersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.purchase_orders.remote_field_classes_list(
+        response = client.accounting.purchase_orders.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            is_common_model_field=True,
-            is_custom=True,
-            page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.remote_field_classes_list(
+        return self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -487,7 +462,6 @@ class PurchaseOrdersClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncPurchaseOrdersClient:
@@ -512,7 +486,9 @@ class AsyncPurchaseOrdersClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[PurchaseOrdersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[PurchaseOrdersListRequestExpandItem, typing.Sequence[PurchaseOrdersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -522,11 +498,11 @@ class AsyncPurchaseOrdersClient:
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[PurchaseOrdersListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[PurchaseOrdersListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedPurchaseOrderList:
+    ) -> AsyncPager[PurchaseOrder, PaginatedPurchaseOrderList]:
         """
         Returns a list of `PurchaseOrder` objects.
 
@@ -544,7 +520,7 @@ class AsyncPurchaseOrdersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[PurchaseOrdersListRequestExpand]
+        expand : typing.Optional[typing.Union[PurchaseOrdersListRequestExpandItem, typing.Sequence[PurchaseOrdersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -574,13 +550,13 @@ class AsyncPurchaseOrdersClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[PurchaseOrdersListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[PurchaseOrdersListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -588,18 +564,14 @@ class AsyncPurchaseOrdersClient:
 
         Returns
         -------
-        PaginatedPurchaseOrderList
+        AsyncPager[PurchaseOrder, PaginatedPurchaseOrderList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.purchase_orders import (
-            PurchaseOrdersListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -608,40 +580,20 @@ class AsyncPurchaseOrdersClient:
 
 
         async def main() -> None:
-            await client.accounting.purchase_orders.list(
-                company_id="company_id",
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.accounting.purchase_orders.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=PurchaseOrdersListRequestExpand.ACCOUNTING_PERIOD,
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_remote_fields=True,
-                include_shell_data=True,
-                issue_date_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                issue_date_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -661,7 +613,6 @@ class AsyncPurchaseOrdersClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -707,8 +658,6 @@ class AsyncPurchaseOrdersClient:
 
         async def main() -> None:
             await client.accounting.purchase_orders.create(
-                is_debug_mode=True,
-                run_async=True,
                 model=PurchaseOrderRequest(),
             )
 
@@ -724,12 +673,16 @@ class AsyncPurchaseOrdersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[PurchaseOrdersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                PurchaseOrdersRetrieveRequestExpandItem, typing.Sequence[PurchaseOrdersRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[PurchaseOrdersRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[PurchaseOrdersRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PurchaseOrder:
         """
@@ -739,7 +692,7 @@ class AsyncPurchaseOrdersClient:
         ----------
         id : str
 
-        expand : typing.Optional[PurchaseOrdersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[PurchaseOrdersRetrieveRequestExpandItem, typing.Sequence[PurchaseOrdersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -751,10 +704,10 @@ class AsyncPurchaseOrdersClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[PurchaseOrdersRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[PurchaseOrdersRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -770,9 +723,6 @@ class AsyncPurchaseOrdersClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.purchase_orders import (
-            PurchaseOrdersRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -783,10 +733,6 @@ class AsyncPurchaseOrdersClient:
         async def main() -> None:
             await client.accounting.purchase_orders.retrieve(
                 id="id",
-                expand=PurchaseOrdersRetrieveRequestExpand.ACCOUNTING_PERIOD,
-                include_remote_data=True,
-                include_remote_fields=True,
-                include_shell_data=True,
             )
 
 
@@ -815,7 +761,7 @@ class AsyncPurchaseOrdersClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -847,7 +793,7 @@ class AsyncPurchaseOrdersClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
 
         Examples
@@ -863,20 +809,20 @@ class AsyncPurchaseOrdersClient:
 
 
         async def main() -> None:
-            await client.accounting.purchase_orders.line_items_remote_field_classes_list(
+            response = await client.accounting.purchase_orders.line_items_remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                is_common_model_field=True,
-                is_custom=True,
-                page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.line_items_remote_field_classes_list(
+        return await self._raw_client.line_items_remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -886,7 +832,6 @@ class AsyncPurchaseOrdersClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -934,7 +879,7 @@ class AsyncPurchaseOrdersClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -966,7 +911,7 @@ class AsyncPurchaseOrdersClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
 
         Examples
@@ -982,20 +927,22 @@ class AsyncPurchaseOrdersClient:
 
 
         async def main() -> None:
-            await client.accounting.purchase_orders.remote_field_classes_list(
-                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                is_common_model_field=True,
-                is_custom=True,
-                page_size=1,
+            response = (
+                await client.accounting.purchase_orders.remote_field_classes_list(
+                    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                )
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.remote_field_classes_list(
+        return await self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -1005,4 +952,3 @@ class AsyncPurchaseOrdersClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
