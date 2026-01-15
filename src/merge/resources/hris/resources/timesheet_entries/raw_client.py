@@ -9,6 +9,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.meta_response import MetaResponse
@@ -16,7 +17,9 @@ from ...types.paginated_timesheet_entry_list import PaginatedTimesheetEntryList
 from ...types.timesheet_entry import TimesheetEntry
 from ...types.timesheet_entry_request import TimesheetEntryRequest
 from ...types.timesheet_entry_response import TimesheetEntryResponse
+from .types.timesheet_entries_list_request_expand_item import TimesheetEntriesListRequestExpandItem
 from .types.timesheet_entries_list_request_order_by import TimesheetEntriesListRequestOrderBy
+from .types.timesheet_entries_retrieve_request_expand_item import TimesheetEntriesRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -35,7 +38,9 @@ class RawTimesheetEntriesClient:
         employee_id: typing.Optional[str] = None,
         ended_after: typing.Optional[dt.datetime] = None,
         ended_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[TimesheetEntriesListRequestExpandItem, typing.Sequence[TimesheetEntriesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -47,7 +52,7 @@ class RawTimesheetEntriesClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedTimesheetEntryList]:
+    ) -> SyncPager[TimesheetEntry, PaginatedTimesheetEntryList]:
         """
         Returns a list of `TimesheetEntry` objects.
 
@@ -71,7 +76,7 @@ class RawTimesheetEntriesClient:
         ended_before : typing.Optional[dt.datetime]
             If provided, will only return timesheet entries ended before this datetime.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[TimesheetEntriesListRequestExpandItem, typing.Sequence[TimesheetEntriesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -93,7 +98,7 @@ class RawTimesheetEntriesClient:
             Overrides the default ordering for this endpoint. Possible values include: start_time, -start_time.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -109,11 +114,11 @@ class RawTimesheetEntriesClient:
 
         Returns
         -------
-        HttpResponse[PaginatedTimesheetEntryList]
+        SyncPager[TimesheetEntry, PaginatedTimesheetEntryList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/timesheet-entries",
+            "timesheet-entries",
             method="GET",
             params={
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -138,14 +143,37 @@ class RawTimesheetEntriesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedTimesheetEntryList,
                     construct_type(
                         type_=PaginatedTimesheetEntryList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    employee_id=employee_id,
+                    ended_after=ended_after,
+                    ended_before=ended_before,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    order_by=order_by,
+                    page_size=page_size,
+                    remote_id=remote_id,
+                    started_after=started_after,
+                    started_before=started_before,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -181,7 +209,7 @@ class RawTimesheetEntriesClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/timesheet-entries",
+            "timesheet-entries",
             method="POST",
             params={
                 "is_debug_mode": is_debug_mode,
@@ -215,7 +243,11 @@ class RawTimesheetEntriesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                TimesheetEntriesRetrieveRequestExpandItem, typing.Sequence[TimesheetEntriesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -227,7 +259,7 @@ class RawTimesheetEntriesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[TimesheetEntriesRetrieveRequestExpandItem, typing.Sequence[TimesheetEntriesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -245,7 +277,7 @@ class RawTimesheetEntriesClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"hris/v1/timesheet-entries/{jsonable_encoder(id)}",
+            f"timesheet-entries/{jsonable_encoder(id)}",
             method="GET",
             params={
                 "expand": expand,
@@ -286,7 +318,7 @@ class RawTimesheetEntriesClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/timesheet-entries/meta/post",
+            "timesheet-entries/meta/post",
             method="GET",
             request_options=request_options,
         )
@@ -319,7 +351,9 @@ class AsyncRawTimesheetEntriesClient:
         employee_id: typing.Optional[str] = None,
         ended_after: typing.Optional[dt.datetime] = None,
         ended_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[TimesheetEntriesListRequestExpandItem, typing.Sequence[TimesheetEntriesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -331,7 +365,7 @@ class AsyncRawTimesheetEntriesClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedTimesheetEntryList]:
+    ) -> AsyncPager[TimesheetEntry, PaginatedTimesheetEntryList]:
         """
         Returns a list of `TimesheetEntry` objects.
 
@@ -355,7 +389,7 @@ class AsyncRawTimesheetEntriesClient:
         ended_before : typing.Optional[dt.datetime]
             If provided, will only return timesheet entries ended before this datetime.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[TimesheetEntriesListRequestExpandItem, typing.Sequence[TimesheetEntriesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -377,7 +411,7 @@ class AsyncRawTimesheetEntriesClient:
             Overrides the default ordering for this endpoint. Possible values include: start_time, -start_time.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -393,11 +427,11 @@ class AsyncRawTimesheetEntriesClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedTimesheetEntryList]
+        AsyncPager[TimesheetEntry, PaginatedTimesheetEntryList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/timesheet-entries",
+            "timesheet-entries",
             method="GET",
             params={
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -422,14 +456,40 @@ class AsyncRawTimesheetEntriesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedTimesheetEntryList,
                     construct_type(
                         type_=PaginatedTimesheetEntryList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        employee_id=employee_id,
+                        ended_after=ended_after,
+                        ended_before=ended_before,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        order_by=order_by,
+                        page_size=page_size,
+                        remote_id=remote_id,
+                        started_after=started_after,
+                        started_before=started_before,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -465,7 +525,7 @@ class AsyncRawTimesheetEntriesClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/timesheet-entries",
+            "timesheet-entries",
             method="POST",
             params={
                 "is_debug_mode": is_debug_mode,
@@ -499,7 +559,11 @@ class AsyncRawTimesheetEntriesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                TimesheetEntriesRetrieveRequestExpandItem, typing.Sequence[TimesheetEntriesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -511,7 +575,7 @@ class AsyncRawTimesheetEntriesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[TimesheetEntriesRetrieveRequestExpandItem, typing.Sequence[TimesheetEntriesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -529,7 +593,7 @@ class AsyncRawTimesheetEntriesClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"hris/v1/timesheet-entries/{jsonable_encoder(id)}",
+            f"timesheet-entries/{jsonable_encoder(id)}",
             method="GET",
             params={
                 "expand": expand,
@@ -570,7 +634,7 @@ class AsyncRawTimesheetEntriesClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/timesheet-entries/meta/post",
+            "timesheet-entries/meta/post",
             method="GET",
             request_options=request_options,
         )

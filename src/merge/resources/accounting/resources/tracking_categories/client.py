@@ -4,12 +4,21 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.paginated_tracking_category_list import PaginatedTrackingCategoryList
 from ...types.tracking_category import TrackingCategory
 from .raw_client import AsyncRawTrackingCategoriesClient, RawTrackingCategoriesClient
 from .types.tracking_categories_list_request_category_type import TrackingCategoriesListRequestCategoryType
+from .types.tracking_categories_list_request_expand_item import TrackingCategoriesListRequestExpandItem
+from .types.tracking_categories_list_request_remote_fields import TrackingCategoriesListRequestRemoteFields
+from .types.tracking_categories_list_request_show_enum_origins import TrackingCategoriesListRequestShowEnumOrigins
 from .types.tracking_categories_list_request_status import TrackingCategoriesListRequestStatus
+from .types.tracking_categories_retrieve_request_expand_item import TrackingCategoriesRetrieveRequestExpandItem
+from .types.tracking_categories_retrieve_request_remote_fields import TrackingCategoriesRetrieveRequestRemoteFields
+from .types.tracking_categories_retrieve_request_show_enum_origins import (
+    TrackingCategoriesRetrieveRequestShowEnumOrigins,
+)
 
 
 class TrackingCategoriesClient:
@@ -35,7 +44,11 @@ class TrackingCategoriesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                TrackingCategoriesListRequestExpandItem, typing.Sequence[TrackingCategoriesListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -43,12 +56,12 @@ class TrackingCategoriesClient:
         modified_before: typing.Optional[dt.datetime] = None,
         name: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[TrackingCategoriesListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[TrackingCategoriesListRequestShowEnumOrigins] = None,
         status: typing.Optional[TrackingCategoriesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTrackingCategoryList:
+    ) -> SyncPager[TrackingCategory, PaginatedTrackingCategoryList]:
         """
         Returns a list of `TrackingCategory` objects.
 
@@ -69,7 +82,7 @@ class TrackingCategoriesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[TrackingCategoriesListRequestExpandItem, typing.Sequence[TrackingCategoriesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -93,13 +106,13 @@ class TrackingCategoriesClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[TrackingCategoriesListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[TrackingCategoriesListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         status : typing.Optional[TrackingCategoriesListRequestStatus]
@@ -110,49 +123,27 @@ class TrackingCategoriesClient:
 
         Returns
         -------
-        PaginatedTrackingCategoryList
+        SyncPager[TrackingCategory, PaginatedTrackingCategoryList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
-        from merge.resources.accounting.resources.tracking_categories import (
-            TrackingCategoriesListRequestCategoryType,
-            TrackingCategoriesListRequestStatus,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.tracking_categories.list(
-            category_type=TrackingCategoriesListRequestCategoryType.EMPTY,
-            company_id="company_id",
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.accounting.tracking_categories.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            name="name",
-            page_size=1,
-            remote_id="remote_id",
-            status=TrackingCategoriesListRequestStatus.EMPTY,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             category_type=category_type,
             company_id=company_id,
             created_after=created_after,
@@ -172,17 +163,21 @@ class TrackingCategoriesClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                TrackingCategoriesRetrieveRequestExpandItem,
+                typing.Sequence[TrackingCategoriesRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[TrackingCategoriesRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[TrackingCategoriesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TrackingCategory:
         """
@@ -192,7 +187,7 @@ class TrackingCategoriesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[TrackingCategoriesRetrieveRequestExpandItem, typing.Sequence[TrackingCategoriesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -201,10 +196,10 @@ class TrackingCategoriesClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[TrackingCategoriesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[TrackingCategoriesRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -225,8 +220,6 @@ class TrackingCategoriesClient:
         )
         client.accounting.tracking_categories.retrieve(
             id="id",
-            include_remote_data=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -264,7 +257,11 @@ class AsyncTrackingCategoriesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                TrackingCategoriesListRequestExpandItem, typing.Sequence[TrackingCategoriesListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -272,12 +269,12 @@ class AsyncTrackingCategoriesClient:
         modified_before: typing.Optional[dt.datetime] = None,
         name: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[TrackingCategoriesListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[TrackingCategoriesListRequestShowEnumOrigins] = None,
         status: typing.Optional[TrackingCategoriesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTrackingCategoryList:
+    ) -> AsyncPager[TrackingCategory, PaginatedTrackingCategoryList]:
         """
         Returns a list of `TrackingCategory` objects.
 
@@ -298,7 +295,7 @@ class AsyncTrackingCategoriesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[TrackingCategoriesListRequestExpandItem, typing.Sequence[TrackingCategoriesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -322,13 +319,13 @@ class AsyncTrackingCategoriesClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[TrackingCategoriesListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[TrackingCategoriesListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         status : typing.Optional[TrackingCategoriesListRequestStatus]
@@ -339,19 +336,14 @@ class AsyncTrackingCategoriesClient:
 
         Returns
         -------
-        PaginatedTrackingCategoryList
+        AsyncPager[TrackingCategory, PaginatedTrackingCategoryList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.tracking_categories import (
-            TrackingCategoriesListRequestCategoryType,
-            TrackingCategoriesListRequestStatus,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -360,35 +352,20 @@ class AsyncTrackingCategoriesClient:
 
 
         async def main() -> None:
-            await client.accounting.tracking_categories.list(
-                category_type=TrackingCategoriesListRequestCategoryType.EMPTY,
-                company_id="company_id",
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.accounting.tracking_categories.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                name="name",
-                page_size=1,
-                remote_id="remote_id",
-                status=TrackingCategoriesListRequestStatus.EMPTY,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             category_type=category_type,
             company_id=company_id,
             created_after=created_after,
@@ -408,17 +385,21 @@ class AsyncTrackingCategoriesClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                TrackingCategoriesRetrieveRequestExpandItem,
+                typing.Sequence[TrackingCategoriesRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[TrackingCategoriesRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[TrackingCategoriesRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TrackingCategory:
         """
@@ -428,7 +409,7 @@ class AsyncTrackingCategoriesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[TrackingCategoriesRetrieveRequestExpandItem, typing.Sequence[TrackingCategoriesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -437,10 +418,10 @@ class AsyncTrackingCategoriesClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[TrackingCategoriesRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[TrackingCategoriesRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -466,8 +447,6 @@ class AsyncTrackingCategoriesClient:
         async def main() -> None:
             await client.accounting.tracking_categories.retrieve(
                 id="id",
-                include_remote_data=True,
-                include_shell_data=True,
             )
 
 
