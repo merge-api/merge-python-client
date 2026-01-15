@@ -6,9 +6,21 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .time_off_balances_list_request_expand_item import TimeOffBalancesListRequestExpandItem
     from .time_off_balances_list_request_policy_type import TimeOffBalancesListRequestPolicyType
+    from .time_off_balances_list_request_remote_fields import TimeOffBalancesListRequestRemoteFields
+    from .time_off_balances_list_request_show_enum_origins import TimeOffBalancesListRequestShowEnumOrigins
+    from .time_off_balances_retrieve_request_expand_item import TimeOffBalancesRetrieveRequestExpandItem
+    from .time_off_balances_retrieve_request_remote_fields import TimeOffBalancesRetrieveRequestRemoteFields
+    from .time_off_balances_retrieve_request_show_enum_origins import TimeOffBalancesRetrieveRequestShowEnumOrigins
 _dynamic_imports: typing.Dict[str, str] = {
-    "TimeOffBalancesListRequestPolicyType": ".time_off_balances_list_request_policy_type"
+    "TimeOffBalancesListRequestExpandItem": ".time_off_balances_list_request_expand_item",
+    "TimeOffBalancesListRequestPolicyType": ".time_off_balances_list_request_policy_type",
+    "TimeOffBalancesListRequestRemoteFields": ".time_off_balances_list_request_remote_fields",
+    "TimeOffBalancesListRequestShowEnumOrigins": ".time_off_balances_list_request_show_enum_origins",
+    "TimeOffBalancesRetrieveRequestExpandItem": ".time_off_balances_retrieve_request_expand_item",
+    "TimeOffBalancesRetrieveRequestRemoteFields": ".time_off_balances_retrieve_request_remote_fields",
+    "TimeOffBalancesRetrieveRequestShowEnumOrigins": ".time_off_balances_retrieve_request_show_enum_origins",
 }
 
 
@@ -18,8 +30,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -31,4 +45,12 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["TimeOffBalancesListRequestPolicyType"]
+__all__ = [
+    "TimeOffBalancesListRequestExpandItem",
+    "TimeOffBalancesListRequestPolicyType",
+    "TimeOffBalancesListRequestRemoteFields",
+    "TimeOffBalancesListRequestShowEnumOrigins",
+    "TimeOffBalancesRetrieveRequestExpandItem",
+    "TimeOffBalancesRetrieveRequestRemoteFields",
+    "TimeOffBalancesRetrieveRequestShowEnumOrigins",
+]

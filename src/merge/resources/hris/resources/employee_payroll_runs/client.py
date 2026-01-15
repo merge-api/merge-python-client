@@ -4,12 +4,13 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.employee_payroll_run import EmployeePayrollRun
 from ...types.paginated_employee_payroll_run_list import PaginatedEmployeePayrollRunList
 from .raw_client import AsyncRawEmployeePayrollRunsClient, RawEmployeePayrollRunsClient
-from .types.employee_payroll_runs_list_request_expand import EmployeePayrollRunsListRequestExpand
-from .types.employee_payroll_runs_retrieve_request_expand import EmployeePayrollRunsRetrieveRequestExpand
+from .types.employee_payroll_runs_list_request_expand_item import EmployeePayrollRunsListRequestExpandItem
+from .types.employee_payroll_runs_retrieve_request_expand_item import EmployeePayrollRunsRetrieveRequestExpandItem
 
 
 class EmployeePayrollRunsClient:
@@ -36,7 +37,11 @@ class EmployeePayrollRunsClient:
         employee_id: typing.Optional[str] = None,
         ended_after: typing.Optional[dt.datetime] = None,
         ended_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[EmployeePayrollRunsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                EmployeePayrollRunsListRequestExpandItem, typing.Sequence[EmployeePayrollRunsListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -48,7 +53,7 @@ class EmployeePayrollRunsClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedEmployeePayrollRunList:
+    ) -> SyncPager[EmployeePayrollRun, PaginatedEmployeePayrollRunList]:
         """
         Returns a list of `EmployeePayrollRun` objects.
 
@@ -72,7 +77,7 @@ class EmployeePayrollRunsClient:
         ended_before : typing.Optional[dt.datetime]
             If provided, will only return employee payroll runs ended before this datetime.
 
-        expand : typing.Optional[EmployeePayrollRunsListRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeePayrollRunsListRequestExpandItem, typing.Sequence[EmployeePayrollRunsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -91,7 +96,7 @@ class EmployeePayrollRunsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         payroll_run_id : typing.Optional[str]
             If provided, will only return employee payroll runs for this employee.
@@ -110,59 +115,27 @@ class EmployeePayrollRunsClient:
 
         Returns
         -------
-        PaginatedEmployeePayrollRunList
+        SyncPager[EmployeePayrollRun, PaginatedEmployeePayrollRunList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
-        from merge.resources.hris.resources.employee_payroll_runs import (
-            EmployeePayrollRunsListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.employee_payroll_runs.list(
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.hris.employee_payroll_runs.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            employee_id="employee_id",
-            ended_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            ended_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            expand=EmployeePayrollRunsListRequestExpand.EMPLOYEE,
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            payroll_run_id="payroll_run_id",
-            remote_id="remote_id",
-            started_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            started_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -182,13 +155,17 @@ class EmployeePayrollRunsClient:
             started_before=started_before,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[EmployeePayrollRunsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                EmployeePayrollRunsRetrieveRequestExpandItem,
+                typing.Sequence[EmployeePayrollRunsRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -200,7 +177,7 @@ class EmployeePayrollRunsClient:
         ----------
         id : str
 
-        expand : typing.Optional[EmployeePayrollRunsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeePayrollRunsRetrieveRequestExpandItem, typing.Sequence[EmployeePayrollRunsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -220,9 +197,6 @@ class EmployeePayrollRunsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.hris.resources.employee_payroll_runs import (
-            EmployeePayrollRunsRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -230,9 +204,6 @@ class EmployeePayrollRunsClient:
         )
         client.hris.employee_payroll_runs.retrieve(
             id="id",
-            expand=EmployeePayrollRunsRetrieveRequestExpand.EMPLOYEE,
-            include_remote_data=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -269,7 +240,11 @@ class AsyncEmployeePayrollRunsClient:
         employee_id: typing.Optional[str] = None,
         ended_after: typing.Optional[dt.datetime] = None,
         ended_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[EmployeePayrollRunsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                EmployeePayrollRunsListRequestExpandItem, typing.Sequence[EmployeePayrollRunsListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -281,7 +256,7 @@ class AsyncEmployeePayrollRunsClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedEmployeePayrollRunList:
+    ) -> AsyncPager[EmployeePayrollRun, PaginatedEmployeePayrollRunList]:
         """
         Returns a list of `EmployeePayrollRun` objects.
 
@@ -305,7 +280,7 @@ class AsyncEmployeePayrollRunsClient:
         ended_before : typing.Optional[dt.datetime]
             If provided, will only return employee payroll runs ended before this datetime.
 
-        expand : typing.Optional[EmployeePayrollRunsListRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeePayrollRunsListRequestExpandItem, typing.Sequence[EmployeePayrollRunsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -324,7 +299,7 @@ class AsyncEmployeePayrollRunsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         payroll_run_id : typing.Optional[str]
             If provided, will only return employee payroll runs for this employee.
@@ -343,18 +318,14 @@ class AsyncEmployeePayrollRunsClient:
 
         Returns
         -------
-        PaginatedEmployeePayrollRunList
+        AsyncPager[EmployeePayrollRun, PaginatedEmployeePayrollRunList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
-        from merge.resources.hris.resources.employee_payroll_runs import (
-            EmployeePayrollRunsListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -363,46 +334,20 @@ class AsyncEmployeePayrollRunsClient:
 
 
         async def main() -> None:
-            await client.hris.employee_payroll_runs.list(
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.hris.employee_payroll_runs.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                employee_id="employee_id",
-                ended_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                ended_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                expand=EmployeePayrollRunsListRequestExpand.EMPLOYEE,
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                payroll_run_id="payroll_run_id",
-                remote_id="remote_id",
-                started_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                started_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -422,13 +367,17 @@ class AsyncEmployeePayrollRunsClient:
             started_before=started_before,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[EmployeePayrollRunsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                EmployeePayrollRunsRetrieveRequestExpandItem,
+                typing.Sequence[EmployeePayrollRunsRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -440,7 +389,7 @@ class AsyncEmployeePayrollRunsClient:
         ----------
         id : str
 
-        expand : typing.Optional[EmployeePayrollRunsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeePayrollRunsRetrieveRequestExpandItem, typing.Sequence[EmployeePayrollRunsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -462,9 +411,6 @@ class AsyncEmployeePayrollRunsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.hris.resources.employee_payroll_runs import (
-            EmployeePayrollRunsRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -475,9 +421,6 @@ class AsyncEmployeePayrollRunsClient:
         async def main() -> None:
             await client.hris.employee_payroll_runs.retrieve(
                 id="id",
-                expand=EmployeePayrollRunsRetrieveRequestExpand.EMPLOYEE,
-                include_remote_data=True,
-                include_shell_data=True,
             )
 
 
