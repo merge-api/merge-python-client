@@ -11,10 +11,10 @@ from .remote_field_api_coverage import RemoteFieldApiCoverage
 
 
 class RemoteFieldApi(UncheckedBaseModel):
-    schema_: typing.Dict[str, typing.Optional[typing.Any]] = pydantic.Field(alias="schema")
+    schema_: typing.Dict[str, typing.Any] = pydantic.Field(alias="schema")
     remote_key_name: str
     remote_endpoint_info: RemoteEndpointInfo
-    example_values: typing.Optional[typing.List[typing.Optional[typing.Any]]] = None
+    example_values: typing.Optional[typing.List[typing.Any]] = None
     advanced_metadata: typing.Optional[AdvancedMetadata] = None
     coverage: typing.Optional[RemoteFieldApiCoverage] = None
 

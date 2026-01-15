@@ -2,6 +2,6 @@
 
 import typing
 
-from .status_fd_5_enum import StatusFd5Enum
+from .status_fd5enum import StatusFd5Enum
 
 SyncStatusStatus = typing.Union[StatusFd5Enum, str]

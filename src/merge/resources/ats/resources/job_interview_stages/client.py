@@ -4,10 +4,13 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.job_interview_stage import JobInterviewStage
 from ...types.paginated_job_interview_stage_list import PaginatedJobInterviewStageList
 from .raw_client import AsyncRawJobInterviewStagesClient, RawJobInterviewStagesClient
+from .types.job_interview_stages_list_request_expand_item import JobInterviewStagesListRequestExpandItem
+from .types.job_interview_stages_retrieve_request_expand_item import JobInterviewStagesRetrieveRequestExpandItem
 
 
 class JobInterviewStagesClient:
@@ -31,7 +34,11 @@ class JobInterviewStagesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["job"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                JobInterviewStagesListRequestExpandItem, typing.Sequence[JobInterviewStagesListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -41,7 +48,7 @@ class JobInterviewStagesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedJobInterviewStageList:
+    ) -> SyncPager[JobInterviewStage, PaginatedJobInterviewStageList]:
         """
         Returns a list of `JobInterviewStage` objects.
 
@@ -56,7 +63,7 @@ class JobInterviewStagesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["job"]]
+        expand : typing.Optional[typing.Union[JobInterviewStagesListRequestExpandItem, typing.Sequence[JobInterviewStagesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -88,42 +95,27 @@ class JobInterviewStagesClient:
 
         Returns
         -------
-        PaginatedJobInterviewStageList
+        SyncPager[JobInterviewStage, PaginatedJobInterviewStageList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.job_interview_stages.list(
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.ats.job_interview_stages.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            job_id="job_id",
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -138,13 +130,17 @@ class JobInterviewStagesClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["job"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                JobInterviewStagesRetrieveRequestExpandItem,
+                typing.Sequence[JobInterviewStagesRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -156,7 +152,7 @@ class JobInterviewStagesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["job"]]
+        expand : typing.Optional[typing.Union[JobInterviewStagesRetrieveRequestExpandItem, typing.Sequence[JobInterviewStagesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -183,8 +179,6 @@ class JobInterviewStagesClient:
         )
         client.ats.job_interview_stages.retrieve(
             id="id",
-            include_remote_data=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -218,7 +212,11 @@ class AsyncJobInterviewStagesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["job"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                JobInterviewStagesListRequestExpandItem, typing.Sequence[JobInterviewStagesListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -228,7 +226,7 @@ class AsyncJobInterviewStagesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedJobInterviewStageList:
+    ) -> AsyncPager[JobInterviewStage, PaginatedJobInterviewStageList]:
         """
         Returns a list of `JobInterviewStage` objects.
 
@@ -243,7 +241,7 @@ class AsyncJobInterviewStagesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["job"]]
+        expand : typing.Optional[typing.Union[JobInterviewStagesListRequestExpandItem, typing.Sequence[JobInterviewStagesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -275,13 +273,12 @@ class AsyncJobInterviewStagesClient:
 
         Returns
         -------
-        PaginatedJobInterviewStageList
+        AsyncPager[JobInterviewStage, PaginatedJobInterviewStageList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
 
@@ -292,32 +289,20 @@ class AsyncJobInterviewStagesClient:
 
 
         async def main() -> None:
-            await client.ats.job_interview_stages.list(
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.ats.job_interview_stages.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                job_id="job_id",
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -332,13 +317,17 @@ class AsyncJobInterviewStagesClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["job"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                JobInterviewStagesRetrieveRequestExpandItem,
+                typing.Sequence[JobInterviewStagesRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -350,7 +339,7 @@ class AsyncJobInterviewStagesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["job"]]
+        expand : typing.Optional[typing.Union[JobInterviewStagesRetrieveRequestExpandItem, typing.Sequence[JobInterviewStagesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -382,8 +371,6 @@ class AsyncJobInterviewStagesClient:
         async def main() -> None:
             await client.ats.job_interview_stages.retrieve(
                 id="id",
-                include_remote_data=True,
-                include_shell_data=True,
             )
 
 
