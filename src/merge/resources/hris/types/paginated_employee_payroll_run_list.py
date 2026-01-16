@@ -25,8 +25,4 @@ class PaginatedEmployeePayrollRunList(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-from .employee import Employee  # noqa: E402, F401, I001
-from .employment import Employment  # noqa: E402, F401, I001
-from .team import Team  # noqa: E402, F401, I001
-
 update_forward_refs(PaginatedEmployeePayrollRunList)

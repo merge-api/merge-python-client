@@ -59,9 +59,7 @@ class FieldMappingClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.field_mapping.field_mappings_retrieve(
-            exclude_remote_field_metadata=True,
-        )
+        client.ticketing.field_mapping.field_mappings_retrieve()
         """
         _response = self._raw_client.field_mappings_retrieve(
             exclude_remote_field_metadata=exclude_remote_field_metadata, request_options=request_options
@@ -73,12 +71,11 @@ class FieldMappingClient:
         *,
         target_field_name: str,
         target_field_description: str,
-        remote_field_traversal_path: typing.Sequence[typing.Optional[typing.Any]],
+        remote_field_traversal_path: typing.Sequence[typing.Any],
         remote_method: str,
         remote_url_path: str,
         common_model_name: str,
         exclude_remote_field_metadata: typing.Optional[bool] = None,
-        jmes_path: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> FieldMappingInstanceResponse:
         """
@@ -92,7 +89,7 @@ class FieldMappingClient:
         target_field_description : str
             The description of the target field you want this remote field to map to.
 
-        remote_field_traversal_path : typing.Sequence[typing.Optional[typing.Any]]
+        remote_field_traversal_path : typing.Sequence[typing.Any]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : str
@@ -106,9 +103,6 @@ class FieldMappingClient:
 
         exclude_remote_field_metadata : typing.Optional[bool]
             If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
-
-        jmes_path : typing.Optional[str]
-            JMES path to specify json query expression to be used on field mapping.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -127,7 +121,6 @@ class FieldMappingClient:
             api_key="YOUR_API_KEY",
         )
         client.ticketing.field_mapping.field_mappings_create(
-            exclude_remote_field_metadata=True,
             target_field_name="example_target_field_name",
             target_field_description="this is a example description of the target field",
             remote_field_traversal_path=["example_remote_field"],
@@ -144,7 +137,6 @@ class FieldMappingClient:
             remote_url_path=remote_url_path,
             common_model_name=common_model_name,
             exclude_remote_field_metadata=exclude_remote_field_metadata,
-            jmes_path=jmes_path,
             request_options=request_options,
         )
         return _response.data
@@ -186,10 +178,9 @@ class FieldMappingClient:
         self,
         field_mapping_id: str,
         *,
-        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
+        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
-        jmes_path: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> FieldMappingInstanceResponse:
         """
@@ -199,7 +190,7 @@ class FieldMappingClient:
         ----------
         field_mapping_id : str
 
-        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]
+        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Any]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : typing.Optional[str]
@@ -207,9 +198,6 @@ class FieldMappingClient:
 
         remote_url_path : typing.Optional[str]
             The path of the remote endpoint where the remote field is coming from.
-
-        jmes_path : typing.Optional[str]
-            JMES path to specify json query expression to be used on field mapping.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -236,7 +224,6 @@ class FieldMappingClient:
             remote_field_traversal_path=remote_field_traversal_path,
             remote_method=remote_method,
             remote_url_path=remote_url_path,
-            jmes_path=jmes_path,
             request_options=request_options,
         )
         return _response.data
@@ -275,10 +262,7 @@ class FieldMappingClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.field_mapping.remote_fields_retrieve(
-            common_models="common_models",
-            include_example_values="include_example_values",
-        )
+        client.ticketing.field_mapping.remote_fields_retrieve()
         """
         _response = self._raw_client.remote_fields_retrieve(
             common_models=common_models, include_example_values=include_example_values, request_options=request_options
@@ -365,9 +349,7 @@ class AsyncFieldMappingClient:
 
 
         async def main() -> None:
-            await client.ticketing.field_mapping.field_mappings_retrieve(
-                exclude_remote_field_metadata=True,
-            )
+            await client.ticketing.field_mapping.field_mappings_retrieve()
 
 
         asyncio.run(main())
@@ -382,12 +364,11 @@ class AsyncFieldMappingClient:
         *,
         target_field_name: str,
         target_field_description: str,
-        remote_field_traversal_path: typing.Sequence[typing.Optional[typing.Any]],
+        remote_field_traversal_path: typing.Sequence[typing.Any],
         remote_method: str,
         remote_url_path: str,
         common_model_name: str,
         exclude_remote_field_metadata: typing.Optional[bool] = None,
-        jmes_path: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> FieldMappingInstanceResponse:
         """
@@ -401,7 +382,7 @@ class AsyncFieldMappingClient:
         target_field_description : str
             The description of the target field you want this remote field to map to.
 
-        remote_field_traversal_path : typing.Sequence[typing.Optional[typing.Any]]
+        remote_field_traversal_path : typing.Sequence[typing.Any]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : str
@@ -415,9 +396,6 @@ class AsyncFieldMappingClient:
 
         exclude_remote_field_metadata : typing.Optional[bool]
             If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
-
-        jmes_path : typing.Optional[str]
-            JMES path to specify json query expression to be used on field mapping.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -441,7 +419,6 @@ class AsyncFieldMappingClient:
 
         async def main() -> None:
             await client.ticketing.field_mapping.field_mappings_create(
-                exclude_remote_field_metadata=True,
                 target_field_name="example_target_field_name",
                 target_field_description="this is a example description of the target field",
                 remote_field_traversal_path=["example_remote_field"],
@@ -461,7 +438,6 @@ class AsyncFieldMappingClient:
             remote_url_path=remote_url_path,
             common_model_name=common_model_name,
             exclude_remote_field_metadata=exclude_remote_field_metadata,
-            jmes_path=jmes_path,
             request_options=request_options,
         )
         return _response.data
@@ -511,10 +487,9 @@ class AsyncFieldMappingClient:
         self,
         field_mapping_id: str,
         *,
-        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
+        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
-        jmes_path: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> FieldMappingInstanceResponse:
         """
@@ -524,7 +499,7 @@ class AsyncFieldMappingClient:
         ----------
         field_mapping_id : str
 
-        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]
+        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Any]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : typing.Optional[str]
@@ -532,9 +507,6 @@ class AsyncFieldMappingClient:
 
         remote_url_path : typing.Optional[str]
             The path of the remote endpoint where the remote field is coming from.
-
-        jmes_path : typing.Optional[str]
-            JMES path to specify json query expression to be used on field mapping.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -569,7 +541,6 @@ class AsyncFieldMappingClient:
             remote_field_traversal_path=remote_field_traversal_path,
             remote_method=remote_method,
             remote_url_path=remote_url_path,
-            jmes_path=jmes_path,
             request_options=request_options,
         )
         return _response.data
@@ -613,10 +584,7 @@ class AsyncFieldMappingClient:
 
 
         async def main() -> None:
-            await client.ticketing.field_mapping.remote_fields_retrieve(
-                common_models="common_models",
-                include_example_values="include_example_values",
-            )
+            await client.ticketing.field_mapping.remote_fields_retrieve()
 
 
         asyncio.run(main())

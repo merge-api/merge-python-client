@@ -12,9 +12,7 @@ from .field_mapping_api_instance_remote_field_remote_endpoint_info import (
 
 class FieldMappingApiInstanceRemoteField(UncheckedBaseModel):
     remote_key_name: typing.Optional[str] = None
-    schema_: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(
-        alias="schema", default=None
-    )
+    schema_: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(alias="schema", default=None)
     remote_endpoint_info: FieldMappingApiInstanceRemoteFieldRemoteEndpointInfo
 
     if IS_PYDANTIC_V2:
