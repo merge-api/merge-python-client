@@ -67,7 +67,7 @@ class PaymentTerm(UncheckedBaseModel):
     When the third party's payment term was modified.
     """
 
-    field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    field_mappings: typing.Optional[typing.Dict[str, typing.Any]] = None
     remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:

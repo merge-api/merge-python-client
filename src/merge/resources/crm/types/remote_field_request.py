@@ -10,7 +10,7 @@ from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFie
 
 class RemoteFieldRequest(UncheckedBaseModel):
     remote_field_class: RemoteFieldRequestRemoteFieldClass
-    value: typing.Optional[typing.Optional[typing.Any]] = None
+    value: typing.Optional[typing.Any] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

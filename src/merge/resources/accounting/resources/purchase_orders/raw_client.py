@@ -9,6 +9,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.meta_response import MetaResponse
@@ -17,8 +18,13 @@ from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClass
 from ...types.purchase_order import PurchaseOrder
 from ...types.purchase_order_request import PurchaseOrderRequest
 from ...types.purchase_order_response import PurchaseOrderResponse
-from .types.purchase_orders_list_request_expand import PurchaseOrdersListRequestExpand
-from .types.purchase_orders_retrieve_request_expand import PurchaseOrdersRetrieveRequestExpand
+from ...types.remote_field_class import RemoteFieldClass
+from .types.purchase_orders_list_request_expand_item import PurchaseOrdersListRequestExpandItem
+from .types.purchase_orders_list_request_remote_fields import PurchaseOrdersListRequestRemoteFields
+from .types.purchase_orders_list_request_show_enum_origins import PurchaseOrdersListRequestShowEnumOrigins
+from .types.purchase_orders_retrieve_request_expand_item import PurchaseOrdersRetrieveRequestExpandItem
+from .types.purchase_orders_retrieve_request_remote_fields import PurchaseOrdersRetrieveRequestRemoteFields
+from .types.purchase_orders_retrieve_request_show_enum_origins import PurchaseOrdersRetrieveRequestShowEnumOrigins
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -35,7 +41,9 @@ class RawPurchaseOrdersClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[PurchaseOrdersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[PurchaseOrdersListRequestExpandItem, typing.Sequence[PurchaseOrdersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -45,11 +53,11 @@ class RawPurchaseOrdersClient:
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[PurchaseOrdersListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[PurchaseOrdersListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedPurchaseOrderList]:
+    ) -> SyncPager[PurchaseOrder, PaginatedPurchaseOrderList]:
         """
         Returns a list of `PurchaseOrder` objects.
 
@@ -67,7 +75,7 @@ class RawPurchaseOrdersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[PurchaseOrdersListRequestExpand]
+        expand : typing.Optional[typing.Union[PurchaseOrdersListRequestExpandItem, typing.Sequence[PurchaseOrdersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -97,13 +105,13 @@ class RawPurchaseOrdersClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[PurchaseOrdersListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[PurchaseOrdersListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -111,7 +119,7 @@ class RawPurchaseOrdersClient:
 
         Returns
         -------
-        HttpResponse[PaginatedPurchaseOrderList]
+        SyncPager[PurchaseOrder, PaginatedPurchaseOrderList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -140,14 +148,37 @@ class RawPurchaseOrdersClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedPurchaseOrderList,
                     construct_type(
                         type_=PaginatedPurchaseOrderList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    company_id=company_id,
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_remote_fields=include_remote_fields,
+                    include_shell_data=include_shell_data,
+                    issue_date_after=issue_date_after,
+                    issue_date_before=issue_date_before,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    remote_fields=remote_fields,
+                    remote_id=remote_id,
+                    show_enum_origins=show_enum_origins,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -217,12 +248,16 @@ class RawPurchaseOrdersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[PurchaseOrdersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                PurchaseOrdersRetrieveRequestExpandItem, typing.Sequence[PurchaseOrdersRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[PurchaseOrdersRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[PurchaseOrdersRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PurchaseOrder]:
         """
@@ -232,7 +267,7 @@ class RawPurchaseOrdersClient:
         ----------
         id : str
 
-        expand : typing.Optional[PurchaseOrdersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[PurchaseOrdersRetrieveRequestExpandItem, typing.Sequence[PurchaseOrdersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -244,10 +279,10 @@ class RawPurchaseOrdersClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[PurchaseOrdersRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[PurchaseOrdersRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -297,7 +332,7 @@ class RawPurchaseOrdersClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedRemoteFieldClassList]:
+    ) -> SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -329,7 +364,7 @@ class RawPurchaseOrdersClient:
 
         Returns
         -------
-        HttpResponse[PaginatedRemoteFieldClassList]
+        SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -348,14 +383,27 @@ class RawPurchaseOrdersClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedRemoteFieldClassList,
                     construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.line_items_remote_field_classes_list(
+                    cursor=_parsed_next,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    is_common_model_field=is_common_model_field,
+                    is_custom=is_custom,
+                    page_size=page_size,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -408,7 +456,7 @@ class RawPurchaseOrdersClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedRemoteFieldClassList]:
+    ) -> SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -440,7 +488,7 @@ class RawPurchaseOrdersClient:
 
         Returns
         -------
-        HttpResponse[PaginatedRemoteFieldClassList]
+        SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -459,14 +507,27 @@ class RawPurchaseOrdersClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedRemoteFieldClassList,
                     construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.remote_field_classes_list(
+                    cursor=_parsed_next,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    is_common_model_field=is_common_model_field,
+                    is_custom=is_custom,
+                    page_size=page_size,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -484,7 +545,9 @@ class AsyncRawPurchaseOrdersClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[PurchaseOrdersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[PurchaseOrdersListRequestExpandItem, typing.Sequence[PurchaseOrdersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -494,11 +557,11 @@ class AsyncRawPurchaseOrdersClient:
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[PurchaseOrdersListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[PurchaseOrdersListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedPurchaseOrderList]:
+    ) -> AsyncPager[PurchaseOrder, PaginatedPurchaseOrderList]:
         """
         Returns a list of `PurchaseOrder` objects.
 
@@ -516,7 +579,7 @@ class AsyncRawPurchaseOrdersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[PurchaseOrdersListRequestExpand]
+        expand : typing.Optional[typing.Union[PurchaseOrdersListRequestExpandItem, typing.Sequence[PurchaseOrdersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -546,13 +609,13 @@ class AsyncRawPurchaseOrdersClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[PurchaseOrdersListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[PurchaseOrdersListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -560,7 +623,7 @@ class AsyncRawPurchaseOrdersClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedPurchaseOrderList]
+        AsyncPager[PurchaseOrder, PaginatedPurchaseOrderList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -589,14 +652,40 @@ class AsyncRawPurchaseOrdersClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedPurchaseOrderList,
                     construct_type(
                         type_=PaginatedPurchaseOrderList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        company_id=company_id,
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_remote_fields=include_remote_fields,
+                        include_shell_data=include_shell_data,
+                        issue_date_after=issue_date_after,
+                        issue_date_before=issue_date_before,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        remote_fields=remote_fields,
+                        remote_id=remote_id,
+                        show_enum_origins=show_enum_origins,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -666,12 +755,16 @@ class AsyncRawPurchaseOrdersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[PurchaseOrdersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                PurchaseOrdersRetrieveRequestExpandItem, typing.Sequence[PurchaseOrdersRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[PurchaseOrdersRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[PurchaseOrdersRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PurchaseOrder]:
         """
@@ -681,7 +774,7 @@ class AsyncRawPurchaseOrdersClient:
         ----------
         id : str
 
-        expand : typing.Optional[PurchaseOrdersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[PurchaseOrdersRetrieveRequestExpandItem, typing.Sequence[PurchaseOrdersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -693,10 +786,10 @@ class AsyncRawPurchaseOrdersClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[PurchaseOrdersRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[PurchaseOrdersRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -746,7 +839,7 @@ class AsyncRawPurchaseOrdersClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedRemoteFieldClassList]:
+    ) -> AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -778,7 +871,7 @@ class AsyncRawPurchaseOrdersClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedRemoteFieldClassList]
+        AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -797,14 +890,30 @@ class AsyncRawPurchaseOrdersClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedRemoteFieldClassList,
                     construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.line_items_remote_field_classes_list(
+                        cursor=_parsed_next,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        is_common_model_field=is_common_model_field,
+                        is_custom=is_custom,
+                        page_size=page_size,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -857,7 +966,7 @@ class AsyncRawPurchaseOrdersClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedRemoteFieldClassList]:
+    ) -> AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -889,7 +998,7 @@ class AsyncRawPurchaseOrdersClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedRemoteFieldClassList]
+        AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -908,14 +1017,30 @@ class AsyncRawPurchaseOrdersClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedRemoteFieldClassList,
                     construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.remote_field_classes_list(
+                        cursor=_parsed_next,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        is_common_model_field=is_common_model_field,
+                        is_custom=is_custom,
+                        page_size=page_size,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)

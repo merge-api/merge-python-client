@@ -3,7 +3,9 @@
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
+from ...types.account_details_and_actions import AccountDetailsAndActions
 from ...types.paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
 from .raw_client import AsyncRawLinkedAccountsClient, RawLinkedAccountsClient
 from .types.linked_accounts_list_request_category import LinkedAccountsListRequestCategory
@@ -41,7 +43,7 @@ class LinkedAccountsClient:
         page_size: typing.Optional[int] = None,
         status: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAccountDetailsAndActionsList:
+    ) -> SyncPager[AccountDetailsAndActions, PaginatedAccountDetailsAndActionsList]:
         """
         List linked accounts for your organization.
 
@@ -98,37 +100,27 @@ class LinkedAccountsClient:
 
         Returns
         -------
-        PaginatedAccountDetailsAndActionsList
+        SyncPager[AccountDetailsAndActions, PaginatedAccountDetailsAndActionsList]
 
 
         Examples
         --------
         from merge import Merge
-        from merge.resources.crm.resources.linked_accounts import (
-            LinkedAccountsListRequestCategory,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.linked_accounts.list(
-            category=LinkedAccountsListRequestCategory.ACCOUNTING,
+        response = client.crm.linked_accounts.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            end_user_email_address="end_user_email_address",
-            end_user_organization_name="end_user_organization_name",
-            end_user_origin_id="end_user_origin_id",
-            end_user_origin_ids="end_user_origin_ids",
-            id="id",
-            ids="ids",
-            include_duplicates=True,
-            integration_name="integration_name",
-            is_test_account="is_test_account",
-            page_size=1,
-            status="status",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             category=category,
             cursor=cursor,
             end_user_email_address=end_user_email_address,
@@ -144,7 +136,6 @@ class LinkedAccountsClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncLinkedAccountsClient:
@@ -179,7 +170,7 @@ class AsyncLinkedAccountsClient:
         page_size: typing.Optional[int] = None,
         status: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAccountDetailsAndActionsList:
+    ) -> AsyncPager[AccountDetailsAndActions, PaginatedAccountDetailsAndActionsList]:
         """
         List linked accounts for your organization.
 
@@ -236,7 +227,7 @@ class AsyncLinkedAccountsClient:
 
         Returns
         -------
-        PaginatedAccountDetailsAndActionsList
+        AsyncPager[AccountDetailsAndActions, PaginatedAccountDetailsAndActionsList]
 
 
         Examples
@@ -244,9 +235,6 @@ class AsyncLinkedAccountsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.crm.resources.linked_accounts import (
-            LinkedAccountsListRequestCategory,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -255,26 +243,20 @@ class AsyncLinkedAccountsClient:
 
 
         async def main() -> None:
-            await client.crm.linked_accounts.list(
-                category=LinkedAccountsListRequestCategory.ACCOUNTING,
+            response = await client.crm.linked_accounts.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                end_user_email_address="end_user_email_address",
-                end_user_organization_name="end_user_organization_name",
-                end_user_origin_id="end_user_origin_id",
-                end_user_origin_ids="end_user_origin_ids",
-                id="id",
-                ids="ids",
-                include_duplicates=True,
-                integration_name="integration_name",
-                is_test_account="is_test_account",
-                page_size=1,
-                status="status",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             category=category,
             cursor=cursor,
             end_user_email_address=end_user_email_address,
@@ -290,4 +272,3 @@ class AsyncLinkedAccountsClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
