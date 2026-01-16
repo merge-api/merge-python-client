@@ -30,7 +30,6 @@ if typing.TYPE_CHECKING:
     from .resources.credit_notes.client import AsyncCreditNotesClient, CreditNotesClient
     from .resources.delete_account.client import AsyncDeleteAccountClient, DeleteAccountClient
     from .resources.employees.client import AsyncEmployeesClient, EmployeesClient
-    from .resources.expense_reports.client import AsyncExpenseReportsClient, ExpenseReportsClient
     from .resources.expenses.client import AsyncExpensesClient, ExpensesClient
     from .resources.field_mapping.client import AsyncFieldMappingClient, FieldMappingClient
     from .resources.force_resync.client import AsyncForceResyncClient, ForceResyncClient
@@ -92,7 +91,6 @@ class AccountingClient:
         self._scopes: typing.Optional[ScopesClient] = None
         self._delete_account: typing.Optional[DeleteAccountClient] = None
         self._employees: typing.Optional[EmployeesClient] = None
-        self._expense_reports: typing.Optional[ExpenseReportsClient] = None
         self._expenses: typing.Optional[ExpensesClient] = None
         self._field_mapping: typing.Optional[FieldMappingClient] = None
         self._general_ledger_transactions: typing.Optional[GeneralLedgerTransactionsClient] = None
@@ -294,14 +292,6 @@ class AccountingClient:
 
             self._employees = EmployeesClient(client_wrapper=self._client_wrapper)
         return self._employees
-
-    @property
-    def expense_reports(self):
-        if self._expense_reports is None:
-            from .resources.expense_reports.client import ExpenseReportsClient  # noqa: E402
-
-            self._expense_reports = ExpenseReportsClient(client_wrapper=self._client_wrapper)
-        return self._expense_reports
 
     @property
     def expenses(self):
@@ -536,7 +526,6 @@ class AsyncAccountingClient:
         self._scopes: typing.Optional[AsyncScopesClient] = None
         self._delete_account: typing.Optional[AsyncDeleteAccountClient] = None
         self._employees: typing.Optional[AsyncEmployeesClient] = None
-        self._expense_reports: typing.Optional[AsyncExpenseReportsClient] = None
         self._expenses: typing.Optional[AsyncExpensesClient] = None
         self._field_mapping: typing.Optional[AsyncFieldMappingClient] = None
         self._general_ledger_transactions: typing.Optional[AsyncGeneralLedgerTransactionsClient] = None
@@ -736,14 +725,6 @@ class AsyncAccountingClient:
 
             self._employees = AsyncEmployeesClient(client_wrapper=self._client_wrapper)
         return self._employees
-
-    @property
-    def expense_reports(self):
-        if self._expense_reports is None:
-            from .resources.expense_reports.client import AsyncExpenseReportsClient  # noqa: E402
-
-            self._expense_reports = AsyncExpenseReportsClient(client_wrapper=self._client_wrapper)
-        return self._expense_reports
 
     @property
     def expenses(self):

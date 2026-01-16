@@ -24,10 +24,10 @@ class BaseClientWrapper:
 
     def get_headers(self) -> typing.Dict[str, str]:
         headers: typing.Dict[str, str] = {
-            "User-Agent": "MergePythonClient/2.6.1",
+            "User-Agent": "MergePythonClient/2.6.2",
             "X-Fern-Language": "Python",
             "X-Fern-SDK-Name": "MergePythonClient",
-            "X-Fern-SDK-Version": "2.6.1",
+            "X-Fern-SDK-Version": "2.6.2",
             **(self.get_custom_headers() or {}),
         }
         if self._account_token is not None:
