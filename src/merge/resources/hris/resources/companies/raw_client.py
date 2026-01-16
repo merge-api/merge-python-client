@@ -9,6 +9,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.company import Company
@@ -33,7 +34,7 @@ class RawCompaniesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedCompanyList]:
+    ) -> SyncPager[Company, PaginatedCompanyList]:
         """
         Returns a list of `Company` objects.
 
@@ -64,7 +65,7 @@ class RawCompaniesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -74,11 +75,11 @@ class RawCompaniesClient:
 
         Returns
         -------
-        HttpResponse[PaginatedCompanyList]
+        SyncPager[Company, PaginatedCompanyList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/companies",
+            "companies",
             method="GET",
             params={
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -96,14 +97,30 @@ class RawCompaniesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedCompanyList,
                     construct_type(
                         type_=PaginatedCompanyList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    remote_id=remote_id,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -139,7 +156,7 @@ class RawCompaniesClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"hris/v1/companies/{jsonable_encoder(id)}",
+            f"companies/{jsonable_encoder(id)}",
             method="GET",
             params={
                 "include_remote_data": include_remote_data,
@@ -181,7 +198,7 @@ class AsyncRawCompaniesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedCompanyList]:
+    ) -> AsyncPager[Company, PaginatedCompanyList]:
         """
         Returns a list of `Company` objects.
 
@@ -212,7 +229,7 @@ class AsyncRawCompaniesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -222,11 +239,11 @@ class AsyncRawCompaniesClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedCompanyList]
+        AsyncPager[Company, PaginatedCompanyList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/companies",
+            "companies",
             method="GET",
             params={
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -244,14 +261,33 @@ class AsyncRawCompaniesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedCompanyList,
                     construct_type(
                         type_=PaginatedCompanyList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        remote_id=remote_id,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -287,7 +323,7 @@ class AsyncRawCompaniesClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"hris/v1/companies/{jsonable_encoder(id)}",
+            f"companies/{jsonable_encoder(id)}",
             method="GET",
             params={
                 "include_remote_data": include_remote_data,

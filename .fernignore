@@ -11,3 +11,4 @@ src/merge/resources/accounting/types/currency_enum.py
 
 tests/integration/test_filestorage.py
 tests/integration/test_knowledgebase.py
+changelog.md

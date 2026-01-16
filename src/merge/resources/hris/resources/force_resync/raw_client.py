@@ -32,7 +32,7 @@ class RawForceResyncClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/sync-status/resync",
+            "sync-status/resync",
             method="POST",
             request_options=request_options,
         )
@@ -73,7 +73,7 @@ class AsyncRawForceResyncClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/sync-status/resync",
+            "sync-status/resync",
             method="POST",
             request_options=request_options,
         )

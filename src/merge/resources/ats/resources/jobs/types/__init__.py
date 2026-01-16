@@ -6,15 +6,23 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .jobs_list_request_expand import JobsListRequestExpand
+    from .jobs_list_request_expand_item import JobsListRequestExpandItem
+    from .jobs_list_request_remote_fields import JobsListRequestRemoteFields
+    from .jobs_list_request_show_enum_origins import JobsListRequestShowEnumOrigins
     from .jobs_list_request_status import JobsListRequestStatus
-    from .jobs_retrieve_request_expand import JobsRetrieveRequestExpand
-    from .jobs_screening_questions_list_request_expand import JobsScreeningQuestionsListRequestExpand
+    from .jobs_retrieve_request_expand_item import JobsRetrieveRequestExpandItem
+    from .jobs_retrieve_request_remote_fields import JobsRetrieveRequestRemoteFields
+    from .jobs_retrieve_request_show_enum_origins import JobsRetrieveRequestShowEnumOrigins
+    from .jobs_screening_questions_list_request_expand_item import JobsScreeningQuestionsListRequestExpandItem
 _dynamic_imports: typing.Dict[str, str] = {
-    "JobsListRequestExpand": ".jobs_list_request_expand",
+    "JobsListRequestExpandItem": ".jobs_list_request_expand_item",
+    "JobsListRequestRemoteFields": ".jobs_list_request_remote_fields",
+    "JobsListRequestShowEnumOrigins": ".jobs_list_request_show_enum_origins",
     "JobsListRequestStatus": ".jobs_list_request_status",
-    "JobsRetrieveRequestExpand": ".jobs_retrieve_request_expand",
-    "JobsScreeningQuestionsListRequestExpand": ".jobs_screening_questions_list_request_expand",
+    "JobsRetrieveRequestExpandItem": ".jobs_retrieve_request_expand_item",
+    "JobsRetrieveRequestRemoteFields": ".jobs_retrieve_request_remote_fields",
+    "JobsRetrieveRequestShowEnumOrigins": ".jobs_retrieve_request_show_enum_origins",
+    "JobsScreeningQuestionsListRequestExpandItem": ".jobs_screening_questions_list_request_expand_item",
 }
 
 
@@ -24,8 +32,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -38,8 +48,12 @@ def __dir__():
 
 
 __all__ = [
-    "JobsListRequestExpand",
+    "JobsListRequestExpandItem",
+    "JobsListRequestRemoteFields",
+    "JobsListRequestShowEnumOrigins",
     "JobsListRequestStatus",
-    "JobsRetrieveRequestExpand",
-    "JobsScreeningQuestionsListRequestExpand",
+    "JobsRetrieveRequestExpandItem",
+    "JobsRetrieveRequestRemoteFields",
+    "JobsRetrieveRequestShowEnumOrigins",
+    "JobsScreeningQuestionsListRequestExpandItem",
 ]

@@ -7,22 +7,22 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
-        TimeOffListRequestExpand,
+        TimeOffListRequestExpandItem,
         TimeOffListRequestRemoteFields,
         TimeOffListRequestRequestType,
         TimeOffListRequestShowEnumOrigins,
         TimeOffListRequestStatus,
-        TimeOffRetrieveRequestExpand,
+        TimeOffRetrieveRequestExpandItem,
         TimeOffRetrieveRequestRemoteFields,
         TimeOffRetrieveRequestShowEnumOrigins,
     )
 _dynamic_imports: typing.Dict[str, str] = {
-    "TimeOffListRequestExpand": ".types",
+    "TimeOffListRequestExpandItem": ".types",
     "TimeOffListRequestRemoteFields": ".types",
     "TimeOffListRequestRequestType": ".types",
     "TimeOffListRequestShowEnumOrigins": ".types",
     "TimeOffListRequestStatus": ".types",
-    "TimeOffRetrieveRequestExpand": ".types",
+    "TimeOffRetrieveRequestExpandItem": ".types",
     "TimeOffRetrieveRequestRemoteFields": ".types",
     "TimeOffRetrieveRequestShowEnumOrigins": ".types",
 }
@@ -34,8 +34,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -48,12 +50,12 @@ def __dir__():
 
 
 __all__ = [
-    "TimeOffListRequestExpand",
+    "TimeOffListRequestExpandItem",
     "TimeOffListRequestRemoteFields",
     "TimeOffListRequestRequestType",
     "TimeOffListRequestShowEnumOrigins",
     "TimeOffListRequestStatus",
-    "TimeOffRetrieveRequestExpand",
+    "TimeOffRetrieveRequestExpandItem",
     "TimeOffRetrieveRequestRemoteFields",
     "TimeOffRetrieveRequestShowEnumOrigins",
 ]
