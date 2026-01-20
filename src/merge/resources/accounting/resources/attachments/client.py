@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.accounting_attachment import AccountingAttachment
 from ...types.accounting_attachment_request import AccountingAttachmentRequest
@@ -46,7 +47,7 @@ class AttachmentsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAccountingAttachmentList:
+    ) -> SyncPager[AccountingAttachment, PaginatedAccountingAttachmentList]:
         """
         Returns a list of `AccountingAttachment` objects.
 
@@ -90,42 +91,27 @@ class AttachmentsClient:
 
         Returns
         -------
-        PaginatedAccountingAttachmentList
+        SyncPager[AccountingAttachment, PaginatedAccountingAttachmentList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.attachments.list(
-            company_id="company_id",
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.accounting.attachments.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -139,7 +125,6 @@ class AttachmentsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -180,8 +165,6 @@ class AttachmentsClient:
             api_key="YOUR_API_KEY",
         )
         client.accounting.attachments.create(
-            is_debug_mode=True,
-            run_async=True,
             model=AccountingAttachmentRequest(),
         )
         """
@@ -229,8 +212,6 @@ class AttachmentsClient:
         )
         client.accounting.attachments.retrieve(
             id="id",
-            include_remote_data=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -299,7 +280,7 @@ class AsyncAttachmentsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAccountingAttachmentList:
+    ) -> AsyncPager[AccountingAttachment, PaginatedAccountingAttachmentList]:
         """
         Returns a list of `AccountingAttachment` objects.
 
@@ -343,13 +324,12 @@ class AsyncAttachmentsClient:
 
         Returns
         -------
-        PaginatedAccountingAttachmentList
+        AsyncPager[AccountingAttachment, PaginatedAccountingAttachmentList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
 
@@ -360,32 +340,20 @@ class AsyncAttachmentsClient:
 
 
         async def main() -> None:
-            await client.accounting.attachments.list(
-                company_id="company_id",
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.accounting.attachments.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -399,7 +367,6 @@ class AsyncAttachmentsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -445,8 +412,6 @@ class AsyncAttachmentsClient:
 
         async def main() -> None:
             await client.accounting.attachments.create(
-                is_debug_mode=True,
-                run_async=True,
                 model=AccountingAttachmentRequest(),
             )
 
@@ -502,8 +467,6 @@ class AsyncAttachmentsClient:
         async def main() -> None:
             await client.accounting.attachments.retrieve(
                 id="id",
-                include_remote_data=True,
-                include_shell_data=True,
             )
 
 

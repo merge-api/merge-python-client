@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.issue import Issue
 from ...types.paginated_issue_list import PaginatedIssueList
@@ -44,7 +45,7 @@ class IssuesClient:
         start_date: typing.Optional[str] = None,
         status: typing.Optional[IssuesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedIssueList:
+    ) -> SyncPager[Issue, PaginatedIssueList]:
         """
         Gets all issues for Organization.
 
@@ -81,7 +82,7 @@ class IssuesClient:
             If provided, will only include issues pertaining to the linked account passed in.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         start_date : typing.Optional[str]
             If included, will only include issues whose most recent action occurred after this time
@@ -97,46 +98,27 @@ class IssuesClient:
 
         Returns
         -------
-        PaginatedIssueList
+        SyncPager[Issue, PaginatedIssueList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
-        from merge.resources.hris.resources.issues import IssuesListRequestStatus
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.issues.list(
-            account_token="account_token",
+        response = client.hris.issues.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            end_date="end_date",
-            end_user_organization_name="end_user_organization_name",
-            first_incident_time_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            first_incident_time_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            include_muted="include_muted",
-            integration_name="integration_name",
-            last_incident_time_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            last_incident_time_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            linked_account_id="linked_account_id",
-            page_size=1,
-            start_date="start_date",
-            status=IssuesListRequestStatus.ONGOING,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             account_token=account_token,
             cursor=cursor,
             end_date=end_date,
@@ -153,7 +135,6 @@ class IssuesClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Issue:
         """
@@ -220,7 +201,7 @@ class AsyncIssuesClient:
         start_date: typing.Optional[str] = None,
         status: typing.Optional[IssuesListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedIssueList:
+    ) -> AsyncPager[Issue, PaginatedIssueList]:
         """
         Gets all issues for Organization.
 
@@ -257,7 +238,7 @@ class AsyncIssuesClient:
             If provided, will only include issues pertaining to the linked account passed in.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         start_date : typing.Optional[str]
             If included, will only include issues whose most recent action occurred after this time
@@ -273,16 +254,14 @@ class AsyncIssuesClient:
 
         Returns
         -------
-        PaginatedIssueList
+        AsyncPager[Issue, PaginatedIssueList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
-        from merge.resources.hris.resources.issues import IssuesListRequestStatus
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -291,35 +270,20 @@ class AsyncIssuesClient:
 
 
         async def main() -> None:
-            await client.hris.issues.list(
-                account_token="account_token",
+            response = await client.hris.issues.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                end_date="end_date",
-                end_user_organization_name="end_user_organization_name",
-                first_incident_time_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                first_incident_time_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                include_muted="include_muted",
-                integration_name="integration_name",
-                last_incident_time_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                last_incident_time_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                linked_account_id="linked_account_id",
-                page_size=1,
-                start_date="start_date",
-                status=IssuesListRequestStatus.ONGOING,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             account_token=account_token,
             cursor=cursor,
             end_date=end_date,
@@ -336,7 +300,6 @@ class AsyncIssuesClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Issue:
         """
