@@ -2,6 +2,6 @@
 
 import typing
 
-from .status_7_d_1_enum import Status7D1Enum
+from .status7d1enum import Status7D1Enum
 
 PatchedItemRequestRequestStatus = typing.Union[Status7D1Enum, str]

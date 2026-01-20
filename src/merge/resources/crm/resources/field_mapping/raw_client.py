@@ -72,7 +72,7 @@ class RawFieldMappingClient:
         *,
         target_field_name: str,
         target_field_description: str,
-        remote_field_traversal_path: typing.Sequence[typing.Optional[typing.Any]],
+        remote_field_traversal_path: typing.Sequence[typing.Any],
         remote_method: str,
         remote_url_path: str,
         common_model_name: str,
@@ -90,7 +90,7 @@ class RawFieldMappingClient:
         target_field_description : str
             The description of the target field you want this remote field to map to.
 
-        remote_field_traversal_path : typing.Sequence[typing.Optional[typing.Any]]
+        remote_field_traversal_path : typing.Sequence[typing.Any]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : str
@@ -190,7 +190,7 @@ class RawFieldMappingClient:
         self,
         field_mapping_id: str,
         *,
-        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
+        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -202,7 +202,7 @@ class RawFieldMappingClient:
         ----------
         field_mapping_id : str
 
-        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]
+        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Any]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : typing.Optional[str]
@@ -389,7 +389,7 @@ class AsyncRawFieldMappingClient:
         *,
         target_field_name: str,
         target_field_description: str,
-        remote_field_traversal_path: typing.Sequence[typing.Optional[typing.Any]],
+        remote_field_traversal_path: typing.Sequence[typing.Any],
         remote_method: str,
         remote_url_path: str,
         common_model_name: str,
@@ -407,7 +407,7 @@ class AsyncRawFieldMappingClient:
         target_field_description : str
             The description of the target field you want this remote field to map to.
 
-        remote_field_traversal_path : typing.Sequence[typing.Optional[typing.Any]]
+        remote_field_traversal_path : typing.Sequence[typing.Any]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : str
@@ -507,7 +507,7 @@ class AsyncRawFieldMappingClient:
         self,
         field_mapping_id: str,
         *,
-        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
+        remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Any]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -519,7 +519,7 @@ class AsyncRawFieldMappingClient:
         ----------
         field_mapping_id : str
 
-        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]
+        remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Any]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
 
         remote_method : typing.Optional[str]

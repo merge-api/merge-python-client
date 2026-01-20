@@ -4,9 +4,11 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.paginated_stage_list import PaginatedStageList
+from ...types.remote_field_class import RemoteFieldClass
 from ...types.stage import Stage
 from .raw_client import AsyncRawStagesClient, RawStagesClient
 
@@ -41,7 +43,7 @@ class StagesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedStageList:
+    ) -> SyncPager[Stage, PaginatedStageList]:
         """
         Returns a list of `Stage` objects.
 
@@ -85,42 +87,27 @@ class StagesClient:
 
         Returns
         -------
-        PaginatedStageList
+        SyncPager[Stage, PaginatedStageList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.stages.list(
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.crm.stages.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_remote_fields=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -134,7 +121,6 @@ class StagesClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -179,9 +165,6 @@ class StagesClient:
         )
         client.crm.stages.retrieve(
             id="id",
-            include_remote_data=True,
-            include_remote_fields=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -205,7 +188,7 @@ class StagesClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -240,7 +223,7 @@ class StagesClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
 
         Examples
@@ -251,18 +234,16 @@ class StagesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.stages.remote_field_classes_list(
+        response = client.crm.stages.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_remote_fields=True,
-            include_shell_data=True,
-            is_common_model_field=True,
-            is_custom=True,
-            page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.remote_field_classes_list(
+        return self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -273,7 +254,6 @@ class StagesClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncStagesClient:
@@ -306,7 +286,7 @@ class AsyncStagesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedStageList:
+    ) -> AsyncPager[Stage, PaginatedStageList]:
         """
         Returns a list of `Stage` objects.
 
@@ -350,13 +330,12 @@ class AsyncStagesClient:
 
         Returns
         -------
-        PaginatedStageList
+        AsyncPager[Stage, PaginatedStageList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
 
@@ -367,32 +346,20 @@ class AsyncStagesClient:
 
 
         async def main() -> None:
-            await client.crm.stages.list(
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.crm.stages.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_remote_fields=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -406,7 +373,6 @@ class AsyncStagesClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
@@ -456,9 +422,6 @@ class AsyncStagesClient:
         async def main() -> None:
             await client.crm.stages.retrieve(
                 id="id",
-                include_remote_data=True,
-                include_remote_fields=True,
-                include_shell_data=True,
             )
 
 
@@ -485,7 +448,7 @@ class AsyncStagesClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -520,7 +483,7 @@ class AsyncStagesClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
 
         Examples
@@ -536,21 +499,20 @@ class AsyncStagesClient:
 
 
         async def main() -> None:
-            await client.crm.stages.remote_field_classes_list(
+            response = await client.crm.stages.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_remote_fields=True,
-                include_shell_data=True,
-                is_common_model_field=True,
-                is_custom=True,
-                page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.remote_field_classes_list(
+        return await self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -561,4 +523,3 @@ class AsyncStagesClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
