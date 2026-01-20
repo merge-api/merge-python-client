@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.meta_response import MetaResponse
 from ...types.paginated_timesheet_entry_list import PaginatedTimesheetEntryList
@@ -11,7 +12,9 @@ from ...types.timesheet_entry import TimesheetEntry
 from ...types.timesheet_entry_request import TimesheetEntryRequest
 from ...types.timesheet_entry_response import TimesheetEntryResponse
 from .raw_client import AsyncRawTimesheetEntriesClient, RawTimesheetEntriesClient
+from .types.timesheet_entries_list_request_expand_item import TimesheetEntriesListRequestExpandItem
 from .types.timesheet_entries_list_request_order_by import TimesheetEntriesListRequestOrderBy
+from .types.timesheet_entries_retrieve_request_expand_item import TimesheetEntriesRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -41,7 +44,9 @@ class TimesheetEntriesClient:
         employee_id: typing.Optional[str] = None,
         ended_after: typing.Optional[dt.datetime] = None,
         ended_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[TimesheetEntriesListRequestExpandItem, typing.Sequence[TimesheetEntriesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -53,7 +58,7 @@ class TimesheetEntriesClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTimesheetEntryList:
+    ) -> SyncPager[TimesheetEntry, PaginatedTimesheetEntryList]:
         """
         Returns a list of `TimesheetEntry` objects.
 
@@ -77,7 +82,7 @@ class TimesheetEntriesClient:
         ended_before : typing.Optional[dt.datetime]
             If provided, will only return timesheet entries ended before this datetime.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[TimesheetEntriesListRequestExpandItem, typing.Sequence[TimesheetEntriesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -99,7 +104,7 @@ class TimesheetEntriesClient:
             Overrides the default ordering for this endpoint. Possible values include: start_time, -start_time.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -115,58 +120,27 @@ class TimesheetEntriesClient:
 
         Returns
         -------
-        PaginatedTimesheetEntryList
+        SyncPager[TimesheetEntry, PaginatedTimesheetEntryList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
-        from merge.resources.hris.resources.timesheet_entries import (
-            TimesheetEntriesListRequestOrderBy,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.timesheet_entries.list(
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.hris.timesheet_entries.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            employee_id="employee_id",
-            ended_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            ended_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            order_by=TimesheetEntriesListRequestOrderBy.START_TIME_DESCENDING,
-            page_size=1,
-            remote_id="remote_id",
-            started_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            started_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -186,7 +160,6 @@ class TimesheetEntriesClient:
             started_before=started_before,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -227,8 +200,6 @@ class TimesheetEntriesClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.timesheet_entries.create(
-            is_debug_mode=True,
-            run_async=True,
             model=TimesheetEntryRequest(),
         )
         """
@@ -241,7 +212,11 @@ class TimesheetEntriesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                TimesheetEntriesRetrieveRequestExpandItem, typing.Sequence[TimesheetEntriesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -253,7 +228,7 @@ class TimesheetEntriesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[TimesheetEntriesRetrieveRequestExpandItem, typing.Sequence[TimesheetEntriesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -280,8 +255,6 @@ class TimesheetEntriesClient:
         )
         client.hris.timesheet_entries.retrieve(
             id="id",
-            include_remote_data=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -345,7 +318,9 @@ class AsyncTimesheetEntriesClient:
         employee_id: typing.Optional[str] = None,
         ended_after: typing.Optional[dt.datetime] = None,
         ended_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[TimesheetEntriesListRequestExpandItem, typing.Sequence[TimesheetEntriesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -357,7 +332,7 @@ class AsyncTimesheetEntriesClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTimesheetEntryList:
+    ) -> AsyncPager[TimesheetEntry, PaginatedTimesheetEntryList]:
         """
         Returns a list of `TimesheetEntry` objects.
 
@@ -381,7 +356,7 @@ class AsyncTimesheetEntriesClient:
         ended_before : typing.Optional[dt.datetime]
             If provided, will only return timesheet entries ended before this datetime.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[TimesheetEntriesListRequestExpandItem, typing.Sequence[TimesheetEntriesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -403,7 +378,7 @@ class AsyncTimesheetEntriesClient:
             Overrides the default ordering for this endpoint. Possible values include: start_time, -start_time.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -419,18 +394,14 @@ class AsyncTimesheetEntriesClient:
 
         Returns
         -------
-        PaginatedTimesheetEntryList
+        AsyncPager[TimesheetEntry, PaginatedTimesheetEntryList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
-        from merge.resources.hris.resources.timesheet_entries import (
-            TimesheetEntriesListRequestOrderBy,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -439,45 +410,20 @@ class AsyncTimesheetEntriesClient:
 
 
         async def main() -> None:
-            await client.hris.timesheet_entries.list(
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.hris.timesheet_entries.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                employee_id="employee_id",
-                ended_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                ended_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                order_by=TimesheetEntriesListRequestOrderBy.START_TIME_DESCENDING,
-                page_size=1,
-                remote_id="remote_id",
-                started_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                started_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -497,7 +443,6 @@ class AsyncTimesheetEntriesClient:
             started_before=started_before,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -543,8 +488,6 @@ class AsyncTimesheetEntriesClient:
 
         async def main() -> None:
             await client.hris.timesheet_entries.create(
-                is_debug_mode=True,
-                run_async=True,
                 model=TimesheetEntryRequest(),
             )
 
@@ -560,7 +503,11 @@ class AsyncTimesheetEntriesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                TimesheetEntriesRetrieveRequestExpandItem, typing.Sequence[TimesheetEntriesRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -572,7 +519,7 @@ class AsyncTimesheetEntriesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[TimesheetEntriesRetrieveRequestExpandItem, typing.Sequence[TimesheetEntriesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -604,8 +551,6 @@ class AsyncTimesheetEntriesClient:
         async def main() -> None:
             await client.hris.timesheet_entries.retrieve(
                 id="id",
-                include_remote_data=True,
-                include_shell_data=True,
             )
 
 

@@ -20,7 +20,7 @@ class Issue(UncheckedBaseModel):
     """
 
     error_description: str
-    end_user: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    end_user: typing.Optional[typing.Dict[str, typing.Any]] = None
     first_incident_time: typing.Optional[dt.datetime] = None
     last_incident_time: typing.Optional[dt.datetime] = None
     is_muted: typing.Optional[bool] = None

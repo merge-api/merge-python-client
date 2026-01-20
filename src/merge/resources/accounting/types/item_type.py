@@ -2,6 +2,6 @@
 
 import typing
 
-from .type_2_bb_enum import Type2BbEnum
+from .type2bb_enum import Type2BbEnum
 
 ItemType = typing.Union[Type2BbEnum, str]
