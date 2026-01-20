@@ -9,6 +9,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.meta_response import MetaResponse
@@ -16,18 +17,20 @@ from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClass
 from ...types.paginated_ticket_list import PaginatedTicketList
 from ...types.paginated_viewer_list import PaginatedViewerList
 from ...types.patched_ticket_request import PatchedTicketRequest
+from ...types.remote_field_class import RemoteFieldClass
 from ...types.ticket import Ticket
 from ...types.ticket_request import TicketRequest
 from ...types.ticket_response import TicketResponse
-from .types.tickets_list_request_expand import TicketsListRequestExpand
+from ...types.viewer import Viewer
+from .types.tickets_list_request_expand_item import TicketsListRequestExpandItem
 from .types.tickets_list_request_priority import TicketsListRequestPriority
 from .types.tickets_list_request_remote_fields import TicketsListRequestRemoteFields
 from .types.tickets_list_request_show_enum_origins import TicketsListRequestShowEnumOrigins
 from .types.tickets_list_request_status import TicketsListRequestStatus
-from .types.tickets_retrieve_request_expand import TicketsRetrieveRequestExpand
+from .types.tickets_retrieve_request_expand_item import TicketsRetrieveRequestExpandItem
 from .types.tickets_retrieve_request_remote_fields import TicketsRetrieveRequestRemoteFields
 from .types.tickets_retrieve_request_show_enum_origins import TicketsRetrieveRequestShowEnumOrigins
-from .types.tickets_viewers_list_request_expand import TicketsViewersListRequestExpand
+from .types.tickets_viewers_list_request_expand_item import TicketsViewersListRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -53,7 +56,9 @@ class RawTicketsClient:
         cursor: typing.Optional[str] = None,
         due_after: typing.Optional[dt.datetime] = None,
         due_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[TicketsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TicketsListRequestExpandItem, typing.Sequence[TicketsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -76,7 +81,7 @@ class RawTicketsClient:
         ticket_type: typing.Optional[str] = None,
         ticket_url: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedTicketList]:
+    ) -> SyncPager[Ticket, PaginatedTicketList]:
         """
         Returns a list of `Ticket` objects.
 
@@ -121,7 +126,7 @@ class RawTicketsClient:
         due_before : typing.Optional[dt.datetime]
             If provided, will only return tickets due before this datetime.
 
-        expand : typing.Optional[TicketsListRequestExpand]
+        expand : typing.Optional[typing.Union[TicketsListRequestExpandItem, typing.Sequence[TicketsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -146,7 +151,7 @@ class RawTicketsClient:
             If provided, will only return tickets with this name.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         parent_ticket_id : typing.Optional[str]
             If provided, will only return sub tickets of the parent_ticket_id.
@@ -197,7 +202,7 @@ class RawTicketsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedTicketList]
+        SyncPager[Ticket, PaginatedTicketList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -252,14 +257,55 @@ class RawTicketsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedTicketList,
                     construct_type(
                         type_=PaginatedTicketList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    account_id=account_id,
+                    assignee_ids=assignee_ids,
+                    collection_ids=collection_ids,
+                    completed_after=completed_after,
+                    completed_before=completed_before,
+                    contact_id=contact_id,
+                    created_after=created_after,
+                    created_before=created_before,
+                    creator_id=creator_id,
+                    creator_ids=creator_ids,
+                    cursor=_parsed_next,
+                    due_after=due_after,
+                    due_before=due_before,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_remote_fields=include_remote_fields,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    name=name,
+                    page_size=page_size,
+                    parent_ticket_id=parent_ticket_id,
+                    priority=priority,
+                    remote_created_after=remote_created_after,
+                    remote_created_before=remote_created_before,
+                    remote_fields=remote_fields,
+                    remote_id=remote_id,
+                    remote_updated_after=remote_updated_after,
+                    remote_updated_before=remote_updated_before,
+                    show_enum_origins=show_enum_origins,
+                    status=status,
+                    tags=tags,
+                    ticket_type=ticket_type,
+                    ticket_url=ticket_url,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -329,7 +375,9 @@ class RawTicketsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[TicketsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TicketsRetrieveRequestExpandItem, typing.Sequence[TicketsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -344,7 +392,7 @@ class RawTicketsClient:
         ----------
         id : str
 
-        expand : typing.Optional[TicketsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[TicketsRetrieveRequestExpandItem, typing.Sequence[TicketsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -466,13 +514,15 @@ class RawTicketsClient:
         ticket_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[TicketsViewersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TicketsViewersListRequestExpandItem, typing.Sequence[TicketsViewersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedViewerList]:
+    ) -> SyncPager[Viewer, PaginatedViewerList]:
         """
         Returns a list of `Viewer` objects that point to a User id or Team id that is either an assignee or viewer on a `Ticket` with the given id. [Learn more.](https://help.merge.dev/en/articles/10333658-ticketing-access-control-list-acls)
 
@@ -483,7 +533,7 @@ class RawTicketsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[TicketsViewersListRequestExpand]
+        expand : typing.Optional[typing.Union[TicketsViewersListRequestExpandItem, typing.Sequence[TicketsViewersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -496,14 +546,14 @@ class RawTicketsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[PaginatedViewerList]
+        SyncPager[Viewer, PaginatedViewerList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -521,14 +571,27 @@ class RawTicketsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedViewerList,
                     construct_type(
                         type_=PaginatedViewerList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.viewers_list(
+                    ticket_id,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    page_size=page_size,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -634,7 +697,7 @@ class RawTicketsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedRemoteFieldClassList]:
+    ) -> SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -662,14 +725,14 @@ class RawTicketsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[PaginatedRemoteFieldClassList]
+        SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -689,14 +752,28 @@ class RawTicketsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedRemoteFieldClassList,
                     construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.remote_field_classes_list(
+                    cursor=_parsed_next,
+                    ids=ids,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    is_common_model_field=is_common_model_field,
+                    is_custom=is_custom,
+                    page_size=page_size,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -723,7 +800,9 @@ class AsyncRawTicketsClient:
         cursor: typing.Optional[str] = None,
         due_after: typing.Optional[dt.datetime] = None,
         due_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[TicketsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TicketsListRequestExpandItem, typing.Sequence[TicketsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -746,7 +825,7 @@ class AsyncRawTicketsClient:
         ticket_type: typing.Optional[str] = None,
         ticket_url: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedTicketList]:
+    ) -> AsyncPager[Ticket, PaginatedTicketList]:
         """
         Returns a list of `Ticket` objects.
 
@@ -791,7 +870,7 @@ class AsyncRawTicketsClient:
         due_before : typing.Optional[dt.datetime]
             If provided, will only return tickets due before this datetime.
 
-        expand : typing.Optional[TicketsListRequestExpand]
+        expand : typing.Optional[typing.Union[TicketsListRequestExpandItem, typing.Sequence[TicketsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -816,7 +895,7 @@ class AsyncRawTicketsClient:
             If provided, will only return tickets with this name.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         parent_ticket_id : typing.Optional[str]
             If provided, will only return sub tickets of the parent_ticket_id.
@@ -867,7 +946,7 @@ class AsyncRawTicketsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedTicketList]
+        AsyncPager[Ticket, PaginatedTicketList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -922,14 +1001,58 @@ class AsyncRawTicketsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedTicketList,
                     construct_type(
                         type_=PaginatedTicketList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        account_id=account_id,
+                        assignee_ids=assignee_ids,
+                        collection_ids=collection_ids,
+                        completed_after=completed_after,
+                        completed_before=completed_before,
+                        contact_id=contact_id,
+                        created_after=created_after,
+                        created_before=created_before,
+                        creator_id=creator_id,
+                        creator_ids=creator_ids,
+                        cursor=_parsed_next,
+                        due_after=due_after,
+                        due_before=due_before,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_remote_fields=include_remote_fields,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        name=name,
+                        page_size=page_size,
+                        parent_ticket_id=parent_ticket_id,
+                        priority=priority,
+                        remote_created_after=remote_created_after,
+                        remote_created_before=remote_created_before,
+                        remote_fields=remote_fields,
+                        remote_id=remote_id,
+                        remote_updated_after=remote_updated_after,
+                        remote_updated_before=remote_updated_before,
+                        show_enum_origins=show_enum_origins,
+                        status=status,
+                        tags=tags,
+                        ticket_type=ticket_type,
+                        ticket_url=ticket_url,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -999,7 +1122,9 @@ class AsyncRawTicketsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[TicketsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TicketsRetrieveRequestExpandItem, typing.Sequence[TicketsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -1014,7 +1139,7 @@ class AsyncRawTicketsClient:
         ----------
         id : str
 
-        expand : typing.Optional[TicketsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[TicketsRetrieveRequestExpandItem, typing.Sequence[TicketsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -1136,13 +1261,15 @@ class AsyncRawTicketsClient:
         ticket_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[TicketsViewersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TicketsViewersListRequestExpandItem, typing.Sequence[TicketsViewersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedViewerList]:
+    ) -> AsyncPager[Viewer, PaginatedViewerList]:
         """
         Returns a list of `Viewer` objects that point to a User id or Team id that is either an assignee or viewer on a `Ticket` with the given id. [Learn more.](https://help.merge.dev/en/articles/10333658-ticketing-access-control-list-acls)
 
@@ -1153,7 +1280,7 @@ class AsyncRawTicketsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[TicketsViewersListRequestExpand]
+        expand : typing.Optional[typing.Union[TicketsViewersListRequestExpandItem, typing.Sequence[TicketsViewersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -1166,14 +1293,14 @@ class AsyncRawTicketsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedViewerList]
+        AsyncPager[Viewer, PaginatedViewerList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1191,14 +1318,30 @@ class AsyncRawTicketsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedViewerList,
                     construct_type(
                         type_=PaginatedViewerList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.viewers_list(
+                        ticket_id,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        page_size=page_size,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -1304,7 +1447,7 @@ class AsyncRawTicketsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedRemoteFieldClassList]:
+    ) -> AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -1332,14 +1475,14 @@ class AsyncRawTicketsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedRemoteFieldClassList]
+        AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1359,14 +1502,31 @@ class AsyncRawTicketsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedRemoteFieldClassList,
                     construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.remote_field_classes_list(
+                        cursor=_parsed_next,
+                        ids=ids,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        is_common_model_field=is_common_model_field,
+                        is_custom=is_custom,
+                        page_size=page_size,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)

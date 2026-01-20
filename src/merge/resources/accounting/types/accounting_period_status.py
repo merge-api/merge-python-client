@@ -2,6 +2,6 @@
 
 import typing
 
-from .status_895_enum import Status895Enum
+from .status895enum import Status895Enum
 
 AccountingPeriodStatus = typing.Union[Status895Enum, str]

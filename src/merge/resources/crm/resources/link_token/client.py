@@ -47,7 +47,7 @@ class LinkTokenClient:
         ] = OMIT,
         language: typing.Optional[EndUserDetailsRequestLanguage] = OMIT,
         are_syncs_disabled: typing.Optional[bool] = OMIT,
-        integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        integration_specific_config: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
         """
@@ -94,7 +94,7 @@ class LinkTokenClient:
         are_syncs_disabled : typing.Optional[bool]
             The boolean that indicates whether initial, periodic, and force syncs will be disabled.
 
-        integration_specific_config : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+        integration_specific_config : typing.Optional[typing.Dict[str, typing.Any]]
             A JSON object containing integration-specific configuration options.
 
         request_options : typing.Optional[RequestOptions]
@@ -172,7 +172,7 @@ class AsyncLinkTokenClient:
         ] = OMIT,
         language: typing.Optional[EndUserDetailsRequestLanguage] = OMIT,
         are_syncs_disabled: typing.Optional[bool] = OMIT,
-        integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        integration_specific_config: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LinkToken:
         """
@@ -219,7 +219,7 @@ class AsyncLinkTokenClient:
         are_syncs_disabled : typing.Optional[bool]
             The boolean that indicates whether initial, periodic, and force syncs will be disabled.
 
-        integration_specific_config : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+        integration_specific_config : typing.Optional[typing.Dict[str, typing.Any]]
             A JSON object containing integration-specific configuration options.
 
         request_options : typing.Optional[RequestOptions]
