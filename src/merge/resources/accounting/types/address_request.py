@@ -27,12 +27,12 @@ class AddressRequest(UncheckedBaseModel):
     * `SHIPPING` - SHIPPING
     """
 
-    street_1: typing.Optional[str] = pydantic.Field(default=None)
+    street1: typing.Optional[str] = pydantic.Field(alias="street_1", default=None)
     """
     Line 1 of the address's street.
     """
 
-    street_2: typing.Optional[str] = pydantic.Field(default=None)
+    street2: typing.Optional[str] = pydantic.Field(alias="street_2", default=None)
     """
     Line 2 of the address's street.
     """
@@ -307,8 +307,8 @@ class AddressRequest(UncheckedBaseModel):
     The address's zip code.
     """
 
-    integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
-    linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
+    integration_params: typing.Optional[typing.Dict[str, typing.Any]] = None
+    linked_account_params: typing.Optional[typing.Dict[str, typing.Any]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

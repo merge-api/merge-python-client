@@ -4,10 +4,13 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.custom_object_class import CustomObjectClass
 from ...types.paginated_custom_object_class_list import PaginatedCustomObjectClassList
 from .raw_client import AsyncRawCustomObjectClassesClient, RawCustomObjectClassesClient
+from .types.custom_object_classes_list_request_expand_item import CustomObjectClassesListRequestExpandItem
+from .types.custom_object_classes_retrieve_request_expand_item import CustomObjectClassesRetrieveRequestExpandItem
 
 
 class CustomObjectClassesClient:
@@ -31,7 +34,11 @@ class CustomObjectClassesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["fields"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                CustomObjectClassesListRequestExpandItem, typing.Sequence[CustomObjectClassesListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -40,7 +47,7 @@ class CustomObjectClassesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedCustomObjectClassList:
+    ) -> SyncPager[CustomObjectClass, PaginatedCustomObjectClassList]:
         """
         Returns a list of `CustomObjectClass` objects.
 
@@ -55,7 +62,7 @@ class CustomObjectClassesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["fields"]]
+        expand : typing.Optional[typing.Union[CustomObjectClassesListRequestExpandItem, typing.Sequence[CustomObjectClassesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -84,41 +91,27 @@ class CustomObjectClassesClient:
 
         Returns
         -------
-        PaginatedCustomObjectClassList
+        SyncPager[CustomObjectClass, PaginatedCustomObjectClassList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.custom_object_classes.list(
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.crm.custom_object_classes.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -132,13 +125,17 @@ class CustomObjectClassesClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["fields"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                CustomObjectClassesRetrieveRequestExpandItem,
+                typing.Sequence[CustomObjectClassesRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -150,7 +147,7 @@ class CustomObjectClassesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["fields"]]
+        expand : typing.Optional[typing.Union[CustomObjectClassesRetrieveRequestExpandItem, typing.Sequence[CustomObjectClassesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -177,8 +174,6 @@ class CustomObjectClassesClient:
         )
         client.crm.custom_object_classes.retrieve(
             id="id",
-            include_remote_data=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -212,7 +207,11 @@ class AsyncCustomObjectClassesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["fields"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                CustomObjectClassesListRequestExpandItem, typing.Sequence[CustomObjectClassesListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -221,7 +220,7 @@ class AsyncCustomObjectClassesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedCustomObjectClassList:
+    ) -> AsyncPager[CustomObjectClass, PaginatedCustomObjectClassList]:
         """
         Returns a list of `CustomObjectClass` objects.
 
@@ -236,7 +235,7 @@ class AsyncCustomObjectClassesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["fields"]]
+        expand : typing.Optional[typing.Union[CustomObjectClassesListRequestExpandItem, typing.Sequence[CustomObjectClassesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -265,13 +264,12 @@ class AsyncCustomObjectClassesClient:
 
         Returns
         -------
-        PaginatedCustomObjectClassList
+        AsyncPager[CustomObjectClass, PaginatedCustomObjectClassList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
 
@@ -282,31 +280,20 @@ class AsyncCustomObjectClassesClient:
 
 
         async def main() -> None:
-            await client.crm.custom_object_classes.list(
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.crm.custom_object_classes.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -320,13 +307,17 @@ class AsyncCustomObjectClassesClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["fields"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                CustomObjectClassesRetrieveRequestExpandItem,
+                typing.Sequence[CustomObjectClassesRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -338,7 +329,7 @@ class AsyncCustomObjectClassesClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["fields"]]
+        expand : typing.Optional[typing.Union[CustomObjectClassesRetrieveRequestExpandItem, typing.Sequence[CustomObjectClassesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -370,8 +361,6 @@ class AsyncCustomObjectClassesClient:
         async def main() -> None:
             await client.crm.custom_object_classes.retrieve(
                 id="id",
-                include_remote_data=True,
-                include_shell_data=True,
             )
 
 

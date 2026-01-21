@@ -4,12 +4,15 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.eeoc import Eeoc
 from ...types.paginated_eeoc_list import PaginatedEeocList
 from .raw_client import AsyncRawEeocsClient, RawEeocsClient
+from .types.eeocs_list_request_expand_item import EeocsListRequestExpandItem
 from .types.eeocs_list_request_remote_fields import EeocsListRequestRemoteFields
 from .types.eeocs_list_request_show_enum_origins import EeocsListRequestShowEnumOrigins
+from .types.eeocs_retrieve_request_expand_item import EeocsRetrieveRequestExpandItem
 from .types.eeocs_retrieve_request_remote_fields import EeocsRetrieveRequestRemoteFields
 from .types.eeocs_retrieve_request_show_enum_origins import EeocsRetrieveRequestShowEnumOrigins
 
@@ -36,7 +39,9 @@ class EeocsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[EeocsListRequestExpandItem, typing.Sequence[EeocsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -47,7 +52,7 @@ class EeocsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[EeocsListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedEeocList:
+    ) -> SyncPager[Eeoc, PaginatedEeocList]:
         """
         Returns a list of `EEOC` objects.
 
@@ -65,7 +70,7 @@ class EeocsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[EeocsListRequestExpandItem, typing.Sequence[EeocsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -100,48 +105,27 @@ class EeocsClient:
 
         Returns
         -------
-        PaginatedEeocList
+        SyncPager[Eeoc, PaginatedEeocList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
-        from merge.resources.ats.resources.eeocs import (
-            EeocsListRequestRemoteFields,
-            EeocsListRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.eeocs.list(
-            candidate_id="candidate_id",
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.ats.eeocs.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            remote_fields=EeocsListRequestRemoteFields.DISABILITY_STATUS,
-            remote_id="remote_id",
-            show_enum_origins=EeocsListRequestShowEnumOrigins.DISABILITY_STATUS,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             candidate_id=candidate_id,
             created_after=created_after,
             created_before=created_before,
@@ -158,13 +142,14 @@ class EeocsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[EeocsRetrieveRequestExpandItem, typing.Sequence[EeocsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EeocsRetrieveRequestRemoteFields] = None,
@@ -178,7 +163,7 @@ class EeocsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[EeocsRetrieveRequestExpandItem, typing.Sequence[EeocsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -204,10 +189,6 @@ class EeocsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.ats.resources.eeocs import (
-            EeocsRetrieveRequestRemoteFields,
-            EeocsRetrieveRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -215,10 +196,6 @@ class EeocsClient:
         )
         client.ats.eeocs.retrieve(
             id="id",
-            include_remote_data=True,
-            include_shell_data=True,
-            remote_fields=EeocsRetrieveRequestRemoteFields.DISABILITY_STATUS,
-            show_enum_origins=EeocsRetrieveRequestShowEnumOrigins.DISABILITY_STATUS,
         )
         """
         _response = self._raw_client.retrieve(
@@ -255,7 +232,9 @@ class AsyncEeocsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[EeocsListRequestExpandItem, typing.Sequence[EeocsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -266,7 +245,7 @@ class AsyncEeocsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[EeocsListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedEeocList:
+    ) -> AsyncPager[Eeoc, PaginatedEeocList]:
         """
         Returns a list of `EEOC` objects.
 
@@ -284,7 +263,7 @@ class AsyncEeocsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[EeocsListRequestExpandItem, typing.Sequence[EeocsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -319,19 +298,14 @@ class AsyncEeocsClient:
 
         Returns
         -------
-        PaginatedEeocList
+        AsyncPager[Eeoc, PaginatedEeocList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
-        from merge.resources.ats.resources.eeocs import (
-            EeocsListRequestRemoteFields,
-            EeocsListRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -340,34 +314,20 @@ class AsyncEeocsClient:
 
 
         async def main() -> None:
-            await client.ats.eeocs.list(
-                candidate_id="candidate_id",
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.ats.eeocs.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                remote_fields=EeocsListRequestRemoteFields.DISABILITY_STATUS,
-                remote_id="remote_id",
-                show_enum_origins=EeocsListRequestShowEnumOrigins.DISABILITY_STATUS,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             candidate_id=candidate_id,
             created_after=created_after,
             created_before=created_before,
@@ -384,13 +344,14 @@ class AsyncEeocsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[EeocsRetrieveRequestExpandItem, typing.Sequence[EeocsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[EeocsRetrieveRequestRemoteFields] = None,
@@ -404,7 +365,7 @@ class AsyncEeocsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[EeocsRetrieveRequestExpandItem, typing.Sequence[EeocsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -432,10 +393,6 @@ class AsyncEeocsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.ats.resources.eeocs import (
-            EeocsRetrieveRequestRemoteFields,
-            EeocsRetrieveRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -446,10 +403,6 @@ class AsyncEeocsClient:
         async def main() -> None:
             await client.ats.eeocs.retrieve(
                 id="id",
-                include_remote_data=True,
-                include_shell_data=True,
-                remote_fields=EeocsRetrieveRequestRemoteFields.DISABILITY_STATUS,
-                show_enum_origins=EeocsRetrieveRequestShowEnumOrigins.DISABILITY_STATUS,
             )
 
 

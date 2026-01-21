@@ -9,12 +9,17 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.offer import Offer
 from ...types.paginated_offer_list import PaginatedOfferList
-from .types.offers_list_request_expand import OffersListRequestExpand
-from .types.offers_retrieve_request_expand import OffersRetrieveRequestExpand
+from .types.offers_list_request_expand_item import OffersListRequestExpandItem
+from .types.offers_list_request_remote_fields import OffersListRequestRemoteFields
+from .types.offers_list_request_show_enum_origins import OffersListRequestShowEnumOrigins
+from .types.offers_retrieve_request_expand_item import OffersRetrieveRequestExpandItem
+from .types.offers_retrieve_request_remote_fields import OffersRetrieveRequestRemoteFields
+from .types.offers_retrieve_request_show_enum_origins import OffersRetrieveRequestShowEnumOrigins
 
 
 class RawOffersClient:
@@ -29,18 +34,20 @@ class RawOffersClient:
         created_before: typing.Optional[dt.datetime] = None,
         creator_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[OffersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OffersListRequestExpandItem, typing.Sequence[OffersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[OffersListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[OffersListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedOfferList]:
+    ) -> SyncPager[Offer, PaginatedOfferList]:
         """
         Returns a list of `Offer` objects.
 
@@ -61,7 +68,7 @@ class RawOffersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[OffersListRequestExpand]
+        expand : typing.Optional[typing.Union[OffersListRequestExpandItem, typing.Sequence[OffersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -82,13 +89,13 @@ class RawOffersClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[OffersListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[OffersListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -96,7 +103,7 @@ class RawOffersClient:
 
         Returns
         -------
-        HttpResponse[PaginatedOfferList]
+        SyncPager[Offer, PaginatedOfferList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -123,14 +130,35 @@ class RawOffersClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedOfferList,
                     construct_type(
                         type_=PaginatedOfferList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    application_id=application_id,
+                    created_after=created_after,
+                    created_before=created_before,
+                    creator_id=creator_id,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    remote_fields=remote_fields,
+                    remote_id=remote_id,
+                    show_enum_origins=show_enum_origins,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -140,11 +168,13 @@ class RawOffersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[OffersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OffersRetrieveRequestExpandItem, typing.Sequence[OffersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[OffersRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[OffersRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Offer]:
         """
@@ -154,7 +184,7 @@ class RawOffersClient:
         ----------
         id : str
 
-        expand : typing.Optional[OffersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[OffersRetrieveRequestExpandItem, typing.Sequence[OffersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -163,10 +193,10 @@ class RawOffersClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[OffersRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[OffersRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -217,18 +247,20 @@ class AsyncRawOffersClient:
         created_before: typing.Optional[dt.datetime] = None,
         creator_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[OffersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OffersListRequestExpandItem, typing.Sequence[OffersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[OffersListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        show_enum_origins: typing.Optional[OffersListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedOfferList]:
+    ) -> AsyncPager[Offer, PaginatedOfferList]:
         """
         Returns a list of `Offer` objects.
 
@@ -249,7 +281,7 @@ class AsyncRawOffersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[OffersListRequestExpand]
+        expand : typing.Optional[typing.Union[OffersListRequestExpandItem, typing.Sequence[OffersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -270,13 +302,13 @@ class AsyncRawOffersClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[OffersListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[OffersListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -284,7 +316,7 @@ class AsyncRawOffersClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedOfferList]
+        AsyncPager[Offer, PaginatedOfferList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -311,14 +343,38 @@ class AsyncRawOffersClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedOfferList,
                     construct_type(
                         type_=PaginatedOfferList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        application_id=application_id,
+                        created_after=created_after,
+                        created_before=created_before,
+                        creator_id=creator_id,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        remote_fields=remote_fields,
+                        remote_id=remote_id,
+                        show_enum_origins=show_enum_origins,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -328,11 +384,13 @@ class AsyncRawOffersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[OffersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OffersRetrieveRequestExpandItem, typing.Sequence[OffersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["status"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
+        remote_fields: typing.Optional[OffersRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[OffersRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Offer]:
         """
@@ -342,7 +400,7 @@ class AsyncRawOffersClient:
         ----------
         id : str
 
-        expand : typing.Optional[OffersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[OffersRetrieveRequestExpandItem, typing.Sequence[OffersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -351,10 +409,10 @@ class AsyncRawOffersClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["status"]]
+        remote_fields : typing.Optional[OffersRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["status"]]
+        show_enum_origins : typing.Optional[OffersRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
