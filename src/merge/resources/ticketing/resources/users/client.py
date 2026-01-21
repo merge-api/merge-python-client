@@ -4,12 +4,13 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.paginated_user_list import PaginatedUserList
 from ...types.user import User
 from .raw_client import AsyncRawUsersClient, RawUsersClient
-from .types.users_list_request_expand import UsersListRequestExpand
-from .types.users_retrieve_request_expand import UsersRetrieveRequestExpand
+from .types.users_list_request_expand_item import UsersListRequestExpandItem
+from .types.users_retrieve_request_expand_item import UsersRetrieveRequestExpandItem
 
 
 class UsersClient:
@@ -34,7 +35,9 @@ class UsersClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_address: typing.Optional[str] = None,
-        expand: typing.Optional[UsersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[UsersListRequestExpandItem, typing.Sequence[UsersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -44,7 +47,7 @@ class UsersClient:
         remote_id: typing.Optional[str] = None,
         team: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedUserList:
+    ) -> SyncPager[User, PaginatedUserList]:
         """
         Returns a list of `User` objects.
 
@@ -62,7 +65,7 @@ class UsersClient:
         email_address : typing.Optional[str]
             If provided, will only return users with emails equal to this value (case insensitive).
 
-        expand : typing.Optional[UsersListRequestExpand]
+        expand : typing.Optional[typing.Union[UsersListRequestExpandItem, typing.Sequence[UsersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -81,7 +84,7 @@ class UsersClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -94,45 +97,27 @@ class UsersClient:
 
         Returns
         -------
-        PaginatedUserList
+        SyncPager[User, PaginatedUserList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
-        from merge.resources.ticketing.resources.users import UsersListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.users.list(
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.ticketing.users.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            email_address="email_address",
-            expand=UsersListRequestExpand.ROLES,
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            remote_id="remote_id",
-            team="team",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -148,13 +133,14 @@ class UsersClient:
             team=team,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[UsersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[UsersRetrieveRequestExpandItem, typing.Sequence[UsersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -166,7 +152,7 @@ class UsersClient:
         ----------
         id : str
 
-        expand : typing.Optional[UsersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[UsersRetrieveRequestExpandItem, typing.Sequence[UsersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -186,7 +172,6 @@ class UsersClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.ticketing.resources.users import UsersRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -194,9 +179,6 @@ class UsersClient:
         )
         client.ticketing.users.retrieve(
             id="id",
-            expand=UsersRetrieveRequestExpand.ROLES,
-            include_remote_data=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -231,7 +213,9 @@ class AsyncUsersClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_address: typing.Optional[str] = None,
-        expand: typing.Optional[UsersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[UsersListRequestExpandItem, typing.Sequence[UsersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -241,7 +225,7 @@ class AsyncUsersClient:
         remote_id: typing.Optional[str] = None,
         team: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedUserList:
+    ) -> AsyncPager[User, PaginatedUserList]:
         """
         Returns a list of `User` objects.
 
@@ -259,7 +243,7 @@ class AsyncUsersClient:
         email_address : typing.Optional[str]
             If provided, will only return users with emails equal to this value (case insensitive).
 
-        expand : typing.Optional[UsersListRequestExpand]
+        expand : typing.Optional[typing.Union[UsersListRequestExpandItem, typing.Sequence[UsersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -278,7 +262,7 @@ class AsyncUsersClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -291,16 +275,14 @@ class AsyncUsersClient:
 
         Returns
         -------
-        PaginatedUserList
+        AsyncPager[User, PaginatedUserList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
-        from merge.resources.ticketing.resources.users import UsersListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -309,34 +291,20 @@ class AsyncUsersClient:
 
 
         async def main() -> None:
-            await client.ticketing.users.list(
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.ticketing.users.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                email_address="email_address",
-                expand=UsersListRequestExpand.ROLES,
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                remote_id="remote_id",
-                team="team",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -352,13 +320,14 @@ class AsyncUsersClient:
             team=team,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[UsersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[UsersRetrieveRequestExpandItem, typing.Sequence[UsersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -370,7 +339,7 @@ class AsyncUsersClient:
         ----------
         id : str
 
-        expand : typing.Optional[UsersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[UsersRetrieveRequestExpandItem, typing.Sequence[UsersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -392,7 +361,6 @@ class AsyncUsersClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.ticketing.resources.users import UsersRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -403,9 +371,6 @@ class AsyncUsersClient:
         async def main() -> None:
             await client.ticketing.users.retrieve(
                 id="id",
-                expand=UsersRetrieveRequestExpand.ROLES,
-                include_remote_data=True,
-                include_shell_data=True,
             )
 
 

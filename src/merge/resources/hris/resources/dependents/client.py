@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.dependent import Dependent
 from ...types.paginated_dependent_list import PaginatedDependentList
@@ -31,7 +32,6 @@ class DependentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        employee_id: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
@@ -41,7 +41,7 @@ class DependentsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedDependentList:
+    ) -> SyncPager[Dependent, PaginatedDependentList]:
         """
         Returns a list of `Dependent` objects.
 
@@ -55,9 +55,6 @@ class DependentsClient:
 
         cursor : typing.Optional[str]
             The pagination cursor value.
-
-        employee_id : typing.Optional[str]
-            If provided, will only return dependents for this employee.
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -78,7 +75,7 @@ class DependentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -88,47 +85,30 @@ class DependentsClient:
 
         Returns
         -------
-        PaginatedDependentList
+        SyncPager[Dependent, PaginatedDependentList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.dependents.list(
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.hris.dependents.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            employee_id="employee_id",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_sensitive_fields=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
-            employee_id=employee_id,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
             include_sensitive_fields=include_sensitive_fields,
@@ -139,7 +119,6 @@ class DependentsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -184,9 +163,6 @@ class DependentsClient:
         )
         client.hris.dependents.retrieve(
             id="id",
-            include_remote_data=True,
-            include_sensitive_fields=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -220,7 +196,6 @@ class AsyncDependentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        employee_id: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
@@ -230,7 +205,7 @@ class AsyncDependentsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedDependentList:
+    ) -> AsyncPager[Dependent, PaginatedDependentList]:
         """
         Returns a list of `Dependent` objects.
 
@@ -244,9 +219,6 @@ class AsyncDependentsClient:
 
         cursor : typing.Optional[str]
             The pagination cursor value.
-
-        employee_id : typing.Optional[str]
-            If provided, will only return dependents for this employee.
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -267,7 +239,7 @@ class AsyncDependentsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -277,13 +249,12 @@ class AsyncDependentsClient:
 
         Returns
         -------
-        PaginatedDependentList
+        AsyncPager[Dependent, PaginatedDependentList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
 
@@ -294,37 +265,23 @@ class AsyncDependentsClient:
 
 
         async def main() -> None:
-            await client.hris.dependents.list(
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.hris.dependents.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                employee_id="employee_id",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_sensitive_fields=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
-            employee_id=employee_id,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
             include_sensitive_fields=include_sensitive_fields,
@@ -335,7 +292,6 @@ class AsyncDependentsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
@@ -385,9 +341,6 @@ class AsyncDependentsClient:
         async def main() -> None:
             await client.hris.dependents.retrieve(
                 id="id",
-                include_remote_data=True,
-                include_sensitive_fields=True,
-                include_shell_data=True,
             )
 
 

@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.account import Account
 from ...types.account_request import AccountRequest
@@ -12,7 +13,10 @@ from ...types.meta_response import MetaResponse
 from ...types.paginated_account_list import PaginatedAccountList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.patched_account_request import PatchedAccountRequest
+from ...types.remote_field_class import RemoteFieldClass
 from .raw_client import AsyncRawAccountsClient, RawAccountsClient
+from .types.accounts_list_request_expand_item import AccountsListRequestExpandItem
+from .types.accounts_retrieve_request_expand_item import AccountsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -39,7 +43,9 @@ class AccountsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["owner"]] = None,
+        expand: typing.Optional[
+            typing.Union[AccountsListRequestExpandItem, typing.Sequence[AccountsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -51,7 +57,7 @@ class AccountsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAccountList:
+    ) -> SyncPager[Account, PaginatedAccountList]:
         """
         Returns a list of `Account` objects.
 
@@ -66,7 +72,7 @@ class AccountsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["owner"]]
+        expand : typing.Optional[typing.Union[AccountsListRequestExpandItem, typing.Sequence[AccountsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -104,44 +110,27 @@ class AccountsClient:
 
         Returns
         -------
-        PaginatedAccountList
+        SyncPager[Account, PaginatedAccountList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.accounts.list(
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.crm.accounts.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_remote_fields=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            name="name",
-            owner_id="owner_id",
-            page_size=1,
-            remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -158,7 +147,6 @@ class AccountsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -199,8 +187,6 @@ class AccountsClient:
             api_key="YOUR_API_KEY",
         )
         client.crm.accounts.create(
-            is_debug_mode=True,
-            run_async=True,
             model=AccountRequest(),
         )
         """
@@ -213,7 +199,9 @@ class AccountsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["owner"]] = None,
+        expand: typing.Optional[
+            typing.Union[AccountsRetrieveRequestExpandItem, typing.Sequence[AccountsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -226,7 +214,7 @@ class AccountsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["owner"]]
+        expand : typing.Optional[typing.Union[AccountsRetrieveRequestExpandItem, typing.Sequence[AccountsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -256,9 +244,6 @@ class AccountsClient:
         )
         client.crm.accounts.retrieve(
             id="id",
-            include_remote_data=True,
-            include_remote_fields=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -314,8 +299,6 @@ class AccountsClient:
         )
         client.crm.accounts.partial_update(
             id="id",
-            is_debug_mode=True,
-            run_async=True,
             model=PatchedAccountRequest(),
         )
         """
@@ -394,7 +377,7 @@ class AccountsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -429,7 +412,7 @@ class AccountsClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
 
         Examples
@@ -440,18 +423,16 @@ class AccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.accounts.remote_field_classes_list(
+        response = client.crm.accounts.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_remote_fields=True,
-            include_shell_data=True,
-            is_common_model_field=True,
-            is_custom=True,
-            page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.remote_field_classes_list(
+        return self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -462,7 +443,6 @@ class AccountsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncAccountsClient:
@@ -486,7 +466,9 @@ class AsyncAccountsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["owner"]] = None,
+        expand: typing.Optional[
+            typing.Union[AccountsListRequestExpandItem, typing.Sequence[AccountsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -498,7 +480,7 @@ class AsyncAccountsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAccountList:
+    ) -> AsyncPager[Account, PaginatedAccountList]:
         """
         Returns a list of `Account` objects.
 
@@ -513,7 +495,7 @@ class AsyncAccountsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["owner"]]
+        expand : typing.Optional[typing.Union[AccountsListRequestExpandItem, typing.Sequence[AccountsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -551,13 +533,12 @@ class AsyncAccountsClient:
 
         Returns
         -------
-        PaginatedAccountList
+        AsyncPager[Account, PaginatedAccountList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
 
@@ -568,34 +549,20 @@ class AsyncAccountsClient:
 
 
         async def main() -> None:
-            await client.crm.accounts.list(
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.crm.accounts.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_remote_fields=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                name="name",
-                owner_id="owner_id",
-                page_size=1,
-                remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -612,7 +579,6 @@ class AsyncAccountsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -658,8 +624,6 @@ class AsyncAccountsClient:
 
         async def main() -> None:
             await client.crm.accounts.create(
-                is_debug_mode=True,
-                run_async=True,
                 model=AccountRequest(),
             )
 
@@ -675,7 +639,9 @@ class AsyncAccountsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["owner"]] = None,
+        expand: typing.Optional[
+            typing.Union[AccountsRetrieveRequestExpandItem, typing.Sequence[AccountsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -688,7 +654,7 @@ class AsyncAccountsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["owner"]]
+        expand : typing.Optional[typing.Union[AccountsRetrieveRequestExpandItem, typing.Sequence[AccountsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -723,9 +689,6 @@ class AsyncAccountsClient:
         async def main() -> None:
             await client.crm.accounts.retrieve(
                 id="id",
-                include_remote_data=True,
-                include_remote_fields=True,
-                include_shell_data=True,
             )
 
 
@@ -789,8 +752,6 @@ class AsyncAccountsClient:
         async def main() -> None:
             await client.crm.accounts.partial_update(
                 id="id",
-                is_debug_mode=True,
-                run_async=True,
                 model=PatchedAccountRequest(),
             )
 
@@ -890,7 +851,7 @@ class AsyncAccountsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -925,7 +886,7 @@ class AsyncAccountsClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass, PaginatedRemoteFieldClassList]
 
 
         Examples
@@ -941,21 +902,20 @@ class AsyncAccountsClient:
 
 
         async def main() -> None:
-            await client.crm.accounts.remote_field_classes_list(
+            response = await client.crm.accounts.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_remote_fields=True,
-                include_shell_data=True,
-                is_common_model_field=True,
-                is_custom=True,
-                page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.remote_field_classes_list(
+        return await self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -966,4 +926,3 @@ class AsyncAccountsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data

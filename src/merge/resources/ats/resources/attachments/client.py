@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.attachment import Attachment
 from ...types.attachment_request import AttachmentRequest
@@ -11,6 +12,12 @@ from ...types.attachment_response import AttachmentResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_attachment_list import PaginatedAttachmentList
 from .raw_client import AsyncRawAttachmentsClient, RawAttachmentsClient
+from .types.attachments_list_request_expand_item import AttachmentsListRequestExpandItem
+from .types.attachments_list_request_remote_fields import AttachmentsListRequestRemoteFields
+from .types.attachments_list_request_show_enum_origins import AttachmentsListRequestShowEnumOrigins
+from .types.attachments_retrieve_request_expand_item import AttachmentsRetrieveRequestExpandItem
+from .types.attachments_retrieve_request_remote_fields import AttachmentsRetrieveRequestRemoteFields
+from .types.attachments_retrieve_request_show_enum_origins import AttachmentsRetrieveRequestShowEnumOrigins
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -38,18 +45,20 @@ class AttachmentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[AttachmentsListRequestExpandItem, typing.Sequence[AttachmentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["attachment_type"]] = None,
+        remote_fields: typing.Optional[AttachmentsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["attachment_type"]] = None,
+        show_enum_origins: typing.Optional[AttachmentsListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAttachmentList:
+    ) -> SyncPager[Attachment, PaginatedAttachmentList]:
         """
         Returns a list of `Attachment` objects.
 
@@ -67,7 +76,7 @@ class AttachmentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[AttachmentsListRequestExpandItem, typing.Sequence[AttachmentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -88,13 +97,13 @@ class AttachmentsClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["attachment_type"]]
+        remote_fields : typing.Optional[AttachmentsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["attachment_type"]]
+        show_enum_origins : typing.Optional[AttachmentsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -102,42 +111,27 @@ class AttachmentsClient:
 
         Returns
         -------
-        PaginatedAttachmentList
+        SyncPager[Attachment, PaginatedAttachmentList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.attachments.list(
-            candidate_id="candidate_id",
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.ats.attachments.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             candidate_id=candidate_id,
             created_after=created_after,
             created_before=created_before,
@@ -154,7 +148,6 @@ class AttachmentsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -198,8 +191,6 @@ class AttachmentsClient:
             api_key="YOUR_API_KEY",
         )
         client.ats.attachments.create(
-            is_debug_mode=True,
-            run_async=True,
             model=AttachmentRequest(),
             remote_user_id="remote_user_id",
         )
@@ -217,11 +208,13 @@ class AttachmentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[AttachmentsRetrieveRequestExpandItem, typing.Sequence[AttachmentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["attachment_type"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["attachment_type"]] = None,
+        remote_fields: typing.Optional[AttachmentsRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[AttachmentsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Attachment:
         """
@@ -231,7 +224,7 @@ class AttachmentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[AttachmentsRetrieveRequestExpandItem, typing.Sequence[AttachmentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -240,10 +233,10 @@ class AttachmentsClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["attachment_type"]]
+        remote_fields : typing.Optional[AttachmentsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["attachment_type"]]
+        show_enum_origins : typing.Optional[AttachmentsRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -264,8 +257,6 @@ class AttachmentsClient:
         )
         client.ats.attachments.retrieve(
             id="id",
-            include_remote_data=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -329,18 +320,20 @@ class AsyncAttachmentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[AttachmentsListRequestExpandItem, typing.Sequence[AttachmentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["attachment_type"]] = None,
+        remote_fields: typing.Optional[AttachmentsListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["attachment_type"]] = None,
+        show_enum_origins: typing.Optional[AttachmentsListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAttachmentList:
+    ) -> AsyncPager[Attachment, PaginatedAttachmentList]:
         """
         Returns a list of `Attachment` objects.
 
@@ -358,7 +351,7 @@ class AsyncAttachmentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[AttachmentsListRequestExpandItem, typing.Sequence[AttachmentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -379,13 +372,13 @@ class AsyncAttachmentsClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["attachment_type"]]
+        remote_fields : typing.Optional[AttachmentsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["attachment_type"]]
+        show_enum_origins : typing.Optional[AttachmentsListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -393,13 +386,12 @@ class AsyncAttachmentsClient:
 
         Returns
         -------
-        PaginatedAttachmentList
+        AsyncPager[Attachment, PaginatedAttachmentList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
 
@@ -410,32 +402,20 @@ class AsyncAttachmentsClient:
 
 
         async def main() -> None:
-            await client.ats.attachments.list(
-                candidate_id="candidate_id",
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.ats.attachments.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             candidate_id=candidate_id,
             created_after=created_after,
             created_before=created_before,
@@ -452,7 +432,6 @@ class AsyncAttachmentsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -501,8 +480,6 @@ class AsyncAttachmentsClient:
 
         async def main() -> None:
             await client.ats.attachments.create(
-                is_debug_mode=True,
-                run_async=True,
                 model=AttachmentRequest(),
                 remote_user_id="remote_user_id",
             )
@@ -523,11 +500,13 @@ class AsyncAttachmentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["candidate"]] = None,
+        expand: typing.Optional[
+            typing.Union[AttachmentsRetrieveRequestExpandItem, typing.Sequence[AttachmentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["attachment_type"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["attachment_type"]] = None,
+        remote_fields: typing.Optional[AttachmentsRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[AttachmentsRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Attachment:
         """
@@ -537,7 +516,7 @@ class AsyncAttachmentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["candidate"]]
+        expand : typing.Optional[typing.Union[AttachmentsRetrieveRequestExpandItem, typing.Sequence[AttachmentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -546,10 +525,10 @@ class AsyncAttachmentsClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["attachment_type"]]
+        remote_fields : typing.Optional[AttachmentsRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["attachment_type"]]
+        show_enum_origins : typing.Optional[AttachmentsRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -575,8 +554,6 @@ class AsyncAttachmentsClient:
         async def main() -> None:
             await client.ats.attachments.retrieve(
                 id="id",
-                include_remote_data=True,
-                include_shell_data=True,
             )
 
 

@@ -6,11 +6,11 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .leads_list_request_expand import LeadsListRequestExpand
-    from .leads_retrieve_request_expand import LeadsRetrieveRequestExpand
+    from .leads_list_request_expand_item import LeadsListRequestExpandItem
+    from .leads_retrieve_request_expand_item import LeadsRetrieveRequestExpandItem
 _dynamic_imports: typing.Dict[str, str] = {
-    "LeadsListRequestExpand": ".leads_list_request_expand",
-    "LeadsRetrieveRequestExpand": ".leads_retrieve_request_expand",
+    "LeadsListRequestExpandItem": ".leads_list_request_expand_item",
+    "LeadsRetrieveRequestExpandItem": ".leads_retrieve_request_expand_item",
 }
 
 
@@ -20,8 +20,10 @@ def __getattr__(attr_name: str) -> typing.Any:
         raise AttributeError(f"No {attr_name} found in _dynamic_imports for module name -> {__name__}")
     try:
         module = import_module(module_name, __package__)
-        result = getattr(module, attr_name)
-        return result
+        if module_name == f".{attr_name}":
+            return module
+        else:
+            return getattr(module, attr_name)
     except ImportError as e:
         raise ImportError(f"Failed to import {attr_name} from {module_name}: {e}") from e
     except AttributeError as e:
@@ -33,4 +35,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["LeadsListRequestExpand", "LeadsRetrieveRequestExpand"]
+__all__ = ["LeadsListRequestExpandItem", "LeadsRetrieveRequestExpandItem"]
