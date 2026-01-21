@@ -8,12 +8,12 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .expense_line_account import ExpenseLineAccount
 from .expense_line_contact import ExpenseLineContact
-from .expense_line_currency import ExpenseLineCurrency
 from .expense_line_employee import ExpenseLineEmployee
 from .expense_line_item import ExpenseLineItem
 from .expense_line_project import ExpenseLineProject
 from .expense_line_tracking_categories_item import ExpenseLineTrackingCategoriesItem
 from .expense_line_tracking_category import ExpenseLineTrackingCategory
+from .transaction_currency_enum import TransactionCurrencyEnum
 
 
 class ExpenseLine(UncheckedBaseModel):
@@ -70,7 +70,7 @@ class ExpenseLine(UncheckedBaseModel):
     The employee this overall transaction relates to.
     """
 
-    currency: typing.Optional[ExpenseLineCurrency] = pydantic.Field(default=None)
+    currency: typing.Optional[TransactionCurrencyEnum] = pydantic.Field(default=None)
     """
     The expense line item's currency.
     
