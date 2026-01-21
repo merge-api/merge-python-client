@@ -3,10 +3,13 @@
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.paginated_payment_term_list import PaginatedPaymentTermList
 from ...types.payment_term import PaymentTerm
 from .raw_client import AsyncRawPaymentTermsClient, RawPaymentTermsClient
+from .types.payment_terms_list_request_expand_item import PaymentTermsListRequestExpandItem
+from .types.payment_terms_retrieve_request_expand_item import PaymentTermsRetrieveRequestExpandItem
 
 
 class PaymentTermsClient:
@@ -28,13 +31,15 @@ class PaymentTermsClient:
         self,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[PaymentTermsListRequestExpandItem, typing.Sequence[PaymentTermsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedPaymentTermList:
+    ) -> SyncPager[PaymentTerm, PaginatedPaymentTermList]:
         """
         Returns a list of `PaymentTerm` objects.
 
@@ -43,7 +48,7 @@ class PaymentTermsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[PaymentTermsListRequestExpandItem, typing.Sequence[PaymentTermsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -63,7 +68,7 @@ class PaymentTermsClient:
 
         Returns
         -------
-        PaginatedPaymentTermList
+        SyncPager[PaymentTerm, PaginatedPaymentTermList]
 
 
         Examples
@@ -74,15 +79,16 @@ class PaymentTermsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.payment_terms.list(
+        response = client.accounting.payment_terms.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             cursor=cursor,
             expand=expand,
             include_deleted_data=include_deleted_data,
@@ -91,13 +97,14 @@ class PaymentTermsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[PaymentTermsRetrieveRequestExpandItem, typing.Sequence[PaymentTermsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -109,7 +116,7 @@ class PaymentTermsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[PaymentTermsRetrieveRequestExpandItem, typing.Sequence[PaymentTermsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -136,8 +143,6 @@ class PaymentTermsClient:
         )
         client.accounting.payment_terms.retrieve(
             id="id",
-            include_remote_data=True,
-            include_shell_data=True,
         )
         """
         _response = self._raw_client.retrieve(
@@ -169,13 +174,15 @@ class AsyncPaymentTermsClient:
         self,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[PaymentTermsListRequestExpandItem, typing.Sequence[PaymentTermsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedPaymentTermList:
+    ) -> AsyncPager[PaymentTerm, PaginatedPaymentTermList]:
         """
         Returns a list of `PaymentTerm` objects.
 
@@ -184,7 +191,7 @@ class AsyncPaymentTermsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[PaymentTermsListRequestExpandItem, typing.Sequence[PaymentTermsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -204,7 +211,7 @@ class AsyncPaymentTermsClient:
 
         Returns
         -------
-        PaginatedPaymentTermList
+        AsyncPager[PaymentTerm, PaginatedPaymentTermList]
 
 
         Examples
@@ -220,18 +227,20 @@ class AsyncPaymentTermsClient:
 
 
         async def main() -> None:
-            await client.accounting.payment_terms.list(
+            response = await client.accounting.payment_terms.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             cursor=cursor,
             expand=expand,
             include_deleted_data=include_deleted_data,
@@ -240,13 +249,14 @@ class AsyncPaymentTermsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[PaymentTermsRetrieveRequestExpandItem, typing.Sequence[PaymentTermsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -258,7 +268,7 @@ class AsyncPaymentTermsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[PaymentTermsRetrieveRequestExpandItem, typing.Sequence[PaymentTermsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -290,8 +300,6 @@ class AsyncPaymentTermsClient:
         async def main() -> None:
             await client.accounting.payment_terms.retrieve(
                 id="id",
-                include_remote_data=True,
-                include_shell_data=True,
             )
 
 

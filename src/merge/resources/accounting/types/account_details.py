@@ -6,14 +6,14 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
-from .account_details_category import AccountDetailsCategory
+from .category_enum import CategoryEnum
 
 
 class AccountDetails(UncheckedBaseModel):
     id: typing.Optional[str] = None
     integration: typing.Optional[str] = None
     integration_slug: typing.Optional[str] = None
-    category: typing.Optional[AccountDetailsCategory] = None
+    category: typing.Optional[CategoryEnum] = None
     end_user_origin_id: typing.Optional[str] = None
     end_user_organization_name: typing.Optional[str] = None
     end_user_email_address: typing.Optional[str] = None

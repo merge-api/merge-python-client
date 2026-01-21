@@ -42,9 +42,7 @@ class CustomObjectClass(UncheckedBaseModel):
     """
 
     fields: typing.Optional[typing.List[RemoteFieldClassForCustomObjectClass]] = None
-    association_types: typing.Optional[typing.List[typing.Dict[str, typing.Optional[typing.Any]]]] = pydantic.Field(
-        default=None
-    )
+    association_types: typing.Optional[typing.List[typing.Dict[str, typing.Any]]] = pydantic.Field(default=None)
     """
     The types of associations with other models that the custom object class can have.
     """

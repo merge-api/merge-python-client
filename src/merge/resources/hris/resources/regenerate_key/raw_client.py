@@ -36,7 +36,7 @@ class RawRegenerateKeyClient:
 
         """
         _response = self._client_wrapper.httpx_client.request(
-            "hris/v1/regenerate-key",
+            "regenerate-key",
             method="POST",
             json={
                 "name": name,
@@ -87,7 +87,7 @@ class AsyncRawRegenerateKeyClient:
 
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "hris/v1/regenerate-key",
+            "regenerate-key",
             method="POST",
             json={
                 "name": name,

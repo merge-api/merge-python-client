@@ -9,10 +9,15 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.paginated_remote_user_list import PaginatedRemoteUserList
 from ...types.remote_user import RemoteUser
+from .types.users_list_request_remote_fields import UsersListRequestRemoteFields
+from .types.users_list_request_show_enum_origins import UsersListRequestShowEnumOrigins
+from .types.users_retrieve_request_remote_fields import UsersRetrieveRequestRemoteFields
+from .types.users_retrieve_request_show_enum_origins import UsersRetrieveRequestShowEnumOrigins
 
 
 class RawUsersClient:
@@ -32,11 +37,11 @@ class RawUsersClient:
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["access_role"]] = None,
+        remote_fields: typing.Optional[UsersListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["access_role"]] = None,
+        show_enum_origins: typing.Optional[UsersListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedRemoteUserList]:
+    ) -> SyncPager[RemoteUser, PaginatedRemoteUserList]:
         """
         Returns a list of `RemoteUser` objects.
 
@@ -72,13 +77,13 @@ class RawUsersClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["access_role"]]
+        remote_fields : typing.Optional[UsersListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["access_role"]]
+        show_enum_origins : typing.Optional[UsersListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -86,7 +91,7 @@ class RawUsersClient:
 
         Returns
         -------
-        HttpResponse[PaginatedRemoteUserList]
+        SyncPager[RemoteUser, PaginatedRemoteUserList]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -111,14 +116,33 @@ class RawUsersClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedRemoteUserList,
                     construct_type(
                         type_=PaginatedRemoteUserList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    email=email,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    remote_fields=remote_fields,
+                    remote_id=remote_id,
+                    show_enum_origins=show_enum_origins,
+                    request_options=request_options,
+                )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -130,8 +154,8 @@ class RawUsersClient:
         *,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["access_role"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["access_role"]] = None,
+        remote_fields: typing.Optional[UsersRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[UsersRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[RemoteUser]:
         """
@@ -147,10 +171,10 @@ class RawUsersClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["access_role"]]
+        remote_fields : typing.Optional[UsersRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["access_role"]]
+        show_enum_origins : typing.Optional[UsersRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -205,11 +229,11 @@ class AsyncRawUsersClient:
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
-        remote_fields: typing.Optional[typing.Literal["access_role"]] = None,
+        remote_fields: typing.Optional[UsersListRequestRemoteFields] = None,
         remote_id: typing.Optional[str] = None,
-        show_enum_origins: typing.Optional[typing.Literal["access_role"]] = None,
+        show_enum_origins: typing.Optional[UsersListRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedRemoteUserList]:
+    ) -> AsyncPager[RemoteUser, PaginatedRemoteUserList]:
         """
         Returns a list of `RemoteUser` objects.
 
@@ -245,13 +269,13 @@ class AsyncRawUsersClient:
         page_size : typing.Optional[int]
             Number of results to return per page.
 
-        remote_fields : typing.Optional[typing.Literal["access_role"]]
+        remote_fields : typing.Optional[UsersListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
-        show_enum_origins : typing.Optional[typing.Literal["access_role"]]
+        show_enum_origins : typing.Optional[UsersListRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]
@@ -259,7 +283,7 @@ class AsyncRawUsersClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedRemoteUserList]
+        AsyncPager[RemoteUser, PaginatedRemoteUserList]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -284,14 +308,36 @@ class AsyncRawUsersClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedRemoteUserList,
                     construct_type(
                         type_=PaginatedRemoteUserList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        email=email,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        remote_fields=remote_fields,
+                        remote_id=remote_id,
+                        show_enum_origins=show_enum_origins,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -303,8 +349,8 @@ class AsyncRawUsersClient:
         *,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
-        remote_fields: typing.Optional[typing.Literal["access_role"]] = None,
-        show_enum_origins: typing.Optional[typing.Literal["access_role"]] = None,
+        remote_fields: typing.Optional[UsersRetrieveRequestRemoteFields] = None,
+        show_enum_origins: typing.Optional[UsersRetrieveRequestShowEnumOrigins] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[RemoteUser]:
         """
@@ -320,10 +366,10 @@ class AsyncRawUsersClient:
         include_shell_data : typing.Optional[bool]
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
-        remote_fields : typing.Optional[typing.Literal["access_role"]]
+        remote_fields : typing.Optional[UsersRetrieveRequestRemoteFields]
             Deprecated. Use show_enum_origins.
 
-        show_enum_origins : typing.Optional[typing.Literal["access_role"]]
+        show_enum_origins : typing.Optional[UsersRetrieveRequestShowEnumOrigins]
             A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
 
         request_options : typing.Optional[RequestOptions]

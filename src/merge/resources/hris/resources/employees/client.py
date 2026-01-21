@@ -4,21 +4,22 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.employee import Employee
 from ...types.employee_request import EmployeeRequest
 from ...types.employee_response import EmployeeResponse
+from ...types.ignore_common_model_request import IgnoreCommonModelRequest
 from ...types.meta_response import MetaResponse
 from ...types.paginated_employee_list import PaginatedEmployeeList
 from .raw_client import AsyncRawEmployeesClient, RawEmployeesClient
 from .types.employees_list_request_employment_status import EmployeesListRequestEmploymentStatus
-from .types.employees_list_request_expand import EmployeesListRequestExpand
+from .types.employees_list_request_expand_item import EmployeesListRequestExpandItem
 from .types.employees_list_request_remote_fields import EmployeesListRequestRemoteFields
 from .types.employees_list_request_show_enum_origins import EmployeesListRequestShowEnumOrigins
-from .types.employees_retrieve_request_expand import EmployeesRetrieveRequestExpand
+from .types.employees_retrieve_request_expand_item import EmployeesRetrieveRequestExpandItem
 from .types.employees_retrieve_request_remote_fields import EmployeesRetrieveRequestRemoteFields
 from .types.employees_retrieve_request_show_enum_origins import EmployeesRetrieveRequestShowEnumOrigins
-from .types.ignore_common_model_request_reason import IgnoreCommonModelRequestReason
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -47,10 +48,11 @@ class EmployeesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         display_full_name: typing.Optional[str] = None,
-        employee_number: typing.Optional[str] = None,
         employment_status: typing.Optional[EmployeesListRequestEmploymentStatus] = None,
         employment_type: typing.Optional[str] = None,
-        expand: typing.Optional[EmployeesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmployeesListRequestExpandItem, typing.Sequence[EmployeesListRequestExpandItem]]
+        ] = None,
         first_name: typing.Optional[str] = None,
         groups: typing.Optional[str] = None,
         home_location_id: typing.Optional[str] = None,
@@ -77,7 +79,7 @@ class EmployeesClient:
         work_email: typing.Optional[str] = None,
         work_location_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedEmployeeList:
+    ) -> SyncPager[Employee, PaginatedEmployeeList]:
         """
         Returns a list of `Employee` objects.
 
@@ -98,9 +100,6 @@ class EmployeesClient:
         display_full_name : typing.Optional[str]
             If provided, will only return employees with this display name.
 
-        employee_number : typing.Optional[str]
-            If provided, will only return employees with this employee number.
-
         employment_status : typing.Optional[EmployeesListRequestEmploymentStatus]
             If provided, will only return employees with this employment status.
 
@@ -109,9 +108,9 @@ class EmployeesClient:
             * `INACTIVE` - INACTIVE
 
         employment_type : typing.Optional[str]
-            If provided, will only return employees that have an employment of the specified employment type.
+            If provided, will only return employees that have an employment of the specified employment_type.
 
-        expand : typing.Optional[EmployeesListRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeesListRequestExpandItem, typing.Sequence[EmployeesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         first_name : typing.Optional[str]
@@ -136,7 +135,7 @@ class EmployeesClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         job_title : typing.Optional[str]
-            If provided, will only return employees that have an employment of the specified job title.
+            If provided, will only return employees that have an employment of the specified job_title.
 
         last_name : typing.Optional[str]
             If provided, will only return employees with this last name.
@@ -194,85 +193,32 @@ class EmployeesClient:
 
         Returns
         -------
-        PaginatedEmployeeList
+        SyncPager[Employee, PaginatedEmployeeList]
 
 
         Examples
         --------
-        import datetime
-
         from merge import Merge
-        from merge.resources.hris.resources.employees import (
-            EmployeesListRequestEmploymentStatus,
-            EmployeesListRequestExpand,
-            EmployeesListRequestRemoteFields,
-            EmployeesListRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.employees.list(
-            company_id="company_id",
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
+        response = client.hris.employees.list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            display_full_name="display_full_name",
-            employee_number="employee_number",
-            employment_status=EmployeesListRequestEmploymentStatus.ACTIVE,
-            employment_type="employment_type",
-            expand=EmployeesListRequestExpand.COMPANY,
-            first_name="first_name",
-            groups="groups",
-            home_location_id="home_location_id",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_sensitive_fields=True,
-            include_shell_data=True,
-            job_title="job_title",
-            last_name="last_name",
-            manager_id="manager_id",
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            pay_group_id="pay_group_id",
-            personal_email="personal_email",
-            remote_fields=EmployeesListRequestRemoteFields.EMPLOYMENT_STATUS,
-            remote_id="remote_id",
-            show_enum_origins=EmployeesListRequestShowEnumOrigins.EMPLOYMENT_STATUS,
-            started_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            started_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            team_id="team_id",
-            terminated_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            terminated_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            work_email="work_email",
-            work_location_id="work_location_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
             display_full_name=display_full_name,
-            employee_number=employee_number,
             employment_status=employment_status,
             employment_type=employment_type,
             expand=expand,
@@ -303,7 +249,6 @@ class EmployeesClient:
             work_location_id=work_location_id,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -344,8 +289,6 @@ class EmployeesClient:
             api_key="YOUR_API_KEY",
         )
         client.hris.employees.create(
-            is_debug_mode=True,
-            run_async=True,
             model=EmployeeRequest(),
         )
         """
@@ -358,7 +301,9 @@ class EmployeesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[EmployeesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmployeesRetrieveRequestExpandItem, typing.Sequence[EmployeesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -373,7 +318,7 @@ class EmployeesClient:
         ----------
         id : str
 
-        expand : typing.Optional[EmployeesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeesRetrieveRequestExpandItem, typing.Sequence[EmployeesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -402,11 +347,6 @@ class EmployeesClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.hris.resources.employees import (
-            EmployeesRetrieveRequestExpand,
-            EmployeesRetrieveRequestRemoteFields,
-            EmployeesRetrieveRequestShowEnumOrigins,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -414,12 +354,6 @@ class EmployeesClient:
         )
         client.hris.employees.retrieve(
             id="id",
-            expand=EmployeesRetrieveRequestExpand.COMPANY,
-            include_remote_data=True,
-            include_sensitive_fields=True,
-            include_shell_data=True,
-            remote_fields=EmployeesRetrieveRequestRemoteFields.EMPLOYMENT_STATUS,
-            show_enum_origins=EmployeesRetrieveRequestShowEnumOrigins.EMPLOYMENT_STATUS,
         )
         """
         _response = self._raw_client.retrieve(
@@ -438,8 +372,7 @@ class EmployeesClient:
         self,
         model_id: str,
         *,
-        reason: IgnoreCommonModelRequestReason,
-        message: typing.Optional[str] = OMIT,
+        request: IgnoreCommonModelRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
@@ -449,9 +382,7 @@ class EmployeesClient:
         ----------
         model_id : str
 
-        reason : IgnoreCommonModelRequestReason
-
-        message : typing.Optional[str]
+        request : IgnoreCommonModelRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -463,7 +394,7 @@ class EmployeesClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.hris import ReasonEnum
+        from merge.resources.hris import IgnoreCommonModelRequest, ReasonEnum
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -471,12 +402,12 @@ class EmployeesClient:
         )
         client.hris.employees.ignore_create(
             model_id="model_id",
-            reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
+            request=IgnoreCommonModelRequest(
+                reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
+            ),
         )
         """
-        _response = self._raw_client.ignore_create(
-            model_id, reason=reason, message=message, request_options=request_options
-        )
+        _response = self._raw_client.ignore_create(model_id, request=request, request_options=request_options)
         return _response.data
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
@@ -530,10 +461,11 @@ class AsyncEmployeesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         display_full_name: typing.Optional[str] = None,
-        employee_number: typing.Optional[str] = None,
         employment_status: typing.Optional[EmployeesListRequestEmploymentStatus] = None,
         employment_type: typing.Optional[str] = None,
-        expand: typing.Optional[EmployeesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmployeesListRequestExpandItem, typing.Sequence[EmployeesListRequestExpandItem]]
+        ] = None,
         first_name: typing.Optional[str] = None,
         groups: typing.Optional[str] = None,
         home_location_id: typing.Optional[str] = None,
@@ -560,7 +492,7 @@ class AsyncEmployeesClient:
         work_email: typing.Optional[str] = None,
         work_location_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedEmployeeList:
+    ) -> AsyncPager[Employee, PaginatedEmployeeList]:
         """
         Returns a list of `Employee` objects.
 
@@ -581,9 +513,6 @@ class AsyncEmployeesClient:
         display_full_name : typing.Optional[str]
             If provided, will only return employees with this display name.
 
-        employee_number : typing.Optional[str]
-            If provided, will only return employees with this employee number.
-
         employment_status : typing.Optional[EmployeesListRequestEmploymentStatus]
             If provided, will only return employees with this employment status.
 
@@ -592,9 +521,9 @@ class AsyncEmployeesClient:
             * `INACTIVE` - INACTIVE
 
         employment_type : typing.Optional[str]
-            If provided, will only return employees that have an employment of the specified employment type.
+            If provided, will only return employees that have an employment of the specified employment_type.
 
-        expand : typing.Optional[EmployeesListRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeesListRequestExpandItem, typing.Sequence[EmployeesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         first_name : typing.Optional[str]
@@ -619,7 +548,7 @@ class AsyncEmployeesClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         job_title : typing.Optional[str]
-            If provided, will only return employees that have an employment of the specified job title.
+            If provided, will only return employees that have an employment of the specified job_title.
 
         last_name : typing.Optional[str]
             If provided, will only return employees with this last name.
@@ -677,21 +606,14 @@ class AsyncEmployeesClient:
 
         Returns
         -------
-        PaginatedEmployeeList
+        AsyncPager[Employee, PaginatedEmployeeList]
 
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from merge import AsyncMerge
-        from merge.resources.hris.resources.employees import (
-            EmployeesListRequestEmploymentStatus,
-            EmployeesListRequestExpand,
-            EmployeesListRequestRemoteFields,
-            EmployeesListRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -700,69 +622,25 @@ class AsyncEmployeesClient:
 
 
         async def main() -> None:
-            await client.hris.employees.list(
-                company_id="company_id",
-                created_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                created_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
+            response = await client.hris.employees.list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                display_full_name="display_full_name",
-                employee_number="employee_number",
-                employment_status=EmployeesListRequestEmploymentStatus.ACTIVE,
-                employment_type="employment_type",
-                expand=EmployeesListRequestExpand.COMPANY,
-                first_name="first_name",
-                groups="groups",
-                home_location_id="home_location_id",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_sensitive_fields=True,
-                include_shell_data=True,
-                job_title="job_title",
-                last_name="last_name",
-                manager_id="manager_id",
-                modified_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                modified_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                page_size=1,
-                pay_group_id="pay_group_id",
-                personal_email="personal_email",
-                remote_fields=EmployeesListRequestRemoteFields.EMPLOYMENT_STATUS,
-                remote_id="remote_id",
-                show_enum_origins=EmployeesListRequestShowEnumOrigins.EMPLOYMENT_STATUS,
-                started_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                started_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                team_id="team_id",
-                terminated_after=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                terminated_before=datetime.datetime.fromisoformat(
-                    "2024-01-15 09:30:00+00:00",
-                ),
-                work_email="work_email",
-                work_location_id="work_location_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
             display_full_name=display_full_name,
-            employee_number=employee_number,
             employment_status=employment_status,
             employment_type=employment_type,
             expand=expand,
@@ -793,7 +671,6 @@ class AsyncEmployeesClient:
             work_location_id=work_location_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -839,8 +716,6 @@ class AsyncEmployeesClient:
 
         async def main() -> None:
             await client.hris.employees.create(
-                is_debug_mode=True,
-                run_async=True,
                 model=EmployeeRequest(),
             )
 
@@ -856,7 +731,9 @@ class AsyncEmployeesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[EmployeesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[EmployeesRetrieveRequestExpandItem, typing.Sequence[EmployeesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_sensitive_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -871,7 +748,7 @@ class AsyncEmployeesClient:
         ----------
         id : str
 
-        expand : typing.Optional[EmployeesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[EmployeesRetrieveRequestExpandItem, typing.Sequence[EmployeesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -902,11 +779,6 @@ class AsyncEmployeesClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.hris.resources.employees import (
-            EmployeesRetrieveRequestExpand,
-            EmployeesRetrieveRequestRemoteFields,
-            EmployeesRetrieveRequestShowEnumOrigins,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -917,12 +789,6 @@ class AsyncEmployeesClient:
         async def main() -> None:
             await client.hris.employees.retrieve(
                 id="id",
-                expand=EmployeesRetrieveRequestExpand.COMPANY,
-                include_remote_data=True,
-                include_sensitive_fields=True,
-                include_shell_data=True,
-                remote_fields=EmployeesRetrieveRequestRemoteFields.EMPLOYMENT_STATUS,
-                show_enum_origins=EmployeesRetrieveRequestShowEnumOrigins.EMPLOYMENT_STATUS,
             )
 
 
@@ -944,8 +810,7 @@ class AsyncEmployeesClient:
         self,
         model_id: str,
         *,
-        reason: IgnoreCommonModelRequestReason,
-        message: typing.Optional[str] = OMIT,
+        request: IgnoreCommonModelRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
@@ -955,9 +820,7 @@ class AsyncEmployeesClient:
         ----------
         model_id : str
 
-        reason : IgnoreCommonModelRequestReason
-
-        message : typing.Optional[str]
+        request : IgnoreCommonModelRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -971,7 +834,7 @@ class AsyncEmployeesClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.hris import ReasonEnum
+        from merge.resources.hris import IgnoreCommonModelRequest, ReasonEnum
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -982,15 +845,15 @@ class AsyncEmployeesClient:
         async def main() -> None:
             await client.hris.employees.ignore_create(
                 model_id="model_id",
-                reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
+                request=IgnoreCommonModelRequest(
+                    reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
+                ),
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.ignore_create(
-            model_id, reason=reason, message=message, request_options=request_options
-        )
+        _response = await self._raw_client.ignore_create(model_id, request=request, request_options=request_options)
         return _response.data
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
