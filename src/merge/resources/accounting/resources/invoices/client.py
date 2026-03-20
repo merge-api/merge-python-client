@@ -5,6 +5,9 @@ import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.request_options import RequestOptions
+from ...types.bulk_write_batch_item import BulkWriteBatchItem
+from ...types.bulk_write_batch_response import BulkWriteBatchResponse
+from ...types.bulk_write_batch_result import BulkWriteBatchResult
 from ...types.invoice import Invoice
 from ...types.invoice_request import InvoiceRequest
 from ...types.invoice_response import InvoiceResponse
@@ -611,6 +614,92 @@ class InvoicesClient:
             page_size=page_size,
             request_options=request_options,
         )
+        return _response.data
+
+    def bulk_create(
+        self,
+        *,
+        batch_items: typing.List[BulkWriteBatchItem],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> BulkWriteBatchResponse:
+        """
+        Creates up to 100 `Invoice` objects in a single bulk request.
+        Returns a batch ID that can be used to poll for results via `bulk_retrieve`.
+
+        Parameters
+        ----------
+        batch_items : typing.List[BulkWriteBatchItem]
+            A list of items to create, each with a unique item_id and model data.
+            Maximum of 100 items per request.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BulkWriteBatchResponse
+            Contains the batch_id for polling results.
+
+        Examples
+        --------
+        from merge import Merge
+        from merge.resources.accounting import BulkWriteBatchItem
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        response = client.accounting.invoices.bulk_create(
+            batch_items=[
+                BulkWriteBatchItem(
+                    item_id="item-1",
+                    model={"type": "ACCOUNTS_RECEIVABLE", "contact": "contact-id"},
+                ),
+            ],
+        )
+        print(response.batch_id)
+        """
+        _response = self._raw_client.bulk_create(batch_items=batch_items, request_options=request_options)
+        return _response.data
+
+    def bulk_retrieve(
+        self,
+        batch_id: str,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> BulkWriteBatchResult:
+        """
+        Retrieves the status and results of a bulk write batch.
+
+        Parameters
+        ----------
+        batch_id : str
+            The batch ID returned from bulk_create.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BulkWriteBatchResult
+            Contains batch status and per-item results.
+
+        Examples
+        --------
+        from merge import Merge
+
+        client = Merge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+        result = client.accounting.invoices.bulk_retrieve(
+            batch_id="batch-id",
+        )
+        print(result.status)
+        for obj in result.objects:
+            print(obj.item_id, obj.status)
+        """
+        _response = self._raw_client.bulk_retrieve(batch_id, request_options=request_options)
         return _response.data
 
 
@@ -1269,4 +1358,104 @@ class AsyncInvoicesClient:
             page_size=page_size,
             request_options=request_options,
         )
+        return _response.data
+
+    async def bulk_create(
+        self,
+        *,
+        batch_items: typing.List[BulkWriteBatchItem],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> BulkWriteBatchResponse:
+        """
+        Creates up to 100 `Invoice` objects in a single bulk request.
+        Returns a batch ID that can be used to poll for results via `bulk_retrieve`.
+
+        Parameters
+        ----------
+        batch_items : typing.List[BulkWriteBatchItem]
+            A list of items to create, each with a unique item_id and model data.
+            Maximum of 100 items per request.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BulkWriteBatchResponse
+            Contains the batch_id for polling results.
+
+        Examples
+        --------
+        import asyncio
+
+        from merge import AsyncMerge
+        from merge.resources.accounting import BulkWriteBatchItem
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            response = await client.accounting.invoices.bulk_create(
+                batch_items=[
+                    BulkWriteBatchItem(
+                        item_id="item-1",
+                        model={"type": "ACCOUNTS_RECEIVABLE", "contact": "contact-id"},
+                    ),
+                ],
+            )
+            print(response.batch_id)
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.bulk_create(batch_items=batch_items, request_options=request_options)
+        return _response.data
+
+    async def bulk_retrieve(
+        self,
+        batch_id: str,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> BulkWriteBatchResult:
+        """
+        Retrieves the status and results of a bulk write batch.
+
+        Parameters
+        ----------
+        batch_id : str
+            The batch ID returned from bulk_create.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BulkWriteBatchResult
+            Contains batch status and per-item results.
+
+        Examples
+        --------
+        import asyncio
+
+        from merge import AsyncMerge
+
+        client = AsyncMerge(
+            account_token="YOUR_ACCOUNT_TOKEN",
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            result = await client.accounting.invoices.bulk_retrieve(
+                batch_id="batch-id",
+            )
+            print(result.status)
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.bulk_retrieve(batch_id, request_options=request_options)
         return _response.data

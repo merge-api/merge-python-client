@@ -48,6 +48,12 @@ if typing.TYPE_CHECKING:
     from .async_post_task_result import AsyncPostTaskResult
     from .async_post_task_status import AsyncPostTaskStatus
     from .async_post_task_status_enum import AsyncPostTaskStatusEnum
+    from .bulk_write_batch_item import BulkWriteBatchItem
+    from .bulk_write_batch_response import BulkWriteBatchResponse
+    from .bulk_write_batch_result import BulkWriteBatchResult
+    from .bulk_write_batch_status_enum import BulkWriteBatchStatusEnum
+    from .bulk_write_object_result import BulkWriteObjectResult
+    from .bulk_write_object_status_enum import BulkWriteObjectStatusEnum
     from .audit_log_event import AuditLogEvent
     from .audit_log_event_event_type import AuditLogEventEventType
     from .audit_log_event_role import AuditLogEventRole
@@ -576,6 +582,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AsyncPostTaskResult": ".async_post_task_result",
     "AsyncPostTaskStatus": ".async_post_task_status",
     "AsyncPostTaskStatusEnum": ".async_post_task_status_enum",
+    "BulkWriteBatchItem": ".bulk_write_batch_item",
+    "BulkWriteBatchResponse": ".bulk_write_batch_response",
+    "BulkWriteBatchResult": ".bulk_write_batch_result",
+    "BulkWriteBatchStatusEnum": ".bulk_write_batch_status_enum",
+    "BulkWriteObjectResult": ".bulk_write_object_result",
+    "BulkWriteObjectStatusEnum": ".bulk_write_object_status_enum",
     "AuditLogEvent": ".audit_log_event",
     "AuditLogEventEventType": ".audit_log_event_event_type",
     "AuditLogEventRole": ".audit_log_event_role",
@@ -1114,6 +1126,12 @@ __all__ = [
     "AsyncPostTaskResult",
     "AsyncPostTaskStatus",
     "AsyncPostTaskStatusEnum",
+    "BulkWriteBatchItem",
+    "BulkWriteBatchResponse",
+    "BulkWriteBatchResult",
+    "BulkWriteBatchStatusEnum",
+    "BulkWriteObjectResult",
+    "BulkWriteObjectStatusEnum",
     "AuditLogEvent",
     "AuditLogEventEventType",
     "AuditLogEventRole",

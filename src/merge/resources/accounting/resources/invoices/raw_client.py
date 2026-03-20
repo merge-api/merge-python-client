@@ -11,6 +11,9 @@ from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
+from ...types.bulk_write_batch_item import BulkWriteBatchItem
+from ...types.bulk_write_batch_response import BulkWriteBatchResponse
+from ...types.bulk_write_batch_result import BulkWriteBatchResult
 from ...types.invoice import Invoice
 from ...types.invoice_request import InvoiceRequest
 from ...types.invoice_response import InvoiceResponse
@@ -607,6 +610,99 @@ class RawInvoicesClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def bulk_create(
+        self,
+        *,
+        batch_items: typing.List[BulkWriteBatchItem],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[BulkWriteBatchResponse]:
+        """
+        Creates up to 100 `Invoice` objects in a single bulk request.
+        Returns a batch ID that can be used to poll for results.
+
+        Parameters
+        ----------
+        batch_items : typing.List[BulkWriteBatchItem]
+            A list of items to create, each with a unique item_id and model data.
+            Maximum of 100 items per request.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[BulkWriteBatchResponse]
+
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "accounting/v1/invoices/bulk",
+            method="POST",
+            json={
+                "batch_items": batch_items,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    BulkWriteBatchResponse,
+                    construct_type(
+                        type_=BulkWriteBatchResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def bulk_retrieve(
+        self,
+        batch_id: str,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[BulkWriteBatchResult]:
+        """
+        Retrieves the status and results of a bulk write batch.
+
+        Parameters
+        ----------
+        batch_id : str
+            The batch ID returned from bulk_create.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[BulkWriteBatchResult]
+
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"accounting/v1/invoices/bulk/{batch_id}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    BulkWriteBatchResult,
+                    construct_type(
+                        type_=BulkWriteBatchResult,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawInvoicesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -1180,6 +1276,99 @@ class AsyncRawInvoicesClient:
                     PaginatedRemoteFieldClassList,
                     construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def bulk_create(
+        self,
+        *,
+        batch_items: typing.List[BulkWriteBatchItem],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[BulkWriteBatchResponse]:
+        """
+        Creates up to 100 `Invoice` objects in a single bulk request.
+        Returns a batch ID that can be used to poll for results.
+
+        Parameters
+        ----------
+        batch_items : typing.List[BulkWriteBatchItem]
+            A list of items to create, each with a unique item_id and model data.
+            Maximum of 100 items per request.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[BulkWriteBatchResponse]
+
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "accounting/v1/invoices/bulk",
+            method="POST",
+            json={
+                "batch_items": batch_items,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    BulkWriteBatchResponse,
+                    construct_type(
+                        type_=BulkWriteBatchResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def bulk_retrieve(
+        self,
+        batch_id: str,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[BulkWriteBatchResult]:
+        """
+        Retrieves the status and results of a bulk write batch.
+
+        Parameters
+        ----------
+        batch_id : str
+            The batch ID returned from bulk_create.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[BulkWriteBatchResult]
+
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"accounting/v1/invoices/bulk/{batch_id}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    BulkWriteBatchResult,
+                    construct_type(
+                        type_=BulkWriteBatchResult,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
