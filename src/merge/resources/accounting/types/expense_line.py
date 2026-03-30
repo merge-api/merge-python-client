@@ -408,6 +408,16 @@ class ExpenseLine(UncheckedBaseModel):
     The tax rate that applies to this line item.
     """
 
+    quantity: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Number of items for the expense line.
+    """
+
+    unit_price: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Unit price of the item for the expense line.
+    """
+
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).

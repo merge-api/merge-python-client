@@ -397,6 +397,16 @@ class ExpenseLineRequest(UncheckedBaseModel):
     The tax rate that applies to this line item.
     """
 
+    quantity: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Number of items for the expense line.
+    """
+
+    unit_price: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Unit price of the item for the expense line.
+    """
+
     integration_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
     linked_account_params: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
     remote_fields: typing.Optional[typing.List[RemoteFieldRequest]] = None
