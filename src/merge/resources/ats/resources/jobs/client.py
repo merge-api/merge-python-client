@@ -4,15 +4,15 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.job import Job
-from ...types.paginated_job_list import PaginatedJobList
-from ...types.paginated_screening_question_list import PaginatedScreeningQuestionList
+from ...types.screening_question import ScreeningQuestion
 from .raw_client import AsyncRawJobsClient, RawJobsClient
-from .types.jobs_list_request_expand import JobsListRequestExpand
+from .types.jobs_list_request_expand_item import JobsListRequestExpandItem
 from .types.jobs_list_request_status import JobsListRequestStatus
-from .types.jobs_retrieve_request_expand import JobsRetrieveRequestExpand
-from .types.jobs_screening_questions_list_request_expand import JobsScreeningQuestionsListRequestExpand
+from .types.jobs_retrieve_request_expand_item import JobsRetrieveRequestExpandItem
+from .types.jobs_screening_questions_list_request_expand_item import JobsScreeningQuestionsListRequestExpandItem
 
 
 class JobsClient:
@@ -37,7 +37,9 @@ class JobsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JobsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JobsListRequestExpandItem, typing.Sequence[JobsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -50,7 +52,7 @@ class JobsClient:
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         status: typing.Optional[JobsListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedJobList:
+    ) -> SyncPager[Job]:
         """
         Returns a list of `Job` objects.
 
@@ -68,7 +70,7 @@ class JobsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JobsListRequestExpand]
+        expand : typing.Optional[typing.Union[JobsListRequestExpandItem, typing.Sequence[JobsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -115,7 +117,7 @@ class JobsClient:
 
         Returns
         -------
-        PaginatedJobList
+        SyncPager[Job]
 
 
         Examples
@@ -123,16 +125,13 @@ class JobsClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.ats.resources.jobs import (
-            JobsListRequestExpand,
-            JobsListRequestStatus,
-        )
+        from merge.resources.ats.resources.jobs import JobsListRequestStatus
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.jobs.list(
+        response = client.ats.jobs.list(
             code="code",
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
@@ -141,7 +140,6 @@ class JobsClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=JobsListRequestExpand.DEPARTMENTS,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -156,8 +154,13 @@ class JobsClient:
             remote_id="remote_id",
             status=JobsListRequestStatus.ARCHIVED,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             code=code,
             created_after=created_after,
             created_before=created_before,
@@ -176,13 +179,14 @@ class JobsClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[JobsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JobsRetrieveRequestExpandItem, typing.Sequence[JobsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -196,7 +200,7 @@ class JobsClient:
         ----------
         id : str
 
-        expand : typing.Optional[JobsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[JobsRetrieveRequestExpandItem, typing.Sequence[JobsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -222,7 +226,6 @@ class JobsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.ats.resources.jobs import JobsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -230,7 +233,6 @@ class JobsClient:
         )
         client.ats.jobs.retrieve(
             id="id",
-            expand=JobsRetrieveRequestExpand.DEPARTMENTS,
             include_remote_data=True,
             include_shell_data=True,
         )
@@ -251,13 +253,18 @@ class JobsClient:
         job_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JobsScreeningQuestionsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                JobsScreeningQuestionsListRequestExpandItem,
+                typing.Sequence[JobsScreeningQuestionsListRequestExpandItem],
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedScreeningQuestionList:
+    ) -> SyncPager[ScreeningQuestion]:
         """
         Returns a list of `ScreeningQuestion` objects.
 
@@ -268,7 +275,7 @@ class JobsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JobsScreeningQuestionsListRequestExpand]
+        expand : typing.Optional[typing.Union[JobsScreeningQuestionsListRequestExpandItem, typing.Sequence[JobsScreeningQuestionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -288,31 +295,32 @@ class JobsClient:
 
         Returns
         -------
-        PaginatedScreeningQuestionList
+        SyncPager[ScreeningQuestion]
 
 
         Examples
         --------
         from merge import Merge
-        from merge.resources.ats.resources.jobs import (
-            JobsScreeningQuestionsListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.jobs.screening_questions_list(
+        response = client.ats.jobs.screening_questions_list(
             job_id="job_id",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=JobsScreeningQuestionsListRequestExpand.JOB,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
             page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.screening_questions_list(
+        return self._raw_client.screening_questions_list(
             job_id,
             cursor=cursor,
             expand=expand,
@@ -322,7 +330,6 @@ class JobsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncJobsClient:
@@ -347,7 +354,9 @@ class AsyncJobsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JobsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JobsListRequestExpandItem, typing.Sequence[JobsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -360,7 +369,7 @@ class AsyncJobsClient:
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         status: typing.Optional[JobsListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedJobList:
+    ) -> AsyncPager[Job]:
         """
         Returns a list of `Job` objects.
 
@@ -378,7 +387,7 @@ class AsyncJobsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JobsListRequestExpand]
+        expand : typing.Optional[typing.Union[JobsListRequestExpandItem, typing.Sequence[JobsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -425,7 +434,7 @@ class AsyncJobsClient:
 
         Returns
         -------
-        PaginatedJobList
+        AsyncPager[Job]
 
 
         Examples
@@ -434,10 +443,7 @@ class AsyncJobsClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.ats.resources.jobs import (
-            JobsListRequestExpand,
-            JobsListRequestStatus,
-        )
+        from merge.resources.ats.resources.jobs import JobsListRequestStatus
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -446,7 +452,7 @@ class AsyncJobsClient:
 
 
         async def main() -> None:
-            await client.ats.jobs.list(
+            response = await client.ats.jobs.list(
                 code="code",
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
@@ -455,7 +461,6 @@ class AsyncJobsClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=JobsListRequestExpand.DEPARTMENTS,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
@@ -470,11 +475,17 @@ class AsyncJobsClient:
                 remote_id="remote_id",
                 status=JobsListRequestStatus.ARCHIVED,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             code=code,
             created_after=created_after,
             created_before=created_before,
@@ -493,13 +504,14 @@ class AsyncJobsClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[JobsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[JobsRetrieveRequestExpandItem, typing.Sequence[JobsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -513,7 +525,7 @@ class AsyncJobsClient:
         ----------
         id : str
 
-        expand : typing.Optional[JobsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[JobsRetrieveRequestExpandItem, typing.Sequence[JobsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -541,7 +553,6 @@ class AsyncJobsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.ats.resources.jobs import JobsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -552,7 +563,6 @@ class AsyncJobsClient:
         async def main() -> None:
             await client.ats.jobs.retrieve(
                 id="id",
-                expand=JobsRetrieveRequestExpand.DEPARTMENTS,
                 include_remote_data=True,
                 include_shell_data=True,
             )
@@ -576,13 +586,18 @@ class AsyncJobsClient:
         job_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[JobsScreeningQuestionsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                JobsScreeningQuestionsListRequestExpandItem,
+                typing.Sequence[JobsScreeningQuestionsListRequestExpandItem],
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedScreeningQuestionList:
+    ) -> AsyncPager[ScreeningQuestion]:
         """
         Returns a list of `ScreeningQuestion` objects.
 
@@ -593,7 +608,7 @@ class AsyncJobsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[JobsScreeningQuestionsListRequestExpand]
+        expand : typing.Optional[typing.Union[JobsScreeningQuestionsListRequestExpandItem, typing.Sequence[JobsScreeningQuestionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -613,7 +628,7 @@ class AsyncJobsClient:
 
         Returns
         -------
-        PaginatedScreeningQuestionList
+        AsyncPager[ScreeningQuestion]
 
 
         Examples
@@ -621,9 +636,6 @@ class AsyncJobsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.ats.resources.jobs import (
-            JobsScreeningQuestionsListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -632,20 +644,25 @@ class AsyncJobsClient:
 
 
         async def main() -> None:
-            await client.ats.jobs.screening_questions_list(
+            response = await client.ats.jobs.screening_questions_list(
                 job_id="job_id",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=JobsScreeningQuestionsListRequestExpand.JOB,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
                 page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.screening_questions_list(
+        return await self._raw_client.screening_questions_list(
             job_id,
             cursor=cursor,
             expand=expand,
@@ -655,4 +672,3 @@ class AsyncJobsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data

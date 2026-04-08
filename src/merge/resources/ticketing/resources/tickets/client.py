@@ -4,25 +4,25 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.meta_response import MetaResponse
-from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
-from ...types.paginated_ticket_list import PaginatedTicketList
-from ...types.paginated_viewer_list import PaginatedViewerList
 from ...types.patched_ticket_request import PatchedTicketRequest
+from ...types.remote_field_class import RemoteFieldClass
 from ...types.ticket import Ticket
 from ...types.ticket_request import TicketRequest
 from ...types.ticket_response import TicketResponse
+from ...types.viewer import Viewer
 from .raw_client import AsyncRawTicketsClient, RawTicketsClient
-from .types.tickets_list_request_expand import TicketsListRequestExpand
+from .types.tickets_list_request_expand_item import TicketsListRequestExpandItem
 from .types.tickets_list_request_priority import TicketsListRequestPriority
 from .types.tickets_list_request_remote_fields import TicketsListRequestRemoteFields
 from .types.tickets_list_request_show_enum_origins import TicketsListRequestShowEnumOrigins
 from .types.tickets_list_request_status import TicketsListRequestStatus
-from .types.tickets_retrieve_request_expand import TicketsRetrieveRequestExpand
+from .types.tickets_retrieve_request_expand_item import TicketsRetrieveRequestExpandItem
 from .types.tickets_retrieve_request_remote_fields import TicketsRetrieveRequestRemoteFields
 from .types.tickets_retrieve_request_show_enum_origins import TicketsRetrieveRequestShowEnumOrigins
-from .types.tickets_viewers_list_request_expand import TicketsViewersListRequestExpand
+from .types.tickets_viewers_list_request_expand_item import TicketsViewersListRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -59,7 +59,9 @@ class TicketsClient:
         cursor: typing.Optional[str] = None,
         due_after: typing.Optional[dt.datetime] = None,
         due_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[TicketsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TicketsListRequestExpandItem, typing.Sequence[TicketsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -82,7 +84,7 @@ class TicketsClient:
         ticket_type: typing.Optional[str] = None,
         ticket_url: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTicketList:
+    ) -> SyncPager[Ticket]:
         """
         Returns a list of `Ticket` objects.
 
@@ -127,7 +129,7 @@ class TicketsClient:
         due_before : typing.Optional[dt.datetime]
             If provided, will only return tickets due before this datetime.
 
-        expand : typing.Optional[TicketsListRequestExpand]
+        expand : typing.Optional[typing.Union[TicketsListRequestExpandItem, typing.Sequence[TicketsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -152,7 +154,7 @@ class TicketsClient:
             If provided, will only return tickets with this name.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         parent_ticket_id : typing.Optional[str]
             If provided, will only return sub tickets of the parent_ticket_id.
@@ -203,7 +205,7 @@ class TicketsClient:
 
         Returns
         -------
-        PaginatedTicketList
+        SyncPager[Ticket]
 
 
         Examples
@@ -212,7 +214,6 @@ class TicketsClient:
 
         from merge import Merge
         from merge.resources.ticketing.resources.tickets import (
-            TicketsListRequestExpand,
             TicketsListRequestPriority,
             TicketsListRequestRemoteFields,
             TicketsListRequestShowEnumOrigins,
@@ -223,7 +224,7 @@ class TicketsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.tickets.list(
+        response = client.ticketing.tickets.list(
             account_id="account_id",
             assignee_ids="assignee_ids",
             collection_ids="collection_ids",
@@ -249,7 +250,6 @@ class TicketsClient:
             due_before=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
-            expand=TicketsListRequestExpand.ACCOUNT,
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,
@@ -284,8 +284,13 @@ class TicketsClient:
             ticket_type="ticket_type",
             ticket_url="ticket_url",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             account_id=account_id,
             assignee_ids=assignee_ids,
             collection_ids=collection_ids,
@@ -323,7 +328,6 @@ class TicketsClient:
             ticket_url=ticket_url,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -378,7 +382,9 @@ class TicketsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[TicketsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TicketsRetrieveRequestExpandItem, typing.Sequence[TicketsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -393,7 +399,7 @@ class TicketsClient:
         ----------
         id : str
 
-        expand : typing.Optional[TicketsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[TicketsRetrieveRequestExpandItem, typing.Sequence[TicketsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -423,7 +429,6 @@ class TicketsClient:
         --------
         from merge import Merge
         from merge.resources.ticketing.resources.tickets import (
-            TicketsRetrieveRequestExpand,
             TicketsRetrieveRequestRemoteFields,
             TicketsRetrieveRequestShowEnumOrigins,
         )
@@ -434,7 +439,6 @@ class TicketsClient:
         )
         client.ticketing.tickets.retrieve(
             id="id",
-            expand=TicketsRetrieveRequestExpand.ACCOUNT,
             include_remote_data=True,
             include_remote_fields=True,
             include_shell_data=True,
@@ -512,13 +516,15 @@ class TicketsClient:
         ticket_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[TicketsViewersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TicketsViewersListRequestExpandItem, typing.Sequence[TicketsViewersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedViewerList:
+    ) -> SyncPager[Viewer]:
         """
         Returns a list of `Viewer` objects that point to a User id or Team id that is either an assignee or viewer on a `Ticket` with the given id. [Learn more.](https://help.merge.dev/en/articles/10333658-ticketing-access-control-list-acls)
 
@@ -529,7 +535,7 @@ class TicketsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[TicketsViewersListRequestExpand]
+        expand : typing.Optional[typing.Union[TicketsViewersListRequestExpandItem, typing.Sequence[TicketsViewersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -542,38 +548,39 @@ class TicketsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaginatedViewerList
+        SyncPager[Viewer]
 
 
         Examples
         --------
         from merge import Merge
-        from merge.resources.ticketing.resources.tickets import (
-            TicketsViewersListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.tickets.viewers_list(
+        response = client.ticketing.tickets.viewers_list(
             ticket_id="ticket_id",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=TicketsViewersListRequestExpand.TEAM,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
             page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.viewers_list(
+        return self._raw_client.viewers_list(
             ticket_id,
             cursor=cursor,
             expand=expand,
@@ -583,7 +590,6 @@ class TicketsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     def meta_patch_retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -672,7 +678,7 @@ class TicketsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -700,14 +706,14 @@ class TicketsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass]
 
 
         Examples
@@ -718,7 +724,7 @@ class TicketsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.tickets.remote_field_classes_list(
+        response = client.ticketing.tickets.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             ids="ids",
             include_deleted_data=True,
@@ -728,8 +734,13 @@ class TicketsClient:
             is_custom=True,
             page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.remote_field_classes_list(
+        return self._raw_client.remote_field_classes_list(
             cursor=cursor,
             ids=ids,
             include_deleted_data=include_deleted_data,
@@ -740,7 +751,6 @@ class TicketsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncTicketsClient:
@@ -774,7 +784,9 @@ class AsyncTicketsClient:
         cursor: typing.Optional[str] = None,
         due_after: typing.Optional[dt.datetime] = None,
         due_before: typing.Optional[dt.datetime] = None,
-        expand: typing.Optional[TicketsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TicketsListRequestExpandItem, typing.Sequence[TicketsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -797,7 +809,7 @@ class AsyncTicketsClient:
         ticket_type: typing.Optional[str] = None,
         ticket_url: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTicketList:
+    ) -> AsyncPager[Ticket]:
         """
         Returns a list of `Ticket` objects.
 
@@ -842,7 +854,7 @@ class AsyncTicketsClient:
         due_before : typing.Optional[dt.datetime]
             If provided, will only return tickets due before this datetime.
 
-        expand : typing.Optional[TicketsListRequestExpand]
+        expand : typing.Optional[typing.Union[TicketsListRequestExpandItem, typing.Sequence[TicketsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -867,7 +879,7 @@ class AsyncTicketsClient:
             If provided, will only return tickets with this name.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         parent_ticket_id : typing.Optional[str]
             If provided, will only return sub tickets of the parent_ticket_id.
@@ -918,7 +930,7 @@ class AsyncTicketsClient:
 
         Returns
         -------
-        PaginatedTicketList
+        AsyncPager[Ticket]
 
 
         Examples
@@ -928,7 +940,6 @@ class AsyncTicketsClient:
 
         from merge import AsyncMerge
         from merge.resources.ticketing.resources.tickets import (
-            TicketsListRequestExpand,
             TicketsListRequestPriority,
             TicketsListRequestRemoteFields,
             TicketsListRequestShowEnumOrigins,
@@ -942,7 +953,7 @@ class AsyncTicketsClient:
 
 
         async def main() -> None:
-            await client.ticketing.tickets.list(
+            response = await client.ticketing.tickets.list(
                 account_id="account_id",
                 assignee_ids="assignee_ids",
                 collection_ids="collection_ids",
@@ -968,7 +979,6 @@ class AsyncTicketsClient:
                 due_before=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
-                expand=TicketsListRequestExpand.ACCOUNT,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_remote_fields=True,
@@ -1003,11 +1013,17 @@ class AsyncTicketsClient:
                 ticket_type="ticket_type",
                 ticket_url="ticket_url",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             account_id=account_id,
             assignee_ids=assignee_ids,
             collection_ids=collection_ids,
@@ -1045,7 +1061,6 @@ class AsyncTicketsClient:
             ticket_url=ticket_url,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -1108,7 +1123,9 @@ class AsyncTicketsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[TicketsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TicketsRetrieveRequestExpandItem, typing.Sequence[TicketsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -1123,7 +1140,7 @@ class AsyncTicketsClient:
         ----------
         id : str
 
-        expand : typing.Optional[TicketsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[TicketsRetrieveRequestExpandItem, typing.Sequence[TicketsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -1155,7 +1172,6 @@ class AsyncTicketsClient:
 
         from merge import AsyncMerge
         from merge.resources.ticketing.resources.tickets import (
-            TicketsRetrieveRequestExpand,
             TicketsRetrieveRequestRemoteFields,
             TicketsRetrieveRequestShowEnumOrigins,
         )
@@ -1169,7 +1185,6 @@ class AsyncTicketsClient:
         async def main() -> None:
             await client.ticketing.tickets.retrieve(
                 id="id",
-                expand=TicketsRetrieveRequestExpand.ACCOUNT,
                 include_remote_data=True,
                 include_remote_fields=True,
                 include_shell_data=True,
@@ -1258,13 +1273,15 @@ class AsyncTicketsClient:
         ticket_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[TicketsViewersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TicketsViewersListRequestExpandItem, typing.Sequence[TicketsViewersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedViewerList:
+    ) -> AsyncPager[Viewer]:
         """
         Returns a list of `Viewer` objects that point to a User id or Team id that is either an assignee or viewer on a `Ticket` with the given id. [Learn more.](https://help.merge.dev/en/articles/10333658-ticketing-access-control-list-acls)
 
@@ -1275,7 +1292,7 @@ class AsyncTicketsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[TicketsViewersListRequestExpand]
+        expand : typing.Optional[typing.Union[TicketsViewersListRequestExpandItem, typing.Sequence[TicketsViewersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -1288,14 +1305,14 @@ class AsyncTicketsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaginatedViewerList
+        AsyncPager[Viewer]
 
 
         Examples
@@ -1303,9 +1320,6 @@ class AsyncTicketsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.ticketing.resources.tickets import (
-            TicketsViewersListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -1314,20 +1328,25 @@ class AsyncTicketsClient:
 
 
         async def main() -> None:
-            await client.ticketing.tickets.viewers_list(
+            response = await client.ticketing.tickets.viewers_list(
                 ticket_id="ticket_id",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=TicketsViewersListRequestExpand.TEAM,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
                 page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.viewers_list(
+        return await self._raw_client.viewers_list(
             ticket_id,
             cursor=cursor,
             expand=expand,
@@ -1337,7 +1356,6 @@ class AsyncTicketsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     async def meta_patch_retrieve(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -1444,7 +1462,7 @@ class AsyncTicketsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -1472,14 +1490,14 @@ class AsyncTicketsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass]
 
 
         Examples
@@ -1495,7 +1513,7 @@ class AsyncTicketsClient:
 
 
         async def main() -> None:
-            await client.ticketing.tickets.remote_field_classes_list(
+            response = await client.ticketing.tickets.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
                 ids="ids",
                 include_deleted_data=True,
@@ -1505,11 +1523,17 @@ class AsyncTicketsClient:
                 is_custom=True,
                 page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.remote_field_classes_list(
+        return await self._raw_client.remote_field_classes_list(
             cursor=cursor,
             ids=ids,
             include_deleted_data=include_deleted_data,
@@ -1520,4 +1544,3 @@ class AsyncTicketsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data

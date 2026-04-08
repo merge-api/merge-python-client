@@ -6,15 +6,15 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .jobs_list_request_expand import JobsListRequestExpand
+    from .jobs_list_request_expand_item import JobsListRequestExpandItem
     from .jobs_list_request_status import JobsListRequestStatus
-    from .jobs_retrieve_request_expand import JobsRetrieveRequestExpand
-    from .jobs_screening_questions_list_request_expand import JobsScreeningQuestionsListRequestExpand
+    from .jobs_retrieve_request_expand_item import JobsRetrieveRequestExpandItem
+    from .jobs_screening_questions_list_request_expand_item import JobsScreeningQuestionsListRequestExpandItem
 _dynamic_imports: typing.Dict[str, str] = {
-    "JobsListRequestExpand": ".jobs_list_request_expand",
+    "JobsListRequestExpandItem": ".jobs_list_request_expand_item",
     "JobsListRequestStatus": ".jobs_list_request_status",
-    "JobsRetrieveRequestExpand": ".jobs_retrieve_request_expand",
-    "JobsScreeningQuestionsListRequestExpand": ".jobs_screening_questions_list_request_expand",
+    "JobsRetrieveRequestExpandItem": ".jobs_retrieve_request_expand_item",
+    "JobsScreeningQuestionsListRequestExpandItem": ".jobs_screening_questions_list_request_expand_item",
 }
 
 
@@ -38,8 +38,8 @@ def __dir__():
 
 
 __all__ = [
-    "JobsListRequestExpand",
+    "JobsListRequestExpandItem",
     "JobsListRequestStatus",
-    "JobsRetrieveRequestExpand",
-    "JobsScreeningQuestionsListRequestExpand",
+    "JobsRetrieveRequestExpandItem",
+    "JobsScreeningQuestionsListRequestExpandItem",
 ]

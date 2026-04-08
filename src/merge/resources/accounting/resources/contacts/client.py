@@ -4,18 +4,17 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.contact import Contact
 from ...types.contact_request import ContactRequest
 from ...types.contact_response import ContactResponse
 from ...types.meta_response import MetaResponse
-from ...types.paginated_contact_list import PaginatedContactList
-from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
-from ...types.patched_contact_request import PatchedContactRequest
+from ...types.remote_field_class import RemoteFieldClass
 from .raw_client import AsyncRawContactsClient, RawContactsClient
-from .types.contacts_list_request_expand import ContactsListRequestExpand
+from .types.contacts_list_request_expand_item import ContactsListRequestExpandItem
 from .types.contacts_list_request_status import ContactsListRequestStatus
-from .types.contacts_retrieve_request_expand import ContactsRetrieveRequestExpand
+from .types.contacts_retrieve_request_expand_item import ContactsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -44,7 +43,9 @@ class ContactsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_address: typing.Optional[str] = None,
-        expand: typing.Optional[ContactsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContactsListRequestExpandItem, typing.Sequence[ContactsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -60,7 +61,7 @@ class ContactsClient:
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         status: typing.Optional[ContactsListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedContactList:
+    ) -> SyncPager[Contact]:
         """
         Returns a list of `Contact` objects.
 
@@ -81,7 +82,7 @@ class ContactsClient:
         email_address : typing.Optional[str]
             If provided, will only return Contacts that match this email.
 
-        expand : typing.Optional[ContactsListRequestExpand]
+        expand : typing.Optional[typing.Union[ContactsListRequestExpandItem, typing.Sequence[ContactsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -131,7 +132,7 @@ class ContactsClient:
 
         Returns
         -------
-        PaginatedContactList
+        SyncPager[Contact]
 
 
         Examples
@@ -140,7 +141,6 @@ class ContactsClient:
 
         from merge import Merge
         from merge.resources.accounting.resources.contacts import (
-            ContactsListRequestExpand,
             ContactsListRequestStatus,
         )
 
@@ -148,7 +148,7 @@ class ContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.contacts.list(
+        response = client.accounting.contacts.list(
             company_id="company_id",
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
@@ -158,7 +158,6 @@ class ContactsClient:
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             email_address="email_address",
-            expand=ContactsListRequestExpand.ADDRESSES,
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,
@@ -176,8 +175,13 @@ class ContactsClient:
             remote_id="remote_id",
             status=ContactsListRequestStatus.EMPTY,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -200,7 +204,6 @@ class ContactsClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -255,7 +258,9 @@ class ContactsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ContactsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContactsRetrieveRequestExpandItem, typing.Sequence[ContactsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -270,7 +275,7 @@ class ContactsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ContactsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ContactsRetrieveRequestExpandItem, typing.Sequence[ContactsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -299,9 +304,6 @@ class ContactsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.accounting.resources.contacts import (
-            ContactsRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -309,7 +311,6 @@ class ContactsClient:
         )
         client.accounting.contacts.retrieve(
             id="id",
-            expand=ContactsRetrieveRequestExpand.ADDRESSES,
             include_remote_data=True,
             include_remote_fields=True,
             include_shell_data=True,
@@ -325,90 +326,6 @@ class ContactsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
-
-    def partial_update(
-        self,
-        id: str,
-        *,
-        model: PatchedContactRequest,
-        is_debug_mode: typing.Optional[bool] = None,
-        run_async: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ContactResponse:
-        """
-        Updates a `Contact` object with the given `id`.
-
-        Parameters
-        ----------
-        id : str
-
-        model : PatchedContactRequest
-
-        is_debug_mode : typing.Optional[bool]
-            Whether to include debug fields (such as log file links) in the response.
-
-        run_async : typing.Optional[bool]
-            Whether or not third-party updates should be run asynchronously.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ContactResponse
-
-
-        Examples
-        --------
-        from merge import Merge
-        from merge.resources.accounting import PatchedContactRequest
-
-        client = Merge(
-            account_token="YOUR_ACCOUNT_TOKEN",
-            api_key="YOUR_API_KEY",
-        )
-        client.accounting.contacts.partial_update(
-            id="id",
-            is_debug_mode=True,
-            run_async=True,
-            model=PatchedContactRequest(),
-        )
-        """
-        _response = self._raw_client.partial_update(
-            id, model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
-        )
-        return _response.data
-
-    def meta_patch_retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
-        """
-        Returns metadata for `Contact` PATCHs.
-
-        Parameters
-        ----------
-        id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        MetaResponse
-
-
-        Examples
-        --------
-        from merge import Merge
-
-        client = Merge(
-            account_token="YOUR_ACCOUNT_TOKEN",
-            api_key="YOUR_API_KEY",
-        )
-        client.accounting.contacts.meta_patch_retrieve(
-            id="id",
-        )
-        """
-        _response = self._raw_client.meta_patch_retrieve(id, request_options=request_options)
         return _response.data
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
@@ -449,7 +366,7 @@ class ContactsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -481,7 +398,7 @@ class ContactsClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass]
 
 
         Examples
@@ -492,7 +409,7 @@ class ContactsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.contacts.remote_field_classes_list(
+        response = client.accounting.contacts.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             include_deleted_data=True,
             include_remote_data=True,
@@ -501,8 +418,13 @@ class ContactsClient:
             is_custom=True,
             page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.remote_field_classes_list(
+        return self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -512,7 +434,6 @@ class ContactsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncContactsClient:
@@ -538,7 +459,9 @@ class AsyncContactsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_address: typing.Optional[str] = None,
-        expand: typing.Optional[ContactsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContactsListRequestExpandItem, typing.Sequence[ContactsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -554,7 +477,7 @@ class AsyncContactsClient:
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         status: typing.Optional[ContactsListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedContactList:
+    ) -> AsyncPager[Contact]:
         """
         Returns a list of `Contact` objects.
 
@@ -575,7 +498,7 @@ class AsyncContactsClient:
         email_address : typing.Optional[str]
             If provided, will only return Contacts that match this email.
 
-        expand : typing.Optional[ContactsListRequestExpand]
+        expand : typing.Optional[typing.Union[ContactsListRequestExpandItem, typing.Sequence[ContactsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -625,7 +548,7 @@ class AsyncContactsClient:
 
         Returns
         -------
-        PaginatedContactList
+        AsyncPager[Contact]
 
 
         Examples
@@ -635,7 +558,6 @@ class AsyncContactsClient:
 
         from merge import AsyncMerge
         from merge.resources.accounting.resources.contacts import (
-            ContactsListRequestExpand,
             ContactsListRequestStatus,
         )
 
@@ -646,7 +568,7 @@ class AsyncContactsClient:
 
 
         async def main() -> None:
-            await client.accounting.contacts.list(
+            response = await client.accounting.contacts.list(
                 company_id="company_id",
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
@@ -656,7 +578,6 @@ class AsyncContactsClient:
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
                 email_address="email_address",
-                expand=ContactsListRequestExpand.ADDRESSES,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_remote_fields=True,
@@ -674,11 +595,17 @@ class AsyncContactsClient:
                 remote_id="remote_id",
                 status=ContactsListRequestStatus.EMPTY,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -701,7 +628,6 @@ class AsyncContactsClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -764,7 +690,9 @@ class AsyncContactsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[ContactsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ContactsRetrieveRequestExpandItem, typing.Sequence[ContactsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -779,7 +707,7 @@ class AsyncContactsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ContactsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ContactsRetrieveRequestExpandItem, typing.Sequence[ContactsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -810,9 +738,6 @@ class AsyncContactsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.contacts import (
-            ContactsRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -823,7 +748,6 @@ class AsyncContactsClient:
         async def main() -> None:
             await client.accounting.contacts.retrieve(
                 id="id",
-                expand=ContactsRetrieveRequestExpand.ADDRESSES,
                 include_remote_data=True,
                 include_remote_fields=True,
                 include_shell_data=True,
@@ -842,108 +766,6 @@ class AsyncContactsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
-
-    async def partial_update(
-        self,
-        id: str,
-        *,
-        model: PatchedContactRequest,
-        is_debug_mode: typing.Optional[bool] = None,
-        run_async: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ContactResponse:
-        """
-        Updates a `Contact` object with the given `id`.
-
-        Parameters
-        ----------
-        id : str
-
-        model : PatchedContactRequest
-
-        is_debug_mode : typing.Optional[bool]
-            Whether to include debug fields (such as log file links) in the response.
-
-        run_async : typing.Optional[bool]
-            Whether or not third-party updates should be run asynchronously.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ContactResponse
-
-
-        Examples
-        --------
-        import asyncio
-
-        from merge import AsyncMerge
-        from merge.resources.accounting import PatchedContactRequest
-
-        client = AsyncMerge(
-            account_token="YOUR_ACCOUNT_TOKEN",
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.accounting.contacts.partial_update(
-                id="id",
-                is_debug_mode=True,
-                run_async=True,
-                model=PatchedContactRequest(),
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.partial_update(
-            id, model=model, is_debug_mode=is_debug_mode, run_async=run_async, request_options=request_options
-        )
-        return _response.data
-
-    async def meta_patch_retrieve(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> MetaResponse:
-        """
-        Returns metadata for `Contact` PATCHs.
-
-        Parameters
-        ----------
-        id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        MetaResponse
-
-
-        Examples
-        --------
-        import asyncio
-
-        from merge import AsyncMerge
-
-        client = AsyncMerge(
-            account_token="YOUR_ACCOUNT_TOKEN",
-            api_key="YOUR_API_KEY",
-        )
-
-
-        async def main() -> None:
-            await client.accounting.contacts.meta_patch_retrieve(
-                id="id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.meta_patch_retrieve(id, request_options=request_options)
         return _response.data
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
@@ -992,7 +814,7 @@ class AsyncContactsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -1024,7 +846,7 @@ class AsyncContactsClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass]
 
 
         Examples
@@ -1040,7 +862,7 @@ class AsyncContactsClient:
 
 
         async def main() -> None:
-            await client.accounting.contacts.remote_field_classes_list(
+            response = await client.accounting.contacts.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
                 include_deleted_data=True,
                 include_remote_data=True,
@@ -1049,11 +871,17 @@ class AsyncContactsClient:
                 is_custom=True,
                 page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.remote_field_classes_list(
+        return await self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -1063,4 +891,3 @@ class AsyncContactsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data

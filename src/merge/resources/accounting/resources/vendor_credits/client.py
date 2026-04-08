@@ -4,15 +4,15 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.meta_response import MetaResponse
-from ...types.paginated_vendor_credit_list import PaginatedVendorCreditList
 from ...types.vendor_credit import VendorCredit
 from ...types.vendor_credit_request import VendorCreditRequest
 from ...types.vendor_credit_response import VendorCreditResponse
 from .raw_client import AsyncRawVendorCreditsClient, RawVendorCreditsClient
-from .types.vendor_credits_list_request_expand import VendorCreditsListRequestExpand
-from .types.vendor_credits_retrieve_request_expand import VendorCreditsRetrieveRequestExpand
+from .types.vendor_credits_list_request_expand_item import VendorCreditsListRequestExpandItem
+from .types.vendor_credits_retrieve_request_expand_item import VendorCreditsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -40,7 +40,9 @@ class VendorCreditsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[VendorCreditsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[VendorCreditsListRequestExpandItem, typing.Sequence[VendorCreditsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -51,7 +53,7 @@ class VendorCreditsClient:
         transaction_date_after: typing.Optional[dt.datetime] = None,
         transaction_date_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedVendorCreditList:
+    ) -> SyncPager[VendorCredit]:
         """
         Returns a list of `VendorCredit` objects.
 
@@ -69,7 +71,7 @@ class VendorCreditsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[VendorCreditsListRequestExpand]
+        expand : typing.Optional[typing.Union[VendorCreditsListRequestExpandItem, typing.Sequence[VendorCreditsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -104,7 +106,7 @@ class VendorCreditsClient:
 
         Returns
         -------
-        PaginatedVendorCreditList
+        SyncPager[VendorCredit]
 
 
         Examples
@@ -112,15 +114,12 @@ class VendorCreditsClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.accounting.resources.vendor_credits import (
-            VendorCreditsListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.vendor_credits.list(
+        response = client.accounting.vendor_credits.list(
             company_id="company_id",
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
@@ -129,7 +128,6 @@ class VendorCreditsClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=VendorCreditsListRequestExpand.ACCOUNTING_PERIOD,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -148,8 +146,13 @@ class VendorCreditsClient:
                 "2024-01-15 09:30:00+00:00",
             ),
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -166,7 +169,6 @@ class VendorCreditsClient:
             transaction_date_before=transaction_date_before,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -221,7 +223,11 @@ class VendorCreditsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[VendorCreditsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                VendorCreditsRetrieveRequestExpandItem, typing.Sequence[VendorCreditsRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -233,7 +239,7 @@ class VendorCreditsClient:
         ----------
         id : str
 
-        expand : typing.Optional[VendorCreditsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[VendorCreditsRetrieveRequestExpandItem, typing.Sequence[VendorCreditsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -253,9 +259,6 @@ class VendorCreditsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.accounting.resources.vendor_credits import (
-            VendorCreditsRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -263,7 +266,6 @@ class VendorCreditsClient:
         )
         client.accounting.vendor_credits.retrieve(
             id="id",
-            expand=VendorCreditsRetrieveRequestExpand.ACCOUNTING_PERIOD,
             include_remote_data=True,
             include_shell_data=True,
         )
@@ -327,7 +329,9 @@ class AsyncVendorCreditsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[VendorCreditsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[VendorCreditsListRequestExpandItem, typing.Sequence[VendorCreditsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -338,7 +342,7 @@ class AsyncVendorCreditsClient:
         transaction_date_after: typing.Optional[dt.datetime] = None,
         transaction_date_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedVendorCreditList:
+    ) -> AsyncPager[VendorCredit]:
         """
         Returns a list of `VendorCredit` objects.
 
@@ -356,7 +360,7 @@ class AsyncVendorCreditsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[VendorCreditsListRequestExpand]
+        expand : typing.Optional[typing.Union[VendorCreditsListRequestExpandItem, typing.Sequence[VendorCreditsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -391,7 +395,7 @@ class AsyncVendorCreditsClient:
 
         Returns
         -------
-        PaginatedVendorCreditList
+        AsyncPager[VendorCredit]
 
 
         Examples
@@ -400,9 +404,6 @@ class AsyncVendorCreditsClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.vendor_credits import (
-            VendorCreditsListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -411,7 +412,7 @@ class AsyncVendorCreditsClient:
 
 
         async def main() -> None:
-            await client.accounting.vendor_credits.list(
+            response = await client.accounting.vendor_credits.list(
                 company_id="company_id",
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
@@ -420,7 +421,6 @@ class AsyncVendorCreditsClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=VendorCreditsListRequestExpand.ACCOUNTING_PERIOD,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
@@ -439,11 +439,17 @@ class AsyncVendorCreditsClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -460,7 +466,6 @@ class AsyncVendorCreditsClient:
             transaction_date_before=transaction_date_before,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -523,7 +528,11 @@ class AsyncVendorCreditsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[VendorCreditsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                VendorCreditsRetrieveRequestExpandItem, typing.Sequence[VendorCreditsRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -535,7 +544,7 @@ class AsyncVendorCreditsClient:
         ----------
         id : str
 
-        expand : typing.Optional[VendorCreditsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[VendorCreditsRetrieveRequestExpandItem, typing.Sequence[VendorCreditsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -557,9 +566,6 @@ class AsyncVendorCreditsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.vendor_credits import (
-            VendorCreditsRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -570,7 +576,6 @@ class AsyncVendorCreditsClient:
         async def main() -> None:
             await client.accounting.vendor_credits.retrieve(
                 id="id",
-                expand=VendorCreditsRetrieveRequestExpand.ACCOUNTING_PERIOD,
                 include_remote_data=True,
                 include_shell_data=True,
             )

@@ -191,8 +191,6 @@ if typing.TYPE_CHECKING:
     from .remote_field_api_response import RemoteFieldApiResponse
     from .remote_field_class import RemoteFieldClass
     from .remote_field_class_field_choices_item import RemoteFieldClassFieldChoicesItem
-    from .remote_field_class_field_format import RemoteFieldClassFieldFormat
-    from .remote_field_class_field_type import RemoteFieldClassFieldType
     from .remote_field_class_for_custom_object_class import RemoteFieldClassForCustomObjectClass
     from .remote_field_class_for_custom_object_class_field_choices_item import (
         RemoteFieldClassForCustomObjectClassFieldChoicesItem,
@@ -205,6 +203,7 @@ if typing.TYPE_CHECKING:
     from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
     from .remote_key import RemoteKey
     from .remote_response import RemoteResponse
+    from .remote_response_response_type import RemoteResponseResponseType
     from .request_format_enum import RequestFormatEnum
     from .response_type_enum import ResponseTypeEnum
     from .role_enum import RoleEnum
@@ -414,8 +413,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RemoteFieldApiResponse": ".remote_field_api_response",
     "RemoteFieldClass": ".remote_field_class",
     "RemoteFieldClassFieldChoicesItem": ".remote_field_class_field_choices_item",
-    "RemoteFieldClassFieldFormat": ".remote_field_class_field_format",
-    "RemoteFieldClassFieldType": ".remote_field_class_field_type",
     "RemoteFieldClassForCustomObjectClass": ".remote_field_class_for_custom_object_class",
     "RemoteFieldClassForCustomObjectClassFieldChoicesItem": ".remote_field_class_for_custom_object_class_field_choices_item",
     "RemoteFieldClassForCustomObjectClassFieldFormat": ".remote_field_class_for_custom_object_class_field_format",
@@ -426,6 +423,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RemoteFieldRequestRemoteFieldClass": ".remote_field_request_remote_field_class",
     "RemoteKey": ".remote_key",
     "RemoteResponse": ".remote_response",
+    "RemoteResponseResponseType": ".remote_response_response_type",
     "RequestFormatEnum": ".request_format_enum",
     "ResponseTypeEnum": ".response_type_enum",
     "RoleEnum": ".role_enum",
@@ -657,8 +655,6 @@ __all__ = [
     "RemoteFieldApiResponse",
     "RemoteFieldClass",
     "RemoteFieldClassFieldChoicesItem",
-    "RemoteFieldClassFieldFormat",
-    "RemoteFieldClassFieldType",
     "RemoteFieldClassForCustomObjectClass",
     "RemoteFieldClassForCustomObjectClassFieldChoicesItem",
     "RemoteFieldClassForCustomObjectClassFieldFormat",
@@ -669,6 +665,7 @@ __all__ = [
     "RemoteFieldRequestRemoteFieldClass",
     "RemoteKey",
     "RemoteResponse",
+    "RemoteResponseResponseType",
     "RequestFormatEnum",
     "ResponseTypeEnum",
     "RoleEnum",

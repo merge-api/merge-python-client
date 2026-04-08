@@ -6,19 +6,19 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .employments_list_request_expand import EmploymentsListRequestExpand
+    from .employments_list_request_expand_item import EmploymentsListRequestExpandItem
     from .employments_list_request_order_by import EmploymentsListRequestOrderBy
     from .employments_list_request_remote_fields import EmploymentsListRequestRemoteFields
     from .employments_list_request_show_enum_origins import EmploymentsListRequestShowEnumOrigins
-    from .employments_retrieve_request_expand import EmploymentsRetrieveRequestExpand
+    from .employments_retrieve_request_expand_item import EmploymentsRetrieveRequestExpandItem
     from .employments_retrieve_request_remote_fields import EmploymentsRetrieveRequestRemoteFields
     from .employments_retrieve_request_show_enum_origins import EmploymentsRetrieveRequestShowEnumOrigins
 _dynamic_imports: typing.Dict[str, str] = {
-    "EmploymentsListRequestExpand": ".employments_list_request_expand",
+    "EmploymentsListRequestExpandItem": ".employments_list_request_expand_item",
     "EmploymentsListRequestOrderBy": ".employments_list_request_order_by",
     "EmploymentsListRequestRemoteFields": ".employments_list_request_remote_fields",
     "EmploymentsListRequestShowEnumOrigins": ".employments_list_request_show_enum_origins",
-    "EmploymentsRetrieveRequestExpand": ".employments_retrieve_request_expand",
+    "EmploymentsRetrieveRequestExpandItem": ".employments_retrieve_request_expand_item",
     "EmploymentsRetrieveRequestRemoteFields": ".employments_retrieve_request_remote_fields",
     "EmploymentsRetrieveRequestShowEnumOrigins": ".employments_retrieve_request_show_enum_origins",
 }
@@ -44,11 +44,11 @@ def __dir__():
 
 
 __all__ = [
-    "EmploymentsListRequestExpand",
+    "EmploymentsListRequestExpandItem",
     "EmploymentsListRequestOrderBy",
     "EmploymentsListRequestRemoteFields",
     "EmploymentsListRequestShowEnumOrigins",
-    "EmploymentsRetrieveRequestExpand",
+    "EmploymentsRetrieveRequestExpandItem",
     "EmploymentsRetrieveRequestRemoteFields",
     "EmploymentsRetrieveRequestShowEnumOrigins",
 ]

@@ -19,7 +19,6 @@ if typing.TYPE_CHECKING:
     from .activity import Activity
     from .activity_activity_type import ActivityActivityType
     from .activity_request import ActivityRequest
-    from .activity_request_activity_type import ActivityRequestActivityType
     from .activity_request_user import ActivityRequestUser
     from .activity_request_visibility import ActivityRequestVisibility
     from .activity_response import ActivityResponse
@@ -99,6 +98,8 @@ if typing.TYPE_CHECKING:
     from .field_permission_deserializer import FieldPermissionDeserializer
     from .field_permission_deserializer_request import FieldPermissionDeserializerRequest
     from .gender_enum import GenderEnum
+    from .ignore_common_model_request import IgnoreCommonModelRequest
+    from .ignore_common_model_request_reason import IgnoreCommonModelRequestReason
     from .individual_common_model_scope_deserializer import IndividualCommonModelScopeDeserializer
     from .individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
     from .issue import Issue
@@ -239,7 +240,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Activity": ".activity",
     "ActivityActivityType": ".activity_activity_type",
     "ActivityRequest": ".activity_request",
-    "ActivityRequestActivityType": ".activity_request_activity_type",
     "ActivityRequestUser": ".activity_request_user",
     "ActivityRequestVisibility": ".activity_request_visibility",
     "ActivityResponse": ".activity_response",
@@ -317,6 +317,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FieldPermissionDeserializer": ".field_permission_deserializer",
     "FieldPermissionDeserializerRequest": ".field_permission_deserializer_request",
     "GenderEnum": ".gender_enum",
+    "IgnoreCommonModelRequest": ".ignore_common_model_request",
+    "IgnoreCommonModelRequestReason": ".ignore_common_model_request_reason",
     "IndividualCommonModelScopeDeserializer": ".individual_common_model_scope_deserializer",
     "IndividualCommonModelScopeDeserializerRequest": ".individual_common_model_scope_deserializer_request",
     "Issue": ".issue",
@@ -479,7 +481,6 @@ __all__ = [
     "Activity",
     "ActivityActivityType",
     "ActivityRequest",
-    "ActivityRequestActivityType",
     "ActivityRequestUser",
     "ActivityRequestVisibility",
     "ActivityResponse",
@@ -557,6 +558,8 @@ __all__ = [
     "FieldPermissionDeserializer",
     "FieldPermissionDeserializerRequest",
     "GenderEnum",
+    "IgnoreCommonModelRequest",
+    "IgnoreCommonModelRequestReason",
     "IndividualCommonModelScopeDeserializer",
     "IndividualCommonModelScopeDeserializerRequest",
     "Issue",

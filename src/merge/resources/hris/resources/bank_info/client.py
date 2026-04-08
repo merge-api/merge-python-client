@@ -4,9 +4,9 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.bank_info import BankInfo
-from ...types.paginated_bank_info_list import PaginatedBankInfoList
 from .raw_client import AsyncRawBankInfoClient, RawBankInfoClient
 from .types.bank_info_list_request_account_type import BankInfoListRequestAccountType
 from .types.bank_info_list_request_order_by import BankInfoListRequestOrderBy
@@ -36,7 +36,9 @@ class BankInfoClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -48,7 +50,7 @@ class BankInfoClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["account_type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedBankInfoList:
+    ) -> SyncPager[BankInfo]:
         """
         Returns a list of `BankInfo` objects.
 
@@ -75,7 +77,7 @@ class BankInfoClient:
         employee_id : typing.Optional[str]
             If provided, will only return bank accounts for this employee.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -97,7 +99,7 @@ class BankInfoClient:
             Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_fields : typing.Optional[typing.Literal["account_type"]]
             Deprecated. Use show_enum_origins.
@@ -113,7 +115,7 @@ class BankInfoClient:
 
         Returns
         -------
-        PaginatedBankInfoList
+        SyncPager[BankInfo]
 
 
         Examples
@@ -130,7 +132,7 @@ class BankInfoClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.bank_info.list(
+        response = client.hris.bank_info.list(
             account_type=BankInfoListRequestAccountType.CHECKING,
             bank_name="bank_name",
             created_after=datetime.datetime.fromisoformat(
@@ -154,8 +156,13 @@ class BankInfoClient:
             page_size=1,
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             account_type=account_type,
             bank_name=bank_name,
             created_after=created_after,
@@ -175,13 +182,14 @@ class BankInfoClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["account_type"]] = None,
@@ -195,7 +203,7 @@ class BankInfoClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -268,7 +276,9 @@ class AsyncBankInfoClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -280,7 +290,7 @@ class AsyncBankInfoClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["account_type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedBankInfoList:
+    ) -> AsyncPager[BankInfo]:
         """
         Returns a list of `BankInfo` objects.
 
@@ -307,7 +317,7 @@ class AsyncBankInfoClient:
         employee_id : typing.Optional[str]
             If provided, will only return bank accounts for this employee.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -329,7 +339,7 @@ class AsyncBankInfoClient:
             Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_fields : typing.Optional[typing.Literal["account_type"]]
             Deprecated. Use show_enum_origins.
@@ -345,7 +355,7 @@ class AsyncBankInfoClient:
 
         Returns
         -------
-        PaginatedBankInfoList
+        AsyncPager[BankInfo]
 
 
         Examples
@@ -366,7 +376,7 @@ class AsyncBankInfoClient:
 
 
         async def main() -> None:
-            await client.hris.bank_info.list(
+            response = await client.hris.bank_info.list(
                 account_type=BankInfoListRequestAccountType.CHECKING,
                 bank_name="bank_name",
                 created_after=datetime.datetime.fromisoformat(
@@ -390,11 +400,17 @@ class AsyncBankInfoClient:
                 page_size=1,
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             account_type=account_type,
             bank_name=bank_name,
             created_after=created_after,
@@ -414,13 +430,14 @@ class AsyncBankInfoClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["account_type"]] = None,
@@ -434,7 +451,7 @@ class AsyncBankInfoClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

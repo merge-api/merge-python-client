@@ -140,6 +140,14 @@ client = Merge(
 response = client.ats.activities.with_raw_response.create(...)
 print(response.headers)  # access the response headers
 print(response.data)  # access the underlying object
+pager = client.ats.activities.list(...)
+print(pager.response.headers)  # access the response headers for the first page
+for item in pager:
+    print(item)  # access the underlying object(s)
+for page in pager.iter_pages():
+    print(page.response.headers)  # access the response headers for each page
+    for item in page:
+        print(item)  # access the underlying object(s)
 ```
 
 ### Retries
@@ -233,33 +241,48 @@ with open(local_filename, "wb") as f:
 
 ## Pagination
 
-The SDK may return paginated results. Endpoints that return paginated results will 
-include a `next` and `prev` property on the response. To get the next page, you can 
-pass in the value of `next` to the cursor property on the request. Similarly, to 
-get the previous page, you can pass in the value of `prev` to the cursor property on 
-the request. 
+Paginated requests will return a `SyncPager` or `AsyncPager`, which can be used as generators for the underlying object.
 
-Below is an example of iterating over all pages:
 ```python
+import datetime
 
-# response contains the first page
-response = merge_client.hris.employees.list(created_after="2030-01-01")
+from merge import Merge
+from merge.resources.ats.resources.activities import (
+    ActivitiesListRequestRemoteFields,
+    ActivitiesListRequestShowEnumOrigins,
+)
 
-# if there is a next page, load it by passing `next` to the cursor argument
-while response.next is not None:
-    response = hris_client.employees.list(
-        cursor=response.next, 
-        created_after="2030-01-01")
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.ats.activities.list(
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    page_size=1,
+    remote_fields=ActivitiesListRequestRemoteFields.ACTIVITY_TYPE,
+    remote_id="remote_id",
+    show_enum_origins=ActivitiesListRequestShowEnumOrigins.ACTIVITY_TYPE,
+    user_id="user_id",
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 ```
-
-
-
-
-
-
-
-
-
-
-
 

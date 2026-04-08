@@ -4,17 +4,17 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.meta_response import MetaResponse
-from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
-from ...types.paginated_task_list import PaginatedTaskList
 from ...types.patched_task_request import PatchedTaskRequest
+from ...types.remote_field_class import RemoteFieldClass
 from ...types.task import Task
 from ...types.task_request import TaskRequest
 from ...types.task_response import TaskResponse
 from .raw_client import AsyncRawTasksClient, RawTasksClient
-from .types.tasks_list_request_expand import TasksListRequestExpand
-from .types.tasks_retrieve_request_expand import TasksRetrieveRequestExpand
+from .types.tasks_list_request_expand_item import TasksListRequestExpandItem
+from .types.tasks_retrieve_request_expand_item import TasksRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -41,7 +41,9 @@ class TasksClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[TasksListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TasksListRequestExpandItem, typing.Sequence[TasksListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -51,7 +53,7 @@ class TasksClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTaskList:
+    ) -> SyncPager[Task]:
         """
         Returns a list of `Task` objects.
 
@@ -66,7 +68,7 @@ class TasksClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[TasksListRequestExpand]
+        expand : typing.Optional[typing.Union[TasksListRequestExpandItem, typing.Sequence[TasksListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -98,7 +100,7 @@ class TasksClient:
 
         Returns
         -------
-        PaginatedTaskList
+        SyncPager[Task]
 
 
         Examples
@@ -106,13 +108,12 @@ class TasksClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.crm.resources.tasks import TasksListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.tasks.list(
+        response = client.crm.tasks.list(
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
@@ -120,7 +121,6 @@ class TasksClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=TasksListRequestExpand.ACCOUNT,
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,
@@ -134,8 +134,13 @@ class TasksClient:
             page_size=1,
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -150,7 +155,6 @@ class TasksClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -205,7 +209,9 @@ class TasksClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[TasksRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TasksRetrieveRequestExpandItem, typing.Sequence[TasksRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -218,7 +224,7 @@ class TasksClient:
         ----------
         id : str
 
-        expand : typing.Optional[TasksRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[TasksRetrieveRequestExpandItem, typing.Sequence[TasksRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -241,7 +247,6 @@ class TasksClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.crm.resources.tasks import TasksRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -249,7 +254,6 @@ class TasksClient:
         )
         client.crm.tasks.retrieve(
             id="id",
-            expand=TasksRetrieveRequestExpand.ACCOUNT,
             include_remote_data=True,
             include_remote_fields=True,
             include_shell_data=True,
@@ -388,7 +392,7 @@ class TasksClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -423,7 +427,7 @@ class TasksClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass]
 
 
         Examples
@@ -434,7 +438,7 @@ class TasksClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.tasks.remote_field_classes_list(
+        response = client.crm.tasks.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             include_deleted_data=True,
             include_remote_data=True,
@@ -444,8 +448,13 @@ class TasksClient:
             is_custom=True,
             page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.remote_field_classes_list(
+        return self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -456,7 +465,6 @@ class TasksClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncTasksClient:
@@ -480,7 +488,9 @@ class AsyncTasksClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[TasksListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TasksListRequestExpandItem, typing.Sequence[TasksListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -490,7 +500,7 @@ class AsyncTasksClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTaskList:
+    ) -> AsyncPager[Task]:
         """
         Returns a list of `Task` objects.
 
@@ -505,7 +515,7 @@ class AsyncTasksClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[TasksListRequestExpand]
+        expand : typing.Optional[typing.Union[TasksListRequestExpandItem, typing.Sequence[TasksListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -537,7 +547,7 @@ class AsyncTasksClient:
 
         Returns
         -------
-        PaginatedTaskList
+        AsyncPager[Task]
 
 
         Examples
@@ -546,7 +556,6 @@ class AsyncTasksClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.crm.resources.tasks import TasksListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -555,7 +564,7 @@ class AsyncTasksClient:
 
 
         async def main() -> None:
-            await client.crm.tasks.list(
+            response = await client.crm.tasks.list(
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
@@ -563,7 +572,6 @@ class AsyncTasksClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=TasksListRequestExpand.ACCOUNT,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_remote_fields=True,
@@ -577,11 +585,17 @@ class AsyncTasksClient:
                 page_size=1,
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -596,7 +610,6 @@ class AsyncTasksClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -659,7 +672,9 @@ class AsyncTasksClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[TasksRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[TasksRetrieveRequestExpandItem, typing.Sequence[TasksRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -672,7 +687,7 @@ class AsyncTasksClient:
         ----------
         id : str
 
-        expand : typing.Optional[TasksRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[TasksRetrieveRequestExpandItem, typing.Sequence[TasksRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -697,7 +712,6 @@ class AsyncTasksClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.crm.resources.tasks import TasksRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -708,7 +722,6 @@ class AsyncTasksClient:
         async def main() -> None:
             await client.crm.tasks.retrieve(
                 id="id",
-                expand=TasksRetrieveRequestExpand.ACCOUNT,
                 include_remote_data=True,
                 include_remote_fields=True,
                 include_shell_data=True,
@@ -876,7 +889,7 @@ class AsyncTasksClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -911,7 +924,7 @@ class AsyncTasksClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass]
 
 
         Examples
@@ -927,7 +940,7 @@ class AsyncTasksClient:
 
 
         async def main() -> None:
-            await client.crm.tasks.remote_field_classes_list(
+            response = await client.crm.tasks.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
                 include_deleted_data=True,
                 include_remote_data=True,
@@ -937,11 +950,17 @@ class AsyncTasksClient:
                 is_custom=True,
                 page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.remote_field_classes_list(
+        return await self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -952,4 +971,3 @@ class AsyncTasksClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data

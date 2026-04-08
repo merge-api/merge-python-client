@@ -4,8 +4,8 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
-from ...types.paginated_payroll_run_list import PaginatedPayrollRunList
 from ...types.payroll_run import PayrollRun
 from .raw_client import AsyncRawPayrollRunsClient, RawPayrollRunsClient
 from .types.payroll_runs_list_request_remote_fields import PayrollRunsListRequestRemoteFields
@@ -51,7 +51,7 @@ class PayrollRunsClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedPayrollRunList:
+    ) -> SyncPager[PayrollRun]:
         """
         Returns a list of `PayrollRun` objects.
 
@@ -88,7 +88,7 @@ class PayrollRunsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_fields : typing.Optional[PayrollRunsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -119,7 +119,7 @@ class PayrollRunsClient:
 
         Returns
         -------
-        PaginatedPayrollRunList
+        SyncPager[PayrollRun]
 
 
         Examples
@@ -137,7 +137,7 @@ class PayrollRunsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.payroll_runs.list(
+        response = client.hris.payroll_runs.list(
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
@@ -172,8 +172,13 @@ class PayrollRunsClient:
                 "2024-01-15 09:30:00+00:00",
             ),
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -193,7 +198,6 @@ class PayrollRunsClient:
             started_before=started_before,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -299,7 +303,7 @@ class AsyncPayrollRunsClient:
         started_after: typing.Optional[dt.datetime] = None,
         started_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedPayrollRunList:
+    ) -> AsyncPager[PayrollRun]:
         """
         Returns a list of `PayrollRun` objects.
 
@@ -336,7 +340,7 @@ class AsyncPayrollRunsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_fields : typing.Optional[PayrollRunsListRequestRemoteFields]
             Deprecated. Use show_enum_origins.
@@ -367,7 +371,7 @@ class AsyncPayrollRunsClient:
 
         Returns
         -------
-        PaginatedPayrollRunList
+        AsyncPager[PayrollRun]
 
 
         Examples
@@ -389,7 +393,7 @@ class AsyncPayrollRunsClient:
 
 
         async def main() -> None:
-            await client.hris.payroll_runs.list(
+            response = await client.hris.payroll_runs.list(
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
@@ -424,11 +428,17 @@ class AsyncPayrollRunsClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -448,7 +458,6 @@ class AsyncPayrollRunsClient:
             started_before=started_before,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,

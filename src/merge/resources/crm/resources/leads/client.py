@@ -4,16 +4,16 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.lead import Lead
 from ...types.lead_request import LeadRequest
 from ...types.lead_response import LeadResponse
 from ...types.meta_response import MetaResponse
-from ...types.paginated_lead_list import PaginatedLeadList
-from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
+from ...types.remote_field_class import RemoteFieldClass
 from .raw_client import AsyncRawLeadsClient, RawLeadsClient
-from .types.leads_list_request_expand import LeadsListRequestExpand
-from .types.leads_retrieve_request_expand import LeadsRetrieveRequestExpand
+from .types.leads_list_request_expand_item import LeadsListRequestExpandItem
+from .types.leads_retrieve_request_expand_item import LeadsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -43,7 +43,9 @@ class LeadsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_addresses: typing.Optional[str] = None,
-        expand: typing.Optional[LeadsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[LeadsListRequestExpandItem, typing.Sequence[LeadsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -55,7 +57,7 @@ class LeadsClient:
         phone_numbers: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedLeadList:
+    ) -> SyncPager[Lead]:
         """
         Returns a list of `Lead` objects.
 
@@ -79,7 +81,7 @@ class LeadsClient:
         email_addresses : typing.Optional[str]
             If provided, will only return contacts matching the email addresses; multiple email_addresses can be separated by commas.
 
-        expand : typing.Optional[LeadsListRequestExpand]
+        expand : typing.Optional[typing.Union[LeadsListRequestExpandItem, typing.Sequence[LeadsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -117,7 +119,7 @@ class LeadsClient:
 
         Returns
         -------
-        PaginatedLeadList
+        SyncPager[Lead]
 
 
         Examples
@@ -125,13 +127,12 @@ class LeadsClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.crm.resources.leads import LeadsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.leads.list(
+        response = client.crm.leads.list(
             converted_account_id="converted_account_id",
             converted_contact_id="converted_contact_id",
             created_after=datetime.datetime.fromisoformat(
@@ -142,7 +143,6 @@ class LeadsClient:
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             email_addresses="email_addresses",
-            expand=LeadsListRequestExpand.CONVERTED_ACCOUNT,
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,
@@ -158,8 +158,13 @@ class LeadsClient:
             phone_numbers="phone_numbers",
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             converted_account_id=converted_account_id,
             converted_contact_id=converted_contact_id,
             created_after=created_after,
@@ -179,7 +184,6 @@ class LeadsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -234,7 +238,9 @@ class LeadsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[LeadsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[LeadsRetrieveRequestExpandItem, typing.Sequence[LeadsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -247,7 +253,7 @@ class LeadsClient:
         ----------
         id : str
 
-        expand : typing.Optional[LeadsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[LeadsRetrieveRequestExpandItem, typing.Sequence[LeadsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -270,7 +276,6 @@ class LeadsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.crm.resources.leads import LeadsRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -278,7 +283,6 @@ class LeadsClient:
         )
         client.crm.leads.retrieve(
             id="id",
-            expand=LeadsRetrieveRequestExpand.CONVERTED_ACCOUNT,
             include_remote_data=True,
             include_remote_fields=True,
             include_shell_data=True,
@@ -333,7 +337,7 @@ class LeadsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -368,7 +372,7 @@ class LeadsClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass]
 
 
         Examples
@@ -379,7 +383,7 @@ class LeadsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.leads.remote_field_classes_list(
+        response = client.crm.leads.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             include_deleted_data=True,
             include_remote_data=True,
@@ -389,8 +393,13 @@ class LeadsClient:
             is_custom=True,
             page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.remote_field_classes_list(
+        return self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -401,7 +410,6 @@ class LeadsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncLeadsClient:
@@ -428,7 +436,9 @@ class AsyncLeadsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_addresses: typing.Optional[str] = None,
-        expand: typing.Optional[LeadsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[LeadsListRequestExpandItem, typing.Sequence[LeadsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -440,7 +450,7 @@ class AsyncLeadsClient:
         phone_numbers: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedLeadList:
+    ) -> AsyncPager[Lead]:
         """
         Returns a list of `Lead` objects.
 
@@ -464,7 +474,7 @@ class AsyncLeadsClient:
         email_addresses : typing.Optional[str]
             If provided, will only return contacts matching the email addresses; multiple email_addresses can be separated by commas.
 
-        expand : typing.Optional[LeadsListRequestExpand]
+        expand : typing.Optional[typing.Union[LeadsListRequestExpandItem, typing.Sequence[LeadsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -502,7 +512,7 @@ class AsyncLeadsClient:
 
         Returns
         -------
-        PaginatedLeadList
+        AsyncPager[Lead]
 
 
         Examples
@@ -511,7 +521,6 @@ class AsyncLeadsClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.crm.resources.leads import LeadsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -520,7 +529,7 @@ class AsyncLeadsClient:
 
 
         async def main() -> None:
-            await client.crm.leads.list(
+            response = await client.crm.leads.list(
                 converted_account_id="converted_account_id",
                 converted_contact_id="converted_contact_id",
                 created_after=datetime.datetime.fromisoformat(
@@ -531,7 +540,6 @@ class AsyncLeadsClient:
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
                 email_addresses="email_addresses",
-                expand=LeadsListRequestExpand.CONVERTED_ACCOUNT,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_remote_fields=True,
@@ -547,11 +555,17 @@ class AsyncLeadsClient:
                 phone_numbers="phone_numbers",
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             converted_account_id=converted_account_id,
             converted_contact_id=converted_contact_id,
             created_after=created_after,
@@ -571,7 +585,6 @@ class AsyncLeadsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -634,7 +647,9 @@ class AsyncLeadsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[LeadsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[LeadsRetrieveRequestExpandItem, typing.Sequence[LeadsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -647,7 +662,7 @@ class AsyncLeadsClient:
         ----------
         id : str
 
-        expand : typing.Optional[LeadsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[LeadsRetrieveRequestExpandItem, typing.Sequence[LeadsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -672,7 +687,6 @@ class AsyncLeadsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.crm.resources.leads import LeadsRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -683,7 +697,6 @@ class AsyncLeadsClient:
         async def main() -> None:
             await client.crm.leads.retrieve(
                 id="id",
-                expand=LeadsRetrieveRequestExpand.CONVERTED_ACCOUNT,
                 include_remote_data=True,
                 include_remote_fields=True,
                 include_shell_data=True,
@@ -749,7 +762,7 @@ class AsyncLeadsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -784,7 +797,7 @@ class AsyncLeadsClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass]
 
 
         Examples
@@ -800,7 +813,7 @@ class AsyncLeadsClient:
 
 
         async def main() -> None:
-            await client.crm.leads.remote_field_classes_list(
+            response = await client.crm.leads.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
                 include_deleted_data=True,
                 include_remote_data=True,
@@ -810,11 +823,17 @@ class AsyncLeadsClient:
                 is_custom=True,
                 page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.remote_field_classes_list(
+        return await self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -825,4 +844,3 @@ class AsyncLeadsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data

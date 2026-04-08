@@ -9,6 +9,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, BaseHttpResponse, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.meta_response import MetaResponse
@@ -16,8 +17,8 @@ from ...types.paginated_vendor_credit_list import PaginatedVendorCreditList
 from ...types.vendor_credit import VendorCredit
 from ...types.vendor_credit_request import VendorCreditRequest
 from ...types.vendor_credit_response import VendorCreditResponse
-from .types.vendor_credits_list_request_expand import VendorCreditsListRequestExpand
-from .types.vendor_credits_retrieve_request_expand import VendorCreditsRetrieveRequestExpand
+from .types.vendor_credits_list_request_expand_item import VendorCreditsListRequestExpandItem
+from .types.vendor_credits_retrieve_request_expand_item import VendorCreditsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -34,7 +35,9 @@ class RawVendorCreditsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[VendorCreditsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[VendorCreditsListRequestExpandItem, typing.Sequence[VendorCreditsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -45,7 +48,7 @@ class RawVendorCreditsClient:
         transaction_date_after: typing.Optional[dt.datetime] = None,
         transaction_date_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedVendorCreditList]:
+    ) -> SyncPager[VendorCredit]:
         """
         Returns a list of `VendorCredit` objects.
 
@@ -63,7 +66,7 @@ class RawVendorCreditsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[VendorCreditsListRequestExpand]
+        expand : typing.Optional[typing.Union[VendorCreditsListRequestExpandItem, typing.Sequence[VendorCreditsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -98,7 +101,7 @@ class RawVendorCreditsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedVendorCreditList]
+        SyncPager[VendorCredit]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -128,14 +131,36 @@ class RawVendorCreditsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedVendorCreditList,
                     construct_type(
                         type_=PaginatedVendorCreditList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    company_id=company_id,
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    remote_id=remote_id,
+                    transaction_date_after=transaction_date_after,
+                    transaction_date_before=transaction_date_before,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -205,7 +230,11 @@ class RawVendorCreditsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[VendorCreditsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                VendorCreditsRetrieveRequestExpandItem, typing.Sequence[VendorCreditsRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -217,7 +246,7 @@ class RawVendorCreditsClient:
         ----------
         id : str
 
-        expand : typing.Optional[VendorCreditsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[VendorCreditsRetrieveRequestExpandItem, typing.Sequence[VendorCreditsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -307,7 +336,9 @@ class AsyncRawVendorCreditsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[VendorCreditsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[VendorCreditsListRequestExpandItem, typing.Sequence[VendorCreditsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -318,7 +349,7 @@ class AsyncRawVendorCreditsClient:
         transaction_date_after: typing.Optional[dt.datetime] = None,
         transaction_date_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedVendorCreditList]:
+    ) -> AsyncPager[VendorCredit]:
         """
         Returns a list of `VendorCredit` objects.
 
@@ -336,7 +367,7 @@ class AsyncRawVendorCreditsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[VendorCreditsListRequestExpand]
+        expand : typing.Optional[typing.Union[VendorCreditsListRequestExpandItem, typing.Sequence[VendorCreditsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -371,7 +402,7 @@ class AsyncRawVendorCreditsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedVendorCreditList]
+        AsyncPager[VendorCredit]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -401,14 +432,39 @@ class AsyncRawVendorCreditsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedVendorCreditList,
                     construct_type(
                         type_=PaginatedVendorCreditList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        company_id=company_id,
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        remote_id=remote_id,
+                        transaction_date_after=transaction_date_after,
+                        transaction_date_before=transaction_date_before,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -478,7 +534,11 @@ class AsyncRawVendorCreditsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[VendorCreditsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                VendorCreditsRetrieveRequestExpandItem, typing.Sequence[VendorCreditsRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -490,7 +550,7 @@ class AsyncRawVendorCreditsClient:
         ----------
         id : str
 
-        expand : typing.Optional[VendorCreditsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[VendorCreditsRetrieveRequestExpandItem, typing.Sequence[VendorCreditsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
