@@ -9,6 +9,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, BaseHttpResponse, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.lead import Lead
@@ -17,8 +18,9 @@ from ...types.lead_response import LeadResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_lead_list import PaginatedLeadList
 from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
-from .types.leads_list_request_expand import LeadsListRequestExpand
-from .types.leads_retrieve_request_expand import LeadsRetrieveRequestExpand
+from ...types.remote_field_class import RemoteFieldClass
+from .types.leads_list_request_expand_item import LeadsListRequestExpandItem
+from .types.leads_retrieve_request_expand_item import LeadsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -37,7 +39,9 @@ class RawLeadsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_addresses: typing.Optional[str] = None,
-        expand: typing.Optional[LeadsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[LeadsListRequestExpandItem, typing.Sequence[LeadsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -49,7 +53,7 @@ class RawLeadsClient:
         phone_numbers: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedLeadList]:
+    ) -> SyncPager[Lead]:
         """
         Returns a list of `Lead` objects.
 
@@ -73,7 +77,7 @@ class RawLeadsClient:
         email_addresses : typing.Optional[str]
             If provided, will only return contacts matching the email addresses; multiple email_addresses can be separated by commas.
 
-        expand : typing.Optional[LeadsListRequestExpand]
+        expand : typing.Optional[typing.Union[LeadsListRequestExpandItem, typing.Sequence[LeadsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -111,7 +115,7 @@ class RawLeadsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedLeadList]
+        SyncPager[Lead]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -140,14 +144,39 @@ class RawLeadsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedLeadList,
                     construct_type(
                         type_=PaginatedLeadList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    converted_account_id=converted_account_id,
+                    converted_contact_id=converted_contact_id,
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    email_addresses=email_addresses,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_remote_fields=include_remote_fields,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    owner_id=owner_id,
+                    page_size=page_size,
+                    phone_numbers=phone_numbers,
+                    remote_id=remote_id,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -217,7 +246,9 @@ class RawLeadsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[LeadsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[LeadsRetrieveRequestExpandItem, typing.Sequence[LeadsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -230,7 +261,7 @@ class RawLeadsClient:
         ----------
         id : str
 
-        expand : typing.Optional[LeadsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[LeadsRetrieveRequestExpandItem, typing.Sequence[LeadsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -324,7 +355,7 @@ class RawLeadsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedRemoteFieldClassList]:
+    ) -> SyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -359,7 +390,7 @@ class RawLeadsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedRemoteFieldClassList]
+        SyncPager[RemoteFieldClass]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -379,14 +410,30 @@ class RawLeadsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedRemoteFieldClassList,
                     construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.remote_field_classes_list(
+                    cursor=_parsed_next,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_remote_fields=include_remote_fields,
+                    include_shell_data=include_shell_data,
+                    is_common_model_field=is_common_model_field,
+                    is_custom=is_custom,
+                    page_size=page_size,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -406,7 +453,9 @@ class AsyncRawLeadsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_addresses: typing.Optional[str] = None,
-        expand: typing.Optional[LeadsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[LeadsListRequestExpandItem, typing.Sequence[LeadsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -418,7 +467,7 @@ class AsyncRawLeadsClient:
         phone_numbers: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedLeadList]:
+    ) -> AsyncPager[Lead]:
         """
         Returns a list of `Lead` objects.
 
@@ -442,7 +491,7 @@ class AsyncRawLeadsClient:
         email_addresses : typing.Optional[str]
             If provided, will only return contacts matching the email addresses; multiple email_addresses can be separated by commas.
 
-        expand : typing.Optional[LeadsListRequestExpand]
+        expand : typing.Optional[typing.Union[LeadsListRequestExpandItem, typing.Sequence[LeadsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -480,7 +529,7 @@ class AsyncRawLeadsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedLeadList]
+        AsyncPager[Lead]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -509,14 +558,42 @@ class AsyncRawLeadsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedLeadList,
                     construct_type(
                         type_=PaginatedLeadList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        converted_account_id=converted_account_id,
+                        converted_contact_id=converted_contact_id,
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        email_addresses=email_addresses,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_remote_fields=include_remote_fields,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        owner_id=owner_id,
+                        page_size=page_size,
+                        phone_numbers=phone_numbers,
+                        remote_id=remote_id,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -586,7 +663,9 @@ class AsyncRawLeadsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[LeadsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[LeadsRetrieveRequestExpandItem, typing.Sequence[LeadsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -599,7 +678,7 @@ class AsyncRawLeadsClient:
         ----------
         id : str
 
-        expand : typing.Optional[LeadsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[LeadsRetrieveRequestExpandItem, typing.Sequence[LeadsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -693,7 +772,7 @@ class AsyncRawLeadsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedRemoteFieldClassList]:
+    ) -> AsyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -728,7 +807,7 @@ class AsyncRawLeadsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedRemoteFieldClassList]
+        AsyncPager[RemoteFieldClass]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -748,14 +827,33 @@ class AsyncRawLeadsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedRemoteFieldClassList,
                     construct_type(
                         type_=PaginatedRemoteFieldClassList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.remote_field_classes_list(
+                        cursor=_parsed_next,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_remote_fields=include_remote_fields,
+                        include_shell_data=include_shell_data,
+                        is_common_model_field=is_common_model_field,
+                        is_custom=is_custom,
+                        page_size=page_size,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)

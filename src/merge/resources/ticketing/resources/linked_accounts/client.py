@@ -3,8 +3,9 @@
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
-from ...types.paginated_account_details_and_actions_list import PaginatedAccountDetailsAndActionsList
+from ...types.account_details_and_actions import AccountDetailsAndActions
 from .raw_client import AsyncRawLinkedAccountsClient, RawLinkedAccountsClient
 from .types.linked_accounts_list_request_category import LinkedAccountsListRequestCategory
 
@@ -41,7 +42,7 @@ class LinkedAccountsClient:
         page_size: typing.Optional[int] = None,
         status: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAccountDetailsAndActionsList:
+    ) -> SyncPager[AccountDetailsAndActions]:
         """
         List linked accounts for your organization.
 
@@ -88,7 +89,7 @@ class LinkedAccountsClient:
             If included, will only include test linked accounts. If not included, will only include non-test linked accounts.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         status : typing.Optional[str]
             Filter by status. Options: `COMPLETE`, `IDLE`, `INCOMPLETE`, `RELINK_NEEDED`
@@ -98,7 +99,7 @@ class LinkedAccountsClient:
 
         Returns
         -------
-        PaginatedAccountDetailsAndActionsList
+        SyncPager[AccountDetailsAndActions]
 
 
         Examples
@@ -112,7 +113,7 @@ class LinkedAccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.linked_accounts.list(
+        response = client.ticketing.linked_accounts.list(
             category=LinkedAccountsListRequestCategory.ACCOUNTING,
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             end_user_email_address="end_user_email_address",
@@ -127,8 +128,13 @@ class LinkedAccountsClient:
             page_size=1,
             status="status",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             category=category,
             cursor=cursor,
             end_user_email_address=end_user_email_address,
@@ -144,7 +150,6 @@ class LinkedAccountsClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncLinkedAccountsClient:
@@ -179,7 +184,7 @@ class AsyncLinkedAccountsClient:
         page_size: typing.Optional[int] = None,
         status: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAccountDetailsAndActionsList:
+    ) -> AsyncPager[AccountDetailsAndActions]:
         """
         List linked accounts for your organization.
 
@@ -226,7 +231,7 @@ class AsyncLinkedAccountsClient:
             If included, will only include test linked accounts. If not included, will only include non-test linked accounts.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         status : typing.Optional[str]
             Filter by status. Options: `COMPLETE`, `IDLE`, `INCOMPLETE`, `RELINK_NEEDED`
@@ -236,7 +241,7 @@ class AsyncLinkedAccountsClient:
 
         Returns
         -------
-        PaginatedAccountDetailsAndActionsList
+        AsyncPager[AccountDetailsAndActions]
 
 
         Examples
@@ -255,7 +260,7 @@ class AsyncLinkedAccountsClient:
 
 
         async def main() -> None:
-            await client.ticketing.linked_accounts.list(
+            response = await client.ticketing.linked_accounts.list(
                 category=LinkedAccountsListRequestCategory.ACCOUNTING,
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
                 end_user_email_address="end_user_email_address",
@@ -270,11 +275,17 @@ class AsyncLinkedAccountsClient:
                 page_size=1,
                 status="status",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             category=category,
             cursor=cursor,
             end_user_email_address=end_user_email_address,
@@ -290,4 +301,3 @@ class AsyncLinkedAccountsClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data

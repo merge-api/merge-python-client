@@ -37,46 +37,45 @@ if typing.TYPE_CHECKING:
         webhook_receivers,
     )
     from .async_passthrough import AsyncPassthroughRetrieveResponse
-    from .collections import CollectionsListRequestCollectionType, CollectionsViewersListRequestExpand
-    from .comments import CommentsListRequestExpand, CommentsRetrieveRequestExpand
+    from .collections import CollectionsListRequestCollectionType, CollectionsViewersListRequestExpandItem
+    from .comments import CommentsListRequestExpandItem, CommentsRetrieveRequestExpandItem
     from .issues import IssuesListRequestStatus
-    from .link_token import EndUserDetailsRequestCompletedAccountInitialScreen, EndUserDetailsRequestLanguage
+    from .link_token import EndUserDetailsRequestLanguage
     from .linked_accounts import LinkedAccountsListRequestCategory
-    from .projects import ProjectsUsersListRequestExpand
+    from .projects import ProjectsUsersListRequestExpandItem
     from .tickets import (
-        TicketsListRequestExpand,
+        TicketsListRequestExpandItem,
         TicketsListRequestPriority,
         TicketsListRequestRemoteFields,
         TicketsListRequestShowEnumOrigins,
         TicketsListRequestStatus,
-        TicketsRetrieveRequestExpand,
+        TicketsRetrieveRequestExpandItem,
         TicketsRetrieveRequestRemoteFields,
         TicketsRetrieveRequestShowEnumOrigins,
-        TicketsViewersListRequestExpand,
+        TicketsViewersListRequestExpandItem,
     )
-    from .users import UsersListRequestExpand, UsersRetrieveRequestExpand
+    from .users import UsersListRequestExpandItem, UsersRetrieveRequestExpandItem
 _dynamic_imports: typing.Dict[str, str] = {
     "AsyncPassthroughRetrieveResponse": ".async_passthrough",
     "CollectionsListRequestCollectionType": ".collections",
-    "CollectionsViewersListRequestExpand": ".collections",
-    "CommentsListRequestExpand": ".comments",
-    "CommentsRetrieveRequestExpand": ".comments",
-    "EndUserDetailsRequestCompletedAccountInitialScreen": ".link_token",
+    "CollectionsViewersListRequestExpandItem": ".collections",
+    "CommentsListRequestExpandItem": ".comments",
+    "CommentsRetrieveRequestExpandItem": ".comments",
     "EndUserDetailsRequestLanguage": ".link_token",
     "IssuesListRequestStatus": ".issues",
     "LinkedAccountsListRequestCategory": ".linked_accounts",
-    "ProjectsUsersListRequestExpand": ".projects",
-    "TicketsListRequestExpand": ".tickets",
+    "ProjectsUsersListRequestExpandItem": ".projects",
+    "TicketsListRequestExpandItem": ".tickets",
     "TicketsListRequestPriority": ".tickets",
     "TicketsListRequestRemoteFields": ".tickets",
     "TicketsListRequestShowEnumOrigins": ".tickets",
     "TicketsListRequestStatus": ".tickets",
-    "TicketsRetrieveRequestExpand": ".tickets",
+    "TicketsRetrieveRequestExpandItem": ".tickets",
     "TicketsRetrieveRequestRemoteFields": ".tickets",
     "TicketsRetrieveRequestShowEnumOrigins": ".tickets",
-    "TicketsViewersListRequestExpand": ".tickets",
-    "UsersListRequestExpand": ".users",
-    "UsersRetrieveRequestExpand": ".users",
+    "TicketsViewersListRequestExpandItem": ".tickets",
+    "UsersListRequestExpandItem": ".users",
+    "UsersRetrieveRequestExpandItem": ".users",
     "account_details": ".",
     "account_token": ".",
     "accounts": ".",
@@ -130,25 +129,24 @@ def __dir__():
 __all__ = [
     "AsyncPassthroughRetrieveResponse",
     "CollectionsListRequestCollectionType",
-    "CollectionsViewersListRequestExpand",
-    "CommentsListRequestExpand",
-    "CommentsRetrieveRequestExpand",
-    "EndUserDetailsRequestCompletedAccountInitialScreen",
+    "CollectionsViewersListRequestExpandItem",
+    "CommentsListRequestExpandItem",
+    "CommentsRetrieveRequestExpandItem",
     "EndUserDetailsRequestLanguage",
     "IssuesListRequestStatus",
     "LinkedAccountsListRequestCategory",
-    "ProjectsUsersListRequestExpand",
-    "TicketsListRequestExpand",
+    "ProjectsUsersListRequestExpandItem",
+    "TicketsListRequestExpandItem",
     "TicketsListRequestPriority",
     "TicketsListRequestRemoteFields",
     "TicketsListRequestShowEnumOrigins",
     "TicketsListRequestStatus",
-    "TicketsRetrieveRequestExpand",
+    "TicketsRetrieveRequestExpandItem",
     "TicketsRetrieveRequestRemoteFields",
     "TicketsRetrieveRequestShowEnumOrigins",
-    "TicketsViewersListRequestExpand",
-    "UsersListRequestExpand",
-    "UsersRetrieveRequestExpand",
+    "TicketsViewersListRequestExpandItem",
+    "UsersListRequestExpandItem",
+    "UsersRetrieveRequestExpandItem",
     "account_details",
     "account_token",
     "accounts",

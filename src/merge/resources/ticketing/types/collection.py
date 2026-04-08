@@ -9,7 +9,7 @@ import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, update_forward_refs
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .collection_access_level import CollectionAccessLevel
-from .collection_collection_type import CollectionCollectionType
+from .collection_type_enum import CollectionTypeEnum
 from .remote_data import RemoteData
 
 
@@ -59,7 +59,7 @@ class Collection(UncheckedBaseModel):
     * `PARENT_COLLECTION` - PARENT_COLLECTION
     """
 
-    collection_type: typing.Optional[CollectionCollectionType] = pydantic.Field(default=None)
+    collection_type: typing.Optional[CollectionTypeEnum] = pydantic.Field(default=None)
     """
     The collection's type.
     

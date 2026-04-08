@@ -8,7 +8,6 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .accounting_phone_number import AccountingPhoneNumber
 from .address import Address
-from .company_info_currency import CompanyInfoCurrency
 from .remote_data import RemoteData
 
 
@@ -63,7 +62,7 @@ class CompanyInfo(UncheckedBaseModel):
     The company's fiscal year end day.
     """
 
-    currency: typing.Optional[CompanyInfoCurrency] = pydantic.Field(default=None)
+    currency: typing.Optional[typing.Optional[typing.Any]] = pydantic.Field(default=None)
     """
     The currency set in the company's accounting platform.
     

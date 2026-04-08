@@ -4,12 +4,12 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.offer import Offer
-from ...types.paginated_offer_list import PaginatedOfferList
 from .raw_client import AsyncRawOffersClient, RawOffersClient
-from .types.offers_list_request_expand import OffersListRequestExpand
-from .types.offers_retrieve_request_expand import OffersRetrieveRequestExpand
+from .types.offers_list_request_expand_item import OffersListRequestExpandItem
+from .types.offers_retrieve_request_expand_item import OffersRetrieveRequestExpandItem
 
 
 class OffersClient:
@@ -35,7 +35,9 @@ class OffersClient:
         created_before: typing.Optional[dt.datetime] = None,
         creator_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[OffersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OffersListRequestExpandItem, typing.Sequence[OffersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -46,7 +48,7 @@ class OffersClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedOfferList:
+    ) -> SyncPager[Offer]:
         """
         Returns a list of `Offer` objects.
 
@@ -67,7 +69,7 @@ class OffersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[OffersListRequestExpand]
+        expand : typing.Optional[typing.Union[OffersListRequestExpandItem, typing.Sequence[OffersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -102,7 +104,7 @@ class OffersClient:
 
         Returns
         -------
-        PaginatedOfferList
+        SyncPager[Offer]
 
 
         Examples
@@ -110,13 +112,12 @@ class OffersClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.ats.resources.offers import OffersListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.offers.list(
+        response = client.ats.offers.list(
             application_id="application_id",
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
@@ -126,7 +127,6 @@ class OffersClient:
             ),
             creator_id="creator_id",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=OffersListRequestExpand.APPLICATION,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -139,8 +139,13 @@ class OffersClient:
             page_size=1,
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             application_id=application_id,
             created_after=created_after,
             created_before=created_before,
@@ -158,13 +163,14 @@ class OffersClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[OffersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OffersRetrieveRequestExpandItem, typing.Sequence[OffersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -178,7 +184,7 @@ class OffersClient:
         ----------
         id : str
 
-        expand : typing.Optional[OffersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[OffersRetrieveRequestExpandItem, typing.Sequence[OffersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -204,7 +210,6 @@ class OffersClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.ats.resources.offers import OffersRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -212,7 +217,6 @@ class OffersClient:
         )
         client.ats.offers.retrieve(
             id="id",
-            expand=OffersRetrieveRequestExpand.APPLICATION,
             include_remote_data=True,
             include_shell_data=True,
         )
@@ -252,7 +256,9 @@ class AsyncOffersClient:
         created_before: typing.Optional[dt.datetime] = None,
         creator_id: typing.Optional[str] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[OffersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OffersListRequestExpandItem, typing.Sequence[OffersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -263,7 +269,7 @@ class AsyncOffersClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedOfferList:
+    ) -> AsyncPager[Offer]:
         """
         Returns a list of `Offer` objects.
 
@@ -284,7 +290,7 @@ class AsyncOffersClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[OffersListRequestExpand]
+        expand : typing.Optional[typing.Union[OffersListRequestExpandItem, typing.Sequence[OffersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -319,7 +325,7 @@ class AsyncOffersClient:
 
         Returns
         -------
-        PaginatedOfferList
+        AsyncPager[Offer]
 
 
         Examples
@@ -328,7 +334,6 @@ class AsyncOffersClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.ats.resources.offers import OffersListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -337,7 +342,7 @@ class AsyncOffersClient:
 
 
         async def main() -> None:
-            await client.ats.offers.list(
+            response = await client.ats.offers.list(
                 application_id="application_id",
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
@@ -347,7 +352,6 @@ class AsyncOffersClient:
                 ),
                 creator_id="creator_id",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=OffersListRequestExpand.APPLICATION,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
@@ -360,11 +364,17 @@ class AsyncOffersClient:
                 page_size=1,
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             application_id=application_id,
             created_after=created_after,
             created_before=created_before,
@@ -382,13 +392,14 @@ class AsyncOffersClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[OffersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[OffersRetrieveRequestExpandItem, typing.Sequence[OffersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -402,7 +413,7 @@ class AsyncOffersClient:
         ----------
         id : str
 
-        expand : typing.Optional[OffersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[OffersRetrieveRequestExpandItem, typing.Sequence[OffersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -430,7 +441,6 @@ class AsyncOffersClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.ats.resources.offers import OffersRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -441,7 +451,6 @@ class AsyncOffersClient:
         async def main() -> None:
             await client.ats.offers.retrieve(
                 id="id",
-                expand=OffersRetrieveRequestExpand.APPLICATION,
                 include_remote_data=True,
                 include_shell_data=True,
             )

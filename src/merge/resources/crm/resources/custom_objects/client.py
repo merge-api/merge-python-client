@@ -4,13 +4,13 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.crm_custom_object_response import CrmCustomObjectResponse
 from ...types.custom_object import CustomObject
 from ...types.custom_object_request import CustomObjectRequest
 from ...types.meta_response import MetaResponse
-from ...types.paginated_custom_object_list import PaginatedCustomObjectList
-from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
+from ...types.remote_field_class import RemoteFieldClass
 from .raw_client import AsyncRawCustomObjectsClient, RawCustomObjectsClient
 
 # this is used as the default value for optional parameters
@@ -48,7 +48,7 @@ class CustomObjectsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedCustomObjectList:
+    ) -> SyncPager[CustomObject]:
         """
         Returns a list of `CustomObject` objects.
 
@@ -94,7 +94,7 @@ class CustomObjectsClient:
 
         Returns
         -------
-        PaginatedCustomObjectList
+        SyncPager[CustomObject]
 
 
         Examples
@@ -107,7 +107,7 @@ class CustomObjectsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.custom_objects.custom_object_classes_custom_objects_list(
+        response = client.crm.custom_objects.custom_object_classes_custom_objects_list(
             custom_object_class_id="custom_object_class_id",
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
@@ -129,8 +129,13 @@ class CustomObjectsClient:
             page_size=1,
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.custom_object_classes_custom_objects_list(
+        return self._raw_client.custom_object_classes_custom_objects_list(
             custom_object_class_id,
             created_after=created_after,
             created_before=created_before,
@@ -145,7 +150,6 @@ class CustomObjectsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def custom_object_classes_custom_objects_create(
         self,
@@ -315,7 +319,7 @@ class CustomObjectsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -350,7 +354,7 @@ class CustomObjectsClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass]
 
 
         Examples
@@ -361,7 +365,7 @@ class CustomObjectsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.custom_objects.custom_object_classes_custom_objects_remote_field_classes_list(
+        response = client.crm.custom_objects.custom_object_classes_custom_objects_remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             include_deleted_data=True,
             include_remote_data=True,
@@ -371,8 +375,13 @@ class CustomObjectsClient:
             is_custom=True,
             page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.custom_object_classes_custom_objects_remote_field_classes_list(
+        return self._raw_client.custom_object_classes_custom_objects_remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -383,7 +392,6 @@ class CustomObjectsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncCustomObjectsClient:
@@ -417,7 +425,7 @@ class AsyncCustomObjectsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedCustomObjectList:
+    ) -> AsyncPager[CustomObject]:
         """
         Returns a list of `CustomObject` objects.
 
@@ -463,7 +471,7 @@ class AsyncCustomObjectsClient:
 
         Returns
         -------
-        PaginatedCustomObjectList
+        AsyncPager[CustomObject]
 
 
         Examples
@@ -480,7 +488,7 @@ class AsyncCustomObjectsClient:
 
 
         async def main() -> None:
-            await client.crm.custom_objects.custom_object_classes_custom_objects_list(
+            response = await client.crm.custom_objects.custom_object_classes_custom_objects_list(
                 custom_object_class_id="custom_object_class_id",
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
@@ -502,11 +510,17 @@ class AsyncCustomObjectsClient:
                 page_size=1,
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.custom_object_classes_custom_objects_list(
+        return await self._raw_client.custom_object_classes_custom_objects_list(
             custom_object_class_id,
             created_after=created_after,
             created_before=created_before,
@@ -521,7 +535,6 @@ class AsyncCustomObjectsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def custom_object_classes_custom_objects_create(
         self,
@@ -715,7 +728,7 @@ class AsyncCustomObjectsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -750,7 +763,7 @@ class AsyncCustomObjectsClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass]
 
 
         Examples
@@ -766,7 +779,7 @@ class AsyncCustomObjectsClient:
 
 
         async def main() -> None:
-            await client.crm.custom_objects.custom_object_classes_custom_objects_remote_field_classes_list(
+            response = await client.crm.custom_objects.custom_object_classes_custom_objects_remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
                 include_deleted_data=True,
                 include_remote_data=True,
@@ -776,11 +789,17 @@ class AsyncCustomObjectsClient:
                 is_custom=True,
                 page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.custom_object_classes_custom_objects_remote_field_classes_list(
+        return await self._raw_client.custom_object_classes_custom_objects_remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -791,4 +810,3 @@ class AsyncCustomObjectsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data

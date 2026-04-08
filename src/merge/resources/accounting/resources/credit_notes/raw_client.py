@@ -9,6 +9,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, BaseHttpResponse, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.credit_note import CreditNote
@@ -16,10 +17,10 @@ from ...types.credit_note_request import CreditNoteRequest
 from ...types.credit_note_response import CreditNoteResponse
 from ...types.meta_response import MetaResponse
 from ...types.paginated_credit_note_list import PaginatedCreditNoteList
-from .types.credit_notes_list_request_expand import CreditNotesListRequestExpand
+from .types.credit_notes_list_request_expand_item import CreditNotesListRequestExpandItem
 from .types.credit_notes_list_request_remote_fields import CreditNotesListRequestRemoteFields
 from .types.credit_notes_list_request_show_enum_origins import CreditNotesListRequestShowEnumOrigins
-from .types.credit_notes_retrieve_request_expand import CreditNotesRetrieveRequestExpand
+from .types.credit_notes_retrieve_request_expand_item import CreditNotesRetrieveRequestExpandItem
 from .types.credit_notes_retrieve_request_remote_fields import CreditNotesRetrieveRequestRemoteFields
 from .types.credit_notes_retrieve_request_show_enum_origins import CreditNotesRetrieveRequestShowEnumOrigins
 
@@ -38,7 +39,9 @@ class RawCreditNotesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CreditNotesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CreditNotesListRequestExpandItem, typing.Sequence[CreditNotesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -51,7 +54,7 @@ class RawCreditNotesClient:
         transaction_date_after: typing.Optional[dt.datetime] = None,
         transaction_date_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedCreditNoteList]:
+    ) -> SyncPager[CreditNote]:
         """
         Returns a list of `CreditNote` objects.
 
@@ -69,7 +72,7 @@ class RawCreditNotesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CreditNotesListRequestExpand]
+        expand : typing.Optional[typing.Union[CreditNotesListRequestExpandItem, typing.Sequence[CreditNotesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -110,7 +113,7 @@ class RawCreditNotesClient:
 
         Returns
         -------
-        HttpResponse[PaginatedCreditNoteList]
+        SyncPager[CreditNote]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -142,14 +145,38 @@ class RawCreditNotesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedCreditNoteList,
                     construct_type(
                         type_=PaginatedCreditNoteList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    company_id=company_id,
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    remote_fields=remote_fields,
+                    remote_id=remote_id,
+                    show_enum_origins=show_enum_origins,
+                    transaction_date_after=transaction_date_after,
+                    transaction_date_before=transaction_date_before,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -219,7 +246,9 @@ class RawCreditNotesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CreditNotesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CreditNotesRetrieveRequestExpandItem, typing.Sequence[CreditNotesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[CreditNotesRetrieveRequestRemoteFields] = None,
@@ -233,7 +262,7 @@ class RawCreditNotesClient:
         ----------
         id : str
 
-        expand : typing.Optional[CreditNotesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CreditNotesRetrieveRequestExpandItem, typing.Sequence[CreditNotesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -331,7 +360,9 @@ class AsyncRawCreditNotesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CreditNotesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CreditNotesListRequestExpandItem, typing.Sequence[CreditNotesListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -344,7 +375,7 @@ class AsyncRawCreditNotesClient:
         transaction_date_after: typing.Optional[dt.datetime] = None,
         transaction_date_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedCreditNoteList]:
+    ) -> AsyncPager[CreditNote]:
         """
         Returns a list of `CreditNote` objects.
 
@@ -362,7 +393,7 @@ class AsyncRawCreditNotesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CreditNotesListRequestExpand]
+        expand : typing.Optional[typing.Union[CreditNotesListRequestExpandItem, typing.Sequence[CreditNotesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -403,7 +434,7 @@ class AsyncRawCreditNotesClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedCreditNoteList]
+        AsyncPager[CreditNote]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -435,14 +466,41 @@ class AsyncRawCreditNotesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedCreditNoteList,
                     construct_type(
                         type_=PaginatedCreditNoteList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        company_id=company_id,
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        remote_fields=remote_fields,
+                        remote_id=remote_id,
+                        show_enum_origins=show_enum_origins,
+                        transaction_date_after=transaction_date_after,
+                        transaction_date_before=transaction_date_before,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -512,7 +570,9 @@ class AsyncRawCreditNotesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CreditNotesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CreditNotesRetrieveRequestExpandItem, typing.Sequence[CreditNotesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[CreditNotesRetrieveRequestRemoteFields] = None,
@@ -526,7 +586,7 @@ class AsyncRawCreditNotesClient:
         ----------
         id : str
 
-        expand : typing.Optional[CreditNotesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CreditNotesRetrieveRequestExpandItem, typing.Sequence[CreditNotesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

@@ -4,12 +4,12 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.association_type import AssociationType
 from ...types.association_type_request_request import AssociationTypeRequestRequest
 from ...types.crm_association_type_response import CrmAssociationTypeResponse
 from ...types.meta_response import MetaResponse
-from ...types.paginated_association_type_list import PaginatedAssociationTypeList
 from .raw_client import AsyncRawAssociationTypesClient, RawAssociationTypesClient
 
 # this is used as the default value for optional parameters
@@ -38,7 +38,11 @@ class AssociationTypesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["target_object_classes"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                typing.Literal["target_object_classes"], typing.Sequence[typing.Literal["target_object_classes"]]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -47,7 +51,7 @@ class AssociationTypesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAssociationTypeList:
+    ) -> SyncPager[AssociationType]:
         """
         Returns a list of `AssociationType` objects.
 
@@ -64,7 +68,7 @@ class AssociationTypesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["target_object_classes"]]
+        expand : typing.Optional[typing.Union[typing.Literal["target_object_classes"], typing.Sequence[typing.Literal["target_object_classes"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -93,7 +97,7 @@ class AssociationTypesClient:
 
         Returns
         -------
-        PaginatedAssociationTypeList
+        SyncPager[AssociationType]
 
 
         Examples
@@ -106,29 +110,36 @@ class AssociationTypesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.association_types.custom_object_classes_association_types_list(
-            custom_object_class_id="custom_object_class_id",
-            created_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            created_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            include_deleted_data=True,
-            include_remote_data=True,
-            include_shell_data=True,
-            modified_after=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            modified_before=datetime.datetime.fromisoformat(
-                "2024-01-15 09:30:00+00:00",
-            ),
-            page_size=1,
-            remote_id="remote_id",
+        response = (
+            client.crm.association_types.custom_object_classes_association_types_list(
+                custom_object_class_id="custom_object_class_id",
+                created_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                created_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                include_deleted_data=True,
+                include_remote_data=True,
+                include_shell_data=True,
+                modified_after=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                modified_before=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                page_size=1,
+                remote_id="remote_id",
+            )
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.custom_object_classes_association_types_list(
+        return self._raw_client.custom_object_classes_association_types_list(
             custom_object_class_id,
             created_after=created_after,
             created_before=created_before,
@@ -143,7 +154,6 @@ class AssociationTypesClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def custom_object_classes_association_types_create(
         self,
@@ -223,7 +233,11 @@ class AssociationTypesClient:
         custom_object_class_id: str,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["target_object_classes"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                typing.Literal["target_object_classes"], typing.Sequence[typing.Literal["target_object_classes"]]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -237,7 +251,7 @@ class AssociationTypesClient:
 
         id : str
 
-        expand : typing.Optional[typing.Literal["target_object_classes"]]
+        expand : typing.Optional[typing.Union[typing.Literal["target_object_classes"], typing.Sequence[typing.Literal["target_object_classes"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -337,7 +351,11 @@ class AsyncAssociationTypesClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["target_object_classes"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                typing.Literal["target_object_classes"], typing.Sequence[typing.Literal["target_object_classes"]]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -346,7 +364,7 @@ class AsyncAssociationTypesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAssociationTypeList:
+    ) -> AsyncPager[AssociationType]:
         """
         Returns a list of `AssociationType` objects.
 
@@ -363,7 +381,7 @@ class AsyncAssociationTypesClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["target_object_classes"]]
+        expand : typing.Optional[typing.Union[typing.Literal["target_object_classes"], typing.Sequence[typing.Literal["target_object_classes"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -392,7 +410,7 @@ class AsyncAssociationTypesClient:
 
         Returns
         -------
-        PaginatedAssociationTypeList
+        AsyncPager[AssociationType]
 
 
         Examples
@@ -409,7 +427,7 @@ class AsyncAssociationTypesClient:
 
 
         async def main() -> None:
-            await client.crm.association_types.custom_object_classes_association_types_list(
+            response = await client.crm.association_types.custom_object_classes_association_types_list(
                 custom_object_class_id="custom_object_class_id",
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
@@ -430,11 +448,17 @@ class AsyncAssociationTypesClient:
                 page_size=1,
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.custom_object_classes_association_types_list(
+        return await self._raw_client.custom_object_classes_association_types_list(
             custom_object_class_id,
             created_after=created_after,
             created_before=created_before,
@@ -449,7 +473,6 @@ class AsyncAssociationTypesClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def custom_object_classes_association_types_create(
         self,
@@ -537,7 +560,11 @@ class AsyncAssociationTypesClient:
         custom_object_class_id: str,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["target_object_classes"]] = None,
+        expand: typing.Optional[
+            typing.Union[
+                typing.Literal["target_object_classes"], typing.Sequence[typing.Literal["target_object_classes"]]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -551,7 +578,7 @@ class AsyncAssociationTypesClient:
 
         id : str
 
-        expand : typing.Optional[typing.Literal["target_object_classes"]]
+        expand : typing.Optional[typing.Union[typing.Literal["target_object_classes"], typing.Sequence[typing.Literal["target_object_classes"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

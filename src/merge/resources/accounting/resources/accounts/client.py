@@ -4,12 +4,12 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.account import Account
 from ...types.account_request import AccountRequest
 from ...types.account_response import AccountResponse
 from ...types.meta_response import MetaResponse
-from ...types.paginated_account_list import PaginatedAccountList
 from .raw_client import AsyncRawAccountsClient, RawAccountsClient
 from .types.accounts_list_request_classification import AccountsListRequestClassification
 from .types.accounts_list_request_remote_fields import AccountsListRequestRemoteFields
@@ -46,7 +46,9 @@ class AccountsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -59,7 +61,7 @@ class AccountsClient:
         show_enum_origins: typing.Optional[AccountsListRequestShowEnumOrigins] = None,
         status: typing.Optional[AccountsListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAccountList:
+    ) -> SyncPager[Account]:
         """
         Returns a list of `Account` objects.
 
@@ -83,7 +85,7 @@ class AccountsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -124,7 +126,7 @@ class AccountsClient:
 
         Returns
         -------
-        PaginatedAccountList
+        SyncPager[Account]
 
 
         Examples
@@ -143,7 +145,7 @@ class AccountsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.accounts.list(
+        response = client.accounting.accounts.list(
             account_type="account_type",
             classification=AccountsListRequestClassification.EMPTY,
             company_id="company_id",
@@ -170,8 +172,13 @@ class AccountsClient:
             show_enum_origins=AccountsListRequestShowEnumOrigins.CLASSIFICATION,
             status=AccountsListRequestStatus.EMPTY,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             account_type=account_type,
             classification=classification,
             company_id=company_id,
@@ -192,7 +199,6 @@ class AccountsClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -247,7 +253,9 @@ class AccountsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[AccountsRetrieveRequestRemoteFields] = None,
@@ -261,7 +269,7 @@ class AccountsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -367,7 +375,9 @@ class AsyncAccountsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -380,7 +390,7 @@ class AsyncAccountsClient:
         show_enum_origins: typing.Optional[AccountsListRequestShowEnumOrigins] = None,
         status: typing.Optional[AccountsListRequestStatus] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAccountList:
+    ) -> AsyncPager[Account]:
         """
         Returns a list of `Account` objects.
 
@@ -404,7 +414,7 @@ class AsyncAccountsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -445,7 +455,7 @@ class AsyncAccountsClient:
 
         Returns
         -------
-        PaginatedAccountList
+        AsyncPager[Account]
 
 
         Examples
@@ -468,7 +478,7 @@ class AsyncAccountsClient:
 
 
         async def main() -> None:
-            await client.accounting.accounts.list(
+            response = await client.accounting.accounts.list(
                 account_type="account_type",
                 classification=AccountsListRequestClassification.EMPTY,
                 company_id="company_id",
@@ -495,11 +505,17 @@ class AsyncAccountsClient:
                 show_enum_origins=AccountsListRequestShowEnumOrigins.CLASSIFICATION,
                 status=AccountsListRequestStatus.EMPTY,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             account_type=account_type,
             classification=classification,
             company_id=company_id,
@@ -520,7 +536,6 @@ class AsyncAccountsClient:
             status=status,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -583,7 +598,9 @@ class AsyncAccountsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["company"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[AccountsRetrieveRequestRemoteFields] = None,
@@ -597,7 +614,7 @@ class AsyncAccountsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["company"]]
+        expand : typing.Optional[typing.Union[typing.Literal["company"], typing.Sequence[typing.Literal["company"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

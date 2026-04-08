@@ -78,7 +78,6 @@ class FieldMappingClient:
         remote_url_path: str,
         common_model_name: str,
         exclude_remote_field_metadata: typing.Optional[bool] = None,
-        jmes_path: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> FieldMappingInstanceResponse:
         """
@@ -106,9 +105,6 @@ class FieldMappingClient:
 
         exclude_remote_field_metadata : typing.Optional[bool]
             If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
-
-        jmes_path : typing.Optional[str]
-            JMES path to specify json query expression to be used on field mapping.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -144,7 +140,6 @@ class FieldMappingClient:
             remote_url_path=remote_url_path,
             common_model_name=common_model_name,
             exclude_remote_field_metadata=exclude_remote_field_metadata,
-            jmes_path=jmes_path,
             request_options=request_options,
         )
         return _response.data
@@ -189,7 +184,6 @@ class FieldMappingClient:
         remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
-        jmes_path: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> FieldMappingInstanceResponse:
         """
@@ -207,9 +201,6 @@ class FieldMappingClient:
 
         remote_url_path : typing.Optional[str]
             The path of the remote endpoint where the remote field is coming from.
-
-        jmes_path : typing.Optional[str]
-            JMES path to specify json query expression to be used on field mapping.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -236,7 +227,6 @@ class FieldMappingClient:
             remote_field_traversal_path=remote_field_traversal_path,
             remote_method=remote_method,
             remote_url_path=remote_url_path,
-            jmes_path=jmes_path,
             request_options=request_options,
         )
         return _response.data
@@ -387,7 +377,6 @@ class AsyncFieldMappingClient:
         remote_url_path: str,
         common_model_name: str,
         exclude_remote_field_metadata: typing.Optional[bool] = None,
-        jmes_path: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> FieldMappingInstanceResponse:
         """
@@ -415,9 +404,6 @@ class AsyncFieldMappingClient:
 
         exclude_remote_field_metadata : typing.Optional[bool]
             If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
-
-        jmes_path : typing.Optional[str]
-            JMES path to specify json query expression to be used on field mapping.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -461,7 +447,6 @@ class AsyncFieldMappingClient:
             remote_url_path=remote_url_path,
             common_model_name=common_model_name,
             exclude_remote_field_metadata=exclude_remote_field_metadata,
-            jmes_path=jmes_path,
             request_options=request_options,
         )
         return _response.data
@@ -514,7 +499,6 @@ class AsyncFieldMappingClient:
         remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
-        jmes_path: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> FieldMappingInstanceResponse:
         """
@@ -532,9 +516,6 @@ class AsyncFieldMappingClient:
 
         remote_url_path : typing.Optional[str]
             The path of the remote endpoint where the remote field is coming from.
-
-        jmes_path : typing.Optional[str]
-            JMES path to specify json query expression to be used on field mapping.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -569,7 +550,6 @@ class AsyncFieldMappingClient:
             remote_field_traversal_path=remote_field_traversal_path,
             remote_method=remote_method,
             remote_url_path=remote_url_path,
-            jmes_path=jmes_path,
             request_options=request_options,
         )
         return _response.data

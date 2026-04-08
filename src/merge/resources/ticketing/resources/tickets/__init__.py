@@ -7,26 +7,26 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
-        TicketsListRequestExpand,
+        TicketsListRequestExpandItem,
         TicketsListRequestPriority,
         TicketsListRequestRemoteFields,
         TicketsListRequestShowEnumOrigins,
         TicketsListRequestStatus,
-        TicketsRetrieveRequestExpand,
+        TicketsRetrieveRequestExpandItem,
         TicketsRetrieveRequestRemoteFields,
         TicketsRetrieveRequestShowEnumOrigins,
-        TicketsViewersListRequestExpand,
+        TicketsViewersListRequestExpandItem,
     )
 _dynamic_imports: typing.Dict[str, str] = {
-    "TicketsListRequestExpand": ".types",
+    "TicketsListRequestExpandItem": ".types",
     "TicketsListRequestPriority": ".types",
     "TicketsListRequestRemoteFields": ".types",
     "TicketsListRequestShowEnumOrigins": ".types",
     "TicketsListRequestStatus": ".types",
-    "TicketsRetrieveRequestExpand": ".types",
+    "TicketsRetrieveRequestExpandItem": ".types",
     "TicketsRetrieveRequestRemoteFields": ".types",
     "TicketsRetrieveRequestShowEnumOrigins": ".types",
-    "TicketsViewersListRequestExpand": ".types",
+    "TicketsViewersListRequestExpandItem": ".types",
 }
 
 
@@ -50,13 +50,13 @@ def __dir__():
 
 
 __all__ = [
-    "TicketsListRequestExpand",
+    "TicketsListRequestExpandItem",
     "TicketsListRequestPriority",
     "TicketsListRequestRemoteFields",
     "TicketsListRequestShowEnumOrigins",
     "TicketsListRequestStatus",
-    "TicketsRetrieveRequestExpand",
+    "TicketsRetrieveRequestExpandItem",
     "TicketsRetrieveRequestRemoteFields",
     "TicketsRetrieveRequestShowEnumOrigins",
-    "TicketsViewersListRequestExpand",
+    "TicketsViewersListRequestExpandItem",
 ]

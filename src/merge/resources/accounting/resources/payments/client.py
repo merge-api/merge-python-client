@@ -4,17 +4,17 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.meta_response import MetaResponse
-from ...types.paginated_payment_list import PaginatedPaymentList
-from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
 from ...types.patched_payment_request import PatchedPaymentRequest
 from ...types.payment import Payment
 from ...types.payment_request import PaymentRequest
 from ...types.payment_response import PaymentResponse
+from ...types.remote_field_class import RemoteFieldClass
 from .raw_client import AsyncRawPaymentsClient, RawPaymentsClient
-from .types.payments_list_request_expand import PaymentsListRequestExpand
-from .types.payments_retrieve_request_expand import PaymentsRetrieveRequestExpand
+from .types.payments_list_request_expand_item import PaymentsListRequestExpandItem
+from .types.payments_retrieve_request_expand_item import PaymentsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -44,7 +44,9 @@ class PaymentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[PaymentsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[PaymentsListRequestExpandItem, typing.Sequence[PaymentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -56,7 +58,7 @@ class PaymentsClient:
         transaction_date_after: typing.Optional[dt.datetime] = None,
         transaction_date_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedPaymentList:
+    ) -> SyncPager[Payment]:
         """
         Returns a list of `Payment` objects.
 
@@ -80,7 +82,7 @@ class PaymentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[PaymentsListRequestExpand]
+        expand : typing.Optional[typing.Union[PaymentsListRequestExpandItem, typing.Sequence[PaymentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -118,7 +120,7 @@ class PaymentsClient:
 
         Returns
         -------
-        PaginatedPaymentList
+        SyncPager[Payment]
 
 
         Examples
@@ -126,15 +128,12 @@ class PaymentsClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.accounting.resources.payments import (
-            PaymentsListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.payments.list(
+        response = client.accounting.payments.list(
             account_id="account_id",
             company_id="company_id",
             contact_id="contact_id",
@@ -145,7 +144,6 @@ class PaymentsClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=PaymentsListRequestExpand.ACCOUNT,
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,
@@ -165,8 +163,13 @@ class PaymentsClient:
                 "2024-01-15 09:30:00+00:00",
             ),
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             account_id=account_id,
             company_id=company_id,
             contact_id=contact_id,
@@ -186,7 +189,6 @@ class PaymentsClient:
             transaction_date_before=transaction_date_before,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -241,7 +243,9 @@ class PaymentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[PaymentsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[PaymentsRetrieveRequestExpandItem, typing.Sequence[PaymentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -254,7 +258,7 @@ class PaymentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[PaymentsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[PaymentsRetrieveRequestExpandItem, typing.Sequence[PaymentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -277,9 +281,6 @@ class PaymentsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.accounting.resources.payments import (
-            PaymentsRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -287,7 +288,6 @@ class PaymentsClient:
         )
         client.accounting.payments.retrieve(
             id="id",
-            expand=PaymentsRetrieveRequestExpand.ACCOUNT,
             include_remote_data=True,
             include_remote_fields=True,
             include_shell_data=True,
@@ -367,7 +367,7 @@ class PaymentsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -399,7 +399,7 @@ class PaymentsClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass]
 
 
         Examples
@@ -410,7 +410,7 @@ class PaymentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.payments.line_items_remote_field_classes_list(
+        response = client.accounting.payments.line_items_remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             include_deleted_data=True,
             include_remote_data=True,
@@ -419,8 +419,13 @@ class PaymentsClient:
             is_custom=True,
             page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.line_items_remote_field_classes_list(
+        return self._raw_client.line_items_remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -430,7 +435,6 @@ class PaymentsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     def meta_patch_retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -501,7 +505,7 @@ class PaymentsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -533,7 +537,7 @@ class PaymentsClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass]
 
 
         Examples
@@ -544,7 +548,7 @@ class PaymentsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.payments.remote_field_classes_list(
+        response = client.accounting.payments.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             include_deleted_data=True,
             include_remote_data=True,
@@ -553,8 +557,13 @@ class PaymentsClient:
             is_custom=True,
             page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.remote_field_classes_list(
+        return self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -564,7 +573,6 @@ class PaymentsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncPaymentsClient:
@@ -591,7 +599,9 @@ class AsyncPaymentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[PaymentsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[PaymentsListRequestExpandItem, typing.Sequence[PaymentsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -603,7 +613,7 @@ class AsyncPaymentsClient:
         transaction_date_after: typing.Optional[dt.datetime] = None,
         transaction_date_before: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedPaymentList:
+    ) -> AsyncPager[Payment]:
         """
         Returns a list of `Payment` objects.
 
@@ -627,7 +637,7 @@ class AsyncPaymentsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[PaymentsListRequestExpand]
+        expand : typing.Optional[typing.Union[PaymentsListRequestExpandItem, typing.Sequence[PaymentsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -665,7 +675,7 @@ class AsyncPaymentsClient:
 
         Returns
         -------
-        PaginatedPaymentList
+        AsyncPager[Payment]
 
 
         Examples
@@ -674,9 +684,6 @@ class AsyncPaymentsClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.payments import (
-            PaymentsListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -685,7 +692,7 @@ class AsyncPaymentsClient:
 
 
         async def main() -> None:
-            await client.accounting.payments.list(
+            response = await client.accounting.payments.list(
                 account_id="account_id",
                 company_id="company_id",
                 contact_id="contact_id",
@@ -696,7 +703,6 @@ class AsyncPaymentsClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=PaymentsListRequestExpand.ACCOUNT,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_remote_fields=True,
@@ -716,11 +722,17 @@ class AsyncPaymentsClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             account_id=account_id,
             company_id=company_id,
             contact_id=contact_id,
@@ -740,7 +752,6 @@ class AsyncPaymentsClient:
             transaction_date_before=transaction_date_before,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -803,7 +814,9 @@ class AsyncPaymentsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[PaymentsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[PaymentsRetrieveRequestExpandItem, typing.Sequence[PaymentsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -816,7 +829,7 @@ class AsyncPaymentsClient:
         ----------
         id : str
 
-        expand : typing.Optional[PaymentsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[PaymentsRetrieveRequestExpandItem, typing.Sequence[PaymentsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -841,9 +854,6 @@ class AsyncPaymentsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.payments import (
-            PaymentsRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -854,7 +864,6 @@ class AsyncPaymentsClient:
         async def main() -> None:
             await client.accounting.payments.retrieve(
                 id="id",
-                expand=PaymentsRetrieveRequestExpand.ACCOUNT,
                 include_remote_data=True,
                 include_remote_fields=True,
                 include_shell_data=True,
@@ -945,7 +954,7 @@ class AsyncPaymentsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -977,7 +986,7 @@ class AsyncPaymentsClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass]
 
 
         Examples
@@ -993,20 +1002,28 @@ class AsyncPaymentsClient:
 
 
         async def main() -> None:
-            await client.accounting.payments.line_items_remote_field_classes_list(
-                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                is_common_model_field=True,
-                is_custom=True,
-                page_size=1,
+            response = (
+                await client.accounting.payments.line_items_remote_field_classes_list(
+                    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                    include_deleted_data=True,
+                    include_remote_data=True,
+                    include_shell_data=True,
+                    is_common_model_field=True,
+                    is_custom=True,
+                    page_size=1,
+                )
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.line_items_remote_field_classes_list(
+        return await self._raw_client.line_items_remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -1016,7 +1033,6 @@ class AsyncPaymentsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     async def meta_patch_retrieve(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
@@ -1105,7 +1121,7 @@ class AsyncPaymentsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -1137,7 +1153,7 @@ class AsyncPaymentsClient:
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass]
 
 
         Examples
@@ -1153,7 +1169,7 @@ class AsyncPaymentsClient:
 
 
         async def main() -> None:
-            await client.accounting.payments.remote_field_classes_list(
+            response = await client.accounting.payments.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
                 include_deleted_data=True,
                 include_remote_data=True,
@@ -1162,11 +1178,17 @@ class AsyncPaymentsClient:
                 is_custom=True,
                 page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.remote_field_classes_list(
+        return await self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -1176,4 +1198,3 @@ class AsyncPaymentsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data

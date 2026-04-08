@@ -6,8 +6,8 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
-from .last_sync_result_enum import LastSyncResultEnum
 from .selective_sync_configurations_usage_enum import SelectiveSyncConfigurationsUsageEnum
+from .sync_status_last_sync_result import SyncStatusLastSyncResult
 from .sync_status_status import SyncStatusStatus
 
 
@@ -25,7 +25,7 @@ class SyncStatus(UncheckedBaseModel):
     model_id: str
     last_sync_start: typing.Optional[dt.datetime] = None
     next_sync_start: typing.Optional[dt.datetime] = None
-    last_sync_result: typing.Optional[LastSyncResultEnum] = None
+    last_sync_result: typing.Optional[SyncStatusLastSyncResult] = None
     last_sync_finished: typing.Optional[dt.datetime] = None
     status: SyncStatusStatus
     is_initial_sync: bool
