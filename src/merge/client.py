@@ -91,10 +91,10 @@ class Merge:
         self._chat: typing.Optional[ChatClient] = None
         self._ats: typing.Optional[AtsClient] = None
         self._crm: typing.Optional[CrmClient] = None
-        self._filestorage: typing.Optional[FilestorageClient] = None
         self._hris: typing.Optional[HrisClient] = None
         self._knowledgebase: typing.Optional[KnowledgebaseClient] = None
         self._ticketing: typing.Optional[TicketingClient] = None
+        self._filestorage: typing.Optional[FilestorageClient] = None
         self._accounting: typing.Optional[AccountingClient] = None
 
     @property
@@ -122,14 +122,6 @@ class Merge:
         return self._crm
 
     @property
-    def filestorage(self):
-        if self._filestorage is None:
-            from .resources.filestorage.client import FilestorageClient  # noqa: E402
-
-            self._filestorage = FilestorageClient(client_wrapper=self._client_wrapper)
-        return self._filestorage
-
-    @property
     def hris(self):
         if self._hris is None:
             from .resources.hris.client import HrisClient  # noqa: E402
@@ -152,6 +144,14 @@ class Merge:
 
             self._ticketing = TicketingClient(client_wrapper=self._client_wrapper)
         return self._ticketing
+
+    @property
+    def filestorage(self):
+        if self._filestorage is None:
+            from .resources.filestorage.client import FilestorageClient  # noqa: E402
+
+            self._filestorage = FilestorageClient(client_wrapper=self._client_wrapper)
+        return self._filestorage
 
     @property
     def accounting(self):
@@ -234,10 +234,10 @@ class AsyncMerge:
         self._chat: typing.Optional[AsyncChatClient] = None
         self._ats: typing.Optional[AsyncAtsClient] = None
         self._crm: typing.Optional[AsyncCrmClient] = None
-        self._filestorage: typing.Optional[AsyncFilestorageClient] = None
         self._hris: typing.Optional[AsyncHrisClient] = None
         self._knowledgebase: typing.Optional[AsyncKnowledgebaseClient] = None
         self._ticketing: typing.Optional[AsyncTicketingClient] = None
+        self._filestorage: typing.Optional[AsyncFilestorageClient] = None
         self._accounting: typing.Optional[AsyncAccountingClient] = None
 
     @property
@@ -265,14 +265,6 @@ class AsyncMerge:
         return self._crm
 
     @property
-    def filestorage(self):
-        if self._filestorage is None:
-            from .resources.filestorage.client import AsyncFilestorageClient  # noqa: E402
-
-            self._filestorage = AsyncFilestorageClient(client_wrapper=self._client_wrapper)
-        return self._filestorage
-
-    @property
     def hris(self):
         if self._hris is None:
             from .resources.hris.client import AsyncHrisClient  # noqa: E402
@@ -295,6 +287,14 @@ class AsyncMerge:
 
             self._ticketing = AsyncTicketingClient(client_wrapper=self._client_wrapper)
         return self._ticketing
+
+    @property
+    def filestorage(self):
+        if self._filestorage is None:
+            from .resources.filestorage.client import AsyncFilestorageClient  # noqa: E402
+
+            self._filestorage = AsyncFilestorageClient(client_wrapper=self._client_wrapper)
+        return self._filestorage
 
     @property
     def accounting(self):
