@@ -88,8 +88,8 @@ class Merge:
             else httpx.Client(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
-        self._ats: typing.Optional[AtsClient] = None
         self._chat: typing.Optional[ChatClient] = None
+        self._ats: typing.Optional[AtsClient] = None
         self._crm: typing.Optional[CrmClient] = None
         self._filestorage: typing.Optional[FilestorageClient] = None
         self._hris: typing.Optional[HrisClient] = None
@@ -98,20 +98,20 @@ class Merge:
         self._accounting: typing.Optional[AccountingClient] = None
 
     @property
-    def ats(self):
-        if self._ats is None:
-            from .resources.ats.client import AtsClient  # noqa: E402
-
-            self._ats = AtsClient(client_wrapper=self._client_wrapper)
-        return self._ats
-
-    @property
     def chat(self):
         if self._chat is None:
             from .resources.chat.client import ChatClient  # noqa: E402
 
             self._chat = ChatClient(client_wrapper=self._client_wrapper)
         return self._chat
+
+    @property
+    def ats(self):
+        if self._ats is None:
+            from .resources.ats.client import AtsClient  # noqa: E402
+
+            self._ats = AtsClient(client_wrapper=self._client_wrapper)
+        return self._ats
 
     @property
     def crm(self):
@@ -231,8 +231,8 @@ class AsyncMerge:
             else httpx.AsyncClient(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
-        self._ats: typing.Optional[AsyncAtsClient] = None
         self._chat: typing.Optional[AsyncChatClient] = None
+        self._ats: typing.Optional[AsyncAtsClient] = None
         self._crm: typing.Optional[AsyncCrmClient] = None
         self._filestorage: typing.Optional[AsyncFilestorageClient] = None
         self._hris: typing.Optional[AsyncHrisClient] = None
@@ -241,20 +241,20 @@ class AsyncMerge:
         self._accounting: typing.Optional[AsyncAccountingClient] = None
 
     @property
-    def ats(self):
-        if self._ats is None:
-            from .resources.ats.client import AsyncAtsClient  # noqa: E402
-
-            self._ats = AsyncAtsClient(client_wrapper=self._client_wrapper)
-        return self._ats
-
-    @property
     def chat(self):
         if self._chat is None:
             from .resources.chat.client import AsyncChatClient  # noqa: E402
 
             self._chat = AsyncChatClient(client_wrapper=self._client_wrapper)
         return self._chat
+
+    @property
+    def ats(self):
+        if self._ats is None:
+            from .resources.ats.client import AsyncAtsClient  # noqa: E402
+
+            self._ats = AsyncAtsClient(client_wrapper=self._client_wrapper)
+        return self._ats
 
     @property
     def crm(self):
