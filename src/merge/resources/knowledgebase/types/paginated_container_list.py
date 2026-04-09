@@ -7,13 +7,12 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, update_forward_refs
 from ....core.unchecked_base_model import UncheckedBaseModel
-from .container import Container
 
 
 class PaginatedContainerList(UncheckedBaseModel):
     next: typing.Optional[str] = None
     previous: typing.Optional[str] = None
-    results: typing.Optional[typing.List[Container]] = None
+    results: typing.Optional[typing.List["Container"]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
@@ -25,6 +24,8 @@ class PaginatedContainerList(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
+from .article import Article  # noqa: E402, F401, I001
+from .container import Container  # noqa: E402, F401, I001
 from .group import Group  # noqa: E402, F401, I001
 
 update_forward_refs(PaginatedContainerList)

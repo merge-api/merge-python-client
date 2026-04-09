@@ -40,6 +40,8 @@ if typing.TYPE_CHECKING:
     from .common_model_scopes_body_request import CommonModelScopesBodyRequest
     from .completed_account_initial_screen_enum import CompletedAccountInitialScreenEnum
     from .container import Container
+    from .container_parent_article import ContainerParentArticle
+    from .container_parent_container import ContainerParentContainer
     from .container_permissions_item import ContainerPermissionsItem
     from .container_status import ContainerStatus
     from .container_type import ContainerType
@@ -156,6 +158,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CommonModelScopesBodyRequest": ".common_model_scopes_body_request",
     "CompletedAccountInitialScreenEnum": ".completed_account_initial_screen_enum",
     "Container": ".container",
+    "ContainerParentArticle": ".container_parent_article",
+    "ContainerParentContainer": ".container_parent_container",
     "ContainerPermissionsItem": ".container_permissions_item",
     "ContainerStatus": ".container_status",
     "ContainerType": ".container_type",
@@ -292,6 +296,8 @@ __all__ = [
     "CommonModelScopesBodyRequest",
     "CompletedAccountInitialScreenEnum",
     "Container",
+    "ContainerParentArticle",
+    "ContainerParentContainer",
     "ContainerPermissionsItem",
     "ContainerStatus",
     "ContainerType",

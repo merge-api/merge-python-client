@@ -5,5 +5,5 @@ from __future__ import annotations
 import typing
 
 if typing.TYPE_CHECKING:
-    from .container import Container
-ArticleParentContainer = typing.Union[str, "Container"]
+    from .user import User
+GroupUsersItem = typing.Union[str, "User"]

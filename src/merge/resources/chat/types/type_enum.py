@@ -12,12 +12,18 @@ class TypeEnum(str, enum.Enum):
     * `PRIVATE_EXTERNAL` - PRIVATE_EXTERNAL
     * `PUBLIC_INTERNAL` - PUBLIC_INTERNAL
     * `PUBLIC_EXTERNAL` - PUBLIC_EXTERNAL
+    * `ONE_ON_ONE_CHAT` - ONE_ON_ONE_CHAT
+    * `GROUP_CHAT` - GROUP_CHAT
+    * `MEETING_CHAT` - MEETING_CHAT
     """
 
     PRIVATE_INTERNAL = "PRIVATE_INTERNAL"
     PRIVATE_EXTERNAL = "PRIVATE_EXTERNAL"
     PUBLIC_INTERNAL = "PUBLIC_INTERNAL"
     PUBLIC_EXTERNAL = "PUBLIC_EXTERNAL"
+    ONE_ON_ONE_CHAT = "ONE_ON_ONE_CHAT"
+    GROUP_CHAT = "GROUP_CHAT"
+    MEETING_CHAT = "MEETING_CHAT"
 
     def visit(
         self,
@@ -25,6 +31,9 @@ class TypeEnum(str, enum.Enum):
         private_external: typing.Callable[[], T_Result],
         public_internal: typing.Callable[[], T_Result],
         public_external: typing.Callable[[], T_Result],
+        one_on_one_chat: typing.Callable[[], T_Result],
+        group_chat: typing.Callable[[], T_Result],
+        meeting_chat: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is TypeEnum.PRIVATE_INTERNAL:
             return private_internal()
@@ -34,3 +43,9 @@ class TypeEnum(str, enum.Enum):
             return public_internal()
         if self is TypeEnum.PUBLIC_EXTERNAL:
             return public_external()
+        if self is TypeEnum.ONE_ON_ONE_CHAT:
+            return one_on_one_chat()
+        if self is TypeEnum.GROUP_CHAT:
+            return group_chat()
+        if self is TypeEnum.MEETING_CHAT:
+            return meeting_chat()

@@ -96,12 +96,12 @@ class Container(UncheckedBaseModel):
     When the third party's container was updated.
     """
 
-    parent_article: typing.Optional[str] = pydantic.Field(default=None)
+    parent_article: typing.Optional["ContainerParentArticle"] = pydantic.Field(default=None)
     """
     The parent article a container is nested within.
     """
 
-    parent_container: typing.Optional[str] = pydantic.Field(default=None)
+    parent_container: typing.Optional["ContainerParentContainer"] = pydantic.Field(default=None)
     """
     The parent container a container is nested within.
     """
@@ -125,6 +125,9 @@ class Container(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
+from .article import Article  # noqa: E402, F401, I001
 from .group import Group  # noqa: E402, F401, I001
+from .container_parent_article import ContainerParentArticle  # noqa: E402, F401, I001
+from .container_parent_container import ContainerParentContainer  # noqa: E402, F401, I001
 
 update_forward_refs(Container)

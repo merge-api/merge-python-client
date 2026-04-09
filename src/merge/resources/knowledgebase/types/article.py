@@ -11,9 +11,7 @@ from ....core.unchecked_base_model import UncheckedBaseModel
 from .article_attachments_item import ArticleAttachmentsItem
 from .article_author import ArticleAuthor
 from .article_last_edited_by import ArticleLastEditedBy
-from .article_parent_container import ArticleParentContainer
 from .article_permissions_item import ArticlePermissionsItem
-from .article_root_container import ArticleRootContainer
 from .article_status import ArticleStatus
 from .article_type import ArticleType
 from .article_visibility import ArticleVisibility
@@ -123,12 +121,12 @@ class Article(UncheckedBaseModel):
     The parent article an article is nested within.
     """
 
-    parent_container: typing.Optional[ArticleParentContainer] = pydantic.Field(default=None)
+    parent_container: typing.Optional["ArticleParentContainer"] = pydantic.Field(default=None)
     """
     The parent container an article is nested within.
     """
 
-    root_container: typing.Optional[ArticleRootContainer] = pydantic.Field(default=None)
+    root_container: typing.Optional["ArticleRootContainer"] = pydantic.Field(default=None)
     """
     The top-level container in the hierarchy that holds this article. This will reference a container object that will typically be a SPACE or WORKSPACE type.
     """
@@ -153,7 +151,10 @@ class Article(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
+from .container import Container  # noqa: E402, F401, I001
 from .group import Group  # noqa: E402, F401, I001
 from .article_parent_article import ArticleParentArticle  # noqa: E402, F401, I001
+from .article_parent_container import ArticleParentContainer  # noqa: E402, F401, I001
+from .article_root_container import ArticleRootContainer  # noqa: E402, F401, I001
 
 update_forward_refs(Article)
