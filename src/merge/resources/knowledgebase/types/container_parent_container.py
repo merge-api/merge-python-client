@@ -6,4 +6,4 @@ import typing
 
 if typing.TYPE_CHECKING:
     from .container import Container
-ArticleParentContainer = typing.Union[str, "Container"]
+ContainerParentContainer = typing.Union[str, "Container"]

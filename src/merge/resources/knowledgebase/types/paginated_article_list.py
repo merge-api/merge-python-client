@@ -25,6 +25,7 @@ class PaginatedArticleList(UncheckedBaseModel):
 
 
 from .article import Article  # noqa: E402, F401, I001
+from .container import Container  # noqa: E402, F401, I001
 from .group import Group  # noqa: E402, F401, I001
 
 update_forward_refs(PaginatedArticleList)
