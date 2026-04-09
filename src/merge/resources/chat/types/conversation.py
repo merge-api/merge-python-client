@@ -59,6 +59,9 @@ class Conversation(UncheckedBaseModel):
     * `PRIVATE_EXTERNAL` - PRIVATE_EXTERNAL
     * `PUBLIC_INTERNAL` - PUBLIC_INTERNAL
     * `PUBLIC_EXTERNAL` - PUBLIC_EXTERNAL
+    * `ONE_ON_ONE_CHAT` - ONE_ON_ONE_CHAT
+    * `GROUP_CHAT` - GROUP_CHAT
+    * `MEETING_CHAT` - MEETING_CHAT
     """
 
     members: typing.Optional[typing.List[typing.Optional[str]]] = None
