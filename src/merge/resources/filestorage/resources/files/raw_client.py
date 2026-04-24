@@ -10,6 +10,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, BaseHttpResponse, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.download_request_meta import DownloadRequestMeta
@@ -20,9 +21,9 @@ from ...types.meta_response import MetaResponse
 from ...types.paginated_download_request_meta_list import PaginatedDownloadRequestMetaList
 from ...types.paginated_file_list import PaginatedFileList
 from .types.files_download_request_meta_list_request_order_by import FilesDownloadRequestMetaListRequestOrderBy
-from .types.files_list_request_expand import FilesListRequestExpand
+from .types.files_list_request_expand_item import FilesListRequestExpandItem
 from .types.files_list_request_order_by import FilesListRequestOrderBy
-from .types.files_retrieve_request_expand import FilesRetrieveRequestExpand
+from .types.files_retrieve_request_expand_item import FilesRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -39,7 +40,9 @@ class RawFilesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         drive_id: typing.Optional[str] = None,
-        expand: typing.Optional[FilesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FilesListRequestExpandItem, typing.Sequence[FilesListRequestExpandItem]]
+        ] = None,
         folder_id: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
@@ -54,7 +57,7 @@ class RawFilesClient:
         remote_created_before: typing.Optional[dt.datetime] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedFileList]:
+    ) -> SyncPager[File]:
         """
         Returns a list of `File` objects.
 
@@ -72,7 +75,7 @@ class RawFilesClient:
         drive_id : typing.Optional[str]
             Specifying a drive id returns only the files in that drive. Specifying null returns only the files outside the top-level drive.
 
-        expand : typing.Optional[FilesListRequestExpand]
+        expand : typing.Optional[typing.Union[FilesListRequestExpandItem, typing.Sequence[FilesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         folder_id : typing.Optional[str]
@@ -103,7 +106,7 @@ class RawFilesClient:
             Overrides the default ordering for this endpoint. Possible values include: created_at, -created_at, modified_at, -modified_at.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return files created in the third party platform after this datetime.
@@ -119,7 +122,7 @@ class RawFilesClient:
 
         Returns
         -------
-        HttpResponse[PaginatedFileList]
+        SyncPager[File]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -153,14 +156,40 @@ class RawFilesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedFileList,
                     construct_type(
                         type_=PaginatedFileList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    drive_id=drive_id,
+                    expand=expand,
+                    folder_id=folder_id,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    mime_type=mime_type,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    name=name,
+                    order_by=order_by,
+                    page_size=page_size,
+                    remote_created_after=remote_created_after,
+                    remote_created_before=remote_created_before,
+                    remote_id=remote_id,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -230,7 +259,9 @@ class RawFilesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[FilesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FilesRetrieveRequestExpandItem, typing.Sequence[FilesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -242,7 +273,7 @@ class RawFilesClient:
         ----------
         id : str
 
-        expand : typing.Optional[FilesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[FilesRetrieveRequestExpandItem, typing.Sequence[FilesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -349,14 +380,14 @@ class RawFilesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[DownloadRequestMeta]:
         """
-        Returns metadata to construct an authenticated file download request for a singular file, allowing you to download file directly from the third-party.
+        Returns metadata to construct an authenticated file download request for a singular file, allowing you to download file directly from the third-party. For information on our download process please refer to our <a href='https://help.merge.dev/articles/10644317' target='_blank'>direct file download help center article</a>.
 
         Parameters
         ----------
         id : str
 
         mime_type : typing.Optional[str]
-            If provided, specifies the export format of the file to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
+            If provided, specifies the export format of the file to be downloaded.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -403,7 +434,7 @@ class RawFilesClient:
         order_by: typing.Optional[FilesDownloadRequestMetaListRequestOrderBy] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedDownloadRequestMetaList]:
+    ) -> SyncPager[DownloadRequestMeta]:
         """
         Returns metadata to construct authenticated file download requests, allowing you to download files directly from the third-party.
 
@@ -444,7 +475,7 @@ class RawFilesClient:
 
         Returns
         -------
-        HttpResponse[PaginatedDownloadRequestMetaList]
+        SyncPager[DownloadRequestMeta]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -466,14 +497,32 @@ class RawFilesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedDownloadRequestMetaList,
                     construct_type(
                         type_=PaginatedDownloadRequestMetaList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.download_request_meta_list(
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    ids=ids,
+                    include_deleted_data=include_deleted_data,
+                    mime_types=mime_types,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    order_by=order_by,
+                    page_size=page_size,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -527,7 +576,9 @@ class AsyncRawFilesClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         drive_id: typing.Optional[str] = None,
-        expand: typing.Optional[FilesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FilesListRequestExpandItem, typing.Sequence[FilesListRequestExpandItem]]
+        ] = None,
         folder_id: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
@@ -542,7 +593,7 @@ class AsyncRawFilesClient:
         remote_created_before: typing.Optional[dt.datetime] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedFileList]:
+    ) -> AsyncPager[File]:
         """
         Returns a list of `File` objects.
 
@@ -560,7 +611,7 @@ class AsyncRawFilesClient:
         drive_id : typing.Optional[str]
             Specifying a drive id returns only the files in that drive. Specifying null returns only the files outside the top-level drive.
 
-        expand : typing.Optional[FilesListRequestExpand]
+        expand : typing.Optional[typing.Union[FilesListRequestExpandItem, typing.Sequence[FilesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         folder_id : typing.Optional[str]
@@ -591,7 +642,7 @@ class AsyncRawFilesClient:
             Overrides the default ordering for this endpoint. Possible values include: created_at, -created_at, modified_at, -modified_at.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_created_after : typing.Optional[dt.datetime]
             If provided, will only return files created in the third party platform after this datetime.
@@ -607,7 +658,7 @@ class AsyncRawFilesClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedFileList]
+        AsyncPager[File]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -641,14 +692,43 @@ class AsyncRawFilesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedFileList,
                     construct_type(
                         type_=PaginatedFileList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        drive_id=drive_id,
+                        expand=expand,
+                        folder_id=folder_id,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        mime_type=mime_type,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        name=name,
+                        order_by=order_by,
+                        page_size=page_size,
+                        remote_created_after=remote_created_after,
+                        remote_created_before=remote_created_before,
+                        remote_id=remote_id,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -718,7 +798,9 @@ class AsyncRawFilesClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[FilesRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FilesRetrieveRequestExpandItem, typing.Sequence[FilesRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -730,7 +812,7 @@ class AsyncRawFilesClient:
         ----------
         id : str
 
-        expand : typing.Optional[FilesRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[FilesRetrieveRequestExpandItem, typing.Sequence[FilesRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -838,14 +920,14 @@ class AsyncRawFilesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[DownloadRequestMeta]:
         """
-        Returns metadata to construct an authenticated file download request for a singular file, allowing you to download file directly from the third-party.
+        Returns metadata to construct an authenticated file download request for a singular file, allowing you to download file directly from the third-party. For information on our download process please refer to our <a href='https://help.merge.dev/articles/10644317' target='_blank'>direct file download help center article</a>.
 
         Parameters
         ----------
         id : str
 
         mime_type : typing.Optional[str]
-            If provided, specifies the export format of the file to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
+            If provided, specifies the export format of the file to be downloaded.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -892,7 +974,7 @@ class AsyncRawFilesClient:
         order_by: typing.Optional[FilesDownloadRequestMetaListRequestOrderBy] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedDownloadRequestMetaList]:
+    ) -> AsyncPager[DownloadRequestMeta]:
         """
         Returns metadata to construct authenticated file download requests, allowing you to download files directly from the third-party.
 
@@ -933,7 +1015,7 @@ class AsyncRawFilesClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedDownloadRequestMetaList]
+        AsyncPager[DownloadRequestMeta]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -955,14 +1037,35 @@ class AsyncRawFilesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedDownloadRequestMetaList,
                     construct_type(
                         type_=PaginatedDownloadRequestMetaList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.download_request_meta_list(
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        ids=ids,
+                        include_deleted_data=include_deleted_data,
+                        mime_types=mime_types,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        order_by=order_by,
+                        page_size=page_size,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)

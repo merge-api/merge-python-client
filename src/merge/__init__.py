@@ -6,7 +6,7 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .resources import accounting, ats, chat, crm, filestorage, hris, knowledgebase, ticketing
+    from .resources import filestorage
     from .client import AsyncMerge, Merge
     from .environment import MergeEnvironment
     from .version import __version__
@@ -15,14 +15,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Merge": ".client",
     "MergeEnvironment": ".environment",
     "__version__": ".version",
-    "accounting": ".resources",
-    "ats": ".resources",
-    "chat": ".resources",
-    "crm": ".resources",
     "filestorage": ".resources",
-    "hris": ".resources",
-    "knowledgebase": ".resources",
-    "ticketing": ".resources",
 }
 
 
@@ -45,17 +38,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = [
-    "AsyncMerge",
-    "Merge",
-    "MergeEnvironment",
-    "__version__",
-    "accounting",
-    "ats",
-    "chat",
-    "crm",
-    "filestorage",
-    "hris",
-    "knowledgebase",
-    "ticketing",
-]
+__all__ = ["AsyncMerge", "Merge", "MergeEnvironment", "__version__", "filestorage"]
