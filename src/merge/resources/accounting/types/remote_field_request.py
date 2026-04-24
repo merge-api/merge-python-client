@@ -5,11 +5,10 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
-from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
 
 
 class RemoteFieldRequest(UncheckedBaseModel):
-    remote_field_class: RemoteFieldRequestRemoteFieldClass
+    remote_field_class: str
     value: typing.Optional[typing.Optional[typing.Any]] = None
 
     if IS_PYDANTIC_V2:

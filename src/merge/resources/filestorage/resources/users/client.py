@@ -4,8 +4,8 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
-from ...types.paginated_user_list import PaginatedUserList
 from ...types.user import User
 from .raw_client import AsyncRawUsersClient, RawUsersClient
 
@@ -31,6 +31,7 @@ class UsersClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        email_address: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -40,7 +41,7 @@ class UsersClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedUserList:
+    ) -> SyncPager[User]:
         """
         Returns a list of `User` objects.
 
@@ -54,6 +55,9 @@ class UsersClient:
 
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        email_address : typing.Optional[str]
+            If provided, will only return users with emails equal to this value (case insensitive).
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -74,7 +78,7 @@ class UsersClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -84,7 +88,7 @@ class UsersClient:
 
         Returns
         -------
-        PaginatedUserList
+        SyncPager[User]
 
 
         Examples
@@ -97,7 +101,7 @@ class UsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.users.list(
+        response = client.filestorage.users.list(
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
@@ -105,6 +109,7 @@ class UsersClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+            email_address="email_address",
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -118,11 +123,17 @@ class UsersClient:
             page_size=1,
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
+            email_address=email_address,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
             include_shell_data=include_shell_data,
@@ -133,7 +144,6 @@ class UsersClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -208,6 +218,7 @@ class AsyncUsersClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        email_address: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -217,7 +228,7 @@ class AsyncUsersClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedUserList:
+    ) -> AsyncPager[User]:
         """
         Returns a list of `User` objects.
 
@@ -231,6 +242,9 @@ class AsyncUsersClient:
 
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        email_address : typing.Optional[str]
+            If provided, will only return users with emails equal to this value (case insensitive).
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -251,7 +265,7 @@ class AsyncUsersClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -261,7 +275,7 @@ class AsyncUsersClient:
 
         Returns
         -------
-        PaginatedUserList
+        AsyncPager[User]
 
 
         Examples
@@ -278,7 +292,7 @@ class AsyncUsersClient:
 
 
         async def main() -> None:
-            await client.filestorage.users.list(
+            response = await client.filestorage.users.list(
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
@@ -286,6 +300,7 @@ class AsyncUsersClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                email_address="email_address",
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
@@ -299,14 +314,21 @@ class AsyncUsersClient:
                 page_size=1,
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
+            email_address=email_address,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
             include_shell_data=include_shell_data,
@@ -317,7 +339,6 @@ class AsyncUsersClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,

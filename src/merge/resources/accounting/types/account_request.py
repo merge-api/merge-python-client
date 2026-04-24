@@ -7,6 +7,7 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .account_request_account_type import AccountRequestAccountType
 from .account_request_classification import AccountRequestClassification
+from .account_request_company import AccountRequestCompany
 from .account_request_currency import AccountRequestCurrency
 from .account_request_status import AccountRequestStatus
 
@@ -409,7 +410,7 @@ class AccountRequest(UncheckedBaseModel):
     ID of the parent account.
     """
 
-    company: typing.Optional[str] = pydantic.Field(default=None)
+    company: typing.Optional[AccountRequestCompany] = pydantic.Field(default=None)
     """
     The company the account belongs to.
     """

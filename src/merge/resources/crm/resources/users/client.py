@@ -4,10 +4,10 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.ignore_common_model_request import IgnoreCommonModelRequest
-from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
-from ...types.paginated_user_list import PaginatedUserList
+from ...types.remote_field_class import RemoteFieldClass
 from ...types.user import User
 from .raw_client import AsyncRawUsersClient, RawUsersClient
 
@@ -46,7 +46,7 @@ class UsersClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedUserList:
+    ) -> SyncPager[User]:
         """
         Returns a list of `User` objects.
 
@@ -83,7 +83,7 @@ class UsersClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -93,7 +93,7 @@ class UsersClient:
 
         Returns
         -------
-        PaginatedUserList
+        SyncPager[User]
 
 
         Examples
@@ -106,7 +106,7 @@ class UsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.users.list(
+        response = client.crm.users.list(
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
@@ -128,8 +128,13 @@ class UsersClient:
             page_size=1,
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -144,7 +149,6 @@ class UsersClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -257,7 +261,7 @@ class UsersClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -285,14 +289,14 @@ class UsersClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass]
 
 
         Examples
@@ -303,7 +307,7 @@ class UsersClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.crm.users.remote_field_classes_list(
+        response = client.crm.users.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             include_deleted_data=True,
             include_remote_data=True,
@@ -313,8 +317,13 @@ class UsersClient:
             is_custom=True,
             page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.remote_field_classes_list(
+        return self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -325,7 +334,6 @@ class UsersClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncUsersClient:
@@ -359,7 +367,7 @@ class AsyncUsersClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedUserList:
+    ) -> AsyncPager[User]:
         """
         Returns a list of `User` objects.
 
@@ -396,7 +404,7 @@ class AsyncUsersClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -406,7 +414,7 @@ class AsyncUsersClient:
 
         Returns
         -------
-        PaginatedUserList
+        AsyncPager[User]
 
 
         Examples
@@ -423,7 +431,7 @@ class AsyncUsersClient:
 
 
         async def main() -> None:
-            await client.crm.users.list(
+            response = await client.crm.users.list(
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
@@ -445,11 +453,17 @@ class AsyncUsersClient:
                 page_size=1,
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -464,7 +478,6 @@ class AsyncUsersClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
@@ -593,7 +606,7 @@ class AsyncUsersClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -621,14 +634,14 @@ class AsyncUsersClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass]
 
 
         Examples
@@ -644,7 +657,7 @@ class AsyncUsersClient:
 
 
         async def main() -> None:
-            await client.crm.users.remote_field_classes_list(
+            response = await client.crm.users.remote_field_classes_list(
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
                 include_deleted_data=True,
                 include_remote_data=True,
@@ -654,11 +667,17 @@ class AsyncUsersClient:
                 is_custom=True,
                 page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.remote_field_classes_list(
+        return await self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -669,4 +688,3 @@ class AsyncUsersClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data

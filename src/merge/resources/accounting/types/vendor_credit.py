@@ -12,7 +12,7 @@ from .remote_data import RemoteData
 from .vendor_credit_accounting_period import VendorCreditAccountingPeriod
 from .vendor_credit_company import VendorCreditCompany
 from .vendor_credit_currency import VendorCreditCurrency
-from .vendor_credit_line import VendorCreditLine
+from .vendor_credit_lines_item import VendorCreditLinesItem
 from .vendor_credit_tracking_categories_item import VendorCreditTrackingCategoriesItem
 from .vendor_credit_vendor import VendorCreditVendor
 
@@ -390,7 +390,7 @@ class VendorCredit(UncheckedBaseModel):
     The company the vendor credit belongs to.
     """
 
-    lines: typing.Optional[typing.List[VendorCreditLine]] = None
+    lines: typing.Optional[typing.List[VendorCreditLinesItem]] = None
     tracking_categories: typing.Optional[typing.List[typing.Optional[VendorCreditTrackingCategoriesItem]]] = None
     applied_to_lines: typing.Optional[typing.List["VendorCreditApplyLineForVendorCredit"]] = pydantic.Field(
         default=None

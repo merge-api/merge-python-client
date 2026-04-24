@@ -4,9 +4,9 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.employer_benefit import EmployerBenefit
-from ...types.paginated_employer_benefit_list import PaginatedEmployerBenefitList
 from .raw_client import AsyncRawEmployerBenefitsClient, RawEmployerBenefitsClient
 
 
@@ -39,7 +39,7 @@ class EmployerBenefitsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedEmployerBenefitList:
+    ) -> SyncPager[EmployerBenefit]:
         """
         Returns a list of `EmployerBenefit` objects.
 
@@ -80,7 +80,7 @@ class EmployerBenefitsClient:
 
         Returns
         -------
-        PaginatedEmployerBenefitList
+        SyncPager[EmployerBenefit]
 
 
         Examples
@@ -93,7 +93,7 @@ class EmployerBenefitsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.employer_benefits.list(
+        response = client.hris.employer_benefits.list(
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
@@ -113,8 +113,13 @@ class EmployerBenefitsClient:
             page_size=1,
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -127,7 +132,6 @@ class EmployerBenefitsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -210,7 +214,7 @@ class AsyncEmployerBenefitsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedEmployerBenefitList:
+    ) -> AsyncPager[EmployerBenefit]:
         """
         Returns a list of `EmployerBenefit` objects.
 
@@ -251,7 +255,7 @@ class AsyncEmployerBenefitsClient:
 
         Returns
         -------
-        PaginatedEmployerBenefitList
+        AsyncPager[EmployerBenefit]
 
 
         Examples
@@ -268,7 +272,7 @@ class AsyncEmployerBenefitsClient:
 
 
         async def main() -> None:
-            await client.hris.employer_benefits.list(
+            response = await client.hris.employer_benefits.list(
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
@@ -288,11 +292,17 @@ class AsyncEmployerBenefitsClient:
                 page_size=1,
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -305,7 +315,6 @@ class AsyncEmployerBenefitsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,

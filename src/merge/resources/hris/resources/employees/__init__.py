@@ -8,23 +8,21 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .types import (
         EmployeesListRequestEmploymentStatus,
-        EmployeesListRequestExpand,
+        EmployeesListRequestExpandItem,
         EmployeesListRequestRemoteFields,
         EmployeesListRequestShowEnumOrigins,
-        EmployeesRetrieveRequestExpand,
+        EmployeesRetrieveRequestExpandItem,
         EmployeesRetrieveRequestRemoteFields,
         EmployeesRetrieveRequestShowEnumOrigins,
-        IgnoreCommonModelRequestReason,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "EmployeesListRequestEmploymentStatus": ".types",
-    "EmployeesListRequestExpand": ".types",
+    "EmployeesListRequestExpandItem": ".types",
     "EmployeesListRequestRemoteFields": ".types",
     "EmployeesListRequestShowEnumOrigins": ".types",
-    "EmployeesRetrieveRequestExpand": ".types",
+    "EmployeesRetrieveRequestExpandItem": ".types",
     "EmployeesRetrieveRequestRemoteFields": ".types",
     "EmployeesRetrieveRequestShowEnumOrigins": ".types",
-    "IgnoreCommonModelRequestReason": ".types",
 }
 
 
@@ -49,11 +47,10 @@ def __dir__():
 
 __all__ = [
     "EmployeesListRequestEmploymentStatus",
-    "EmployeesListRequestExpand",
+    "EmployeesListRequestExpandItem",
     "EmployeesListRequestRemoteFields",
     "EmployeesListRequestShowEnumOrigins",
-    "EmployeesRetrieveRequestExpand",
+    "EmployeesRetrieveRequestExpandItem",
     "EmployeesRetrieveRequestRemoteFields",
     "EmployeesRetrieveRequestShowEnumOrigins",
-    "IgnoreCommonModelRequestReason",
 ]

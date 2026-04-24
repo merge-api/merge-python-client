@@ -6,15 +6,9 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
-from .patched_payment_request_account import PatchedPaymentRequestAccount
-from .patched_payment_request_accounting_period import PatchedPaymentRequestAccountingPeriod
-from .patched_payment_request_applied_to_lines_item import PatchedPaymentRequestAppliedToLinesItem
-from .patched_payment_request_company import PatchedPaymentRequestCompany
-from .patched_payment_request_contact import PatchedPaymentRequestContact
 from .patched_payment_request_currency import PatchedPaymentRequestCurrency
-from .patched_payment_request_payment_method import PatchedPaymentRequestPaymentMethod
-from .patched_payment_request_tracking_categories_item import PatchedPaymentRequestTrackingCategoriesItem
 from .patched_payment_request_type import PatchedPaymentRequestType
+from .payment_line_item_request import PaymentLineItemRequest
 from .remote_field_request import RemoteFieldRequest
 
 
@@ -33,17 +27,17 @@ class PatchedPaymentRequest(UncheckedBaseModel):
     The payment's transaction date.
     """
 
-    contact: typing.Optional[PatchedPaymentRequestContact] = pydantic.Field(default=None)
+    contact: typing.Optional[str] = pydantic.Field(default=None)
     """
     The supplier, or customer involved in the payment.
     """
 
-    account: typing.Optional[PatchedPaymentRequestAccount] = pydantic.Field(default=None)
+    account: typing.Optional[str] = pydantic.Field(default=None)
     """
     The supplier’s or customer’s account in which the payment is made.
     """
 
-    payment_method: typing.Optional[PatchedPaymentRequestPaymentMethod] = pydantic.Field(default=None)
+    payment_method: typing.Optional[str] = pydantic.Field(default=None)
     """
     The method which this payment was made by.
     """
@@ -365,7 +359,7 @@ class PatchedPaymentRequest(UncheckedBaseModel):
     The payment's exchange rate.
     """
 
-    company: typing.Optional[PatchedPaymentRequestCompany] = pydantic.Field(default=None)
+    company: typing.Optional[str] = pydantic.Field(default=None)
     """
     The company the payment belongs to.
     """
@@ -383,17 +377,13 @@ class PatchedPaymentRequest(UncheckedBaseModel):
     * `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
     """
 
-    tracking_categories: typing.Optional[typing.List[typing.Optional[PatchedPaymentRequestTrackingCategoriesItem]]] = (
-        None
-    )
-    accounting_period: typing.Optional[PatchedPaymentRequestAccountingPeriod] = pydantic.Field(default=None)
+    tracking_categories: typing.Optional[typing.List[typing.Optional[str]]] = None
+    accounting_period: typing.Optional[str] = pydantic.Field(default=None)
     """
     The accounting period that the Payment was generated in.
     """
 
-    applied_to_lines: typing.Optional[typing.List[PatchedPaymentRequestAppliedToLinesItem]] = pydantic.Field(
-        default=None
-    )
+    applied_to_lines: typing.Optional[typing.List[PaymentLineItemRequest]] = pydantic.Field(default=None)
     """
     A list of “Payment Applied to Lines” objects.
     """

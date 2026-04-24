@@ -8,6 +8,7 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .remote_field_request import RemoteFieldRequest
 from .task_request_account import TaskRequestAccount
+from .task_request_contact import TaskRequestContact
 from .task_request_opportunity import TaskRequestOpportunity
 from .task_request_owner import TaskRequestOwner
 from .task_request_status import TaskRequestStatus
@@ -45,6 +46,11 @@ class TaskRequest(UncheckedBaseModel):
     opportunity: typing.Optional[TaskRequestOpportunity] = pydantic.Field(default=None)
     """
     The task's opportunity.
+    """
+
+    contact: typing.Optional[TaskRequestContact] = pydantic.Field(default=None)
+    """
+    The task's contact.
     """
 
     completed_date: typing.Optional[dt.datetime] = pydantic.Field(default=None)

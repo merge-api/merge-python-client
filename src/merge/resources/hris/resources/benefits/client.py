@@ -4,9 +4,9 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.benefit import Benefit
-from ...types.paginated_benefit_list import PaginatedBenefitList
 from .raw_client import AsyncRawBenefitsClient, RawBenefitsClient
 
 
@@ -32,7 +32,9 @@ class BenefitsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -41,7 +43,7 @@ class BenefitsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedBenefitList:
+    ) -> SyncPager[Benefit]:
         """
         Returns a list of `Benefit` objects.
 
@@ -59,7 +61,7 @@ class BenefitsClient:
         employee_id : typing.Optional[str]
             If provided, will return the benefits associated with the employee.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -88,7 +90,7 @@ class BenefitsClient:
 
         Returns
         -------
-        PaginatedBenefitList
+        SyncPager[Benefit]
 
 
         Examples
@@ -101,7 +103,7 @@ class BenefitsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.benefits.list(
+        response = client.hris.benefits.list(
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
@@ -122,8 +124,13 @@ class BenefitsClient:
             page_size=1,
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -138,13 +145,14 @@ class BenefitsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -156,7 +164,7 @@ class BenefitsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -219,7 +227,9 @@ class AsyncBenefitsClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         employee_id: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -228,7 +238,7 @@ class AsyncBenefitsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedBenefitList:
+    ) -> AsyncPager[Benefit]:
         """
         Returns a list of `Benefit` objects.
 
@@ -246,7 +256,7 @@ class AsyncBenefitsClient:
         employee_id : typing.Optional[str]
             If provided, will return the benefits associated with the employee.
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -275,7 +285,7 @@ class AsyncBenefitsClient:
 
         Returns
         -------
-        PaginatedBenefitList
+        AsyncPager[Benefit]
 
 
         Examples
@@ -292,7 +302,7 @@ class AsyncBenefitsClient:
 
 
         async def main() -> None:
-            await client.hris.benefits.list(
+            response = await client.hris.benefits.list(
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
@@ -313,11 +323,17 @@ class AsyncBenefitsClient:
                 page_size=1,
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -332,13 +348,14 @@ class AsyncBenefitsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["employee"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -350,7 +367,7 @@ class AsyncBenefitsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["employee"]]
+        expand : typing.Optional[typing.Union[typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

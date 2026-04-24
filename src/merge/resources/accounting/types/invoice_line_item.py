@@ -9,7 +9,6 @@ from ....core.unchecked_base_model import UncheckedBaseModel
 from .invoice_line_item_account import InvoiceLineItemAccount
 from .invoice_line_item_contact import InvoiceLineItemContact
 from .invoice_line_item_currency import InvoiceLineItemCurrency
-from .invoice_line_item_employee import InvoiceLineItemEmployee
 from .invoice_line_item_item import InvoiceLineItemItem
 from .invoice_line_item_project import InvoiceLineItemProject
 from .invoice_line_item_tracking_categories_item import InvoiceLineItemTrackingCategoriesItem
@@ -63,7 +62,7 @@ class InvoiceLineItem(UncheckedBaseModel):
     The line item's total amount.
     """
 
-    employee: typing.Optional[InvoiceLineItemEmployee] = pydantic.Field(default=None)
+    employee: typing.Optional[str] = pydantic.Field(default=None)
     """
     The employee this overall transaction relates to.
     """
@@ -414,6 +413,11 @@ class InvoiceLineItem(UncheckedBaseModel):
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    """
+
+    is_billable: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Indicates if the line item can be charged to the client/customer.
     """
 
     field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None

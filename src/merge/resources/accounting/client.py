@@ -42,6 +42,7 @@ if typing.TYPE_CHECKING:
     from .resources.income_statements.client import AsyncIncomeStatementsClient, IncomeStatementsClient
     from .resources.invoices.client import AsyncInvoicesClient, InvoicesClient
     from .resources.issues.client import AsyncIssuesClient, IssuesClient
+    from .resources.item_fulfillments.client import AsyncItemFulfillmentsClient, ItemFulfillmentsClient
     from .resources.items.client import AsyncItemsClient, ItemsClient
     from .resources.journal_entries.client import AsyncJournalEntriesClient, JournalEntriesClient
     from .resources.link_token.client import AsyncLinkTokenClient, LinkTokenClient
@@ -57,6 +58,7 @@ if typing.TYPE_CHECKING:
     from .resources.projects.client import AsyncProjectsClient, ProjectsClient
     from .resources.purchase_orders.client import AsyncPurchaseOrdersClient, PurchaseOrdersClient
     from .resources.regenerate_key.client import AsyncRegenerateKeyClient, RegenerateKeyClient
+    from .resources.sales_orders.client import AsyncSalesOrdersClient, SalesOrdersClient
     from .resources.scopes.client import AsyncScopesClient, ScopesClient
     from .resources.sync_status.client import AsyncSyncStatusClient, SyncStatusClient
     from .resources.tax_rates.client import AsyncTaxRatesClient, TaxRatesClient
@@ -100,6 +102,7 @@ class AccountingClient:
         self._income_statements: typing.Optional[IncomeStatementsClient] = None
         self._invoices: typing.Optional[InvoicesClient] = None
         self._issues: typing.Optional[IssuesClient] = None
+        self._item_fulfillments: typing.Optional[ItemFulfillmentsClient] = None
         self._items: typing.Optional[ItemsClient] = None
         self._journal_entries: typing.Optional[JournalEntriesClient] = None
         self._link_token: typing.Optional[LinkTokenClient] = None
@@ -112,6 +115,7 @@ class AccountingClient:
         self._projects: typing.Optional[ProjectsClient] = None
         self._purchase_orders: typing.Optional[PurchaseOrdersClient] = None
         self._regenerate_key: typing.Optional[RegenerateKeyClient] = None
+        self._sales_orders: typing.Optional[SalesOrdersClient] = None
         self._sync_status: typing.Optional[SyncStatusClient] = None
         self._force_resync: typing.Optional[ForceResyncClient] = None
         self._tax_rates: typing.Optional[TaxRatesClient] = None
@@ -360,6 +364,14 @@ class AccountingClient:
         return self._issues
 
     @property
+    def item_fulfillments(self):
+        if self._item_fulfillments is None:
+            from .resources.item_fulfillments.client import ItemFulfillmentsClient  # noqa: E402
+
+            self._item_fulfillments = ItemFulfillmentsClient(client_wrapper=self._client_wrapper)
+        return self._item_fulfillments
+
+    @property
     def items(self):
         if self._items is None:
             from .resources.items.client import ItemsClient  # noqa: E402
@@ -456,6 +468,14 @@ class AccountingClient:
         return self._regenerate_key
 
     @property
+    def sales_orders(self):
+        if self._sales_orders is None:
+            from .resources.sales_orders.client import SalesOrdersClient  # noqa: E402
+
+            self._sales_orders = SalesOrdersClient(client_wrapper=self._client_wrapper)
+        return self._sales_orders
+
+    @property
     def sync_status(self):
         if self._sync_status is None:
             from .resources.sync_status.client import SyncStatusClient  # noqa: E402
@@ -544,6 +564,7 @@ class AsyncAccountingClient:
         self._income_statements: typing.Optional[AsyncIncomeStatementsClient] = None
         self._invoices: typing.Optional[AsyncInvoicesClient] = None
         self._issues: typing.Optional[AsyncIssuesClient] = None
+        self._item_fulfillments: typing.Optional[AsyncItemFulfillmentsClient] = None
         self._items: typing.Optional[AsyncItemsClient] = None
         self._journal_entries: typing.Optional[AsyncJournalEntriesClient] = None
         self._link_token: typing.Optional[AsyncLinkTokenClient] = None
@@ -558,6 +579,7 @@ class AsyncAccountingClient:
         self._projects: typing.Optional[AsyncProjectsClient] = None
         self._purchase_orders: typing.Optional[AsyncPurchaseOrdersClient] = None
         self._regenerate_key: typing.Optional[AsyncRegenerateKeyClient] = None
+        self._sales_orders: typing.Optional[AsyncSalesOrdersClient] = None
         self._sync_status: typing.Optional[AsyncSyncStatusClient] = None
         self._force_resync: typing.Optional[AsyncForceResyncClient] = None
         self._tax_rates: typing.Optional[AsyncTaxRatesClient] = None
@@ -804,6 +826,14 @@ class AsyncAccountingClient:
         return self._issues
 
     @property
+    def item_fulfillments(self):
+        if self._item_fulfillments is None:
+            from .resources.item_fulfillments.client import AsyncItemFulfillmentsClient  # noqa: E402
+
+            self._item_fulfillments = AsyncItemFulfillmentsClient(client_wrapper=self._client_wrapper)
+        return self._item_fulfillments
+
+    @property
     def items(self):
         if self._items is None:
             from .resources.items.client import AsyncItemsClient  # noqa: E402
@@ -902,6 +932,14 @@ class AsyncAccountingClient:
 
             self._regenerate_key = AsyncRegenerateKeyClient(client_wrapper=self._client_wrapper)
         return self._regenerate_key
+
+    @property
+    def sales_orders(self):
+        if self._sales_orders is None:
+            from .resources.sales_orders.client import AsyncSalesOrdersClient  # noqa: E402
+
+            self._sales_orders = AsyncSalesOrdersClient(client_wrapper=self._client_wrapper)
+        return self._sales_orders
 
     @property
     def sync_status(self):

@@ -9,9 +9,13 @@ T_Result = typing.TypeVar("T_Result")
 class LinkedAccountsListRequestCategory(str, enum.Enum):
     ACCOUNTING = "accounting"
     ATS = "ats"
+    CHAT = "chat"
+    COMMUNICATION = "communication"
     CRM = "crm"
+    DATAWAREHOUSE = "datawarehouse"
     FILESTORAGE = "filestorage"
     HRIS = "hris"
+    KNOWLEDGEBASE = "knowledgebase"
     MKTG = "mktg"
     TICKETING = "ticketing"
 
@@ -19,9 +23,13 @@ class LinkedAccountsListRequestCategory(str, enum.Enum):
         self,
         accounting: typing.Callable[[], T_Result],
         ats: typing.Callable[[], T_Result],
+        chat: typing.Callable[[], T_Result],
+        communication: typing.Callable[[], T_Result],
         crm: typing.Callable[[], T_Result],
+        datawarehouse: typing.Callable[[], T_Result],
         filestorage: typing.Callable[[], T_Result],
         hris: typing.Callable[[], T_Result],
+        knowledgebase: typing.Callable[[], T_Result],
         mktg: typing.Callable[[], T_Result],
         ticketing: typing.Callable[[], T_Result],
     ) -> T_Result:
@@ -29,12 +37,20 @@ class LinkedAccountsListRequestCategory(str, enum.Enum):
             return accounting()
         if self is LinkedAccountsListRequestCategory.ATS:
             return ats()
+        if self is LinkedAccountsListRequestCategory.CHAT:
+            return chat()
+        if self is LinkedAccountsListRequestCategory.COMMUNICATION:
+            return communication()
         if self is LinkedAccountsListRequestCategory.CRM:
             return crm()
+        if self is LinkedAccountsListRequestCategory.DATAWAREHOUSE:
+            return datawarehouse()
         if self is LinkedAccountsListRequestCategory.FILESTORAGE:
             return filestorage()
         if self is LinkedAccountsListRequestCategory.HRIS:
             return hris()
+        if self is LinkedAccountsListRequestCategory.KNOWLEDGEBASE:
+            return knowledgebase()
         if self is LinkedAccountsListRequestCategory.MKTG:
             return mktg()
         if self is LinkedAccountsListRequestCategory.TICKETING:

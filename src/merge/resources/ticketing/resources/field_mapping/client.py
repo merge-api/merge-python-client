@@ -78,6 +78,7 @@ class FieldMappingClient:
         remote_url_path: str,
         common_model_name: str,
         exclude_remote_field_metadata: typing.Optional[bool] = None,
+        remote_data_iteration_count: typing.Optional[int] = None,
         jmes_path: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> FieldMappingInstanceResponse:
@@ -107,6 +108,9 @@ class FieldMappingClient:
         exclude_remote_field_metadata : typing.Optional[bool]
             If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
 
+        remote_data_iteration_count : typing.Optional[int]
+            Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
+
         jmes_path : typing.Optional[str]
             JMES path to specify json query expression to be used on field mapping.
 
@@ -128,6 +132,7 @@ class FieldMappingClient:
         )
         client.ticketing.field_mapping.field_mappings_create(
             exclude_remote_field_metadata=True,
+            remote_data_iteration_count=1,
             target_field_name="example_target_field_name",
             target_field_description="this is a example description of the target field",
             remote_field_traversal_path=["example_remote_field"],
@@ -144,6 +149,7 @@ class FieldMappingClient:
             remote_url_path=remote_url_path,
             common_model_name=common_model_name,
             exclude_remote_field_metadata=exclude_remote_field_metadata,
+            remote_data_iteration_count=remote_data_iteration_count,
             jmes_path=jmes_path,
             request_options=request_options,
         )
@@ -186,6 +192,7 @@ class FieldMappingClient:
         self,
         field_mapping_id: str,
         *,
+        remote_data_iteration_count: typing.Optional[int] = None,
         remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
@@ -198,6 +205,9 @@ class FieldMappingClient:
         Parameters
         ----------
         field_mapping_id : str
+
+        remote_data_iteration_count : typing.Optional[int]
+            Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
 
         remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
@@ -229,10 +239,12 @@ class FieldMappingClient:
         )
         client.ticketing.field_mapping.field_mappings_partial_update(
             field_mapping_id="field_mapping_id",
+            remote_data_iteration_count=1,
         )
         """
         _response = self._raw_client.field_mappings_partial_update(
             field_mapping_id,
+            remote_data_iteration_count=remote_data_iteration_count,
             remote_field_traversal_path=remote_field_traversal_path,
             remote_method=remote_method,
             remote_url_path=remote_url_path,
@@ -387,6 +399,7 @@ class AsyncFieldMappingClient:
         remote_url_path: str,
         common_model_name: str,
         exclude_remote_field_metadata: typing.Optional[bool] = None,
+        remote_data_iteration_count: typing.Optional[int] = None,
         jmes_path: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> FieldMappingInstanceResponse:
@@ -416,6 +429,9 @@ class AsyncFieldMappingClient:
         exclude_remote_field_metadata : typing.Optional[bool]
             If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
 
+        remote_data_iteration_count : typing.Optional[int]
+            Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
+
         jmes_path : typing.Optional[str]
             JMES path to specify json query expression to be used on field mapping.
 
@@ -442,6 +458,7 @@ class AsyncFieldMappingClient:
         async def main() -> None:
             await client.ticketing.field_mapping.field_mappings_create(
                 exclude_remote_field_metadata=True,
+                remote_data_iteration_count=1,
                 target_field_name="example_target_field_name",
                 target_field_description="this is a example description of the target field",
                 remote_field_traversal_path=["example_remote_field"],
@@ -461,6 +478,7 @@ class AsyncFieldMappingClient:
             remote_url_path=remote_url_path,
             common_model_name=common_model_name,
             exclude_remote_field_metadata=exclude_remote_field_metadata,
+            remote_data_iteration_count=remote_data_iteration_count,
             jmes_path=jmes_path,
             request_options=request_options,
         )
@@ -511,6 +529,7 @@ class AsyncFieldMappingClient:
         self,
         field_mapping_id: str,
         *,
+        remote_data_iteration_count: typing.Optional[int] = None,
         remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
@@ -523,6 +542,9 @@ class AsyncFieldMappingClient:
         Parameters
         ----------
         field_mapping_id : str
+
+        remote_data_iteration_count : typing.Optional[int]
+            Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
 
         remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
@@ -559,6 +581,7 @@ class AsyncFieldMappingClient:
         async def main() -> None:
             await client.ticketing.field_mapping.field_mappings_partial_update(
                 field_mapping_id="field_mapping_id",
+                remote_data_iteration_count=1,
             )
 
 
@@ -566,6 +589,7 @@ class AsyncFieldMappingClient:
         """
         _response = await self._raw_client.field_mappings_partial_update(
             field_mapping_id,
+            remote_data_iteration_count=remote_data_iteration_count,
             remote_field_traversal_path=remote_field_traversal_path,
             remote_method=remote_method,
             remote_url_path=remote_url_path,

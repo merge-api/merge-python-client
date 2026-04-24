@@ -9,12 +9,13 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, BaseHttpResponse, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.company_info import CompanyInfo
 from ...types.paginated_company_info_list import PaginatedCompanyInfoList
-from .types.company_info_list_request_expand import CompanyInfoListRequestExpand
-from .types.company_info_retrieve_request_expand import CompanyInfoRetrieveRequestExpand
+from .types.company_info_list_request_expand_item import CompanyInfoListRequestExpandItem
+from .types.company_info_retrieve_request_expand_item import CompanyInfoRetrieveRequestExpandItem
 
 
 class RawCompanyInfoClient:
@@ -27,16 +28,19 @@ class RawCompanyInfoClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CompanyInfoListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CompanyInfoListRequestExpandItem, typing.Sequence[CompanyInfoListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        name: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedCompanyInfoList]:
+    ) -> SyncPager[CompanyInfo]:
         """
         Returns a list of `CompanyInfo` objects.
 
@@ -51,7 +55,7 @@ class RawCompanyInfoClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CompanyInfoListRequestExpand]
+        expand : typing.Optional[typing.Union[CompanyInfoListRequestExpandItem, typing.Sequence[CompanyInfoListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -69,8 +73,11 @@ class RawCompanyInfoClient:
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
 
+        name : typing.Optional[str]
+            If provided, will only return CompanyInfo objects with this name.
+
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -80,7 +87,7 @@ class RawCompanyInfoClient:
 
         Returns
         -------
-        HttpResponse[PaginatedCompanyInfoList]
+        SyncPager[CompanyInfo]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -96,6 +103,7 @@ class RawCompanyInfoClient:
                 "include_shell_data": include_shell_data,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "name": name,
                 "page_size": page_size,
                 "remote_id": remote_id,
             },
@@ -103,14 +111,34 @@ class RawCompanyInfoClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedCompanyInfoList,
                     construct_type(
                         type_=PaginatedCompanyInfoList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    name=name,
+                    page_size=page_size,
+                    remote_id=remote_id,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -120,7 +148,9 @@ class RawCompanyInfoClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CompanyInfoRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CompanyInfoRetrieveRequestExpandItem, typing.Sequence[CompanyInfoRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -132,7 +162,7 @@ class RawCompanyInfoClient:
         ----------
         id : str
 
-        expand : typing.Optional[CompanyInfoRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CompanyInfoRetrieveRequestExpandItem, typing.Sequence[CompanyInfoRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -185,16 +215,19 @@ class AsyncRawCompanyInfoClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CompanyInfoListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CompanyInfoListRequestExpandItem, typing.Sequence[CompanyInfoListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         modified_after: typing.Optional[dt.datetime] = None,
         modified_before: typing.Optional[dt.datetime] = None,
+        name: typing.Optional[str] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedCompanyInfoList]:
+    ) -> AsyncPager[CompanyInfo]:
         """
         Returns a list of `CompanyInfo` objects.
 
@@ -209,7 +242,7 @@ class AsyncRawCompanyInfoClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CompanyInfoListRequestExpand]
+        expand : typing.Optional[typing.Union[CompanyInfoListRequestExpandItem, typing.Sequence[CompanyInfoListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -227,8 +260,11 @@ class AsyncRawCompanyInfoClient:
         modified_before : typing.Optional[dt.datetime]
             If provided, only objects synced by Merge before this date time will be returned.
 
+        name : typing.Optional[str]
+            If provided, will only return CompanyInfo objects with this name.
+
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -238,7 +274,7 @@ class AsyncRawCompanyInfoClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedCompanyInfoList]
+        AsyncPager[CompanyInfo]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -254,6 +290,7 @@ class AsyncRawCompanyInfoClient:
                 "include_shell_data": include_shell_data,
                 "modified_after": serialize_datetime(modified_after) if modified_after is not None else None,
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
+                "name": name,
                 "page_size": page_size,
                 "remote_id": remote_id,
             },
@@ -261,14 +298,37 @@ class AsyncRawCompanyInfoClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedCompanyInfoList,
                     construct_type(
                         type_=PaginatedCompanyInfoList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        name=name,
+                        page_size=page_size,
+                        remote_id=remote_id,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -278,7 +338,9 @@ class AsyncRawCompanyInfoClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[CompanyInfoRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[CompanyInfoRetrieveRequestExpandItem, typing.Sequence[CompanyInfoRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -290,7 +352,7 @@ class AsyncRawCompanyInfoClient:
         ----------
         id : str
 
-        expand : typing.Optional[CompanyInfoRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[CompanyInfoRetrieveRequestExpandItem, typing.Sequence[CompanyInfoRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

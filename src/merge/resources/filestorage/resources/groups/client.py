@@ -4,10 +4,12 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.group import Group
-from ...types.paginated_group_list import PaginatedGroupList
 from .raw_client import AsyncRawGroupsClient, RawGroupsClient
+from .types.groups_list_request_expand_item import GroupsListRequestExpandItem
+from .types.groups_retrieve_request_expand_item import GroupsRetrieveRequestExpandItem
 
 
 class GroupsClient:
@@ -31,7 +33,9 @@ class GroupsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["child_groups"]] = None,
+        expand: typing.Optional[
+            typing.Union[GroupsListRequestExpandItem, typing.Sequence[GroupsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -40,7 +44,7 @@ class GroupsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedGroupList:
+    ) -> SyncPager[Group]:
         """
         Returns a list of `Group` objects.
 
@@ -55,7 +59,7 @@ class GroupsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["child_groups"]]
+        expand : typing.Optional[typing.Union[GroupsListRequestExpandItem, typing.Sequence[GroupsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -74,7 +78,7 @@ class GroupsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -84,7 +88,7 @@ class GroupsClient:
 
         Returns
         -------
-        PaginatedGroupList
+        SyncPager[Group]
 
 
         Examples
@@ -97,7 +101,7 @@ class GroupsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.groups.list(
+        response = client.filestorage.groups.list(
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
@@ -117,8 +121,13 @@ class GroupsClient:
             page_size=1,
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -132,13 +141,14 @@ class GroupsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["child_groups"]] = None,
+        expand: typing.Optional[
+            typing.Union[GroupsRetrieveRequestExpandItem, typing.Sequence[GroupsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -150,7 +160,7 @@ class GroupsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["child_groups"]]
+        expand : typing.Optional[typing.Union[GroupsRetrieveRequestExpandItem, typing.Sequence[GroupsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -212,7 +222,9 @@ class AsyncGroupsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["child_groups"]] = None,
+        expand: typing.Optional[
+            typing.Union[GroupsListRequestExpandItem, typing.Sequence[GroupsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -221,7 +233,7 @@ class AsyncGroupsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedGroupList:
+    ) -> AsyncPager[Group]:
         """
         Returns a list of `Group` objects.
 
@@ -236,7 +248,7 @@ class AsyncGroupsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["child_groups"]]
+        expand : typing.Optional[typing.Union[GroupsListRequestExpandItem, typing.Sequence[GroupsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -255,7 +267,7 @@ class AsyncGroupsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -265,7 +277,7 @@ class AsyncGroupsClient:
 
         Returns
         -------
-        PaginatedGroupList
+        AsyncPager[Group]
 
 
         Examples
@@ -282,7 +294,7 @@ class AsyncGroupsClient:
 
 
         async def main() -> None:
-            await client.filestorage.groups.list(
+            response = await client.filestorage.groups.list(
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
@@ -302,11 +314,17 @@ class AsyncGroupsClient:
                 page_size=1,
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -320,13 +338,14 @@ class AsyncGroupsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["child_groups"]] = None,
+        expand: typing.Optional[
+            typing.Union[GroupsRetrieveRequestExpandItem, typing.Sequence[GroupsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -338,7 +357,7 @@ class AsyncGroupsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["child_groups"]]
+        expand : typing.Optional[typing.Union[GroupsRetrieveRequestExpandItem, typing.Sequence[GroupsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

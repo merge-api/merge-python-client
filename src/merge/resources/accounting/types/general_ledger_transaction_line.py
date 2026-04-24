@@ -13,8 +13,8 @@ from .general_ledger_transaction_line_contact import GeneralLedgerTransactionLin
 from .general_ledger_transaction_line_employee import GeneralLedgerTransactionLineEmployee
 from .general_ledger_transaction_line_item import GeneralLedgerTransactionLineItem
 from .general_ledger_transaction_line_project import GeneralLedgerTransactionLineProject
-from .general_ledger_transaction_line_tracking_categories_item import GeneralLedgerTransactionLineTrackingCategoriesItem
 from .general_ledger_transaction_line_transaction_currency import GeneralLedgerTransactionLineTransactionCurrency
+from .tracking_category import TrackingCategory
 
 
 class GeneralLedgerTransactionLine(UncheckedBaseModel):
@@ -688,7 +688,7 @@ class GeneralLedgerTransactionLine(UncheckedBaseModel):
     A description of the line item.
     """
 
-    tracking_categories: typing.Optional[typing.List[GeneralLedgerTransactionLineTrackingCategoriesItem]] = None
+    tracking_categories: typing.Optional[typing.List[TrackingCategory]] = None
     debit_amount: str
     credit_amount: str
     item: typing.Optional[GeneralLedgerTransactionLineItem] = None

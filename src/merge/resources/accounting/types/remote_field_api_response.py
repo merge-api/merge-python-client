@@ -25,6 +25,11 @@ class RemoteFieldApiResponse(UncheckedBaseModel):
     credit_note: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="CreditNote", default=None)
     item: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="Item", default=None)
     purchase_order: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="PurchaseOrder", default=None)
+    sales_order: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="SalesOrder", default=None)
+    item_fulfillment: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(
+        alias="ItemFulfillment", default=None
+    )
+    expense_report: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(alias="ExpenseReport", default=None)
     tracking_category: typing.Optional[typing.List[RemoteFieldApi]] = pydantic.Field(
         alias="TrackingCategory", default=None
     )

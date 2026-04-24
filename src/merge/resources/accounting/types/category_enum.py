@@ -15,6 +15,7 @@ class CategoryEnum(str, enum.Enum):
     * `crm` - crm
     * `mktg` - mktg
     * `filestorage` - filestorage
+    * `knowledgebase` - knowledgebase
     """
 
     HRIS = "hris"
@@ -24,6 +25,7 @@ class CategoryEnum(str, enum.Enum):
     CRM = "crm"
     MKTG = "mktg"
     FILESTORAGE = "filestorage"
+    KNOWLEDGEBASE = "knowledgebase"
 
     def visit(
         self,
@@ -34,6 +36,7 @@ class CategoryEnum(str, enum.Enum):
         crm: typing.Callable[[], T_Result],
         mktg: typing.Callable[[], T_Result],
         filestorage: typing.Callable[[], T_Result],
+        knowledgebase: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is CategoryEnum.HRIS:
             return hris()
@@ -49,3 +52,5 @@ class CategoryEnum(str, enum.Enum):
             return mktg()
         if self is CategoryEnum.FILESTORAGE:
             return filestorage()
+        if self is CategoryEnum.KNOWLEDGEBASE:
+            return knowledgebase()

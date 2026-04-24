@@ -118,6 +118,8 @@ if typing.TYPE_CHECKING:
     from .lead_request_converted_contact import LeadRequestConvertedContact
     from .lead_request_owner import LeadRequestOwner
     from .lead_response import LeadResponse
+    from .lead_status import LeadStatus
+    from .lead_status_enum import LeadStatusEnum
     from .link_token import LinkToken
     from .linked_account_status import LinkedAccountStatus
     from .meta_response import MetaResponse
@@ -183,6 +185,7 @@ if typing.TYPE_CHECKING:
     from .phone_number import PhoneNumber
     from .phone_number_request import PhoneNumberRequest
     from .reason_enum import ReasonEnum
+    from .regenerate_account_token import RegenerateAccountToken
     from .remote_data import RemoteData
     from .remote_endpoint_info import RemoteEndpointInfo
     from .remote_field import RemoteField
@@ -191,8 +194,6 @@ if typing.TYPE_CHECKING:
     from .remote_field_api_response import RemoteFieldApiResponse
     from .remote_field_class import RemoteFieldClass
     from .remote_field_class_field_choices_item import RemoteFieldClassFieldChoicesItem
-    from .remote_field_class_field_format import RemoteFieldClassFieldFormat
-    from .remote_field_class_field_type import RemoteFieldClassFieldType
     from .remote_field_class_for_custom_object_class import RemoteFieldClassForCustomObjectClass
     from .remote_field_class_for_custom_object_class_field_choices_item import (
         RemoteFieldClassForCustomObjectClassFieldChoicesItem,
@@ -205,6 +206,7 @@ if typing.TYPE_CHECKING:
     from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
     from .remote_key import RemoteKey
     from .remote_response import RemoteResponse
+    from .remote_response_response_type import RemoteResponseResponseType
     from .request_format_enum import RequestFormatEnum
     from .response_type_enum import ResponseTypeEnum
     from .role_enum import RoleEnum
@@ -216,10 +218,12 @@ if typing.TYPE_CHECKING:
     from .sync_status_status import SyncStatusStatus
     from .task import Task
     from .task_account import TaskAccount
+    from .task_contact import TaskContact
     from .task_opportunity import TaskOpportunity
     from .task_owner import TaskOwner
     from .task_request import TaskRequest
     from .task_request_account import TaskRequestAccount
+    from .task_request_contact import TaskRequestContact
     from .task_request_opportunity import TaskRequestOpportunity
     from .task_request_owner import TaskRequestOwner
     from .task_request_status import TaskRequestStatus
@@ -341,6 +345,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LeadRequestConvertedContact": ".lead_request_converted_contact",
     "LeadRequestOwner": ".lead_request_owner",
     "LeadResponse": ".lead_response",
+    "LeadStatus": ".lead_status",
+    "LeadStatusEnum": ".lead_status_enum",
     "LinkToken": ".link_token",
     "LinkedAccountStatus": ".linked_account_status",
     "MetaResponse": ".meta_response",
@@ -406,6 +412,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PhoneNumber": ".phone_number",
     "PhoneNumberRequest": ".phone_number_request",
     "ReasonEnum": ".reason_enum",
+    "RegenerateAccountToken": ".regenerate_account_token",
     "RemoteData": ".remote_data",
     "RemoteEndpointInfo": ".remote_endpoint_info",
     "RemoteField": ".remote_field",
@@ -414,8 +421,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RemoteFieldApiResponse": ".remote_field_api_response",
     "RemoteFieldClass": ".remote_field_class",
     "RemoteFieldClassFieldChoicesItem": ".remote_field_class_field_choices_item",
-    "RemoteFieldClassFieldFormat": ".remote_field_class_field_format",
-    "RemoteFieldClassFieldType": ".remote_field_class_field_type",
     "RemoteFieldClassForCustomObjectClass": ".remote_field_class_for_custom_object_class",
     "RemoteFieldClassForCustomObjectClassFieldChoicesItem": ".remote_field_class_for_custom_object_class_field_choices_item",
     "RemoteFieldClassForCustomObjectClassFieldFormat": ".remote_field_class_for_custom_object_class_field_format",
@@ -426,6 +431,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RemoteFieldRequestRemoteFieldClass": ".remote_field_request_remote_field_class",
     "RemoteKey": ".remote_key",
     "RemoteResponse": ".remote_response",
+    "RemoteResponseResponseType": ".remote_response_response_type",
     "RequestFormatEnum": ".request_format_enum",
     "ResponseTypeEnum": ".response_type_enum",
     "RoleEnum": ".role_enum",
@@ -437,10 +443,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SyncStatusStatus": ".sync_status_status",
     "Task": ".task",
     "TaskAccount": ".task_account",
+    "TaskContact": ".task_contact",
     "TaskOpportunity": ".task_opportunity",
     "TaskOwner": ".task_owner",
     "TaskRequest": ".task_request",
     "TaskRequestAccount": ".task_request_account",
+    "TaskRequestContact": ".task_request_contact",
     "TaskRequestOpportunity": ".task_request_opportunity",
     "TaskRequestOwner": ".task_request_owner",
     "TaskRequestStatus": ".task_request_status",
@@ -584,6 +592,8 @@ __all__ = [
     "LeadRequestConvertedContact",
     "LeadRequestOwner",
     "LeadResponse",
+    "LeadStatus",
+    "LeadStatusEnum",
     "LinkToken",
     "LinkedAccountStatus",
     "MetaResponse",
@@ -649,6 +659,7 @@ __all__ = [
     "PhoneNumber",
     "PhoneNumberRequest",
     "ReasonEnum",
+    "RegenerateAccountToken",
     "RemoteData",
     "RemoteEndpointInfo",
     "RemoteField",
@@ -657,8 +668,6 @@ __all__ = [
     "RemoteFieldApiResponse",
     "RemoteFieldClass",
     "RemoteFieldClassFieldChoicesItem",
-    "RemoteFieldClassFieldFormat",
-    "RemoteFieldClassFieldType",
     "RemoteFieldClassForCustomObjectClass",
     "RemoteFieldClassForCustomObjectClassFieldChoicesItem",
     "RemoteFieldClassForCustomObjectClassFieldFormat",
@@ -669,6 +678,7 @@ __all__ = [
     "RemoteFieldRequestRemoteFieldClass",
     "RemoteKey",
     "RemoteResponse",
+    "RemoteResponseResponseType",
     "RequestFormatEnum",
     "ResponseTypeEnum",
     "RoleEnum",
@@ -680,10 +690,12 @@ __all__ = [
     "SyncStatusStatus",
     "Task",
     "TaskAccount",
+    "TaskContact",
     "TaskOpportunity",
     "TaskOwner",
     "TaskRequest",
     "TaskRequestAccount",
+    "TaskRequestContact",
     "TaskRequestOpportunity",
     "TaskRequestOwner",
     "TaskRequestStatus",

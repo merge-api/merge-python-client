@@ -14,10 +14,11 @@ from .invoice_company import InvoiceCompany
 from .invoice_contact import InvoiceContact
 from .invoice_currency import InvoiceCurrency
 from .invoice_employee import InvoiceEmployee
-from .invoice_line_item import InvoiceLineItem
+from .invoice_line_items_item import InvoiceLineItemsItem
 from .invoice_payment_term import InvoicePaymentTerm
 from .invoice_payments_item import InvoicePaymentsItem
 from .invoice_purchase_orders_item import InvoicePurchaseOrdersItem
+from .invoice_sales_orders_item import InvoiceSalesOrdersItem
 from .invoice_status import InvoiceStatus
 from .invoice_tracking_categories_item import InvoiceTrackingCategoriesItem
 from .invoice_type import InvoiceType
@@ -473,6 +474,7 @@ class Invoice(UncheckedBaseModel):
     """
 
     purchase_orders: typing.Optional[typing.List[typing.Optional[InvoicePurchaseOrdersItem]]] = None
+    sales_orders: typing.Optional[typing.List[typing.Optional[InvoiceSalesOrdersItem]]] = None
     payments: typing.Optional[typing.List[typing.Optional[InvoicePaymentsItem]]] = pydantic.Field(default=None)
     """
     Array of `Payment` object IDs.
@@ -485,7 +487,7 @@ class Invoice(UncheckedBaseModel):
     A list of the Payment Applied to Lines common models related to a given Invoice, Credit Note, or Journal Entry.
     """
 
-    line_items: typing.Optional[typing.List[InvoiceLineItem]] = None
+    line_items: typing.Optional[typing.List[InvoiceLineItemsItem]] = None
     applied_credit_notes: typing.Optional[typing.List["InvoiceAppliedCreditNotesItem"]] = pydantic.Field(default=None)
     """
     `CreditNoteApplyLines` applied to the Invoice.

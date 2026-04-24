@@ -4,9 +4,9 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.office import Office
-from ...types.paginated_office_list import PaginatedOfficeList
 from .raw_client import AsyncRawOfficesClient, RawOfficesClient
 
 
@@ -39,7 +39,7 @@ class OfficesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedOfficeList:
+    ) -> SyncPager[Office]:
         """
         Returns a list of `Office` objects.
 
@@ -70,7 +70,7 @@ class OfficesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -80,7 +80,7 @@ class OfficesClient:
 
         Returns
         -------
-        PaginatedOfficeList
+        SyncPager[Office]
 
 
         Examples
@@ -93,7 +93,7 @@ class OfficesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.offices.list(
+        response = client.ats.offices.list(
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
@@ -113,8 +113,13 @@ class OfficesClient:
             page_size=1,
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -127,7 +132,6 @@ class OfficesClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -210,7 +214,7 @@ class AsyncOfficesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedOfficeList:
+    ) -> AsyncPager[Office]:
         """
         Returns a list of `Office` objects.
 
@@ -241,7 +245,7 @@ class AsyncOfficesClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -251,7 +255,7 @@ class AsyncOfficesClient:
 
         Returns
         -------
-        PaginatedOfficeList
+        AsyncPager[Office]
 
 
         Examples
@@ -268,7 +272,7 @@ class AsyncOfficesClient:
 
 
         async def main() -> None:
-            await client.ats.offices.list(
+            response = await client.ats.offices.list(
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
@@ -288,11 +292,17 @@ class AsyncOfficesClient:
                 page_size=1,
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -305,7 +315,6 @@ class AsyncOfficesClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,

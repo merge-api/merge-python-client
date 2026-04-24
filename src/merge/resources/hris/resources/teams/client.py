@@ -4,8 +4,8 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
-from ...types.paginated_team_list import PaginatedTeamList
 from ...types.team import Team
 from .raw_client import AsyncRawTeamsClient, RawTeamsClient
 
@@ -31,7 +31,9 @@ class TeamsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["parent_team"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["parent_team"], typing.Sequence[typing.Literal["parent_team"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -41,7 +43,7 @@ class TeamsClient:
         parent_team_id: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTeamList:
+    ) -> SyncPager[Team]:
         """
         Returns a list of `Team` objects.
 
@@ -56,7 +58,7 @@ class TeamsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["parent_team"]]
+        expand : typing.Optional[typing.Union[typing.Literal["parent_team"], typing.Sequence[typing.Literal["parent_team"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -88,7 +90,7 @@ class TeamsClient:
 
         Returns
         -------
-        PaginatedTeamList
+        SyncPager[Team]
 
 
         Examples
@@ -101,7 +103,7 @@ class TeamsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.hris.teams.list(
+        response = client.hris.teams.list(
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
@@ -122,8 +124,13 @@ class TeamsClient:
             parent_team_id="parent_team_id",
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -138,13 +145,14 @@ class TeamsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["parent_team"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["parent_team"], typing.Sequence[typing.Literal["parent_team"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -156,7 +164,7 @@ class TeamsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["parent_team"]]
+        expand : typing.Optional[typing.Union[typing.Literal["parent_team"], typing.Sequence[typing.Literal["parent_team"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -218,7 +226,9 @@ class AsyncTeamsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["parent_team"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["parent_team"], typing.Sequence[typing.Literal["parent_team"]]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -228,7 +238,7 @@ class AsyncTeamsClient:
         parent_team_id: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTeamList:
+    ) -> AsyncPager[Team]:
         """
         Returns a list of `Team` objects.
 
@@ -243,7 +253,7 @@ class AsyncTeamsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["parent_team"]]
+        expand : typing.Optional[typing.Union[typing.Literal["parent_team"], typing.Sequence[typing.Literal["parent_team"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -275,7 +285,7 @@ class AsyncTeamsClient:
 
         Returns
         -------
-        PaginatedTeamList
+        AsyncPager[Team]
 
 
         Examples
@@ -292,7 +302,7 @@ class AsyncTeamsClient:
 
 
         async def main() -> None:
-            await client.hris.teams.list(
+            response = await client.hris.teams.list(
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
@@ -313,11 +323,17 @@ class AsyncTeamsClient:
                 parent_team_id="parent_team_id",
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -332,13 +348,14 @@ class AsyncTeamsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["parent_team"]] = None,
+        expand: typing.Optional[
+            typing.Union[typing.Literal["parent_team"], typing.Sequence[typing.Literal["parent_team"]]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -350,7 +367,7 @@ class AsyncTeamsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["parent_team"]]
+        expand : typing.Optional[typing.Union[typing.Literal["parent_team"], typing.Sequence[typing.Literal["parent_team"]]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

@@ -4,8 +4,8 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
-from ...types.paginated_tag_list import PaginatedTagList
 from ...types.tag import Tag
 from .raw_client import AsyncRawTagsClient, RawTagsClient
 
@@ -39,7 +39,7 @@ class TagsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTagList:
+    ) -> SyncPager[Tag]:
         """
         Returns a list of `Tag` objects.
 
@@ -80,7 +80,7 @@ class TagsClient:
 
         Returns
         -------
-        PaginatedTagList
+        SyncPager[Tag]
 
 
         Examples
@@ -93,7 +93,7 @@ class TagsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.tags.list(
+        response = client.ticketing.tags.list(
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
@@ -113,8 +113,13 @@ class TagsClient:
             page_size=1,
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -127,7 +132,6 @@ class TagsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -210,7 +214,7 @@ class AsyncTagsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedTagList:
+    ) -> AsyncPager[Tag]:
         """
         Returns a list of `Tag` objects.
 
@@ -251,7 +255,7 @@ class AsyncTagsClient:
 
         Returns
         -------
-        PaginatedTagList
+        AsyncPager[Tag]
 
 
         Examples
@@ -268,7 +272,7 @@ class AsyncTagsClient:
 
 
         async def main() -> None:
-            await client.ticketing.tags.list(
+            response = await client.ticketing.tags.list(
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
@@ -288,11 +292,17 @@ class AsyncTagsClient:
                 page_size=1,
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -305,7 +315,6 @@ class AsyncTagsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,

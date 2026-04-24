@@ -7,20 +7,20 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
-        EmploymentsListRequestExpand,
+        EmploymentsListRequestExpandItem,
         EmploymentsListRequestOrderBy,
         EmploymentsListRequestRemoteFields,
         EmploymentsListRequestShowEnumOrigins,
-        EmploymentsRetrieveRequestExpand,
+        EmploymentsRetrieveRequestExpandItem,
         EmploymentsRetrieveRequestRemoteFields,
         EmploymentsRetrieveRequestShowEnumOrigins,
     )
 _dynamic_imports: typing.Dict[str, str] = {
-    "EmploymentsListRequestExpand": ".types",
+    "EmploymentsListRequestExpandItem": ".types",
     "EmploymentsListRequestOrderBy": ".types",
     "EmploymentsListRequestRemoteFields": ".types",
     "EmploymentsListRequestShowEnumOrigins": ".types",
-    "EmploymentsRetrieveRequestExpand": ".types",
+    "EmploymentsRetrieveRequestExpandItem": ".types",
     "EmploymentsRetrieveRequestRemoteFields": ".types",
     "EmploymentsRetrieveRequestShowEnumOrigins": ".types",
 }
@@ -46,11 +46,11 @@ def __dir__():
 
 
 __all__ = [
-    "EmploymentsListRequestExpand",
+    "EmploymentsListRequestExpandItem",
     "EmploymentsListRequestOrderBy",
     "EmploymentsListRequestRemoteFields",
     "EmploymentsListRequestShowEnumOrigins",
-    "EmploymentsRetrieveRequestExpand",
+    "EmploymentsRetrieveRequestExpandItem",
     "EmploymentsRetrieveRequestRemoteFields",
     "EmploymentsRetrieveRequestShowEnumOrigins",
 ]

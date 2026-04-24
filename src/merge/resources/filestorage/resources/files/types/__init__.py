@@ -7,14 +7,14 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .files_download_request_meta_list_request_order_by import FilesDownloadRequestMetaListRequestOrderBy
-    from .files_list_request_expand import FilesListRequestExpand
+    from .files_list_request_expand_item import FilesListRequestExpandItem
     from .files_list_request_order_by import FilesListRequestOrderBy
-    from .files_retrieve_request_expand import FilesRetrieveRequestExpand
+    from .files_retrieve_request_expand_item import FilesRetrieveRequestExpandItem
 _dynamic_imports: typing.Dict[str, str] = {
     "FilesDownloadRequestMetaListRequestOrderBy": ".files_download_request_meta_list_request_order_by",
-    "FilesListRequestExpand": ".files_list_request_expand",
+    "FilesListRequestExpandItem": ".files_list_request_expand_item",
     "FilesListRequestOrderBy": ".files_list_request_order_by",
-    "FilesRetrieveRequestExpand": ".files_retrieve_request_expand",
+    "FilesRetrieveRequestExpandItem": ".files_retrieve_request_expand_item",
 }
 
 
@@ -39,7 +39,7 @@ def __dir__():
 
 __all__ = [
     "FilesDownloadRequestMetaListRequestOrderBy",
-    "FilesListRequestExpand",
+    "FilesListRequestExpandItem",
     "FilesListRequestOrderBy",
-    "FilesRetrieveRequestExpand",
+    "FilesRetrieveRequestExpandItem",
 ]

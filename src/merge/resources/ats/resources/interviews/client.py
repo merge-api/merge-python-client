@@ -4,15 +4,15 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.meta_response import MetaResponse
-from ...types.paginated_scheduled_interview_list import PaginatedScheduledInterviewList
 from ...types.scheduled_interview import ScheduledInterview
 from ...types.scheduled_interview_request import ScheduledInterviewRequest
 from ...types.scheduled_interview_response import ScheduledInterviewResponse
 from .raw_client import AsyncRawInterviewsClient, RawInterviewsClient
-from .types.interviews_list_request_expand import InterviewsListRequestExpand
-from .types.interviews_retrieve_request_expand import InterviewsRetrieveRequestExpand
+from .types.interviews_list_request_expand_item import InterviewsListRequestExpandItem
+from .types.interviews_retrieve_request_expand_item import InterviewsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -40,7 +40,9 @@ class InterviewsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[InterviewsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InterviewsListRequestExpandItem, typing.Sequence[InterviewsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -54,7 +56,7 @@ class InterviewsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedScheduledInterviewList:
+    ) -> SyncPager[ScheduledInterview]:
         """
         Returns a list of `ScheduledInterview` objects.
 
@@ -72,7 +74,7 @@ class InterviewsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[InterviewsListRequestExpand]
+        expand : typing.Optional[typing.Union[InterviewsListRequestExpandItem, typing.Sequence[InterviewsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -100,7 +102,7 @@ class InterviewsClient:
             If provided, will only return interviews organized by this user.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -116,7 +118,7 @@ class InterviewsClient:
 
         Returns
         -------
-        PaginatedScheduledInterviewList
+        SyncPager[ScheduledInterview]
 
 
         Examples
@@ -124,13 +126,12 @@ class InterviewsClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.ats.resources.interviews import InterviewsListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ats.interviews.list(
+        response = client.ats.interviews.list(
             application_id="application_id",
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
@@ -139,7 +140,6 @@ class InterviewsClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=InterviewsListRequestExpand.APPLICATION,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -155,8 +155,13 @@ class InterviewsClient:
             page_size=1,
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             application_id=application_id,
             created_after=created_after,
             created_before=created_before,
@@ -176,7 +181,6 @@ class InterviewsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -239,7 +243,9 @@ class InterviewsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[InterviewsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InterviewsRetrieveRequestExpandItem, typing.Sequence[InterviewsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -253,7 +259,7 @@ class InterviewsClient:
         ----------
         id : str
 
-        expand : typing.Optional[InterviewsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[InterviewsRetrieveRequestExpandItem, typing.Sequence[InterviewsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -279,9 +285,6 @@ class InterviewsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.ats.resources.interviews import (
-            InterviewsRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -289,7 +292,6 @@ class InterviewsClient:
         )
         client.ats.interviews.retrieve(
             id="id",
-            expand=InterviewsRetrieveRequestExpand.APPLICATION,
             include_remote_data=True,
             include_shell_data=True,
         )
@@ -355,7 +357,9 @@ class AsyncInterviewsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[InterviewsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InterviewsListRequestExpandItem, typing.Sequence[InterviewsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -369,7 +373,7 @@ class AsyncInterviewsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["status"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedScheduledInterviewList:
+    ) -> AsyncPager[ScheduledInterview]:
         """
         Returns a list of `ScheduledInterview` objects.
 
@@ -387,7 +391,7 @@ class AsyncInterviewsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[InterviewsListRequestExpand]
+        expand : typing.Optional[typing.Union[InterviewsListRequestExpandItem, typing.Sequence[InterviewsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -415,7 +419,7 @@ class AsyncInterviewsClient:
             If provided, will only return interviews organized by this user.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_fields : typing.Optional[typing.Literal["status"]]
             Deprecated. Use show_enum_origins.
@@ -431,7 +435,7 @@ class AsyncInterviewsClient:
 
         Returns
         -------
-        PaginatedScheduledInterviewList
+        AsyncPager[ScheduledInterview]
 
 
         Examples
@@ -440,7 +444,6 @@ class AsyncInterviewsClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.ats.resources.interviews import InterviewsListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -449,7 +452,7 @@ class AsyncInterviewsClient:
 
 
         async def main() -> None:
-            await client.ats.interviews.list(
+            response = await client.ats.interviews.list(
                 application_id="application_id",
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
@@ -458,7 +461,6 @@ class AsyncInterviewsClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=InterviewsListRequestExpand.APPLICATION,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
@@ -474,11 +476,17 @@ class AsyncInterviewsClient:
                 page_size=1,
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             application_id=application_id,
             created_after=created_after,
             created_before=created_before,
@@ -498,7 +506,6 @@ class AsyncInterviewsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -569,7 +576,9 @@ class AsyncInterviewsClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[InterviewsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[InterviewsRetrieveRequestExpandItem, typing.Sequence[InterviewsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["status"]] = None,
@@ -583,7 +592,7 @@ class AsyncInterviewsClient:
         ----------
         id : str
 
-        expand : typing.Optional[InterviewsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[InterviewsRetrieveRequestExpandItem, typing.Sequence[InterviewsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -611,9 +620,6 @@ class AsyncInterviewsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.ats.resources.interviews import (
-            InterviewsRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -624,7 +630,6 @@ class AsyncInterviewsClient:
         async def main() -> None:
             await client.ats.interviews.retrieve(
                 id="id",
-                expand=InterviewsRetrieveRequestExpand.APPLICATION,
                 include_remote_data=True,
                 include_shell_data=True,
             )

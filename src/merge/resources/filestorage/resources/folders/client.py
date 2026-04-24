@@ -4,15 +4,15 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.file_storage_folder_response import FileStorageFolderResponse
 from ...types.folder import Folder
 from ...types.folder_request import FolderRequest
 from ...types.meta_response import MetaResponse
-from ...types.paginated_folder_list import PaginatedFolderList
 from .raw_client import AsyncRawFoldersClient, RawFoldersClient
-from .types.folders_list_request_expand import FoldersListRequestExpand
-from .types.folders_retrieve_request_expand import FoldersRetrieveRequestExpand
+from .types.folders_list_request_expand_item import FoldersListRequestExpandItem
+from .types.folders_retrieve_request_expand_item import FoldersRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -40,7 +40,9 @@ class FoldersClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         drive_id: typing.Optional[str] = None,
-        expand: typing.Optional[FoldersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FoldersListRequestExpandItem, typing.Sequence[FoldersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -51,7 +53,7 @@ class FoldersClient:
         parent_folder_id: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedFolderList:
+    ) -> SyncPager[Folder]:
         """
         Returns a list of `Folder` objects.
 
@@ -69,7 +71,7 @@ class FoldersClient:
         drive_id : typing.Optional[str]
             If provided, will only return folders in this drive.
 
-        expand : typing.Optional[FoldersListRequestExpand]
+        expand : typing.Optional[typing.Union[FoldersListRequestExpandItem, typing.Sequence[FoldersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -91,7 +93,7 @@ class FoldersClient:
             If provided, will only return folders with this name. This performs an exact match.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_folder_id : typing.Optional[str]
             If provided, will only return folders in this parent folder. If null, will return folders in root directory.
@@ -104,7 +106,7 @@ class FoldersClient:
 
         Returns
         -------
-        PaginatedFolderList
+        SyncPager[Folder]
 
 
         Examples
@@ -112,15 +114,12 @@ class FoldersClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.filestorage.resources.folders import (
-            FoldersListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.filestorage.folders.list(
+        response = client.filestorage.folders.list(
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
@@ -129,7 +128,6 @@ class FoldersClient:
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             drive_id="drive_id",
-            expand=FoldersListRequestExpand.DRIVE,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -144,8 +142,13 @@ class FoldersClient:
             parent_folder_id="parent_folder_id",
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -162,7 +165,6 @@ class FoldersClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -217,7 +219,9 @@ class FoldersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[FoldersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FoldersRetrieveRequestExpandItem, typing.Sequence[FoldersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -229,7 +233,7 @@ class FoldersClient:
         ----------
         id : str
 
-        expand : typing.Optional[FoldersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[FoldersRetrieveRequestExpandItem, typing.Sequence[FoldersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -249,9 +253,6 @@ class FoldersClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.filestorage.resources.folders import (
-            FoldersRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -259,7 +260,6 @@ class FoldersClient:
         )
         client.filestorage.folders.retrieve(
             id="id",
-            expand=FoldersRetrieveRequestExpand.DRIVE,
             include_remote_data=True,
             include_shell_data=True,
         )
@@ -323,7 +323,9 @@ class AsyncFoldersClient:
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         drive_id: typing.Optional[str] = None,
-        expand: typing.Optional[FoldersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FoldersListRequestExpandItem, typing.Sequence[FoldersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -334,7 +336,7 @@ class AsyncFoldersClient:
         parent_folder_id: typing.Optional[str] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedFolderList:
+    ) -> AsyncPager[Folder]:
         """
         Returns a list of `Folder` objects.
 
@@ -352,7 +354,7 @@ class AsyncFoldersClient:
         drive_id : typing.Optional[str]
             If provided, will only return folders in this drive.
 
-        expand : typing.Optional[FoldersListRequestExpand]
+        expand : typing.Optional[typing.Union[FoldersListRequestExpandItem, typing.Sequence[FoldersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -374,7 +376,7 @@ class AsyncFoldersClient:
             If provided, will only return folders with this name. This performs an exact match.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         parent_folder_id : typing.Optional[str]
             If provided, will only return folders in this parent folder. If null, will return folders in root directory.
@@ -387,7 +389,7 @@ class AsyncFoldersClient:
 
         Returns
         -------
-        PaginatedFolderList
+        AsyncPager[Folder]
 
 
         Examples
@@ -396,9 +398,6 @@ class AsyncFoldersClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.filestorage.resources.folders import (
-            FoldersListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -407,7 +406,7 @@ class AsyncFoldersClient:
 
 
         async def main() -> None:
-            await client.filestorage.folders.list(
+            response = await client.filestorage.folders.list(
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
@@ -416,7 +415,6 @@ class AsyncFoldersClient:
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
                 drive_id="drive_id",
-                expand=FoldersListRequestExpand.DRIVE,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
@@ -431,11 +429,17 @@ class AsyncFoldersClient:
                 parent_folder_id="parent_folder_id",
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -452,7 +456,6 @@ class AsyncFoldersClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -515,7 +518,9 @@ class AsyncFoldersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[FoldersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[FoldersRetrieveRequestExpandItem, typing.Sequence[FoldersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -527,7 +532,7 @@ class AsyncFoldersClient:
         ----------
         id : str
 
-        expand : typing.Optional[FoldersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[FoldersRetrieveRequestExpandItem, typing.Sequence[FoldersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -549,9 +554,6 @@ class AsyncFoldersClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.filestorage.resources.folders import (
-            FoldersRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -562,7 +564,6 @@ class AsyncFoldersClient:
         async def main() -> None:
             await client.filestorage.folders.retrieve(
                 id="id",
-                expand=FoldersRetrieveRequestExpand.DRIVE,
                 include_remote_data=True,
                 include_shell_data=True,
             )

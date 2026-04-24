@@ -9,6 +9,7 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, BaseHttpResponse, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.paginated_user_list import PaginatedUserList
@@ -25,6 +26,7 @@ class RawUsersClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        email_address: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -34,7 +36,7 @@ class RawUsersClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedUserList]:
+    ) -> SyncPager[User]:
         """
         Returns a list of `User` objects.
 
@@ -48,6 +50,9 @@ class RawUsersClient:
 
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        email_address : typing.Optional[str]
+            If provided, will only return users with emails equal to this value (case insensitive).
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -68,7 +73,7 @@ class RawUsersClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -78,7 +83,7 @@ class RawUsersClient:
 
         Returns
         -------
-        HttpResponse[PaginatedUserList]
+        SyncPager[User]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -88,6 +93,7 @@ class RawUsersClient:
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
+                "email_address": email_address,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_shell_data": include_shell_data,
@@ -101,14 +107,34 @@ class RawUsersClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedUserList,
                     construct_type(
                         type_=PaginatedUserList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    email_address=email_address,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    is_me=is_me,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    remote_id=remote_id,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -178,6 +204,7 @@ class AsyncRawUsersClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
+        email_address: typing.Optional[str] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -187,7 +214,7 @@ class AsyncRawUsersClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedUserList]:
+    ) -> AsyncPager[User]:
         """
         Returns a list of `User` objects.
 
@@ -201,6 +228,9 @@ class AsyncRawUsersClient:
 
         cursor : typing.Optional[str]
             The pagination cursor value.
+
+        email_address : typing.Optional[str]
+            If provided, will only return users with emails equal to this value (case insensitive).
 
         include_deleted_data : typing.Optional[bool]
             Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
@@ -221,7 +251,7 @@ class AsyncRawUsersClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -231,7 +261,7 @@ class AsyncRawUsersClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedUserList]
+        AsyncPager[User]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -241,6 +271,7 @@ class AsyncRawUsersClient:
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
+                "email_address": email_address,
                 "include_deleted_data": include_deleted_data,
                 "include_remote_data": include_remote_data,
                 "include_shell_data": include_shell_data,
@@ -254,14 +285,37 @@ class AsyncRawUsersClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedUserList,
                     construct_type(
                         type_=PaginatedUserList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        email_address=email_address,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        is_me=is_me,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        remote_id=remote_id,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
