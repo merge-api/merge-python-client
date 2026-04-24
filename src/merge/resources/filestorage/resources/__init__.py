@@ -33,21 +33,26 @@ if typing.TYPE_CHECKING:
     from .async_passthrough import AsyncPassthroughRetrieveResponse
     from .files import (
         FilesDownloadRequestMetaListRequestOrderBy,
-        FilesListRequestExpand,
+        FilesListRequestExpandItem,
         FilesListRequestOrderBy,
-        FilesRetrieveRequestExpand,
+        FilesRetrieveRequestExpandItem,
     )
-    from .folders import FoldersListRequestExpand, FoldersRetrieveRequestExpand
+    from .folders import FoldersListRequestExpandItem, FoldersRetrieveRequestExpandItem
+    from .groups import GroupsListRequestExpandItem, GroupsRetrieveRequestExpandItem
     from .issues import IssuesListRequestStatus
+    from .link_token import EndUserDetailsRequestLanguage
     from .linked_accounts import LinkedAccountsListRequestCategory
 _dynamic_imports: typing.Dict[str, str] = {
     "AsyncPassthroughRetrieveResponse": ".async_passthrough",
+    "EndUserDetailsRequestLanguage": ".link_token",
     "FilesDownloadRequestMetaListRequestOrderBy": ".files",
-    "FilesListRequestExpand": ".files",
+    "FilesListRequestExpandItem": ".files",
     "FilesListRequestOrderBy": ".files",
-    "FilesRetrieveRequestExpand": ".files",
-    "FoldersListRequestExpand": ".folders",
-    "FoldersRetrieveRequestExpand": ".folders",
+    "FilesRetrieveRequestExpandItem": ".files",
+    "FoldersListRequestExpandItem": ".folders",
+    "FoldersRetrieveRequestExpandItem": ".folders",
+    "GroupsListRequestExpandItem": ".groups",
+    "GroupsRetrieveRequestExpandItem": ".groups",
     "IssuesListRequestStatus": ".issues",
     "LinkedAccountsListRequestCategory": ".linked_accounts",
     "account_details": ".",
@@ -96,12 +101,15 @@ def __dir__():
 
 __all__ = [
     "AsyncPassthroughRetrieveResponse",
+    "EndUserDetailsRequestLanguage",
     "FilesDownloadRequestMetaListRequestOrderBy",
-    "FilesListRequestExpand",
+    "FilesListRequestExpandItem",
     "FilesListRequestOrderBy",
-    "FilesRetrieveRequestExpand",
-    "FoldersListRequestExpand",
-    "FoldersRetrieveRequestExpand",
+    "FilesRetrieveRequestExpandItem",
+    "FoldersListRequestExpandItem",
+    "FoldersRetrieveRequestExpandItem",
+    "GroupsListRequestExpandItem",
+    "GroupsRetrieveRequestExpandItem",
     "IssuesListRequestStatus",
     "LinkedAccountsListRequestCategory",
     "account_details",
