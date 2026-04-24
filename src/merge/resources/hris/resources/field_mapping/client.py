@@ -186,6 +186,7 @@ class FieldMappingClient:
         self,
         field_mapping_id: str,
         *,
+        remote_data_iteration_count: typing.Optional[int] = None,
         remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
@@ -198,6 +199,9 @@ class FieldMappingClient:
         Parameters
         ----------
         field_mapping_id : str
+
+        remote_data_iteration_count : typing.Optional[int]
+            Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
 
         remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
@@ -229,10 +233,12 @@ class FieldMappingClient:
         )
         client.hris.field_mapping.field_mappings_partial_update(
             field_mapping_id="field_mapping_id",
+            remote_data_iteration_count=1,
         )
         """
         _response = self._raw_client.field_mappings_partial_update(
             field_mapping_id,
+            remote_data_iteration_count=remote_data_iteration_count,
             remote_field_traversal_path=remote_field_traversal_path,
             remote_method=remote_method,
             remote_url_path=remote_url_path,
@@ -511,6 +517,7 @@ class AsyncFieldMappingClient:
         self,
         field_mapping_id: str,
         *,
+        remote_data_iteration_count: typing.Optional[int] = None,
         remote_field_traversal_path: typing.Optional[typing.Sequence[typing.Optional[typing.Any]]] = OMIT,
         remote_method: typing.Optional[str] = OMIT,
         remote_url_path: typing.Optional[str] = OMIT,
@@ -523,6 +530,9 @@ class AsyncFieldMappingClient:
         Parameters
         ----------
         field_mapping_id : str
+
+        remote_data_iteration_count : typing.Optional[int]
+            Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
 
         remote_field_traversal_path : typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]
             The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
@@ -559,6 +569,7 @@ class AsyncFieldMappingClient:
         async def main() -> None:
             await client.hris.field_mapping.field_mappings_partial_update(
                 field_mapping_id="field_mapping_id",
+                remote_data_iteration_count=1,
             )
 
 
@@ -566,6 +577,7 @@ class AsyncFieldMappingClient:
         """
         _response = await self._raw_client.field_mappings_partial_update(
             field_mapping_id,
+            remote_data_iteration_count=remote_data_iteration_count,
             remote_field_traversal_path=remote_field_traversal_path,
             remote_method=remote_method,
             remote_url_path=remote_url_path,

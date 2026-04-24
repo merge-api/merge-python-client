@@ -4,12 +4,12 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
-from ...types.paginated_user_list import PaginatedUserList
 from ...types.user import User
 from .raw_client import AsyncRawUsersClient, RawUsersClient
-from .types.users_list_request_expand import UsersListRequestExpand
-from .types.users_retrieve_request_expand import UsersRetrieveRequestExpand
+from .types.users_list_request_expand_item import UsersListRequestExpandItem
+from .types.users_retrieve_request_expand_item import UsersRetrieveRequestExpandItem
 
 
 class UsersClient:
@@ -30,11 +30,14 @@ class UsersClient:
     def list(
         self,
         *,
+        collections: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_address: typing.Optional[str] = None,
-        expand: typing.Optional[UsersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[UsersListRequestExpandItem, typing.Sequence[UsersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -42,14 +45,19 @@ class UsersClient:
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
+        roles: typing.Optional[str] = None,
         team: typing.Optional[str] = None,
+        teams: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedUserList:
+    ) -> SyncPager[User]:
         """
         Returns a list of `User` objects.
 
         Parameters
         ----------
+        collections : typing.Optional[str]
+            If provided, will only return users involved with at least one of these collections.
+
         created_after : typing.Optional[dt.datetime]
             If provided, will only return objects created after this datetime.
 
@@ -62,7 +70,7 @@ class UsersClient:
         email_address : typing.Optional[str]
             If provided, will only return users with emails equal to this value (case insensitive).
 
-        expand : typing.Optional[UsersListRequestExpand]
+        expand : typing.Optional[typing.Union[UsersListRequestExpandItem, typing.Sequence[UsersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -86,15 +94,21 @@ class UsersClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
+        roles : typing.Optional[str]
+            If provided, will only return users with at least one of these roles.
+
         team : typing.Optional[str]
             If provided, will only return users matching in this team.
+
+        teams : typing.Optional[str]
+            If provided, will only return users with at least one of these teams.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaginatedUserList
+        SyncPager[User]
 
 
         Examples
@@ -102,13 +116,13 @@ class UsersClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.ticketing.resources.users import UsersListRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.users.list(
+        response = client.ticketing.users.list(
+            collections="collections",
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
@@ -117,7 +131,6 @@ class UsersClient:
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             email_address="email_address",
-            expand=UsersListRequestExpand.ROLES,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -129,10 +142,18 @@ class UsersClient:
             ),
             page_size=1,
             remote_id="remote_id",
+            roles="roles",
             team="team",
+            teams="teams",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
+            collections=collections,
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -145,16 +166,19 @@ class UsersClient:
             modified_before=modified_before,
             page_size=page_size,
             remote_id=remote_id,
+            roles=roles,
             team=team,
+            teams=teams,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[UsersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[UsersRetrieveRequestExpandItem, typing.Sequence[UsersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -166,7 +190,7 @@ class UsersClient:
         ----------
         id : str
 
-        expand : typing.Optional[UsersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[UsersRetrieveRequestExpandItem, typing.Sequence[UsersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -186,7 +210,6 @@ class UsersClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.ticketing.resources.users import UsersRetrieveRequestExpand
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -194,7 +217,6 @@ class UsersClient:
         )
         client.ticketing.users.retrieve(
             id="id",
-            expand=UsersRetrieveRequestExpand.ROLES,
             include_remote_data=True,
             include_shell_data=True,
         )
@@ -227,11 +249,14 @@ class AsyncUsersClient:
     async def list(
         self,
         *,
+        collections: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_address: typing.Optional[str] = None,
-        expand: typing.Optional[UsersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[UsersListRequestExpandItem, typing.Sequence[UsersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -239,14 +264,19 @@ class AsyncUsersClient:
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
+        roles: typing.Optional[str] = None,
         team: typing.Optional[str] = None,
+        teams: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedUserList:
+    ) -> AsyncPager[User]:
         """
         Returns a list of `User` objects.
 
         Parameters
         ----------
+        collections : typing.Optional[str]
+            If provided, will only return users involved with at least one of these collections.
+
         created_after : typing.Optional[dt.datetime]
             If provided, will only return objects created after this datetime.
 
@@ -259,7 +289,7 @@ class AsyncUsersClient:
         email_address : typing.Optional[str]
             If provided, will only return users with emails equal to this value (case insensitive).
 
-        expand : typing.Optional[UsersListRequestExpand]
+        expand : typing.Optional[typing.Union[UsersListRequestExpandItem, typing.Sequence[UsersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -283,15 +313,21 @@ class AsyncUsersClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
+        roles : typing.Optional[str]
+            If provided, will only return users with at least one of these roles.
+
         team : typing.Optional[str]
             If provided, will only return users matching in this team.
+
+        teams : typing.Optional[str]
+            If provided, will only return users with at least one of these teams.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaginatedUserList
+        AsyncPager[User]
 
 
         Examples
@@ -300,7 +336,6 @@ class AsyncUsersClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.ticketing.resources.users import UsersListRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -309,7 +344,8 @@ class AsyncUsersClient:
 
 
         async def main() -> None:
-            await client.ticketing.users.list(
+            response = await client.ticketing.users.list(
+                collections="collections",
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
@@ -318,7 +354,6 @@ class AsyncUsersClient:
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
                 email_address="email_address",
-                expand=UsersListRequestExpand.ROLES,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
@@ -330,13 +365,22 @@ class AsyncUsersClient:
                 ),
                 page_size=1,
                 remote_id="remote_id",
+                roles="roles",
                 team="team",
+                teams="teams",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
+            collections=collections,
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -349,16 +393,19 @@ class AsyncUsersClient:
             modified_before=modified_before,
             page_size=page_size,
             remote_id=remote_id,
+            roles=roles,
             team=team,
+            teams=teams,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[UsersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[UsersRetrieveRequestExpandItem, typing.Sequence[UsersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -370,7 +417,7 @@ class AsyncUsersClient:
         ----------
         id : str
 
-        expand : typing.Optional[UsersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[UsersRetrieveRequestExpandItem, typing.Sequence[UsersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -392,7 +439,6 @@ class AsyncUsersClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.ticketing.resources.users import UsersRetrieveRequestExpand
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -403,7 +449,6 @@ class AsyncUsersClient:
         async def main() -> None:
             await client.ticketing.users.retrieve(
                 id="id",
-                expand=UsersRetrieveRequestExpand.ROLES,
                 include_remote_data=True,
                 include_shell_data=True,
             )

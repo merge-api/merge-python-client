@@ -6,25 +6,29 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .tickets_list_request_expand import TicketsListRequestExpand
+    from .tickets_list_request_expand_item import TicketsListRequestExpandItem
     from .tickets_list_request_priority import TicketsListRequestPriority
     from .tickets_list_request_remote_fields import TicketsListRequestRemoteFields
     from .tickets_list_request_show_enum_origins import TicketsListRequestShowEnumOrigins
     from .tickets_list_request_status import TicketsListRequestStatus
-    from .tickets_retrieve_request_expand import TicketsRetrieveRequestExpand
+    from .tickets_live_search_retrieve_request_remote_fields import TicketsLiveSearchRetrieveRequestRemoteFields
+    from .tickets_live_search_retrieve_request_show_enum_origins import TicketsLiveSearchRetrieveRequestShowEnumOrigins
+    from .tickets_retrieve_request_expand_item import TicketsRetrieveRequestExpandItem
     from .tickets_retrieve_request_remote_fields import TicketsRetrieveRequestRemoteFields
     from .tickets_retrieve_request_show_enum_origins import TicketsRetrieveRequestShowEnumOrigins
-    from .tickets_viewers_list_request_expand import TicketsViewersListRequestExpand
+    from .tickets_viewers_list_request_expand_item import TicketsViewersListRequestExpandItem
 _dynamic_imports: typing.Dict[str, str] = {
-    "TicketsListRequestExpand": ".tickets_list_request_expand",
+    "TicketsListRequestExpandItem": ".tickets_list_request_expand_item",
     "TicketsListRequestPriority": ".tickets_list_request_priority",
     "TicketsListRequestRemoteFields": ".tickets_list_request_remote_fields",
     "TicketsListRequestShowEnumOrigins": ".tickets_list_request_show_enum_origins",
     "TicketsListRequestStatus": ".tickets_list_request_status",
-    "TicketsRetrieveRequestExpand": ".tickets_retrieve_request_expand",
+    "TicketsLiveSearchRetrieveRequestRemoteFields": ".tickets_live_search_retrieve_request_remote_fields",
+    "TicketsLiveSearchRetrieveRequestShowEnumOrigins": ".tickets_live_search_retrieve_request_show_enum_origins",
+    "TicketsRetrieveRequestExpandItem": ".tickets_retrieve_request_expand_item",
     "TicketsRetrieveRequestRemoteFields": ".tickets_retrieve_request_remote_fields",
     "TicketsRetrieveRequestShowEnumOrigins": ".tickets_retrieve_request_show_enum_origins",
-    "TicketsViewersListRequestExpand": ".tickets_viewers_list_request_expand",
+    "TicketsViewersListRequestExpandItem": ".tickets_viewers_list_request_expand_item",
 }
 
 
@@ -48,13 +52,15 @@ def __dir__():
 
 
 __all__ = [
-    "TicketsListRequestExpand",
+    "TicketsListRequestExpandItem",
     "TicketsListRequestPriority",
     "TicketsListRequestRemoteFields",
     "TicketsListRequestShowEnumOrigins",
     "TicketsListRequestStatus",
-    "TicketsRetrieveRequestExpand",
+    "TicketsLiveSearchRetrieveRequestRemoteFields",
+    "TicketsLiveSearchRetrieveRequestShowEnumOrigins",
+    "TicketsRetrieveRequestExpandItem",
     "TicketsRetrieveRequestRemoteFields",
     "TicketsRetrieveRequestShowEnumOrigins",
-    "TicketsViewersListRequestExpand",
+    "TicketsViewersListRequestExpandItem",
 ]

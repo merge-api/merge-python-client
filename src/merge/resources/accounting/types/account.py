@@ -8,6 +8,7 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .account_account_type import AccountAccountType
 from .account_classification import AccountClassification
+from .account_company import AccountCompany
 from .account_currency import AccountCurrency
 from .account_status import AccountStatus
 from .remote_data import RemoteData
@@ -427,7 +428,7 @@ class Account(UncheckedBaseModel):
     ID of the parent account.
     """
 
-    company: typing.Optional[str] = pydantic.Field(default=None)
+    company: typing.Optional[AccountCompany] = pydantic.Field(default=None)
     """
     The company the account belongs to.
     """

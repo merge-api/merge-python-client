@@ -9,11 +9,11 @@ from ....core.unchecked_base_model import UncheckedBaseModel
 from .expense_report_line_account import ExpenseReportLineAccount
 from .expense_report_line_company import ExpenseReportLineCompany
 from .expense_report_line_contact import ExpenseReportLineContact
+from .expense_report_line_currency import ExpenseReportLineCurrency
 from .expense_report_line_employee import ExpenseReportLineEmployee
 from .expense_report_line_project import ExpenseReportLineProject
 from .expense_report_line_tax_rate import ExpenseReportLineTaxRate
 from .remote_field import RemoteField
-from .transaction_currency_enum import TransactionCurrencyEnum
 
 
 class ExpenseReportLine(UncheckedBaseModel):
@@ -59,7 +59,7 @@ class ExpenseReportLine(UncheckedBaseModel):
     The amount of the expense for the line item.
     """
 
-    currency: typing.Optional[TransactionCurrencyEnum] = pydantic.Field(default=None)
+    currency: typing.Optional[ExpenseReportLineCurrency] = pydantic.Field(default=None)
     """
     Currency of the expense line (if different from the report currency).
     

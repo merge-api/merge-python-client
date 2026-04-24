@@ -4,12 +4,12 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
-from ...types.paginated_project_list import PaginatedProjectList
-from ...types.paginated_user_list import PaginatedUserList
 from ...types.project import Project
+from ...types.user import User
 from .raw_client import AsyncRawProjectsClient, RawProjectsClient
-from .types.projects_users_list_request_expand import ProjectsUsersListRequestExpand
+from .types.projects_users_list_request_expand_item import ProjectsUsersListRequestExpandItem
 
 
 class ProjectsClient:
@@ -41,7 +41,7 @@ class ProjectsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedProjectList:
+    ) -> SyncPager[Project]:
         """
         Returns a list of `Project` objects.
 
@@ -72,7 +72,7 @@ class ProjectsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -82,7 +82,7 @@ class ProjectsClient:
 
         Returns
         -------
-        PaginatedProjectList
+        SyncPager[Project]
 
 
         Examples
@@ -95,7 +95,7 @@ class ProjectsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.projects.list(
+        response = client.ticketing.projects.list(
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
@@ -115,8 +115,13 @@ class ProjectsClient:
             page_size=1,
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -129,7 +134,6 @@ class ProjectsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -187,13 +191,15 @@ class ProjectsClient:
         parent_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ProjectsUsersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ProjectsUsersListRequestExpandItem, typing.Sequence[ProjectsUsersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedUserList:
+    ) -> SyncPager[User]:
         """
         Returns a list of `User` objects.
 
@@ -204,7 +210,7 @@ class ProjectsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ProjectsUsersListRequestExpand]
+        expand : typing.Optional[typing.Union[ProjectsUsersListRequestExpandItem, typing.Sequence[ProjectsUsersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -224,31 +230,32 @@ class ProjectsClient:
 
         Returns
         -------
-        PaginatedUserList
+        SyncPager[User]
 
 
         Examples
         --------
         from merge import Merge
-        from merge.resources.ticketing.resources.projects import (
-            ProjectsUsersListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.projects.users_list(
+        response = client.ticketing.projects.users_list(
             parent_id="parent_id",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=ProjectsUsersListRequestExpand.ROLES,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
             page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.users_list(
+        return self._raw_client.users_list(
             parent_id,
             cursor=cursor,
             expand=expand,
@@ -258,7 +265,6 @@ class ProjectsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncProjectsClient:
@@ -290,7 +296,7 @@ class AsyncProjectsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedProjectList:
+    ) -> AsyncPager[Project]:
         """
         Returns a list of `Project` objects.
 
@@ -321,7 +327,7 @@ class AsyncProjectsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page. The maximum limit is 100.
+            Number of results to return per page.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -331,7 +337,7 @@ class AsyncProjectsClient:
 
         Returns
         -------
-        PaginatedProjectList
+        AsyncPager[Project]
 
 
         Examples
@@ -348,7 +354,7 @@ class AsyncProjectsClient:
 
 
         async def main() -> None:
-            await client.ticketing.projects.list(
+            response = await client.ticketing.projects.list(
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
@@ -368,11 +374,17 @@ class AsyncProjectsClient:
                 page_size=1,
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -385,7 +397,6 @@ class AsyncProjectsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
@@ -451,13 +462,15 @@ class AsyncProjectsClient:
         parent_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ProjectsUsersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ProjectsUsersListRequestExpandItem, typing.Sequence[ProjectsUsersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedUserList:
+    ) -> AsyncPager[User]:
         """
         Returns a list of `User` objects.
 
@@ -468,7 +481,7 @@ class AsyncProjectsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ProjectsUsersListRequestExpand]
+        expand : typing.Optional[typing.Union[ProjectsUsersListRequestExpandItem, typing.Sequence[ProjectsUsersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -488,7 +501,7 @@ class AsyncProjectsClient:
 
         Returns
         -------
-        PaginatedUserList
+        AsyncPager[User]
 
 
         Examples
@@ -496,9 +509,6 @@ class AsyncProjectsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.ticketing.resources.projects import (
-            ProjectsUsersListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -507,20 +517,25 @@ class AsyncProjectsClient:
 
 
         async def main() -> None:
-            await client.ticketing.projects.users_list(
+            response = await client.ticketing.projects.users_list(
                 parent_id="parent_id",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=ProjectsUsersListRequestExpand.ROLES,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
                 page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.users_list(
+        return await self._raw_client.users_list(
             parent_id,
             cursor=cursor,
             expand=expand,
@@ -530,4 +545,3 @@ class AsyncProjectsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data

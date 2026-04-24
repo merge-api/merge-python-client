@@ -4,13 +4,15 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.collection import Collection
-from ...types.paginated_collection_list import PaginatedCollectionList
-from ...types.paginated_viewer_list import PaginatedViewerList
+from ...types.viewer import Viewer
 from .raw_client import AsyncRawCollectionsClient, RawCollectionsClient
 from .types.collections_list_request_collection_type import CollectionsListRequestCollectionType
-from .types.collections_viewers_list_request_expand import CollectionsViewersListRequestExpand
+from .types.collections_list_request_expand_item import CollectionsListRequestExpandItem
+from .types.collections_retrieve_request_expand_item import CollectionsRetrieveRequestExpandItem
+from .types.collections_viewers_list_request_expand_item import CollectionsViewersListRequestExpandItem
 
 
 class CollectionsClient:
@@ -35,7 +37,9 @@ class CollectionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["parent_collection"]] = None,
+        expand: typing.Optional[
+            typing.Union[CollectionsListRequestExpandItem, typing.Sequence[CollectionsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -48,7 +52,7 @@ class CollectionsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["collection_type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedCollectionList:
+    ) -> SyncPager[Collection]:
         """
         Returns a list of `Collection` objects.
 
@@ -66,7 +70,7 @@ class CollectionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["parent_collection"]]
+        expand : typing.Optional[typing.Union[CollectionsListRequestExpandItem, typing.Sequence[CollectionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -107,7 +111,7 @@ class CollectionsClient:
 
         Returns
         -------
-        PaginatedCollectionList
+        SyncPager[Collection]
 
 
         Examples
@@ -123,7 +127,7 @@ class CollectionsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.collections.list(
+        response = client.ticketing.collections.list(
             collection_type=CollectionsListRequestCollectionType.EMPTY,
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
@@ -146,8 +150,13 @@ class CollectionsClient:
             parent_collection_id="parent_collection_id",
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             collection_type=collection_type,
             created_after=created_after,
             created_before=created_before,
@@ -166,20 +175,23 @@ class CollectionsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     def viewers_list(
         self,
         collection_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CollectionsViewersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                CollectionsViewersListRequestExpandItem, typing.Sequence[CollectionsViewersListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedViewerList:
+    ) -> SyncPager[Viewer]:
         """
         Returns a list of `Viewer` objects that point to a User id or Team id that is either an assignee or viewer on a `Collection` with the given id. [Learn more.](https://help.merge.dev/en/articles/10333658-ticketing-access-control-list-acls)
 
@@ -190,7 +202,7 @@ class CollectionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CollectionsViewersListRequestExpand]
+        expand : typing.Optional[typing.Union[CollectionsViewersListRequestExpandItem, typing.Sequence[CollectionsViewersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -203,38 +215,39 @@ class CollectionsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaginatedViewerList
+        SyncPager[Viewer]
 
 
         Examples
         --------
         from merge import Merge
-        from merge.resources.ticketing.resources.collections import (
-            CollectionsViewersListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.collections.viewers_list(
+        response = client.ticketing.collections.viewers_list(
             collection_id="collection_id",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=CollectionsViewersListRequestExpand.TEAM,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
             page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.viewers_list(
+        return self._raw_client.viewers_list(
             collection_id,
             cursor=cursor,
             expand=expand,
@@ -244,13 +257,14 @@ class CollectionsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["parent_collection"]] = None,
+        expand: typing.Optional[
+            typing.Union[CollectionsRetrieveRequestExpandItem, typing.Sequence[CollectionsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["collection_type"]] = None,
@@ -264,7 +278,7 @@ class CollectionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["parent_collection"]]
+        expand : typing.Optional[typing.Union[CollectionsRetrieveRequestExpandItem, typing.Sequence[CollectionsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -335,7 +349,9 @@ class AsyncCollectionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[typing.Literal["parent_collection"]] = None,
+        expand: typing.Optional[
+            typing.Union[CollectionsListRequestExpandItem, typing.Sequence[CollectionsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -348,7 +364,7 @@ class AsyncCollectionsClient:
         remote_id: typing.Optional[str] = None,
         show_enum_origins: typing.Optional[typing.Literal["collection_type"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedCollectionList:
+    ) -> AsyncPager[Collection]:
         """
         Returns a list of `Collection` objects.
 
@@ -366,7 +382,7 @@ class AsyncCollectionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[typing.Literal["parent_collection"]]
+        expand : typing.Optional[typing.Union[CollectionsListRequestExpandItem, typing.Sequence[CollectionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -407,7 +423,7 @@ class AsyncCollectionsClient:
 
         Returns
         -------
-        PaginatedCollectionList
+        AsyncPager[Collection]
 
 
         Examples
@@ -427,7 +443,7 @@ class AsyncCollectionsClient:
 
 
         async def main() -> None:
-            await client.ticketing.collections.list(
+            response = await client.ticketing.collections.list(
                 collection_type=CollectionsListRequestCollectionType.EMPTY,
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
@@ -450,11 +466,17 @@ class AsyncCollectionsClient:
                 parent_collection_id="parent_collection_id",
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             collection_type=collection_type,
             created_after=created_after,
             created_before=created_before,
@@ -473,20 +495,23 @@ class AsyncCollectionsClient:
             show_enum_origins=show_enum_origins,
             request_options=request_options,
         )
-        return _response.data
 
     async def viewers_list(
         self,
         collection_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[CollectionsViewersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                CollectionsViewersListRequestExpandItem, typing.Sequence[CollectionsViewersListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedViewerList:
+    ) -> AsyncPager[Viewer]:
         """
         Returns a list of `Viewer` objects that point to a User id or Team id that is either an assignee or viewer on a `Collection` with the given id. [Learn more.](https://help.merge.dev/en/articles/10333658-ticketing-access-control-list-acls)
 
@@ -497,7 +522,7 @@ class AsyncCollectionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[CollectionsViewersListRequestExpand]
+        expand : typing.Optional[typing.Union[CollectionsViewersListRequestExpandItem, typing.Sequence[CollectionsViewersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -510,14 +535,14 @@ class AsyncCollectionsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaginatedViewerList
+        AsyncPager[Viewer]
 
 
         Examples
@@ -525,9 +550,6 @@ class AsyncCollectionsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.ticketing.resources.collections import (
-            CollectionsViewersListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -536,20 +558,25 @@ class AsyncCollectionsClient:
 
 
         async def main() -> None:
-            await client.ticketing.collections.viewers_list(
+            response = await client.ticketing.collections.viewers_list(
                 collection_id="collection_id",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=CollectionsViewersListRequestExpand.TEAM,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
                 page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.viewers_list(
+        return await self._raw_client.viewers_list(
             collection_id,
             cursor=cursor,
             expand=expand,
@@ -559,13 +586,14 @@ class AsyncCollectionsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[typing.Literal["parent_collection"]] = None,
+        expand: typing.Optional[
+            typing.Union[CollectionsRetrieveRequestExpandItem, typing.Sequence[CollectionsRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         remote_fields: typing.Optional[typing.Literal["collection_type"]] = None,
@@ -579,7 +607,7 @@ class AsyncCollectionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[typing.Literal["parent_collection"]]
+        expand : typing.Optional[typing.Union[CollectionsRetrieveRequestExpandItem, typing.Sequence[CollectionsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

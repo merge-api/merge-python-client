@@ -49,11 +49,6 @@ class Drive(UncheckedBaseModel):
     The drive's url.
     """
 
-    size: typing.Optional[int] = pydantic.Field(default=None)
-    """
-    The drive's size, in bytes.
-    """
-
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).

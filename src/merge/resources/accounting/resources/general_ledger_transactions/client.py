@@ -4,12 +4,14 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.general_ledger_transaction import GeneralLedgerTransaction
-from ...types.paginated_general_ledger_transaction_list import PaginatedGeneralLedgerTransactionList
 from .raw_client import AsyncRawGeneralLedgerTransactionsClient, RawGeneralLedgerTransactionsClient
-from .types.general_ledger_transactions_list_request_expand import GeneralLedgerTransactionsListRequestExpand
-from .types.general_ledger_transactions_retrieve_request_expand import GeneralLedgerTransactionsRetrieveRequestExpand
+from .types.general_ledger_transactions_list_request_expand_item import GeneralLedgerTransactionsListRequestExpandItem
+from .types.general_ledger_transactions_retrieve_request_expand_item import (
+    GeneralLedgerTransactionsRetrieveRequestExpandItem,
+)
 
 
 class GeneralLedgerTransactionsClient:
@@ -34,7 +36,12 @@ class GeneralLedgerTransactionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[GeneralLedgerTransactionsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                GeneralLedgerTransactionsListRequestExpandItem,
+                typing.Sequence[GeneralLedgerTransactionsListRequestExpandItem],
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -45,7 +52,7 @@ class GeneralLedgerTransactionsClient:
         posted_date_before: typing.Optional[dt.datetime] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedGeneralLedgerTransactionList:
+    ) -> SyncPager[GeneralLedgerTransaction]:
         """
         Returns a list of `GeneralLedgerTransaction` objects.
 
@@ -63,7 +70,7 @@ class GeneralLedgerTransactionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[GeneralLedgerTransactionsListRequestExpand]
+        expand : typing.Optional[typing.Union[GeneralLedgerTransactionsListRequestExpandItem, typing.Sequence[GeneralLedgerTransactionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -82,7 +89,7 @@ class GeneralLedgerTransactionsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         posted_date_after : typing.Optional[dt.datetime]
             If provided, will only return objects posted after this datetime.
@@ -98,7 +105,7 @@ class GeneralLedgerTransactionsClient:
 
         Returns
         -------
-        PaginatedGeneralLedgerTransactionList
+        SyncPager[GeneralLedgerTransaction]
 
 
         Examples
@@ -106,15 +113,12 @@ class GeneralLedgerTransactionsClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.accounting.resources.general_ledger_transactions import (
-            GeneralLedgerTransactionsListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.general_ledger_transactions.list(
+        response = client.accounting.general_ledger_transactions.list(
             company_id="company_id",
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
@@ -123,7 +127,6 @@ class GeneralLedgerTransactionsClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=GeneralLedgerTransactionsListRequestExpand.ACCOUNTING_PERIOD,
             include_deleted_data=True,
             include_remote_data=True,
             include_shell_data=True,
@@ -142,8 +145,13 @@ class GeneralLedgerTransactionsClient:
             ),
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -160,13 +168,17 @@ class GeneralLedgerTransactionsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[GeneralLedgerTransactionsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                GeneralLedgerTransactionsRetrieveRequestExpandItem,
+                typing.Sequence[GeneralLedgerTransactionsRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -178,7 +190,7 @@ class GeneralLedgerTransactionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[GeneralLedgerTransactionsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[GeneralLedgerTransactionsRetrieveRequestExpandItem, typing.Sequence[GeneralLedgerTransactionsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -198,9 +210,6 @@ class GeneralLedgerTransactionsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.accounting.resources.general_ledger_transactions import (
-            GeneralLedgerTransactionsRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -208,7 +217,6 @@ class GeneralLedgerTransactionsClient:
         )
         client.accounting.general_ledger_transactions.retrieve(
             id="id",
-            expand=GeneralLedgerTransactionsRetrieveRequestExpand.ACCOUNTING_PERIOD,
             include_remote_data=True,
             include_shell_data=True,
         )
@@ -245,7 +253,12 @@ class AsyncGeneralLedgerTransactionsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[GeneralLedgerTransactionsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                GeneralLedgerTransactionsListRequestExpandItem,
+                typing.Sequence[GeneralLedgerTransactionsListRequestExpandItem],
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -256,7 +269,7 @@ class AsyncGeneralLedgerTransactionsClient:
         posted_date_before: typing.Optional[dt.datetime] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedGeneralLedgerTransactionList:
+    ) -> AsyncPager[GeneralLedgerTransaction]:
         """
         Returns a list of `GeneralLedgerTransaction` objects.
 
@@ -274,7 +287,7 @@ class AsyncGeneralLedgerTransactionsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[GeneralLedgerTransactionsListRequestExpand]
+        expand : typing.Optional[typing.Union[GeneralLedgerTransactionsListRequestExpandItem, typing.Sequence[GeneralLedgerTransactionsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -293,7 +306,7 @@ class AsyncGeneralLedgerTransactionsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         posted_date_after : typing.Optional[dt.datetime]
             If provided, will only return objects posted after this datetime.
@@ -309,7 +322,7 @@ class AsyncGeneralLedgerTransactionsClient:
 
         Returns
         -------
-        PaginatedGeneralLedgerTransactionList
+        AsyncPager[GeneralLedgerTransaction]
 
 
         Examples
@@ -318,9 +331,6 @@ class AsyncGeneralLedgerTransactionsClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.general_ledger_transactions import (
-            GeneralLedgerTransactionsListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -329,7 +339,7 @@ class AsyncGeneralLedgerTransactionsClient:
 
 
         async def main() -> None:
-            await client.accounting.general_ledger_transactions.list(
+            response = await client.accounting.general_ledger_transactions.list(
                 company_id="company_id",
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
@@ -338,7 +348,6 @@ class AsyncGeneralLedgerTransactionsClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=GeneralLedgerTransactionsListRequestExpand.ACCOUNTING_PERIOD,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_shell_data=True,
@@ -357,11 +366,17 @@ class AsyncGeneralLedgerTransactionsClient:
                 ),
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -378,13 +393,17 @@ class AsyncGeneralLedgerTransactionsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[GeneralLedgerTransactionsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                GeneralLedgerTransactionsRetrieveRequestExpandItem,
+                typing.Sequence[GeneralLedgerTransactionsRetrieveRequestExpandItem],
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -396,7 +415,7 @@ class AsyncGeneralLedgerTransactionsClient:
         ----------
         id : str
 
-        expand : typing.Optional[GeneralLedgerTransactionsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[GeneralLedgerTransactionsRetrieveRequestExpandItem, typing.Sequence[GeneralLedgerTransactionsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -418,9 +437,6 @@ class AsyncGeneralLedgerTransactionsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.general_ledger_transactions import (
-            GeneralLedgerTransactionsRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -431,7 +447,6 @@ class AsyncGeneralLedgerTransactionsClient:
         async def main() -> None:
             await client.accounting.general_ledger_transactions.retrieve(
                 id="id",
-                expand=GeneralLedgerTransactionsRetrieveRequestExpand.ACCOUNTING_PERIOD,
                 include_remote_data=True,
                 include_shell_data=True,
             )

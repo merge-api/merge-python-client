@@ -4,8 +4,8 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
-from ...types.paginated_role_list import PaginatedRoleList
 from ...types.role import Role
 from .raw_client import AsyncRawRolesClient, RawRolesClient
 
@@ -39,7 +39,7 @@ class RolesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRoleList:
+    ) -> SyncPager[Role]:
         """
         Returns a list of `Role` objects.
 
@@ -80,7 +80,7 @@ class RolesClient:
 
         Returns
         -------
-        PaginatedRoleList
+        SyncPager[Role]
 
 
         Examples
@@ -93,7 +93,7 @@ class RolesClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.ticketing.roles.list(
+        response = client.ticketing.roles.list(
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
             ),
@@ -113,8 +113,13 @@ class RolesClient:
             page_size=1,
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -127,7 +132,6 @@ class RolesClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
@@ -210,7 +214,7 @@ class AsyncRolesClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRoleList:
+    ) -> AsyncPager[Role]:
         """
         Returns a list of `Role` objects.
 
@@ -251,7 +255,7 @@ class AsyncRolesClient:
 
         Returns
         -------
-        PaginatedRoleList
+        AsyncPager[Role]
 
 
         Examples
@@ -268,7 +272,7 @@ class AsyncRolesClient:
 
 
         async def main() -> None:
-            await client.ticketing.roles.list(
+            response = await client.ticketing.roles.list(
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
                 ),
@@ -288,11 +292,17 @@ class AsyncRolesClient:
                 page_size=1,
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             created_after=created_after,
             created_before=created_before,
             cursor=cursor,
@@ -305,7 +315,6 @@ class AsyncRolesClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,

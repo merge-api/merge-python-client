@@ -6,15 +6,15 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .invoices_list_request_expand import InvoicesListRequestExpand
+    from .invoices_list_request_expand_item import InvoicesListRequestExpandItem
     from .invoices_list_request_status import InvoicesListRequestStatus
     from .invoices_list_request_type import InvoicesListRequestType
-    from .invoices_retrieve_request_expand import InvoicesRetrieveRequestExpand
+    from .invoices_retrieve_request_expand_item import InvoicesRetrieveRequestExpandItem
 _dynamic_imports: typing.Dict[str, str] = {
-    "InvoicesListRequestExpand": ".invoices_list_request_expand",
+    "InvoicesListRequestExpandItem": ".invoices_list_request_expand_item",
     "InvoicesListRequestStatus": ".invoices_list_request_status",
     "InvoicesListRequestType": ".invoices_list_request_type",
-    "InvoicesRetrieveRequestExpand": ".invoices_retrieve_request_expand",
+    "InvoicesRetrieveRequestExpandItem": ".invoices_retrieve_request_expand_item",
 }
 
 
@@ -38,8 +38,8 @@ def __dir__():
 
 
 __all__ = [
-    "InvoicesListRequestExpand",
+    "InvoicesListRequestExpandItem",
     "InvoicesListRequestStatus",
     "InvoicesListRequestType",
-    "InvoicesRetrieveRequestExpand",
+    "InvoicesRetrieveRequestExpandItem",
 ]

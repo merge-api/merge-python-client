@@ -10,7 +10,7 @@ from .purchase_order_accounting_period import PurchaseOrderAccountingPeriod
 from .purchase_order_company import PurchaseOrderCompany
 from .purchase_order_currency import PurchaseOrderCurrency
 from .purchase_order_delivery_address import PurchaseOrderDeliveryAddress
-from .purchase_order_line_item import PurchaseOrderLineItem
+from .purchase_order_line_items_item import PurchaseOrderLineItemsItem
 from .purchase_order_payment_term import PurchaseOrderPaymentTerm
 from .purchase_order_status import PurchaseOrderStatus
 from .purchase_order_tracking_categories_item import PurchaseOrderTrackingCategoriesItem
@@ -425,7 +425,7 @@ class PurchaseOrder(UncheckedBaseModel):
     The payment term that applies to this transaction.
     """
 
-    line_items: typing.Optional[typing.List[PurchaseOrderLineItem]] = None
+    line_items: typing.Optional[typing.List[PurchaseOrderLineItemsItem]] = None
     inclusive_of_tax: typing.Optional[bool] = pydantic.Field(default=None)
     """
     If the transaction is inclusive or exclusive of tax. `True` if inclusive, `False` if exclusive.

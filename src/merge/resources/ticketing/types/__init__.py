@@ -16,6 +16,7 @@ if typing.TYPE_CHECKING:
     from .account_details_category import AccountDetailsCategory
     from .account_integration import AccountIntegration
     from .account_token import AccountToken
+    from .actions_enum import ActionsEnum
     from .advanced_metadata import AdvancedMetadata
     from .async_passthrough_reciept import AsyncPassthroughReciept
     from .attachment import Attachment
@@ -31,8 +32,8 @@ if typing.TYPE_CHECKING:
     from .collection import Collection
     from .collection_access_level import CollectionAccessLevel
     from .collection_access_level_enum import CollectionAccessLevelEnum
-    from .collection_collection_type import CollectionCollectionType
     from .collection_parent_collection import CollectionParentCollection
+    from .collection_permissions_item import CollectionPermissionsItem
     from .collection_type_enum import CollectionTypeEnum
     from .comment import Comment
     from .comment_contact import CommentContact
@@ -45,7 +46,6 @@ if typing.TYPE_CHECKING:
     from .comment_user import CommentUser
     from .common_model_scope_api import CommonModelScopeApi
     from .common_model_scopes_body_request import CommonModelScopesBodyRequest
-    from .completed_account_initial_screen_enum import CompletedAccountInitialScreenEnum
     from .contact import Contact
     from .contact_account import ContactAccount
     from .contact_request import ContactRequest
@@ -53,6 +53,7 @@ if typing.TYPE_CHECKING:
     from .data_passthrough_request import DataPassthroughRequest
     from .debug_mode_log import DebugModeLog
     from .debug_model_log_summary import DebugModelLogSummary
+    from .effect_enum import EffectEnum
     from .enabled_actions_enum import EnabledActionsEnum
     from .encoding_enum import EncodingEnum
     from .error_validation_problem import ErrorValidationProblem
@@ -109,10 +110,14 @@ if typing.TYPE_CHECKING:
     from .paginated_viewer_list import PaginatedViewerList
     from .patched_ticket_request import PatchedTicketRequest
     from .patched_ticket_request_access_level import PatchedTicketRequestAccessLevel
-    from .patched_ticket_request_priority import PatchedTicketRequestPriority
     from .patched_ticket_request_status import PatchedTicketRequestStatus
+    from .permission import Permission
+    from .permission_effect import PermissionEffect
+    from .permission_request import PermissionRequest
+    from .permission_request_effect import PermissionRequestEffect
     from .priority_enum import PriorityEnum
     from .project import Project
+    from .regenerate_account_token import RegenerateAccountToken
     from .remote_data import RemoteData
     from .remote_endpoint_info import RemoteEndpointInfo
     from .remote_field import RemoteField
@@ -121,13 +126,12 @@ if typing.TYPE_CHECKING:
     from .remote_field_api_response import RemoteFieldApiResponse
     from .remote_field_class import RemoteFieldClass
     from .remote_field_class_field_choices_item import RemoteFieldClassFieldChoicesItem
-    from .remote_field_class_field_format import RemoteFieldClassFieldFormat
-    from .remote_field_class_field_type import RemoteFieldClassFieldType
     from .remote_field_remote_field_class import RemoteFieldRemoteFieldClass
     from .remote_field_request import RemoteFieldRequest
     from .remote_field_request_remote_field_class import RemoteFieldRequestRemoteFieldClass
     from .remote_key import RemoteKey
     from .remote_response import RemoteResponse
+    from .remote_response_response_type import RemoteResponseResponseType
     from .request_format_enum import RequestFormatEnum
     from .response_type_enum import ResponseTypeEnum
     from .role import Role
@@ -138,6 +142,7 @@ if typing.TYPE_CHECKING:
     from .status_fd_5_enum import StatusFd5Enum
     from .sync_status import SyncStatus
     from .sync_status_last_sync_result import SyncStatusLastSyncResult
+    from .sync_status_status import SyncStatusStatus
     from .tag import Tag
     from .team import Team
     from .ticket import Ticket
@@ -191,6 +196,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountDetailsCategory": ".account_details_category",
     "AccountIntegration": ".account_integration",
     "AccountToken": ".account_token",
+    "ActionsEnum": ".actions_enum",
     "AdvancedMetadata": ".advanced_metadata",
     "AsyncPassthroughReciept": ".async_passthrough_reciept",
     "Attachment": ".attachment",
@@ -206,8 +212,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Collection": ".collection",
     "CollectionAccessLevel": ".collection_access_level",
     "CollectionAccessLevelEnum": ".collection_access_level_enum",
-    "CollectionCollectionType": ".collection_collection_type",
     "CollectionParentCollection": ".collection_parent_collection",
+    "CollectionPermissionsItem": ".collection_permissions_item",
     "CollectionTypeEnum": ".collection_type_enum",
     "Comment": ".comment",
     "CommentContact": ".comment_contact",
@@ -220,7 +226,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CommentUser": ".comment_user",
     "CommonModelScopeApi": ".common_model_scope_api",
     "CommonModelScopesBodyRequest": ".common_model_scopes_body_request",
-    "CompletedAccountInitialScreenEnum": ".completed_account_initial_screen_enum",
     "Contact": ".contact",
     "ContactAccount": ".contact_account",
     "ContactRequest": ".contact_request",
@@ -228,6 +233,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DataPassthroughRequest": ".data_passthrough_request",
     "DebugModeLog": ".debug_mode_log",
     "DebugModelLogSummary": ".debug_model_log_summary",
+    "EffectEnum": ".effect_enum",
     "EnabledActionsEnum": ".enabled_actions_enum",
     "EncodingEnum": ".encoding_enum",
     "ErrorValidationProblem": ".error_validation_problem",
@@ -282,10 +288,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaginatedViewerList": ".paginated_viewer_list",
     "PatchedTicketRequest": ".patched_ticket_request",
     "PatchedTicketRequestAccessLevel": ".patched_ticket_request_access_level",
-    "PatchedTicketRequestPriority": ".patched_ticket_request_priority",
     "PatchedTicketRequestStatus": ".patched_ticket_request_status",
+    "Permission": ".permission",
+    "PermissionEffect": ".permission_effect",
+    "PermissionRequest": ".permission_request",
+    "PermissionRequestEffect": ".permission_request_effect",
     "PriorityEnum": ".priority_enum",
     "Project": ".project",
+    "RegenerateAccountToken": ".regenerate_account_token",
     "RemoteData": ".remote_data",
     "RemoteEndpointInfo": ".remote_endpoint_info",
     "RemoteField": ".remote_field",
@@ -294,13 +304,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RemoteFieldApiResponse": ".remote_field_api_response",
     "RemoteFieldClass": ".remote_field_class",
     "RemoteFieldClassFieldChoicesItem": ".remote_field_class_field_choices_item",
-    "RemoteFieldClassFieldFormat": ".remote_field_class_field_format",
-    "RemoteFieldClassFieldType": ".remote_field_class_field_type",
     "RemoteFieldRemoteFieldClass": ".remote_field_remote_field_class",
     "RemoteFieldRequest": ".remote_field_request",
     "RemoteFieldRequestRemoteFieldClass": ".remote_field_request_remote_field_class",
     "RemoteKey": ".remote_key",
     "RemoteResponse": ".remote_response",
+    "RemoteResponseResponseType": ".remote_response_response_type",
     "RequestFormatEnum": ".request_format_enum",
     "ResponseTypeEnum": ".response_type_enum",
     "Role": ".role",
@@ -311,6 +320,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "StatusFd5Enum": ".status_fd_5_enum",
     "SyncStatus": ".sync_status",
     "SyncStatusLastSyncResult": ".sync_status_last_sync_result",
+    "SyncStatusStatus": ".sync_status_status",
     "Tag": ".tag",
     "Team": ".team",
     "Ticket": ".ticket",
@@ -386,6 +396,7 @@ __all__ = [
     "AccountDetailsCategory",
     "AccountIntegration",
     "AccountToken",
+    "ActionsEnum",
     "AdvancedMetadata",
     "AsyncPassthroughReciept",
     "Attachment",
@@ -401,8 +412,8 @@ __all__ = [
     "Collection",
     "CollectionAccessLevel",
     "CollectionAccessLevelEnum",
-    "CollectionCollectionType",
     "CollectionParentCollection",
+    "CollectionPermissionsItem",
     "CollectionTypeEnum",
     "Comment",
     "CommentContact",
@@ -415,7 +426,6 @@ __all__ = [
     "CommentUser",
     "CommonModelScopeApi",
     "CommonModelScopesBodyRequest",
-    "CompletedAccountInitialScreenEnum",
     "Contact",
     "ContactAccount",
     "ContactRequest",
@@ -423,6 +433,7 @@ __all__ = [
     "DataPassthroughRequest",
     "DebugModeLog",
     "DebugModelLogSummary",
+    "EffectEnum",
     "EnabledActionsEnum",
     "EncodingEnum",
     "ErrorValidationProblem",
@@ -477,10 +488,14 @@ __all__ = [
     "PaginatedViewerList",
     "PatchedTicketRequest",
     "PatchedTicketRequestAccessLevel",
-    "PatchedTicketRequestPriority",
     "PatchedTicketRequestStatus",
+    "Permission",
+    "PermissionEffect",
+    "PermissionRequest",
+    "PermissionRequestEffect",
     "PriorityEnum",
     "Project",
+    "RegenerateAccountToken",
     "RemoteData",
     "RemoteEndpointInfo",
     "RemoteField",
@@ -489,13 +504,12 @@ __all__ = [
     "RemoteFieldApiResponse",
     "RemoteFieldClass",
     "RemoteFieldClassFieldChoicesItem",
-    "RemoteFieldClassFieldFormat",
-    "RemoteFieldClassFieldType",
     "RemoteFieldRemoteFieldClass",
     "RemoteFieldRequest",
     "RemoteFieldRequestRemoteFieldClass",
     "RemoteKey",
     "RemoteResponse",
+    "RemoteResponseResponseType",
     "RequestFormatEnum",
     "ResponseTypeEnum",
     "Role",
@@ -506,6 +520,7 @@ __all__ = [
     "StatusFd5Enum",
     "SyncStatus",
     "SyncStatusLastSyncResult",
+    "SyncStatusStatus",
     "Tag",
     "Team",
     "Ticket",

@@ -32,6 +32,7 @@ class AuditLogEvent(UncheckedBaseModel):
     * `API` - API
     * `SYSTEM` - SYSTEM
     * `MERGE_TEAM` - MERGE_TEAM
+    * `SUPPORT` - SUPPORT
     """
 
     ip_address: str

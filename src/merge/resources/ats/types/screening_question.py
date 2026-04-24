@@ -7,6 +7,7 @@ import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from .screening_question_job import ScreeningQuestionJob
+from .screening_question_options_item import ScreeningQuestionOptionsItem
 from .screening_question_type import ScreeningQuestionType
 
 
@@ -70,7 +71,7 @@ class ScreeningQuestion(UncheckedBaseModel):
     Whether or not the screening question is required.
     """
 
-    options: typing.Optional[typing.List[typing.Optional[typing.Any]]] = None
+    options: typing.Optional[typing.List[ScreeningQuestionOptionsItem]] = None
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).

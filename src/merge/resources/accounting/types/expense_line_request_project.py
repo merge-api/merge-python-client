@@ -2,6 +2,6 @@
 
 import typing
 
-from .contact import Contact
+from .project import Project
 
-ExpenseLineRequestProject = typing.Union[str, Contact]
+ExpenseLineRequestProject = typing.Union[str, Project]

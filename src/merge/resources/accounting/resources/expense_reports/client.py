@@ -4,18 +4,18 @@ import datetime as dt
 import typing
 
 from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from .....core.pagination import AsyncPager, SyncPager
 from .....core.request_options import RequestOptions
 from ...types.expense_report import ExpenseReport
+from ...types.expense_report_line import ExpenseReportLine
 from ...types.expense_report_request import ExpenseReportRequest
 from ...types.expense_report_response import ExpenseReportResponse
 from ...types.meta_response import MetaResponse
-from ...types.paginated_expense_report_line_list import PaginatedExpenseReportLineList
-from ...types.paginated_expense_report_list import PaginatedExpenseReportList
-from ...types.paginated_remote_field_class_list import PaginatedRemoteFieldClassList
+from ...types.remote_field_class import RemoteFieldClass
 from .raw_client import AsyncRawExpenseReportsClient, RawExpenseReportsClient
-from .types.expense_reports_lines_list_request_expand import ExpenseReportsLinesListRequestExpand
-from .types.expense_reports_list_request_expand import ExpenseReportsListRequestExpand
-from .types.expense_reports_retrieve_request_expand import ExpenseReportsRetrieveRequestExpand
+from .types.expense_reports_lines_list_request_expand_item import ExpenseReportsLinesListRequestExpandItem
+from .types.expense_reports_list_request_expand_item import ExpenseReportsListRequestExpandItem
+from .types.expense_reports_retrieve_request_expand_item import ExpenseReportsRetrieveRequestExpandItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -43,7 +43,9 @@ class ExpenseReportsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ExpenseReportsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ExpenseReportsListRequestExpandItem, typing.Sequence[ExpenseReportsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -53,7 +55,7 @@ class ExpenseReportsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedExpenseReportList:
+    ) -> SyncPager[ExpenseReport]:
         """
         Returns a list of `ExpenseReport` objects.
 
@@ -71,7 +73,7 @@ class ExpenseReportsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ExpenseReportsListRequestExpand]
+        expand : typing.Optional[typing.Union[ExpenseReportsListRequestExpandItem, typing.Sequence[ExpenseReportsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -93,7 +95,7 @@ class ExpenseReportsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -103,7 +105,7 @@ class ExpenseReportsClient:
 
         Returns
         -------
-        PaginatedExpenseReportList
+        SyncPager[ExpenseReport]
 
 
         Examples
@@ -111,15 +113,12 @@ class ExpenseReportsClient:
         import datetime
 
         from merge import Merge
-        from merge.resources.accounting.resources.expense_reports import (
-            ExpenseReportsListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.expense_reports.list(
+        response = client.accounting.expense_reports.list(
             company_id="company_id",
             created_after=datetime.datetime.fromisoformat(
                 "2024-01-15 09:30:00+00:00",
@@ -128,7 +127,6 @@ class ExpenseReportsClient:
                 "2024-01-15 09:30:00+00:00",
             ),
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=ExpenseReportsListRequestExpand.ACCOUNTING_PERIOD,
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,
@@ -142,8 +140,13 @@ class ExpenseReportsClient:
             page_size=1,
             remote_id="remote_id",
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
+        return self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -159,7 +162,6 @@ class ExpenseReportsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -220,14 +222,18 @@ class ExpenseReportsClient:
         expense_report_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ExpenseReportsLinesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                ExpenseReportsLinesListRequestExpandItem, typing.Sequence[ExpenseReportsLinesListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedExpenseReportLineList:
+    ) -> SyncPager[ExpenseReportLine]:
         """
         Returns a list of `ExpenseReportLine` objects that point to a `ExpenseReport` with the given id.
 
@@ -238,7 +244,7 @@ class ExpenseReportsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ExpenseReportsLinesListRequestExpand]
+        expand : typing.Optional[typing.Union[ExpenseReportsLinesListRequestExpandItem, typing.Sequence[ExpenseReportsLinesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -254,39 +260,40 @@ class ExpenseReportsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaginatedExpenseReportLineList
+        SyncPager[ExpenseReportLine]
 
 
         Examples
         --------
         from merge import Merge
-        from merge.resources.accounting.resources.expense_reports import (
-            ExpenseReportsLinesListRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.expense_reports.lines_list(
+        response = client.accounting.expense_reports.lines_list(
             expense_report_id="expense_report_id",
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-            expand=ExpenseReportsLinesListRequestExpand.ACCOUNT,
             include_deleted_data=True,
             include_remote_data=True,
             include_remote_fields=True,
             include_shell_data=True,
             page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.lines_list(
+        return self._raw_client.lines_list(
             expense_report_id,
             cursor=cursor,
             expand=expand,
@@ -297,13 +304,16 @@ class ExpenseReportsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[ExpenseReportsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                ExpenseReportsRetrieveRequestExpandItem, typing.Sequence[ExpenseReportsRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -316,7 +326,7 @@ class ExpenseReportsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ExpenseReportsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ExpenseReportsRetrieveRequestExpandItem, typing.Sequence[ExpenseReportsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -339,9 +349,6 @@ class ExpenseReportsClient:
         Examples
         --------
         from merge import Merge
-        from merge.resources.accounting.resources.expense_reports import (
-            ExpenseReportsRetrieveRequestExpand,
-        )
 
         client = Merge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -349,7 +356,6 @@ class ExpenseReportsClient:
         )
         client.accounting.expense_reports.retrieve(
             id="id",
-            expand=ExpenseReportsRetrieveRequestExpand.ACCOUNTING_PERIOD,
             include_remote_data=True,
             include_remote_fields=True,
             include_shell_data=True,
@@ -376,7 +382,7 @@ class ExpenseReportsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -401,14 +407,14 @@ class ExpenseReportsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass]
 
 
         Examples
@@ -419,7 +425,7 @@ class ExpenseReportsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.expense_reports.lines_remote_field_classes_list(
+        response = client.accounting.expense_reports.lines_remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             include_deleted_data=True,
             include_remote_data=True,
@@ -428,8 +434,13 @@ class ExpenseReportsClient:
             is_custom=True,
             page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.lines_remote_field_classes_list(
+        return self._raw_client.lines_remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -439,7 +450,6 @@ class ExpenseReportsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -479,7 +489,7 @@ class ExpenseReportsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> SyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -504,14 +514,14 @@ class ExpenseReportsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        SyncPager[RemoteFieldClass]
 
 
         Examples
@@ -522,7 +532,7 @@ class ExpenseReportsClient:
             account_token="YOUR_ACCOUNT_TOKEN",
             api_key="YOUR_API_KEY",
         )
-        client.accounting.expense_reports.remote_field_classes_list(
+        response = client.accounting.expense_reports.remote_field_classes_list(
             cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
             include_deleted_data=True,
             include_remote_data=True,
@@ -531,8 +541,13 @@ class ExpenseReportsClient:
             is_custom=True,
             page_size=1,
         )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.remote_field_classes_list(
+        return self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -542,7 +557,6 @@ class ExpenseReportsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
 
 class AsyncExpenseReportsClient:
@@ -567,7 +581,9 @@ class AsyncExpenseReportsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ExpenseReportsListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[ExpenseReportsListRequestExpandItem, typing.Sequence[ExpenseReportsListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
@@ -577,7 +593,7 @@ class AsyncExpenseReportsClient:
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedExpenseReportList:
+    ) -> AsyncPager[ExpenseReport]:
         """
         Returns a list of `ExpenseReport` objects.
 
@@ -595,7 +611,7 @@ class AsyncExpenseReportsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ExpenseReportsListRequestExpand]
+        expand : typing.Optional[typing.Union[ExpenseReportsListRequestExpandItem, typing.Sequence[ExpenseReportsListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -617,7 +633,7 @@ class AsyncExpenseReportsClient:
             If provided, only objects synced by Merge before this date time will be returned.
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
@@ -627,7 +643,7 @@ class AsyncExpenseReportsClient:
 
         Returns
         -------
-        PaginatedExpenseReportList
+        AsyncPager[ExpenseReport]
 
 
         Examples
@@ -636,9 +652,6 @@ class AsyncExpenseReportsClient:
         import datetime
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.expense_reports import (
-            ExpenseReportsListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -647,7 +660,7 @@ class AsyncExpenseReportsClient:
 
 
         async def main() -> None:
-            await client.accounting.expense_reports.list(
+            response = await client.accounting.expense_reports.list(
                 company_id="company_id",
                 created_after=datetime.datetime.fromisoformat(
                     "2024-01-15 09:30:00+00:00",
@@ -656,7 +669,6 @@ class AsyncExpenseReportsClient:
                     "2024-01-15 09:30:00+00:00",
                 ),
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=ExpenseReportsListRequestExpand.ACCOUNTING_PERIOD,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_remote_fields=True,
@@ -670,11 +682,17 @@ class AsyncExpenseReportsClient:
                 page_size=1,
                 remote_id="remote_id",
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
+        return await self._raw_client.list(
             company_id=company_id,
             created_after=created_after,
             created_before=created_before,
@@ -690,7 +708,6 @@ class AsyncExpenseReportsClient:
             remote_id=remote_id,
             request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,
@@ -759,14 +776,18 @@ class AsyncExpenseReportsClient:
         expense_report_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        expand: typing.Optional[ExpenseReportsLinesListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                ExpenseReportsLinesListRequestExpandItem, typing.Sequence[ExpenseReportsLinesListRequestExpandItem]
+            ]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedExpenseReportLineList:
+    ) -> AsyncPager[ExpenseReportLine]:
         """
         Returns a list of `ExpenseReportLine` objects that point to a `ExpenseReport` with the given id.
 
@@ -777,7 +798,7 @@ class AsyncExpenseReportsClient:
         cursor : typing.Optional[str]
             The pagination cursor value.
 
-        expand : typing.Optional[ExpenseReportsLinesListRequestExpand]
+        expand : typing.Optional[typing.Union[ExpenseReportsLinesListRequestExpandItem, typing.Sequence[ExpenseReportsLinesListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -793,14 +814,14 @@ class AsyncExpenseReportsClient:
             Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaginatedExpenseReportLineList
+        AsyncPager[ExpenseReportLine]
 
 
         Examples
@@ -808,9 +829,6 @@ class AsyncExpenseReportsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.expense_reports import (
-            ExpenseReportsLinesListRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -819,21 +837,26 @@ class AsyncExpenseReportsClient:
 
 
         async def main() -> None:
-            await client.accounting.expense_reports.lines_list(
+            response = await client.accounting.expense_reports.lines_list(
                 expense_report_id="expense_report_id",
                 cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                expand=ExpenseReportsLinesListRequestExpand.ACCOUNT,
                 include_deleted_data=True,
                 include_remote_data=True,
                 include_remote_fields=True,
                 include_shell_data=True,
                 page_size=1,
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.lines_list(
+        return await self._raw_client.lines_list(
             expense_report_id,
             cursor=cursor,
             expand=expand,
@@ -844,13 +867,16 @@ class AsyncExpenseReportsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     async def retrieve(
         self,
         id: str,
         *,
-        expand: typing.Optional[ExpenseReportsRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[
+                ExpenseReportsRetrieveRequestExpandItem, typing.Sequence[ExpenseReportsRetrieveRequestExpandItem]
+            ]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_remote_fields: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -863,7 +889,7 @@ class AsyncExpenseReportsClient:
         ----------
         id : str
 
-        expand : typing.Optional[ExpenseReportsRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[ExpenseReportsRetrieveRequestExpandItem, typing.Sequence[ExpenseReportsRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -888,9 +914,6 @@ class AsyncExpenseReportsClient:
         import asyncio
 
         from merge import AsyncMerge
-        from merge.resources.accounting.resources.expense_reports import (
-            ExpenseReportsRetrieveRequestExpand,
-        )
 
         client = AsyncMerge(
             account_token="YOUR_ACCOUNT_TOKEN",
@@ -901,7 +924,6 @@ class AsyncExpenseReportsClient:
         async def main() -> None:
             await client.accounting.expense_reports.retrieve(
                 id="id",
-                expand=ExpenseReportsRetrieveRequestExpand.ACCOUNTING_PERIOD,
                 include_remote_data=True,
                 include_remote_fields=True,
                 include_shell_data=True,
@@ -931,7 +953,7 @@ class AsyncExpenseReportsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -956,14 +978,14 @@ class AsyncExpenseReportsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass]
 
 
         Examples
@@ -979,20 +1001,28 @@ class AsyncExpenseReportsClient:
 
 
         async def main() -> None:
-            await client.accounting.expense_reports.lines_remote_field_classes_list(
-                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                is_common_model_field=True,
-                is_custom=True,
-                page_size=1,
+            response = (
+                await client.accounting.expense_reports.lines_remote_field_classes_list(
+                    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                    include_deleted_data=True,
+                    include_remote_data=True,
+                    include_shell_data=True,
+                    is_common_model_field=True,
+                    is_custom=True,
+                    page_size=1,
+                )
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.lines_remote_field_classes_list(
+        return await self._raw_client.lines_remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -1002,7 +1032,6 @@ class AsyncExpenseReportsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data
 
     async def meta_post_retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetaResponse:
         """
@@ -1050,7 +1079,7 @@ class AsyncExpenseReportsClient:
         is_custom: typing.Optional[bool] = None,
         page_size: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedRemoteFieldClassList:
+    ) -> AsyncPager[RemoteFieldClass]:
         """
         Returns a list of `RemoteFieldClass` objects.
 
@@ -1075,14 +1104,14 @@ class AsyncExpenseReportsClient:
             If provided, will only return remote fields classes with this is_custom value
 
         page_size : typing.Optional[int]
-            Number of results to return per page.
+            Number of results to return per page. The maximum limit is 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        PaginatedRemoteFieldClassList
+        AsyncPager[RemoteFieldClass]
 
 
         Examples
@@ -1098,20 +1127,28 @@ class AsyncExpenseReportsClient:
 
 
         async def main() -> None:
-            await client.accounting.expense_reports.remote_field_classes_list(
-                cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-                include_deleted_data=True,
-                include_remote_data=True,
-                include_shell_data=True,
-                is_common_model_field=True,
-                is_custom=True,
-                page_size=1,
+            response = (
+                await client.accounting.expense_reports.remote_field_classes_list(
+                    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+                    include_deleted_data=True,
+                    include_remote_data=True,
+                    include_shell_data=True,
+                    is_common_model_field=True,
+                    is_custom=True,
+                    page_size=1,
+                )
             )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.remote_field_classes_list(
+        return await self._raw_client.remote_field_classes_list(
             cursor=cursor,
             include_deleted_data=include_deleted_data,
             include_remote_data=include_remote_data,
@@ -1121,4 +1158,3 @@ class AsyncExpenseReportsClient:
             page_size=page_size,
             request_options=request_options,
         )
-        return _response.data

@@ -9,10 +9,12 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, BaseHttpResponse, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.group import Group
 from ...types.paginated_group_list import PaginatedGroupList
+from .types.groups_types_list_response import GroupsTypesListResponse
 
 
 class RawGroupsClient:
@@ -38,7 +40,7 @@ class RawGroupsClient:
         show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
         types: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedGroupList]:
+    ) -> SyncPager[Group]:
         """
         Returns a list of `Group` objects.
 
@@ -94,7 +96,7 @@ class RawGroupsClient:
 
         Returns
         -------
-        HttpResponse[PaginatedGroupList]
+        SyncPager[Group]
 
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -121,14 +123,37 @@ class RawGroupsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedGroupList,
                     construct_type(
                         type_=PaginatedGroupList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    is_commonly_used_as_team=is_commonly_used_as_team,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    names=names,
+                    page_size=page_size,
+                    remote_fields=remote_fields,
+                    remote_id=remote_id,
+                    show_enum_origins=show_enum_origins,
+                    types=types,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -197,6 +222,56 @@ class RawGroupsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def types_list(
+        self,
+        *,
+        include_deleted_data: typing.Optional[bool] = None,
+        show_enum_origins: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[GroupsTypesListResponse]:
+        """
+        Returns a list of distinct group type values from the Groups common model.
+
+        Parameters
+        ----------
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
+
+        show_enum_origins : typing.Optional[str]
+            A comma separated list of enum field names for which you'd like the original values instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins)
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[GroupsTypesListResponse]
+
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "hris/v1/groups/types",
+            method="GET",
+            params={
+                "include_deleted_data": include_deleted_data,
+                "show_enum_origins": show_enum_origins,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GroupsTypesListResponse,
+                    construct_type(
+                        type_=GroupsTypesListResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawGroupsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -221,7 +296,7 @@ class AsyncRawGroupsClient:
         show_enum_origins: typing.Optional[typing.Literal["type"]] = None,
         types: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedGroupList]:
+    ) -> AsyncPager[Group]:
         """
         Returns a list of `Group` objects.
 
@@ -277,7 +352,7 @@ class AsyncRawGroupsClient:
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedGroupList]
+        AsyncPager[Group]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -304,14 +379,40 @@ class AsyncRawGroupsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedGroupList,
                     construct_type(
                         type_=PaginatedGroupList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        is_commonly_used_as_team=is_commonly_used_as_team,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        names=names,
+                        page_size=page_size,
+                        remote_fields=remote_fields,
+                        remote_id=remote_id,
+                        show_enum_origins=show_enum_origins,
+                        types=types,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -371,6 +472,56 @@ class AsyncRawGroupsClient:
                     Group,
                     construct_type(
                         type_=Group,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def types_list(
+        self,
+        *,
+        include_deleted_data: typing.Optional[bool] = None,
+        show_enum_origins: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[GroupsTypesListResponse]:
+        """
+        Returns a list of distinct group type values from the Groups common model.
+
+        Parameters
+        ----------
+        include_deleted_data : typing.Optional[bool]
+            Whether to include data that was marked as deleted by third party webhooks.
+
+        show_enum_origins : typing.Optional[str]
+            A comma separated list of enum field names for which you'd like the original values instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins)
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[GroupsTypesListResponse]
+
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "hris/v1/groups/types",
+            method="GET",
+            params={
+                "include_deleted_data": include_deleted_data,
+                "show_enum_origins": show_enum_origins,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    GroupsTypesListResponse,
+                    construct_type(
+                        type_=GroupsTypesListResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

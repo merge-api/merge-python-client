@@ -9,12 +9,13 @@ from .....core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .....core.datetime_utils import serialize_datetime
 from .....core.http_response import AsyncHttpResponse, HttpResponse
 from .....core.jsonable_encoder import jsonable_encoder
+from .....core.pagination import AsyncPager, BaseHttpResponse, SyncPager
 from .....core.request_options import RequestOptions
 from .....core.unchecked_base_model import construct_type
 from ...types.paginated_user_list import PaginatedUserList
 from ...types.user import User
-from .types.users_list_request_expand import UsersListRequestExpand
-from .types.users_retrieve_request_expand import UsersRetrieveRequestExpand
+from .types.users_list_request_expand_item import UsersListRequestExpandItem
+from .types.users_retrieve_request_expand_item import UsersRetrieveRequestExpandItem
 
 
 class RawUsersClient:
@@ -24,11 +25,14 @@ class RawUsersClient:
     def list(
         self,
         *,
+        collections: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_address: typing.Optional[str] = None,
-        expand: typing.Optional[UsersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[UsersListRequestExpandItem, typing.Sequence[UsersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -36,14 +40,19 @@ class RawUsersClient:
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
+        roles: typing.Optional[str] = None,
         team: typing.Optional[str] = None,
+        teams: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedUserList]:
+    ) -> SyncPager[User]:
         """
         Returns a list of `User` objects.
 
         Parameters
         ----------
+        collections : typing.Optional[str]
+            If provided, will only return users involved with at least one of these collections.
+
         created_after : typing.Optional[dt.datetime]
             If provided, will only return objects created after this datetime.
 
@@ -56,7 +65,7 @@ class RawUsersClient:
         email_address : typing.Optional[str]
             If provided, will only return users with emails equal to this value (case insensitive).
 
-        expand : typing.Optional[UsersListRequestExpand]
+        expand : typing.Optional[typing.Union[UsersListRequestExpandItem, typing.Sequence[UsersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -80,21 +89,28 @@ class RawUsersClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
+        roles : typing.Optional[str]
+            If provided, will only return users with at least one of these roles.
+
         team : typing.Optional[str]
             If provided, will only return users matching in this team.
+
+        teams : typing.Optional[str]
+            If provided, will only return users with at least one of these teams.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[PaginatedUserList]
+        SyncPager[User]
 
         """
         _response = self._client_wrapper.httpx_client.request(
             "ticketing/v1/users",
             method="GET",
             params={
+                "collections": collections,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
@@ -107,20 +123,46 @@ class RawUsersClient:
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                 "page_size": page_size,
                 "remote_id": remote_id,
+                "roles": roles,
                 "team": team,
+                "teams": teams,
             },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedUserList,
                     construct_type(
                         type_=PaginatedUserList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+                _get_next = lambda: self.list(
+                    collections=collections,
+                    created_after=created_after,
+                    created_before=created_before,
+                    cursor=_parsed_next,
+                    email_address=email_address,
+                    expand=expand,
+                    include_deleted_data=include_deleted_data,
+                    include_remote_data=include_remote_data,
+                    include_shell_data=include_shell_data,
+                    modified_after=modified_after,
+                    modified_before=modified_before,
+                    page_size=page_size,
+                    remote_id=remote_id,
+                    roles=roles,
+                    team=team,
+                    teams=teams,
+                    request_options=request_options,
+                )
+                return SyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -130,7 +172,9 @@ class RawUsersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[UsersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[UsersRetrieveRequestExpandItem, typing.Sequence[UsersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -142,7 +186,7 @@ class RawUsersClient:
         ----------
         id : str
 
-        expand : typing.Optional[UsersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[UsersRetrieveRequestExpandItem, typing.Sequence[UsersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]
@@ -192,11 +236,14 @@ class AsyncRawUsersClient:
     async def list(
         self,
         *,
+        collections: typing.Optional[str] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         cursor: typing.Optional[str] = None,
         email_address: typing.Optional[str] = None,
-        expand: typing.Optional[UsersListRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[UsersListRequestExpandItem, typing.Sequence[UsersListRequestExpandItem]]
+        ] = None,
         include_deleted_data: typing.Optional[bool] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
@@ -204,14 +251,19 @@ class AsyncRawUsersClient:
         modified_before: typing.Optional[dt.datetime] = None,
         page_size: typing.Optional[int] = None,
         remote_id: typing.Optional[str] = None,
+        roles: typing.Optional[str] = None,
         team: typing.Optional[str] = None,
+        teams: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedUserList]:
+    ) -> AsyncPager[User]:
         """
         Returns a list of `User` objects.
 
         Parameters
         ----------
+        collections : typing.Optional[str]
+            If provided, will only return users involved with at least one of these collections.
+
         created_after : typing.Optional[dt.datetime]
             If provided, will only return objects created after this datetime.
 
@@ -224,7 +276,7 @@ class AsyncRawUsersClient:
         email_address : typing.Optional[str]
             If provided, will only return users with emails equal to this value (case insensitive).
 
-        expand : typing.Optional[UsersListRequestExpand]
+        expand : typing.Optional[typing.Union[UsersListRequestExpandItem, typing.Sequence[UsersListRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_deleted_data : typing.Optional[bool]
@@ -248,21 +300,28 @@ class AsyncRawUsersClient:
         remote_id : typing.Optional[str]
             The API provider's ID for the given object.
 
+        roles : typing.Optional[str]
+            If provided, will only return users with at least one of these roles.
+
         team : typing.Optional[str]
             If provided, will only return users matching in this team.
+
+        teams : typing.Optional[str]
+            If provided, will only return users with at least one of these teams.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[PaginatedUserList]
+        AsyncPager[User]
 
         """
         _response = await self._client_wrapper.httpx_client.request(
             "ticketing/v1/users",
             method="GET",
             params={
+                "collections": collections,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "cursor": cursor,
@@ -275,20 +334,49 @@ class AsyncRawUsersClient:
                 "modified_before": serialize_datetime(modified_before) if modified_before is not None else None,
                 "page_size": page_size,
                 "remote_id": remote_id,
+                "roles": roles,
                 "team": team,
+                "teams": teams,
             },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     PaginatedUserList,
                     construct_type(
                         type_=PaginatedUserList,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.results
+                _parsed_next = _parsed_response.next
+                _has_next = _parsed_next is not None and _parsed_next != ""
+
+                async def _get_next():
+                    return await self.list(
+                        collections=collections,
+                        created_after=created_after,
+                        created_before=created_before,
+                        cursor=_parsed_next,
+                        email_address=email_address,
+                        expand=expand,
+                        include_deleted_data=include_deleted_data,
+                        include_remote_data=include_remote_data,
+                        include_shell_data=include_shell_data,
+                        modified_after=modified_after,
+                        modified_before=modified_before,
+                        page_size=page_size,
+                        remote_id=remote_id,
+                        roles=roles,
+                        team=team,
+                        teams=teams,
+                        request_options=request_options,
+                    )
+
+                return AsyncPager(
+                    has_next=_has_next, items=_items, get_next=_get_next, response=BaseHttpResponse(response=_response)
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -298,7 +386,9 @@ class AsyncRawUsersClient:
         self,
         id: str,
         *,
-        expand: typing.Optional[UsersRetrieveRequestExpand] = None,
+        expand: typing.Optional[
+            typing.Union[UsersRetrieveRequestExpandItem, typing.Sequence[UsersRetrieveRequestExpandItem]]
+        ] = None,
         include_remote_data: typing.Optional[bool] = None,
         include_shell_data: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -310,7 +400,7 @@ class AsyncRawUsersClient:
         ----------
         id : str
 
-        expand : typing.Optional[UsersRetrieveRequestExpand]
+        expand : typing.Optional[typing.Union[UsersRetrieveRequestExpandItem, typing.Sequence[UsersRetrieveRequestExpandItem]]]
             Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
 
         include_remote_data : typing.Optional[bool]

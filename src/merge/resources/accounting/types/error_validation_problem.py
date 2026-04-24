@@ -13,6 +13,9 @@ class ErrorValidationProblem(UncheckedBaseModel):
     title: str
     detail: str
     problem_type: str
+    block_merge_link: typing.Optional[bool] = None
+    raw_error: typing.Optional[str] = None
+    error_code: typing.Optional[int] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

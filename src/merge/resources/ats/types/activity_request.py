@@ -5,9 +5,9 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
-from .activity_request_activity_type import ActivityRequestActivityType
 from .activity_request_user import ActivityRequestUser
 from .activity_request_visibility import ActivityRequestVisibility
+from .activity_type_enum import ActivityTypeEnum
 
 
 class ActivityRequest(UncheckedBaseModel):
@@ -24,7 +24,7 @@ class ActivityRequest(UncheckedBaseModel):
     The user that performed the action.
     """
 
-    activity_type: typing.Optional[ActivityRequestActivityType] = pydantic.Field(default=None)
+    activity_type: typing.Optional[ActivityTypeEnum] = pydantic.Field(default=None)
     """
     The activity's type.
     

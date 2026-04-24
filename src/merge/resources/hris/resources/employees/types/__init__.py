@@ -7,22 +7,20 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .employees_list_request_employment_status import EmployeesListRequestEmploymentStatus
-    from .employees_list_request_expand import EmployeesListRequestExpand
+    from .employees_list_request_expand_item import EmployeesListRequestExpandItem
     from .employees_list_request_remote_fields import EmployeesListRequestRemoteFields
     from .employees_list_request_show_enum_origins import EmployeesListRequestShowEnumOrigins
-    from .employees_retrieve_request_expand import EmployeesRetrieveRequestExpand
+    from .employees_retrieve_request_expand_item import EmployeesRetrieveRequestExpandItem
     from .employees_retrieve_request_remote_fields import EmployeesRetrieveRequestRemoteFields
     from .employees_retrieve_request_show_enum_origins import EmployeesRetrieveRequestShowEnumOrigins
-    from .ignore_common_model_request_reason import IgnoreCommonModelRequestReason
 _dynamic_imports: typing.Dict[str, str] = {
     "EmployeesListRequestEmploymentStatus": ".employees_list_request_employment_status",
-    "EmployeesListRequestExpand": ".employees_list_request_expand",
+    "EmployeesListRequestExpandItem": ".employees_list_request_expand_item",
     "EmployeesListRequestRemoteFields": ".employees_list_request_remote_fields",
     "EmployeesListRequestShowEnumOrigins": ".employees_list_request_show_enum_origins",
-    "EmployeesRetrieveRequestExpand": ".employees_retrieve_request_expand",
+    "EmployeesRetrieveRequestExpandItem": ".employees_retrieve_request_expand_item",
     "EmployeesRetrieveRequestRemoteFields": ".employees_retrieve_request_remote_fields",
     "EmployeesRetrieveRequestShowEnumOrigins": ".employees_retrieve_request_show_enum_origins",
-    "IgnoreCommonModelRequestReason": ".ignore_common_model_request_reason",
 }
 
 
@@ -47,11 +45,10 @@ def __dir__():
 
 __all__ = [
     "EmployeesListRequestEmploymentStatus",
-    "EmployeesListRequestExpand",
+    "EmployeesListRequestExpandItem",
     "EmployeesListRequestRemoteFields",
     "EmployeesListRequestShowEnumOrigins",
-    "EmployeesRetrieveRequestExpand",
+    "EmployeesRetrieveRequestExpandItem",
     "EmployeesRetrieveRequestRemoteFields",
     "EmployeesRetrieveRequestShowEnumOrigins",
-    "IgnoreCommonModelRequestReason",
 ]

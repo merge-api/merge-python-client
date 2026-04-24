@@ -7,10 +7,14 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .collections_list_request_collection_type import CollectionsListRequestCollectionType
-    from .collections_viewers_list_request_expand import CollectionsViewersListRequestExpand
+    from .collections_list_request_expand_item import CollectionsListRequestExpandItem
+    from .collections_retrieve_request_expand_item import CollectionsRetrieveRequestExpandItem
+    from .collections_viewers_list_request_expand_item import CollectionsViewersListRequestExpandItem
 _dynamic_imports: typing.Dict[str, str] = {
     "CollectionsListRequestCollectionType": ".collections_list_request_collection_type",
-    "CollectionsViewersListRequestExpand": ".collections_viewers_list_request_expand",
+    "CollectionsListRequestExpandItem": ".collections_list_request_expand_item",
+    "CollectionsRetrieveRequestExpandItem": ".collections_retrieve_request_expand_item",
+    "CollectionsViewersListRequestExpandItem": ".collections_viewers_list_request_expand_item",
 }
 
 
@@ -33,4 +37,9 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["CollectionsListRequestCollectionType", "CollectionsViewersListRequestExpand"]
+__all__ = [
+    "CollectionsListRequestCollectionType",
+    "CollectionsListRequestExpandItem",
+    "CollectionsRetrieveRequestExpandItem",
+    "CollectionsViewersListRequestExpandItem",
+]

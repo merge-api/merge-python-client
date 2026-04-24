@@ -12,9 +12,6 @@ from ...types.categories_enum import CategoriesEnum
 from ...types.common_model_scopes_body_request import CommonModelScopesBodyRequest
 from ...types.individual_common_model_scope_deserializer_request import IndividualCommonModelScopeDeserializerRequest
 from ...types.link_token import LinkToken
-from .types.end_user_details_request_completed_account_initial_screen import (
-    EndUserDetailsRequestCompletedAccountInitialScreen,
-)
 from .types.end_user_details_request_language import EndUserDetailsRequestLanguage
 
 # this is used as the default value for optional parameters
@@ -43,11 +40,10 @@ class RawLinkTokenClient:
         language: typing.Optional[EndUserDetailsRequestLanguage] = OMIT,
         are_syncs_disabled: typing.Optional[bool] = OMIT,
         integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        completed_account_initial_screen: typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[LinkToken]:
         """
-        Creates a link token to be used when linking a new end user.
+        Creates a link token to be used when linking a new end user. The link token expires after single use.
 
         Parameters
         ----------
@@ -93,11 +89,6 @@ class RawLinkTokenClient:
         integration_specific_config : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             A JSON object containing integration-specific configuration options.
 
-        completed_account_initial_screen : typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen]
-            When creating a Link token, you can specifiy the initial screen of Linking Flow for a completed Linked Account.
-
-            * `SELECTIVE_SYNC` - SELECTIVE_SYNC
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -123,7 +114,6 @@ class RawLinkTokenClient:
                 "language": language,
                 "are_syncs_disabled": are_syncs_disabled,
                 "integration_specific_config": integration_specific_config,
-                "completed_account_initial_screen": completed_account_initial_screen,
             },
             headers={
                 "content-type": "application/json",
@@ -169,11 +159,10 @@ class AsyncRawLinkTokenClient:
         language: typing.Optional[EndUserDetailsRequestLanguage] = OMIT,
         are_syncs_disabled: typing.Optional[bool] = OMIT,
         integration_specific_config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        completed_account_initial_screen: typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[LinkToken]:
         """
-        Creates a link token to be used when linking a new end user.
+        Creates a link token to be used when linking a new end user. The link token expires after single use.
 
         Parameters
         ----------
@@ -219,11 +208,6 @@ class AsyncRawLinkTokenClient:
         integration_specific_config : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             A JSON object containing integration-specific configuration options.
 
-        completed_account_initial_screen : typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen]
-            When creating a Link token, you can specifiy the initial screen of Linking Flow for a completed Linked Account.
-
-            * `SELECTIVE_SYNC` - SELECTIVE_SYNC
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -249,7 +233,6 @@ class AsyncRawLinkTokenClient:
                 "language": language,
                 "are_syncs_disabled": are_syncs_disabled,
                 "integration_specific_config": integration_specific_config,
-                "completed_account_initial_screen": completed_account_initial_screen,
             },
             headers={
                 "content-type": "application/json",

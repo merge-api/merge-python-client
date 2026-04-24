@@ -1,3789 +1,4 @@
 # Reference
-## Chat AccountDetails
-<details><summary><code>client.chat.account_details.<a href="src/merge/resources/chat/resources/account_details/client.py">retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get details for a linked account.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.account_details.retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat AccountToken
-<details><summary><code>client.chat.account_token.<a href="src/merge/resources/chat/resources/account_token/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns the account token for the end user with the provided public token.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.account_token.retrieve(
-    public_token="public_token",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**public_token:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat AsyncPassthrough
-<details><summary><code>client.chat.async_passthrough.<a href="src/merge/resources/chat/resources/async_passthrough/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Asynchronously pull data from an endpoint not currently supported by Merge.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.chat import DataPassthroughRequest, MethodEnum
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.async_passthrough.create(
-    request=DataPassthroughRequest(
-        method=MethodEnum.GET,
-        path="/scooters",
-    ),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `DataPassthroughRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.chat.async_passthrough.<a href="src/merge/resources/chat/resources/async_passthrough/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieves data from earlier async-passthrough POST request
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.async_passthrough.retrieve(
-    async_passthrough_receipt_id="async_passthrough_receipt_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**async_passthrough_receipt_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat AuditTrail
-<details><summary><code>client.chat.audit_trail.<a href="src/merge/resources/chat/resources/audit_trail/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Gets a list of audit trail events.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.audit_trail.list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    end_date="end_date",
-    event_type="event_type",
-    page_size=1,
-    start_date="start_date",
-    user_email="user_email",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` — If included, will only include audit trail events that occurred before this time
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**event_type:** `typing.Optional[str]` — If included, will only include events with the given event type. Possible values include: `CREATED_REMOTE_PRODUCTION_API_KEY`, `DELETED_REMOTE_PRODUCTION_API_KEY`, `CREATED_TEST_API_KEY`, `DELETED_TEST_API_KEY`, `REGENERATED_PRODUCTION_API_KEY`, `REGENERATED_WEBHOOK_SIGNATURE`, `INVITED_USER`, `TWO_FACTOR_AUTH_ENABLED`, `TWO_FACTOR_AUTH_DISABLED`, `DELETED_LINKED_ACCOUNT`, `DELETED_ALL_COMMON_MODELS_FOR_LINKED_ACCOUNT`, `CREATED_DESTINATION`, `DELETED_DESTINATION`, `CHANGED_DESTINATION`, `CHANGED_SCOPES`, `CHANGED_PERSONAL_INFORMATION`, `CHANGED_ORGANIZATION_SETTINGS`, `ENABLED_INTEGRATION`, `DISABLED_INTEGRATION`, `ENABLED_CATEGORY`, `DISABLED_CATEGORY`, `CHANGED_PASSWORD`, `RESET_PASSWORD`, `ENABLED_REDACT_UNMAPPED_DATA_FOR_ORGANIZATION`, `ENABLED_REDACT_UNMAPPED_DATA_FOR_LINKED_ACCOUNT`, `DISABLED_REDACT_UNMAPPED_DATA_FOR_ORGANIZATION`, `DISABLED_REDACT_UNMAPPED_DATA_FOR_LINKED_ACCOUNT`, `CREATED_INTEGRATION_WIDE_FIELD_MAPPING`, `CREATED_LINKED_ACCOUNT_FIELD_MAPPING`, `CHANGED_INTEGRATION_WIDE_FIELD_MAPPING`, `CHANGED_LINKED_ACCOUNT_FIELD_MAPPING`, `DELETED_INTEGRATION_WIDE_FIELD_MAPPING`, `DELETED_LINKED_ACCOUNT_FIELD_MAPPING`, `CREATED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE`, `CHANGED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE`, `DELETED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE`, `FORCED_LINKED_ACCOUNT_RESYNC`, `MUTED_ISSUE`, `GENERATED_MAGIC_LINK`, `ENABLED_MERGE_WEBHOOK`, `DISABLED_MERGE_WEBHOOK`, `MERGE_WEBHOOK_TARGET_CHANGED`, `END_USER_CREDENTIALS_ACCESSED`
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `typing.Optional[str]` — If included, will only include audit trail events that occurred after this time
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**user_email:** `typing.Optional[str]` — If provided, this will return events associated with the specified user email. Please note that the email address reflects the user's email at the time of the event, and may not be their current email.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat AvailableActions
-<details><summary><code>client.chat.available_actions.<a href="src/merge/resources/chat/resources/available_actions/client.py">retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of models and actions available for an account.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.available_actions.retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat Conversations
-<details><summary><code>client.chat.conversations.<a href="src/merge/resources/chat/resources/conversations/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `Conversation` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.conversations.list(
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["members"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.chat.conversations.<a href="src/merge/resources/chat/resources/conversations/client.py">members_list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `Member` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.chat.resources.conversations import (
-    ConversationsMembersListRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.conversations.members_list(
-    conversation_id="conversation_id",
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=ConversationsMembersListRequestExpand.GROUP,
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**conversation_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[ConversationsMembersListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.chat.conversations.<a href="src/merge/resources/chat/resources/conversations/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `Conversation` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.conversations.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["members"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat Scopes
-<details><summary><code>client.chat.scopes.<a href="src/merge/resources/chat/resources/scopes/client.py">default_scopes_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get the default permissions for Merge Common Models and fields across all Linked Accounts of a given category. [Learn more](https://help.merge.dev/en/articles/5950052-common-model-and-field-scopes).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.scopes.default_scopes_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.chat.scopes.<a href="src/merge/resources/chat/resources/scopes/client.py">linked_account_scopes_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get all available permissions for Merge Common Models and fields for a single Linked Account. [Learn more](https://help.merge.dev/en/articles/5950052-common-model-and-field-scopes).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.scopes.linked_account_scopes_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.chat.scopes.<a href="src/merge/resources/chat/resources/scopes/client.py">linked_account_scopes_create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Update permissions for any Common Model or field for a single Linked Account. Any Scopes not set in this POST request will inherit the default Scopes. [Learn more](https://help.merge.dev/en/articles/5950052-common-model-and-field-scopes)
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.chat import (
-    FieldPermissionDeserializerRequest,
-    IndividualCommonModelScopeDeserializerRequest,
-    ModelPermissionDeserializerRequest,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.scopes.linked_account_scopes_create(
-    common_models=[
-        IndividualCommonModelScopeDeserializerRequest(
-            model_name="Employee",
-            model_permissions={
-                "READ": ModelPermissionDeserializerRequest(
-                    is_enabled=True,
-                ),
-                "WRITE": ModelPermissionDeserializerRequest(
-                    is_enabled=False,
-                ),
-            },
-            field_permissions=FieldPermissionDeserializerRequest(
-                enabled_fields=["avatar", "home_location"],
-                disabled_fields=["work_location"],
-            ),
-        ),
-        IndividualCommonModelScopeDeserializerRequest(
-            model_name="Benefit",
-            model_permissions={
-                "WRITE": ModelPermissionDeserializerRequest(
-                    is_enabled=False,
-                )
-            },
-        ),
-    ],
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**common_models:** `typing.Sequence[IndividualCommonModelScopeDeserializerRequest]` — The common models you want to update the scopes for
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat DeleteAccount
-<details><summary><code>client.chat.delete_account.<a href="src/merge/resources/chat/resources/delete_account/client.py">delete</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Delete a linked account.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.delete_account.delete()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat FieldMapping
-<details><summary><code>client.chat.field_mapping.<a href="src/merge/resources/chat/resources/field_mapping/client.py">field_mappings_retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get all Field Mappings for this Linked Account. Field Mappings are mappings between third-party Remote Fields and user defined Merge fields. [Learn more](https://docs.merge.dev/supplemental-data/field-mappings/overview/).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.field_mapping.field_mappings_retrieve(
-    exclude_remote_field_metadata=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**exclude_remote_field_metadata:** `typing.Optional[bool]` — If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.chat.field_mapping.<a href="src/merge/resources/chat/resources/field_mapping/client.py">field_mappings_create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Create new Field Mappings that will be available after the next scheduled sync. This will cause the next sync for this Linked Account to sync **ALL** data from start.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.field_mapping.field_mappings_create(
-    exclude_remote_field_metadata=True,
-    target_field_name="example_target_field_name",
-    target_field_description="this is a example description of the target field",
-    remote_field_traversal_path=["example_remote_field"],
-    remote_method="GET",
-    remote_url_path="/example-url-path",
-    common_model_name="ExampleCommonModel",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**target_field_name:** `str` — The name of the target field you want this remote field to map to.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**target_field_description:** `str` — The description of the target field you want this remote field to map to.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_field_traversal_path:** `typing.Sequence[typing.Optional[typing.Any]]` — The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_method:** `str` — The method of the remote endpoint where the remote field is coming from.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_url_path:** `str` — The path of the remote endpoint where the remote field is coming from.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**common_model_name:** `str` — The name of the Common Model that the remote field corresponds to in a given category.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**exclude_remote_field_metadata:** `typing.Optional[bool]` — If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**jmes_path:** `typing.Optional[str]` — JMES path to specify json query expression to be used on field mapping.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.chat.field_mapping.<a href="src/merge/resources/chat/resources/field_mapping/client.py">field_mappings_destroy</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes Field Mappings for a Linked Account. All data related to this Field Mapping will be deleted and these changes will be reflected after the next scheduled sync. This will cause the next sync for this Linked Account to sync **ALL** data from start.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.field_mapping.field_mappings_destroy(
-    field_mapping_id="field_mapping_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**field_mapping_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.chat.field_mapping.<a href="src/merge/resources/chat/resources/field_mapping/client.py">field_mappings_partial_update</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Create or update existing Field Mappings for a Linked Account. Changes will be reflected after the next scheduled sync. This will cause the next sync for this Linked Account to sync **ALL** data from start.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.field_mapping.field_mappings_partial_update(
-    field_mapping_id="field_mapping_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**field_mapping_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_field_traversal_path:** `typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]` — The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_method:** `typing.Optional[str]` — The method of the remote endpoint where the remote field is coming from.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_url_path:** `typing.Optional[str]` — The path of the remote endpoint where the remote field is coming from.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**jmes_path:** `typing.Optional[str]` — JMES path to specify json query expression to be used on field mapping.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.chat.field_mapping.<a href="src/merge/resources/chat/resources/field_mapping/client.py">remote_fields_retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get all remote fields for a Linked Account. Remote fields are third-party fields that are accessible after initial sync if remote_data is enabled. You can use remote fields to override existing Merge fields or map a new Merge field. [Learn more](https://docs.merge.dev/supplemental-data/field-mappings/overview/).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.field_mapping.remote_fields_retrieve(
-    common_models="common_models",
-    include_example_values="include_example_values",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**common_models:** `typing.Optional[str]` — A comma seperated list of Common Model names. If included, will only return Remote Fields for those Common Models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_example_values:** `typing.Optional[str]` — If true, will include example values, where available, for remote fields in the 3rd party platform. These examples come from active data from your customers.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.chat.field_mapping.<a href="src/merge/resources/chat/resources/field_mapping/client.py">target_fields_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get all organization-wide Target Fields, this will not include any Linked Account specific Target Fields. Organization-wide Target Fields are additional fields appended to the Merge Common Model for all Linked Accounts in a category. [Learn more](https://docs.merge.dev/supplemental-data/field-mappings/target-fields/).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.field_mapping.target_fields_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat GenerateKey
-<details><summary><code>client.chat.generate_key.<a href="src/merge/resources/chat/resources/generate_key/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Create a remote key.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.generate_key.create(
-    name="Remote Deployment Key 1",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**name:** `str` — The name of the remote key
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat Groups
-<details><summary><code>client.chat.groups.<a href="src/merge/resources/chat/resources/groups/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `Group` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.groups.list(
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["users"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.chat.groups.<a href="src/merge/resources/chat/resources/groups/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `Group` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.groups.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["users"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat Issues
-<details><summary><code>client.chat.issues.<a href="src/merge/resources/chat/resources/issues/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Gets all issues for Organization.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.chat.resources.issues import IssuesListRequestStatus
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.issues.list(
-    account_token="account_token",
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    end_date="end_date",
-    end_user_organization_name="end_user_organization_name",
-    first_incident_time_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    first_incident_time_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    include_muted="include_muted",
-    integration_name="integration_name",
-    last_incident_time_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    last_incident_time_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    linked_account_id="linked_account_id",
-    page_size=1,
-    start_date="start_date",
-    status=IssuesListRequestStatus.ONGOING,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**account_token:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` — If included, will only include issues whose most recent action occurred before this time
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_organization_name:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**first_incident_time_after:** `typing.Optional[dt.datetime]` — If provided, will only return issues whose first incident time was after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**first_incident_time_before:** `typing.Optional[dt.datetime]` — If provided, will only return issues whose first incident time was before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_muted:** `typing.Optional[str]` — If true, will include muted issues
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**integration_name:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**last_incident_time_after:** `typing.Optional[dt.datetime]` — If provided, will only return issues whose last incident time was after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**last_incident_time_before:** `typing.Optional[dt.datetime]` — If provided, will only return issues whose last incident time was before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**linked_account_id:** `typing.Optional[str]` — If provided, will only include issues pertaining to the linked account passed in.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `typing.Optional[str]` — If included, will only include issues whose most recent action occurred after this time
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**status:** `typing.Optional[IssuesListRequestStatus]` 
-
-Status of the issue. Options: ('ONGOING', 'RESOLVED')
-
-* `ONGOING` - ONGOING
-* `RESOLVED` - RESOLVED
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.chat.issues.<a href="src/merge/resources/chat/resources/issues/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get a specific issue.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.issues.retrieve(
-    id="id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat LinkToken
-<details><summary><code>client.chat.link_token.<a href="src/merge/resources/chat/resources/link_token/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a link token to be used when linking a new end user. The link token expires after single use.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.chat import CategoriesEnum
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.link_token.create(
-    end_user_email_address="example@gmail.com",
-    end_user_organization_name="Test Organization",
-    end_user_origin_id="12345",
-    categories=[CategoriesEnum.HRIS, CategoriesEnum.ATS],
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**end_user_email_address:** `str` — Your end user's email address. This is purely for identification purposes - setting this value will not cause any emails to be sent.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_organization_name:** `str` — Your end user's organization.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_origin_id:** `str` — This unique identifier typically represents the ID for your end user in your product's database. This value must be distinct from other Linked Accounts' unique identifiers.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**categories:** `typing.Sequence[CategoriesEnum]` — The integration categories to show in Merge Link.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**integration:** `typing.Optional[str]` — The slug of a specific pre-selected integration for this linking flow token. For examples of slugs, see https://docs.merge.dev/guides/merge-link/single-integration/.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**link_expiry_mins:** `typing.Optional[int]` — An integer number of minutes between [30, 720 or 10080 if for a Magic Link URL] for how long this token is valid. Defaults to 30.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**should_create_magic_link_url:** `typing.Optional[bool]` — Whether to generate a Magic Link URL. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/integrations-fast-say-hello-to-magic-link.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**hide_admin_magic_link:** `typing.Optional[bool]` — Whether to generate a Magic Link URL on the Admin Needed screen during the linking flow. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/integrations-fast-say-hello-to-magic-link.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**common_models:** `typing.Optional[typing.Sequence[CommonModelScopesBodyRequest]]` — An array of objects to specify the models and fields that will be disabled for a given Linked Account. Each object uses model_id, enabled_actions, and disabled_fields to specify the model, method, and fields that are scoped for a given Linked Account.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**category_common_model_scopes:** `typing.Optional[
-    typing.Dict[
-        str,
-        typing.Optional[
-            typing.Sequence[IndividualCommonModelScopeDeserializerRequest]
-        ],
-    ]
-]` — When creating a Link Token, you can set permissions for Common Models that will apply to the account that is going to be linked. Any model or field not specified in link token payload will default to existing settings.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**language:** `typing.Optional[EndUserDetailsRequestLanguage]` 
-
-The following subset of IETF language tags can be used to configure localization.
-
-* `en` - en
-* `de` - de
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**are_syncs_disabled:** `typing.Optional[bool]` — The boolean that indicates whether initial, periodic, and force syncs will be disabled.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**integration_specific_config:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — A JSON object containing integration-specific configuration options.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**completed_account_initial_screen:** `typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen]` 
-
-When creating a Link token, you can specifiy the initial screen of Linking Flow for a completed Linked Account.
-
-* `SELECTIVE_SYNC` - SELECTIVE_SYNC
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat LinkedAccounts
-<details><summary><code>client.chat.linked_accounts.<a href="src/merge/resources/chat/resources/linked_accounts/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-List linked accounts for your organization.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.chat.resources.linked_accounts import (
-    LinkedAccountsListRequestCategory,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.linked_accounts.list(
-    category=LinkedAccountsListRequestCategory.ACCOUNTING,
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    end_user_email_address="end_user_email_address",
-    end_user_organization_name="end_user_organization_name",
-    end_user_origin_id="end_user_origin_id",
-    end_user_origin_ids="end_user_origin_ids",
-    id="id",
-    ids="ids",
-    include_duplicates=True,
-    integration_name="integration_name",
-    is_test_account="is_test_account",
-    page_size=1,
-    status="status",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**category:** `typing.Optional[LinkedAccountsListRequestCategory]` 
-
-Options: `accounting`, `ats`, `crm`, `filestorage`, `hris`, `knowledgebase`, `mktg`, `ticketing`
-
-* `hris` - hris
-* `ats` - ats
-* `accounting` - accounting
-* `ticketing` - ticketing
-* `crm` - crm
-* `mktg` - mktg
-* `filestorage` - filestorage
-* `knowledgebase` - knowledgebase
-* `chat` - chat
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_email_address:** `typing.Optional[str]` — If provided, will only return linked accounts associated with the given email address.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_organization_name:** `typing.Optional[str]` — If provided, will only return linked accounts associated with the given organization name.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_origin_id:** `typing.Optional[str]` — If provided, will only return linked accounts associated with the given origin ID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_origin_ids:** `typing.Optional[str]` — Comma-separated list of EndUser origin IDs, making it possible to specify multiple EndUsers at once.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**id:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ids:** `typing.Optional[str]` — Comma-separated list of LinkedAccount IDs, making it possible to specify multiple LinkedAccounts at once.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_duplicates:** `typing.Optional[bool]` — If `true`, will include complete production duplicates of the account specified by the `id` query parameter in the response. `id` must be for a complete production linked account.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**integration_name:** `typing.Optional[str]` — If provided, will only return linked accounts associated with the given integration name.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_test_account:** `typing.Optional[str]` — If included, will only include test linked accounts. If not included, will only include non-test linked accounts.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**status:** `typing.Optional[str]` — Filter by status. Options: `COMPLETE`, `IDLE`, `INCOMPLETE`, `RELINK_NEEDED`
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat Messages
-<details><summary><code>client.chat.messages.<a href="src/merge/resources/chat/resources/messages/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `Message` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.chat.resources.messages import MessagesListRequestOrderBy
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.messages.list(
-    conversation_id="conversation_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    order_by=MessagesListRequestOrderBy.REMOTE_CREATED_AT_DESCENDING,
-    page_size=1,
-    remote_id="remote_id",
-    root_message="root_message",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**conversation_id:** `typing.Optional[str]` — Filter messages by conversation ID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**order_by:** `typing.Optional[MessagesListRequestOrderBy]` — Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**root_message:** `typing.Optional[str]` — If provided as 'true', will only return root messages (messages without a parent message).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.chat.messages.<a href="src/merge/resources/chat/resources/messages/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `Message` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.messages.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.chat.messages.<a href="src/merge/resources/chat/resources/messages/client.py">replies_list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `Message` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.chat.resources.messages import (
-    MessagesRepliesListRequestOrderBy,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.messages.replies_list(
-    message_id="message_id",
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    order_by=MessagesRepliesListRequestOrderBy.REMOTE_CREATED_AT_DESCENDING,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**message_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**order_by:** `typing.Optional[MessagesRepliesListRequestOrderBy]` — Overrides the default ordering for this endpoint. Possible values include: remote_created_at, -remote_created_at.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat Passthrough
-<details><summary><code>client.chat.passthrough.<a href="src/merge/resources/chat/resources/passthrough/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Pull data from an endpoint not currently supported by Merge.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.chat import DataPassthroughRequest, MethodEnum
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.passthrough.create(
-    request=DataPassthroughRequest(
-        method=MethodEnum.GET,
-        path="/scooters",
-    ),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `DataPassthroughRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat RegenerateKey
-<details><summary><code>client.chat.regenerate_key.<a href="src/merge/resources/chat/resources/regenerate_key/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Exchange remote keys.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.regenerate_key.create(
-    name="Remote Deployment Key 1",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**name:** `str` — The name of the remote key
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat SyncStatus
-<details><summary><code>client.chat.sync_status.<a href="src/merge/resources/chat/resources/sync_status/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get sync status for the current sync and the most recently finished sync. `last_sync_start` represents the most recent time any sync began. `last_sync_finished` represents the most recent time any sync completed. These timestamps may correspond to different sync instances which may result in a sync start time being later than a separate sync completed time. To ensure you are retrieving the latest available data reference the `last_sync_finished` timestamp where `last_sync_result` is `DONE`. Possible values for `status` and `last_sync_result` are `DISABLED`, `DONE`, `FAILED`, `PARTIALLY_SYNCED`, `PAUSED`, `SYNCING`. Learn more about sync status in our [Help Center](https://help.merge.dev/en/articles/8184193-merge-sync-statuses).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.sync_status.list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat ForceResync
-<details><summary><code>client.chat.force_resync.<a href="src/merge/resources/chat/resources/force_resync/client.py">sync_status_resync_create</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Force re-sync of all models. This endpoint is available for monthly, quarterly, and highest sync frequency customers on the Professional or Enterprise plans. Doing so will consume a sync credit for the relevant linked account. Force re-syncs can also be triggered manually in the Merge Dashboard and is available for all customers.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.force_resync.sync_status_resync_create()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat Users
-<details><summary><code>client.chat.users.<a href="src/merge/resources/chat/resources/users/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `User` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.users.list(
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["groups"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.chat.users.<a href="src/merge/resources/chat/resources/users/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `User` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.users.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["groups"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Chat WebhookReceivers
-<details><summary><code>client.chat.webhook_receivers.<a href="src/merge/resources/chat/resources/webhook_receivers/client.py">list</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `WebhookReceiver` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.webhook_receivers.list()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.chat.webhook_receivers.<a href="src/merge/resources/chat/resources/webhook_receivers/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a `WebhookReceiver` object with the given values.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.chat.webhook_receivers.create(
-    event="event",
-    is_active=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**event:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_active:** `bool` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**key:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Ats AccountDetails
 <details><summary><code>client.ats.account_details.<a href="src/merge/resources/ats/resources/account_details/client.py">retrieve</a>()</code></summary>
 <dl>
@@ -3918,6 +133,67 @@ client.ats.account_token.retrieve(
 </dl>
 </details>
 
+<details><summary><code>client.ats.account_token.<a href="src/merge/resources/ats/resources/account_token/client.py">regenerate_create</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Exchange Linked Account account tokens.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.ats.account_token.regenerate_create()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Ats Activities
 <details><summary><code>client.ats.activities.<a href="src/merge/resources/ats/resources/activities/client.py">list</a>(...)</code></summary>
 <dl>
@@ -3958,7 +234,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.activities.list(
+response = client.ats.activities.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -3981,6 +257,11 @@ client.ats.activities.list(
     show_enum_origins=ActivitiesListRequestShowEnumOrigins.ACTIVITY_TYPE,
     user_id="user_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -4020,7 +301,11 @@ client.ats.activities.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["user"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["user"], typing.Sequence[typing.Literal["user"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -4068,7 +353,7 @@ client.ats.activities.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -4286,7 +571,11 @@ client.ats.activities.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["user"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["user"], typing.Sequence[typing.Literal["user"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -4430,15 +719,12 @@ Returns a list of `Application` objects.
 import datetime
 
 from merge import Merge
-from merge.resources.ats.resources.applications import (
-    ApplicationsListRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.applications.list(
+response = client.ats.applications.list(
     candidate_id="candidate_id",
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
@@ -4449,7 +735,6 @@ client.ats.applications.list(
     credited_to_id="credited_to_id",
     current_stage_id="current_stage_id",
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=ApplicationsListRequestExpand.CANDIDATE,
     include_deleted_data=True,
     include_remote_data=True,
     include_shell_data=True,
@@ -4465,6 +750,11 @@ client.ats.applications.list(
     remote_id="remote_id",
     source="source",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -4528,7 +818,12 @@ client.ats.applications.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[ApplicationsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        ApplicationsListRequestExpandItem,
+        typing.Sequence[ApplicationsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -4758,9 +1053,6 @@ Returns an `Application` object with the given `id`.
 
 ```python
 from merge import Merge
-from merge.resources.ats.resources.applications import (
-    ApplicationsRetrieveRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -4768,7 +1060,6 @@ client = Merge(
 )
 client.ats.applications.retrieve(
     id="id",
-    expand=ApplicationsRetrieveRequestExpand.CANDIDATE,
     include_remote_data=True,
     include_shell_data=True,
 )
@@ -4795,7 +1086,12 @@ client.ats.applications.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[ApplicationsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        ApplicationsRetrieveRequestExpandItem,
+        typing.Sequence[ApplicationsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -5190,7 +1486,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.attachments.list(
+response = client.ats.attachments.list(
     candidate_id="candidate_id",
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
@@ -5211,6 +1507,11 @@ client.ats.attachments.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -5258,7 +1559,12 @@ client.ats.attachments.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["candidate"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["candidate"],
+        typing.Sequence[typing.Literal["candidate"]],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -5510,7 +1816,12 @@ client.ats.attachments.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["candidate"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["candidate"],
+        typing.Sequence[typing.Literal["candidate"]],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -5657,7 +1968,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.audit_trail.list(
+response = client.ats.audit_trail.list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     end_date="end_date",
     event_type="event_type",
@@ -5665,6 +1976,11 @@ client.ats.audit_trail.list(
     start_date="start_date",
     user_email="user_email",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -5704,7 +2020,7 @@ client.ats.audit_trail.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -5833,13 +2149,12 @@ Returns a list of `Candidate` objects.
 import datetime
 
 from merge import Merge
-from merge.resources.ats.resources.candidates import CandidatesListRequestExpand
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.candidates.list(
+response = client.ats.candidates.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -5848,7 +2163,6 @@ client.ats.candidates.list(
     ),
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     email_addresses="email_addresses",
-    expand=CandidatesListRequestExpand.APPLICATIONS,
     first_name="first_name",
     include_deleted_data=True,
     include_remote_data=True,
@@ -5864,6 +2178,11 @@ client.ats.candidates.list(
     remote_id="remote_id",
     tags="tags",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -5911,7 +2230,12 @@ client.ats.candidates.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[CandidatesListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        CandidatesListRequestExpandItem,
+        typing.Sequence[CandidatesListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -6138,9 +2462,6 @@ Returns a `Candidate` object with the given `id`.
 
 ```python
 from merge import Merge
-from merge.resources.ats.resources.candidates import (
-    CandidatesRetrieveRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -6148,7 +2469,6 @@ client = Merge(
 )
 client.ats.candidates.retrieve(
     id="id",
-    expand=CandidatesRetrieveRequestExpand.APPLICATIONS,
     include_remote_data=True,
     include_shell_data=True,
 )
@@ -6175,7 +2495,12 @@ client.ats.candidates.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[CandidatesRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        CandidatesRetrieveRequestExpandItem,
+        typing.Sequence[CandidatesRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -6347,7 +2672,7 @@ Ignores a specific row based on the `model_id` in the url. These records will ha
 
 ```python
 from merge import Merge
-from merge.resources.ats import ReasonEnum
+from merge.resources.ats import IgnoreCommonModelRequest, ReasonEnum
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -6355,7 +2680,9 @@ client = Merge(
 )
 client.ats.candidates.ignore_create(
     model_id="model_id",
-    reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
+    request=IgnoreCommonModelRequest(
+        reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
+    ),
 )
 
 ```
@@ -6380,15 +2707,7 @@ client.ats.candidates.ignore_create(
 <dl>
 <dd>
 
-**reason:** `IgnoreCommonModelRequestReason` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**message:** `typing.Optional[str]` 
+**request:** `IgnoreCommonModelRequest` 
     
 </dd>
 </dl>
@@ -6861,7 +3180,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.departments.list(
+response = client.ats.departments.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -6881,6 +3200,11 @@ client.ats.departments.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -7117,7 +3441,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.eeocs.list(
+response = client.ats.eeocs.list(
     candidate_id="candidate_id",
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
@@ -7140,6 +3464,11 @@ client.ats.eeocs.list(
     remote_id="remote_id",
     show_enum_origins=EeocsListRequestShowEnumOrigins.DISABILITY_STATUS,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -7187,7 +3516,12 @@ client.ats.eeocs.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["candidate"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["candidate"],
+        typing.Sequence[typing.Literal["candidate"]],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -7235,7 +3569,7 @@ client.ats.eeocs.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -7346,7 +3680,12 @@ client.ats.eeocs.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["candidate"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["candidate"],
+        typing.Sequence[typing.Literal["candidate"]],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -7583,6 +3922,14 @@ client.ats.field_mapping.field_mappings_create(
 <dl>
 <dd>
 
+**jmes_path:** `typing.Optional[str]` — JMES path to specify json query expression to be used on field mapping.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -7701,6 +4048,7 @@ client = Merge(
 )
 client.ats.field_mapping.field_mappings_partial_update(
     field_mapping_id="field_mapping_id",
+    remote_data_iteration_count=1,
 )
 
 ```
@@ -7725,6 +4073,14 @@ client.ats.field_mapping.field_mappings_partial_update(
 <dl>
 <dd>
 
+**remote_data_iteration_count:** `typing.Optional[int]` — Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **remote_field_traversal_path:** `typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]` — The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
     
 </dd>
@@ -7742,6 +4098,14 @@ client.ats.field_mapping.field_mappings_partial_update(
 <dd>
 
 **remote_url_path:** `typing.Optional[str]` — The path of the remote endpoint where the remote field is coming from.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**jmes_path:** `typing.Optional[str]` — JMES path to specify json query expression to be used on field mapping.
     
 </dd>
 </dl>
@@ -8005,13 +4369,12 @@ Returns a list of `ScheduledInterview` objects.
 import datetime
 
 from merge import Merge
-from merge.resources.ats.resources.interviews import InterviewsListRequestExpand
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.interviews.list(
+response = client.ats.interviews.list(
     application_id="application_id",
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
@@ -8020,7 +4383,6 @@ client.ats.interviews.list(
         "2024-01-15 09:30:00+00:00",
     ),
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=InterviewsListRequestExpand.APPLICATION,
     include_deleted_data=True,
     include_remote_data=True,
     include_shell_data=True,
@@ -8036,6 +4398,11 @@ client.ats.interviews.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -8083,7 +4450,12 @@ client.ats.interviews.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[InterviewsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        InterviewsListRequestExpandItem,
+        typing.Sequence[InterviewsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -8155,7 +4527,7 @@ client.ats.interviews.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -8326,9 +4698,6 @@ Returns a `ScheduledInterview` object with the given `id`.
 
 ```python
 from merge import Merge
-from merge.resources.ats.resources.interviews import (
-    InterviewsRetrieveRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -8336,7 +4705,6 @@ client = Merge(
 )
 client.ats.interviews.retrieve(
     id="id",
-    expand=InterviewsRetrieveRequestExpand.APPLICATION,
     include_remote_data=True,
     include_shell_data=True,
 )
@@ -8363,7 +4731,12 @@ client.ats.interviews.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[InterviewsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        InterviewsRetrieveRequestExpandItem,
+        typing.Sequence[InterviewsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -8513,7 +4886,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.issues.list(
+response = client.ats.issues.list(
     account_token="account_token",
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     end_date="end_date",
@@ -8537,6 +4910,11 @@ client.ats.issues.list(
     start_date="start_date",
     status=IssuesListRequestStatus.ONGOING,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -8640,7 +5018,7 @@ client.ats.issues.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -8788,7 +5166,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.job_interview_stages.list(
+response = client.ats.job_interview_stages.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -8809,6 +5187,11 @@ client.ats.job_interview_stages.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -8848,7 +5231,9 @@ client.ats.job_interview_stages.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["job"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -8904,7 +5289,7 @@ client.ats.job_interview_stages.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -8993,7 +5378,9 @@ client.ats.job_interview_stages.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["job"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -9068,7 +5455,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.job_postings.list(
+response = client.ats.job_postings.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -9089,6 +5476,11 @@ client.ats.job_postings.list(
     remote_id="remote_id",
     status=JobPostingsListRequestStatus.CLOSED,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -9128,7 +5520,9 @@ client.ats.job_postings.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["job"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -9176,7 +5570,7 @@ client.ats.job_postings.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -9281,7 +5675,9 @@ client.ats.job_postings.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["job"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[typing.Literal["job"], typing.Sequence[typing.Literal["job"]]]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -9348,16 +5744,13 @@ Returns a list of `Job` objects.
 import datetime
 
 from merge import Merge
-from merge.resources.ats.resources.jobs import (
-    JobsListRequestExpand,
-    JobsListRequestStatus,
-)
+from merge.resources.ats.resources.jobs import JobsListRequestStatus
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.jobs.list(
+response = client.ats.jobs.list(
     code="code",
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
@@ -9366,7 +5759,6 @@ client.ats.jobs.list(
         "2024-01-15 09:30:00+00:00",
     ),
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=JobsListRequestExpand.DEPARTMENTS,
     include_deleted_data=True,
     include_remote_data=True,
     include_shell_data=True,
@@ -9381,6 +5773,11 @@ client.ats.jobs.list(
     remote_id="remote_id",
     status=JobsListRequestStatus.ARCHIVED,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -9428,7 +5825,11 @@ client.ats.jobs.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[JobsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        JobsListRequestExpandItem, typing.Sequence[JobsListRequestExpandItem]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -9484,7 +5885,7 @@ client.ats.jobs.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -9572,7 +5973,6 @@ Returns a `Job` object with the given `id`.
 
 ```python
 from merge import Merge
-from merge.resources.ats.resources.jobs import JobsRetrieveRequestExpand
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -9580,7 +5980,6 @@ client = Merge(
 )
 client.ats.jobs.retrieve(
     id="id",
-    expand=JobsRetrieveRequestExpand.DEPARTMENTS,
     include_remote_data=True,
     include_shell_data=True,
 )
@@ -9607,7 +6006,12 @@ client.ats.jobs.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[JobsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        JobsRetrieveRequestExpandItem,
+        typing.Sequence[JobsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -9687,23 +6091,24 @@ Returns a list of `ScreeningQuestion` objects.
 
 ```python
 from merge import Merge
-from merge.resources.ats.resources.jobs import (
-    JobsScreeningQuestionsListRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.jobs.screening_questions_list(
+response = client.ats.jobs.screening_questions_list(
     job_id="job_id",
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=JobsScreeningQuestionsListRequestExpand.JOB,
     include_deleted_data=True,
     include_remote_data=True,
     include_shell_data=True,
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -9735,7 +6140,12 @@ client.ats.jobs.screening_questions_list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[JobsScreeningQuestionsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        JobsScreeningQuestionsListRequestExpandItem,
+        typing.Sequence[JobsScreeningQuestionsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -9767,7 +6177,7 @@ client.ats.jobs.screening_questions_list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -9800,7 +6210,7 @@ client.ats.jobs.screening_questions_list(
 <dl>
 <dd>
 
-Creates a link token to be used when linking a new end user.
+Creates a link token to be used when linking a new end user. The link token expires after single use.
 </dd>
 </dl>
 </dd>
@@ -10008,7 +6418,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.linked_accounts.list(
+response = client.ats.linked_accounts.list(
     category=LinkedAccountsListRequestCategory.ACCOUNTING,
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     end_user_email_address="end_user_email_address",
@@ -10023,6 +6433,11 @@ client.ats.linked_accounts.list(
     page_size=1,
     status="status",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -10136,7 +6551,7 @@ Options: `accounting`, `ats`, `crm`, `filestorage`, `hris`, `mktg`, `ticketing`
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -10195,13 +6610,13 @@ Returns a list of `Offer` objects.
 import datetime
 
 from merge import Merge
-from merge.resources.ats.resources.offers import OffersListRequestExpand
+from merge.resources.ats.resources.offers import OffersListRequestStatus
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.offers.list(
+response = client.ats.offers.list(
     application_id="application_id",
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
@@ -10211,7 +6626,6 @@ client.ats.offers.list(
     ),
     creator_id="creator_id",
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=OffersListRequestExpand.APPLICATION,
     include_deleted_data=True,
     include_remote_data=True,
     include_shell_data=True,
@@ -10223,7 +6637,13 @@ client.ats.offers.list(
     ),
     page_size=1,
     remote_id="remote_id",
+    status=OffersListRequestStatus.APPROVAL_SENT,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -10279,7 +6699,12 @@ client.ats.offers.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[OffersListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        OffersListRequestExpandItem,
+        typing.Sequence[OffersListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -10359,6 +6784,26 @@ client.ats.offers.list(
 <dl>
 <dd>
 
+**status:** `typing.Optional[OffersListRequestStatus]` 
+
+If provided, will only return offers with this status. Options: ('DRAFT', 'APPROVAL-SENT', 'APPROVED', 'SENT', 'SENT-MANUALLY', 'OPENED', 'DENIED', 'SIGNED', 'DEPRECATED')
+
+* `DRAFT` - DRAFT
+* `APPROVAL-SENT` - APPROVAL-SENT
+* `APPROVED` - APPROVED
+* `SENT` - SENT
+* `SENT-MANUALLY` - SENT-MANUALLY
+* `OPENED` - OPENED
+* `DENIED` - DENIED
+* `SIGNED` - SIGNED
+* `DEPRECATED` - DEPRECATED
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -10399,7 +6844,6 @@ Returns an `Offer` object with the given `id`.
 
 ```python
 from merge import Merge
-from merge.resources.ats.resources.offers import OffersRetrieveRequestExpand
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -10407,7 +6851,6 @@ client = Merge(
 )
 client.ats.offers.retrieve(
     id="id",
-    expand=OffersRetrieveRequestExpand.APPLICATION,
     include_remote_data=True,
     include_shell_data=True,
 )
@@ -10434,7 +6877,12 @@ client.ats.offers.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[OffersRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        OffersRetrieveRequestExpandItem,
+        typing.Sequence[OffersRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -10522,7 +6970,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.offices.list(
+response = client.ats.offices.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -10542,6 +6990,11 @@ client.ats.offices.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -10621,7 +7074,7 @@ client.ats.offices.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -10922,7 +7375,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.reject_reasons.list(
+response = client.ats.reject_reasons.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -10942,6 +7395,11 @@ client.ats.reject_reasons.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -11021,7 +7479,7 @@ client.ats.reject_reasons.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -11169,13 +7627,12 @@ Returns a list of `Scorecard` objects.
 import datetime
 
 from merge import Merge
-from merge.resources.ats.resources.scorecards import ScorecardsListRequestExpand
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.scorecards.list(
+response = client.ats.scorecards.list(
     application_id="application_id",
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
@@ -11184,7 +7641,6 @@ client.ats.scorecards.list(
         "2024-01-15 09:30:00+00:00",
     ),
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=ScorecardsListRequestExpand.APPLICATION,
     include_deleted_data=True,
     include_remote_data=True,
     include_shell_data=True,
@@ -11199,6 +7655,11 @@ client.ats.scorecards.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -11246,7 +7707,12 @@ client.ats.scorecards.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[ScorecardsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        ScorecardsListRequestExpandItem,
+        typing.Sequence[ScorecardsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -11310,7 +7776,7 @@ client.ats.scorecards.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -11382,9 +7848,6 @@ Returns a `Scorecard` object with the given `id`.
 
 ```python
 from merge import Merge
-from merge.resources.ats.resources.scorecards import (
-    ScorecardsRetrieveRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -11392,7 +7855,6 @@ client = Merge(
 )
 client.ats.scorecards.retrieve(
     id="id",
-    expand=ScorecardsRetrieveRequestExpand.APPLICATION,
     include_remote_data=True,
     include_shell_data=True,
 )
@@ -11419,7 +7881,12 @@ client.ats.scorecards.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[ScorecardsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        ScorecardsRetrieveRequestExpandItem,
+        typing.Sequence[ScorecardsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -11505,10 +7972,15 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.sync_status.list(
+response = client.ats.sync_status.list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -11532,7 +8004,7 @@ client.ats.sync_status.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -11650,7 +8122,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.tags.list(
+response = client.ats.tags.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -11670,6 +8142,11 @@ client.ats.tags.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -11749,7 +8226,7 @@ client.ats.tags.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -11813,7 +8290,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ats.users.list(
+response = client.ats.users.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -11834,6 +8311,11 @@ client.ats.users.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -11921,7 +8403,7 @@ client.ats.users.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -12220,6 +8702,18423 @@ client.ats.webhook_receivers.create(
 </dl>
 </details>
 
+## Accounting AccountDetails
+<details><summary><code>client.accounting.account_details.<a href="src/merge/resources/accounting/resources/account_details/client.py">retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get details for a linked account.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.account_details.retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting AccountToken
+<details><summary><code>client.accounting.account_token.<a href="src/merge/resources/accounting/resources/account_token/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the account token for the end user with the provided public token.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.account_token.retrieve(
+    public_token="public_token",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**public_token:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.account_token.<a href="src/merge/resources/accounting/resources/account_token/client.py">regenerate_create</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Exchange Linked Account account tokens.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.account_token.regenerate_create()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting AccountingPeriods
+<details><summary><code>client.accounting.accounting_periods.<a href="src/merge/resources/accounting/resources/accounting_periods/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `AccountingPeriod` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.accounting_periods.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.accounting_periods.<a href="src/merge/resources/accounting/resources/accounting_periods/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns an `AccountingPeriod` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.accounting_periods.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting Accounts
+<details><summary><code>client.accounting.accounts.<a href="src/merge/resources/accounting/resources/accounts/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `Account` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+from merge.resources.accounting.resources.accounts import (
+    AccountsListRequestClassification,
+    AccountsListRequestRemoteFields,
+    AccountsListRequestShowEnumOrigins,
+    AccountsListRequestStatus,
+)
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.accounts.list(
+    account_type="account_type",
+    classification=AccountsListRequestClassification.EMPTY,
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    name="name",
+    page_size=1,
+    remote_fields=AccountsListRequestRemoteFields.CLASSIFICATION,
+    remote_id="remote_id",
+    show_enum_origins=AccountsListRequestShowEnumOrigins.CLASSIFICATION,
+    status=AccountsListRequestStatus.EMPTY,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_type:** `typing.Optional[str]` — If provided, will only return accounts with the passed in enum.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**classification:** `typing.Optional[AccountsListRequestClassification]` — If provided, will only return accounts with this classification.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return accounts for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["company"], typing.Sequence[typing.Literal["company"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — If provided, will only return Accounts with this name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_fields:** `typing.Optional[AccountsListRequestRemoteFields]` — Deprecated. Use show_enum_origins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[AccountsListRequestShowEnumOrigins]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[AccountsListRequestStatus]` — If provided, will only return accounts with this status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.accounts.<a href="src/merge/resources/accounting/resources/accounts/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates an `Account` object with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import AccountRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.accounts.create(
+    is_debug_mode=True,
+    run_async=True,
+    model=AccountRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**model:** `AccountRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.accounts.<a href="src/merge/resources/accounting/resources/accounts/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns an `Account` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting.resources.accounts import (
+    AccountsRetrieveRequestRemoteFields,
+    AccountsRetrieveRequestShowEnumOrigins,
+)
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.accounts.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+    remote_fields=AccountsRetrieveRequestRemoteFields.CLASSIFICATION,
+    show_enum_origins=AccountsRetrieveRequestShowEnumOrigins.CLASSIFICATION,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["company"], typing.Sequence[typing.Literal["company"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_fields:** `typing.Optional[AccountsRetrieveRequestRemoteFields]` — Deprecated. Use show_enum_origins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[AccountsRetrieveRequestShowEnumOrigins]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.accounts.<a href="src/merge/resources/accounting/resources/accounts/client.py">meta_post_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `Account` POSTs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.accounts.meta_post_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting Addresses
+<details><summary><code>client.accounting.addresses.<a href="src/merge/resources/accounting/resources/addresses/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns an `Address` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.addresses.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_fields:** `typing.Optional[typing.Literal["type"]]` — Deprecated. Use show_enum_origins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[typing.Literal["type"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting AsyncPassthrough
+<details><summary><code>client.accounting.async_passthrough.<a href="src/merge/resources/accounting/resources/async_passthrough/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Asynchronously pull data from an endpoint not currently supported by Merge.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import DataPassthroughRequest, MethodEnum
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.async_passthrough.create(
+    request=DataPassthroughRequest(
+        method=MethodEnum.GET,
+        path="/scooters",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `DataPassthroughRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.async_passthrough.<a href="src/merge/resources/accounting/resources/async_passthrough/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves data from earlier async-passthrough POST request
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.async_passthrough.retrieve(
+    async_passthrough_receipt_id="async_passthrough_receipt_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**async_passthrough_receipt_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting AsyncTasks
+<details><summary><code>client.accounting.async_tasks.<a href="src/merge/resources/accounting/resources/async_tasks/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns an `AsyncPostTask` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.async_tasks.retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting Attachments
+<details><summary><code>client.accounting.attachments.<a href="src/merge/resources/accounting/resources/attachments/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `AccountingAttachment` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.attachments.list(
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    page_size=1,
+    remote_id="remote_id",
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return accounting attachments for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.attachments.<a href="src/merge/resources/accounting/resources/attachments/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates an `AccountingAttachment` object with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import AccountingAttachmentRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.attachments.create(
+    is_debug_mode=True,
+    run_async=True,
+    model=AccountingAttachmentRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**model:** `AccountingAttachmentRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.attachments.<a href="src/merge/resources/accounting/resources/attachments/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns an `AccountingAttachment` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.attachments.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.attachments.<a href="src/merge/resources/accounting/resources/attachments/client.py">meta_post_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `AccountingAttachment` POSTs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.attachments.meta_post_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting AuditTrail
+<details><summary><code>client.accounting.audit_trail.<a href="src/merge/resources/accounting/resources/audit_trail/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Gets a list of audit trail events.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.audit_trail.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    end_date="end_date",
+    event_type="event_type",
+    page_size=1,
+    start_date="start_date",
+    user_email="user_email",
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` — If included, will only include audit trail events that occurred before this time
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**event_type:** `typing.Optional[str]` — If included, will only include events with the given event type. Possible values include: `CREATED_REMOTE_PRODUCTION_API_KEY`, `DELETED_REMOTE_PRODUCTION_API_KEY`, `CREATED_TEST_API_KEY`, `DELETED_TEST_API_KEY`, `REGENERATED_PRODUCTION_API_KEY`, `REGENERATED_WEBHOOK_SIGNATURE`, `INVITED_USER`, `TWO_FACTOR_AUTH_ENABLED`, `TWO_FACTOR_AUTH_DISABLED`, `DELETED_LINKED_ACCOUNT`, `DELETED_ALL_COMMON_MODELS_FOR_LINKED_ACCOUNT`, `CREATED_DESTINATION`, `DELETED_DESTINATION`, `CHANGED_DESTINATION`, `CHANGED_SCOPES`, `CHANGED_PERSONAL_INFORMATION`, `CHANGED_ORGANIZATION_SETTINGS`, `ENABLED_INTEGRATION`, `DISABLED_INTEGRATION`, `ENABLED_CATEGORY`, `DISABLED_CATEGORY`, `CHANGED_PASSWORD`, `RESET_PASSWORD`, `ENABLED_REDACT_UNMAPPED_DATA_FOR_ORGANIZATION`, `ENABLED_REDACT_UNMAPPED_DATA_FOR_LINKED_ACCOUNT`, `DISABLED_REDACT_UNMAPPED_DATA_FOR_ORGANIZATION`, `DISABLED_REDACT_UNMAPPED_DATA_FOR_LINKED_ACCOUNT`, `CREATED_INTEGRATION_WIDE_FIELD_MAPPING`, `CREATED_LINKED_ACCOUNT_FIELD_MAPPING`, `CHANGED_INTEGRATION_WIDE_FIELD_MAPPING`, `CHANGED_LINKED_ACCOUNT_FIELD_MAPPING`, `DELETED_INTEGRATION_WIDE_FIELD_MAPPING`, `DELETED_LINKED_ACCOUNT_FIELD_MAPPING`, `CREATED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE`, `CHANGED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE`, `DELETED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE`, `FORCED_LINKED_ACCOUNT_RESYNC`, `MUTED_ISSUE`, `GENERATED_MAGIC_LINK`, `ENABLED_MERGE_WEBHOOK`, `DISABLED_MERGE_WEBHOOK`, `MERGE_WEBHOOK_TARGET_CHANGED`, `END_USER_CREDENTIALS_ACCESSED`
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `typing.Optional[str]` — If included, will only include audit trail events that occurred after this time
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_email:** `typing.Optional[str]` — If provided, this will return events associated with the specified user email. Please note that the email address reflects the user's email at the time of the event, and may not be their current email.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting AvailableActions
+<details><summary><code>client.accounting.available_actions.<a href="src/merge/resources/accounting/resources/available_actions/client.py">retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of models and actions available for an account.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.available_actions.retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting BalanceSheets
+<details><summary><code>client.accounting.balance_sheets.<a href="src/merge/resources/accounting/resources/balance_sheets/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `BalanceSheet` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.balance_sheets.list(
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    page_size=1,
+    remote_id="remote_id",
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return balance sheets for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["company"], typing.Sequence[typing.Literal["company"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.balance_sheets.<a href="src/merge/resources/accounting/resources/balance_sheets/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a `BalanceSheet` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.balance_sheets.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["company"], typing.Sequence[typing.Literal["company"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting BankFeedAccounts
+<details><summary><code>client.accounting.bank_feed_accounts.<a href="src/merge/resources/accounting/resources/bank_feed_accounts/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `BankFeedAccount` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.bank_feed_accounts.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.bank_feed_accounts.<a href="src/merge/resources/accounting/resources/bank_feed_accounts/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a `BankFeedAccount` object with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import BankFeedAccountRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.bank_feed_accounts.create(
+    is_debug_mode=True,
+    run_async=True,
+    model=BankFeedAccountRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**model:** `BankFeedAccountRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.bank_feed_accounts.<a href="src/merge/resources/accounting/resources/bank_feed_accounts/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a `BankFeedAccount` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.bank_feed_accounts.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.bank_feed_accounts.<a href="src/merge/resources/accounting/resources/bank_feed_accounts/client.py">meta_post_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `BankFeedAccount` POSTs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.bank_feed_accounts.meta_post_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting BankFeedTransactions
+<details><summary><code>client.accounting.bank_feed_transactions.<a href="src/merge/resources/accounting/resources/bank_feed_transactions/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `BankFeedTransaction` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.bank_feed_transactions.list(
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    is_processed=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    page_size=1,
+    remote_id="remote_id",
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["bank_feed_account"],
+        typing.Sequence[typing.Literal["bank_feed_account"]],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_processed:** `typing.Optional[bool]` — If provided, will only return bank feed transactions with this is_processed value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.bank_feed_transactions.<a href="src/merge/resources/accounting/resources/bank_feed_transactions/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a `BankFeedTransaction` object with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import BankFeedTransactionRequestRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.bank_feed_transactions.create(
+    is_debug_mode=True,
+    run_async=True,
+    model=BankFeedTransactionRequestRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**model:** `BankFeedTransactionRequestRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.bank_feed_transactions.<a href="src/merge/resources/accounting/resources/bank_feed_transactions/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a `BankFeedTransaction` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.bank_feed_transactions.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["bank_feed_account"],
+        typing.Sequence[typing.Literal["bank_feed_account"]],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.bank_feed_transactions.<a href="src/merge/resources/accounting/resources/bank_feed_transactions/client.py">meta_post_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `BankFeedTransaction` POSTs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.bank_feed_transactions.meta_post_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting CashFlowStatements
+<details><summary><code>client.accounting.cash_flow_statements.<a href="src/merge/resources/accounting/resources/cash_flow_statements/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `CashFlowStatement` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.cash_flow_statements.list(
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    page_size=1,
+    remote_id="remote_id",
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return cash flow statements for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["company"], typing.Sequence[typing.Literal["company"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.cash_flow_statements.<a href="src/merge/resources/accounting/resources/cash_flow_statements/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a `CashFlowStatement` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.cash_flow_statements.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["company"], typing.Sequence[typing.Literal["company"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting CompanyInfo
+<details><summary><code>client.accounting.company_info.<a href="src/merge/resources/accounting/resources/company_info/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `CompanyInfo` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.company_info.list(
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    name="name",
+    page_size=1,
+    remote_id="remote_id",
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        CompanyInfoListRequestExpandItem,
+        typing.Sequence[CompanyInfoListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — If provided, will only return CompanyInfo objects with this name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.company_info.<a href="src/merge/resources/accounting/resources/company_info/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a `CompanyInfo` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.company_info.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        CompanyInfoRetrieveRequestExpandItem,
+        typing.Sequence[CompanyInfoRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting Contacts
+<details><summary><code>client.accounting.contacts.<a href="src/merge/resources/accounting/resources/contacts/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `Contact` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+from merge.resources.accounting.resources.contacts import (
+    ContactsListRequestStatus,
+)
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.contacts.list(
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    email_address="email_address",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_remote_fields=True,
+    include_shell_data=True,
+    is_customer="is_customer",
+    is_supplier="is_supplier",
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    name="name",
+    page_size=1,
+    remote_id="remote_id",
+    status=ContactsListRequestStatus.EMPTY,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return contacts for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**email_address:** `typing.Optional[str]` — If provided, will only return Contacts that match this email.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        ContactsListRequestExpandItem,
+        typing.Sequence[ContactsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_customer:** `typing.Optional[str]` — If provided, will only return Contacts that are denoted as customers.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_supplier:** `typing.Optional[str]` — If provided, will only return Contacts that are denoted as suppliers.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — If provided, will only return Contacts that match this name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[ContactsListRequestStatus]` — If provided, will only return Contacts that match this status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.contacts.<a href="src/merge/resources/accounting/resources/contacts/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a `Contact` object with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import ContactRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.contacts.create(
+    is_debug_mode=True,
+    run_async=True,
+    model=ContactRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**model:** `ContactRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.contacts.<a href="src/merge/resources/accounting/resources/contacts/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a `Contact` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.contacts.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_remote_fields=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        ContactsRetrieveRequestExpandItem,
+        typing.Sequence[ContactsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.contacts.<a href="src/merge/resources/accounting/resources/contacts/client.py">partial_update</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a `Contact` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import PatchedContactRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.contacts.partial_update(
+    id="id",
+    is_debug_mode=True,
+    run_async=True,
+    model=PatchedContactRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**model:** `PatchedContactRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.contacts.<a href="src/merge/resources/accounting/resources/contacts/client.py">meta_patch_retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `Contact` PATCHs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.contacts.meta_patch_retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.contacts.<a href="src/merge/resources/accounting/resources/contacts/client.py">meta_post_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `Contact` POSTs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.contacts.meta_post_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.contacts.<a href="src/merge/resources/accounting/resources/contacts/client.py">remote_field_classes_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `RemoteFieldClass` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.contacts.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    is_common_model_field=True,
+    is_custom=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting CreditNotes
+<details><summary><code>client.accounting.credit_notes.<a href="src/merge/resources/accounting/resources/credit_notes/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `CreditNote` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+from merge.resources.accounting.resources.credit_notes import (
+    CreditNotesListRequestRemoteFields,
+    CreditNotesListRequestShowEnumOrigins,
+)
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.credit_notes.list(
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    page_size=1,
+    remote_fields=CreditNotesListRequestRemoteFields.STATUS,
+    remote_id="remote_id",
+    show_enum_origins=CreditNotesListRequestShowEnumOrigins.STATUS,
+    transaction_date_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    transaction_date_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return credit notes for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        CreditNotesListRequestExpandItem,
+        typing.Sequence[CreditNotesListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_fields:** `typing.Optional[CreditNotesListRequestRemoteFields]` — Deprecated. Use show_enum_origins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[CreditNotesListRequestShowEnumOrigins]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transaction_date_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transaction_date_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.credit_notes.<a href="src/merge/resources/accounting/resources/credit_notes/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a `CreditNote` object with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import CreditNoteRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.credit_notes.create(
+    is_debug_mode=True,
+    run_async=True,
+    model=CreditNoteRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**model:** `CreditNoteRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.credit_notes.<a href="src/merge/resources/accounting/resources/credit_notes/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a `CreditNote` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting.resources.credit_notes import (
+    CreditNotesRetrieveRequestRemoteFields,
+    CreditNotesRetrieveRequestShowEnumOrigins,
+)
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.credit_notes.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+    remote_fields=CreditNotesRetrieveRequestRemoteFields.STATUS,
+    show_enum_origins=CreditNotesRetrieveRequestShowEnumOrigins.STATUS,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        CreditNotesRetrieveRequestExpandItem,
+        typing.Sequence[CreditNotesRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_fields:** `typing.Optional[CreditNotesRetrieveRequestRemoteFields]` — Deprecated. Use show_enum_origins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[CreditNotesRetrieveRequestShowEnumOrigins]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.credit_notes.<a href="src/merge/resources/accounting/resources/credit_notes/client.py">partial_update</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a `CreditNote` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import CreditNoteRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.credit_notes.partial_update(
+    id="id",
+    is_debug_mode=True,
+    run_async=True,
+    model=CreditNoteRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**model:** `CreditNoteRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.credit_notes.<a href="src/merge/resources/accounting/resources/credit_notes/client.py">application_create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a new CreditNoteApplyLine to apply a credit note to an invoice
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.credit_notes.application_create(
+    id="id",
+    is_debug_mode=True,
+    run_async=True,
+    applied_date=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    applied_amount="applied_amount",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**applied_date:** `dt.datetime` — Date that the credit note is applied to the invoice.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**applied_amount:** `str` — The amount of credit applied to the invoice.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**invoice:** `typing.Optional[str]` — The invoice to apply the credit note to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.credit_notes.<a href="src/merge/resources/accounting/resources/credit_notes/client.py">meta_patch_retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `CreditNote` PATCHs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.credit_notes.meta_patch_retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.credit_notes.<a href="src/merge/resources/accounting/resources/credit_notes/client.py">meta_post_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `CreditNote` POSTs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.credit_notes.meta_post_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting Scopes
+<details><summary><code>client.accounting.scopes.<a href="src/merge/resources/accounting/resources/scopes/client.py">default_scopes_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the default permissions for Merge Common Models and fields across all Linked Accounts of a given category. [Learn more](https://help.merge.dev/en/articles/5950052-common-model-and-field-scopes).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.scopes.default_scopes_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.scopes.<a href="src/merge/resources/accounting/resources/scopes/client.py">linked_account_scopes_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get all available permissions for Merge Common Models and fields for a single Linked Account. [Learn more](https://help.merge.dev/en/articles/5950052-common-model-and-field-scopes).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.scopes.linked_account_scopes_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.scopes.<a href="src/merge/resources/accounting/resources/scopes/client.py">linked_account_scopes_create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update permissions for any Common Model or field for a single Linked Account. Any Scopes not set in this POST request will inherit the default Scopes. [Learn more](https://help.merge.dev/en/articles/5950052-common-model-and-field-scopes)
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import (
+    FieldPermissionDeserializerRequest,
+    IndividualCommonModelScopeDeserializerRequest,
+    ModelPermissionDeserializerRequest,
+)
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.scopes.linked_account_scopes_create(
+    common_models=[
+        IndividualCommonModelScopeDeserializerRequest(
+            model_name="Employee",
+            model_permissions={
+                "READ": ModelPermissionDeserializerRequest(
+                    is_enabled=True,
+                ),
+                "WRITE": ModelPermissionDeserializerRequest(
+                    is_enabled=False,
+                ),
+            },
+            field_permissions=FieldPermissionDeserializerRequest(
+                enabled_fields=["avatar", "home_location"],
+                disabled_fields=["work_location"],
+            ),
+        ),
+        IndividualCommonModelScopeDeserializerRequest(
+            model_name="Benefit",
+            model_permissions={
+                "WRITE": ModelPermissionDeserializerRequest(
+                    is_enabled=False,
+                )
+            },
+        ),
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**common_models:** `typing.Sequence[IndividualCommonModelScopeDeserializerRequest]` — The common models you want to update the scopes for
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting DeleteAccount
+<details><summary><code>client.accounting.delete_account.<a href="src/merge/resources/accounting/resources/delete_account/client.py">delete</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a linked account.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.delete_account.delete()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting Employees
+<details><summary><code>client.accounting.employees.<a href="src/merge/resources/accounting/resources/employees/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `Employee` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.employees.list(
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    page_size=1,
+    remote_id="remote_id",
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return employees for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["company"], typing.Sequence[typing.Literal["company"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.employees.<a href="src/merge/resources/accounting/resources/employees/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns an `Employee` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.employees.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["company"], typing.Sequence[typing.Literal["company"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting ExpenseReports
+<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `ExpenseReport` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.expense_reports.list(
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_remote_fields=True,
+    include_shell_data=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    page_size=1,
+    remote_id="remote_id",
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return expense reports for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        ExpenseReportsListRequestExpandItem,
+        typing.Sequence[ExpenseReportsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates an `ExpenseReport` object with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import ExpenseReportRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.expense_reports.create(
+    is_debug_mode=True,
+    run_async=True,
+    model=ExpenseReportRequest(
+        tracking_categories=[
+            "a1b2c3d4-e5f6-4a5b-9c3d-2e1f0a9b8c7d",
+            "d4c3b2a1-9e8f-7g6h-5i4j-3k2l1m0n9o8p",
+        ],
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**model:** `ExpenseReportRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">lines_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `ExpenseReportLine` objects that point to a `ExpenseReport` with the given id.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.expense_reports.lines_list(
+    expense_report_id="expense_report_id",
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_remote_fields=True,
+    include_shell_data=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**expense_report_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        ExpenseReportsLinesListRequestExpandItem,
+        typing.Sequence[ExpenseReportsLinesListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns an `ExpenseReport` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.expense_reports.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_remote_fields=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        ExpenseReportsRetrieveRequestExpandItem,
+        typing.Sequence[ExpenseReportsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">lines_remote_field_classes_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `RemoteFieldClass` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.expense_reports.lines_remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    is_common_model_field=True,
+    is_custom=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">meta_post_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `ExpenseReport` POSTs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.expense_reports.meta_post_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">remote_field_classes_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `RemoteFieldClass` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.expense_reports.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    is_common_model_field=True,
+    is_custom=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting Expenses
+<details><summary><code>client.accounting.expenses.<a href="src/merge/resources/accounting/resources/expenses/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `Expense` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.expenses.list(
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_remote_fields=True,
+    include_shell_data=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    page_size=1,
+    remote_id="remote_id",
+    transaction_date_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    transaction_date_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return expenses for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        ExpensesListRequestExpandItem,
+        typing.Sequence[ExpensesListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transaction_date_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transaction_date_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.expenses.<a href="src/merge/resources/accounting/resources/expenses/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates an `Expense` object with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import ExpenseRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.expenses.create(
+    is_debug_mode=True,
+    run_async=True,
+    model=ExpenseRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**model:** `ExpenseRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.expenses.<a href="src/merge/resources/accounting/resources/expenses/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns an `Expense` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.expenses.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_remote_fields=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        ExpensesRetrieveRequestExpandItem,
+        typing.Sequence[ExpensesRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.expenses.<a href="src/merge/resources/accounting/resources/expenses/client.py">bulk_create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates multiple `Expense` objects with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import ExpenseBatchItemRequest, ExpenseRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.expenses.bulk_create(
+    batch_items=[
+        ExpenseBatchItemRequest(
+            item_id="item_id",
+            payload=ExpenseRequest(),
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batch_items:** `typing.Sequence[ExpenseBatchItemRequest]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.expenses.<a href="src/merge/resources/accounting/resources/expenses/client.py">bulk_retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the status and results of an `Expense` bulk create batch.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.expenses.bulk_retrieve(
+    batch_id="batch_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batch_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.expenses.<a href="src/merge/resources/accounting/resources/expenses/client.py">lines_remote_field_classes_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `RemoteFieldClass` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.expenses.lines_remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    is_common_model_field=True,
+    is_custom=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.expenses.<a href="src/merge/resources/accounting/resources/expenses/client.py">meta_post_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `Expense` POSTs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.expenses.meta_post_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.expenses.<a href="src/merge/resources/accounting/resources/expenses/client.py">remote_field_classes_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `RemoteFieldClass` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.expenses.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    is_common_model_field=True,
+    is_custom=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting FieldMapping
+<details><summary><code>client.accounting.field_mapping.<a href="src/merge/resources/accounting/resources/field_mapping/client.py">field_mappings_retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get all Field Mappings for this Linked Account. Field Mappings are mappings between third-party Remote Fields and user defined Merge fields. [Learn more](https://docs.merge.dev/supplemental-data/field-mappings/overview/).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.field_mapping.field_mappings_retrieve(
+    exclude_remote_field_metadata=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**exclude_remote_field_metadata:** `typing.Optional[bool]` — If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.field_mapping.<a href="src/merge/resources/accounting/resources/field_mapping/client.py">field_mappings_create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create new Field Mappings that will be available after the next scheduled sync. This will cause the next sync for this Linked Account to sync **ALL** data from start.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.field_mapping.field_mappings_create(
+    exclude_remote_field_metadata=True,
+    remote_data_iteration_count=1,
+    target_field_name="example_target_field_name",
+    target_field_description="this is a example description of the target field",
+    remote_field_traversal_path=["example_remote_field"],
+    remote_method="GET",
+    remote_url_path="/example-url-path",
+    common_model_name="ExampleCommonModel",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**target_field_name:** `str` — The name of the target field you want this remote field to map to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**target_field_description:** `str` — The description of the target field you want this remote field to map to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_field_traversal_path:** `typing.Sequence[typing.Optional[typing.Any]]` — The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_method:** `str` — The method of the remote endpoint where the remote field is coming from.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_url_path:** `str` — The path of the remote endpoint where the remote field is coming from.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**common_model_name:** `str` — The name of the Common Model that the remote field corresponds to in a given category.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**exclude_remote_field_metadata:** `typing.Optional[bool]` — If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_data_iteration_count:** `typing.Optional[int]` — Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**jmes_path:** `typing.Optional[str]` — DEPRECATED: Use 'advanced_mapping_expression' instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**advanced_mapping_expression:** `typing.Optional[str]` — A JSONata expression used to transform the remote field data.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.field_mapping.<a href="src/merge/resources/accounting/resources/field_mapping/client.py">field_mappings_destroy</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes Field Mappings for a Linked Account. All data related to this Field Mapping will be deleted and these changes will be reflected after the next scheduled sync. This will cause the next sync for this Linked Account to sync **ALL** data from start.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.field_mapping.field_mappings_destroy(
+    field_mapping_id="field_mapping_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**field_mapping_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.field_mapping.<a href="src/merge/resources/accounting/resources/field_mapping/client.py">field_mappings_partial_update</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create or update existing Field Mappings for a Linked Account. Changes will be reflected after the next scheduled sync. This will cause the next sync for this Linked Account to sync **ALL** data from start.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.field_mapping.field_mappings_partial_update(
+    field_mapping_id="field_mapping_id",
+    remote_data_iteration_count=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**field_mapping_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_data_iteration_count:** `typing.Optional[int]` — Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_field_traversal_path:** `typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]` — The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_method:** `typing.Optional[str]` — The method of the remote endpoint where the remote field is coming from.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_url_path:** `typing.Optional[str]` — The path of the remote endpoint where the remote field is coming from.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**jmes_path:** `typing.Optional[str]` — DEPRECATED: Use 'advanced_mapping_expression' instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**advanced_mapping_expression:** `typing.Optional[str]` — A JSONata expression used to transform the remote field data.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.field_mapping.<a href="src/merge/resources/accounting/resources/field_mapping/client.py">remote_fields_retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get all remote fields for a Linked Account. Remote fields are third-party fields that are accessible after initial sync if remote_data is enabled. You can use remote fields to override existing Merge fields or map a new Merge field. [Learn more](https://docs.merge.dev/supplemental-data/field-mappings/overview/).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.field_mapping.remote_fields_retrieve(
+    common_models="common_models",
+    include_example_values="include_example_values",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**common_models:** `typing.Optional[str]` — A comma seperated list of Common Model names. If included, will only return Remote Fields for those Common Models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_example_values:** `typing.Optional[str]` — If true, will include example values, where available, for remote fields in the 3rd party platform. These examples come from active data from your customers.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.field_mapping.<a href="src/merge/resources/accounting/resources/field_mapping/client.py">target_fields_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get all organization-wide Target Fields, this will not include any Linked Account specific Target Fields. Organization-wide Target Fields are additional fields appended to the Merge Common Model for all Linked Accounts in a category. [Learn more](https://docs.merge.dev/supplemental-data/field-mappings/target-fields/).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.field_mapping.target_fields_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting GeneralLedgerTransactions
+<details><summary><code>client.accounting.general_ledger_transactions.<a href="src/merge/resources/accounting/resources/general_ledger_transactions/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `GeneralLedgerTransaction` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.general_ledger_transactions.list(
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    page_size=1,
+    posted_date_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    posted_date_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    remote_id="remote_id",
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return general ledger transactions for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        GeneralLedgerTransactionsListRequestExpandItem,
+        typing.Sequence[GeneralLedgerTransactionsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**posted_date_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects posted after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**posted_date_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects posted before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.general_ledger_transactions.<a href="src/merge/resources/accounting/resources/general_ledger_transactions/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a `GeneralLedgerTransaction` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.general_ledger_transactions.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        GeneralLedgerTransactionsRetrieveRequestExpandItem,
+        typing.Sequence[GeneralLedgerTransactionsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting GenerateKey
+<details><summary><code>client.accounting.generate_key.<a href="src/merge/resources/accounting/resources/generate_key/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a remote key.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.generate_key.create(
+    name="Remote Deployment Key 1",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `str` — The name of the remote key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting IncomeStatements
+<details><summary><code>client.accounting.income_statements.<a href="src/merge/resources/accounting/resources/income_statements/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `IncomeStatement` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.income_statements.list(
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    page_size=1,
+    remote_id="remote_id",
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return income statements for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["company"], typing.Sequence[typing.Literal["company"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.income_statements.<a href="src/merge/resources/accounting/resources/income_statements/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns an `IncomeStatement` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.income_statements.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["company"], typing.Sequence[typing.Literal["company"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting Invoices
+<details><summary><code>client.accounting.invoices.<a href="src/merge/resources/accounting/resources/invoices/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `Invoice` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+from merge.resources.accounting.resources.invoices import (
+    InvoicesListRequestStatus,
+    InvoicesListRequestType,
+)
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.invoices.list(
+    company_id="company_id",
+    contact_id="contact_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_remote_fields=True,
+    include_shell_data=True,
+    issue_date_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    issue_date_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    number="number",
+    page_size=1,
+    remote_id="remote_id",
+    status=InvoicesListRequestStatus.DRAFT,
+    type=InvoicesListRequestType.ACCOUNTS_PAYABLE,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return invoices for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**contact_id:** `typing.Optional[str]` — If provided, will only return invoices for this contact.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        InvoicesListRequestExpandItem,
+        typing.Sequence[InvoicesListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**issue_date_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**issue_date_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**number:** `typing.Optional[str]` — If provided, will only return Invoices with this number.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_fields:** `typing.Optional[typing.Literal["type"]]` — Deprecated. Use show_enum_origins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[typing.Literal["type"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[InvoicesListRequestStatus]` 
+
+If provided, will only return Invoices with this status.
+
+* `PAID` - PAID
+* `DRAFT` - DRAFT
+* `SUBMITTED` - SUBMITTED
+* `PARTIALLY_PAID` - PARTIALLY_PAID
+* `OPEN` - OPEN
+* `VOID` - VOID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**type:** `typing.Optional[InvoicesListRequestType]` 
+
+If provided, will only return Invoices with this type.
+
+* `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
+* `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.invoices.<a href="src/merge/resources/accounting/resources/invoices/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates an `Invoice` object with the given values.
+            Including a `PurchaseOrder` id in the `purchase_orders` property will generate an Accounts Payable Invoice from the specified Purchase Order(s).
+            
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import InvoiceRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.invoices.create(
+    is_debug_mode=True,
+    run_async=True,
+    model=InvoiceRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**model:** `InvoiceRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.invoices.<a href="src/merge/resources/accounting/resources/invoices/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns an `Invoice` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.invoices.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_remote_fields=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        InvoicesRetrieveRequestExpandItem,
+        typing.Sequence[InvoicesRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_fields:** `typing.Optional[typing.Literal["type"]]` — Deprecated. Use show_enum_origins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[typing.Literal["type"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.invoices.<a href="src/merge/resources/accounting/resources/invoices/client.py">partial_update</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates an `Invoice` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import InvoiceRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.invoices.partial_update(
+    id="id",
+    is_debug_mode=True,
+    run_async=True,
+    model=InvoiceRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**model:** `InvoiceRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.invoices.<a href="src/merge/resources/accounting/resources/invoices/client.py">bulk_create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates multiple `Invoice` objects with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import InvoiceBatchItemRequest, InvoiceRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.invoices.bulk_create(
+    batch_items=[
+        InvoiceBatchItemRequest(
+            item_id="item_id",
+            payload=InvoiceRequest(),
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batch_items:** `typing.Sequence[InvoiceBatchItemRequest]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.invoices.<a href="src/merge/resources/accounting/resources/invoices/client.py">bulk_retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the status and results of an `Invoice` bulk create batch.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.invoices.bulk_retrieve(
+    batch_id="batch_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batch_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.invoices.<a href="src/merge/resources/accounting/resources/invoices/client.py">line_items_remote_field_classes_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `RemoteFieldClass` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.invoices.line_items_remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    is_common_model_field=True,
+    is_custom=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.invoices.<a href="src/merge/resources/accounting/resources/invoices/client.py">meta_patch_retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `Invoice` PATCHs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.invoices.meta_patch_retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.invoices.<a href="src/merge/resources/accounting/resources/invoices/client.py">meta_post_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `Invoice` POSTs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.invoices.meta_post_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.invoices.<a href="src/merge/resources/accounting/resources/invoices/client.py">remote_field_classes_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `RemoteFieldClass` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.invoices.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    is_common_model_field=True,
+    is_custom=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting Issues
+<details><summary><code>client.accounting.issues.<a href="src/merge/resources/accounting/resources/issues/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Gets all issues for Organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+from merge.resources.accounting.resources.issues import IssuesListRequestStatus
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.issues.list(
+    account_token="account_token",
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    end_date="end_date",
+    end_user_organization_name="end_user_organization_name",
+    first_incident_time_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    first_incident_time_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    include_muted="include_muted",
+    integration_name="integration_name",
+    last_incident_time_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    last_incident_time_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    linked_account_id="linked_account_id",
+    page_size=1,
+    start_date="start_date",
+    status=IssuesListRequestStatus.ONGOING,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_token:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[str]` — If included, will only include issues whose most recent action occurred before this time
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_user_organization_name:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first_incident_time_after:** `typing.Optional[dt.datetime]` — If provided, will only return issues whose first incident time was after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first_incident_time_before:** `typing.Optional[dt.datetime]` — If provided, will only return issues whose first incident time was before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_muted:** `typing.Optional[str]` — If true, will include muted issues
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**integration_name:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last_incident_time_after:** `typing.Optional[dt.datetime]` — If provided, will only return issues whose last incident time was after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last_incident_time_before:** `typing.Optional[dt.datetime]` — If provided, will only return issues whose last incident time was before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**linked_account_id:** `typing.Optional[str]` — If provided, will only include issues pertaining to the linked account passed in.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `typing.Optional[str]` — If included, will only include issues whose most recent action occurred after this time
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[IssuesListRequestStatus]` 
+
+Status of the issue. Options: ('ONGOING', 'RESOLVED')
+
+* `ONGOING` - ONGOING
+* `RESOLVED` - RESOLVED
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.issues.<a href="src/merge/resources/accounting/resources/issues/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a specific issue.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.issues.retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting ItemFulfillments
+<details><summary><code>client.accounting.item_fulfillments.<a href="src/merge/resources/accounting/resources/item_fulfillments/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `ItemFulfillment` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.item_fulfillments.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_remote_fields=True,
+    include_shell_data=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        ItemFulfillmentsListRequestExpandItem,
+        typing.Sequence[ItemFulfillmentsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.item_fulfillments.<a href="src/merge/resources/accounting/resources/item_fulfillments/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates an `ItemFulfillment` object with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import ItemFulfillmentRequestRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.item_fulfillments.create(
+    is_debug_mode=True,
+    run_async=True,
+    model=ItemFulfillmentRequestRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**model:** `ItemFulfillmentRequestRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.item_fulfillments.<a href="src/merge/resources/accounting/resources/item_fulfillments/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns an `ItemFulfillment` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.item_fulfillments.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_remote_fields=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        ItemFulfillmentsRetrieveRequestExpandItem,
+        typing.Sequence[ItemFulfillmentsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.item_fulfillments.<a href="src/merge/resources/accounting/resources/item_fulfillments/client.py">bulk_create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates multiple `ItemFulfillment` objects with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import (
+    ItemFulfillmentBatchItemRequest,
+    ItemFulfillmentRequestRequest,
+)
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.item_fulfillments.bulk_create(
+    batch_items=[
+        ItemFulfillmentBatchItemRequest(
+            item_id="item_id",
+            payload=ItemFulfillmentRequestRequest(),
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batch_items:** `typing.Sequence[ItemFulfillmentBatchItemRequest]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.item_fulfillments.<a href="src/merge/resources/accounting/resources/item_fulfillments/client.py">bulk_retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the status and results of an `ItemFulfillment` bulk create batch.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.item_fulfillments.bulk_retrieve(
+    batch_id="batch_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batch_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.item_fulfillments.<a href="src/merge/resources/accounting/resources/item_fulfillments/client.py">lines_remote_field_classes_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `RemoteFieldClass` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.item_fulfillments.lines_remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    is_common_model_field=True,
+    is_custom=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.item_fulfillments.<a href="src/merge/resources/accounting/resources/item_fulfillments/client.py">meta_post_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `ItemFulfillment` POSTs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.item_fulfillments.meta_post_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.item_fulfillments.<a href="src/merge/resources/accounting/resources/item_fulfillments/client.py">remote_field_classes_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `RemoteFieldClass` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.item_fulfillments.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    is_common_model_field=True,
+    is_custom=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting Items
+<details><summary><code>client.accounting.items.<a href="src/merge/resources/accounting/resources/items/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `Item` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.items.list(
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    name="name",
+    page_size=1,
+    remote_id="remote_id",
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return items for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        ItemsListRequestExpandItem, typing.Sequence[ItemsListRequestExpandItem]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — If provided, will only return items with this name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.items.<a href="src/merge/resources/accounting/resources/items/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates an `Item` object with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import ItemRequestRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.items.create(
+    is_debug_mode=True,
+    run_async=True,
+    model=ItemRequestRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**model:** `ItemRequestRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.items.<a href="src/merge/resources/accounting/resources/items/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns an `Item` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.items.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        ItemsRetrieveRequestExpandItem,
+        typing.Sequence[ItemsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.items.<a href="src/merge/resources/accounting/resources/items/client.py">partial_update</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates an `Item` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import PatchedItemRequestRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.items.partial_update(
+    id="id",
+    is_debug_mode=True,
+    run_async=True,
+    model=PatchedItemRequestRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**model:** `PatchedItemRequestRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.items.<a href="src/merge/resources/accounting/resources/items/client.py">meta_patch_retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `Item` PATCHs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.items.meta_patch_retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.items.<a href="src/merge/resources/accounting/resources/items/client.py">meta_post_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `Item` POSTs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.items.meta_post_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting JournalEntries
+<details><summary><code>client.accounting.journal_entries.<a href="src/merge/resources/accounting/resources/journal_entries/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `JournalEntry` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.journal_entries.list(
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_remote_fields=True,
+    include_shell_data=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    page_size=1,
+    remote_id="remote_id",
+    transaction_date_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    transaction_date_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return journal entries for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        JournalEntriesListRequestExpandItem,
+        typing.Sequence[JournalEntriesListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transaction_date_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transaction_date_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.journal_entries.<a href="src/merge/resources/accounting/resources/journal_entries/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a `JournalEntry` object with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import JournalEntryRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.journal_entries.create(
+    is_debug_mode=True,
+    run_async=True,
+    model=JournalEntryRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**model:** `JournalEntryRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.journal_entries.<a href="src/merge/resources/accounting/resources/journal_entries/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a `JournalEntry` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.journal_entries.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_remote_fields=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        JournalEntriesRetrieveRequestExpandItem,
+        typing.Sequence[JournalEntriesRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.journal_entries.<a href="src/merge/resources/accounting/resources/journal_entries/client.py">lines_remote_field_classes_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `RemoteFieldClass` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.journal_entries.lines_remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    is_common_model_field=True,
+    is_custom=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.journal_entries.<a href="src/merge/resources/accounting/resources/journal_entries/client.py">meta_post_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `JournalEntry` POSTs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.journal_entries.meta_post_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.journal_entries.<a href="src/merge/resources/accounting/resources/journal_entries/client.py">remote_field_classes_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `RemoteFieldClass` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.journal_entries.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    is_common_model_field=True,
+    is_custom=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting LinkToken
+<details><summary><code>client.accounting.link_token.<a href="src/merge/resources/accounting/resources/link_token/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a link token to be used when linking a new end user. The link token expires after single use.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import CategoriesEnum
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.link_token.create(
+    end_user_email_address="example@gmail.com",
+    end_user_organization_name="Test Organization",
+    end_user_origin_id="12345",
+    categories=[CategoriesEnum.HRIS, CategoriesEnum.ATS],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**end_user_email_address:** `str` — Your end user's email address. This is purely for identification purposes - setting this value will not cause any emails to be sent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_user_organization_name:** `str` — Your end user's organization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_user_origin_id:** `str` — This unique identifier typically represents the ID for your end user in your product's database. This value must be distinct from other Linked Accounts' unique identifiers.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**categories:** `typing.Sequence[CategoriesEnum]` — The integration categories to show in Merge Link.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**integration:** `typing.Optional[str]` — The slug of a specific pre-selected integration for this linking flow token. For examples of slugs, see https://docs.merge.dev/guides/merge-link/single-integration/.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**link_expiry_mins:** `typing.Optional[int]` — An integer number of minutes between [30, 720 or 10080 if for a Magic Link URL] for how long this token is valid. Defaults to 30.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**should_create_magic_link_url:** `typing.Optional[bool]` — Whether to generate a Magic Link URL. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/integrations-fast-say-hello-to-magic-link.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hide_admin_magic_link:** `typing.Optional[bool]` — Whether to generate a Magic Link URL on the Admin Needed screen during the linking flow. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/integrations-fast-say-hello-to-magic-link.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**common_models:** `typing.Optional[typing.Sequence[CommonModelScopesBodyRequest]]` — An array of objects to specify the models and fields that will be disabled for a given Linked Account. Each object uses model_id, enabled_actions, and disabled_fields to specify the model, method, and fields that are scoped for a given Linked Account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**category_common_model_scopes:** `typing.Optional[
+    typing.Dict[
+        str,
+        typing.Optional[
+            typing.Sequence[IndividualCommonModelScopeDeserializerRequest]
+        ],
+    ]
+]` — When creating a Link Token, you can set permissions for Common Models that will apply to the account that is going to be linked. Any model or field not specified in link token payload will default to existing settings.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**language:** `typing.Optional[EndUserDetailsRequestLanguage]` 
+
+The following subset of IETF language tags can be used to configure localization.
+
+* `en` - en
+* `de` - de
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**are_syncs_disabled:** `typing.Optional[bool]` — The boolean that indicates whether initial, periodic, and force syncs will be disabled.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**integration_specific_config:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — A JSON object containing integration-specific configuration options.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**completed_account_initial_screen:** `typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen]` 
+
+When creating a Link token, you can specifiy the initial screen of Linking Flow for a completed Linked Account.
+
+* `SELECTIVE_SYNC` - SELECTIVE_SYNC
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**linked_destination_id:** `typing.Optional[str]` — The UUID of the linked destination that you want this Linked Account to be tied to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**credential_id:** `typing.Optional[str]` — The id of the credential that you want this Linked Account to be tied to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting LinkedAccounts
+<details><summary><code>client.accounting.linked_accounts.<a href="src/merge/resources/accounting/resources/linked_accounts/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List linked accounts for your organization.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting.resources.linked_accounts import (
+    LinkedAccountsListRequestCategory,
+)
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.linked_accounts.list(
+    category=LinkedAccountsListRequestCategory.ACCOUNTING,
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    end_user_email_address="end_user_email_address",
+    end_user_organization_name="end_user_organization_name",
+    end_user_origin_id="end_user_origin_id",
+    end_user_origin_ids="end_user_origin_ids",
+    id="id",
+    ids="ids",
+    include_duplicates=True,
+    integration_name="integration_name",
+    is_test_account="is_test_account",
+    page_size=1,
+    status="status",
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**category:** `typing.Optional[LinkedAccountsListRequestCategory]` 
+
+Options: `accounting`, `ats`, `crm`, `filestorage`, `hris`, `knowledgebase`, `mktg`, `ticketing`
+
+* `hris` - hris
+* `ats` - ats
+* `accounting` - accounting
+* `ticketing` - ticketing
+* `crm` - crm
+* `mktg` - mktg
+* `filestorage` - filestorage
+* `datawarehouse` - datawarehouse
+* `knowledgebase` - knowledgebase
+* `communication` - communication
+* `chat` - chat
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_user_email_address:** `typing.Optional[str]` — If provided, will only return linked accounts associated with the given email address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_user_organization_name:** `typing.Optional[str]` — If provided, will only return linked accounts associated with the given organization name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_user_origin_id:** `typing.Optional[str]` — If provided, will only return linked accounts associated with the given origin ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_user_origin_ids:** `typing.Optional[str]` — Comma-separated list of EndUser origin IDs, making it possible to specify multiple EndUsers at once.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ids:** `typing.Optional[str]` — Comma-separated list of LinkedAccount IDs, making it possible to specify multiple LinkedAccounts at once.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_duplicates:** `typing.Optional[bool]` — If `true`, will include complete production duplicates of the account specified by the `id` query parameter in the response. `id` must be for a complete production linked account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**integration_name:** `typing.Optional[str]` — If provided, will only return linked accounts associated with the given integration name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_test_account:** `typing.Optional[str]` — If included, will only include test linked accounts. If not included, will only include non-test linked accounts.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[str]` — Filter by status. Options: `COMPLETE`, `IDLE`, `INCOMPLETE`, `RELINK_NEEDED`
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting Passthrough
+<details><summary><code>client.accounting.passthrough.<a href="src/merge/resources/accounting/resources/passthrough/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Pull data from an endpoint not currently supported by Merge.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import DataPassthroughRequest, MethodEnum
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.passthrough.create(
+    request=DataPassthroughRequest(
+        method=MethodEnum.GET,
+        path="/scooters",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `DataPassthroughRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting PaymentMethods
+<details><summary><code>client.accounting.payment_methods.<a href="src/merge/resources/accounting/resources/payment_methods/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `PaymentMethod` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.payment_methods.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.payment_methods.<a href="src/merge/resources/accounting/resources/payment_methods/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a `PaymentMethod` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.payment_methods.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting PaymentTerms
+<details><summary><code>client.accounting.payment_terms.<a href="src/merge/resources/accounting/resources/payment_terms/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `PaymentTerm` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.payment_terms.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["company"], typing.Sequence[typing.Literal["company"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.payment_terms.<a href="src/merge/resources/accounting/resources/payment_terms/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a `PaymentTerm` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.payment_terms.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["company"], typing.Sequence[typing.Literal["company"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting Payments
+<details><summary><code>client.accounting.payments.<a href="src/merge/resources/accounting/resources/payments/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `Payment` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.payments.list(
+    account_id="account_id",
+    company_id="company_id",
+    contact_id="contact_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_remote_fields=True,
+    include_shell_data=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    page_size=1,
+    remote_id="remote_id",
+    transaction_date_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    transaction_date_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — If provided, will only return payments for this account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return payments for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**contact_id:** `typing.Optional[str]` — If provided, will only return payments for this contact.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        PaymentsListRequestExpandItem,
+        typing.Sequence[PaymentsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transaction_date_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transaction_date_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.payments.<a href="src/merge/resources/accounting/resources/payments/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a `Payment` object with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import PaymentRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.payments.create(
+    is_debug_mode=True,
+    run_async=True,
+    model=PaymentRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**model:** `PaymentRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.payments.<a href="src/merge/resources/accounting/resources/payments/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a `Payment` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.payments.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_remote_fields=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        PaymentsRetrieveRequestExpandItem,
+        typing.Sequence[PaymentsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.payments.<a href="src/merge/resources/accounting/resources/payments/client.py">partial_update</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a `Payment` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import PatchedPaymentRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.payments.partial_update(
+    id="id",
+    is_debug_mode=True,
+    run_async=True,
+    model=PatchedPaymentRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**model:** `PatchedPaymentRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.payments.<a href="src/merge/resources/accounting/resources/payments/client.py">line_items_remote_field_classes_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `RemoteFieldClass` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.payments.line_items_remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    is_common_model_field=True,
+    is_custom=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.payments.<a href="src/merge/resources/accounting/resources/payments/client.py">meta_patch_retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `Payment` PATCHs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.payments.meta_patch_retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.payments.<a href="src/merge/resources/accounting/resources/payments/client.py">meta_post_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `Payment` POSTs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.payments.meta_post_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.payments.<a href="src/merge/resources/accounting/resources/payments/client.py">remote_field_classes_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `RemoteFieldClass` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.payments.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    is_common_model_field=True,
+    is_custom=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting PhoneNumbers
+<details><summary><code>client.accounting.phone_numbers.<a href="src/merge/resources/accounting/resources/phone_numbers/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns an `AccountingPhoneNumber` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.phone_numbers.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting Projects
+<details><summary><code>client.accounting.projects.<a href="src/merge/resources/accounting/resources/projects/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `Project` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.projects.list(
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    is_active="is_active",
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    page_size=1,
+    remote_id="remote_id",
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return projects for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        ProjectsListRequestExpandItem,
+        typing.Sequence[ProjectsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_active:** `typing.Optional[str]` — If provided, will only return projects with this value for is_active.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.projects.<a href="src/merge/resources/accounting/resources/projects/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a `Project` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.projects.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        ProjectsRetrieveRequestExpandItem,
+        typing.Sequence[ProjectsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting PurchaseOrders
+<details><summary><code>client.accounting.purchase_orders.<a href="src/merge/resources/accounting/resources/purchase_orders/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `PurchaseOrder` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.purchase_orders.list(
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_remote_fields=True,
+    include_shell_data=True,
+    issue_date_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    issue_date_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    page_size=1,
+    remote_id="remote_id",
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return purchase orders for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        PurchaseOrdersListRequestExpandItem,
+        typing.Sequence[PurchaseOrdersListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**issue_date_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**issue_date_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.purchase_orders.<a href="src/merge/resources/accounting/resources/purchase_orders/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a `PurchaseOrder` object with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import PurchaseOrderRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.purchase_orders.create(
+    is_debug_mode=True,
+    run_async=True,
+    model=PurchaseOrderRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**model:** `PurchaseOrderRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.purchase_orders.<a href="src/merge/resources/accounting/resources/purchase_orders/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a `PurchaseOrder` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.purchase_orders.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_remote_fields=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        PurchaseOrdersRetrieveRequestExpandItem,
+        typing.Sequence[PurchaseOrdersRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.purchase_orders.<a href="src/merge/resources/accounting/resources/purchase_orders/client.py">line_items_remote_field_classes_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `RemoteFieldClass` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = (
+    client.accounting.purchase_orders.line_items_remote_field_classes_list(
+        cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        include_deleted_data=True,
+        include_remote_data=True,
+        include_shell_data=True,
+        is_common_model_field=True,
+        is_custom=True,
+        page_size=1,
+    )
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.purchase_orders.<a href="src/merge/resources/accounting/resources/purchase_orders/client.py">meta_post_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `PurchaseOrder` POSTs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.purchase_orders.meta_post_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.purchase_orders.<a href="src/merge/resources/accounting/resources/purchase_orders/client.py">remote_field_classes_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `RemoteFieldClass` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.purchase_orders.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    is_common_model_field=True,
+    is_custom=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting RegenerateKey
+<details><summary><code>client.accounting.regenerate_key.<a href="src/merge/resources/accounting/resources/regenerate_key/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Exchange remote keys.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.regenerate_key.create(
+    name="Remote Deployment Key 1",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `str` — The name of the remote key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting SalesOrders
+<details><summary><code>client.accounting.sales_orders.<a href="src/merge/resources/accounting/resources/sales_orders/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `SalesOrder` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.sales_orders.list(
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_remote_fields=True,
+    include_shell_data=True,
+    issue_date_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    issue_date_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    page_size=1,
+    remote_id="remote_id",
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return sales orders for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        SalesOrdersListRequestExpandItem,
+        typing.Sequence[SalesOrdersListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**issue_date_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**issue_date_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.sales_orders.<a href="src/merge/resources/accounting/resources/sales_orders/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a `SalesOrder` object with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import SalesOrderRequestRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.sales_orders.create(
+    is_debug_mode=True,
+    run_async=True,
+    model=SalesOrderRequestRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**model:** `SalesOrderRequestRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.sales_orders.<a href="src/merge/resources/accounting/resources/sales_orders/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a `SalesOrder` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.sales_orders.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_remote_fields=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        SalesOrdersRetrieveRequestExpandItem,
+        typing.Sequence[SalesOrdersRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.sales_orders.<a href="src/merge/resources/accounting/resources/sales_orders/client.py">bulk_create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates multiple `SalesOrder` objects with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import (
+    SalesOrderBatchItemRequest,
+    SalesOrderRequestRequest,
+)
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.sales_orders.bulk_create(
+    batch_items=[
+        SalesOrderBatchItemRequest(
+            item_id="item_id",
+            payload=SalesOrderRequestRequest(),
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batch_items:** `typing.Sequence[SalesOrderBatchItemRequest]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.sales_orders.<a href="src/merge/resources/accounting/resources/sales_orders/client.py">bulk_retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the status and results of a `SalesOrder` bulk create batch.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.sales_orders.bulk_retrieve(
+    batch_id="batch_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batch_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.sales_orders.<a href="src/merge/resources/accounting/resources/sales_orders/client.py">lines_remote_field_classes_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `RemoteFieldClass` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.sales_orders.lines_remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    is_common_model_field=True,
+    is_custom=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.sales_orders.<a href="src/merge/resources/accounting/resources/sales_orders/client.py">meta_post_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `SalesOrder` POSTs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.sales_orders.meta_post_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.sales_orders.<a href="src/merge/resources/accounting/resources/sales_orders/client.py">remote_field_classes_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `RemoteFieldClass` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.sales_orders.remote_field_classes_list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    is_common_model_field=True,
+    is_custom=True,
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting SyncStatus
+<details><summary><code>client.accounting.sync_status.<a href="src/merge/resources/accounting/resources/sync_status/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get sync status for the current sync and the most recently finished sync. `last_sync_start` represents the most recent time any sync began. `last_sync_finished` represents the most recent time any sync completed. These timestamps may correspond to different sync instances which may result in a sync start time being later than a separate sync completed time. To ensure you are retrieving the latest available data reference the `last_sync_finished` timestamp where `last_sync_result` is `DONE`. Possible values for `status` and `last_sync_result` are `DISABLED`, `DONE`, `FAILED`, `PARTIALLY_SYNCED`, `PAUSED`, `SYNCING`. Learn more about sync status in our [Help Center](https://help.merge.dev/en/articles/8184193-merge-sync-statuses).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.sync_status.list(
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    page_size=1,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting ForceResync
+<details><summary><code>client.accounting.force_resync.<a href="src/merge/resources/accounting/resources/force_resync/client.py">sync_status_resync_create</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Force re-sync of all models. This endpoint is available for monthly, quarterly, and highest sync frequency customers on the Professional or Enterprise plans. Doing so will consume a sync credit for the relevant linked account. Force re-syncs can also be triggered manually in the Merge Dashboard and is available for all customers.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.force_resync.sync_status_resync_create()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting TaxRates
+<details><summary><code>client.accounting.tax_rates.<a href="src/merge/resources/accounting/resources/tax_rates/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `TaxRate` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.tax_rates.list(
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    name="name",
+    page_size=1,
+    remote_id="remote_id",
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return tax rates for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["company"], typing.Sequence[typing.Literal["company"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — If provided, will only return TaxRates with this name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.tax_rates.<a href="src/merge/resources/accounting/resources/tax_rates/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a `TaxRate` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.tax_rates.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["company"], typing.Sequence[typing.Literal["company"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting TrackingCategories
+<details><summary><code>client.accounting.tracking_categories.<a href="src/merge/resources/accounting/resources/tracking_categories/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `TrackingCategory` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+from merge.resources.accounting.resources.tracking_categories import (
+    TrackingCategoriesListRequestCategoryType,
+    TrackingCategoriesListRequestStatus,
+)
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.tracking_categories.list(
+    category_type=TrackingCategoriesListRequestCategoryType.EMPTY,
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    name="name",
+    page_size=1,
+    remote_id="remote_id",
+    status=TrackingCategoriesListRequestStatus.EMPTY,
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**category_type:** `typing.Optional[TrackingCategoriesListRequestCategoryType]` — If provided, will only return tracking categories with this type.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return tracking categories for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["company"], typing.Sequence[typing.Literal["company"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — If provided, will only return tracking categories with this name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[TrackingCategoriesListRequestStatus]` — If provided, will only return tracking categories with this status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.tracking_categories.<a href="src/merge/resources/accounting/resources/tracking_categories/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a `TrackingCategory` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.tracking_categories.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["company"], typing.Sequence[typing.Literal["company"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting Transactions
+<details><summary><code>client.accounting.transactions.<a href="src/merge/resources/accounting/resources/transactions/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `Transaction` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.transactions.list(
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    page_size=1,
+    remote_id="remote_id",
+    transaction_date_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    transaction_date_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return accounting transactions for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        TransactionsListRequestExpandItem,
+        typing.Sequence[TransactionsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transaction_date_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transaction_date_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.transactions.<a href="src/merge/resources/accounting/resources/transactions/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a `Transaction` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.transactions.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        TransactionsRetrieveRequestExpandItem,
+        typing.Sequence[TransactionsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting VendorCredits
+<details><summary><code>client.accounting.vendor_credits.<a href="src/merge/resources/accounting/resources/vendor_credits/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `VendorCredit` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+response = client.accounting.vendor_credits.list(
+    company_id="company_id",
+    created_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    created_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    include_deleted_data=True,
+    include_remote_data=True,
+    include_shell_data=True,
+    modified_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    modified_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    page_size=1,
+    remote_id="remote_id",
+    transaction_date_after=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    transaction_date_before=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+)
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**company_id:** `typing.Optional[str]` — If provided, will only return vendor credits for this company.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        VendorCreditsListRequestExpandItem,
+        typing.Sequence[VendorCreditsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transaction_date_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transaction_date_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.vendor_credits.<a href="src/merge/resources/accounting/resources/vendor_credits/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a `VendorCredit` object with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import VendorCreditRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.vendor_credits.create(
+    is_debug_mode=True,
+    run_async=True,
+    model=VendorCreditRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**model:** `VendorCreditRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.vendor_credits.<a href="src/merge/resources/accounting/resources/vendor_credits/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a `VendorCredit` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.vendor_credits.retrieve(
+    id="id",
+    include_remote_data=True,
+    include_shell_data=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expand:** `typing.Optional[
+    typing.Union[
+        VendorCreditsRetrieveRequestExpandItem,
+        typing.Sequence[VendorCreditsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.vendor_credits.<a href="src/merge/resources/accounting/resources/vendor_credits/client.py">partial_update</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a `VendorCredit` object with the given `id`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+from merge.resources.accounting import PatchedVendorCreditRequest
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.vendor_credits.partial_update(
+    id="id",
+    is_debug_mode=True,
+    run_async=True,
+    model=PatchedVendorCreditRequest(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**model:** `PatchedVendorCreditRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.vendor_credits.<a href="src/merge/resources/accounting/resources/vendor_credits/client.py">application_create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a new VendorCreditApplyLine to apply a vendor credit to an invoice
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+import datetime
+
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.vendor_credits.application_create(
+    id="id",
+    is_debug_mode=True,
+    run_async=True,
+    applied_date=datetime.datetime.fromisoformat(
+        "2024-01-15 09:30:00+00:00",
+    ),
+    applied_amount="applied_amount",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**applied_date:** `dt.datetime` — Date that the vendor credit is applied to the invoice.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**applied_amount:** `str` — The amount of vendor credit applied to the invoice.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**invoice:** `typing.Optional[str]` — The invoice to apply the vendor credit to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.vendor_credits.<a href="src/merge/resources/accounting/resources/vendor_credits/client.py">meta_patch_retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `VendorCredit` PATCHs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.vendor_credits.meta_patch_retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.vendor_credits.<a href="src/merge/resources/accounting/resources/vendor_credits/client.py">meta_post_retrieve</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns metadata for `VendorCredit` POSTs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.vendor_credits.meta_post_retrieve()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Accounting WebhookReceivers
+<details><summary><code>client.accounting.webhook_receivers.<a href="src/merge/resources/accounting/resources/webhook_receivers/client.py">list</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of `WebhookReceiver` objects.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.webhook_receivers.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.accounting.webhook_receivers.<a href="src/merge/resources/accounting/resources/webhook_receivers/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a `WebhookReceiver` object with the given values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.accounting.webhook_receivers.create(
+    event="event",
+    is_active=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**event:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_active:** `bool` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Crm AccountDetails
 <details><summary><code>client.crm.account_details.<a href="src/merge/resources/crm/resources/account_details/client.py">retrieve</a>()</code></summary>
 <dl>
@@ -12354,6 +27253,67 @@ client.crm.account_token.retrieve(
 </dl>
 </details>
 
+<details><summary><code>client.crm.account_token.<a href="src/merge/resources/crm/resources/account_token/client.py">regenerate_create</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Exchange Linked Account account tokens.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.crm.account_token.regenerate_create()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Crm Accounts
 <details><summary><code>client.crm.accounts.<a href="src/merge/resources/crm/resources/accounts/client.py">list</a>(...)</code></summary>
 <dl>
@@ -12390,7 +27350,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.accounts.list(
+response = client.crm.accounts.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -12413,6 +27373,11 @@ client.crm.accounts.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -12452,7 +27417,11 @@ client.crm.accounts.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["owner"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["owner"], typing.Sequence[typing.Literal["owner"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -12524,7 +27493,7 @@ client.crm.accounts.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -12704,7 +27673,11 @@ client.crm.accounts.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["owner"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["owner"], typing.Sequence[typing.Literal["owner"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -13012,7 +27985,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.accounts.remote_field_classes_list(
+response = client.crm.accounts.remote_field_classes_list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     include_deleted_data=True,
     include_remote_data=True,
@@ -13022,6 +27995,11 @@ client.crm.accounts.remote_field_classes_list(
     is_custom=True,
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -13093,7 +28071,7 @@ client.crm.accounts.remote_field_classes_list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -13294,7 +28272,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.audit_trail.list(
+response = client.crm.audit_trail.list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     end_date="end_date",
     event_type="event_type",
@@ -13302,6 +28280,11 @@ client.crm.audit_trail.list(
     start_date="start_date",
     user_email="user_email",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -13341,7 +28324,7 @@ client.crm.audit_trail.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -13470,13 +28453,12 @@ Returns a list of `Contact` objects.
 import datetime
 
 from merge import Merge
-from merge.resources.crm.resources.contacts import ContactsListRequestExpand
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.contacts.list(
+response = client.crm.contacts.list(
     account_id="account_id",
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
@@ -13486,7 +28468,6 @@ client.crm.contacts.list(
     ),
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     email_addresses="email_addresses",
-    expand=ContactsListRequestExpand.ACCOUNT,
     include_deleted_data=True,
     include_remote_data=True,
     include_remote_fields=True,
@@ -13501,6 +28482,11 @@ client.crm.contacts.list(
     phone_numbers="phone_numbers",
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -13556,7 +28542,12 @@ client.crm.contacts.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[ContactsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        ContactsListRequestExpandItem,
+        typing.Sequence[ContactsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -13612,7 +28603,7 @@ client.crm.contacts.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -13766,7 +28757,6 @@ Returns a `Contact` object with the given `id`.
 
 ```python
 from merge import Merge
-from merge.resources.crm.resources.contacts import ContactsRetrieveRequestExpand
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -13774,7 +28764,6 @@ client = Merge(
 )
 client.crm.contacts.retrieve(
     id="id",
-    expand=ContactsRetrieveRequestExpand.ACCOUNT,
     include_remote_data=True,
     include_remote_fields=True,
     include_shell_data=True,
@@ -13802,7 +28791,12 @@ client.crm.contacts.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[ContactsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        ContactsRetrieveRequestExpandItem,
+        typing.Sequence[ContactsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -14193,7 +29187,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.contacts.remote_field_classes_list(
+response = client.crm.contacts.remote_field_classes_list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     include_deleted_data=True,
     include_remote_data=True,
@@ -14203,6 +29197,11 @@ client.crm.contacts.remote_field_classes_list(
     is_custom=True,
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -14274,7 +29273,7 @@ client.crm.contacts.remote_field_classes_list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -14330,7 +29329,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.custom_object_classes.list(
+response = client.crm.custom_object_classes.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -14350,6 +29349,11 @@ client.crm.custom_object_classes.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -14389,7 +29393,11 @@ client.crm.custom_object_classes.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["fields"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["fields"], typing.Sequence[typing.Literal["fields"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -14437,7 +29445,7 @@ client.crm.custom_object_classes.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -14526,7 +29534,11 @@ client.crm.custom_object_classes.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["fields"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["fields"], typing.Sequence[typing.Literal["fields"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -14598,27 +29610,34 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.association_types.custom_object_classes_association_types_list(
-    custom_object_class_id="custom_object_class_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
+response = (
+    client.crm.association_types.custom_object_classes_association_types_list(
+        custom_object_class_id="custom_object_class_id",
+        created_after=datetime.datetime.fromisoformat(
+            "2024-01-15 09:30:00+00:00",
+        ),
+        created_before=datetime.datetime.fromisoformat(
+            "2024-01-15 09:30:00+00:00",
+        ),
+        cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+        include_deleted_data=True,
+        include_remote_data=True,
+        include_shell_data=True,
+        modified_after=datetime.datetime.fromisoformat(
+            "2024-01-15 09:30:00+00:00",
+        ),
+        modified_before=datetime.datetime.fromisoformat(
+            "2024-01-15 09:30:00+00:00",
+        ),
+        page_size=1,
+        remote_id="remote_id",
+    )
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -14666,7 +29685,12 @@ client.crm.association_types.custom_object_classes_association_types_list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["target_object_classes"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["target_object_classes"],
+        typing.Sequence[typing.Literal["target_object_classes"]],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -14714,7 +29738,7 @@ client.crm.association_types.custom_object_classes_association_types_list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -14927,7 +29951,12 @@ client.crm.association_types.custom_object_classes_association_types_retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["target_object_classes"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["target_object_classes"],
+        typing.Sequence[typing.Literal["target_object_classes"]],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -15070,7 +30099,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.custom_objects.custom_object_classes_custom_objects_list(
+response = client.crm.custom_objects.custom_object_classes_custom_objects_list(
     custom_object_class_id="custom_object_class_id",
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
@@ -15092,6 +30121,11 @@ client.crm.custom_objects.custom_object_classes_custom_objects_list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -15187,7 +30221,7 @@ client.crm.custom_objects.custom_object_classes_custom_objects_list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -15527,7 +30561,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.custom_objects.custom_object_classes_custom_objects_remote_field_classes_list(
+response = client.crm.custom_objects.custom_object_classes_custom_objects_remote_field_classes_list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     include_deleted_data=True,
     include_remote_data=True,
@@ -15537,6 +30571,11 @@ client.crm.custom_objects.custom_object_classes_custom_objects_remote_field_clas
     is_custom=True,
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -15608,7 +30647,7 @@ client.crm.custom_objects.custom_object_classes_custom_objects_remote_field_clas
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -15664,7 +30703,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.associations.custom_object_classes_custom_objects_associations_list(
+response = client.crm.associations.custom_object_classes_custom_objects_associations_list(
     custom_object_class_id="custom_object_class_id",
     object_id="object_id",
     association_type_id="association_type_id",
@@ -15687,6 +30726,11 @@ client.crm.associations.custom_object_classes_custom_objects_associations_list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -15750,7 +30794,12 @@ client.crm.associations.custom_object_classes_custom_objects_associations_list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["association_type"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["association_type"],
+        typing.Sequence[typing.Literal["association_type"]],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -15798,7 +30847,7 @@ client.crm.associations.custom_object_classes_custom_objects_associations_list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -16272,7 +31321,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.engagement_types.list(
+response = client.crm.engagement_types.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -16293,6 +31342,11 @@ client.crm.engagement_types.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -16380,7 +31434,7 @@ client.crm.engagement_types.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -16539,7 +31593,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.engagement_types.remote_field_classes_list(
+response = client.crm.engagement_types.remote_field_classes_list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     include_deleted_data=True,
     include_remote_data=True,
@@ -16549,6 +31603,11 @@ client.crm.engagement_types.remote_field_classes_list(
     is_custom=True,
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -16620,7 +31679,7 @@ client.crm.engagement_types.remote_field_classes_list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -16671,15 +31730,12 @@ Returns a list of `Engagement` objects.
 import datetime
 
 from merge import Merge
-from merge.resources.crm.resources.engagements import (
-    EngagementsListRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.engagements.list(
+response = client.crm.engagements.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -16687,7 +31743,6 @@ client.crm.engagements.list(
         "2024-01-15 09:30:00+00:00",
     ),
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=EngagementsListRequestExpand.ACCOUNT,
     include_deleted_data=True,
     include_remote_data=True,
     include_remote_fields=True,
@@ -16707,6 +31762,11 @@ client.crm.engagements.list(
         "2024-01-15 09:30:00+00:00",
     ),
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -16746,7 +31806,12 @@ client.crm.engagements.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[EngagementsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        EngagementsListRequestExpandItem,
+        typing.Sequence[EngagementsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -16802,7 +31867,7 @@ client.crm.engagements.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -16964,9 +32029,6 @@ Returns an `Engagement` object with the given `id`.
 
 ```python
 from merge import Merge
-from merge.resources.crm.resources.engagements import (
-    EngagementsRetrieveRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -16974,7 +32036,6 @@ client = Merge(
 )
 client.crm.engagements.retrieve(
     id="id",
-    expand=EngagementsRetrieveRequestExpand.ACCOUNT,
     include_remote_data=True,
     include_remote_fields=True,
     include_shell_data=True,
@@ -17002,7 +32063,12 @@ client.crm.engagements.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[EngagementsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        EngagementsRetrieveRequestExpandItem,
+        typing.Sequence[EngagementsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -17310,7 +32376,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.engagements.remote_field_classes_list(
+response = client.crm.engagements.remote_field_classes_list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     include_deleted_data=True,
     include_remote_data=True,
@@ -17320,6 +32386,11 @@ client.crm.engagements.remote_field_classes_list(
     is_custom=True,
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -17391,7 +32462,7 @@ client.crm.engagements.remote_field_classes_list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -17518,6 +32589,7 @@ client = Merge(
 )
 client.crm.field_mapping.field_mappings_create(
     exclude_remote_field_metadata=True,
+    remote_data_iteration_count=1,
     target_field_name="example_target_field_name",
     target_field_description="this is a example description of the target field",
     remote_field_traversal_path=["example_remote_field"],
@@ -17589,6 +32661,22 @@ client.crm.field_mapping.field_mappings_create(
 <dd>
 
 **exclude_remote_field_metadata:** `typing.Optional[bool]` — If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_data_iteration_count:** `typing.Optional[int]` — Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**jmes_path:** `typing.Optional[str]` — JMES path to specify json query expression to be used on field mapping.
     
 </dd>
 </dl>
@@ -17714,6 +32802,7 @@ client = Merge(
 )
 client.crm.field_mapping.field_mappings_partial_update(
     field_mapping_id="field_mapping_id",
+    remote_data_iteration_count=1,
 )
 
 ```
@@ -17738,6 +32827,14 @@ client.crm.field_mapping.field_mappings_partial_update(
 <dl>
 <dd>
 
+**remote_data_iteration_count:** `typing.Optional[int]` — Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **remote_field_traversal_path:** `typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]` — The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
     
 </dd>
@@ -17755,6 +32852,14 @@ client.crm.field_mapping.field_mappings_partial_update(
 <dd>
 
 **remote_url_path:** `typing.Optional[str]` — The path of the remote endpoint where the remote field is coming from.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**jmes_path:** `typing.Optional[str]` — JMES path to specify json query expression to be used on field mapping.
     
 </dd>
 </dl>
@@ -18024,7 +33129,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.issues.list(
+response = client.crm.issues.list(
     account_token="account_token",
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     end_date="end_date",
@@ -18048,6 +33153,11 @@ client.crm.issues.list(
     start_date="start_date",
     status=IssuesListRequestStatus.ONGOING,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -18151,7 +33261,7 @@ client.crm.issues.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -18294,13 +33404,12 @@ Returns a list of `Lead` objects.
 import datetime
 
 from merge import Merge
-from merge.resources.crm.resources.leads import LeadsListRequestExpand
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.leads.list(
+response = client.crm.leads.list(
     converted_account_id="converted_account_id",
     converted_contact_id="converted_contact_id",
     created_after=datetime.datetime.fromisoformat(
@@ -18311,7 +33420,6 @@ client.crm.leads.list(
     ),
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     email_addresses="email_addresses",
-    expand=LeadsListRequestExpand.CONVERTED_ACCOUNT,
     include_deleted_data=True,
     include_remote_data=True,
     include_remote_fields=True,
@@ -18327,6 +33435,11 @@ client.crm.leads.list(
     phone_numbers="phone_numbers",
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -18390,7 +33503,11 @@ client.crm.leads.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[LeadsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        LeadsListRequestExpandItem, typing.Sequence[LeadsListRequestExpandItem]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -18454,7 +33571,7 @@ client.crm.leads.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -18608,7 +33725,6 @@ Returns a `Lead` object with the given `id`.
 
 ```python
 from merge import Merge
-from merge.resources.crm.resources.leads import LeadsRetrieveRequestExpand
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -18616,7 +33732,6 @@ client = Merge(
 )
 client.crm.leads.retrieve(
     id="id",
-    expand=LeadsRetrieveRequestExpand.CONVERTED_ACCOUNT,
     include_remote_data=True,
     include_remote_fields=True,
     include_shell_data=True,
@@ -18644,7 +33759,12 @@ client.crm.leads.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[LeadsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        LeadsRetrieveRequestExpandItem,
+        typing.Sequence[LeadsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -18782,7 +33902,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.leads.remote_field_classes_list(
+response = client.crm.leads.remote_field_classes_list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     include_deleted_data=True,
     include_remote_data=True,
@@ -18792,6 +33912,11 @@ client.crm.leads.remote_field_classes_list(
     is_custom=True,
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -18863,7 +33988,7 @@ client.crm.leads.remote_field_classes_list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -18896,7 +34021,7 @@ client.crm.leads.remote_field_classes_list(
 <dl>
 <dd>
 
-Creates a link token to be used when linking a new end user.
+Creates a link token to be used when linking a new end user. The link token expires after single use.
 </dd>
 </dl>
 </dd>
@@ -19104,7 +34229,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.linked_accounts.list(
+response = client.crm.linked_accounts.list(
     category=LinkedAccountsListRequestCategory.ACCOUNTING,
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     end_user_email_address="end_user_email_address",
@@ -19119,6 +34244,11 @@ client.crm.linked_accounts.list(
     page_size=1,
     status="status",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -19232,7 +34362,7 @@ Options: `accounting`, `ats`, `crm`, `filestorage`, `hris`, `mktg`, `ticketing`
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -19291,13 +34421,12 @@ Returns a list of `Note` objects.
 import datetime
 
 from merge import Merge
-from merge.resources.crm.resources.notes import NotesListRequestExpand
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.notes.list(
+response = client.crm.notes.list(
     account_id="account_id",
     contact_id="contact_id",
     created_after=datetime.datetime.fromisoformat(
@@ -19307,7 +34436,6 @@ client.crm.notes.list(
         "2024-01-15 09:30:00+00:00",
     ),
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=NotesListRequestExpand.ACCOUNT,
     include_deleted_data=True,
     include_remote_data=True,
     include_remote_fields=True,
@@ -19323,6 +34451,11 @@ client.crm.notes.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -19378,7 +34511,11 @@ client.crm.notes.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[NotesListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        NotesListRequestExpandItem, typing.Sequence[NotesListRequestExpandItem]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -19450,7 +34587,7 @@ client.crm.notes.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -19596,7 +34733,6 @@ Returns a `Note` object with the given `id`.
 
 ```python
 from merge import Merge
-from merge.resources.crm.resources.notes import NotesRetrieveRequestExpand
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -19604,7 +34740,6 @@ client = Merge(
 )
 client.crm.notes.retrieve(
     id="id",
-    expand=NotesRetrieveRequestExpand.ACCOUNT,
     include_remote_data=True,
     include_remote_fields=True,
     include_shell_data=True,
@@ -19632,7 +34767,12 @@ client.crm.notes.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[NotesRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        NotesRetrieveRequestExpandItem,
+        typing.Sequence[NotesRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -19770,7 +34910,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.notes.remote_field_classes_list(
+response = client.crm.notes.remote_field_classes_list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     include_deleted_data=True,
     include_remote_data=True,
@@ -19780,6 +34920,11 @@ client.crm.notes.remote_field_classes_list(
     is_custom=True,
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -19851,7 +34996,7 @@ client.crm.notes.remote_field_classes_list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -19903,7 +35048,6 @@ import datetime
 
 from merge import Merge
 from merge.resources.crm.resources.opportunities import (
-    OpportunitiesListRequestExpand,
     OpportunitiesListRequestStatus,
 )
 
@@ -19911,7 +35055,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.opportunities.list(
+response = client.crm.opportunities.list(
     account_id="account_id",
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
@@ -19920,7 +35064,6 @@ client.crm.opportunities.list(
         "2024-01-15 09:30:00+00:00",
     ),
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=OpportunitiesListRequestExpand.ACCOUNT,
     include_deleted_data=True,
     include_remote_data=True,
     include_remote_fields=True,
@@ -19940,6 +35083,11 @@ client.crm.opportunities.list(
     stage_id="stage_id",
     status=OpportunitiesListRequestStatus.LOST,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -19987,7 +35135,12 @@ client.crm.opportunities.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[OpportunitiesListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        OpportunitiesListRequestExpandItem,
+        typing.Sequence[OpportunitiesListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -20051,7 +35204,7 @@ client.crm.opportunities.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -20243,9 +35396,6 @@ Returns an `Opportunity` object with the given `id`.
 
 ```python
 from merge import Merge
-from merge.resources.crm.resources.opportunities import (
-    OpportunitiesRetrieveRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -20253,7 +35403,6 @@ client = Merge(
 )
 client.crm.opportunities.retrieve(
     id="id",
-    expand=OpportunitiesRetrieveRequestExpand.ACCOUNT,
     include_remote_data=True,
     include_remote_fields=True,
     include_shell_data=True,
@@ -20281,7 +35430,12 @@ client.crm.opportunities.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[OpportunitiesRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        OpportunitiesRetrieveRequestExpandItem,
+        typing.Sequence[OpportunitiesRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -20605,7 +35759,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.opportunities.remote_field_classes_list(
+response = client.crm.opportunities.remote_field_classes_list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     include_deleted_data=True,
     include_remote_data=True,
@@ -20615,6 +35769,11 @@ client.crm.opportunities.remote_field_classes_list(
     is_custom=True,
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -20686,7 +35845,7 @@ client.crm.opportunities.remote_field_classes_list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -20890,7 +36049,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.stages.list(
+response = client.crm.stages.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -20911,6 +36070,11 @@ client.crm.stages.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -20998,7 +36162,7 @@ client.crm.stages.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -21157,7 +36321,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.stages.remote_field_classes_list(
+response = client.crm.stages.remote_field_classes_list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     include_deleted_data=True,
     include_remote_data=True,
@@ -21167,6 +36331,11 @@ client.crm.stages.remote_field_classes_list(
     is_custom=True,
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -21238,7 +36407,7 @@ client.crm.stages.remote_field_classes_list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -21292,10 +36461,15 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.sync_status.list(
+response = client.crm.sync_status.list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -21319,7 +36493,7 @@ client.crm.sync_status.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -21432,13 +36606,12 @@ Returns a list of `Task` objects.
 import datetime
 
 from merge import Merge
-from merge.resources.crm.resources.tasks import TasksListRequestExpand
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.tasks.list(
+response = client.crm.tasks.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -21446,7 +36619,6 @@ client.crm.tasks.list(
         "2024-01-15 09:30:00+00:00",
     ),
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=TasksListRequestExpand.ACCOUNT,
     include_deleted_data=True,
     include_remote_data=True,
     include_remote_fields=True,
@@ -21460,6 +36632,11 @@ client.crm.tasks.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -21499,7 +36676,11 @@ client.crm.tasks.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[TasksListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        TasksListRequestExpandItem, typing.Sequence[TasksListRequestExpandItem]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -21555,7 +36736,7 @@ client.crm.tasks.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -21701,7 +36882,6 @@ Returns a `Task` object with the given `id`.
 
 ```python
 from merge import Merge
-from merge.resources.crm.resources.tasks import TasksRetrieveRequestExpand
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -21709,7 +36889,6 @@ client = Merge(
 )
 client.crm.tasks.retrieve(
     id="id",
-    expand=TasksRetrieveRequestExpand.ACCOUNT,
     include_remote_data=True,
     include_remote_fields=True,
     include_shell_data=True,
@@ -21737,7 +36916,12 @@ client.crm.tasks.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[TasksRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        TasksRetrieveRequestExpandItem,
+        typing.Sequence[TasksRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -22045,7 +37229,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.tasks.remote_field_classes_list(
+response = client.crm.tasks.remote_field_classes_list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     include_deleted_data=True,
     include_remote_data=True,
@@ -22055,6 +37239,11 @@ client.crm.tasks.remote_field_classes_list(
     is_custom=True,
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -22126,7 +37315,7 @@ client.crm.tasks.remote_field_classes_list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -22182,7 +37371,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.users.list(
+response = client.crm.users.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -22204,6 +37393,11 @@ client.crm.users.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -22299,7 +37493,7 @@ client.crm.users.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -22541,7 +37735,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.crm.users.remote_field_classes_list(
+response = client.crm.users.remote_field_classes_list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     include_deleted_data=True,
     include_remote_data=True,
@@ -22551,6 +37745,11 @@ client.crm.users.remote_field_classes_list(
     is_custom=True,
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -22622,7 +37821,7 @@ client.crm.users.remote_field_classes_list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -22926,6 +38125,67 @@ client.hris.account_token.retrieve(
 </dl>
 </details>
 
+<details><summary><code>client.hris.account_token.<a href="src/merge/resources/hris/resources/account_token/client.py">regenerate_create</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Exchange Linked Account account tokens.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.hris.account_token.regenerate_create()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Hris AsyncPassthrough
 <details><summary><code>client.hris.async_passthrough.<a href="src/merge/resources/hris/resources/async_passthrough/client.py">create</a>(...)</code></summary>
 <dl>
@@ -23107,7 +38367,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.audit_trail.list(
+response = client.hris.audit_trail.list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     end_date="end_date",
     event_type="event_type",
@@ -23115,6 +38375,11 @@ client.hris.audit_trail.list(
     start_date="start_date",
     user_email="user_email",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -23154,7 +38419,7 @@ client.hris.audit_trail.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -23292,7 +38557,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.bank_info.list(
+response = client.hris.bank_info.list(
     account_type=BankInfoListRequestAccountType.CHECKING,
     bank_name="bank_name",
     created_after=datetime.datetime.fromisoformat(
@@ -23316,6 +38581,11 @@ client.hris.bank_info.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -23384,7 +38654,11 @@ If provided, will only return BankInfo's with this account type. Options: ('SAVI
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["employee"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -23545,7 +38819,11 @@ client.hris.bank_info.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["employee"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -23633,7 +38911,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.benefits.list(
+response = client.hris.benefits.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -23654,6 +38932,11 @@ client.hris.benefits.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -23701,7 +38984,11 @@ client.hris.benefits.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["employee"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -23838,7 +39125,11 @@ client.hris.benefits.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["employee"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -23910,7 +39201,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.companies.list(
+response = client.hris.companies.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -23930,6 +39221,11 @@ client.hris.companies.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -24447,7 +39743,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.dependents.list(
+response = client.hris.dependents.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -24469,6 +39765,11 @@ client.hris.dependents.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -24721,15 +40022,12 @@ Returns a list of `EmployeePayrollRun` objects.
 import datetime
 
 from merge import Merge
-from merge.resources.hris.resources.employee_payroll_runs import (
-    EmployeePayrollRunsListRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.employee_payroll_runs.list(
+response = client.hris.employee_payroll_runs.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -24744,7 +40042,6 @@ client.hris.employee_payroll_runs.list(
     ended_before=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
-    expand=EmployeePayrollRunsListRequestExpand.EMPLOYEE,
     include_deleted_data=True,
     include_remote_data=True,
     include_shell_data=True,
@@ -24764,6 +40061,11 @@ client.hris.employee_payroll_runs.list(
         "2024-01-15 09:30:00+00:00",
     ),
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -24827,7 +40129,12 @@ client.hris.employee_payroll_runs.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[EmployeePayrollRunsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        EmployeePayrollRunsListRequestExpandItem,
+        typing.Sequence[EmployeePayrollRunsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -24955,9 +40262,6 @@ Returns an `EmployeePayrollRun` object with the given `id`.
 
 ```python
 from merge import Merge
-from merge.resources.hris.resources.employee_payroll_runs import (
-    EmployeePayrollRunsRetrieveRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -24965,7 +40269,6 @@ client = Merge(
 )
 client.hris.employee_payroll_runs.retrieve(
     id="id",
-    expand=EmployeePayrollRunsRetrieveRequestExpand.EMPLOYEE,
     include_remote_data=True,
     include_shell_data=True,
 )
@@ -24992,7 +40295,12 @@ client.hris.employee_payroll_runs.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[EmployeePayrollRunsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        EmployeePayrollRunsRetrieveRequestExpandItem,
+        typing.Sequence[EmployeePayrollRunsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -25061,7 +40369,6 @@ import datetime
 from merge import Merge
 from merge.resources.hris.resources.employees import (
     EmployeesListRequestEmploymentStatus,
-    EmployeesListRequestExpand,
     EmployeesListRequestRemoteFields,
     EmployeesListRequestShowEnumOrigins,
 )
@@ -25070,7 +40377,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.employees.list(
+response = client.hris.employees.list(
     company_id="company_id",
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
@@ -25083,7 +40390,6 @@ client.hris.employees.list(
     employee_number="employee_number",
     employment_status=EmployeesListRequestEmploymentStatus.ACTIVE,
     employment_type="employment_type",
-    expand=EmployeesListRequestExpand.COMPANY,
     first_name="first_name",
     groups="groups",
     home_location_id="home_location_id",
@@ -25122,6 +40428,11 @@ client.hris.employees.list(
     work_email="work_email",
     work_location_id="work_location_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -25207,7 +40518,12 @@ If provided, will only return employees with this employment status.
 <dl>
 <dd>
 
-**expand:** `typing.Optional[EmployeesListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        EmployeesListRequestExpandItem,
+        typing.Sequence[EmployeesListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -25311,7 +40627,7 @@ If provided, will only return employees with this employment status.
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -25546,7 +40862,6 @@ Returns an `Employee` object with the given `id`.
 ```python
 from merge import Merge
 from merge.resources.hris.resources.employees import (
-    EmployeesRetrieveRequestExpand,
     EmployeesRetrieveRequestRemoteFields,
     EmployeesRetrieveRequestShowEnumOrigins,
 )
@@ -25557,7 +40872,6 @@ client = Merge(
 )
 client.hris.employees.retrieve(
     id="id",
-    expand=EmployeesRetrieveRequestExpand.COMPANY,
     include_remote_data=True,
     include_sensitive_fields=True,
     include_shell_data=True,
@@ -25587,7 +40901,12 @@ client.hris.employees.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[EmployeesRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        EmployeesRetrieveRequestExpandItem,
+        typing.Sequence[EmployeesRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -25675,7 +40994,7 @@ Ignores a specific row based on the `model_id` in the url. These records will ha
 
 ```python
 from merge import Merge
-from merge.resources.hris import ReasonEnum
+from merge.resources.hris import IgnoreCommonModelRequest, ReasonEnum
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -25683,7 +41002,9 @@ client = Merge(
 )
 client.hris.employees.ignore_create(
     model_id="model_id",
-    reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
+    request=IgnoreCommonModelRequest(
+        reason=ReasonEnum.GENERAL_CUSTOMER_REQUEST,
+    ),
 )
 
 ```
@@ -25708,15 +41029,7 @@ client.hris.employees.ignore_create(
 <dl>
 <dd>
 
-**reason:** `IgnoreCommonModelRequestReason` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**message:** `typing.Optional[str]` 
+**request:** `IgnoreCommonModelRequest` 
     
 </dd>
 </dl>
@@ -25833,7 +41146,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.employer_benefits.list(
+response = client.hris.employer_benefits.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -25853,6 +41166,11 @@ client.hris.employer_benefits.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -26081,7 +41399,6 @@ import datetime
 
 from merge import Merge
 from merge.resources.hris.resources.employments import (
-    EmploymentsListRequestExpand,
     EmploymentsListRequestOrderBy,
     EmploymentsListRequestRemoteFields,
     EmploymentsListRequestShowEnumOrigins,
@@ -26091,7 +41408,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.employments.list(
+response = client.hris.employments.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -26100,7 +41417,6 @@ client.hris.employments.list(
     ),
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     employee_id="employee_id",
-    expand=EmploymentsListRequestExpand.EMPLOYEE,
     include_deleted_data=True,
     include_remote_data=True,
     include_shell_data=True,
@@ -26116,6 +41432,11 @@ client.hris.employments.list(
     remote_id="remote_id",
     show_enum_origins=EmploymentsListRequestShowEnumOrigins.EMPLOYMENT_TYPE,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -26163,7 +41484,12 @@ client.hris.employments.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[EmploymentsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        EmploymentsListRequestExpandItem,
+        typing.Sequence[EmploymentsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -26292,7 +41618,6 @@ Returns an `Employment` object with the given `id`.
 ```python
 from merge import Merge
 from merge.resources.hris.resources.employments import (
-    EmploymentsRetrieveRequestExpand,
     EmploymentsRetrieveRequestRemoteFields,
     EmploymentsRetrieveRequestShowEnumOrigins,
 )
@@ -26303,7 +41628,6 @@ client = Merge(
 )
 client.hris.employments.retrieve(
     id="id",
-    expand=EmploymentsRetrieveRequestExpand.EMPLOYEE,
     include_remote_data=True,
     include_shell_data=True,
     remote_fields=EmploymentsRetrieveRequestRemoteFields.EMPLOYMENT_TYPE,
@@ -26332,7 +41656,12 @@ client.hris.employments.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[EmploymentsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        EmploymentsRetrieveRequestExpandItem,
+        typing.Sequence[EmploymentsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -26695,6 +42024,7 @@ client = Merge(
 )
 client.hris.field_mapping.field_mappings_partial_update(
     field_mapping_id="field_mapping_id",
+    remote_data_iteration_count=1,
 )
 
 ```
@@ -26712,6 +42042,14 @@ client.hris.field_mapping.field_mappings_partial_update(
 <dd>
 
 **field_mapping_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_data_iteration_count:** `typing.Optional[int]` — Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
     
 </dd>
 </dl>
@@ -27012,7 +42350,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.groups.list(
+response = client.hris.groups.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -27035,6 +42373,11 @@ client.hris.groups.list(
     remote_id="remote_id",
     types="types",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -27287,6 +42630,86 @@ client.hris.groups.retrieve(
 </dl>
 </details>
 
+<details><summary><code>client.hris.groups.<a href="src/merge/resources/hris/resources/groups/client.py">types_list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a list of distinct group type values from the Groups common model.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.hris.groups.types_list(
+    include_deleted_data=True,
+    show_enum_origins="show_enum_origins",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**include_deleted_data:** `typing.Optional[bool]` — Whether to include data that was marked as deleted by third party webhooks.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**show_enum_origins:** `typing.Optional[str]` — A comma separated list of enum field names for which you'd like the original values instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Hris Issues
 <details><summary><code>client.hris.issues.<a href="src/merge/resources/hris/resources/issues/client.py">list</a>(...)</code></summary>
 <dl>
@@ -27324,7 +42747,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.issues.list(
+response = client.hris.issues.list(
     account_token="account_token",
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     end_date="end_date",
@@ -27348,6 +42771,11 @@ client.hris.issues.list(
     start_date="start_date",
     status=IssuesListRequestStatus.ONGOING,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -27576,7 +43004,7 @@ client.hris.issues.retrieve(
 <dl>
 <dd>
 
-Creates a link token to be used when linking a new end user.
+Creates a link token to be used when linking a new end user. The link token expires after single use.
 </dd>
 </dl>
 </dd>
@@ -27735,11 +43163,7 @@ The following subset of IETF language tags can be used to configure localization
 <dl>
 <dd>
 
-**completed_account_initial_screen:** `typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen]` 
-
-When creating a Link token, you can specifiy the initial screen of Linking Flow for a completed Linked Account.
-
-* `SELECTIVE_SYNC` - SELECTIVE_SYNC
+**linked_destination_id:** `typing.Optional[str]` — The UUID of the linked destination that you want this Linked Account to be tied to.
     
 </dd>
 </dl>
@@ -27796,7 +43220,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.linked_accounts.list(
+response = client.hris.linked_accounts.list(
     category=LinkedAccountsListRequestCategory.ACCOUNTING,
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     end_user_email_address="end_user_email_address",
@@ -27811,6 +43235,11 @@ client.hris.linked_accounts.list(
     page_size=1,
     status="status",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -27993,7 +43422,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.locations.list(
+response = client.hris.locations.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -28016,6 +43445,11 @@ client.hris.locations.list(
     remote_id="remote_id",
     show_enum_origins=LocationsListRequestShowEnumOrigins.COUNTRY,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -28375,7 +43809,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.pay_groups.list(
+response = client.hris.pay_groups.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -28395,6 +43829,11 @@ client.hris.pay_groups.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -28632,7 +44071,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.payroll_runs.list(
+response = client.hris.payroll_runs.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -28667,6 +44106,11 @@ client.hris.payroll_runs.list(
         "2024-01-15 09:30:00+00:00",
     ),
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -29055,10 +44499,15 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.sync_status.list(
+response = client.hris.sync_status.list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -29200,7 +44649,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.teams.list(
+response = client.hris.teams.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -29221,6 +44670,11 @@ client.hris.teams.list(
     parent_team_id="parent_team_id",
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -29260,7 +44714,12 @@ client.hris.teams.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["parent_team"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["parent_team"],
+        typing.Sequence[typing.Literal["parent_team"]],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -29405,7 +44864,12 @@ client.hris.teams.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["parent_team"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["parent_team"],
+        typing.Sequence[typing.Literal["parent_team"]],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -29473,7 +44937,6 @@ import datetime
 
 from merge import Merge
 from merge.resources.hris.resources.time_off import (
-    TimeOffListRequestExpand,
     TimeOffListRequestRemoteFields,
     TimeOffListRequestRequestType,
     TimeOffListRequestShowEnumOrigins,
@@ -29484,7 +44947,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.time_off.list(
+response = client.hris.time_off.list(
     approver_id="approver_id",
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
@@ -29500,7 +44963,6 @@ client.hris.time_off.list(
     ended_before=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
-    expand=TimeOffListRequestExpand.APPROVER,
     include_deleted_data=True,
     include_remote_data=True,
     include_shell_data=True,
@@ -29523,6 +44985,11 @@ client.hris.time_off.list(
     ),
     status=TimeOffListRequestStatus.APPROVED,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -29594,7 +45061,12 @@ client.hris.time_off.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[TimeOffListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        TimeOffListRequestExpandItem,
+        typing.Sequence[TimeOffListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -29642,7 +45114,7 @@ client.hris.time_off.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+**page_size:** `typing.Optional[int]` — Number of results to return per page.
     
 </dd>
 </dl>
@@ -29854,7 +45326,6 @@ Returns a `TimeOff` object with the given `id`.
 ```python
 from merge import Merge
 from merge.resources.hris.resources.time_off import (
-    TimeOffRetrieveRequestExpand,
     TimeOffRetrieveRequestRemoteFields,
     TimeOffRetrieveRequestShowEnumOrigins,
 )
@@ -29865,7 +45336,6 @@ client = Merge(
 )
 client.hris.time_off.retrieve(
     id="id",
-    expand=TimeOffRetrieveRequestExpand.APPROVER,
     include_remote_data=True,
     include_shell_data=True,
     remote_fields=TimeOffRetrieveRequestRemoteFields.REQUEST_TYPE,
@@ -29894,7 +45364,12 @@ client.hris.time_off.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[TimeOffRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        TimeOffRetrieveRequestExpandItem,
+        typing.Sequence[TimeOffRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -30046,7 +45521,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.time_off_balances.list(
+response = client.hris.time_off_balances.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -30068,6 +45543,11 @@ client.hris.time_off_balances.list(
     policy_type=TimeOffBalancesListRequestPolicyType.BEREAVEMENT,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -30115,7 +45595,11 @@ client.hris.time_off_balances.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["employee"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -30163,7 +45647,7 @@ client.hris.time_off_balances.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+**page_size:** `typing.Optional[int]` — Number of results to return per page.
     
 </dd>
 </dl>
@@ -30285,7 +45769,11 @@ client.hris.time_off_balances.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["employee"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -30376,7 +45864,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.hris.timesheet_entries.list(
+response = client.hris.timesheet_entries.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -30410,6 +45898,11 @@ client.hris.timesheet_entries.list(
         "2024-01-15 09:30:00+00:00",
     ),
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -30473,7 +45966,11 @@ client.hris.timesheet_entries.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["employee"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -30724,7 +46221,11 @@ client.hris.timesheet_entries.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["employee"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["employee"], typing.Sequence[typing.Literal["employee"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -30971,3858 +46472,6 @@ client.hris.webhook_receivers.create(
 </dl>
 </details>
 
-## Knowledgebase AccountDetails
-<details><summary><code>client.knowledgebase.account_details.<a href="src/merge/resources/knowledgebase/resources/account_details/client.py">retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get details for a linked account.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.account_details.retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase AccountToken
-<details><summary><code>client.knowledgebase.account_token.<a href="src/merge/resources/knowledgebase/resources/account_token/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns the account token for the end user with the provided public token.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.account_token.retrieve(
-    public_token="public_token",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**public_token:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase Articles
-<details><summary><code>client.knowledgebase.articles.<a href="src/merge/resources/knowledgebase/resources/articles/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `Article` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.knowledgebase.resources.articles import (
-    ArticlesListRequestExpand,
-    ArticlesListRequestType,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.articles.list(
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=ArticlesListRequestExpand.ATTACHMENTS,
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    parent_article_id="parent_article_id",
-    parent_container_id="parent_container_id",
-    remote_id="remote_id",
-    root_container_id="root_container_id",
-    status="status",
-    type=ArticlesListRequestType.EMPTY,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[ArticlesListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**parent_article_id:** `typing.Optional[str]` — If provided, will only return sub articles of the parent_article_id.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**parent_container_id:** `typing.Optional[str]` — If provided, will only return sub articles of the parent_container_id.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**root_container_id:** `typing.Optional[str]` — If provided, will only return sub articles of the root_container_id.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**status:** `typing.Optional[str]` — If provided, will only return articles of the given status; multiple statuses can be separated by commas.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**type:** `typing.Optional[ArticlesListRequestType]` — If provided, will only return articles of the given type.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.knowledgebase.articles.<a href="src/merge/resources/knowledgebase/resources/articles/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns an `Article` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.knowledgebase.resources.articles import (
-    ArticlesRetrieveRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.articles.retrieve(
-    id="id",
-    expand=ArticlesRetrieveRequestExpand.ATTACHMENTS,
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[ArticlesRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase AsyncPassthrough
-<details><summary><code>client.knowledgebase.async_passthrough.<a href="src/merge/resources/knowledgebase/resources/async_passthrough/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Asynchronously pull data from an endpoint not currently supported by Merge.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.knowledgebase import DataPassthroughRequest, MethodEnum
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.async_passthrough.create(
-    request=DataPassthroughRequest(
-        method=MethodEnum.GET,
-        path="/scooters",
-    ),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `DataPassthroughRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.knowledgebase.async_passthrough.<a href="src/merge/resources/knowledgebase/resources/async_passthrough/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieves data from earlier async-passthrough POST request
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.async_passthrough.retrieve(
-    async_passthrough_receipt_id="async_passthrough_receipt_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**async_passthrough_receipt_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase Attachments
-<details><summary><code>client.knowledgebase.attachments.<a href="src/merge/resources/knowledgebase/resources/attachments/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `Attachment` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.attachments.list(
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.knowledgebase.attachments.<a href="src/merge/resources/knowledgebase/resources/attachments/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns an `Attachment` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.attachments.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase AuditTrail
-<details><summary><code>client.knowledgebase.audit_trail.<a href="src/merge/resources/knowledgebase/resources/audit_trail/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Gets a list of audit trail events.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.audit_trail.list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    end_date="end_date",
-    event_type="event_type",
-    page_size=1,
-    start_date="start_date",
-    user_email="user_email",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` — If included, will only include audit trail events that occurred before this time
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**event_type:** `typing.Optional[str]` — If included, will only include events with the given event type. Possible values include: `CREATED_REMOTE_PRODUCTION_API_KEY`, `DELETED_REMOTE_PRODUCTION_API_KEY`, `CREATED_TEST_API_KEY`, `DELETED_TEST_API_KEY`, `REGENERATED_PRODUCTION_API_KEY`, `REGENERATED_WEBHOOK_SIGNATURE`, `INVITED_USER`, `TWO_FACTOR_AUTH_ENABLED`, `TWO_FACTOR_AUTH_DISABLED`, `DELETED_LINKED_ACCOUNT`, `DELETED_ALL_COMMON_MODELS_FOR_LINKED_ACCOUNT`, `CREATED_DESTINATION`, `DELETED_DESTINATION`, `CHANGED_DESTINATION`, `CHANGED_SCOPES`, `CHANGED_PERSONAL_INFORMATION`, `CHANGED_ORGANIZATION_SETTINGS`, `ENABLED_INTEGRATION`, `DISABLED_INTEGRATION`, `ENABLED_CATEGORY`, `DISABLED_CATEGORY`, `CHANGED_PASSWORD`, `RESET_PASSWORD`, `ENABLED_REDACT_UNMAPPED_DATA_FOR_ORGANIZATION`, `ENABLED_REDACT_UNMAPPED_DATA_FOR_LINKED_ACCOUNT`, `DISABLED_REDACT_UNMAPPED_DATA_FOR_ORGANIZATION`, `DISABLED_REDACT_UNMAPPED_DATA_FOR_LINKED_ACCOUNT`, `CREATED_INTEGRATION_WIDE_FIELD_MAPPING`, `CREATED_LINKED_ACCOUNT_FIELD_MAPPING`, `CHANGED_INTEGRATION_WIDE_FIELD_MAPPING`, `CHANGED_LINKED_ACCOUNT_FIELD_MAPPING`, `DELETED_INTEGRATION_WIDE_FIELD_MAPPING`, `DELETED_LINKED_ACCOUNT_FIELD_MAPPING`, `CREATED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE`, `CHANGED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE`, `DELETED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE`, `FORCED_LINKED_ACCOUNT_RESYNC`, `MUTED_ISSUE`, `GENERATED_MAGIC_LINK`, `ENABLED_MERGE_WEBHOOK`, `DISABLED_MERGE_WEBHOOK`, `MERGE_WEBHOOK_TARGET_CHANGED`, `END_USER_CREDENTIALS_ACCESSED`
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `typing.Optional[str]` — If included, will only include audit trail events that occurred after this time
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**user_email:** `typing.Optional[str]` — If provided, this will return events associated with the specified user email. Please note that the email address reflects the user's email at the time of the event, and may not be their current email.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase AvailableActions
-<details><summary><code>client.knowledgebase.available_actions.<a href="src/merge/resources/knowledgebase/resources/available_actions/client.py">retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of models and actions available for an account.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.available_actions.retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase Containers
-<details><summary><code>client.knowledgebase.containers.<a href="src/merge/resources/knowledgebase/resources/containers/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `Container` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.knowledgebase.resources.containers import (
-    ContainersListRequestExpand,
-    ContainersListRequestType,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.containers.list(
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=ContainersListRequestExpand.PARENT_ARTICLE,
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    parent_article_id="parent_article_id",
-    parent_container_id="parent_container_id",
-    remote_id="remote_id",
-    type=ContainersListRequestType.EMPTY,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[ContainersListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**parent_article_id:** `typing.Optional[str]` — If provided, will only return sub containers of the parent_article_id.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**parent_container_id:** `typing.Optional[str]` — If provided, will only return sub containers of the parent_container_id.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**type:** `typing.Optional[ContainersListRequestType]` — If provided, will only return containers of the given type.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.knowledgebase.containers.<a href="src/merge/resources/knowledgebase/resources/containers/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `Container` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.knowledgebase.resources.containers import (
-    ContainersRetrieveRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.containers.retrieve(
-    id="id",
-    expand=ContainersRetrieveRequestExpand.PARENT_ARTICLE,
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[ContainersRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase Scopes
-<details><summary><code>client.knowledgebase.scopes.<a href="src/merge/resources/knowledgebase/resources/scopes/client.py">default_scopes_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get the default permissions for Merge Common Models and fields across all Linked Accounts of a given category. [Learn more](https://help.merge.dev/en/articles/5950052-common-model-and-field-scopes).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.scopes.default_scopes_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.knowledgebase.scopes.<a href="src/merge/resources/knowledgebase/resources/scopes/client.py">linked_account_scopes_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get all available permissions for Merge Common Models and fields for a single Linked Account. [Learn more](https://help.merge.dev/en/articles/5950052-common-model-and-field-scopes).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.scopes.linked_account_scopes_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.knowledgebase.scopes.<a href="src/merge/resources/knowledgebase/resources/scopes/client.py">linked_account_scopes_create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Update permissions for any Common Model or field for a single Linked Account. Any Scopes not set in this POST request will inherit the default Scopes. [Learn more](https://help.merge.dev/en/articles/5950052-common-model-and-field-scopes)
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.knowledgebase import (
-    FieldPermissionDeserializerRequest,
-    IndividualCommonModelScopeDeserializerRequest,
-    ModelPermissionDeserializerRequest,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.scopes.linked_account_scopes_create(
-    common_models=[
-        IndividualCommonModelScopeDeserializerRequest(
-            model_name="Employee",
-            model_permissions={
-                "READ": ModelPermissionDeserializerRequest(
-                    is_enabled=True,
-                ),
-                "WRITE": ModelPermissionDeserializerRequest(
-                    is_enabled=False,
-                ),
-            },
-            field_permissions=FieldPermissionDeserializerRequest(
-                enabled_fields=["avatar", "home_location"],
-                disabled_fields=["work_location"],
-            ),
-        ),
-        IndividualCommonModelScopeDeserializerRequest(
-            model_name="Benefit",
-            model_permissions={
-                "WRITE": ModelPermissionDeserializerRequest(
-                    is_enabled=False,
-                )
-            },
-        ),
-    ],
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**common_models:** `typing.Sequence[IndividualCommonModelScopeDeserializerRequest]` — The common models you want to update the scopes for
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase DeleteAccount
-<details><summary><code>client.knowledgebase.delete_account.<a href="src/merge/resources/knowledgebase/resources/delete_account/client.py">delete</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Delete a linked account.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.delete_account.delete()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase FieldMapping
-<details><summary><code>client.knowledgebase.field_mapping.<a href="src/merge/resources/knowledgebase/resources/field_mapping/client.py">field_mappings_retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get all Field Mappings for this Linked Account. Field Mappings are mappings between third-party Remote Fields and user defined Merge fields. [Learn more](https://docs.merge.dev/supplemental-data/field-mappings/overview/).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.field_mapping.field_mappings_retrieve(
-    exclude_remote_field_metadata=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**exclude_remote_field_metadata:** `typing.Optional[bool]` — If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.knowledgebase.field_mapping.<a href="src/merge/resources/knowledgebase/resources/field_mapping/client.py">field_mappings_create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Create new Field Mappings that will be available after the next scheduled sync. This will cause the next sync for this Linked Account to sync **ALL** data from start.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.field_mapping.field_mappings_create(
-    exclude_remote_field_metadata=True,
-    target_field_name="example_target_field_name",
-    target_field_description="this is a example description of the target field",
-    remote_field_traversal_path=["example_remote_field"],
-    remote_method="GET",
-    remote_url_path="/example-url-path",
-    common_model_name="ExampleCommonModel",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**target_field_name:** `str` — The name of the target field you want this remote field to map to.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**target_field_description:** `str` — The description of the target field you want this remote field to map to.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_field_traversal_path:** `typing.Sequence[typing.Optional[typing.Any]]` — The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_method:** `str` — The method of the remote endpoint where the remote field is coming from.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_url_path:** `str` — The path of the remote endpoint where the remote field is coming from.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**common_model_name:** `str` — The name of the Common Model that the remote field corresponds to in a given category.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**exclude_remote_field_metadata:** `typing.Optional[bool]` — If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**jmes_path:** `typing.Optional[str]` — JMES path to specify json query expression to be used on field mapping.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.knowledgebase.field_mapping.<a href="src/merge/resources/knowledgebase/resources/field_mapping/client.py">field_mappings_destroy</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes Field Mappings for a Linked Account. All data related to this Field Mapping will be deleted and these changes will be reflected after the next scheduled sync. This will cause the next sync for this Linked Account to sync **ALL** data from start.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.field_mapping.field_mappings_destroy(
-    field_mapping_id="field_mapping_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**field_mapping_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.knowledgebase.field_mapping.<a href="src/merge/resources/knowledgebase/resources/field_mapping/client.py">field_mappings_partial_update</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Create or update existing Field Mappings for a Linked Account. Changes will be reflected after the next scheduled sync. This will cause the next sync for this Linked Account to sync **ALL** data from start.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.field_mapping.field_mappings_partial_update(
-    field_mapping_id="field_mapping_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**field_mapping_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_field_traversal_path:** `typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]` — The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_method:** `typing.Optional[str]` — The method of the remote endpoint where the remote field is coming from.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_url_path:** `typing.Optional[str]` — The path of the remote endpoint where the remote field is coming from.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**jmes_path:** `typing.Optional[str]` — JMES path to specify json query expression to be used on field mapping.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.knowledgebase.field_mapping.<a href="src/merge/resources/knowledgebase/resources/field_mapping/client.py">remote_fields_retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get all remote fields for a Linked Account. Remote fields are third-party fields that are accessible after initial sync if remote_data is enabled. You can use remote fields to override existing Merge fields or map a new Merge field. [Learn more](https://docs.merge.dev/supplemental-data/field-mappings/overview/).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.field_mapping.remote_fields_retrieve(
-    common_models="common_models",
-    include_example_values="include_example_values",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**common_models:** `typing.Optional[str]` — A comma seperated list of Common Model names. If included, will only return Remote Fields for those Common Models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_example_values:** `typing.Optional[str]` — If true, will include example values, where available, for remote fields in the 3rd party platform. These examples come from active data from your customers.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.knowledgebase.field_mapping.<a href="src/merge/resources/knowledgebase/resources/field_mapping/client.py">target_fields_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get all organization-wide Target Fields, this will not include any Linked Account specific Target Fields. Organization-wide Target Fields are additional fields appended to the Merge Common Model for all Linked Accounts in a category. [Learn more](https://docs.merge.dev/supplemental-data/field-mappings/target-fields/).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.field_mapping.target_fields_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase GenerateKey
-<details><summary><code>client.knowledgebase.generate_key.<a href="src/merge/resources/knowledgebase/resources/generate_key/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Create a remote key.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.generate_key.create(
-    name="Remote Deployment Key 1",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**name:** `str` — The name of the remote key
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase Groups
-<details><summary><code>client.knowledgebase.groups.<a href="src/merge/resources/knowledgebase/resources/groups/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `Group` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.knowledgebase.resources.groups import (
-    GroupsListRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.groups.list(
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=GroupsListRequestExpand.PARENT_GROUP,
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[GroupsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.knowledgebase.groups.<a href="src/merge/resources/knowledgebase/resources/groups/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `Group` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.knowledgebase.resources.groups import (
-    GroupsRetrieveRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.groups.retrieve(
-    id="id",
-    expand=GroupsRetrieveRequestExpand.PARENT_GROUP,
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[GroupsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase Issues
-<details><summary><code>client.knowledgebase.issues.<a href="src/merge/resources/knowledgebase/resources/issues/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Gets all issues for Organization.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.knowledgebase.resources.issues import (
-    IssuesListRequestStatus,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.issues.list(
-    account_token="account_token",
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    end_date="end_date",
-    end_user_organization_name="end_user_organization_name",
-    first_incident_time_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    first_incident_time_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    include_muted="include_muted",
-    integration_name="integration_name",
-    last_incident_time_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    last_incident_time_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    linked_account_id="linked_account_id",
-    page_size=1,
-    start_date="start_date",
-    status=IssuesListRequestStatus.ONGOING,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**account_token:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` — If included, will only include issues whose most recent action occurred before this time
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_organization_name:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**first_incident_time_after:** `typing.Optional[dt.datetime]` — If provided, will only return issues whose first incident time was after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**first_incident_time_before:** `typing.Optional[dt.datetime]` — If provided, will only return issues whose first incident time was before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_muted:** `typing.Optional[str]` — If true, will include muted issues
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**integration_name:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**last_incident_time_after:** `typing.Optional[dt.datetime]` — If provided, will only return issues whose last incident time was after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**last_incident_time_before:** `typing.Optional[dt.datetime]` — If provided, will only return issues whose last incident time was before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**linked_account_id:** `typing.Optional[str]` — If provided, will only include issues pertaining to the linked account passed in.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `typing.Optional[str]` — If included, will only include issues whose most recent action occurred after this time
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**status:** `typing.Optional[IssuesListRequestStatus]` 
-
-Status of the issue. Options: ('ONGOING', 'RESOLVED')
-
-* `ONGOING` - ONGOING
-* `RESOLVED` - RESOLVED
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.knowledgebase.issues.<a href="src/merge/resources/knowledgebase/resources/issues/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get a specific issue.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.issues.retrieve(
-    id="id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase LinkToken
-<details><summary><code>client.knowledgebase.link_token.<a href="src/merge/resources/knowledgebase/resources/link_token/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a link token to be used when linking a new end user.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.knowledgebase import CategoriesEnum
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.link_token.create(
-    end_user_email_address="example@gmail.com",
-    end_user_organization_name="Test Organization",
-    end_user_origin_id="12345",
-    categories=[CategoriesEnum.HRIS, CategoriesEnum.ATS],
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**end_user_email_address:** `str` — Your end user's email address. This is purely for identification purposes - setting this value will not cause any emails to be sent.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_organization_name:** `str` — Your end user's organization.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_origin_id:** `str` — This unique identifier typically represents the ID for your end user in your product's database. This value must be distinct from other Linked Accounts' unique identifiers.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**categories:** `typing.Sequence[CategoriesEnum]` — The integration categories to show in Merge Link.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**integration:** `typing.Optional[str]` — The slug of a specific pre-selected integration for this linking flow token. For examples of slugs, see https://docs.merge.dev/guides/merge-link/single-integration/.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**link_expiry_mins:** `typing.Optional[int]` — An integer number of minutes between [30, 720 or 10080 if for a Magic Link URL] for how long this token is valid. Defaults to 30.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**should_create_magic_link_url:** `typing.Optional[bool]` — Whether to generate a Magic Link URL. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/integrations-fast-say-hello-to-magic-link.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**hide_admin_magic_link:** `typing.Optional[bool]` — Whether to generate a Magic Link URL on the Admin Needed screen during the linking flow. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/integrations-fast-say-hello-to-magic-link.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**common_models:** `typing.Optional[typing.Sequence[CommonModelScopesBodyRequest]]` — An array of objects to specify the models and fields that will be disabled for a given Linked Account. Each object uses model_id, enabled_actions, and disabled_fields to specify the model, method, and fields that are scoped for a given Linked Account.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**category_common_model_scopes:** `typing.Optional[
-    typing.Dict[
-        str,
-        typing.Optional[
-            typing.Sequence[IndividualCommonModelScopeDeserializerRequest]
-        ],
-    ]
-]` — When creating a Link Token, you can set permissions for Common Models that will apply to the account that is going to be linked. Any model or field not specified in link token payload will default to existing settings.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**language:** `typing.Optional[EndUserDetailsRequestLanguage]` 
-
-The following subset of IETF language tags can be used to configure localization.
-
-* `en` - en
-* `de` - de
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**are_syncs_disabled:** `typing.Optional[bool]` — The boolean that indicates whether initial, periodic, and force syncs will be disabled.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**integration_specific_config:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — A JSON object containing integration-specific configuration options.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**completed_account_initial_screen:** `typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen]` 
-
-When creating a Link token, you can specifiy the initial screen of Linking Flow for a completed Linked Account.
-
-* `SELECTIVE_SYNC` - SELECTIVE_SYNC
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase LinkedAccounts
-<details><summary><code>client.knowledgebase.linked_accounts.<a href="src/merge/resources/knowledgebase/resources/linked_accounts/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-List linked accounts for your organization.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.knowledgebase.resources.linked_accounts import (
-    LinkedAccountsListRequestCategory,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.linked_accounts.list(
-    category=LinkedAccountsListRequestCategory.ACCOUNTING,
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    end_user_email_address="end_user_email_address",
-    end_user_organization_name="end_user_organization_name",
-    end_user_origin_id="end_user_origin_id",
-    end_user_origin_ids="end_user_origin_ids",
-    id="id",
-    ids="ids",
-    include_duplicates=True,
-    integration_name="integration_name",
-    is_test_account="is_test_account",
-    page_size=1,
-    status="status",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**category:** `typing.Optional[LinkedAccountsListRequestCategory]` 
-
-Options: `accounting`, `ats`, `crm`, `filestorage`, `hris`, `knowledgebase`, `mktg`, `ticketing`
-
-* `hris` - hris
-* `ats` - ats
-* `accounting` - accounting
-* `ticketing` - ticketing
-* `crm` - crm
-* `mktg` - mktg
-* `filestorage` - filestorage
-* `knowledgebase` - knowledgebase
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_email_address:** `typing.Optional[str]` — If provided, will only return linked accounts associated with the given email address.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_organization_name:** `typing.Optional[str]` — If provided, will only return linked accounts associated with the given organization name.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_origin_id:** `typing.Optional[str]` — If provided, will only return linked accounts associated with the given origin ID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_origin_ids:** `typing.Optional[str]` — Comma-separated list of EndUser origin IDs, making it possible to specify multiple EndUsers at once.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**id:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ids:** `typing.Optional[str]` — Comma-separated list of LinkedAccount IDs, making it possible to specify multiple LinkedAccounts at once.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_duplicates:** `typing.Optional[bool]` — If `true`, will include complete production duplicates of the account specified by the `id` query parameter in the response. `id` must be for a complete production linked account.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**integration_name:** `typing.Optional[str]` — If provided, will only return linked accounts associated with the given integration name.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_test_account:** `typing.Optional[str]` — If included, will only include test linked accounts. If not included, will only include non-test linked accounts.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**status:** `typing.Optional[str]` — Filter by status. Options: `COMPLETE`, `IDLE`, `INCOMPLETE`, `RELINK_NEEDED`
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase Passthrough
-<details><summary><code>client.knowledgebase.passthrough.<a href="src/merge/resources/knowledgebase/resources/passthrough/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Pull data from an endpoint not currently supported by Merge.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.knowledgebase import DataPassthroughRequest, MethodEnum
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.passthrough.create(
-    request=DataPassthroughRequest(
-        method=MethodEnum.GET,
-        path="/scooters",
-    ),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `DataPassthroughRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase RegenerateKey
-<details><summary><code>client.knowledgebase.regenerate_key.<a href="src/merge/resources/knowledgebase/resources/regenerate_key/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Exchange remote keys.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.regenerate_key.create(
-    name="Remote Deployment Key 1",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**name:** `str` — The name of the remote key
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase SyncStatus
-<details><summary><code>client.knowledgebase.sync_status.<a href="src/merge/resources/knowledgebase/resources/sync_status/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get sync status for the current sync and the most recently finished sync. `last_sync_start` represents the most recent time any sync began. `last_sync_finished` represents the most recent time any sync completed. These timestamps may correspond to different sync instances which may result in a sync start time being later than a separate sync completed time. To ensure you are retrieving the latest available data reference the `last_sync_finished` timestamp where `last_sync_result` is `DONE`. Possible values for `status` and `last_sync_result` are `DISABLED`, `DONE`, `FAILED`, `PARTIALLY_SYNCED`, `PAUSED`, `SYNCING`. Learn more about sync status in our [Help Center](https://help.merge.dev/en/articles/8184193-merge-sync-statuses).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.sync_status.list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase ForceResync
-<details><summary><code>client.knowledgebase.force_resync.<a href="src/merge/resources/knowledgebase/resources/force_resync/client.py">sync_status_resync_create</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Force re-sync of all models. This endpoint is available for monthly, quarterly, and highest sync frequency customers on the Professional or Enterprise plans. Doing so will consume a sync credit for the relevant linked account. Force re-syncs can also be triggered manually in the Merge Dashboard and is available for all customers.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.force_resync.sync_status_resync_create()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase Users
-<details><summary><code>client.knowledgebase.users.<a href="src/merge/resources/knowledgebase/resources/users/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `User` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.users.list(
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.knowledgebase.users.<a href="src/merge/resources/knowledgebase/resources/users/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `User` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.users.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Knowledgebase WebhookReceivers
-<details><summary><code>client.knowledgebase.webhook_receivers.<a href="src/merge/resources/knowledgebase/resources/webhook_receivers/client.py">list</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `WebhookReceiver` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.webhook_receivers.list()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.knowledgebase.webhook_receivers.<a href="src/merge/resources/knowledgebase/resources/webhook_receivers/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a `WebhookReceiver` object with the given values.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.knowledgebase.webhook_receivers.create(
-    event="event",
-    is_active=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**event:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_active:** `bool` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**key:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Ticketing AccountDetails
 <details><summary><code>client.ticketing.account_details.<a href="src/merge/resources/ticketing/resources/account_details/client.py">retrieve</a>()</code></summary>
 <dl>
@@ -34957,6 +46606,67 @@ client.ticketing.account_token.retrieve(
 </dl>
 </details>
 
+<details><summary><code>client.ticketing.account_token.<a href="src/merge/resources/ticketing/resources/account_token/client.py">regenerate_create</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Exchange Linked Account account tokens.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.ticketing.account_token.regenerate_create()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Ticketing Accounts
 <details><summary><code>client.ticketing.accounts.<a href="src/merge/resources/ticketing/resources/accounts/client.py">list</a>(...)</code></summary>
 <dl>
@@ -34993,7 +46703,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.accounts.list(
+response = client.ticketing.accounts.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -35013,6 +46723,11 @@ client.ticketing.accounts.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -35092,7 +46807,7 @@ client.ticketing.accounts.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -35392,7 +47107,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.attachments.list(
+response = client.ticketing.attachments.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -35416,6 +47131,11 @@ client.ticketing.attachments.list(
     remote_id="remote_id",
     ticket_id="ticket_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -35455,7 +47175,11 @@ client.ticketing.attachments.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["ticket"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["ticket"], typing.Sequence[typing.Literal["ticket"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -35503,7 +47227,7 @@ client.ticketing.attachments.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+**page_size:** `typing.Optional[int]` — Number of results to return per page.
     
 </dd>
 </dl>
@@ -35698,7 +47422,11 @@ client.ticketing.attachments.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["ticket"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["ticket"], typing.Sequence[typing.Literal["ticket"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -35829,7 +47557,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.audit_trail.list(
+response = client.ticketing.audit_trail.list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     end_date="end_date",
     event_type="event_type",
@@ -35837,6 +47565,11 @@ client.ticketing.audit_trail.list(
     start_date="start_date",
     user_email="user_email",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -36013,7 +47746,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.collections.list(
+response = client.ticketing.collections.list(
     collection_type=CollectionsListRequestCollectionType.EMPTY,
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
@@ -36036,6 +47769,11 @@ client.ticketing.collections.list(
     parent_collection_id="parent_collection_id",
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -36083,7 +47821,12 @@ client.ticketing.collections.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["parent_collection"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        CollectionsListRequestExpandItem,
+        typing.Sequence[CollectionsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -36219,23 +47962,24 @@ Returns a list of `Viewer` objects that point to a User id or Team id that is ei
 
 ```python
 from merge import Merge
-from merge.resources.ticketing.resources.collections import (
-    CollectionsViewersListRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.collections.viewers_list(
+response = client.ticketing.collections.viewers_list(
     collection_id="collection_id",
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=CollectionsViewersListRequestExpand.TEAM,
     include_deleted_data=True,
     include_remote_data=True,
     include_shell_data=True,
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -36267,7 +48011,12 @@ client.ticketing.collections.viewers_list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[CollectionsViewersListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        CollectionsViewersListRequestExpandItem,
+        typing.Sequence[CollectionsViewersListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -36299,7 +48048,7 @@ client.ticketing.collections.viewers_list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -36380,7 +48129,12 @@ client.ticketing.collections.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["parent_collection"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        CollectionsRetrieveRequestExpandItem,
+        typing.Sequence[CollectionsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -36463,15 +48217,12 @@ Returns a list of `Comment` objects.
 import datetime
 
 from merge import Merge
-from merge.resources.ticketing.resources.comments import (
-    CommentsListRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.comments.list(
+response = client.ticketing.comments.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -36479,7 +48230,6 @@ client.ticketing.comments.list(
         "2024-01-15 09:30:00+00:00",
     ),
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=CommentsListRequestExpand.CONTACT,
     include_deleted_data=True,
     include_remote_data=True,
     include_shell_data=True,
@@ -36496,6 +48246,11 @@ client.ticketing.comments.list(
     remote_id="remote_id",
     ticket_id="ticket_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -36535,7 +48290,12 @@ client.ticketing.comments.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[CommentsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        CommentsListRequestExpandItem,
+        typing.Sequence[CommentsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -36745,9 +48505,6 @@ Returns a `Comment` object with the given `id`.
 
 ```python
 from merge import Merge
-from merge.resources.ticketing.resources.comments import (
-    CommentsRetrieveRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -36755,7 +48512,6 @@ client = Merge(
 )
 client.ticketing.comments.retrieve(
     id="id",
-    expand=CommentsRetrieveRequestExpand.CONTACT,
     include_remote_data=True,
     include_shell_data=True,
 )
@@ -36782,7 +48538,12 @@ client.ticketing.comments.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[CommentsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        CommentsRetrieveRequestExpandItem,
+        typing.Sequence[CommentsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -36915,7 +48676,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.contacts.list(
+response = client.ticketing.contacts.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -36936,6 +48697,11 @@ client.ticketing.contacts.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -36983,7 +48749,11 @@ client.ticketing.contacts.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["account"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["account"], typing.Sequence[typing.Literal["account"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -37210,7 +48980,11 @@ client.ticketing.contacts.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["account"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        typing.Literal["account"], typing.Sequence[typing.Literal["account"]]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -37699,6 +49473,7 @@ client = Merge(
 )
 client.ticketing.field_mapping.field_mappings_create(
     exclude_remote_field_metadata=True,
+    remote_data_iteration_count=1,
     target_field_name="example_target_field_name",
     target_field_description="this is a example description of the target field",
     remote_field_traversal_path=["example_remote_field"],
@@ -37770,6 +49545,14 @@ client.ticketing.field_mapping.field_mappings_create(
 <dd>
 
 **exclude_remote_field_metadata:** `typing.Optional[bool]` — If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_data_iteration_count:** `typing.Optional[int]` — Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
     
 </dd>
 </dl>
@@ -37903,6 +49686,7 @@ client = Merge(
 )
 client.ticketing.field_mapping.field_mappings_partial_update(
     field_mapping_id="field_mapping_id",
+    remote_data_iteration_count=1,
 )
 
 ```
@@ -37920,6 +49704,14 @@ client.ticketing.field_mapping.field_mappings_partial_update(
 <dd>
 
 **field_mapping_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_data_iteration_count:** `typing.Optional[int]` — Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
     
 </dd>
 </dl>
@@ -38221,7 +50013,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.issues.list(
+response = client.ticketing.issues.list(
     account_token="account_token",
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     end_date="end_date",
@@ -38245,6 +50037,11 @@ client.ticketing.issues.list(
     start_date="start_date",
     status=IssuesListRequestStatus.ONGOING,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -38473,7 +50270,7 @@ client.ticketing.issues.retrieve(
 <dl>
 <dd>
 
-Creates a link token to be used when linking a new end user.
+Creates a link token to be used when linking a new end user. The link token expires after single use.
 </dd>
 </dl>
 </dd>
@@ -38632,18 +50429,6 @@ The following subset of IETF language tags can be used to configure localization
 <dl>
 <dd>
 
-**completed_account_initial_screen:** `typing.Optional[EndUserDetailsRequestCompletedAccountInitialScreen]` 
-
-When creating a Link token, you can specifiy the initial screen of Linking Flow for a completed Linked Account.
-
-* `SELECTIVE_SYNC` - SELECTIVE_SYNC
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -38693,7 +50478,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.linked_accounts.list(
+response = client.ticketing.linked_accounts.list(
     category=LinkedAccountsListRequestCategory.ACCOUNTING,
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     end_user_email_address="end_user_email_address",
@@ -38708,6 +50493,11 @@ client.ticketing.linked_accounts.list(
     page_size=1,
     status="status",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -38961,7 +50751,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.projects.list(
+response = client.ticketing.projects.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -38981,6 +50771,11 @@ client.ticketing.projects.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -39060,7 +50855,7 @@ client.ticketing.projects.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
+**page_size:** `typing.Optional[int]` — Number of results to return per page.
     
 </dd>
 </dl>
@@ -39205,23 +51000,24 @@ Returns a list of `User` objects.
 
 ```python
 from merge import Merge
-from merge.resources.ticketing.resources.projects import (
-    ProjectsUsersListRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.projects.users_list(
+response = client.ticketing.projects.users_list(
     parent_id="parent_id",
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=ProjectsUsersListRequestExpand.ROLES,
     include_deleted_data=True,
     include_remote_data=True,
     include_shell_data=True,
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -39253,7 +51049,12 @@ client.ticketing.projects.users_list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[ProjectsUsersListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        ProjectsUsersListRequestExpandItem,
+        typing.Sequence[ProjectsUsersListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -39413,7 +51214,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.roles.list(
+response = client.ticketing.roles.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -39433,6 +51234,11 @@ client.ticketing.roles.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -39663,10 +51469,15 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.sync_status.list(
+response = client.ticketing.sync_status.list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -39808,7 +51619,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.tags.list(
+response = client.ticketing.tags.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -39828,6 +51639,11 @@ client.ticketing.tags.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -40060,7 +51876,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.teams.list(
+response = client.ticketing.teams.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -40080,6 +51896,11 @@ client.ticketing.teams.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -40308,7 +52129,6 @@ import datetime
 
 from merge import Merge
 from merge.resources.ticketing.resources.tickets import (
-    TicketsListRequestExpand,
     TicketsListRequestPriority,
     TicketsListRequestRemoteFields,
     TicketsListRequestShowEnumOrigins,
@@ -40319,7 +52139,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.tickets.list(
+response = client.ticketing.tickets.list(
     account_id="account_id",
     assignee_ids="assignee_ids",
     collection_ids="collection_ids",
@@ -40345,7 +52165,6 @@ client.ticketing.tickets.list(
     due_before=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
-    expand=TicketsListRequestExpand.ACCOUNT,
     include_deleted_data=True,
     include_remote_data=True,
     include_remote_fields=True,
@@ -40368,6 +52187,7 @@ client.ticketing.tickets.list(
     ),
     remote_fields=TicketsListRequestRemoteFields.PRIORITY,
     remote_id="remote_id",
+    remote_ids="remote_ids",
     remote_updated_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -40380,6 +52200,11 @@ client.ticketing.tickets.list(
     ticket_type="ticket_type",
     ticket_url="ticket_url",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -40499,7 +52324,12 @@ client.ticketing.tickets.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[TicketsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        TicketsListRequestExpandItem,
+        typing.Sequence[TicketsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -40619,6 +52449,14 @@ If provided, will only return tickets of this priority.
 <dd>
 
 **remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_ids:** `typing.Optional[str]` — If provided, will only return tickets with these remote IDs (comma-separated).
     
 </dd>
 </dl>
@@ -40813,7 +52651,6 @@ Returns a `Ticket` object with the given `id`.
 ```python
 from merge import Merge
 from merge.resources.ticketing.resources.tickets import (
-    TicketsRetrieveRequestExpand,
     TicketsRetrieveRequestRemoteFields,
     TicketsRetrieveRequestShowEnumOrigins,
 )
@@ -40824,7 +52661,6 @@ client = Merge(
 )
 client.ticketing.tickets.retrieve(
     id="id",
-    expand=TicketsRetrieveRequestExpand.ACCOUNT,
     include_remote_data=True,
     include_remote_fields=True,
     include_shell_data=True,
@@ -40854,7 +52690,12 @@ client.ticketing.tickets.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[TicketsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        TicketsRetrieveRequestExpandItem,
+        typing.Sequence[TicketsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -41041,23 +52882,24 @@ Returns a list of `Viewer` objects that point to a User id or Team id that is ei
 
 ```python
 from merge import Merge
-from merge.resources.ticketing.resources.tickets import (
-    TicketsViewersListRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.tickets.viewers_list(
+response = client.ticketing.tickets.viewers_list(
     ticket_id="ticket_id",
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=TicketsViewersListRequestExpand.TEAM,
     include_deleted_data=True,
     include_remote_data=True,
     include_shell_data=True,
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -41089,7 +52931,12 @@ client.ticketing.tickets.viewers_list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[TicketsViewersListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        TicketsViewersListRequestExpandItem,
+        typing.Sequence[TicketsViewersListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -41325,7 +53172,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.tickets.remote_field_classes_list(
+response = client.ticketing.tickets.remote_field_classes_list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     ids="ids",
     include_deleted_data=True,
@@ -41335,6 +53182,11 @@ client.ticketing.tickets.remote_field_classes_list(
     is_custom=True,
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -41457,13 +53309,13 @@ Returns a list of `User` objects.
 import datetime
 
 from merge import Merge
-from merge.resources.ticketing.resources.users import UsersListRequestExpand
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.ticketing.users.list(
+response = client.ticketing.users.list(
+    collections="collections",
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -41472,7 +53324,6 @@ client.ticketing.users.list(
     ),
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     email_address="email_address",
-    expand=UsersListRequestExpand.ROLES,
     include_deleted_data=True,
     include_remote_data=True,
     include_shell_data=True,
@@ -41484,8 +53335,15 @@ client.ticketing.users.list(
     ),
     page_size=1,
     remote_id="remote_id",
+    roles="roles",
     team="team",
+    teams="teams",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -41497,6 +53355,14 @@ client.ticketing.users.list(
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**collections:** `typing.Optional[str]` — If provided, will only return users involved with at least one of these collections.
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -41533,7 +53399,11 @@ client.ticketing.users.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[UsersListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        UsersListRequestExpandItem, typing.Sequence[UsersListRequestExpandItem]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -41597,7 +53467,23 @@ client.ticketing.users.list(
 <dl>
 <dd>
 
+**roles:** `typing.Optional[str]` — If provided, will only return users with at least one of these roles.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **team:** `typing.Optional[str]` — If provided, will only return users matching in this team.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**teams:** `typing.Optional[str]` — If provided, will only return users with at least one of these teams.
     
 </dd>
 </dl>
@@ -41645,7 +53531,6 @@ Returns a `User` object with the given `id`.
 
 ```python
 from merge import Merge
-from merge.resources.ticketing.resources.users import UsersRetrieveRequestExpand
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -41653,7 +53538,6 @@ client = Merge(
 )
 client.ticketing.users.retrieve(
     id="id",
-    expand=UsersRetrieveRequestExpand.ROLES,
     include_remote_data=True,
     include_shell_data=True,
 )
@@ -41680,7 +53564,12 @@ client.ticketing.users.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[UsersRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        UsersRetrieveRequestExpandItem,
+        typing.Sequence[UsersRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -42000,6 +53889,67 @@ client.filestorage.account_token.retrieve(
 </dl>
 </details>
 
+<details><summary><code>client.filestorage.account_token.<a href="src/merge/resources/filestorage/resources/account_token/client.py">regenerate_create</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Exchange Linked Account account tokens.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from merge import Merge
+
+client = Merge(
+    account_token="YOUR_ACCOUNT_TOKEN",
+    api_key="YOUR_API_KEY",
+)
+client.filestorage.account_token.regenerate_create()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Filestorage AsyncPassthrough
 <details><summary><code>client.filestorage.async_passthrough.<a href="src/merge/resources/filestorage/resources/async_passthrough/client.py">create</a>(...)</code></summary>
 <dl>
@@ -42181,7 +54131,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.audit_trail.list(
+response = client.filestorage.audit_trail.list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     end_date="end_date",
     event_type="event_type",
@@ -42189,6 +54139,11 @@ client.filestorage.audit_trail.list(
     start_date="start_date",
     user_email="user_email",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -42228,7 +54183,7 @@ client.filestorage.audit_trail.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -42647,7 +54602,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.drives.list(
+response = client.filestorage.drives.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -42668,6 +54623,11 @@ client.filestorage.drives.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -42979,6 +54939,7 @@ client = Merge(
 )
 client.filestorage.field_mapping.field_mappings_create(
     exclude_remote_field_metadata=True,
+    remote_data_iteration_count=1,
     target_field_name="example_target_field_name",
     target_field_description="this is a example description of the target field",
     remote_field_traversal_path=["example_remote_field"],
@@ -43050,6 +55011,22 @@ client.filestorage.field_mapping.field_mappings_create(
 <dd>
 
 **exclude_remote_field_metadata:** `typing.Optional[bool]` — If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**remote_data_iteration_count:** `typing.Optional[int]` — Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**jmes_path:** `typing.Optional[str]` — JMES path to specify json query expression to be used on field mapping.
     
 </dd>
 </dl>
@@ -43175,6 +55152,7 @@ client = Merge(
 )
 client.filestorage.field_mapping.field_mappings_partial_update(
     field_mapping_id="field_mapping_id",
+    remote_data_iteration_count=1,
 )
 
 ```
@@ -43199,6 +55177,14 @@ client.filestorage.field_mapping.field_mappings_partial_update(
 <dl>
 <dd>
 
+**remote_data_iteration_count:** `typing.Optional[int]` — Number of common model instances to iterate through when fetching remote data for field mappings. Defaults to 250 if not provided.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **remote_field_traversal_path:** `typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]` — The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
     
 </dd>
@@ -43216,6 +55202,14 @@ client.filestorage.field_mapping.field_mappings_partial_update(
 <dd>
 
 **remote_url_path:** `typing.Optional[str]` — The path of the remote endpoint where the remote field is coming from.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**jmes_path:** `typing.Optional[str]` — JMES path to specify json query expression to be used on field mapping.
     
 </dd>
 </dl>
@@ -43407,16 +55401,13 @@ Returns a list of `File` objects.
 import datetime
 
 from merge import Merge
-from merge.resources.filestorage.resources.files import (
-    FilesListRequestExpand,
-    FilesListRequestOrderBy,
-)
+from merge.resources.filestorage.resources.files import FilesListRequestOrderBy
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.files.list(
+response = client.filestorage.files.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -43425,7 +55416,6 @@ client.filestorage.files.list(
     ),
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     drive_id="drive_id",
-    expand=FilesListRequestExpand.DRIVE,
     folder_id="folder_id",
     include_deleted_data=True,
     include_remote_data=True,
@@ -43448,6 +55438,11 @@ client.filestorage.files.list(
     ),
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -43495,7 +55490,11 @@ client.filestorage.files.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[FilesListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        FilesListRequestExpandItem, typing.Sequence[FilesListRequestExpandItem]
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -43575,7 +55574,7 @@ client.filestorage.files.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -43737,9 +55736,6 @@ Returns a `File` object with the given `id`.
 
 ```python
 from merge import Merge
-from merge.resources.filestorage.resources.files import (
-    FilesRetrieveRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -43747,7 +55743,6 @@ client = Merge(
 )
 client.filestorage.files.retrieve(
     id="id",
-    expand=FilesRetrieveRequestExpand.DRIVE,
     include_remote_data=True,
     include_shell_data=True,
 )
@@ -43774,7 +55769,12 @@ client.filestorage.files.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[FilesRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        FilesRetrieveRequestExpandItem,
+        typing.Sequence[FilesRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -43822,7 +55822,7 @@ client.filestorage.files.retrieve(
 <dl>
 <dd>
 
-Returns metadata to construct an authenticated file download request for a singular file, allowing you to download file directly from the third-party.
+Returns metadata to construct an authenticated file download request for a singular file, allowing you to download file directly from the third-party. For information on our download process please refer to our <a href='https://help.merge.dev/articles/10644317' target='_blank'>direct file download help center article</a>.
 </dd>
 </dl>
 </dd>
@@ -43870,7 +55870,7 @@ client.filestorage.files.download_request_meta_retrieve(
 <dl>
 <dd>
 
-**mime_type:** `typing.Optional[str]` — If provided, specifies the export format of the file to be downloaded. For information on supported export formats, please refer to our <a href='https://help.merge.dev/en/articles/8615316-file-export-and-download-specification' target='_blank'>export format help center article</a>.
+**mime_type:** `typing.Optional[str]` — If provided, specifies the export format of the file to be downloaded.
     
 </dd>
 </dl>
@@ -43926,7 +55926,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.files.download_request_meta_list(
+response = client.filestorage.files.download_request_meta_list(
     created_after="created_after",
     created_before="created_before",
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
@@ -43937,6 +55937,11 @@ client.filestorage.files.download_request_meta_list(
     order_by=FilesDownloadRequestMetaListRequestOrderBy.CREATED_AT_DESCENDING,
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -44136,15 +56141,12 @@ Returns a list of `Folder` objects.
 import datetime
 
 from merge import Merge
-from merge.resources.filestorage.resources.folders import (
-    FoldersListRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.folders.list(
+response = client.filestorage.folders.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -44153,7 +56155,6 @@ client.filestorage.folders.list(
     ),
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     drive_id="drive_id",
-    expand=FoldersListRequestExpand.DRIVE,
     include_deleted_data=True,
     include_remote_data=True,
     include_shell_data=True,
@@ -44168,6 +56169,11 @@ client.filestorage.folders.list(
     parent_folder_id="parent_folder_id",
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -44215,7 +56221,12 @@ client.filestorage.folders.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[FoldersListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        FoldersListRequestExpandItem,
+        typing.Sequence[FoldersListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -44271,7 +56282,7 @@ client.filestorage.folders.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -44425,9 +56436,6 @@ Returns a `Folder` object with the given `id`.
 
 ```python
 from merge import Merge
-from merge.resources.filestorage.resources.folders import (
-    FoldersRetrieveRequestExpand,
-)
 
 client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
@@ -44435,7 +56443,6 @@ client = Merge(
 )
 client.filestorage.folders.retrieve(
     id="id",
-    expand=FoldersRetrieveRequestExpand.DRIVE,
     include_remote_data=True,
     include_shell_data=True,
 )
@@ -44462,7 +56469,12 @@ client.filestorage.folders.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[FoldersRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        FoldersRetrieveRequestExpandItem,
+        typing.Sequence[FoldersRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -44667,7 +56679,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.groups.list(
+response = client.filestorage.groups.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -44687,6 +56699,11 @@ client.filestorage.groups.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -44726,7 +56743,12 @@ client.filestorage.groups.list(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["child_groups"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        GroupsListRequestExpandItem,
+        typing.Sequence[GroupsListRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -44774,7 +56796,7 @@ client.filestorage.groups.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -44863,7 +56885,12 @@ client.filestorage.groups.retrieve(
 <dl>
 <dd>
 
-**expand:** `typing.Optional[typing.Literal["child_groups"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
+**expand:** `typing.Optional[
+    typing.Union[
+        GroupsRetrieveRequestExpandItem,
+        typing.Sequence[GroupsRetrieveRequestExpandItem],
+    ]
+]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
     
 </dd>
 </dl>
@@ -44936,7 +56963,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.issues.list(
+response = client.filestorage.issues.list(
     account_token="account_token",
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     end_date="end_date",
@@ -44960,6 +56987,11 @@ client.filestorage.issues.list(
     start_date="start_date",
     status=IssuesListRequestStatus.ONGOING,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -45063,7 +57095,7 @@ client.filestorage.issues.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -45188,7 +57220,7 @@ client.filestorage.issues.retrieve(
 <dl>
 <dd>
 
-Creates a link token to be used when linking a new end user.
+Creates a link token to be used when linking a new end user. The link token expires after single use.
 </dd>
 </dl>
 </dd>
@@ -45318,7 +57350,7 @@ client.filestorage.link_token.create(
 <dl>
 <dd>
 
-**language:** `typing.Optional[LanguageEnum]` 
+**language:** `typing.Optional[EndUserDetailsRequestLanguage]` 
 
 The following subset of IETF language tags can be used to configure localization.
 
@@ -45396,7 +57428,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.linked_accounts.list(
+response = client.filestorage.linked_accounts.list(
     category=LinkedAccountsListRequestCategory.ACCOUNTING,
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     end_user_email_address="end_user_email_address",
@@ -45411,6 +57443,11 @@ client.filestorage.linked_accounts.list(
     page_size=1,
     status="status",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -45524,7 +57561,7 @@ Options: `accounting`, `ats`, `crm`, `filestorage`, `hris`, `mktg`, `ticketing`
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -45734,10 +57771,15 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.sync_status.list(
+response = client.filestorage.sync_status.list(
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
     page_size=1,
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -45761,7 +57803,7 @@ client.filestorage.sync_status.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -45879,7 +57921,7 @@ client = Merge(
     account_token="YOUR_ACCOUNT_TOKEN",
     api_key="YOUR_API_KEY",
 )
-client.filestorage.users.list(
+response = client.filestorage.users.list(
     created_after=datetime.datetime.fromisoformat(
         "2024-01-15 09:30:00+00:00",
     ),
@@ -45887,6 +57929,7 @@ client.filestorage.users.list(
         "2024-01-15 09:30:00+00:00",
     ),
     cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
+    email_address="email_address",
     include_deleted_data=True,
     include_remote_data=True,
     include_shell_data=True,
@@ -45900,6 +57943,11 @@ client.filestorage.users.list(
     page_size=1,
     remote_id="remote_id",
 )
+for item in response:
+    yield item
+# alternatively, you can paginate page-by-page
+for page in response.iter_pages():
+    yield page
 
 ```
 </dd>
@@ -45932,6 +57980,14 @@ client.filestorage.users.list(
 <dd>
 
 **cursor:** `typing.Optional[str]` — The pagination cursor value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**email_address:** `typing.Optional[str]` — If provided, will only return users with emails equal to this value (case insensitive).
     
 </dd>
 </dl>
@@ -45987,7 +58043,7 @@ client.filestorage.users.list(
 <dl>
 <dd>
 
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
+**page_size:** `typing.Optional[int]` — Number of results to return per page. The maximum limit is 100.
     
 </dd>
 </dl>
@@ -46200,15274 +58256,6 @@ client = Merge(
     api_key="YOUR_API_KEY",
 )
 client.filestorage.webhook_receivers.create(
-    event="event",
-    is_active=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**event:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_active:** `bool` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**key:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting AccountDetails
-<details><summary><code>client.accounting.account_details.<a href="src/merge/resources/accounting/resources/account_details/client.py">retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get details for a linked account.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.account_details.retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting AccountToken
-<details><summary><code>client.accounting.account_token.<a href="src/merge/resources/accounting/resources/account_token/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns the account token for the end user with the provided public token.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.account_token.retrieve(
-    public_token="public_token",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**public_token:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting AccountingPeriods
-<details><summary><code>client.accounting.accounting_periods.<a href="src/merge/resources/accounting/resources/accounting_periods/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `AccountingPeriod` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.accounting_periods.list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.accounting_periods.<a href="src/merge/resources/accounting/resources/accounting_periods/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns an `AccountingPeriod` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.accounting_periods.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting Accounts
-<details><summary><code>client.accounting.accounts.<a href="src/merge/resources/accounting/resources/accounts/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `Account` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.accounting.resources.accounts import (
-    AccountsListRequestClassification,
-    AccountsListRequestRemoteFields,
-    AccountsListRequestShowEnumOrigins,
-    AccountsListRequestStatus,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.accounts.list(
-    account_type="account_type",
-    classification=AccountsListRequestClassification.EMPTY,
-    company_id="company_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    name="name",
-    page_size=1,
-    remote_fields=AccountsListRequestRemoteFields.CLASSIFICATION,
-    remote_id="remote_id",
-    show_enum_origins=AccountsListRequestShowEnumOrigins.CLASSIFICATION,
-    status=AccountsListRequestStatus.EMPTY,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**account_type:** `typing.Optional[str]` — If provided, will only return accounts with the passed in enum.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**classification:** `typing.Optional[AccountsListRequestClassification]` — If provided, will only return accounts with this classification.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return accounts for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["company"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**name:** `typing.Optional[str]` — If provided, will only return Accounts with this name.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_fields:** `typing.Optional[AccountsListRequestRemoteFields]` — Deprecated. Use show_enum_origins.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**show_enum_origins:** `typing.Optional[AccountsListRequestShowEnumOrigins]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**status:** `typing.Optional[AccountsListRequestStatus]` — If provided, will only return accounts with this status.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.accounts.<a href="src/merge/resources/accounting/resources/accounts/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates an `Account` object with the given values.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import AccountRequest
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.accounts.create(
-    is_debug_mode=True,
-    run_async=True,
-    model=AccountRequest(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**model:** `AccountRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.accounts.<a href="src/merge/resources/accounting/resources/accounts/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns an `Account` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting.resources.accounts import (
-    AccountsRetrieveRequestRemoteFields,
-    AccountsRetrieveRequestShowEnumOrigins,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.accounts.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-    remote_fields=AccountsRetrieveRequestRemoteFields.CLASSIFICATION,
-    show_enum_origins=AccountsRetrieveRequestShowEnumOrigins.CLASSIFICATION,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["company"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_fields:** `typing.Optional[AccountsRetrieveRequestRemoteFields]` — Deprecated. Use show_enum_origins.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**show_enum_origins:** `typing.Optional[AccountsRetrieveRequestShowEnumOrigins]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.accounts.<a href="src/merge/resources/accounting/resources/accounts/client.py">meta_post_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns metadata for `Account` POSTs.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.accounts.meta_post_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting Addresses
-<details><summary><code>client.accounting.addresses.<a href="src/merge/resources/accounting/resources/addresses/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns an `Address` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.addresses.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_fields:** `typing.Optional[typing.Literal["type"]]` — Deprecated. Use show_enum_origins.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**show_enum_origins:** `typing.Optional[typing.Literal["type"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting AsyncPassthrough
-<details><summary><code>client.accounting.async_passthrough.<a href="src/merge/resources/accounting/resources/async_passthrough/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Asynchronously pull data from an endpoint not currently supported by Merge.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import DataPassthroughRequest, MethodEnum
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.async_passthrough.create(
-    request=DataPassthroughRequest(
-        method=MethodEnum.GET,
-        path="/scooters",
-    ),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `DataPassthroughRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.async_passthrough.<a href="src/merge/resources/accounting/resources/async_passthrough/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieves data from earlier async-passthrough POST request
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.async_passthrough.retrieve(
-    async_passthrough_receipt_id="async_passthrough_receipt_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**async_passthrough_receipt_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting AsyncTasks
-<details><summary><code>client.accounting.async_tasks.<a href="src/merge/resources/accounting/resources/async_tasks/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns an `AsyncPostTask` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.async_tasks.retrieve(
-    id="id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting Attachments
-<details><summary><code>client.accounting.attachments.<a href="src/merge/resources/accounting/resources/attachments/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `AccountingAttachment` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.attachments.list(
-    company_id="company_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return accounting attachments for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.attachments.<a href="src/merge/resources/accounting/resources/attachments/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates an `AccountingAttachment` object with the given values.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import AccountingAttachmentRequest
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.attachments.create(
-    is_debug_mode=True,
-    run_async=True,
-    model=AccountingAttachmentRequest(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**model:** `AccountingAttachmentRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.attachments.<a href="src/merge/resources/accounting/resources/attachments/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns an `AccountingAttachment` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.attachments.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.attachments.<a href="src/merge/resources/accounting/resources/attachments/client.py">meta_post_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns metadata for `AccountingAttachment` POSTs.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.attachments.meta_post_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting AuditTrail
-<details><summary><code>client.accounting.audit_trail.<a href="src/merge/resources/accounting/resources/audit_trail/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Gets a list of audit trail events.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.audit_trail.list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    end_date="end_date",
-    event_type="event_type",
-    page_size=1,
-    start_date="start_date",
-    user_email="user_email",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` — If included, will only include audit trail events that occurred before this time
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**event_type:** `typing.Optional[str]` — If included, will only include events with the given event type. Possible values include: `CREATED_REMOTE_PRODUCTION_API_KEY`, `DELETED_REMOTE_PRODUCTION_API_KEY`, `CREATED_TEST_API_KEY`, `DELETED_TEST_API_KEY`, `REGENERATED_PRODUCTION_API_KEY`, `REGENERATED_WEBHOOK_SIGNATURE`, `INVITED_USER`, `TWO_FACTOR_AUTH_ENABLED`, `TWO_FACTOR_AUTH_DISABLED`, `DELETED_LINKED_ACCOUNT`, `DELETED_ALL_COMMON_MODELS_FOR_LINKED_ACCOUNT`, `CREATED_DESTINATION`, `DELETED_DESTINATION`, `CHANGED_DESTINATION`, `CHANGED_SCOPES`, `CHANGED_PERSONAL_INFORMATION`, `CHANGED_ORGANIZATION_SETTINGS`, `ENABLED_INTEGRATION`, `DISABLED_INTEGRATION`, `ENABLED_CATEGORY`, `DISABLED_CATEGORY`, `CHANGED_PASSWORD`, `RESET_PASSWORD`, `ENABLED_REDACT_UNMAPPED_DATA_FOR_ORGANIZATION`, `ENABLED_REDACT_UNMAPPED_DATA_FOR_LINKED_ACCOUNT`, `DISABLED_REDACT_UNMAPPED_DATA_FOR_ORGANIZATION`, `DISABLED_REDACT_UNMAPPED_DATA_FOR_LINKED_ACCOUNT`, `CREATED_INTEGRATION_WIDE_FIELD_MAPPING`, `CREATED_LINKED_ACCOUNT_FIELD_MAPPING`, `CHANGED_INTEGRATION_WIDE_FIELD_MAPPING`, `CHANGED_LINKED_ACCOUNT_FIELD_MAPPING`, `DELETED_INTEGRATION_WIDE_FIELD_MAPPING`, `DELETED_LINKED_ACCOUNT_FIELD_MAPPING`, `CREATED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE`, `CHANGED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE`, `DELETED_LINKED_ACCOUNT_COMMON_MODEL_OVERRIDE`, `FORCED_LINKED_ACCOUNT_RESYNC`, `MUTED_ISSUE`, `GENERATED_MAGIC_LINK`, `ENABLED_MERGE_WEBHOOK`, `DISABLED_MERGE_WEBHOOK`, `MERGE_WEBHOOK_TARGET_CHANGED`, `END_USER_CREDENTIALS_ACCESSED`
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `typing.Optional[str]` — If included, will only include audit trail events that occurred after this time
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**user_email:** `typing.Optional[str]` — If provided, this will return events associated with the specified user email. Please note that the email address reflects the user's email at the time of the event, and may not be their current email.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting AvailableActions
-<details><summary><code>client.accounting.available_actions.<a href="src/merge/resources/accounting/resources/available_actions/client.py">retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of models and actions available for an account.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.available_actions.retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting BalanceSheets
-<details><summary><code>client.accounting.balance_sheets.<a href="src/merge/resources/accounting/resources/balance_sheets/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `BalanceSheet` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.balance_sheets.list(
-    company_id="company_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return balance sheets for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["company"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.balance_sheets.<a href="src/merge/resources/accounting/resources/balance_sheets/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `BalanceSheet` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.balance_sheets.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["company"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting BankFeedAccounts
-<details><summary><code>client.accounting.bank_feed_accounts.<a href="src/merge/resources/accounting/resources/bank_feed_accounts/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `BankFeedAccount` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.bank_feed_accounts.list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.bank_feed_accounts.<a href="src/merge/resources/accounting/resources/bank_feed_accounts/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a `BankFeedAccount` object with the given values.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import BankFeedAccountRequest
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.bank_feed_accounts.create(
-    is_debug_mode=True,
-    run_async=True,
-    model=BankFeedAccountRequest(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**model:** `BankFeedAccountRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.bank_feed_accounts.<a href="src/merge/resources/accounting/resources/bank_feed_accounts/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `BankFeedAccount` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.bank_feed_accounts.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.bank_feed_accounts.<a href="src/merge/resources/accounting/resources/bank_feed_accounts/client.py">meta_post_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns metadata for `BankFeedAccount` POSTs.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.bank_feed_accounts.meta_post_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting BankFeedTransactions
-<details><summary><code>client.accounting.bank_feed_transactions.<a href="src/merge/resources/accounting/resources/bank_feed_transactions/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `BankFeedTransaction` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.bank_feed_transactions.list(
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    is_processed=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["bank_feed_account"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_processed:** `typing.Optional[bool]` — If provided, will only return bank feed transactions with this is_processed value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.bank_feed_transactions.<a href="src/merge/resources/accounting/resources/bank_feed_transactions/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a `BankFeedTransaction` object with the given values.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import BankFeedTransactionRequestRequest
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.bank_feed_transactions.create(
-    is_debug_mode=True,
-    run_async=True,
-    model=BankFeedTransactionRequestRequest(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**model:** `BankFeedTransactionRequestRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.bank_feed_transactions.<a href="src/merge/resources/accounting/resources/bank_feed_transactions/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `BankFeedTransaction` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.bank_feed_transactions.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["bank_feed_account"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.bank_feed_transactions.<a href="src/merge/resources/accounting/resources/bank_feed_transactions/client.py">meta_post_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns metadata for `BankFeedTransaction` POSTs.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.bank_feed_transactions.meta_post_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting CashFlowStatements
-<details><summary><code>client.accounting.cash_flow_statements.<a href="src/merge/resources/accounting/resources/cash_flow_statements/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `CashFlowStatement` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.cash_flow_statements.list(
-    company_id="company_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return cash flow statements for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["company"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.cash_flow_statements.<a href="src/merge/resources/accounting/resources/cash_flow_statements/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `CashFlowStatement` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.cash_flow_statements.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["company"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting CompanyInfo
-<details><summary><code>client.accounting.company_info.<a href="src/merge/resources/accounting/resources/company_info/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `CompanyInfo` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.accounting.resources.company_info import (
-    CompanyInfoListRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.company_info.list(
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=CompanyInfoListRequestExpand.ADDRESSES,
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[CompanyInfoListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.company_info.<a href="src/merge/resources/accounting/resources/company_info/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `CompanyInfo` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting.resources.company_info import (
-    CompanyInfoRetrieveRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.company_info.retrieve(
-    id="id",
-    expand=CompanyInfoRetrieveRequestExpand.ADDRESSES,
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[CompanyInfoRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting Contacts
-<details><summary><code>client.accounting.contacts.<a href="src/merge/resources/accounting/resources/contacts/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `Contact` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.accounting.resources.contacts import (
-    ContactsListRequestExpand,
-    ContactsListRequestStatus,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.contacts.list(
-    company_id="company_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    email_address="email_address",
-    expand=ContactsListRequestExpand.ADDRESSES,
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_remote_fields=True,
-    include_shell_data=True,
-    is_customer="is_customer",
-    is_supplier="is_supplier",
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    name="name",
-    page_size=1,
-    remote_id="remote_id",
-    status=ContactsListRequestStatus.EMPTY,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return contacts for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**email_address:** `typing.Optional[str]` — If provided, will only return Contacts that match this email.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[ContactsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_customer:** `typing.Optional[str]` — If provided, will only return Contacts that are denoted as customers.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_supplier:** `typing.Optional[str]` — If provided, will only return Contacts that are denoted as suppliers.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**name:** `typing.Optional[str]` — If provided, will only return Contacts that match this name.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**status:** `typing.Optional[ContactsListRequestStatus]` — If provided, will only return Contacts that match this status.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.contacts.<a href="src/merge/resources/accounting/resources/contacts/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a `Contact` object with the given values.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import ContactRequest
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.contacts.create(
-    is_debug_mode=True,
-    run_async=True,
-    model=ContactRequest(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**model:** `ContactRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.contacts.<a href="src/merge/resources/accounting/resources/contacts/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `Contact` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting.resources.contacts import (
-    ContactsRetrieveRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.contacts.retrieve(
-    id="id",
-    expand=ContactsRetrieveRequestExpand.ADDRESSES,
-    include_remote_data=True,
-    include_remote_fields=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[ContactsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.contacts.<a href="src/merge/resources/accounting/resources/contacts/client.py">partial_update</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates a `Contact` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import PatchedContactRequest
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.contacts.partial_update(
-    id="id",
-    is_debug_mode=True,
-    run_async=True,
-    model=PatchedContactRequest(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**model:** `PatchedContactRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.contacts.<a href="src/merge/resources/accounting/resources/contacts/client.py">meta_patch_retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns metadata for `Contact` PATCHs.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.contacts.meta_patch_retrieve(
-    id="id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.contacts.<a href="src/merge/resources/accounting/resources/contacts/client.py">meta_post_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns metadata for `Contact` POSTs.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.contacts.meta_post_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.contacts.<a href="src/merge/resources/accounting/resources/contacts/client.py">remote_field_classes_list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `RemoteFieldClass` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.contacts.remote_field_classes_list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    is_common_model_field=True,
-    is_custom=True,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting CreditNotes
-<details><summary><code>client.accounting.credit_notes.<a href="src/merge/resources/accounting/resources/credit_notes/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `CreditNote` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.accounting.resources.credit_notes import (
-    CreditNotesListRequestExpand,
-    CreditNotesListRequestRemoteFields,
-    CreditNotesListRequestShowEnumOrigins,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.credit_notes.list(
-    company_id="company_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=CreditNotesListRequestExpand.ACCOUNTING_PERIOD,
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_fields=CreditNotesListRequestRemoteFields.STATUS,
-    remote_id="remote_id",
-    show_enum_origins=CreditNotesListRequestShowEnumOrigins.STATUS,
-    transaction_date_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    transaction_date_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return credit notes for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[CreditNotesListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_fields:** `typing.Optional[CreditNotesListRequestRemoteFields]` — Deprecated. Use show_enum_origins.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**show_enum_origins:** `typing.Optional[CreditNotesListRequestShowEnumOrigins]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**transaction_date_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**transaction_date_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.credit_notes.<a href="src/merge/resources/accounting/resources/credit_notes/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a `CreditNote` object with the given values.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import CreditNoteRequest
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.credit_notes.create(
-    is_debug_mode=True,
-    run_async=True,
-    model=CreditNoteRequest(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**model:** `CreditNoteRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.credit_notes.<a href="src/merge/resources/accounting/resources/credit_notes/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `CreditNote` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting.resources.credit_notes import (
-    CreditNotesRetrieveRequestExpand,
-    CreditNotesRetrieveRequestRemoteFields,
-    CreditNotesRetrieveRequestShowEnumOrigins,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.credit_notes.retrieve(
-    id="id",
-    expand=CreditNotesRetrieveRequestExpand.ACCOUNTING_PERIOD,
-    include_remote_data=True,
-    include_shell_data=True,
-    remote_fields=CreditNotesRetrieveRequestRemoteFields.STATUS,
-    show_enum_origins=CreditNotesRetrieveRequestShowEnumOrigins.STATUS,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[CreditNotesRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_fields:** `typing.Optional[CreditNotesRetrieveRequestRemoteFields]` — Deprecated. Use show_enum_origins.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**show_enum_origins:** `typing.Optional[CreditNotesRetrieveRequestShowEnumOrigins]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.credit_notes.<a href="src/merge/resources/accounting/resources/credit_notes/client.py">meta_post_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns metadata for `CreditNote` POSTs.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.credit_notes.meta_post_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting Scopes
-<details><summary><code>client.accounting.scopes.<a href="src/merge/resources/accounting/resources/scopes/client.py">default_scopes_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get the default permissions for Merge Common Models and fields across all Linked Accounts of a given category. [Learn more](https://help.merge.dev/en/articles/5950052-common-model-and-field-scopes).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.scopes.default_scopes_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.scopes.<a href="src/merge/resources/accounting/resources/scopes/client.py">linked_account_scopes_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get all available permissions for Merge Common Models and fields for a single Linked Account. [Learn more](https://help.merge.dev/en/articles/5950052-common-model-and-field-scopes).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.scopes.linked_account_scopes_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.scopes.<a href="src/merge/resources/accounting/resources/scopes/client.py">linked_account_scopes_create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Update permissions for any Common Model or field for a single Linked Account. Any Scopes not set in this POST request will inherit the default Scopes. [Learn more](https://help.merge.dev/en/articles/5950052-common-model-and-field-scopes)
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import (
-    FieldPermissionDeserializerRequest,
-    IndividualCommonModelScopeDeserializerRequest,
-    ModelPermissionDeserializerRequest,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.scopes.linked_account_scopes_create(
-    common_models=[
-        IndividualCommonModelScopeDeserializerRequest(
-            model_name="Employee",
-            model_permissions={
-                "READ": ModelPermissionDeserializerRequest(
-                    is_enabled=True,
-                ),
-                "WRITE": ModelPermissionDeserializerRequest(
-                    is_enabled=False,
-                ),
-            },
-            field_permissions=FieldPermissionDeserializerRequest(
-                enabled_fields=["avatar", "home_location"],
-                disabled_fields=["work_location"],
-            ),
-        ),
-        IndividualCommonModelScopeDeserializerRequest(
-            model_name="Benefit",
-            model_permissions={
-                "WRITE": ModelPermissionDeserializerRequest(
-                    is_enabled=False,
-                )
-            },
-        ),
-    ],
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**common_models:** `typing.Sequence[IndividualCommonModelScopeDeserializerRequest]` — The common models you want to update the scopes for
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting DeleteAccount
-<details><summary><code>client.accounting.delete_account.<a href="src/merge/resources/accounting/resources/delete_account/client.py">delete</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Delete a linked account.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.delete_account.delete()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting Employees
-<details><summary><code>client.accounting.employees.<a href="src/merge/resources/accounting/resources/employees/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `Employee` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.employees.list(
-    company_id="company_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return employees for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["company"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.employees.<a href="src/merge/resources/accounting/resources/employees/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns an `Employee` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.employees.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["company"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting ExpenseReports
-<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `ExpenseReport` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.accounting.resources.expense_reports import (
-    ExpenseReportsListRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.expense_reports.list(
-    company_id="company_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=ExpenseReportsListRequestExpand.ACCOUNTING_PERIOD,
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_remote_fields=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return expense reports for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[ExpenseReportsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates an `ExpenseReport` object with the given values.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import ExpenseReportRequest
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.expense_reports.create(
-    is_debug_mode=True,
-    run_async=True,
-    model=ExpenseReportRequest(
-        tracking_categories=[
-            "a1b2c3d4-e5f6-4a5b-9c3d-2e1f0a9b8c7d",
-            "d4c3b2a1-9e8f-7g6h-5i4j-3k2l1m0n9o8p",
-        ],
-    ),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**model:** `ExpenseReportRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">lines_list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `ExpenseReportLine` objects that point to a `ExpenseReport` with the given id.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting.resources.expense_reports import (
-    ExpenseReportsLinesListRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.expense_reports.lines_list(
-    expense_report_id="expense_report_id",
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=ExpenseReportsLinesListRequestExpand.ACCOUNT,
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_remote_fields=True,
-    include_shell_data=True,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**expense_report_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[ExpenseReportsLinesListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns an `ExpenseReport` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting.resources.expense_reports import (
-    ExpenseReportsRetrieveRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.expense_reports.retrieve(
-    id="id",
-    expand=ExpenseReportsRetrieveRequestExpand.ACCOUNTING_PERIOD,
-    include_remote_data=True,
-    include_remote_fields=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[ExpenseReportsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">lines_remote_field_classes_list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `RemoteFieldClass` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.expense_reports.lines_remote_field_classes_list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    is_common_model_field=True,
-    is_custom=True,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">meta_post_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns metadata for `ExpenseReport` POSTs.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.expense_reports.meta_post_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.expense_reports.<a href="src/merge/resources/accounting/resources/expense_reports/client.py">remote_field_classes_list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `RemoteFieldClass` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.expense_reports.remote_field_classes_list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    is_common_model_field=True,
-    is_custom=True,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting Expenses
-<details><summary><code>client.accounting.expenses.<a href="src/merge/resources/accounting/resources/expenses/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `Expense` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.accounting.resources.expenses import (
-    ExpensesListRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.expenses.list(
-    company_id="company_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=ExpensesListRequestExpand.ACCOUNT,
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_remote_fields=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-    transaction_date_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    transaction_date_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return expenses for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[ExpensesListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**transaction_date_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**transaction_date_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.expenses.<a href="src/merge/resources/accounting/resources/expenses/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates an `Expense` object with the given values.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import ExpenseRequest
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.expenses.create(
-    is_debug_mode=True,
-    run_async=True,
-    model=ExpenseRequest(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**model:** `ExpenseRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.expenses.<a href="src/merge/resources/accounting/resources/expenses/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns an `Expense` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting.resources.expenses import (
-    ExpensesRetrieveRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.expenses.retrieve(
-    id="id",
-    expand=ExpensesRetrieveRequestExpand.ACCOUNT,
-    include_remote_data=True,
-    include_remote_fields=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[ExpensesRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.expenses.<a href="src/merge/resources/accounting/resources/expenses/client.py">lines_remote_field_classes_list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `RemoteFieldClass` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.expenses.lines_remote_field_classes_list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    is_common_model_field=True,
-    is_custom=True,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.expenses.<a href="src/merge/resources/accounting/resources/expenses/client.py">meta_post_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns metadata for `Expense` POSTs.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.expenses.meta_post_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.expenses.<a href="src/merge/resources/accounting/resources/expenses/client.py">remote_field_classes_list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `RemoteFieldClass` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.expenses.remote_field_classes_list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    is_common_model_field=True,
-    is_custom=True,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting FieldMapping
-<details><summary><code>client.accounting.field_mapping.<a href="src/merge/resources/accounting/resources/field_mapping/client.py">field_mappings_retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get all Field Mappings for this Linked Account. Field Mappings are mappings between third-party Remote Fields and user defined Merge fields. [Learn more](https://docs.merge.dev/supplemental-data/field-mappings/overview/).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.field_mapping.field_mappings_retrieve(
-    exclude_remote_field_metadata=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**exclude_remote_field_metadata:** `typing.Optional[bool]` — If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.field_mapping.<a href="src/merge/resources/accounting/resources/field_mapping/client.py">field_mappings_create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Create new Field Mappings that will be available after the next scheduled sync. This will cause the next sync for this Linked Account to sync **ALL** data from start.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.field_mapping.field_mappings_create(
-    exclude_remote_field_metadata=True,
-    target_field_name="example_target_field_name",
-    target_field_description="this is a example description of the target field",
-    remote_field_traversal_path=["example_remote_field"],
-    remote_method="GET",
-    remote_url_path="/example-url-path",
-    common_model_name="ExampleCommonModel",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**target_field_name:** `str` — The name of the target field you want this remote field to map to.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**target_field_description:** `str` — The description of the target field you want this remote field to map to.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_field_traversal_path:** `typing.Sequence[typing.Optional[typing.Any]]` — The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_method:** `str` — The method of the remote endpoint where the remote field is coming from.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_url_path:** `str` — The path of the remote endpoint where the remote field is coming from.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**common_model_name:** `str` — The name of the Common Model that the remote field corresponds to in a given category.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**exclude_remote_field_metadata:** `typing.Optional[bool]` — If `true`, remote fields metadata is excluded from each field mapping instance (i.e. `remote_fields.remote_key_name` and `remote_fields.schema` will be null). This will increase the speed of the request since these fields require some calculations.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.field_mapping.<a href="src/merge/resources/accounting/resources/field_mapping/client.py">field_mappings_destroy</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes Field Mappings for a Linked Account. All data related to this Field Mapping will be deleted and these changes will be reflected after the next scheduled sync. This will cause the next sync for this Linked Account to sync **ALL** data from start.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.field_mapping.field_mappings_destroy(
-    field_mapping_id="field_mapping_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**field_mapping_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.field_mapping.<a href="src/merge/resources/accounting/resources/field_mapping/client.py">field_mappings_partial_update</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Create or update existing Field Mappings for a Linked Account. Changes will be reflected after the next scheduled sync. This will cause the next sync for this Linked Account to sync **ALL** data from start.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.field_mapping.field_mappings_partial_update(
-    field_mapping_id="field_mapping_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**field_mapping_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_field_traversal_path:** `typing.Optional[typing.Sequence[typing.Optional[typing.Any]]]` — The field traversal path of the remote field listed when you hit the GET /remote-fields endpoint.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_method:** `typing.Optional[str]` — The method of the remote endpoint where the remote field is coming from.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_url_path:** `typing.Optional[str]` — The path of the remote endpoint where the remote field is coming from.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.field_mapping.<a href="src/merge/resources/accounting/resources/field_mapping/client.py">remote_fields_retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get all remote fields for a Linked Account. Remote fields are third-party fields that are accessible after initial sync if remote_data is enabled. You can use remote fields to override existing Merge fields or map a new Merge field. [Learn more](https://docs.merge.dev/supplemental-data/field-mappings/overview/).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.field_mapping.remote_fields_retrieve(
-    common_models="common_models",
-    include_example_values="include_example_values",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**common_models:** `typing.Optional[str]` — A comma seperated list of Common Model names. If included, will only return Remote Fields for those Common Models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_example_values:** `typing.Optional[str]` — If true, will include example values, where available, for remote fields in the 3rd party platform. These examples come from active data from your customers.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.field_mapping.<a href="src/merge/resources/accounting/resources/field_mapping/client.py">target_fields_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get all organization-wide Target Fields, this will not include any Linked Account specific Target Fields. Organization-wide Target Fields are additional fields appended to the Merge Common Model for all Linked Accounts in a category. [Learn more](https://docs.merge.dev/supplemental-data/field-mappings/target-fields/).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.field_mapping.target_fields_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting GeneralLedgerTransactions
-<details><summary><code>client.accounting.general_ledger_transactions.<a href="src/merge/resources/accounting/resources/general_ledger_transactions/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `GeneralLedgerTransaction` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.accounting.resources.general_ledger_transactions import (
-    GeneralLedgerTransactionsListRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.general_ledger_transactions.list(
-    company_id="company_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=GeneralLedgerTransactionsListRequestExpand.ACCOUNTING_PERIOD,
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    posted_date_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    posted_date_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    remote_id="remote_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return general ledger transactions for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[GeneralLedgerTransactionsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**posted_date_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects posted after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**posted_date_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects posted before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.general_ledger_transactions.<a href="src/merge/resources/accounting/resources/general_ledger_transactions/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `GeneralLedgerTransaction` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting.resources.general_ledger_transactions import (
-    GeneralLedgerTransactionsRetrieveRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.general_ledger_transactions.retrieve(
-    id="id",
-    expand=GeneralLedgerTransactionsRetrieveRequestExpand.ACCOUNTING_PERIOD,
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[GeneralLedgerTransactionsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting GenerateKey
-<details><summary><code>client.accounting.generate_key.<a href="src/merge/resources/accounting/resources/generate_key/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Create a remote key.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.generate_key.create(
-    name="Remote Deployment Key 1",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**name:** `str` — The name of the remote key
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting IncomeStatements
-<details><summary><code>client.accounting.income_statements.<a href="src/merge/resources/accounting/resources/income_statements/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `IncomeStatement` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.income_statements.list(
-    company_id="company_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return income statements for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["company"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.income_statements.<a href="src/merge/resources/accounting/resources/income_statements/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns an `IncomeStatement` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.income_statements.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["company"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting Invoices
-<details><summary><code>client.accounting.invoices.<a href="src/merge/resources/accounting/resources/invoices/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `Invoice` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.accounting.resources.invoices import (
-    InvoicesListRequestExpand,
-    InvoicesListRequestStatus,
-    InvoicesListRequestType,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.invoices.list(
-    company_id="company_id",
-    contact_id="contact_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=InvoicesListRequestExpand.ACCOUNTING_PERIOD,
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_remote_fields=True,
-    include_shell_data=True,
-    issue_date_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    issue_date_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    number="number",
-    page_size=1,
-    remote_id="remote_id",
-    status=InvoicesListRequestStatus.DRAFT,
-    type=InvoicesListRequestType.ACCOUNTS_PAYABLE,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return invoices for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**contact_id:** `typing.Optional[str]` — If provided, will only return invoices for this contact.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[InvoicesListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**issue_date_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**issue_date_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**number:** `typing.Optional[str]` — If provided, will only return Invoices with this number.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_fields:** `typing.Optional[typing.Literal["type"]]` — Deprecated. Use show_enum_origins.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**show_enum_origins:** `typing.Optional[typing.Literal["type"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**status:** `typing.Optional[InvoicesListRequestStatus]` 
-
-If provided, will only return Invoices with this status.
-
-* `PAID` - PAID
-* `DRAFT` - DRAFT
-* `SUBMITTED` - SUBMITTED
-* `PARTIALLY_PAID` - PARTIALLY_PAID
-* `OPEN` - OPEN
-* `VOID` - VOID
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**type:** `typing.Optional[InvoicesListRequestType]` 
-
-If provided, will only return Invoices with this type.
-
-* `ACCOUNTS_RECEIVABLE` - ACCOUNTS_RECEIVABLE
-* `ACCOUNTS_PAYABLE` - ACCOUNTS_PAYABLE
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.invoices.<a href="src/merge/resources/accounting/resources/invoices/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates an `Invoice` object with the given values.
-            Including a `PurchaseOrder` id in the `purchase_orders` property will generate an Accounts Payable Invoice from the specified Purchase Order(s).
-            
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import InvoiceRequest
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.invoices.create(
-    is_debug_mode=True,
-    run_async=True,
-    model=InvoiceRequest(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**model:** `InvoiceRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.invoices.<a href="src/merge/resources/accounting/resources/invoices/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns an `Invoice` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting.resources.invoices import (
-    InvoicesRetrieveRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.invoices.retrieve(
-    id="id",
-    expand=InvoicesRetrieveRequestExpand.ACCOUNTING_PERIOD,
-    include_remote_data=True,
-    include_remote_fields=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[InvoicesRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_fields:** `typing.Optional[typing.Literal["type"]]` — Deprecated. Use show_enum_origins.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**show_enum_origins:** `typing.Optional[typing.Literal["type"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.invoices.<a href="src/merge/resources/accounting/resources/invoices/client.py">partial_update</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates an `Invoice` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import InvoiceRequest
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.invoices.partial_update(
-    id="id",
-    is_debug_mode=True,
-    run_async=True,
-    model=InvoiceRequest(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**model:** `InvoiceRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.invoices.<a href="src/merge/resources/accounting/resources/invoices/client.py">line_items_remote_field_classes_list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `RemoteFieldClass` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.invoices.line_items_remote_field_classes_list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    is_common_model_field=True,
-    is_custom=True,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.invoices.<a href="src/merge/resources/accounting/resources/invoices/client.py">meta_patch_retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns metadata for `Invoice` PATCHs.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.invoices.meta_patch_retrieve(
-    id="id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.invoices.<a href="src/merge/resources/accounting/resources/invoices/client.py">meta_post_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns metadata for `Invoice` POSTs.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.invoices.meta_post_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.invoices.<a href="src/merge/resources/accounting/resources/invoices/client.py">remote_field_classes_list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `RemoteFieldClass` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.invoices.remote_field_classes_list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    is_common_model_field=True,
-    is_custom=True,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting Issues
-<details><summary><code>client.accounting.issues.<a href="src/merge/resources/accounting/resources/issues/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Gets all issues for Organization.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.accounting.resources.issues import IssuesListRequestStatus
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.issues.list(
-    account_token="account_token",
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    end_date="end_date",
-    end_user_organization_name="end_user_organization_name",
-    first_incident_time_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    first_incident_time_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    include_muted="include_muted",
-    integration_name="integration_name",
-    last_incident_time_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    last_incident_time_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    linked_account_id="linked_account_id",
-    page_size=1,
-    start_date="start_date",
-    status=IssuesListRequestStatus.ONGOING,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**account_token:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[str]` — If included, will only include issues whose most recent action occurred before this time
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_organization_name:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**first_incident_time_after:** `typing.Optional[dt.datetime]` — If provided, will only return issues whose first incident time was after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**first_incident_time_before:** `typing.Optional[dt.datetime]` — If provided, will only return issues whose first incident time was before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_muted:** `typing.Optional[str]` — If true, will include muted issues
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**integration_name:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**last_incident_time_after:** `typing.Optional[dt.datetime]` — If provided, will only return issues whose last incident time was after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**last_incident_time_before:** `typing.Optional[dt.datetime]` — If provided, will only return issues whose last incident time was before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**linked_account_id:** `typing.Optional[str]` — If provided, will only include issues pertaining to the linked account passed in.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**start_date:** `typing.Optional[str]` — If included, will only include issues whose most recent action occurred after this time
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**status:** `typing.Optional[IssuesListRequestStatus]` 
-
-Status of the issue. Options: ('ONGOING', 'RESOLVED')
-
-* `ONGOING` - ONGOING
-* `RESOLVED` - RESOLVED
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.issues.<a href="src/merge/resources/accounting/resources/issues/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get a specific issue.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.issues.retrieve(
-    id="id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting Items
-<details><summary><code>client.accounting.items.<a href="src/merge/resources/accounting/resources/items/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `Item` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.accounting.resources.items import ItemsListRequestExpand
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.items.list(
-    company_id="company_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=ItemsListRequestExpand.COMPANY,
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return items for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[ItemsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.items.<a href="src/merge/resources/accounting/resources/items/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates an `Item` object with the given values.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import ItemRequestRequest
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.items.create(
-    is_debug_mode=True,
-    run_async=True,
-    model=ItemRequestRequest(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**model:** `ItemRequestRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.items.<a href="src/merge/resources/accounting/resources/items/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns an `Item` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting.resources.items import (
-    ItemsRetrieveRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.items.retrieve(
-    id="id",
-    expand=ItemsRetrieveRequestExpand.COMPANY,
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[ItemsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.items.<a href="src/merge/resources/accounting/resources/items/client.py">partial_update</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates an `Item` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import PatchedItemRequestRequest
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.items.partial_update(
-    id="id",
-    is_debug_mode=True,
-    run_async=True,
-    model=PatchedItemRequestRequest(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**model:** `PatchedItemRequestRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.items.<a href="src/merge/resources/accounting/resources/items/client.py">meta_patch_retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns metadata for `Item` PATCHs.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.items.meta_patch_retrieve(
-    id="id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.items.<a href="src/merge/resources/accounting/resources/items/client.py">meta_post_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns metadata for `Item` POSTs.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.items.meta_post_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting JournalEntries
-<details><summary><code>client.accounting.journal_entries.<a href="src/merge/resources/accounting/resources/journal_entries/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `JournalEntry` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.accounting.resources.journal_entries import (
-    JournalEntriesListRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.journal_entries.list(
-    company_id="company_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=JournalEntriesListRequestExpand.ACCOUNTING_PERIOD,
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_remote_fields=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-    transaction_date_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    transaction_date_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return journal entries for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[JournalEntriesListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**transaction_date_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**transaction_date_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.journal_entries.<a href="src/merge/resources/accounting/resources/journal_entries/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a `JournalEntry` object with the given values.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import JournalEntryRequest
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.journal_entries.create(
-    is_debug_mode=True,
-    run_async=True,
-    model=JournalEntryRequest(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**model:** `JournalEntryRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.journal_entries.<a href="src/merge/resources/accounting/resources/journal_entries/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `JournalEntry` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting.resources.journal_entries import (
-    JournalEntriesRetrieveRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.journal_entries.retrieve(
-    id="id",
-    expand=JournalEntriesRetrieveRequestExpand.ACCOUNTING_PERIOD,
-    include_remote_data=True,
-    include_remote_fields=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[JournalEntriesRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.journal_entries.<a href="src/merge/resources/accounting/resources/journal_entries/client.py">lines_remote_field_classes_list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `RemoteFieldClass` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.journal_entries.lines_remote_field_classes_list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    is_common_model_field=True,
-    is_custom=True,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.journal_entries.<a href="src/merge/resources/accounting/resources/journal_entries/client.py">meta_post_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns metadata for `JournalEntry` POSTs.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.journal_entries.meta_post_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.journal_entries.<a href="src/merge/resources/accounting/resources/journal_entries/client.py">remote_field_classes_list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `RemoteFieldClass` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.journal_entries.remote_field_classes_list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    is_common_model_field=True,
-    is_custom=True,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting LinkToken
-<details><summary><code>client.accounting.link_token.<a href="src/merge/resources/accounting/resources/link_token/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a link token to be used when linking a new end user.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import CategoriesEnum
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.link_token.create(
-    end_user_email_address="example@gmail.com",
-    end_user_organization_name="Test Organization",
-    end_user_origin_id="12345",
-    categories=[CategoriesEnum.HRIS, CategoriesEnum.ATS],
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**end_user_email_address:** `str` — Your end user's email address. This is purely for identification purposes - setting this value will not cause any emails to be sent.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_organization_name:** `str` — Your end user's organization.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_origin_id:** `str` — This unique identifier typically represents the ID for your end user in your product's database. This value must be distinct from other Linked Accounts' unique identifiers.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**categories:** `typing.Sequence[CategoriesEnum]` — The integration categories to show in Merge Link.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**integration:** `typing.Optional[str]` — The slug of a specific pre-selected integration for this linking flow token. For examples of slugs, see https://docs.merge.dev/guides/merge-link/single-integration/.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**link_expiry_mins:** `typing.Optional[int]` — An integer number of minutes between [30, 720 or 10080 if for a Magic Link URL] for how long this token is valid. Defaults to 30.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**should_create_magic_link_url:** `typing.Optional[bool]` — Whether to generate a Magic Link URL. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/integrations-fast-say-hello-to-magic-link.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**hide_admin_magic_link:** `typing.Optional[bool]` — Whether to generate a Magic Link URL on the Admin Needed screen during the linking flow. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/integrations-fast-say-hello-to-magic-link.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**common_models:** `typing.Optional[typing.Sequence[CommonModelScopesBodyRequest]]` — An array of objects to specify the models and fields that will be disabled for a given Linked Account. Each object uses model_id, enabled_actions, and disabled_fields to specify the model, method, and fields that are scoped for a given Linked Account.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**category_common_model_scopes:** `typing.Optional[
-    typing.Dict[
-        str,
-        typing.Optional[
-            typing.Sequence[IndividualCommonModelScopeDeserializerRequest]
-        ],
-    ]
-]` — When creating a Link Token, you can set permissions for Common Models that will apply to the account that is going to be linked. Any model or field not specified in link token payload will default to existing settings.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**language:** `typing.Optional[EndUserDetailsRequestLanguage]` 
-
-The following subset of IETF language tags can be used to configure localization.
-
-* `en` - en
-* `de` - de
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**are_syncs_disabled:** `typing.Optional[bool]` — The boolean that indicates whether initial, periodic, and force syncs will be disabled.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**integration_specific_config:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — A JSON object containing integration-specific configuration options.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting LinkedAccounts
-<details><summary><code>client.accounting.linked_accounts.<a href="src/merge/resources/accounting/resources/linked_accounts/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-List linked accounts for your organization.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting.resources.linked_accounts import (
-    LinkedAccountsListRequestCategory,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.linked_accounts.list(
-    category=LinkedAccountsListRequestCategory.ACCOUNTING,
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    end_user_email_address="end_user_email_address",
-    end_user_organization_name="end_user_organization_name",
-    end_user_origin_id="end_user_origin_id",
-    end_user_origin_ids="end_user_origin_ids",
-    id="id",
-    ids="ids",
-    include_duplicates=True,
-    integration_name="integration_name",
-    is_test_account="is_test_account",
-    page_size=1,
-    status="status",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**category:** `typing.Optional[LinkedAccountsListRequestCategory]` 
-
-Options: `accounting`, `ats`, `crm`, `filestorage`, `hris`, `mktg`, `ticketing`
-
-* `hris` - hris
-* `ats` - ats
-* `accounting` - accounting
-* `ticketing` - ticketing
-* `crm` - crm
-* `mktg` - mktg
-* `filestorage` - filestorage
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_email_address:** `typing.Optional[str]` — If provided, will only return linked accounts associated with the given email address.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_organization_name:** `typing.Optional[str]` — If provided, will only return linked accounts associated with the given organization name.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_origin_id:** `typing.Optional[str]` — If provided, will only return linked accounts associated with the given origin ID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_user_origin_ids:** `typing.Optional[str]` — Comma-separated list of EndUser origin IDs, making it possible to specify multiple EndUsers at once.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**id:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ids:** `typing.Optional[str]` — Comma-separated list of LinkedAccount IDs, making it possible to specify multiple LinkedAccounts at once.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_duplicates:** `typing.Optional[bool]` — If `true`, will include complete production duplicates of the account specified by the `id` query parameter in the response. `id` must be for a complete production linked account.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**integration_name:** `typing.Optional[str]` — If provided, will only return linked accounts associated with the given integration name.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_test_account:** `typing.Optional[str]` — If included, will only include test linked accounts. If not included, will only include non-test linked accounts.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**status:** `typing.Optional[str]` — Filter by status. Options: `COMPLETE`, `IDLE`, `INCOMPLETE`, `RELINK_NEEDED`
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting Passthrough
-<details><summary><code>client.accounting.passthrough.<a href="src/merge/resources/accounting/resources/passthrough/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Pull data from an endpoint not currently supported by Merge.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import DataPassthroughRequest, MethodEnum
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.passthrough.create(
-    request=DataPassthroughRequest(
-        method=MethodEnum.GET,
-        path="/scooters",
-    ),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `DataPassthroughRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting PaymentMethods
-<details><summary><code>client.accounting.payment_methods.<a href="src/merge/resources/accounting/resources/payment_methods/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `PaymentMethod` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.payment_methods.list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.payment_methods.<a href="src/merge/resources/accounting/resources/payment_methods/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `PaymentMethod` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.payment_methods.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting PaymentTerms
-<details><summary><code>client.accounting.payment_terms.<a href="src/merge/resources/accounting/resources/payment_terms/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `PaymentTerm` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.payment_terms.list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["company"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.payment_terms.<a href="src/merge/resources/accounting/resources/payment_terms/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `PaymentTerm` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.payment_terms.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["company"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting Payments
-<details><summary><code>client.accounting.payments.<a href="src/merge/resources/accounting/resources/payments/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `Payment` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.accounting.resources.payments import (
-    PaymentsListRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.payments.list(
-    account_id="account_id",
-    company_id="company_id",
-    contact_id="contact_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=PaymentsListRequestExpand.ACCOUNT,
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_remote_fields=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-    transaction_date_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    transaction_date_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**account_id:** `typing.Optional[str]` — If provided, will only return payments for this account.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return payments for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**contact_id:** `typing.Optional[str]` — If provided, will only return payments for this contact.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[PaymentsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**transaction_date_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**transaction_date_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.payments.<a href="src/merge/resources/accounting/resources/payments/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a `Payment` object with the given values.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import PaymentRequest
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.payments.create(
-    is_debug_mode=True,
-    run_async=True,
-    model=PaymentRequest(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**model:** `PaymentRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.payments.<a href="src/merge/resources/accounting/resources/payments/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `Payment` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting.resources.payments import (
-    PaymentsRetrieveRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.payments.retrieve(
-    id="id",
-    expand=PaymentsRetrieveRequestExpand.ACCOUNT,
-    include_remote_data=True,
-    include_remote_fields=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[PaymentsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.payments.<a href="src/merge/resources/accounting/resources/payments/client.py">partial_update</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates a `Payment` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import PatchedPaymentRequest
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.payments.partial_update(
-    id="id",
-    is_debug_mode=True,
-    run_async=True,
-    model=PatchedPaymentRequest(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**model:** `PatchedPaymentRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.payments.<a href="src/merge/resources/accounting/resources/payments/client.py">line_items_remote_field_classes_list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `RemoteFieldClass` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.payments.line_items_remote_field_classes_list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    is_common_model_field=True,
-    is_custom=True,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.payments.<a href="src/merge/resources/accounting/resources/payments/client.py">meta_patch_retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns metadata for `Payment` PATCHs.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.payments.meta_patch_retrieve(
-    id="id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.payments.<a href="src/merge/resources/accounting/resources/payments/client.py">meta_post_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns metadata for `Payment` POSTs.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.payments.meta_post_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.payments.<a href="src/merge/resources/accounting/resources/payments/client.py">remote_field_classes_list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `RemoteFieldClass` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.payments.remote_field_classes_list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    is_common_model_field=True,
-    is_custom=True,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting PhoneNumbers
-<details><summary><code>client.accounting.phone_numbers.<a href="src/merge/resources/accounting/resources/phone_numbers/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns an `AccountingPhoneNumber` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.phone_numbers.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting Projects
-<details><summary><code>client.accounting.projects.<a href="src/merge/resources/accounting/resources/projects/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `Project` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.accounting.resources.projects import (
-    ProjectsListRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.projects.list(
-    company_id="company_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=ProjectsListRequestExpand.COMPANY,
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return projects for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[ProjectsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.projects.<a href="src/merge/resources/accounting/resources/projects/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `Project` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting.resources.projects import (
-    ProjectsRetrieveRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.projects.retrieve(
-    id="id",
-    expand=ProjectsRetrieveRequestExpand.COMPANY,
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[ProjectsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting PurchaseOrders
-<details><summary><code>client.accounting.purchase_orders.<a href="src/merge/resources/accounting/resources/purchase_orders/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `PurchaseOrder` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.accounting.resources.purchase_orders import (
-    PurchaseOrdersListRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.purchase_orders.list(
-    company_id="company_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=PurchaseOrdersListRequestExpand.ACCOUNTING_PERIOD,
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_remote_fields=True,
-    include_shell_data=True,
-    issue_date_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    issue_date_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return purchase orders for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[PurchaseOrdersListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**issue_date_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**issue_date_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.purchase_orders.<a href="src/merge/resources/accounting/resources/purchase_orders/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a `PurchaseOrder` object with the given values.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import PurchaseOrderRequest
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.purchase_orders.create(
-    is_debug_mode=True,
-    run_async=True,
-    model=PurchaseOrderRequest(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**model:** `PurchaseOrderRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.purchase_orders.<a href="src/merge/resources/accounting/resources/purchase_orders/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `PurchaseOrder` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting.resources.purchase_orders import (
-    PurchaseOrdersRetrieveRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.purchase_orders.retrieve(
-    id="id",
-    expand=PurchaseOrdersRetrieveRequestExpand.ACCOUNTING_PERIOD,
-    include_remote_data=True,
-    include_remote_fields=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[PurchaseOrdersRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_fields:** `typing.Optional[bool]` — Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.purchase_orders.<a href="src/merge/resources/accounting/resources/purchase_orders/client.py">line_items_remote_field_classes_list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `RemoteFieldClass` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.purchase_orders.line_items_remote_field_classes_list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    is_common_model_field=True,
-    is_custom=True,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.purchase_orders.<a href="src/merge/resources/accounting/resources/purchase_orders/client.py">meta_post_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns metadata for `PurchaseOrder` POSTs.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.purchase_orders.meta_post_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.purchase_orders.<a href="src/merge/resources/accounting/resources/purchase_orders/client.py">remote_field_classes_list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `RemoteFieldClass` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.purchase_orders.remote_field_classes_list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    is_common_model_field=True,
-    is_custom=True,
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_common_model_field:** `typing.Optional[bool]` — If provided, will only return remote field classes with this is_common_model_field value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_custom:** `typing.Optional[bool]` — If provided, will only return remote fields classes with this is_custom value
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting RegenerateKey
-<details><summary><code>client.accounting.regenerate_key.<a href="src/merge/resources/accounting/resources/regenerate_key/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Exchange remote keys.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.regenerate_key.create(
-    name="Remote Deployment Key 1",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**name:** `str` — The name of the remote key
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting SyncStatus
-<details><summary><code>client.accounting.sync_status.<a href="src/merge/resources/accounting/resources/sync_status/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get sync status for the current sync and the most recently finished sync. `last_sync_start` represents the most recent time any sync began. `last_sync_finished` represents the most recent time any sync completed. These timestamps may correspond to different sync instances which may result in a sync start time being later than a separate sync completed time. To ensure you are retrieving the latest available data reference the `last_sync_finished` timestamp where `last_sync_result` is `DONE`. Possible values for `status` and `last_sync_result` are `DISABLED`, `DONE`, `FAILED`, `PARTIALLY_SYNCED`, `PAUSED`, `SYNCING`. Learn more about sync status in our [Help Center](https://help.merge.dev/en/articles/8184193-merge-sync-statuses).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.sync_status.list(
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    page_size=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting ForceResync
-<details><summary><code>client.accounting.force_resync.<a href="src/merge/resources/accounting/resources/force_resync/client.py">sync_status_resync_create</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Force re-sync of all models. This endpoint is available for monthly, quarterly, and highest sync frequency customers on the Professional or Enterprise plans. Doing so will consume a sync credit for the relevant linked account. Force re-syncs can also be triggered manually in the Merge Dashboard and is available for all customers.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.force_resync.sync_status_resync_create()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting TaxRates
-<details><summary><code>client.accounting.tax_rates.<a href="src/merge/resources/accounting/resources/tax_rates/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `TaxRate` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.tax_rates.list(
-    company_id="company_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    name="name",
-    page_size=1,
-    remote_id="remote_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return tax rates for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["company"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**name:** `typing.Optional[str]` — If provided, will only return TaxRates with this name.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.tax_rates.<a href="src/merge/resources/accounting/resources/tax_rates/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `TaxRate` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.tax_rates.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["company"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting TrackingCategories
-<details><summary><code>client.accounting.tracking_categories.<a href="src/merge/resources/accounting/resources/tracking_categories/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `TrackingCategory` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.accounting.resources.tracking_categories import (
-    TrackingCategoriesListRequestCategoryType,
-    TrackingCategoriesListRequestStatus,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.tracking_categories.list(
-    category_type=TrackingCategoriesListRequestCategoryType.EMPTY,
-    company_id="company_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    name="name",
-    page_size=1,
-    remote_id="remote_id",
-    status=TrackingCategoriesListRequestStatus.EMPTY,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**category_type:** `typing.Optional[TrackingCategoriesListRequestCategoryType]` — If provided, will only return tracking categories with this type.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return tracking categories for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["company"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**name:** `typing.Optional[str]` — If provided, will only return tracking categories with this name.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**status:** `typing.Optional[TrackingCategoriesListRequestStatus]` — If provided, will only return tracking categories with this status.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.tracking_categories.<a href="src/merge/resources/accounting/resources/tracking_categories/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `TrackingCategory` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.tracking_categories.retrieve(
-    id="id",
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[typing.Literal["company"]]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_fields:** `typing.Optional[typing.Literal["status"]]` — Deprecated. Use show_enum_origins.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**show_enum_origins:** `typing.Optional[typing.Literal["status"]]` — A comma separated list of enum field names for which you'd like the original values to be returned, instead of Merge's normalized enum values. [Learn more](https://help.merge.dev/en/articles/8950958-show_enum_origins-query-parameter)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting Transactions
-<details><summary><code>client.accounting.transactions.<a href="src/merge/resources/accounting/resources/transactions/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `Transaction` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.accounting.resources.transactions import (
-    TransactionsListRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.transactions.list(
-    company_id="company_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=TransactionsListRequestExpand.ACCOUNT,
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-    transaction_date_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    transaction_date_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return accounting transactions for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[TransactionsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**transaction_date_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**transaction_date_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.transactions.<a href="src/merge/resources/accounting/resources/transactions/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `Transaction` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting.resources.transactions import (
-    TransactionsRetrieveRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.transactions.retrieve(
-    id="id",
-    expand=TransactionsRetrieveRequestExpand.ACCOUNT,
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[TransactionsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting VendorCredits
-<details><summary><code>client.accounting.vendor_credits.<a href="src/merge/resources/accounting/resources/vendor_credits/client.py">list</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `VendorCredit` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-import datetime
-
-from merge import Merge
-from merge.resources.accounting.resources.vendor_credits import (
-    VendorCreditsListRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.vendor_credits.list(
-    company_id="company_id",
-    created_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    created_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    cursor="cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw",
-    expand=VendorCreditsListRequestExpand.ACCOUNTING_PERIOD,
-    include_deleted_data=True,
-    include_remote_data=True,
-    include_shell_data=True,
-    modified_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    modified_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    page_size=1,
-    remote_id="remote_id",
-    transaction_date_after=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-    transaction_date_before=datetime.datetime.fromisoformat(
-        "2024-01-15 09:30:00+00:00",
-    ),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — If provided, will only return vendor credits for this company.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — The pagination cursor value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[VendorCreditsListRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_deleted_data:** `typing.Optional[bool]` — Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_after:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge after this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**modified_before:** `typing.Optional[dt.datetime]` — If provided, only objects synced by Merge before this date time will be returned.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**page_size:** `typing.Optional[int]` — Number of results to return per page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**remote_id:** `typing.Optional[str]` — The API provider's ID for the given object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**transaction_date_after:** `typing.Optional[dt.datetime]` — If provided, will only return objects created after this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**transaction_date_before:** `typing.Optional[dt.datetime]` — If provided, will only return objects created before this datetime.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.vendor_credits.<a href="src/merge/resources/accounting/resources/vendor_credits/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a `VendorCredit` object with the given values.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting import VendorCreditRequest
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.vendor_credits.create(
-    is_debug_mode=True,
-    run_async=True,
-    model=VendorCreditRequest(),
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**model:** `VendorCreditRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_debug_mode:** `typing.Optional[bool]` — Whether to include debug fields (such as log file links) in the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**run_async:** `typing.Optional[bool]` — Whether or not third-party updates should be run asynchronously.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.vendor_credits.<a href="src/merge/resources/accounting/resources/vendor_credits/client.py">retrieve</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a `VendorCredit` object with the given `id`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-from merge.resources.accounting.resources.vendor_credits import (
-    VendorCreditsRetrieveRequestExpand,
-)
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.vendor_credits.retrieve(
-    id="id",
-    expand=VendorCreditsRetrieveRequestExpand.ACCOUNTING_PERIOD,
-    include_remote_data=True,
-    include_shell_data=True,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expand:** `typing.Optional[VendorCreditsRetrieveRequestExpand]` — Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_remote_data:** `typing.Optional[bool]` — Whether to include the original data Merge fetched from the third-party to produce these models.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_shell_data:** `typing.Optional[bool]` — Whether to include shell records. Shell records are empty records (they may contain some metadata but all other fields are null).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.vendor_credits.<a href="src/merge/resources/accounting/resources/vendor_credits/client.py">meta_post_retrieve</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns metadata for `VendorCredit` POSTs.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.vendor_credits.meta_post_retrieve()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Accounting WebhookReceivers
-<details><summary><code>client.accounting.webhook_receivers.<a href="src/merge/resources/accounting/resources/webhook_receivers/client.py">list</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a list of `WebhookReceiver` objects.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.webhook_receivers.list()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.accounting.webhook_receivers.<a href="src/merge/resources/accounting/resources/webhook_receivers/client.py">create</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a `WebhookReceiver` object with the given values.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from merge import Merge
-
-client = Merge(
-    account_token="YOUR_ACCOUNT_TOKEN",
-    api_key="YOUR_API_KEY",
-)
-client.accounting.webhook_receivers.create(
     event="event",
     is_active=True,
 )

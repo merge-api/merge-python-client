@@ -6,21 +6,21 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .time_off_list_request_expand import TimeOffListRequestExpand
+    from .time_off_list_request_expand_item import TimeOffListRequestExpandItem
     from .time_off_list_request_remote_fields import TimeOffListRequestRemoteFields
     from .time_off_list_request_request_type import TimeOffListRequestRequestType
     from .time_off_list_request_show_enum_origins import TimeOffListRequestShowEnumOrigins
     from .time_off_list_request_status import TimeOffListRequestStatus
-    from .time_off_retrieve_request_expand import TimeOffRetrieveRequestExpand
+    from .time_off_retrieve_request_expand_item import TimeOffRetrieveRequestExpandItem
     from .time_off_retrieve_request_remote_fields import TimeOffRetrieveRequestRemoteFields
     from .time_off_retrieve_request_show_enum_origins import TimeOffRetrieveRequestShowEnumOrigins
 _dynamic_imports: typing.Dict[str, str] = {
-    "TimeOffListRequestExpand": ".time_off_list_request_expand",
+    "TimeOffListRequestExpandItem": ".time_off_list_request_expand_item",
     "TimeOffListRequestRemoteFields": ".time_off_list_request_remote_fields",
     "TimeOffListRequestRequestType": ".time_off_list_request_request_type",
     "TimeOffListRequestShowEnumOrigins": ".time_off_list_request_show_enum_origins",
     "TimeOffListRequestStatus": ".time_off_list_request_status",
-    "TimeOffRetrieveRequestExpand": ".time_off_retrieve_request_expand",
+    "TimeOffRetrieveRequestExpandItem": ".time_off_retrieve_request_expand_item",
     "TimeOffRetrieveRequestRemoteFields": ".time_off_retrieve_request_remote_fields",
     "TimeOffRetrieveRequestShowEnumOrigins": ".time_off_retrieve_request_show_enum_origins",
 }
@@ -46,12 +46,12 @@ def __dir__():
 
 
 __all__ = [
-    "TimeOffListRequestExpand",
+    "TimeOffListRequestExpandItem",
     "TimeOffListRequestRemoteFields",
     "TimeOffListRequestRequestType",
     "TimeOffListRequestShowEnumOrigins",
     "TimeOffListRequestStatus",
-    "TimeOffRetrieveRequestExpand",
+    "TimeOffRetrieveRequestExpandItem",
     "TimeOffRetrieveRequestRemoteFields",
     "TimeOffRetrieveRequestShowEnumOrigins",
 ]

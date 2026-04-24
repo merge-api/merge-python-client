@@ -9,6 +9,7 @@ from ....core.unchecked_base_model import UncheckedBaseModel
 from .bank_feed_account_account_type import BankFeedAccountAccountType
 from .bank_feed_account_currency import BankFeedAccountCurrency
 from .bank_feed_account_feed_status import BankFeedAccountFeedStatus
+from .remote_data import RemoteData
 
 
 class BankFeedAccount(UncheckedBaseModel):
@@ -406,7 +407,7 @@ class BankFeedAccount(UncheckedBaseModel):
     """
 
     field_mappings: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = None
-    remote_data: typing.Optional[typing.List[typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]]] = None
+    remote_data: typing.Optional[typing.List[RemoteData]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
