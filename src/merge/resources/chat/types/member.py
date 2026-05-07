@@ -55,6 +55,11 @@ class Member(UncheckedBaseModel):
     When the third party's conversation was updated.
     """
 
+    visible_history_start_datetime: typing.Optional[dt.datetime] = pydantic.Field(default=None)
+    """
+    The earliest datetime of messages the member can access in the conversation. If null, the member can see the full history.
+    """
+
     remote_was_deleted: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Indicates whether or not this object has been deleted in the third party platform. Full coverage deletion detection is a premium add-on. Native deletion detection is offered for free with limited coverage. [Learn more](https://docs.merge.dev/integrations/hris/supported-features/).

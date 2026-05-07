@@ -88,22 +88,14 @@ class Merge:
             else httpx.Client(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
-        self._chat: typing.Optional[ChatClient] = None
         self._ats: typing.Optional[AtsClient] = None
+        self._chat: typing.Optional[ChatClient] = None
         self._crm: typing.Optional[CrmClient] = None
+        self._filestorage: typing.Optional[FilestorageClient] = None
         self._hris: typing.Optional[HrisClient] = None
         self._knowledgebase: typing.Optional[KnowledgebaseClient] = None
         self._ticketing: typing.Optional[TicketingClient] = None
-        self._filestorage: typing.Optional[FilestorageClient] = None
         self._accounting: typing.Optional[AccountingClient] = None
-
-    @property
-    def chat(self):
-        if self._chat is None:
-            from .resources.chat.client import ChatClient  # noqa: E402
-
-            self._chat = ChatClient(client_wrapper=self._client_wrapper)
-        return self._chat
 
     @property
     def ats(self):
@@ -114,12 +106,28 @@ class Merge:
         return self._ats
 
     @property
+    def chat(self):
+        if self._chat is None:
+            from .resources.chat.client import ChatClient  # noqa: E402
+
+            self._chat = ChatClient(client_wrapper=self._client_wrapper)
+        return self._chat
+
+    @property
     def crm(self):
         if self._crm is None:
             from .resources.crm.client import CrmClient  # noqa: E402
 
             self._crm = CrmClient(client_wrapper=self._client_wrapper)
         return self._crm
+
+    @property
+    def filestorage(self):
+        if self._filestorage is None:
+            from .resources.filestorage.client import FilestorageClient  # noqa: E402
+
+            self._filestorage = FilestorageClient(client_wrapper=self._client_wrapper)
+        return self._filestorage
 
     @property
     def hris(self):
@@ -144,14 +152,6 @@ class Merge:
 
             self._ticketing = TicketingClient(client_wrapper=self._client_wrapper)
         return self._ticketing
-
-    @property
-    def filestorage(self):
-        if self._filestorage is None:
-            from .resources.filestorage.client import FilestorageClient  # noqa: E402
-
-            self._filestorage = FilestorageClient(client_wrapper=self._client_wrapper)
-        return self._filestorage
 
     @property
     def accounting(self):
@@ -231,22 +231,14 @@ class AsyncMerge:
             else httpx.AsyncClient(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
-        self._chat: typing.Optional[AsyncChatClient] = None
         self._ats: typing.Optional[AsyncAtsClient] = None
+        self._chat: typing.Optional[AsyncChatClient] = None
         self._crm: typing.Optional[AsyncCrmClient] = None
+        self._filestorage: typing.Optional[AsyncFilestorageClient] = None
         self._hris: typing.Optional[AsyncHrisClient] = None
         self._knowledgebase: typing.Optional[AsyncKnowledgebaseClient] = None
         self._ticketing: typing.Optional[AsyncTicketingClient] = None
-        self._filestorage: typing.Optional[AsyncFilestorageClient] = None
         self._accounting: typing.Optional[AsyncAccountingClient] = None
-
-    @property
-    def chat(self):
-        if self._chat is None:
-            from .resources.chat.client import AsyncChatClient  # noqa: E402
-
-            self._chat = AsyncChatClient(client_wrapper=self._client_wrapper)
-        return self._chat
 
     @property
     def ats(self):
@@ -257,12 +249,28 @@ class AsyncMerge:
         return self._ats
 
     @property
+    def chat(self):
+        if self._chat is None:
+            from .resources.chat.client import AsyncChatClient  # noqa: E402
+
+            self._chat = AsyncChatClient(client_wrapper=self._client_wrapper)
+        return self._chat
+
+    @property
     def crm(self):
         if self._crm is None:
             from .resources.crm.client import AsyncCrmClient  # noqa: E402
 
             self._crm = AsyncCrmClient(client_wrapper=self._client_wrapper)
         return self._crm
+
+    @property
+    def filestorage(self):
+        if self._filestorage is None:
+            from .resources.filestorage.client import AsyncFilestorageClient  # noqa: E402
+
+            self._filestorage = AsyncFilestorageClient(client_wrapper=self._client_wrapper)
+        return self._filestorage
 
     @property
     def hris(self):
@@ -287,14 +295,6 @@ class AsyncMerge:
 
             self._ticketing = AsyncTicketingClient(client_wrapper=self._client_wrapper)
         return self._ticketing
-
-    @property
-    def filestorage(self):
-        if self._filestorage is None:
-            from .resources.filestorage.client import AsyncFilestorageClient  # noqa: E402
-
-            self._filestorage = AsyncFilestorageClient(client_wrapper=self._client_wrapper)
-        return self._filestorage
 
     @property
     def accounting(self):
