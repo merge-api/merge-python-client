@@ -15,3 +15,4 @@ tests/custom/test_expand_url_format.py
 tests/custom/test_environment_routing.py
 tests/custom/test_datetime_filters.py
 tests/custom/test_error_response_handling.py
+tests/custom/test_query_encoder_edges.py
