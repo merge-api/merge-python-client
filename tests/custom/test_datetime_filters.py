@@ -32,7 +32,7 @@ def test_created_after_utc_serializes_with_offset(client_and_requests):
     client, reqs = client_and_requests
     when = dt.datetime(2026, 1, 15, 9, 30, tzinfo=dt.timezone.utc)
     client.ticketing.tickets.list(created_after=when)
-    assert reqs[0].url.params["created_after"] == "2026-01-15T09:30:00+00:00"
+    assert reqs[0].url.params["created_after"] == "2026-01-15T09:30:00Z"
 
 
 def test_non_utc_offset_preserved(client_and_requests):
@@ -51,5 +51,5 @@ def test_remote_updated_filter_pair(client_and_requests):
     client.ticketing.tickets.list(
         remote_updated_after=after, remote_updated_before=before
     )
-    assert reqs[0].url.params["remote_updated_after"] == "2026-01-01T00:00:00+00:00"
-    assert reqs[0].url.params["remote_updated_before"] == "2026-02-01T00:00:00+00:00"
+    assert reqs[0].url.params["remote_updated_after"] == "2026-01-01T00:00:00Z"
+    assert reqs[0].url.params["remote_updated_before"] == "2026-02-01T00:00:00Z"
